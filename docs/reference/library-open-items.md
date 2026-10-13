@@ -1,11 +1,13 @@
-# Open items
+# Library open items (reference)
 
-Places where the rulings, the token files and the built library disagree. Each item names both values,
-where each one comes from, and the question the owner needs to answer. Until an item is answered,
-`rules.md` states the value the shared components render.
+> **Reference.** These are inconsistencies inside the original content-morphia library. Report Kit 1.1
+> is now the baseline and defines its own values, so none of these block work. An item matters again
+> only when the library feature it touches is adopted into the kit; resolve it then. Open items for the
+> kit itself are in `docs/open-items.md`.
 
-When an item is answered: update `rules.md`, add a decision record in `docs/decisions/`, and delete the
-item from this file.
+Places where the library's rulings, token files and built pages disagree. Each item names both values,
+where each one comes from, and the question the owner needs to answer. `library-rules.md` states the
+value the library's shared components render.
 
 Measurements are from the 28 Sep 2026 export, counted over the 35 current library pages
 (`import/nodetrak-presentation-layer/content-morphia *.dc.html`), excluding `_archive/` and `uploads/`.

@@ -2,7 +2,7 @@
 
 - **Date:** 2026-09-02
 - **Source:** `import/nodetrak-presentation-layer/content-morphia-SPEC.md`, lines 1000–1029
-- **Status:** historical record, copied verbatim. Current rules are in `docs/spec/rules.md`.
+- **Status:** historical record from the original library, copied verbatim. The rules in force are in `kit/report-kit/SPEC.md`.
 
 ---
 

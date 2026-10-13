@@ -2,7 +2,8 @@
 
 One file per ruling, in the order the source recorded them. Each body is copied verbatim from the
 content-morphia export; only the provenance header is added. These files are history: read one when
-you need to know why a rule exists. The rules in force are in `docs/spec/rules.md`.
+you need to know why a rule exists. The rules in force are in `kit/report-kit/SPEC.md`; records 000 to
+053 describe the original library, which is now reference.
 
 Source order is not strictly chronological: the spec appended some rounds out of sequence.
 Rounds 40e and 40f exist only in `CONTINUATION.md` and are taken from there.
@@ -63,3 +64,4 @@ Rounds 40e and 40f exist only in `CONTINUATION.md` and are taken from there.
 | [051-round-40d-2026-09-07-the-correction-pass-applied-without-fur.md](051-round-40d-2026-09-07-the-correction-pass-applied-without-fur.md) | Round 40d (2026-09-07) — the correction pass, applied without further questions | 2026-09-07 | content-morphia-SPEC.md |
 | [052-round-40e-2026-09-07-foundations-corrected-as-content-not-ju.md](052-round-40e-2026-09-07-foundations-corrected-as-content-not-ju.md) | Round 40e (2026-09-07) — Foundations corrected as content, not just as values | 2026-09-07 | CONTINUATION.md |
 | [053-round-40f-2026-09-07-wynt3r-s-numbered-foundations-review-ap.md](053-round-40f-2026-09-07-wynt3r-s-numbered-foundations-review-ap.md) | Round 40f (2026-09-07) — Wynt3r's numbered Foundations review, applied | 2026-09-07 | CONTINUATION.md |
+| [054-report-kit-1-1-adopted-as-the-baseline.md](054-report-kit-1-1-adopted-as-the-baseline.md) | Report Kit 1.1 adopted as the baseline | 2026-10-13 | owner, in session |

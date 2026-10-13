@@ -1,6 +1,11 @@
-# content-morphia rules
+# content-morphia library rules (reference)
 
-The rules in force for the content-morphia presentation layer. Each rule states the current value once.
+> **Reference, not the rules in force.** The rules in force are `kit/report-kit/SPEC.md`, the Report
+> Kit 1.1 specification. This file records the rules of the original 35-page content-morphia library
+> as of its 28 Sep 2026 export. Use it when adopting a library feature into the kit
+> (`docs/adoption.md`). Where this file and the kit disagree, the kit wins.
+
+The rules of the content-morphia library. Each rule states the library's value once.
 Reasons and history live in `docs/decisions/`; read a decision record only when you need to know why.
 
 **How this file was built.** It merges three sources from the 28 Sep 2026 export:
@@ -10,7 +15,7 @@ Reasons and history live in `docs/decisions/`; read a decision record only when 
 3. The values the twelve shared components (`cm-*.dc.html`) actually render.
 
 Where those sources disagree, this file states the value the shared components render, and marks the
-rule **Open** with a link to `open-items.md`. An open item is a question for the owner, not a licence
+rule **Open** with a link to `library-open-items.md`. An open item is a question for the owner, not a licence
 to pick a side.
 
 **Owner terms.** "The owner" is the person who rules on this system. A **view** is one rendered screen

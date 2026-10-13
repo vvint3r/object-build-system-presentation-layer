@@ -19,6 +19,8 @@ The system is authored here, not there.
 
 ## Status
 
-Migration steps 1 to 3 of 8 are done. The three exports are imported, the original library's
-specification is split into dated decisions and reference rules, and Report Kit 1.1 is the baseline.
-Next is step 4: five questions about the kit, where its specification and its code disagree.
+Migration steps 1 to 4 of 8 are done. The three exports are imported, the original library's
+specification is split into dated decisions and reference rules, Report Kit 1.1 is the baseline, and
+its specification and code agree. Next is step 5: automated checks on rendered pages.
+
+To preview the kit: `npm install`, then `npm run preview -- "kit/Sample Report - Q3 Support Review.html"`.

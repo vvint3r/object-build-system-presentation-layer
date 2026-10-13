@@ -1,0 +1,13 @@
+{
+  "name": "content-morphia-presentation-layer",
+  "private": true,
+  "description": "Content Morphia Report Kit and tooling. The kit itself has no build step; these packages serve previews and checks.",
+  "type": "module",
+  "scripts": {
+    "preview": "node tools/preview.mjs"
+  },
+  "devDependencies": {
+    "echarts": "5.5.1",
+    "playwright": "1.56.1"
+  }
+}

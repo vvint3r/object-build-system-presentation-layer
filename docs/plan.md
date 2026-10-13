@@ -36,13 +36,22 @@ the kit · rules · adoption         hand-edited                       compose, 
 | 1 | Land the library and the visualization kit unchanged under `import/` | Done |
 | 2 | Split the library's history into decision records, rules and open items | Done |
 | 3 | Adopt Report Kit 1.1 as the baseline; library becomes reference | Done |
-| 4 | Answer the kit's open items (`docs/open-items.md`) and bring spec and code into line | Next; needs the owner |
-| 5 | Turn the spec's hard rules and its pre-publish checklist into automated checks on rendered pages | |
+| 4 | Answer the kit's open items and bring spec and code into line | Done |
+| 5 | Turn the spec's hard rules and its pre-publish checklist into automated checks on rendered pages | Next |
 | 6 | Adopt library features into the kit in the order in `docs/adoption.md` | |
 | 7 | Adopt the visualization kit: node kit, connectors, the lane-flow router with its fixtures | |
 | 8 | Build the design bundle from the kit and sync it to Claude Design | |
 
 Steps 6 and 7 run in parallel once step 5 exists, so every adopted feature is checked.
+
+## Kit to-do
+
+Work the owner has asked for, not yet scheduled into a step.
+
+- **Offline mode.** A packaging mode with Nunito, JetBrains Mono and ECharts bundled into the report, so
+  a report opened offline or behind a restrictive network renders fully. Today both packaging modes
+  load fonts from Google Fonts and ECharts from jsDelivr. Until then, `tools/preview.mjs` serves
+  ECharts locally for previews.
 
 ## Layout
 
@@ -57,6 +66,8 @@ docs/
   plan.md          this file
   decisions/       one record per ruling
   reference/       the library's rules and open items
+tools/
+  preview.mjs      render kit pages with ECharts served from npm (npm run preview -- <page>)
 import/            the three original exports, read-only
 ```
 

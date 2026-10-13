@@ -25,6 +25,7 @@ not edited there. See `docs/plan.md`.
 | `kit/Report Kit - Spec & Gallery.html` | Live examples of every component, with copy-paste markup |
 | `kit/Sample Report - Q3 Support Review.html` | Reference output: a complete report built on the kit |
 | `docs/` | Plan, open items, adoption backlog, decisions, library reference |
+| `tools/preview.mjs` | Renders kit pages with the chart library served locally |
 | `import/report-kit-1.1/` | The kit as imported from Claude Design on 13 Oct 2026 |
 | `import/nodetrak-presentation-layer/` | The original content-morphia library |
 | `import/kx-visualizations-index/` | The diagram and chart build-logic offshoot |
@@ -71,10 +72,15 @@ commit as the spec.
 
 ## Preview
 
-Reports load Nunito from Google Fonts and ECharts 5.5.1 from jsDelivr. In this repository's cloud
-environment the jsDelivr host is blocked, so charts render blank unless ECharts is served locally: install
-`echarts@5.5.1` from npm and route the CDN URL to the local file in the headless browser. Never disable
-TLS verification to reach a blocked host.
+```
+npm install
+npm run preview -- "kit/Sample Report - Q3 Support Review.html" "kit/Report Kit - Spec & Gallery.html"
+```
+
+Renders each page in light and dark to `.preview/`, and fails on a script error or a chart that did not
+draw. Reports load ECharts 5.5.1 from jsDelivr, which the cloud environment blocks; the preview serves
+the same version from npm without changing the page. Google Fonts may be unreachable too, in which
+case pages fall back to system faces. Never disable TLS verification to reach a blocked host.
 
 ## Reporting to the owner
 

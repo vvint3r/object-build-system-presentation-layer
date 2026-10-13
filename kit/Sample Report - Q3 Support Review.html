@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Customer Support Operations Review · Q3 2026</title>
+<meta name="cm-kit" content="1.1">
+<script>(function(){var t;try{t=localStorage.getItem('cm-theme')}catch(e){}document.documentElement.dataset.theme=t||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')})()</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,300;1,400&family=JetBrains+Mono:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="report-kit/cm-report.css">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js" defer></script>
+<script src="report-kit/cm-report.js" defer></script>
+</head>
+<body>
+
+<header class="cm-topbar">
+  <div class="cm-topbar__in">
+    <a class="cm-wordmark" href="#top">support-operations</a>
+    <span class="cm-chip">Quarterly review</span>
+    <div class="cm-topbar__actions">
+      <button class="cm-btn cm-btn--quiet cm-btn--sm" type="button" data-cm-theme-toggle>Dark mode</button>
+      <button class="cm-btn cm-btn--secondary cm-btn--sm" type="button" data-cm-print>Print / PDF</button>
+    </div>
+  </div>
+</header>
+
+<div class="cm-shell">
+  <nav class="cm-rail" aria-label="Contents">
+    <div class="cm-toc">
+      <span class="cm-label">Contents</span>
+      <ol>
+        <li><a href="#summary"><span class="n">01</span>Executive summary</a></li>
+        <li><a href="#demand"><span class="n">02</span>Demand</a></li>
+        <li><a href="#service"><span class="n">03</span>Speed &amp; service levels</a></li>
+        <li><a href="#teams"><span class="n">04</span>Team performance</a></li>
+        <li><a href="#sentiment"><span class="n">05</span>Customer sentiment</a></li>
+        <li><a href="#initiatives"><span class="n">06</span>Initiatives</a></li>
+        <li><a href="#recommendations"><span class="n">07</span>Recommendations</a></li>
+        <li><a href="#methodology"><span class="n">A</span>Methodology</a></li>
+        <li><a href="#sources"><span class="n">B</span>Notes &amp; sources</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main class="cm-main" id="top">
+
+    <!-- MASTHEAD -->
+    <header class="cm-mast">
+      <nav class="cm-crumbs" aria-label="Breadcrumb">
+        <a href="#top">Reports</a><span class="sep" aria-hidden="true">/</span>
+        <a href="#top">Support operations</a><span class="sep" aria-hidden="true">/</span>
+        <span aria-current="page">Q3 2026</span>
+      </nav>
+      <div class="cm-bar" aria-hidden="true"></div>
+      <h1 class="cm-mast__title">Customer Support Operations Review, Q3 2026</h1>
+      <p class="cm-mast__dek">Volume, speed, service levels and customer sentiment for July through September, with the initiatives that moved them and three actions for Q4.</p>
+      <dl class="cm-mast__meta">
+        <div><dt>Status</dt><dd><span class="cm-chip">Analysis</span><span class="cm-chip cm-chip--ok">Final</span><span class="cm-chip cm-chip--note">Sample data</span></dd></div>
+        <div><dt>Period</dt><dd>2026-07-01 → 2026-09-30</dd></div>
+        <div><dt>Published</dt><dd>2026-10-12</dd></div>
+        <div><dt>Reading time</dt><dd>9 min</dd></div>
+        <div><dt>Version</dt><dd>1.0</dd></div>
+      </dl>
+      <dl class="cm-byline">
+        <div><dt>Prepared by</dt><dd>Support Operations Analytics</dd></div>
+        <div><dt>Reviewed by</dt><dd>VP, Customer Experience</dd></div>
+        <div><dt>Distribution</dt><dd>Internal · all staff</dd></div>
+      </dl>
+    </header>
+
+    <!-- 01 EXECUTIVE SUMMARY -->
+    <section class="cm-section" id="summary" aria-labelledby="summary-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 01</span>
+        <h2 class="cm-section__title" id="summary-t">Executive summary</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>Support handled <strong>48,210 tickets</strong> in Q3, 7.4% more than Q2, while cutting median first response time by 27% and clearing 39% of the open backlog. Service-level attainment improved to 91.2% but remains below the 95% target. The shortfall is concentrated in billing, where the August Billing v4 launch added sustained volume.</p>
+        </div>
+
+        <div class="cm-kpis cm-bleed">
+          <div class="cm-kpi">
+            <span class="cm-kpi__label">Tickets handled</span>
+            <span class="cm-kpi__value">48,210</span>
+            <span class="cm-kpi__delta"><span class="cm-delta">▲ +7.4% vs Q2</span></span>
+            <div class="cm-kpi__spark" data-spark data-values="3410,3520,3480,3655,3590,3720,4310,4120,3790,3700,3640,3610,3665" data-color="ink" aria-hidden="true"></div>
+            <div class="cm-kpi__foot"><span>Q2 44,870</span><b>Helpdesk</b></div>
+          </div>
+          <div class="cm-kpi">
+            <span class="cm-kpi__label">Median first response</span>
+            <span class="cm-kpi__value">2h 14<small>m</small></span>
+            <span class="cm-kpi__delta"><span class="cm-delta cm-delta--good">▼ −27% faster</span></span>
+            <div class="cm-kpi__spark" data-spark data-values="3.0,2.9,2.7,2.6,2.4,2.3,2.8,2.5,2.1,2.0,1.9,1.9,1.8" aria-hidden="true"></div>
+            <div class="cm-kpi__foot"><span>Target ≤ 2h 30m</span><b>Met</b></div>
+          </div>
+          <div class="cm-kpi">
+            <span class="cm-kpi__label">Resolved within SLA</span>
+            <span class="cm-kpi__value">91.2<small>%</small></span>
+            <span class="cm-kpi__delta"><span class="cm-delta cm-delta--good">▲ +1.6 pp</span></span>
+            <div class="cm-kpi__spark" data-spark data-values="89.8,90.1,90.6,90.9,91.4,91.6,88.2,89.7,91.5,92.3,92.8,93.0,93.4" aria-hidden="true"></div>
+            <div class="cm-kpi__foot"><span>Target 95%</span><b>−3.8 pp</b></div>
+          </div>
+          <div class="cm-kpi">
+            <span class="cm-kpi__label">Customer satisfaction</span>
+            <span class="cm-kpi__value">87.4<small>%</small></span>
+            <span class="cm-kpi__delta"><span class="cm-delta cm-delta--good">▲ +2.3 pp</span></span>
+            <div class="cm-kpi__spark" data-spark data-values="85.9,86.4,86.1,86.6,86.0,86.8,85.6,87.4,87.8,88.4,88.9,89.2,89.5" aria-hidden="true"></div>
+            <div class="cm-kpi__foot"><span>Target 88%</span><b>−0.6 pp</b></div>
+          </div>
+        </div>
+
+        <div class="cm-summary cm-bleed">
+          <span class="cm-chip cm-chip--accent">Summary</span>
+          <h3 class="cm-card__title">Key findings</h3>
+          <ol class="cm-findings">
+            <li><div><strong>Chat intent routing cut first response time by 27%.</strong> Median first response fell from 3h 05m to 2h 14m after routing went live on 8 July. Chat now resolves 96.1% of conversations within SLA.</div></li>
+            <li><div><strong>The backlog fell 39% despite higher volume.</strong> Open tickets dropped from 1,940 to 1,186, reaching the ≤ 1,200 target in the final week of the quarter.</div></li>
+            <li><div><strong>SLA attainment is 3.8 points short of target.</strong> Billing specialists resolved 82.6% of tickets within SLA, the lowest of any team, after Billing v4 raised billing contacts by 31%.</div></li>
+            <li><div><strong>Satisfaction reached 87.4%, 0.6 points below target.</strong> CSAT dipped during launch week and recovered to 89.5% by the end of September.</div></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 DEMAND -->
+    <section class="cm-section" id="demand" aria-labelledby="demand-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 02</span>
+        <h2 class="cm-section__title" id="demand-t">Demand</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>Weekly volume ran slightly above Q2 for the first six weeks. The Billing v4 launch on 12 August pushed week 7 to <strong>4,310 tickets</strong>, the quarter’s peak, and volume then settled at about 3,650 per week, roughly 3.5% above the same weeks of Q2.</p>
+        </div>
+
+        <figure class="cm-figure cm-bleed">
+          <span class="cm-figure__kind">Figure 1</span>
+          <h3 class="cm-figure__title">Weekly ticket volume, Q3 against Q2</h3>
+          <p class="cm-figure__desc">Tickets created per week across all channels. Grey is the same week of Q2 for context.</p>
+          <div class="cm-chart" style="--h:340px" data-chart role="img" aria-label="Line chart. Q3 weekly tickets run between 3,410 and 3,720 until week 7 peaks at 4,310, then settle near 3,650. Q2 runs between 3,320 and 3,590.">
+            <script type="application/json">
+            {
+              "grid": {"right": 84},
+              "xAxis": {"type": "category", "boundaryGap": false, "data": ["Wk 1","Wk 2","Wk 3","Wk 4","Wk 5","Wk 6","Wk 7","Wk 8","Wk 9","Wk 10","Wk 11","Wk 12","Wk 13"]},
+              "yAxis": {"type": "value", "name": "Tickets per week", "min": 3000, "max": 4500, "interval": 500},
+              "series": [
+                {"name": "Q2 2026", "type": "line", "data": [3320,3390,3410,3350,3470,3440,3510,3400,3460,3520,3480,3530,3590],
+                 "lineStyle": {"color": "$context"}, "itemStyle": {"color": "$context"}, "endLabel": {"show": true, "formatter": "Q2"}},
+                {"name": "Q3 2026", "type": "line", "data": [3410,3520,3480,3655,3590,3720,4310,4120,3790,3700,3640,3610,3665],
+                 "endLabel": {"show": true, "formatter": "Q3"},
+                 "markLine": {"data": [{"xAxis": "Wk 7", "label": {"formatter": "Billing v4 launch", "position": "end"}}]}}
+              ]
+            }
+            </script>
+          </div>
+          <figcaption class="cm-caption"><b>Source:</b> helpdesk warehouse, <code>support.tickets_fact</code>. <b>Note:</b> weeks are counted from the start of each quarter.</figcaption>
+        </figure>
+
+        <figure class="cm-figure cm-bleed">
+          <span class="cm-figure__kind">Figure 2</span>
+          <h3 class="cm-figure__title">When customers contact us</h3>
+          <p class="cm-figure__desc">Average tickets created per two-hour block, by weekday, across the quarter. Darker cells carry more volume.</p>
+          <div class="cm-chart" style="--h:360px" data-chart role="img" aria-label="Heatmap. Volume peaks on weekday mornings, highest Monday 10:00 to 12:00 at 120 tickets per block. Weekends run under half the weekday level.">
+            <script type="application/json">
+            {
+              "grid": {"top": 8, "left": 4, "right": 4, "bottom": 52},
+              "tooltip": {"trigger": "item"},
+              "xAxis": {"type": "category", "axisLine": {"show": false}, "data": ["06–08","08–10","10–12","12–14","14–16","16–18","18–20","20–22"]},
+              "yAxis": {"type": "category", "inverse": true, "axisLine": {"show": false}, "data": ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]},
+              "visualMap": {"min": 0, "max": 120, "orient": "horizontal", "left": 0, "bottom": 0, "itemWidth": 12, "itemHeight": 200, "text": ["120 per block", "0"], "calculable": false},
+              "series": [{"name": "Avg tickets", "type": "heatmap",
+                "itemStyle": {"borderColor": "$surface", "borderWidth": 3, "borderRadius": 4},
+                "data": [[0,0,30],[1,0,83],[2,0,120],[3,0,113],[4,0,105],[5,0,98],[6,0,68],[7,0,38],
+                         [0,1,27],[1,1,76],[2,1,109],[3,1,103],[4,1,96],[5,1,89],[6,1,62],[7,1,35],
+                         [0,2,26],[1,2,72],[2,2,104],[3,2,98],[4,2,91],[5,2,85],[6,2,59],[7,2,33],
+                         [0,3,25],[1,3,71],[2,3,102],[3,3,96],[4,3,89],[5,3,83],[6,3,58],[7,3,32],
+                         [0,4,23],[1,4,65],[2,4,94],[3,4,88],[4,4,82],[5,4,77],[6,4,53],[7,4,30],
+                         [0,5,12],[1,5,32],[2,5,47],[3,5,44],[4,5,41],[5,5,38],[6,5,27],[7,5,15],
+                         [0,6,10],[1,6,29],[2,6,42],[3,6,39],[4,6,36],[5,6,34],[6,6,24],[7,6,13]]}]
+            }
+            </script>
+          </div>
+          <figcaption class="cm-caption"><b>Source:</b> helpdesk warehouse, local time of the customer’s region. <b>Note:</b> 22:00–06:00 omitted (6% of volume).</figcaption>
+        </figure>
+
+        <aside class="cm-callout cm-callout--note">
+          <span class="cm-callout__label">Note</span>
+          <div class="cm-callout__body">Weekend volume is under half the weekday level, but APAC had no staffed weekend coverage until 16 September, so its Monday queues absorbed the difference.</div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 03 SERVICE -->
+    <section class="cm-section" id="service" aria-labelledby="service-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 03</span>
+        <h2 class="cm-section__title" id="service-t">Speed &amp; service levels</h2>
+        <p class="cm-section__tldr"><strong>TL;DR:</strong> responses got 27% faster and the backlog fell under its ceiling, but SLA attainment is still 3.8 points short of target because email and the web form lag.</p>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>Median first response time fell to 2h 14m.<a class="cm-fn" href="#fn-1" id="fnref-1">1</a> Overall SLA attainment rose <span class="cm-hl cm-hl--validated">+1.6 pp to 91.2%</span>, still short of the <span class="cm-hl cm-hl--attention">95% target</span>. Chat met SLA on 96.1% of conversations, while email and the web form stayed below 89%.</p>
+          <p>The backlog fell every week except launch week and closed the quarter at 1,186 open tickets, under the <span class="cm-concept">backlog ceiling</span> of 1,200 for the first time this year.<a class="cm-fn" href="#fn-2" id="fnref-2">2</a></p>
+        </div>
+
+        <div class="cm-grid cm-grid--2 cm-bleed cm-print-stack">
+          <figure class="cm-figure">
+            <span class="cm-figure__kind">Figure 3</span>
+            <h3 class="cm-figure__title cm-figure__title--sm">SLA attainment by channel</h3>
+            <p class="cm-figure__desc">Share of tickets resolved inside the SLA window.</p>
+            <div class="cm-chart" style="--h:300px" data-chart role="img" aria-label="Horizontal bar chart. Chat 96.1%, phone 94.8%, social 90.4%, email 88.3%, web form 86.9%. Only chat clears the 95% target.">
+              <script type="application/json">
+              {
+                "grid": {"top": 28, "right": 48},
+                "tooltip": {"axisPointer": {"type": "shadow"}},
+                "xAxis": {"type": "value", "min": 0, "max": 100, "interval": 25, "axisLabel": {"formatter": "{value}%"}},
+                "yAxis": {"type": "category", "data": ["Web form","Email","Social","Phone","Chat"]},
+                "series": [{"name": "Within SLA", "type": "bar", "data": [86.9,88.3,90.4,94.8,96.1],
+                  "label": {"show": true, "position": "right", "formatter": "{c}%"},
+                  "markLine": {"data": [{"xAxis": 95, "label": {"formatter": "Target 95%", "position": "end"}}]}}]
+              }
+              </script>
+            </div>
+            <figcaption class="cm-caption"><b>Source:</b> helpdesk warehouse · resolved tickets, Q3</figcaption>
+            <details class="cm-data">
+              <summary>View data</summary>
+              <table class="cm-table">
+                <thead><tr><th>Channel</th><th class="num">Share of volume</th><th class="num">Within SLA</th></tr></thead>
+                <tbody>
+                  <tr><td>Chat</td><td class="num">31%</td><td class="num">96.1%</td></tr>
+                  <tr><td>Phone</td><td class="num">9%</td><td class="num">94.8%</td></tr>
+                  <tr><td>Social</td><td class="num">5%</td><td class="num">90.4%</td></tr>
+                  <tr><td>Email</td><td class="num">38%</td><td class="num">88.3%</td></tr>
+                  <tr><td>Web form</td><td class="num">17%</td><td class="num">86.9%</td></tr>
+                </tbody>
+              </table>
+            </details>
+          </figure>
+
+          <figure class="cm-figure">
+            <span class="cm-figure__kind">Figure 4</span>
+            <h3 class="cm-figure__title cm-figure__title--sm">Open backlog, end of week</h3>
+            <p class="cm-figure__desc">Tickets open or pending at Sunday close.</p>
+            <div class="cm-chart" style="--h:300px" data-chart role="img" aria-label="Area chart. Backlog falls from 1,940 at the start of the quarter to 1,186 in week 13, with a rise to 1,710 in launch week.">
+              <script type="application/json">
+              {
+                "grid": {"right": 24},
+                "xAxis": {"type": "category", "boundaryGap": false, "data": ["Start","Wk 1","Wk 2","Wk 3","Wk 4","Wk 5","Wk 6","Wk 7","Wk 8","Wk 9","Wk 10","Wk 11","Wk 12","Wk 13"], "axisLabel": {"interval": 2}},
+                "yAxis": {"type": "value", "name": "Open tickets", "min": 0, "max": 2000, "interval": 500},
+                "series": [{"name": "Open backlog", "type": "line", "areaStyle": {}, "data": [1940,1872,1790,1715,1650,1580,1530,1710,1640,1505,1410,1330,1250,1186],
+                  "markLine": {"data": [{"yAxis": 1200, "label": {"formatter": "Ceiling 1,200", "position": "insideStartTop"}}]}}]
+              }
+              </script>
+            </div>
+            <figcaption class="cm-caption"><b>Source:</b> helpdesk warehouse · snapshot each Sunday 23:59 UTC</figcaption>
+          </figure>
+        </div>
+
+        <aside class="cm-callout cm-callout--warning">
+          <span class="cm-callout__label">Warning</span>
+          <div class="cm-callout__body">Email and the web form carry 55% of volume. Even if every other channel resolved 100% of tickets within SLA, overall attainment would reach only 93.3% until those two improve.</div>
+        </aside>
+
+        <div class="cm-qa">
+          <span class="cm-qa__label">Questions</span>
+          <dl>
+            <div><dt>Why did the backlog rise in week 7?</dt><dd>Billing v4 launched on 12 August and billing contacts rose 31%. The backlog peaked at 1,710 that week and fell every week after.</dd></div>
+            <div><dt>Does SLA attainment include weekends?</dt><dd>For chat and phone, yes; both run around the clock. Email, web-form and social SLAs count business hours only.</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 TEAMS -->
+    <section class="cm-section" id="teams" aria-labelledby="teams-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 04</span>
+        <h2 class="cm-section__title" id="teams-t">Team performance</h2>
+        <p class="cm-section__tldr"><strong>TL;DR:</strong> Tier 1 Americas and EMEA are on track; billing specialists hold the largest share of the SLA gap.</p>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>Tier 1 Americas and EMEA cleared the overall average on every measure. Billing specialists handled 11% of tickets but account for the largest share of the SLA gap. Select a column header to sort.</p>
+        </div>
+
+        <div>
+          <div class="cm-table-title" id="tbl-1"><span class="cm-table-title__kind">Table 1</span>Team performance, Q3 2026</div>
+          <div class="cm-table-wrap cm-bleed">
+            <table class="cm-table" data-sortable aria-labelledby="tbl-1">
+              <thead>
+                <tr>
+                  <th>Team</th>
+                  <th>Region</th>
+                  <th class="num" aria-sort="descending">Tickets</th>
+                  <th class="num">Share</th>
+                  <th class="num">Median FRT</th>
+                  <th class="num">Within SLA</th>
+                  <th class="num">CSAT</th>
+                  <th data-nosort>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-flag="ok"><td class="strong">Tier 1 · Americas</td><td>AMER</td><td class="num" data-value="17940">17,940</td><td class="num" data-value="37.2"><div class="cm-cellbar"><span>37.2%</span><span class="cm-cellbar__track"><span style="--v:100%"></span></span></div></td><td class="num" data-value="102">1h 42m</td><td class="num strong">94.6%</td><td class="num">89.3%</td><td>On track</td></tr>
+                <tr data-flag="ok"><td class="strong">Tier 1 · EMEA</td><td>EMEA</td><td class="num" data-value="12610">12,610</td><td class="num" data-value="26.2"><div class="cm-cellbar"><span>26.2%</span><span class="cm-cellbar__track"><span style="--v:70%"></span></span></div></td><td class="num" data-value="125">2h 05m</td><td class="num strong">93.0%</td><td class="num">87.8%</td><td>On track</td></tr>
+                <tr data-flag="warn"><td class="strong">Tier 1 · APAC</td><td>APAC</td><td class="num" data-value="8330">8,330</td><td class="num" data-value="17.3"><div class="cm-cellbar"><span>17.3%</span><span class="cm-cellbar__track"><span style="--v:46%"></span></span></div></td><td class="num" data-value="200">3h 20m</td><td class="num strong">87.4%</td><td class="num">85.2%</td><td>At risk</td></tr>
+                <tr data-flag="crit"><td class="strong">Billing specialists</td><td>Global</td><td class="num" data-value="5480">5,480</td><td class="num" data-value="11.4"><div class="cm-cellbar"><span>11.4%</span><span class="cm-cellbar__track"><span style="--v:31%"></span></span></div></td><td class="num" data-value="178">2h 58m</td><td class="num strong">82.6%</td><td class="num">83.9%</td><td><span class="cm-chip cm-chip--verdict">Breach</span></td></tr>
+                <tr><td class="strong">Technical escalations</td><td>Global</td><td class="num" data-value="3850">3,850</td><td class="num" data-value="8.0"><div class="cm-cellbar"><span>8.0%</span><span class="cm-cellbar__track"><span style="--v:21%"></span></span></div></td><td class="num" data-value="281">4h 41m</td><td class="num strong">89.9%</td><td class="num">87.0%</td><td>Watch</td></tr>
+              </tbody>
+              <tfoot>
+                <tr><td>All teams</td><td class="soft">—</td><td class="num">48,210</td><td class="num">100%</td><td class="num">2h 14m</td><td class="num">91.2%</td><td class="num">87.4%</td><td></td></tr>
+              </tfoot>
+            </table>
+          </div>
+          <span class="cm-caption"><b>Source:</b> helpdesk warehouse, resolved tickets 2026-07-01 → 2026-09-30 · CSAT from post-close survey.<a class="cm-fn" href="#fn-3">3</a> <b>Flags:</b> green on track, yellow at risk, red breach, grey watch.</span>
+        </div>
+
+        <aside class="cm-callout cm-callout--limitation">
+          <span class="cm-callout__label">Limitation</span>
+          <div class="cm-callout__body">APAC first response time includes unstaffed weekends until the 16 September pilot. On weekdays only, APAC’s median was 2h 31m.</div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 05 SENTIMENT -->
+    <section class="cm-section" id="sentiment" aria-labelledby="sentiment-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 05</span>
+        <h2 class="cm-section__title" id="sentiment-t">Customer sentiment</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>CSAT averaged 87.4% across 10,317 survey responses. It dipped to 85.6% in launch week, when billing questions doubled, and then climbed for six straight weeks to finish at 89.5%, above target for the final month.</p>
+        </div>
+        <div class="cm-grid cm-grid--wide cm-grid--cols cm-bleed cm-print-stack" style="align-items:center">
+          <figure class="cm-figure">
+            <span class="cm-figure__kind">Figure 5</span>
+            <h3 class="cm-figure__title cm-figure__title--sm">Weekly CSAT</h3>
+            <p class="cm-figure__desc">Share of survey responses rating 4 or 5 out of 5.</p>
+            <div class="cm-chart" style="--h:280px" data-chart role="img" aria-label="Line chart. CSAT holds near 86% in July, dips to 85.6% in week 7, and rises to 89.5% by week 13, crossing the 88% target in week 10.">
+              <script type="application/json">
+              {
+                "grid": {"top": 28, "right": 64},
+                "xAxis": {"type": "category", "boundaryGap": false, "data": ["Wk 1","Wk 2","Wk 3","Wk 4","Wk 5","Wk 6","Wk 7","Wk 8","Wk 9","Wk 10","Wk 11","Wk 12","Wk 13"], "axisLabel": {"interval": 2}},
+                "yAxis": {"type": "value", "min": 84, "max": 91, "interval": 1, "axisLabel": {"formatter": "{value}%"}},
+                "series": [{"name": "CSAT", "type": "line", "data": [85.9,86.4,86.1,86.6,86.0,86.8,85.6,87.4,87.8,88.4,88.9,89.2,89.5],
+                  "endLabel": {"show": true, "formatter": "{c}%"},
+                  "markLine": {"data": [{"yAxis": 88, "label": {"formatter": "Target 88%", "position": "insideStartTop"}}]}}]
+              }
+              </script>
+            </div>
+            <figcaption class="cm-caption"><b>Source:</b> CSAT survey export · response-weighted</figcaption>
+          </figure>
+          <blockquote class="cm-quote">
+            <p>Chat had my invoice corrected <strong>before I finished my coffee.</strong> The same fix over email took two days last spring.</p>
+            <footer><b>Customer, mid-market plan</b>CSAT verbatim · September 2026</footer>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 INITIATIVES -->
+    <section class="cm-section" id="initiatives" aria-labelledby="initiatives-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 06</span>
+        <h2 class="cm-section__title" id="initiatives-t">Initiatives</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>Four changes shipped in Q3. Two more are scheduled for Q4 and depend on the recommendations in Part 07.</p>
+        </div>
+
+        <div class="cm-card cm-bleed">
+          <span class="cm-label cm-card__kicker">Timeline</span>
+          <h3 class="cm-card__title">Q3 changes and what comes next</h3>
+          <ol class="cm-timeline">
+            <li class="is-done"><span class="cm-timeline__date">Jul 08<small>2026</small></span><span class="cm-timeline__mark"></span><div><div class="cm-timeline__title">Chat routing by intent goes live</div><p class="cm-timeline__body">A classifier assigns chats to billing, technical or account queues before an agent picks them up.</p><div class="cm-chips"><span class="cm-chip cm-chip--ok">Shipped</span></div></div></li>
+            <li class="is-done"><span class="cm-timeline__date">Aug 12<small>2026</small></span><span class="cm-timeline__mark"></span><div><div class="cm-timeline__title">Billing v4 launch</div><p class="cm-timeline__body">New invoice layout and proration rules. Billing contacts rose 31% over the rest of the quarter.</p><div class="cm-chips"><span class="cm-chip cm-chip--info">External event</span></div></div></li>
+            <li class="is-done"><span class="cm-timeline__date">Aug 26<small>2026</small></span><span class="cm-timeline__mark"></span><div><div class="cm-timeline__title">Macro library rewrite</div><p class="cm-timeline__body">140 outdated macros retired; 38 rewritten for Billing v4.</p><div class="cm-chips"><span class="cm-chip cm-chip--ok">Shipped</span></div></div></li>
+            <li class="is-current"><span class="cm-timeline__date">Sep 16<small>2026</small></span><span class="cm-timeline__mark"></span><div><div class="cm-timeline__title">APAC weekend coverage pilot</div><p class="cm-timeline__body">Two agents per weekend shift. Monday APAC first response time fell by 45 minutes during the pilot.</p><div class="cm-chips"><span class="cm-chip cm-chip--warn">Pilot · decision due Oct 31</span></div></div></li>
+            <li class="is-planned"><span class="cm-timeline__date">Nov 02<small>2026</small></span><span class="cm-timeline__mark"></span><div><div class="cm-timeline__title">Billing specialist hiring wave</div><p class="cm-timeline__body">Six additional specialists, onboarded before the annual renewal cycle.</p><div class="cm-chips"><span class="cm-chip">Planned</span></div></div></li>
+            <li class="is-planned"><span class="cm-timeline__date">Dec 14<small>2026</small></span><span class="cm-timeline__mark"></span><div><div class="cm-timeline__title">Email intent routing</div><p class="cm-timeline__body">Extends the chat classifier to inbound email and web-form tickets.</p><div class="cm-chips"><span class="cm-chip">Planned</span></div></div></li>
+          </ol>
+        </div>
+
+        <div class="cm-stack">
+          <h3 class="cm-h3">Escalation path</h3>
+          <ol class="cm-process" style="--steps:5">
+            <li class="cm-step"><span class="cm-step__n">01</span><span class="cm-step__title">Intent triage</span><span class="cm-step__body">Chat is classified on arrival. Email still lands in a shared queue.</span></li>
+            <li class="cm-step"><span class="cm-step__n">02</span><span class="cm-step__title">Tier 1 resolve</span><span class="cm-step__body">71% of tickets close here, median handle time 14 min.</span></li>
+            <li class="cm-step cm-emph"><span class="cm-step__n">03</span><span class="cm-step__title">Specialist queue</span><span class="cm-step__body">Billing and technical hand-offs wait a median 9h 40m.</span><span class="cm-chip cm-chip--warn">Bottleneck</span></li>
+            <li class="cm-step"><span class="cm-step__n">04</span><span class="cm-step__title">Engineering</span><span class="cm-step__body">3.2% of tickets; median 2.4 days to fix.</span></li>
+            <li class="cm-step"><span class="cm-step__n">05</span><span class="cm-step__title">Close &amp; survey</span><span class="cm-step__body">CSAT survey sent 24h after close.</span></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 RECOMMENDATIONS -->
+    <section class="cm-section" id="recommendations" aria-labelledby="recommendations-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 07</span>
+        <h2 class="cm-section__title" id="recommendations-t">Recommendations</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-card cm-featured cm-bleed">
+          <div class="cm-card__kicker"><span class="cm-chip cm-chip--accent">Recommended</span></div>
+          <h3 class="cm-card__title">Three actions for Q4</h3>
+          <ol class="cm-findings">
+            <li><div><strong>Hire six billing specialists before the November renewal cycle.</strong> Billing is the lowest-performing queue and its volume will rise again at renewal.<div class="cm-chips"><span class="cm-chip">Owner · Support Ops</span><span class="cm-chip">Due 2026-11-02</span><span class="cm-chip cm-chip--accent">+2.1 pp SLA, est.</span></div></div></li>
+            <li><div><strong>Make APAC weekend coverage permanent.</strong> The pilot removed the Monday queue spike at the cost of two agents per shift.<div class="cm-chips"><span class="cm-chip">Owner · APAC lead</span><span class="cm-chip">Decide by 2026-10-31</span><span class="cm-chip cm-chip--accent">−45 min APAC FRT</span></div></div></li>
+            <li><div><strong>Route email and web-form tickets by intent, as chat already is.</strong> Chat’s 27% response-time gain came from routing, and the same classifier can run on email.<div class="cm-chips"><span class="cm-chip">Owner · Support Tooling</span><span class="cm-chip">Due 2026-12-14</span><span class="cm-chip cm-chip--accent">+4 pp email SLA, est.</span></div></div></li>
+          </ol>
+        </div>
+        <aside class="cm-callout cm-callout--important">
+          <span class="cm-callout__label">Important</span>
+          <div class="cm-callout__body"><strong>Actions 1 and 3 together close an estimated 3.6 of the 3.8-point SLA gap.</strong> Neither closes it alone.</div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- A METHODOLOGY -->
+    <section class="cm-section cm-section--part" id="methodology" aria-labelledby="methodology-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Appendix A</span>
+        <h2 class="cm-section__title" id="methodology-t">Methodology</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-bleed">
+          <details class="cm-collapse" open>
+            <summary><div><span class="cm-label">A.1</span><h3>Terms used in this report</h3></div></summary>
+            <div class="cm-collapse__body">
+              <aside class="cm-def">
+                <span class="cm-def__label">Definitions</span>
+                <dl>
+                  <div><dt>First response time</dt><dd>Elapsed time from ticket creation to the first human reply. Auto-acknowledgements are excluded.</dd></div>
+                  <div><dt>Within SLA</dt><dd>A ticket resolved before its SLA due time. Due times are 4 business hours for chat and phone, 24 business hours for email, web form and social.</dd></div>
+                  <div><dt>Backlog</dt><dd>Tickets in open or pending state at the snapshot time. Tickets waiting on the customer count as pending.</dd></div>
+                  <div><dt>CSAT</dt><dd>Share of survey responses scoring 4 or 5 on a 5-point scale, weighted by response count.</dd></div>
+                </dl>
+              </aside>
+            </div>
+          </details>
+          <details class="cm-collapse">
+            <summary><div><span class="cm-label">A.2</span><h3>Data sources and coverage</h3></div></summary>
+            <div class="cm-collapse__body">
+              <ul class="cm-list cm-small">
+                <li>All tickets created or resolved between 2026-07-01 00:00 and 2026-09-30 23:59 UTC.</li>
+                <li>Spam and merged duplicates removed: 1,904 tickets (3.8% of raw volume).</li>
+                <li>Q2 comparisons use the same filters, re-run on 2026-10-05.</li>
+              </ul>
+            </div>
+          </details>
+          <details class="cm-collapse">
+            <summary><div><span class="cm-label">A.3</span><h3>Query: SLA attainment by team</h3></div></summary>
+            <div class="cm-collapse__body">
+              <div class="cm-code">
+                <div class="cm-code__bar"><span class="cm-code__file">sla_by_team.sql</span><span class="cm-tag">SQL</span></div>
+<pre><code><span class="c">-- share of tickets resolved inside their SLA window, by team</span>
+<span class="k">select</span>
+  team,
+  <span class="f">count_if</span>(resolved_at &lt;= sla_due_at) <span class="k">as</span> resolved_in_sla,
+  <span class="f">count</span>(*) <span class="k">as</span> resolved_total,
+  <span class="f">round</span>(<span class="n">100</span> * resolved_in_sla / resolved_total, <span class="n">1</span>) <span class="k">as</span> sla_pct
+<span class="k">from</span> support.tickets_fact
+<span class="k">where</span> resolved_at <span class="k">between</span> <span class="s">'2026-07-01'</span> <span class="k">and</span> <span class="s">'2026-09-30'</span>
+  <span class="k">and</span> is_spam = <span class="k">false</span>
+<span class="k">group by</span> team
+<span class="k">order by</span> sla_pct <span class="k">desc</span></code></pre>
+              </div>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- B NOTES & SOURCES -->
+    <section class="cm-section" id="sources" aria-labelledby="sources-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Appendix B</span>
+        <h2 class="cm-section__title" id="sources-t">Notes &amp; sources</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-stack">
+          <h3 class="cm-h4">Notes</h3>
+          <ol class="cm-notes">
+            <li id="fn-1">First response time excludes auto-acknowledgements and tickets created by internal staff. <a class="cm-back" href="#fnref-1" aria-label="Back to text">↩</a></li>
+            <li id="fn-2">Backlog counts tickets in open or pending state at 23:59 UTC each Sunday. <a class="cm-back" href="#fnref-2" aria-label="Back to text">↩</a></li>
+            <li id="fn-3">10,317 survey responses, a 21.4% response rate on resolved tickets.</li>
+          </ol>
+        </div>
+        <div class="cm-stack">
+          <h3 class="cm-h4">Sources</h3>
+          <ol class="cm-sources">
+            <li><span class="cm-tag">Int</span><span>Helpdesk warehouse · <code>support.tickets_fact</code></span><span class="cm-meta">refreshed 2026-10-05</span></li>
+            <li><span class="cm-tag">Int</span><span>CSAT survey export, Q3 2026</span><span class="cm-meta">10,317 rows</span></li>
+            <li><span class="cm-tag">Int</span><span>Workforce schedule, APAC weekend pilot</span><span class="cm-meta">2026-09-16 → 09-30</span></li>
+            <li><span class="cm-tag">PDF</span><span><a href="#top">Customer Support Operations Review, Q2 2026</a></span><span class="cm-meta">1.8 MB</span></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <footer class="cm-footer">
+      <span><b>Customer Support Operations Review · Q3 2026</b></span>
+      <span>v1.0 · published 2026-10-12</span>
+      <span>Support Operations Analytics</span>
+      <span>Content Morphia Report Kit 1.1</span>
+    </footer>
+  </main>
+</div>
+</body>
+</html>

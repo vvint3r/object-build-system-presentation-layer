@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&amp;family=JetBrains+Mono:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#fafafa;color:#000;font-family:'Nunito',sans-serif}
+a{color:#000;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px}
+a:hover{background:rgba(29,233,182,.3)}
+::selection{background:rgba(29,233,182,.35)}
+button{font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;background:none;border:none;padding:0;margin:0;text-align:left;cursor:pointer}
+input{font:inherit;color:inherit}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px solid #000;outline-offset:3px}
+@media(max-width:900px){[data-stack]{grid-template-columns:1fr!important}}
+@media(max-width:640px){[data-stack3]{grid-template-columns:1fr!important}}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:#f1f1f1;border-radius:999px}
+::-webkit-scrollbar-thumb{background:rgba(0,0,0,.22);border-radius:999px}
+::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.45)}
+
+[data-nav-group] [data-nav-menu]{display:none}
+[data-nav-group]:hover [data-nav-menu],[data-nav-group]:focus-within [data-nav-menu]{display:block}
+</style>
+</helmet>
+
+<div style="position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid #ebebeb">
+<div style="max-width:1060px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:18px;row-gap:10px;flex-wrap:wrap">
+<span style="font-weight:900;font-size:16px;letter-spacing:.01em">content-morphia</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid #000;background:#fff">Diagrams at scale</span>
+<nav aria-label="Design system" style="display:flex;align-items:center;gap:4px;row-gap:6px;flex-wrap:wrap"><div data-nav-group style="position:relative"><a href="content-morphia Foundations.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Foundations</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Foundations.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Foundations</a><a href="content-morphia Icons.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Icons</a><a href="content-morphia Print.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Print</a><a href="content-morphia Equivalents.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Non-visual equivalents</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Structured.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Components</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Structured.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Structured components</a><a href="content-morphia Prose.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Prose primitives</a><a href="content-morphia Wayfinding.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Wayfinding</a><a href="content-morphia Provenance.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Provenance</a><a href="content-morphia Charts.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Charts</a><a href="content-morphia Interaction.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Interaction</a><a href="content-morphia Learning.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Learning</a><a href="content-morphia Questions.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Questions and answers</a><a href="content-morphia Change.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Change and status</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Diagrams.dc.html" aria-current="page" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:4px 9px;background:#fff;border:1px solid #000;box-shadow:2px 2px 0 #1de9b6">Diagrams</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Diagrams.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Diagram library</a><span aria-current="page" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:700;background:#f1f1f1">Diagrams at scale</span><a href="content-morphia Diagrams II.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Technical families</a><a href="content-morphia Diagrams III.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Experience and magnitude</a><a href="content-morphia Diagrams IV.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Structure and notation</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Templates.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Templates</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Templates.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Template index</a><a href="content-morphia T1 Topic.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T1 Topic</a><a href="content-morphia T2 Framework.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T2 Framework</a><a href="content-morphia T3 Process.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T3 Process</a><a href="content-morphia T4 Guide.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T4 Guide</a><a href="content-morphia T5 Module.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T5 Module</a><a href="content-morphia T6 Metric.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T6 Metric</a><a href="content-morphia T7 Comparison.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T7 Comparison</a><a href="content-morphia T8 Roadmap.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T8 Roadmap</a><a href="content-morphia T9 Reference.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T9 Reference</a><a href="content-morphia T10 Glossary.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T10 Glossary</a><a href="content-morphia T11 Case study.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T11 Case study</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Composition.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Composition</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Composition.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Composition</a><a href="content-morphia Anatomy.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Anatomy and primitives</a><a href="content-morphia Selection.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Selection</a><a href="content-morphia Implementing.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Implementing</a><a href="content-morphia Exemplar.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Worked example</a></div></div></div></nav>
+</div>
+</div>
+
+<div style="background:#fafafa;border-bottom:1px solid #ebebeb">
+<div style="max-width:1060px;margin:0 auto;padding:11px 24px;display:flex;align-items:center;gap:10px;row-gap:8px;flex-wrap:wrap">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">On this page</span>
+<span style="width:1px;height:13px;background:#ebebeb"></span>
+<nav aria-label="Sections of this page" style="display:flex;align-items:center;gap:2px;row-gap:6px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase">
+<a href="#sec-tiers" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">Capacity</a>
+<a href="#sec-levels" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">Levels</a>
+<a href="#sec-legend" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">Legend + registry</a>
+<a href="#sec-edges" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">Edges</a>
+<a href="#sec-canvas" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">Canvas</a>
+<a href="#sec-coverage" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">Family index</a>
+</nav>
+</div>
+</div>
+
+<section data-screen-label="Masthead" style="max-width:1060px;margin:0 auto;padding:72px 24px 0">
+<div style="width:52px;height:5px;background:#1de9b6;border-radius:999px;margin-bottom:20px"></div>
+<h1 style="margin:0;font-weight:900;font-size:44px;line-height:1.06">Diagrams at scale</h1>
+<div style="font-size:16px;font-weight:400;line-height:1.8;max-width:68ch;margin-top:14px;text-wrap:pretty">The diagram library proves the grammar at seven nodes. This page governs what happens at forty. Capacity ceilings, levelled abstraction, legends, node registries, and edge routing — then one ecosystem map that runs the whole set live.</div>
+</section>
+
+<section id="sec-tiers" data-screen-label="ss: 01 Capacity" style="max-width:1060px;margin:0 auto;padding:88px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;row-gap:8px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 01</span><h2 style="margin:0;font-weight:900;font-size:28px">Capacity ceilings</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Every tier has a hard node count, and each ceiling brings an obligation. A diagram that outgrows its tier does not get smaller type — it moves up a tier or splits into levels.</div>
+
+<div style="background:#fff;border-radius:14px;padding:28px;margin-top:28px;box-shadow:0 4px 14px rgba(0,0,0,.08)">
+<h3 style="margin:0;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;line-height:1.4">Tier table</h3>
+<div style="display:grid;grid-template-columns:86px 1fr 108px 1fr;gap:0;margin-top:14px;font-family:'JetBrains Mono',monospace">
+<div style="display:contents"><span style="padding:14px 14px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid #ebebeb">Tier</span><span style="padding:14px 14px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid #ebebeb">Placement</span><span style="padding:14px 14px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid #ebebeb">Nodes</span><span style="padding:14px 14px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid #ebebeb">Obligations</span></div>
+<div style="display:contents"><span style="padding:15px 14px;font-size:12px;font-weight:700">T1</span><span style="padding:15px 14px;font-size:12px;font-weight:400">Inline, in reading flow</span><span style="padding:15px 14px;font-size:12px;font-weight:400">≤ 7</span><span style="padding:15px 14px;font-size:12px;font-weight:400;border-radius:0 6px 6px 0">Text alternative. One edge kind, no groups.</span></div>
+<div style="display:contents"><span style="padding:15px 14px;font-size:12px;font-weight:700">T2</span><span style="padding:15px 14px;font-size:12px;font-weight:400">Full-width panel, side-scroll</span><span style="padding:15px 14px;font-size:12px;font-weight:400">8 – 24</span><span style="padding:15px 14px;font-size:12px;font-weight:400">+ legend at 3 node types. ≤ 2 groups. Edge labels only to 12 edges.</span></div>
+<div style="display:contents"><span style="padding:15px 14px;font-size:12px;font-weight:700">T3</span><span style="padding:15px 14px;font-size:12px;font-weight:400">Dedicated canvas sub-page</span><span style="padding:15px 14px;font-size:12px;font-weight:400">25 – 80</span><span style="padding:15px 14px;font-size:12px;font-weight:400;border-radius:0 6px 6px 0">+ level switcher, node registry, focus mode, fit control, collapsible groups.</span></div>
+<div style="display:contents"><span style="padding:15px 14px;font-size:12px;font-weight:700">—</span><span style="padding:15px 14px;font-size:12px;font-weight:400">Not a tier</span><span style="padding:15px 14px;font-size:12px;font-weight:400">80 +</span><span style="padding:15px 14px;font-size:12px;font-weight:400">Illegal in one view. Decompose into levels.</span></div>
+</div>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px" data-stack>
+<div style="background:#fff;border-radius:14px;padding:26px;box-shadow:0 1px 2px rgba(0,0,0,.06)">
+<h3 style="margin:0;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;line-height:1.4">Label discipline</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:10px">Node names truncate at 24 characters with an ellipsis. The untruncated name lives in the registry table, never in a tooltip alone. Node boxes are one fixed width per canvas — never sized to their content, which is what makes columns read as columns.</div>
+<div style="height:1px;background:#ebebeb;margin:28px 0 0"></div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-top:16px">Node at 228px · name truncated</div>
+<div style="background:#fff;border:1px solid #ebebeb;border-radius:12px;padding:14px;width:228px;box-sizing:border-box;margin-top:10px"><div style="font-weight:700;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Customer lifetime value model</div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-top:4px">Service · Growth</div></div>
+</div>
+<div style="background:#fff;border-radius:14px;padding:26px;box-shadow:0 1px 2px rgba(0,0,0,.06)">
+<h3 style="margin:0;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;line-height:1.4">Density floor</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:10px">These are minimums, not suggestions: an edge needs room to turn a corner and still be traceable. If a canvas will not fit its ceiling at these gaps, the answer is another level — never a tighter grid.</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px">
+<div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Column gap</div><div style="font-size:15.5px;font-weight:400;margin-top:6px">176 px</div></div>
+<div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Row gap</div><div style="font-size:15.5px;font-weight:400;margin-top:6px">34 px</div></div>
+<div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Node box</div><div style="font-size:15.5px;font-weight:400;margin-top:6px">228 × 70 px</div></div>
+<div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Turn band</div><div style="font-size:15.5px;font-weight:400;margin-top:6px">64 px</div></div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="sec-levels" data-screen-label="ss: 02 Levels" style="max-width:1060px;margin:0 auto;padding:88px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;row-gap:8px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 02</span><h2 style="margin:0;font-weight:900;font-size:28px">Levels and zoom</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Scale is handled by abstraction, not by fitting more boxes on screen. One map, three levels, each a complete diagram in its own right. Descending is always initiated from a node — you click the thing you want to open, and the crumb records where you came from.</div>
+
+<div style="background:#fff;border-radius:14px;padding:28px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);margin-top:28px">
+<h3 style="margin:0;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;line-height:1.4">The level ladder</h3>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px" data-stack3>
+<div style="background:#fff;border:1px solid #ebebeb;border-radius:12px;padding:16px 18px"><div style="display:flex;align-items:baseline;gap:8px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em">L0</span><span style="font-weight:800;font-size:14px">Context</span></div><div style="font-size:14px;font-weight:400;line-height:1.65;margin-top:8px">The system as one box, plus who touches it. Names say what things do, never how they are built. 5–12 nodes.</div></div>
+<div style="background:#fff;border:1px solid #ebebeb;border-radius:12px;padding:16px 18px"><div style="display:flex;align-items:baseline;gap:8px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em">L1</span><span style="font-weight:800;font-size:14px">Containers</span></div><div style="font-size:14px;font-weight:400;line-height:1.65;margin-top:8px">Deployable pieces and the data moving between them. This is where lineage lives. 15–40 nodes.</div></div>
+<div style="background:#fff;border:1px solid #ebebeb;border-radius:12px;padding:16px 18px"><div style="display:flex;align-items:baseline;gap:8px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em">L2</span><span style="font-weight:800;font-size:14px">Components</span></div><div style="font-size:14px;font-weight:400;line-height:1.65;margin-top:8px">Inside one container. Built selectively — only where readers actually need it. 8–25 nodes.</div></div>
+</div>
+<div style="height:1px;background:#ebebeb;margin:24px 0"></div>
+<h3 style="margin:0;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;line-height:1.4">Crumb pattern</h3>
+<div style="display:flex;align-items:center;gap:8px;margin-top:12px;flex-wrap:wrap">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:6px 12px;border-radius:999px;background:#f1f1f1">L0 · Context</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400">›</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:6px 12px;border-radius:999px;background:#f1f1f1">L1 · Containers</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400">›</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:6px 12px;border-radius:999px;background:#fff;border:1px solid #000;box-shadow:2px 2px 0 #1de9b6">L2 · dbt core</span>
+</div>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:14px;max-width:70ch">The current level is the only bordered crumb. Earlier crumbs stay clickable and return the canvas to that level with focus and filters cleared.</div>
+</div>
+</section>
+
+<section id="sec-legend" data-screen-label="ss: 03 Legend and registry" style="max-width:1060px;margin:0 auto;padding:88px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;row-gap:8px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 03</span><h2 style="margin:0;font-weight:900;font-size:28px">Legend and node registry</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Three node types is the threshold: at three or more, a legend is mandatory and sits pinned to the top-right of the panel, never floating over the drawing. The registry table is the text alternative promoted to a first-class component — at T3 it is required, and it carries what the boxes cannot.</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px" data-stack>
+<div style="background:#fff;border-radius:14px;padding:26px;box-shadow:0 1px 2px rgba(0,0,0,.06)">
+<h3 style="margin:0;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;line-height:1.4">Node type set</h3>
+<div style="display:flex;flex-direction:column;gap:12px;margin-top:14px">
+<div style="display:flex;align-items:center;gap:12px"><div style="background:#fafafa;border-radius:4px;padding:8px;flex-shrink:0;display:flex"><div style="width:52px;height:24px;box-sizing:border-box;background:#fff;border:1.5px solid #000;border-radius:4px"></div></div><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Actor</span></div>
+<div style="display:flex;align-items:center;gap:12px"><div style="background:#fafafa;border-radius:4px;padding:8px;flex-shrink:0;display:flex"><div style="width:52px;height:24px;box-sizing:border-box;background:#fff;border:1.5px dashed #000;border-radius:12px"></div></div><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">External system</span></div>
+<div style="display:flex;align-items:center;gap:12px"><div style="background:#fafafa;border-radius:4px;padding:8px;flex-shrink:0;display:flex"><div style="width:52px;height:24px;box-sizing:border-box;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:12px"></div></div><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Service</span></div>
+<div style="display:flex;align-items:center;gap:12px"><div style="background:#fafafa;border-radius:4px;padding:8px;flex-shrink:0;display:flex"><div style="width:52px;height:24px;box-sizing:border-box;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06);border-top:2px solid #000;border-bottom:2px solid #000"></div></div><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Data store</span></div>
+<div style="display:flex;align-items:center;gap:12px"><div style="background:#fafafa;border-radius:4px;padding:8px;flex-shrink:0;display:flex"><div style="width:52px;height:24px;box-sizing:border-box;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06);border-left:3px solid #1de9b6;border-radius:12px"></div></div><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Pipeline job</span></div>
+</div>
+</div>
+<div style="background:#fff;border-radius:14px;padding:26px;box-shadow:0 1px 2px rgba(0,0,0,.06)">
+<h3 style="margin:0;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;line-height:1.4">Registry carries</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.8;margin-top:10px">Stable id · full untruncated name · type · layer · owning team · upstream and downstream counts. Sorting and search operate on the registry, and the canvas follows it — the table is the source of truth, the drawing is the view.</div>
+<div style="font-size:14px;font-weight:400;line-height:1.8;margin-top:12px">Ids are the off-page connector vocabulary too. An edge that leaves the frame terminates in a chip bearing the target id, and that id resolves in the registry below.</div>
+</div>
+</div>
+</section>
+
+<section id="sec-edges" data-screen-label="ss: 04 Edges at scale" style="max-width:1060px;margin:0 auto;padding:88px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;row-gap:8px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 04</span><h2 style="margin:0;font-weight:900;font-size:28px">Edges at scale</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Edges are what break first. Past roughly twenty, arbitrary routing turns a diagram into a thicket, so routing is constrained rather than optimised: orthogonal only, corners rounded to 10px, one turn band between columns.</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px" data-stack>
+<div style="background:#fff;border-radius:14px;padding:26px;box-shadow:0 1px 2px rgba(0,0,0,.06)">
+<h3 style="margin:0;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;line-height:1.4">Routing</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:10px">Leave the source at right-centre, turn once in the gap between columns, enter the target at left-centre. Return edges drop below the last row and travel back in a dedicated band.</div>
+<svg width="100%" viewBox="0 0 300 120" style="margin-top:14px;display:block;background:#fff;border:1px solid #ebebeb;border-radius:12px" role="img" aria-label="Orthogonal edge routing: a source node connects rightward, turns once in the column gap, and enters the target at its left edge.">
+<defs><marker id="sa" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 z" fill="#000"></path></marker></defs>
+<rect x="4" y="10" width="92" height="34" rx="12" fill="#fff" style="filter:drop-shadow(0 1px 2px rgba(0,0,0,.06))"></rect>
+<rect x="204" y="72" width="92" height="34" rx="12" fill="#fff" style="filter:drop-shadow(0 1px 2px rgba(0,0,0,.06))"></rect>
+<path d="M96,27 H140 Q150,27 150,37 V79 Q150,89 160,89 H204" fill="none" stroke="#000" stroke-width="2" marker-end="url(#sa)"></path>
+</svg>
+</div>
+<div style="background:#fff;border-radius:14px;padding:26px;box-shadow:0 1px 2px rgba(0,0,0,.06)">
+<h3 style="margin:0;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;line-height:1.4">Weight encodes volume</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:10px">Where a flow carries magnitude — rows, events, spend — stroke weight steps 1.5 / 2.5 / 4. Three steps only, and the legend names them. This is how lineage reads as lineage without a second colour.</div>
+<div style="display:flex;flex-direction:column;gap:14px;margin-top:18px">
+<div style="display:flex;align-items:center;gap:12px"><div style="width:110px;height:1.5px;background:#000;flex-shrink:0"></div><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Low volume</span></div>
+<div style="display:flex;align-items:center;gap:12px"><div style="width:110px;height:2.5px;background:#000;flex-shrink:0"></div><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Medium</span></div>
+<div style="display:flex;align-items:center;gap:12px"><div style="width:110px;height:4px;background:#000;flex-shrink:0"></div><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">High volume</span></div>
+</div>
+</div>
+</div>
+
+<div style="background:#fff;border:1px solid #ebebeb;border-radius:14px;padding:26px;margin-top:16px">
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:28px" data-stack3>
+<div>
+<div style="border-left:2px solid #000;border-top:2px solid #000;width:14px;height:14px"></div>
+<h3 style="margin:12px 0 0;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;line-height:1.4">Crossing budget</h3>
+<div style="font-size:15.5px;font-weight:400;line-height:1.7;margin-top:10px">Three crossings per view. Past that, reorder rows, introduce a group, or cut the edge to an off-page connector.</div>
+</div>
+<div>
+<div style="border-left:2px solid #000;border-top:2px solid #000;width:14px;height:14px"></div>
+<h3 style="margin:12px 0 0;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;line-height:1.4">Off-page connector</h3>
+<div style="font-size:15.5px;font-weight:400;line-height:1.7;margin-top:10px">A black id chip terminating an edge. Resolves in the registry.</div>
+<div style="display:flex;align-items:center;margin-top:12px"><div style="width:44px;height:2px;background:#000"></div><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;background:#000;color:#fff;border-radius:999px;padding:4px 10px">D4</span></div>
+</div>
+<div>
+<div style="border-left:2px solid #000;border-top:2px solid #000;width:14px;height:14px"></div>
+<h3 style="margin:12px 0 0;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;line-height:1.4">Labels</h3>
+<div style="font-size:15.5px;font-weight:400;line-height:1.7;margin-top:10px">Labelled while a view holds 12 edges or fewer. Above that, weight and grouping carry the meaning and detail moves to the registry.</div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="sec-canvas" data-screen-label="ss: 05 Ecosystem canvas" style="max-width:1060px;margin:0 auto;padding:88px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;row-gap:8px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 05</span><h2 style="margin:0;font-weight:900;font-size:28px">Ecosystem canvas</h2><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:1px solid #000;border-radius:4px;padding:2px 8px;background:#fff;white-space:nowrap">Tier 1–3 · 9 · 23 · 12 nodes</span></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">One map of the NodeTrak analytics platform at three levels. Click any node to focus it and dim everything unrelated; nodes marked with a descend chip open the level below. Group labels collapse their contents to a single box.</div>
+
+<div style="background:#fff;border-radius:14px;padding:26px;margin-top:28px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11)">
+
+<div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap">
+<div style="flex:1;min-width:280px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase">Level</div>
+<div style="display:flex;align-items:center;gap:8px;margin-top:10px;flex-wrap:wrap">
+<sc-for list="{{crumbs}}" as="c" hint-placeholder-count="2">
+<button type="button" onClick="{{c.go}}" aria-current="{{c.current}}" style="{{c.style}}">{{c.label}}</button>
+</sc-for>
+</div>
+<div style="font-size:14px;font-weight:400;line-height:1.7;margin-top:12px;max-width:60ch">{{levelBlurb}}</div>
+</div>
+<div style="border-radius:12px;padding:16px 18px;min-width:190px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase">Legend</div>
+<div style="display:flex;flex-direction:column;gap:9px;margin-top:12px">
+<sc-for list="{{legend}}" as="g" hint-placeholder-count="4">
+<div style="display:flex;align-items:center;gap:10px"><div style="background:#fafafa;border-radius:4px;padding:8px;flex-shrink:0;display:flex"><div style="{{g.swatch}}"></div></div><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">{{g.label}}</span></div>
+</sc-for>
+</div>
+</div>
+</div>
+
+<div style="height:1px;background:#ebebeb;margin:22px 0"></div>
+
+<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+<div style="display:flex;align-items:center;gap:8px;border-radius:999px;padding:7px 14px">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Find</span>
+<input type="text" value="{{query}}" onChange="{{onQuery}}" placeholder="node or id" aria-label="Search nodes" style="border:none;background:none;outline:none;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;width:104px;padding:0">
+</div>
+<sc-for list="{{layerChips}}" as="l" hint-placeholder-count="5">
+<button type="button" onClick="{{l.toggle}}" aria-pressed="{{l.on}}" style="{{l.style}}">{{l.label}}</button>
+</sc-for>
+<button type="button" onClick="{{toggleFit}}" style="{{fitStyle}}">{{fitLabel}}</button>
+<button type="button" onClick="{{reset}}" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:7px 14px;border-radius:999px;border:1px solid #000;background:#fff" style-hover="background:rgba(29,233,182,.3)">Reset</button>
+</div>
+
+<div style="margin-top:20px;overflow-x:auto;background:#fafafa;border:1px dashed #d9d9d9;border-radius:12px;padding:20px">
+<div style="{{stageStyle}}" role="img" aria-label="{{ canvasDesc }}">
+<div style="{{canvasStyle}}">
+<sc-for list="{{groupBoxes}}" as="g" hint-placeholder-count="3">
+<div style="{{g.style}}"></div>
+</sc-for>
+<sc-for list="{{groupChips}}" as="g" hint-placeholder-count="3">
+<button type="button" onClick="{{g.toggle}}" aria-expanded="{{g.open}}" style="{{g.style}}">{{g.label}}</button>
+</sc-for>
+<svg width="{{canvasW}}" height="{{canvasH}}" style="position:absolute;left:0;top:0;overflow:visible;pointer-events:none">
+<defs>
+<marker id="ah" markerWidth="9" markerHeight="9" refX="8" refY="3.2" orient="auto"><path d="M0,0 L8,3.2 L0,6.4 z" fill="#000"></path></marker>
+</defs>
+<sc-for list="{{edges}}" as="e" hint-placeholder-count="8">
+<path d="{{e.d}}" fill="none" stroke="#000" stroke-width="{{e.w}}" stroke-dasharray="{{e.dash}}" opacity="{{e.op}}" marker-end="url(#ah)"></path>
+</sc-for>
+</svg>
+<sc-for list="{{edgeLabels}}" as="l" hint-placeholder-count="0">
+<span style="{{l.style}}">{{l.text}}</span>
+</sc-for>
+<sc-for list="{{nodes}}" as="n" hint-placeholder-count="12">
+<button type="button" onClick="{{n.click}}" aria-label="{{n.aria}}" style="{{n.style}}">
+<span style="{{n.nameStyle}}">{{n.name}}</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-top:3px;display:block">{{n.meta}}</span>
+<sc-if value="{{n.drill}}" hint-placeholder-val="{{false}}">
+<span style="position:absolute;right:8px;top:8px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.06em;background:#000;color:#fff;border-radius:999px;padding:2px 7px">L2 ↓</span>
+</sc-if>
+</button>
+</sc-for>
+</div>
+</div>
+</div>
+
+<div style="display:flex;align-items:baseline;gap:12px;margin-top:22px;flex-wrap:wrap">
+<h3 style="margin:0;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;line-height:1.4">Node registry</h3>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.06em;text-transform:uppercase">{{registryCount}}</span>
+</div>
+<div style="margin-top:12px;overflow-x:auto">
+<div style="min-width:640px;font-family:'JetBrains Mono',monospace">
+<div style="display:grid;grid-template-columns:56px 1.7fr 1fr .9fr 1fr 74px">
+<span style="padding:14px 14px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid #ebebeb">Id</span>
+<span style="padding:14px 14px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid #ebebeb">Name</span>
+<span style="padding:14px 14px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid #ebebeb">Type</span>
+<span style="padding:14px 14px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid #ebebeb">Layer</span>
+<span style="padding:14px 14px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid #ebebeb">Owner</span>
+<span style="padding:14px 14px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid #ebebeb">In · Out</span>
+</div>
+<sc-for list="{{registry}}" as="r" hint-placeholder-count="8">
+<div style="{{r.rowStyle}}">
+<span style="padding:14px 14px;font-size:12px;font-weight:700">{{r.id}}</span>
+<span style="padding:14px 14px;font-size:12px;font-weight:400">{{r.name}}</span>
+<span style="padding:14px 14px;font-size:12px;font-weight:400">{{r.type}}</span>
+<span style="padding:14px 14px;font-size:12px;font-weight:400">{{r.layer}}</span>
+<span style="padding:14px 14px;font-size:12px;font-weight:400">{{r.owner}}</span>
+<span style="padding:14px 14px;font-size:12px;font-weight:400">{{r.io}}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+</section>
+
+<section id="sec-coverage" data-screen-label="ss: 06 Family index" style="max-width:1060px;margin:0 auto;padding:88px 24px 100px;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;row-gap:8px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 06</span><h2 style="margin:0;font-weight:900;font-size:28px">Family index</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Every diagram family this system specifies, and the page carrying its specimen. A family absent from this index has no specimen: draw it as a table, or use one of the three ad-hoc layouts.</div>
+
+<div style="background:#fff;border:1px solid #ebebeb;border-radius:12px;overflow:hidden;margin-top:28px;font-family:'JetBrains Mono',monospace">
+<div style="display:grid;grid-template-columns:1.5fr 1.1fr;background:#f1f1f1;border-bottom:1px solid #ebebeb">
+<span style="padding:14px 16px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase">Family</span>
+<span style="padding:14px 16px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase">Where</span>
+</div>
+<sc-for list="{{coverage}}" as="c" hint-placeholder-count="16">
+<div style="{{c.rowStyle}}">
+<span style="padding:14px 16px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:400;line-height:1.5">{{ c.family }}</span>
+<span style="padding:14px 16px;font-size:12px;font-weight:400">{{ c.where }}</span>
+</div>
+</sc-for>
+</div>
+
+</section>
+
+<div style="border-top:1px solid #ebebeb;margin-top:0">
+<div style="max-width:1060px;margin:0 auto;padding:28px 24px 44px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.07em;text-transform:uppercase">
+<span>content-morphia · Diagrams at scale</span>
+<span><a href="content-morphia Diagrams.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1de9b6">Diagram library</a> · <a href="content-morphia Foundations.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1de9b6">Foundations</a></span>
+</div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1200,&quot;height&quot;:900}}">
+const NW = 228, NH = 70, CGAP = 176, RGAP = 34, PAD = 26, R = 10;
+
+const TYPES = {
+  actor: { label: 'Actor', bg: '#fff', extra: 'border:1.5px solid #000;border-radius:4px' },
+  ext:   { label: 'External system', bg: '#fff', extra: 'border:1.5px dashed #000;border-radius:12px' },
+  svc:   { label: 'Service', bg: '#fff', extra: 'box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:12px' },
+  store: { label: 'Data store', bg: '#fff', extra: 'box-shadow:0 1px 2px rgba(0,0,0,.06);border-top:2px solid #000;border-bottom:2px solid #000' },
+  job:   { label: 'Pipeline job', bg: '#fff', extra: 'box-shadow:0 1px 2px rgba(0,0,0,.06);border-left:3px solid #1de9b6;border-radius:12px' }
+};
+
+const LAYERS = {
+  source: 'Source', ingest: 'Ingest', storage: 'Storage',
+  transform: 'Transform', serving: 'Serving', consume: 'Consume'
+};
+
+const LEVELS = {
+  L0: {
+    label: 'L0 · Context',
+    blurb: 'The platform as a single service, its upstream systems, and who consumes what comes out. No technology names at this level.',
+    nodes: [
+      { id: 'E1', name: 'Product event stream', type: 'ext', layer: 'source', col: 0, row: 0, owner: 'Product eng' },
+      { id: 'E2', name: 'Salesforce CRM', type: 'ext', layer: 'source', col: 0, row: 1, owner: 'RevOps' },
+      { id: 'E3', name: 'Billing service', type: 'ext', layer: 'source', col: 0, row: 2, owner: 'Payments' },
+      { id: 'E4', name: 'Support desk', type: 'ext', layer: 'source', col: 0, row: 3, owner: 'Support' },
+      { id: 'P1', name: 'NodeTrak platform', type: 'svc', layer: 'transform', col: 1, row: 1.5, owner: 'Data platform', drill: 'L1' },
+      { id: 'A1', name: 'Analysts', type: 'actor', layer: 'consume', col: 2, row: 0, owner: 'Insights' },
+      { id: 'A2', name: 'Executives', type: 'actor', layer: 'consume', col: 2, row: 1 , owner: 'Leadership' },
+      { id: 'A3', name: 'Growth engineers', type: 'actor', layer: 'consume', col: 2, row: 2, owner: 'Growth' },
+      { id: 'E5', name: 'ML feature service', type: 'ext', layer: 'consume', col: 2, row: 3, owner: 'ML platform' }
+    ],
+    edges: [
+      { f: 'E1', t: 'P1', w: 3, l: 'events' }, { f: 'E2', t: 'P1', w: 1, l: 'accounts' },
+      { f: 'E3', t: 'P1', w: 2, l: 'invoices' }, { f: 'E4', t: 'P1', w: 1, l: 'tickets' },
+      { f: 'P1', t: 'A1', w: 2, l: 'dashboards' }, { f: 'P1', t: 'A2', w: 1, l: 'briefings' },
+      { f: 'P1', t: 'A3', w: 2, l: 'segments' }, { f: 'P1', t: 'E5', w: 3, l: 'features' }
+    ],
+    groups: []
+  },
+  L1: {
+    label: 'L1 · Containers',
+    blurb: 'Deployable containers and the data moving between them. Stroke weight reads volume; the transform boundary opens one level deeper.',
+    nodes: [
+      { id: 'S1', name: 'Event collector', type: 'svc', layer: 'source', col: 0, row: 0, owner: 'Product eng' },
+      { id: 'S2', name: 'CRM export', type: 'ext', layer: 'source', col: 0, row: 1, owner: 'RevOps' },
+      { id: 'S3', name: 'Billing API', type: 'ext', layer: 'source', col: 0, row: 2, owner: 'Payments' },
+      { id: 'S4', name: 'Support webhook', type: 'ext', layer: 'source', col: 0, row: 3, owner: 'Support' },
+      { id: 'I1', name: 'Stream ingest', type: 'svc', layer: 'ingest', col: 1, row: 0, owner: 'Data platform' },
+      { id: 'I2', name: 'Batch sync', type: 'svc', layer: 'ingest', col: 1, row: 1.5, owner: 'Data platform' },
+      { id: 'I3', name: 'File loader', type: 'svc', layer: 'ingest', col: 1, row: 3, owner: 'Data platform' },
+      { id: 'D1', name: 'Raw lake', type: 'store', layer: 'storage', col: 2, row: 0, owner: 'Data platform' },
+      { id: 'D2', name: 'Staging schema', type: 'store', layer: 'storage', col: 2, row: 1.5, owner: 'Data platform' },
+      { id: 'D5', name: 'Cold archive', type: 'store', layer: 'storage', col: 2, row: 3, owner: 'Data platform' },
+      { id: 'T1', name: 'dbt core', type: 'job', layer: 'transform', col: 3, row: 0, owner: 'Analytics eng', drill: 'L2' },
+      { id: 'T2', name: 'Quality gate', type: 'job', layer: 'transform', col: 3, row: 1, owner: 'Analytics eng' },
+      { id: 'T3', name: 'Enrichment', type: 'job', layer: 'transform', col: 3, row: 2, owner: 'Analytics eng' },
+      { id: 'T4', name: 'Backfill runner', type: 'job', layer: 'transform', col: 3, row: 3, owner: 'Analytics eng' },
+      { id: 'D3', name: 'Warehouse', type: 'store', layer: 'serving', col: 4, row: 0.5, owner: 'Data platform' },
+      { id: 'D4', name: 'Metrics store', type: 'store', layer: 'serving', col: 4, row: 1.5, owner: 'Analytics eng' },
+      { id: 'M1', name: 'Semantic layer', type: 'svc', layer: 'serving', col: 4, row: 2.5, owner: 'Analytics eng' },
+      { id: 'C1', name: 'BI dashboards', type: 'svc', layer: 'consume', col: 5, row: 0, owner: 'Insights' },
+      { id: 'C2', name: 'Notebooks', type: 'svc', layer: 'consume', col: 5, row: 1, owner: 'Insights' },
+      { id: 'C3', name: 'Reverse ETL', type: 'svc', layer: 'consume', col: 5, row: 2, owner: 'Growth' },
+      { id: 'C4', name: 'Alerting', type: 'svc', layer: 'consume', col: 5, row: 3, owner: 'Data platform' },
+      { id: 'C5', name: 'Feature service', type: 'ext', layer: 'consume', col: 5, row: 4, owner: 'ML platform' },
+      { id: 'C6', name: 'Data catalog', type: 'svc', layer: 'consume', col: 5, row: 5, owner: 'Governance' }
+    ],
+    edges: [
+      { f: 'S1', t: 'I1', w: 3 }, { f: 'S2', t: 'I2', w: 1 }, { f: 'S3', t: 'I2', w: 2 }, { f: 'S4', t: 'I3', w: 1 },
+      { f: 'I1', t: 'D1', w: 3 }, { f: 'I2', t: 'D2', w: 2 }, { f: 'I3', t: 'D2', w: 1 }, { f: 'I1', t: 'D5', w: 1 },
+      { f: 'D1', t: 'T1', w: 3 }, { f: 'D2', t: 'T1', w: 2 }, { f: 'D2', t: 'T3', w: 1 }, { f: 'D5', t: 'T4', w: 1 },
+      { f: 'T1', t: 'T2', w: 2 }, { f: 'T3', t: 'T2', w: 1 }, { f: 'T4', t: 'T1', w: 1 },
+      { f: 'T2', t: 'D3', w: 3 }, { f: 'T2', t: 'D4', w: 2 }, { f: 'T3', t: 'D3', w: 1 },
+      { f: 'D3', t: 'M1', w: 2 }, { f: 'D4', t: 'M1', w: 2 },
+      { f: 'M1', t: 'C1', w: 2 }, { f: 'M1', t: 'C2', w: 1 }, { f: 'D3', t: 'C3', w: 1 },
+      { f: 'D4', t: 'C4', w: 1 }, { f: 'D3', t: 'C5', w: 3 }, { f: 'D3', t: 'C6', w: 1 },
+      { f: 'C4', t: 'T2', w: 1, k: 'back', l: 'breach' }
+    ],
+    groups: [
+      { id: 'G1', label: 'Ingestion', members: ['I1', 'I2', 'I3'] },
+      { id: 'G2', label: 'Transform', members: ['T1', 'T2', 'T3', 'T4'] },
+      { id: 'G3', label: 'Serving', members: ['D3', 'D4', 'M1'] }
+    ]
+  },
+  L2: {
+    label: 'L2 · dbt core',
+    blurb: 'Inside the transform container. Model layers run left to right; tests attach to the layer they guard.',
+    nodes: [
+      { id: 'D1', name: 'Raw lake', type: 'store', layer: 'storage', col: 0, row: 0, owner: 'Data platform' },
+      { id: 'D2', name: 'Staging schema', type: 'store', layer: 'storage', col: 0, row: 1.5, owner: 'Data platform' },
+      { id: 'N1', name: 'Source models', type: 'job', layer: 'transform', col: 1, row: 0, owner: 'Analytics eng' },
+      { id: 'N2', name: 'Staging models', type: 'job', layer: 'transform', col: 1, row: 1.5, owner: 'Analytics eng' },
+      { id: 'N3', name: 'Intermediate models', type: 'job', layer: 'transform', col: 2, row: 0, owner: 'Analytics eng' },
+      { id: 'N4', name: 'Dimension builders', type: 'job', layer: 'transform', col: 2, row: 1.5, owner: 'Analytics eng' },
+      { id: 'N5', name: 'Fact builders', type: 'job', layer: 'transform', col: 2, row: 3, owner: 'Analytics eng' },
+      { id: 'N6', name: 'Metric models', type: 'job', layer: 'transform', col: 3, row: 0.75, owner: 'Analytics eng' },
+      { id: 'N7', name: 'Exposure tests', type: 'job', layer: 'transform', col: 3, row: 2.25, owner: 'Analytics eng' },
+      { id: 'Q1', name: 'Freshness test', type: 'svc', layer: 'transform', col: 1, row: 3, owner: 'Analytics eng' },
+      { id: 'D3', name: 'Warehouse', type: 'store', layer: 'serving', col: 4, row: 0.75, owner: 'Data platform' },
+      { id: 'D4', name: 'Metrics store', type: 'store', layer: 'serving', col: 4, row: 2.25, owner: 'Analytics eng' }
+    ],
+    edges: [
+      { f: 'D1', t: 'N1', w: 3, l: 'raw' }, { f: 'D2', t: 'N2', w: 2, l: 'staged' },
+      { f: 'N1', t: 'N3', w: 2 }, { f: 'N2', t: 'N3', w: 2 }, { f: 'N2', t: 'N4', w: 1 },
+      { f: 'N3', t: 'N5', w: 2 }, { f: 'N4', t: 'N6', w: 1 }, { f: 'N5', t: 'N6', w: 2 },
+      { f: 'N6', t: 'N7', w: 1 }, { f: 'N6', t: 'D4', w: 2 }, { f: 'N5', t: 'D3', w: 3 },
+      { f: 'Q1', t: 'N2', w: 1, l: 'guards' }
+    ],
+    groups: [
+      { id: 'H1', label: 'Model graph', members: ['N1', 'N2', 'N3', 'N4', 'N5', 'N6', 'N7'] }
+    ]
+  }
+};
+
+const COVERAGE = [
+  ['Process flow / process map', 'Diagrams ss: 02', 'Built'],
+  ['User flow', 'Diagrams ss: 03', 'Built'],
+  ['Data flow diagram L0 / L1', 'Diagrams ss: 04', 'Built'],
+  ['Decision tree', 'Diagrams ss: 05', 'Built'],
+  ['System flow with boundaries', 'Diagrams ss: 06', 'Built'],
+  ['Concept map', 'Diagrams ss: 07', 'Built'],
+  ['Taxonomy / hierarchy tree', 'Diagrams ss: 08', 'Built'],
+  ['Maturity model', 'Diagrams ss: 09', 'Built'],
+  ['Swimlane', 'Structured ss: 02', 'Built'],
+  ['Matrix / quadrant', 'Structured ss: 03', 'Built'],
+  ['Phase timeline / roadmap', 'Structured ss: 05, T8', 'Built'],
+  ['Architecture layers (context/container/component)', 'This page ss: 05, Diagrams II ss: 05', 'Built'],
+  ['Data lineage, weight-encoded', 'This page ss: 05', 'Built'],
+  ['Sequence / interaction over time', 'Diagrams II ss: 01', 'Built'],
+  ['Entity relationship / data model', 'Diagrams II ss: 02', 'Built'],
+  ['State machine / lifecycle', 'Diagrams II ss: 03', 'Built'],
+  ['Deployment & network topology', 'Diagrams II ss: 04', 'Built'],
+  ['Journey map / service blueprint', 'Diagrams III ss: 01, ss: 02', 'Built'],
+  ['Sankey magnitude flow', 'Diagrams III ss: 03', 'Built'],
+  ['Mind map', 'Wave two', 'Queued'],
+  ['Venn / set relations', 'Wave two', 'Queued'],
+  ['Fishbone / root cause', 'Wave two', 'Queued'],
+  ['BPMN subset', 'Wave two', 'Queued'],
+  ['Gantt / dependency schedule', 'No content need yet', 'Parked'],
+  ['Git graph', 'No content need yet', 'Parked'],
+  ['Kanban board', 'No content need yet', 'Parked'],
+  ['Class / code structure', 'Out of scope', 'Parked']
+];
+
+class Component extends DCLogic {
+  state = { level: 'L0', focus: null, collapsed: {}, off: {}, query: '', fit: true };
+
+  go(level) {
+    this.setState({ level: level, focus: null, collapsed: {}, off: {}, query: '' });
+  }
+
+  render_() { this.forceUpdate(); }
+
+  renderVals() {
+    const st = this.state;
+    const L = LEVELS[st.level];
+    const q = (st.query || '').trim().toLowerCase();
+
+    const groupOf = {};
+    (L.groups || []).forEach(g => g.members.forEach(m => { groupOf[m] = g.id; }));
+    const collapsedOf = id => {
+      const g = groupOf[id];
+      return g && st.collapsed[g] ? g : null;
+    };
+
+    // geometry for every raw node
+    const raw = {};
+    L.nodes.forEach(n => {
+      raw[n.id] = {
+        x: PAD + n.col * (NW + CGAP),
+        y: PAD + n.row * (NH + RGAP),
+        w: NW, h: NH, n: n
+      };
+    });
+
+    // group boxes from member geometry
+    const gbox = {};
+    (L.groups || []).forEach(g => {
+      let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
+      g.members.forEach(m => {
+        const r = raw[m]; if (!r) return;
+        x0 = Math.min(x0, r.x); y0 = Math.min(y0, r.y);
+        x1 = Math.max(x1, r.x + r.w); y1 = Math.max(y1, r.y + r.h);
+      });
+      gbox[g.id] = { x: x0 - 16, y: y0 - 24, w: (x1 - x0) + 32, h: (y1 - y0) + 40, g: g };
+    });
+
+    // visible node set: collapsed groups replace members with one box
+    const vis = [];
+    const seenGroup = {};
+    L.nodes.forEach(n => {
+      const cg = collapsedOf(n.id);
+      if (cg) {
+        if (!seenGroup[cg]) {
+          seenGroup[cg] = true;
+          const b = gbox[cg];
+          vis.push({
+            id: cg, name: b.g.label + ' (' + b.g.members.length + ')', type: 'svc',
+            layer: raw[b.g.members[0]].n.layer, owner: '—', isGroup: true,
+            x: b.x + 16, y: b.y + (b.h - NH) / 2, w: b.w - 32, h: NH
+          });
+        }
+      } else {
+        vis.push({
+          id: n.id, name: n.name, type: n.type, layer: n.layer, owner: n.owner,
+          drill: n.drill, x: raw[n.id].x, y: raw[n.id].y, w: NW, h: NH
+        });
+      }
+    });
+    const byId = {}; vis.forEach(v => { byId[v.id] = v; });
+    const resolve = id => (collapsedOf(id) || id);
+
+    // edges remapped onto visible nodes
+    const eSeen = {}; const eList = [];
+    L.edges.forEach(e => {
+      const f = resolve(e.f), t = resolve(e.t);
+      if (f === t) return;
+      const key = f + '>' + t;
+      if (eSeen[key]) { eSeen[key].w = Math.max(eSeen[key].w, e.w); return; }
+      const rec = { f: f, t: t, w: e.w, k: e.k, l: e.l };
+      eSeen[key] = rec; eList.push(rec);
+    });
+
+    let maxX = 0, maxY = 0;
+    vis.forEach(v => { maxX = Math.max(maxX, v.x + v.w); maxY = Math.max(maxY, v.y + v.h); });
+    const canvasW = maxX + PAD, canvasH = maxY + PAD + 46;
+
+    // adjacency for focus mode
+    const near = {};
+    if (st.focus) {
+      near[st.focus] = true;
+      eList.forEach(e => {
+        if (e.f === st.focus) near[e.t] = true;
+        if (e.t === st.focus) near[e.f] = true;
+      });
+    }
+
+    const layerOn = l => !st.off[l];
+    const matches = v => !q || v.name.toLowerCase().indexOf(q) >= 0 || v.id.toLowerCase().indexOf(q) >= 0;
+    const live = v => layerOn(v.layer) && matches(v) && (!st.focus || near[v.id]);
+
+    const nodes = vis.map(v => {
+      const T = TYPES[v.type];
+      const isFocus = st.focus === v.id;
+      const on = live(v);
+      const hit = q && matches(v);
+      let box = 'position:absolute;left:' + v.x + 'px;top:' + v.y + 'px;width:' + v.w + 'px;height:' + v.h +
+        'px;box-sizing:border-box;padding:14px 14px;background:' + T.bg + ';' + T.extra +
+        ';display:flex;flex-direction:column;justify-content:center;z-index:3;transition:opacity .15s';
+      if (isFocus) box += ';border:1.5px solid #000;box-shadow:5px 5px 0 #1de9b6;border-radius:12px';
+      else if (hit) box += ';outline:2px solid #1de9b6;outline-offset:2px';
+      if (!on) box += ';opacity:.14';
+      const self = this;
+      return {
+        id: v.id, name: v.name, drill: !!v.drill,
+        meta: (v.isGroup ? 'Group' : TYPES[v.type].label) + ' · ' + v.id,
+        aria: v.name + ', ' + TYPES[v.type].label + ', id ' + v.id,
+        style: box,
+        nameStyle: 'font-weight:700;font-size:14px;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block',
+        click: function () {
+          if (v.drill) { self.go(v.drill); return; }
+          self.setState({ focus: st.focus === v.id ? null : v.id });
+        }
+      };
+    });
+
+    const path = (a, b, kind) => {
+      if (kind === 'back') {
+        const yb = maxY + 26;
+        const ax = a.x + a.w / 2, bx = b.x + b.w / 2;
+        return 'M' + ax + ',' + (a.y + a.h) + ' V' + (yb - R) + ' Q' + ax + ',' + yb + ' ' + (ax - R) + ',' + yb +
+          ' H' + (bx + R) + ' Q' + bx + ',' + yb + ' ' + bx + ',' + (yb - R) + ' V' + (b.y + b.h + 4);
+      }
+      const sx = a.x + a.w, sy = a.y + a.h / 2, tx = b.x - 4, ty = b.y + b.h / 2;
+      if (Math.abs(sy - ty) < 1) return 'M' + sx + ',' + sy + ' H' + tx;
+      const mx = (sx + tx) / 2, d = ty > sy ? 1 : -1;
+      return 'M' + sx + ',' + sy + ' H' + (mx - R) + ' Q' + mx + ',' + sy + ' ' + mx + ',' + (sy + d * R) +
+        ' V' + (ty - d * R) + ' Q' + mx + ',' + ty + ' ' + (mx + R) + ',' + ty + ' H' + tx;
+    };
+
+    const WS = { 1: 1.5, 2: 2.5, 3: 4 };
+    const edges = [], edgeLabels = [];
+    const labelled = eList.length <= 12;
+    eList.forEach(e => {
+      const a = byId[e.f], b = byId[e.t];
+      if (!a || !b) return;
+      const on = live(a) && live(b);
+      edges.push({
+        d: path(a, b, e.k), w: WS[e.w] || 2,
+        dash: e.k === 'back' ? '6 5' : '0',
+        op: on ? 1 : 0.08
+      });
+      if (labelled && e.l && e.k !== 'back') {
+        const mx = (a.x + a.w + b.x) / 2, my = (a.y + a.h / 2 + b.y + b.h / 2) / 2;
+        edgeLabels.push({
+          text: e.l,
+          style: 'position:absolute;left:' + mx + 'px;top:' + my + 'px;transform:translate(-50%,-50%);z-index:4;' +
+            "font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;" +
+            'background:#fff;border:1px solid #ebebeb;border-radius:999px;padding:2px 8px;white-space:nowrap;opacity:' + (on ? 1 : 0.1)
+        });
+      }
+    });
+
+    const self = this;
+    const groupBoxes = [], groupChips = [];
+    (L.groups || []).forEach(g => {
+      const b = gbox[g.id];
+      const open = !st.collapsed[g.id];
+      if (open) {
+        groupBoxes.push({
+          style: 'position:absolute;left:' + b.x + 'px;top:' + b.y + 'px;width:' + b.w + 'px;height:' + b.h +
+            'px;border:1.5px dashed #000;border-radius:12px;z-index:1;opacity:' + (st.focus ? '.2' : '.55')
+        });
+      }
+      groupChips.push({
+        label: g.label + (open ? '  −' : '  +'), open: open,
+        style: 'position:absolute;left:' + (b.x + 10) + 'px;top:' + (b.y - 11) + 'px;z-index:5;' +
+          "font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;" +
+          'background:#fff;border:1px solid #000;border-radius:999px;padding:3px 10px;white-space:pre',
+        toggle: function () {
+          const c = Object.assign({}, self.state.collapsed);
+          c[g.id] = !c[g.id];
+          self.setState({ collapsed: c, focus: null });
+        }
+      });
+    });
+
+    const crumbs = ['L0', 'L1', 'L2'].map(k => {
+      const cur = st.level === k;
+      return {
+        label: LEVELS[k].label, current: cur ? 'true' : 'false',
+        style: "font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:6px 12px;border-radius:999px;white-space:nowrap;" +
+          (cur ? 'background:#fff;border:1px solid #000;box-shadow:2px 2px 0 #1de9b6' : 'background:#f1f1f1;border:1px solid transparent'),
+        go: function () { self.go(k); }
+      };
+    });
+
+    const usedLayers = [];
+    vis.forEach(v => { if (usedLayers.indexOf(v.layer) < 0) usedLayers.push(v.layer); });
+    const layerChips = usedLayers.map(l => {
+      const on = !st.off[l];
+      return {
+        label: LAYERS[l], on: on ? 'true' : 'false',
+        style: "font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:7px 14px;border-radius:999px;white-space:nowrap;" +
+          (on ? 'background:#000;color:#fff;border:1px solid #000' : 'background:#fff;color:#000;border:1px solid #ebebeb'),
+        toggle: function () {
+          const o = Object.assign({}, self.state.off);
+          o[l] = !o[l];
+          self.setState({ off: o });
+        }
+      };
+    });
+
+    const usedTypes = [];
+    vis.forEach(v => { if (usedTypes.indexOf(v.type) < 0) usedTypes.push(v.type); });
+    const legend = usedTypes.map(t => ({
+      label: TYPES[t].label,
+      swatch: 'width:52px;height:26px;box-sizing:border-box;flex-shrink:0;background:' + TYPES[t].bg + ';' + TYPES[t].extra
+    }));
+
+    const inC = {}, outC = {};
+    L.edges.forEach(e => { outC[e.f] = (outC[e.f] || 0) + 1; inC[e.t] = (inC[e.t] || 0) + 1; });
+    const regSrc = L.nodes.filter(n => (!q || n.name.toLowerCase().indexOf(q) >= 0 || n.id.toLowerCase().indexOf(q) >= 0) && !st.off[n.layer]);
+    const registry = regSrc.map((n, i) => ({
+      id: n.id, name: n.name, type: TYPES[n.type].label, layer: LAYERS[n.layer], owner: n.owner,
+      io: (inC[n.id] || 0) + ' · ' + (outC[n.id] || 0),
+      rowStyle: 'display:grid;grid-template-columns:56px 1.7fr 1fr .9fr 1fr 74px;border-radius:6px;' +
+        (st.focus === n.id ? 'background:rgba(29,233,182,.25)' : '')
+    }));
+
+    const fitScale = st.fit ? Math.min(1, 1008 / canvasW) : 1;
+
+    const coverage = COVERAGE.filter(c => c[2] === 'Built').map((c, i) => ({
+      family: c[0], where: c[1],
+      rowStyle: 'display:grid;grid-template-columns:1.5fr 1.1fr;align-items:center' + (i ? ';border-top:1px solid #ebebeb' : '')
+    }));
+
+    return {
+      crumbs: crumbs, levelBlurb: L.blurb, legend: legend, layerChips: layerChips,
+      nodes: nodes, edges: edges, edgeLabels: edgeLabels,
+      groupBoxes: groupBoxes, groupChips: groupChips,
+      canvasW: canvasW, canvasH: canvasH,
+      canvasDesc: (function () {
+        const L = LEVELS[st.level], n = (L.nodes || []).length, e = (L.edges || []).length;
+        const which = st.level === 'L0'
+          ? 'the platform as one service with the systems that feed it and the audiences that consume it'
+          : st.level === 'L1'
+            ? 'the deployable containers of the platform and the data moving between them, stroke weight carrying volume'
+            : 'the inside of the transform container, model layers running left to right with tests attached to the layer they guard';
+        return 'Ecosystem canvas at ' + L.label.replace(' · ', ', ') + ': ' + n + ' nodes and ' + e
+          + ' edges showing ' + which + '. Full node names and connections are in the register beneath the canvas.';
+      })(),
+      stageStyle: 'width:' + (canvasW * fitScale) + 'px;height:' + (canvasH * fitScale) + 'px',
+      canvasStyle: 'position:relative;width:' + canvasW + 'px;height:' + canvasH + 'px;transform:scale(' + fitScale + ');transform-origin:top left',
+      query: st.query,
+      onQuery: e => this.setState({ query: e.target.value }),
+      toggleFit: () => this.setState({ fit: !st.fit }),
+      fitLabel: st.fit ? 'Fit to width' : 'Actual size',
+      fitStyle: "font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:7px 14px;border-radius:999px;white-space:nowrap;" +
+        (st.fit ? 'background:#000;color:#fff;border:1px solid #000' : 'background:#fff;border:1px solid #ebebeb'),
+      reset: () => this.setState({ focus: null, collapsed: {}, off: {}, query: '' }),
+      registry: registry,
+      registryCount: registry.length + ' of ' + L.nodes.length + ' nodes',
+      coverage: coverage
+    };
+  }
+}
+
+</script>
+</body>
+</html>

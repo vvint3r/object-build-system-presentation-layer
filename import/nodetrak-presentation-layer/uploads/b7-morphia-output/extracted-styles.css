@@ -1,0 +1,95 @@
+
+/* ── content-morphia helmet ─────────────────────────────────────────────
+   Per FORMAT-SPEC D-F9 this block carries ONLY: the font load, the morphia
+   resets, the focus ring, the sanctioned structural @media blocks, the
+   slider vendor pseudo-elements, the <details> marker resets, the
+   interaction states that cannot be expressed inline (hover / aria-selected /
+   active), and print CSS. Every visual declaration is inline.            */
+html{scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:#fafafa;color:#000;font-family:'Nunito',ui-rounded,system-ui,sans-serif}
+a{color:#000;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:2px;text-underline-offset:3px}
+a:hover{background:rgba(29,233,182,.3)}
+::selection{background:rgba(29,233,182,.35)}
+button{font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;background:none;border:none;padding:0;margin:0;text-align:left;cursor:pointer}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible,[tabindex]:focus-visible{outline:2px solid #000;outline-offset:3px}
+::placeholder{color:#000;opacity:.4;font-style:italic;font-weight:400}
+section[id]{scroll-margin-top:104px}
+
+/* ── interaction states (the standalone stand-in for morphia's style-hover) ── */
+[data-hov=wash]:hover{background:rgba(29,233,182,.3)}
+[data-hov=row]:hover{background:rgba(29,233,182,.12)!important}
+[data-hov=lift]:hover{transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18);border-color:#000}
+[data-hov=pill]:hover{transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18)}
+#nav a.active{font-weight:800}
+#nav a.active>i{background:#1de9b6}
+.tab{font-family:'Nunito',ui-rounded,system-ui,sans-serif;font-size:13px;font-weight:400;line-height:1.35;padding:7px 14px;border-radius:999px;border:1px solid transparent;background:transparent;color:#000}
+.tab:hover{background:#e6e6e6}
+.tab[aria-selected=true]{background:#fff;border:1px solid #000;box-shadow:2px 2px 0 #1de9b6;font-weight:700}
+
+/* ── native <details>: marker resets + the mono state glyphs ── */
+details>summary{list-style:none}
+details>summary::-webkit-details-marker{display:none}
+details[data-acc]>summary::after{content:"+";font-family:'JetBrains Mono',ui-monospace,monospace;font-size:18px;font-weight:700;line-height:1;margin-left:auto;padding-left:14px;flex:none}
+details[data-acc][open]>summary::after{content:"\2212"}
+details[data-q]>summary::after{content:"REVEAL \25B8";font-family:'JetBrains Mono',ui-monospace,monospace;font-size:9.5px;font-weight:700;letter-spacing:.08em;margin-left:auto;padding-left:14px;flex:none;white-space:nowrap}
+details[data-q][open]>summary::after{content:"HIDE \25BE"}
+details[data-drw]>summary::after{content:"\25B8";font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;font-weight:700;margin-left:auto;padding-left:14px;flex:none}
+details[data-drw][open]>summary::after{content:"\25BE"}
+
+/* ── the morphia range control (FORMAT-SPEC D-F5 / restyle map 11.1a) ──
+   Proposed morphia extension: #f1f1f1 progress track + teal fill + a white,
+   black-bordered node as the thumb. Vendor pseudo-elements cannot be inlined. */
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;background:transparent;margin:10px 0 4px;display:block}
+input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:999px;background:linear-gradient(90deg,#1de9b6 0 var(--pct,50%),#f1f1f1 var(--pct,50%) 100%)}
+input[type=range]::-moz-range-track{height:6px;border-radius:999px;background:#f1f1f1}
+input[type=range]::-moz-range-progress{height:6px;border-radius:999px;background:#1de9b6}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;margin-top:-6px;border-radius:999px;background:#fff;border:1.5px solid #000;box-shadow:0 1px 2px rgba(0,0,0,.06)}
+input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:999px;background:#fff;border:1.5px solid #000;box-shadow:0 1px 2px rgba(0,0,0,.06)}
+input[type=range]:hover::-webkit-slider-thumb,input[type=range]:active::-webkit-slider-thumb{transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18)}
+input[type=range]:hover::-moz-range-thumb,input[type=range]:active::-moz-range-thumb{box-shadow:3px 3px 0 rgba(0,0,0,.18)}
+
+/* ── responsive: structural only, id/attribute targeted, !important ── */
+@media(max-width:1150px){
+  #page-grid{display:flex!important;flex-direction:column-reverse!important;align-items:stretch!important}
+  #page-rail{position:static!important;flex-direction:row!important;flex-wrap:wrap!important;max-height:none!important;overflow:visible!important}
+  #page-toc{flex-direction:row!important;flex-wrap:wrap!important}
+}
+@media(max-width:800px){[data-wide]{min-width:0!important}}
+@media(max-width:640px){
+  [style*="columns:1fr 1fr"],[style*="columns:repeat(2,1fr)"],[style*="columns:repeat(3,1fr)"],[style*="columns:repeat(4,1fr)"],[style*="columns:repeat(5,1fr)"]{grid-template-columns:1fr!important}
+  [data-stack]{grid-template-columns:1fr!important}
+  [data-stack]>[data-inset]{border-left:none!important;padding-left:0!important;border-top:1px solid #ebebeb!important;padding-top:16px!important;margin-top:16px!important}
+  #page-rail{display:none!important}
+  #mobile-nav{display:block!important}
+  [data-val]{float:none!important;display:inline-block!important;margin:6px 0 0!important}
+  [data-arrowbig]{transform:rotate(90deg)!important}
+}
+
+/* ── print (FORMAT-SPEC D-F9 / restyle map 15.3) ── */
+@media print{
+  #page-rail,#mobile-nav,#topbar,#progress,.no-print,input[type=range],.scenario-tabs{display:none!important}
+  #page-grid{display:block!important}
+  body{background:#fff;color:#000;font-size:11pt}
+  [data-slab]{background:#fff!important;color:#000!important;border:1px solid #000!important;box-shadow:none!important}
+  [data-slab] *{color:#000!important}
+  [data-bar]{height:2px!important;background:#000!important;border-radius:0!important}
+  [data-card],[data-fx],[data-invoice],table{box-shadow:none!important;break-inside:avoid}
+  section{break-inside:auto;margin:22px 0!important}
+  h2{break-after:avoid}
+  details{border:1px solid #000!important}
+  details>summary{font-weight:700}
+  details:not([open])>*:not(summary){display:block!important}
+  details::details-content{content-visibility:visible!important;block-size:auto!important}
+  details[data-acc]>summary::after,details[data-q]>summary::after,details[data-drw]>summary::after{content:""!important}
+  a[href^="http"]:after{content:" (" attr(href) ")";font-size:9pt;word-break:break-all}
+}
+
+
+/* ---- next <style> block ---- */
+
+
+  details:not([open])>*:not(summary){display:block}
+  details::details-content{content-visibility:visible;block-size:auto}
+  details>summary::after{content:""!important}
+  .js-only{display:none!important}

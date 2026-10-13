@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&amp;family=JetBrains+Mono:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#fff;color:#000;font-family:'Nunito',sans-serif}
+a{color:#000;text-decoration:underline;text-decoration-color:#1bbd94;text-decoration-thickness:1.5px;text-underline-offset:3px}
+a:hover{background:rgba(27,189,148,.3)}
+::selection{background:rgba(27,189,148,.35)}
+button{font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;background:none;border:none;padding:0;margin:0;text-align:left;cursor:pointer}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px solid #000;outline-offset:3px}
+@media(max-width:640px){[style*="columns:1fr 1fr"],[style*="columns:repeat(2,1fr)"],[style*="columns:repeat(3,1fr)"],[style*="columns:repeat(4,1fr)"]{grid-template-columns:1fr!important}}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:#f1f1f1;border-radius:999px}
+::-webkit-scrollbar-thumb{background:rgba(0,0,0,.22);border-radius:999px}
+::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.45)}
+
+[data-nav-group] [data-nav-menu]{display:none}
+[data-nav-group]:hover [data-nav-menu],[data-nav-group]:focus-within [data-nav-menu]{display:block}
+</style>
+</helmet>
+
+<dc-import name="cm-nav" page="Templates.dc.html" chip="Template index" hint-size="100%,58px"></dc-import>
+
+<dc-import name="cm-toc" items='[["#sec-index","Index"],["#sec-anatomy","Anatomy"],["#sec-nav","Navigation"]]' hint-size="100%,44px"></dc-import>
+
+<dc-import name="cm-mast" title="Page templates" hint-size="100%,260px">
+<div style="font-size:17px;font-weight:400;line-height:1.8;max-width:68ch;margin-top:20px">Eleven reusable page shells assembled entirely from foundation components, structured blocks, and diagram grammar — nothing new is invented at the page level. Each opens as a full sample page with real practice content. The reference build at the end is a twelfth card taken all the way: the document to read before the spec.</div>
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:20px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.02em;text-transform:uppercase">
+<span style="padding:3px 10px;border-radius:999px;border:1px solid #000;font-weight:700">Templates</span>
+<span style="padding:3px 10px;border-radius:999px;background:rgba(255,214,0,.3);font-weight:700">In review</span>
+<span style="font-weight:400">11 shells · 1 reference build · shared anatomy</span>
+</div>
+</dc-import>
+
+<dc-import name="cm-section" n="1" id="sec-index" title="Template index" label="ss: 01 Template index" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px">Start with Topic overview — every other template is a leaf it links down to. Cards list the blocks each template composes.</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:32px">
+<a href="content-morphia T1 Topic.dc.html" style="grid-column:1 / -1;display:block;text-decoration:none;background:#fff;border:1.5px solid #000;border-radius:14px;padding:28px 28px 32px;box-shadow:5px 5px 0 #1bbd94">
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase">
+<span style="padding:3px 10px;border-radius:999px;border:1px solid #000;background:#fff">Template 01</span>
+<span style="padding:3px 10px;border-radius:999px;background:rgba(27,189,148,.25)">Start here</span>
+<span style="margin-left:auto;font-weight:400">Entry point · hub</span>
+</div>
+<img src="icons/set/t1-o.svg" width="20" height="20" alt="" aria-hidden="true" style="display:block;margin-top:24px">
+<div style="font-weight:900;font-size:24px;margin-top:12px">Topic overview</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.75;margin-top:10px">Introduces a domain, routes to everything beneath it.</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;margin-top:24px">HEADER · OVERVIEW BLOCK · TOPIC NAV · FEATURED CARD · TYPE GROUPS · RELATED</div>
+<div style="font-weight:700;font-size:14px;margin-top:24px">Open sample — Experimentation →</div>
+</a>
+<a href="content-morphia T2 Framework.dc.html" style="display:block;text-decoration:none;background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:28px 28px 32px" style-hover="transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18);border-color:#000">
+<div style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase"><span style="padding:3px 10px;border-radius:999px;border:1px solid #000;background:#fff">Template 02</span><span style="font-weight:400">Concept leaf</span></div>
+<img src="icons/set/t2-o.svg" width="20" height="20" alt="" aria-hidden="true" style="display:block;margin-top:24px">
+<div style="font-weight:900;font-size:20px;margin-top:12px">Framework detail</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.75;margin-top:10px">A conceptual model: elements, relationships, when it applies, where it breaks.</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;margin-top:24px">OVERVIEW · DIAGRAM · ELEMENTS · EXAMPLE · LIMITATIONS</div>
+<div style="font-weight:700;font-size:14px;margin-top:24px">Open sample — HEART framework →</div>
+</a>
+<a href="content-morphia T3 Process.dc.html" style="display:block;text-decoration:none;background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:28px 28px 32px" style-hover="transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18);border-color:#000">
+<div style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase"><span style="padding:3px 10px;border-radius:999px;border:1px solid #000;background:#fff">Template 03</span><span style="font-weight:400">Operational leaf</span></div>
+<img src="icons/set/t3-o.svg" width="20" height="20" alt="" aria-hidden="true" style="display:block;margin-top:24px">
+<div style="font-weight:900;font-size:20px;margin-top:12px">Process detail</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.75;margin-top:10px">A repeatable sequence: steps, roles, inputs and outputs, exceptions, checklist.</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;margin-top:24px">PRECONDITIONS · STEPPER · ROLES · EXCEPTIONS · CHECKLIST</div>
+<div style="font-weight:700;font-size:14px;margin-top:24px">Open sample — A/B test lifecycle →</div>
+</a>
+<a href="content-morphia T4 Guide.dc.html" style="display:block;text-decoration:none;background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:28px 28px 32px" style-hover="transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18);border-color:#000">
+<div style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase"><span style="padding:3px 10px;border-radius:999px;border:1px solid #000;background:#fff">Template 04</span><span style="font-weight:400">Program leaf</span></div>
+<img src="icons/set/t4-o.svg" width="20" height="20" alt="" aria-hidden="true" style="display:block;margin-top:24px">
+<div style="font-weight:900;font-size:20px;margin-top:12px">Implementation guide</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.75;margin-top:10px">A phased program: objective, phases, tasks, owners, risks, success metrics.</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;margin-top:24px">OBJECTIVE · PHASES · TASKS · RISKS · METRICS · CHECKLIST</div>
+<div style="font-weight:700;font-size:14px;margin-top:24px">Open sample — Experimentation platform rollout →</div>
+</a>
+<a href="content-morphia T5 Module.dc.html" style="display:block;text-decoration:none;background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:28px 28px 32px" style-hover="transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18);border-color:#000">
+<div style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase"><span style="padding:3px 10px;border-radius:999px;border:1px solid #000;background:#fff">Template 05</span><span style="font-weight:400">Learning leaf</span></div>
+<img src="icons/set/t5-o.svg" width="20" height="20" alt="" aria-hidden="true" style="display:block;margin-top:24px">
+<div style="font-weight:900;font-size:20px;margin-top:12px">Learning module</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.75;margin-top:10px">A sequenced lesson: objectives, prerequisites, sections with progress, checks.</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;margin-top:24px">OBJECTIVES · PREREQUISITES · SECTIONS · CHECK · SUMMARY</div>
+<div style="font-weight:700;font-size:14px;margin-top:24px">Open sample — Statistical inference →</div>
+</a>
+<a href="content-morphia T6 Metric.dc.html" style="display:block;text-decoration:none;background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:28px 28px 32px" style-hover="transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18);border-color:#000">
+<div style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase"><span style="padding:3px 10px;border-radius:999px;border:1px solid #000;background:#fff">Template 06</span><span style="font-weight:400">Data leaf</span></div>
+<img src="icons/set/t6-o.svg" width="20" height="20" alt="" aria-hidden="true" style="display:block;margin-top:24px">
+<div style="font-weight:900;font-size:20px;margin-top:12px">Metric detail</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.75;margin-top:10px">A single measure: current value and trend, definition, thresholds, ownership.</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;margin-top:24px">VALUE HERO · TREND · FORMULA · THRESHOLDS · MEASUREMENT</div>
+<div style="font-weight:700;font-size:14px;margin-top:24px">Open sample — Data freshness →</div>
+</a>
+<a href="content-morphia T7 Comparison.dc.html" style="display:block;text-decoration:none;background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:28px 28px 32px" style-hover="transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18);border-color:#000">
+<div style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase"><span style="padding:3px 10px;border-radius:999px;border:1px solid #000;background:#fff">Template 07</span><span style="font-weight:400">Decision leaf</span></div>
+<img src="icons/set/t7-o.svg" width="20" height="20" alt="" aria-hidden="true" style="display:block;margin-top:24px">
+<div style="font-weight:900;font-size:20px;margin-top:12px">Comparison</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.75;margin-top:10px">Options against shared criteria, ending in a recorded verdict.</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;margin-top:24px">OPTIONS · CRITERIA TABLE · VERDICT · DEVIATIONS</div>
+<div style="font-weight:700;font-size:14px;margin-top:24px">Open sample — Choosing a stats engine →</div>
+</a>
+<a href="content-morphia T8 Roadmap.dc.html" style="display:block;text-decoration:none;background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:28px 28px 32px" style-hover="transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18);border-color:#000">
+<div style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase"><span style="padding:3px 10px;border-radius:999px;border:1px solid #000;background:#fff">Template 08</span><span style="font-weight:400">Planning leaf</span></div>
+<img src="icons/set/t8-o.svg" width="20" height="20" alt="" aria-hidden="true" style="display:block;margin-top:24px">
+<div style="font-weight:900;font-size:20px;margin-top:12px">Roadmap detail</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.75;margin-top:10px">Tracks × quarters over time: board, milestones, owners, risks.</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;margin-top:24px">OBJECTIVE · TIMELINE BOARD · MILESTONES · RISKS</div>
+<div style="font-weight:700;font-size:14px;margin-top:24px">Open sample — Analytics platform FY27 →</div>
+</a>
+<a href="content-morphia T9 Reference.dc.html" style="display:block;text-decoration:none;background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:28px 28px 32px" style-hover="transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18);border-color:#000">
+<div style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase"><span style="padding:3px 10px;border-radius:999px;border:1px solid #000;background:#fff">Template 09</span><span style="font-weight:400">Lookup leaf</span></div>
+<img src="icons/set/t9-o.svg" width="20" height="20" alt="" aria-hidden="true" style="display:block;margin-top:24px">
+<div style="font-weight:900;font-size:20px;margin-top:12px">Reference</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.75;margin-top:10px">Canonical facts for lookup: conventions, field tables, catalog, payload.</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;margin-top:24px">NAMING RULES · FIELD TABLES · CATALOG · CANONICAL PAYLOAD</div>
+<div style="font-weight:700;font-size:14px;margin-top:24px">Open sample — Event taxonomy →</div>
+</a>
+<a href="content-morphia T10 Glossary.dc.html" style="display:block;text-decoration:none;background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:28px 28px 32px" style-hover="transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18);border-color:#000">
+<div style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase"><span style="padding:3px 10px;border-radius:999px;border:1px solid #000;background:#fff">Template 10</span><span style="font-weight:400">Vocabulary leaf</span></div>
+<img src="icons/set/t10-o.svg" width="20" height="20" alt="" aria-hidden="true" style="display:block;margin-top:24px">
+<div style="font-weight:900;font-size:20px;margin-top:12px">Glossary</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.75;margin-top:10px">The vocabulary a library defines once: index, entry, compound terms.</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;margin-top:24px">A–Z INDEX · TERM ENTRY · COMPOUND TERMS · RUNNING-TEXT ATOMS</div>
+<div style="font-weight:700;font-size:14px;margin-top:24px">Open sample — Data platform glossary →</div>
+</a>
+<a href="content-morphia T11 Case study.dc.html" style="display:block;text-decoration:none;background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:28px 28px 32px" style-hover="transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18);border-color:#000">
+<div style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase"><span style="padding:3px 10px;border-radius:999px;border:1px solid #000;background:#fff">Template 11</span><span style="font-weight:400">Proof leaf</span></div>
+<img src="icons/set/t11-o.svg" width="20" height="20" alt="" aria-hidden="true" style="display:block;margin-top:24px">
+<div style="font-weight:900;font-size:20px;margin-top:12px">Case study</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.75;margin-top:10px">One documented instance, attached to the method it is evidence for.</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;margin-top:24px">CLAIM · BEFORE AND AFTER · CONFOUNDS · WHAT DID NOT WORK</div>
+<div style="font-weight:700;font-size:14px;margin-top:24px">Open sample — Certification as a merge gate →</div>
+</a>
+<a href="content-morphia Exemplar.dc.html" style="display:block;text-decoration:none;background:#fff;border:1.5px solid #000;box-shadow:6px 6px 0 rgba(0,0,0,.08);border-radius:14px;padding:28px 28px 32px" style-hover="transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18)">
+<div style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase"><span style="padding:3px 10px;border-radius:999px;background:#fff;border:1px solid #000">Reference build</span><span style="font-weight:400">Method leaf</span></div>
+<img src="icons/set/method-o.svg" width="20" height="20" alt="" aria-hidden="true" style="display:block;margin-top:24px">
+<div style="font-weight:900;font-size:20px;margin-top:12px">Method</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.75;margin-top:10px">A complete document built correctly under the system — the worked example an implementer reads before the spec.</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;margin-top:24px">ONE EQUATION · ITEMISED COST · REGISTERED TIMELINE · FAILURE PATTERNS</div>
+<div style="font-weight:700;font-size:14px;margin-top:24px">Open sample — Power, sample size and duration →</div>
+</a>
+</div>
+</dc-import>
+
+<dc-import name="cm-section" n="2" id="sec-anatomy" title="Shared page anatomy" label="ss: 02 Shared anatomy" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px">Every template instantiates the same shell. Zones are fixed; only the content column's block roster changes per template.</div>
+<div style="display:grid;grid-template-columns:1.45fr 1fr;gap:24px;margin-top:32px;align-items:start">
+<div style="background:#fff;border:1px solid #ebebeb;border-radius:14px;padding:20px">
+<h3 style="margin:0 0 10px;font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;line-height:1.3">Sticky header · brand + section links</h3>
+<div style="background:#f1f1f1;border-radius:6px;padding:8px;margin-top:10px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase">Breadcrumb + page meta</div>
+<div style="display:grid;grid-template-columns:1fr 130px;gap:10px;margin-top:10px">
+<div style="background:rgba(27,189,148,.12);border-radius:6px;height:190px;display:flex;align-items:center;justify-content:center;text-align:center;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;line-height:2">Content column<br>≤70ch · block roster<br>per template</div>
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="background:#f1f1f1;border-radius:6px;flex:1;display:flex;align-items:center;justify-content:center;text-align:center;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;line-height:2">TOC rail<br>sticky</div>
+<div style="background:#f1f1f1;border-radius:6px;height:56px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase">Progress</div>
+</div>
+</div>
+<div style="background:#f1f1f1;border-radius:6px;padding:10px;margin-top:10px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase">Related content · key-concept cards</div>
+<div style="background:#f1f1f1;border-radius:6px;padding:10px;margin-top:10px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase">Pager · prev / next</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;gap:12px;align-items:baseline"><span style="width:14px;height:3px;background:#1bbd94;border-radius:999px;flex:none;transform:translateY(-3px)"></span><span style="font-size:14px;line-height:1.7"><span style="font-weight:800">Breadcrumb depth ≤ 3.</span> <span style="font-weight:400">Library → topic → page. Deeper nesting becomes in-page sections.</span></span></div>
+<div style="display:flex;gap:12px;align-items:baseline"><span style="width:14px;height:3px;background:#1bbd94;border-radius:999px;flex:none;transform:translateY(-3px)"></span><span style="font-size:14px;line-height:1.7"><span style="font-weight:800">TOC appears at 4+ sections.</span> <span style="font-weight:400">Shorter pages drop the rail and let content span wider.</span></span></div>
+<div style="display:flex;gap:12px;align-items:baseline"><span style="width:14px;height:3px;background:#1bbd94;border-radius:999px;flex:none;transform:translateY(-3px)"></span><span style="font-size:14px;line-height:1.7"><span style="font-weight:800">One L2 per page.</span> <span style="font-weight:400">The teal offset marks the page's single featured item — never two.</span></span></div>
+<div style="display:flex;gap:12px;align-items:baseline"><span style="width:14px;height:3px;background:#1bbd94;border-radius:999px;flex:none;transform:translateY(-3px)"></span><span style="font-size:14px;line-height:1.7"><span style="font-weight:800">Every leaf ends with a pager.</span> <span style="font-weight:400">Prev / next inside the topic, so reading order survives deep links.</span></span></div>
+<div style="display:flex;gap:12px;align-items:baseline"><span style="width:14px;height:3px;background:#1bbd94;border-radius:999px;flex:none;transform:translateY(-3px)"></span><span style="font-size:14px;line-height:1.7"><span style="font-weight:800">Related = key-concept cards.</span> <span style="font-weight:400">Same component everywhere; only the source query differs.</span></span></div>
+</div>
+</div>
+</dc-import>
+
+<dc-import name="cm-section" n="3" id="sec-nav" title="Navigation &amp; discovery" label="ss: 03 Navigation patterns" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px">The five wayfinding specimens templates share. All labels mono; position is carried by weight, never by tinted text.</div>
+
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-top:32px;margin-bottom:12px">Breadcrumb · ancestors are links, current is weight only</div>
+<div style="background:#fff;border:1px solid #ebebeb;border-radius:14px;padding:20px 24px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.02em;text-transform:uppercase">
+<a href="#sec-nav" style="font-weight:400;text-decoration:none;padding:3px 6px;border-radius:999px" style-hover="background:rgba(27,189,148,.3)">Library</a>
+<span style="font-weight:300">/</span>
+<a href="#sec-nav" style="font-weight:400;text-decoration:none;padding:3px 6px;border-radius:999px" style-hover="background:rgba(27,189,148,.3)">Experimentation</a>
+<span style="font-weight:300">/</span>
+<span style="font-weight:700;padding:3px 6px">A/B test lifecycle</span>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1.6fr;gap:28px;margin-top:32px;align-items:start">
+<div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px">TOC rail · current = 800 + teal bar</div>
+<div style="background:#fff;border-radius:14px;padding:24px 24px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11)">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px">On this page</div>
+<div style="display:flex;flex-direction:column;gap:2px;font-size:14px">
+<a href="#sec-nav" style="text-decoration:none;font-weight:400;padding:6px 10px;border-radius:999px" style-hover="background:rgba(27,189,148,.3)">Overview</a>
+<a href="#sec-nav" style="text-decoration:none;font-weight:400;padding:6px 10px;border-radius:999px" style-hover="background:rgba(27,189,148,.3)">Preconditions</a>
+<span style="display:flex;align-items:center;gap:8px;font-weight:800;padding:6px 10px"><span style="width:3px;height:14px;background:#1bbd94;border-radius:999px"></span>Steps</span>
+<a href="#sec-nav" style="text-decoration:none;font-weight:400;padding:6px 10px;border-radius:999px" style-hover="background:rgba(27,189,148,.3)">Exceptions</a>
+<a href="#sec-nav" style="text-decoration:none;font-weight:400;padding:6px 10px;border-radius:999px" style-hover="background:rgba(27,189,148,.3)">Checklist</a>
+</div>
+</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-top:28px;margin-bottom:12px">Progress · track + mono fraction</div>
+<div style="background:#fff;border:1px solid #ebebeb;border-radius:14px;padding:20px 24px">
+<div style="display:flex;align-items:baseline;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase"><span>Module progress</span><span>3 OF 5</span></div>
+<div style="height:6px;background:#f1f1f1;border-radius:999px;margin-top:12px;overflow:hidden"><div style="width:60%;height:100%;background:#1bbd94;border-radius:999px"></div></div>
+</div>
+</div>
+<div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px">Pager · prev / next inside the topic</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+<a href="#sec-nav" style="display:block;text-decoration:none;background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:20px 24px" style-hover="transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18);border-color:#000">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em;text-transform:uppercase">← Previous</div>
+<div style="font-weight:800;font-size:14.5px;margin-top:8px;line-height:1.4">Hypothesis framing</div>
+</a>
+<a href="#sec-nav" style="display:block;text-decoration:none;background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:20px 24px;text-align:right" style-hover="transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18);border-color:#000">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em;text-transform:uppercase">Next →</div>
+<div style="font-weight:800;font-size:14.5px;margin-top:8px;line-height:1.4">Reading results</div>
+</a>
+</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-top:28px;margin-bottom:12px">Related content · key-concept cards, 3-up</div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px">
+<a href="#sec-nav" style="display:block;text-decoration:none;background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:20px 20px" style-hover="transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18);border-color:#000">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:2px 8px;border-radius:4px;border:1px solid #000;display:inline-block">Metric</div>
+<div style="font-weight:800;font-size:14px;margin-top:10px;line-height:1.4">Sample ratio mismatch</div>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:4px">The silent test-killer and how to catch it.</div>
+</a>
+<a href="#sec-nav" style="display:block;text-decoration:none;background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:20px 20px" style-hover="transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18);border-color:#000">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:2px 8px;border-radius:4px;border:1px solid #000;display:inline-block">Method</div>
+<div style="font-weight:800;font-size:14px;margin-top:10px;line-height:1.4">CUPED variance reduction</div>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:4px">Shorter tests from pre-period covariates.</div>
+</a>
+<a href="#sec-nav" style="display:block;text-decoration:none;background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:20px 20px" style-hover="transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18);border-color:#000">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:2px 8px;border-radius:4px;border:1px solid #000;display:inline-block">Guide</div>
+<div style="font-weight:800;font-size:14px;margin-top:10px;line-height:1.4">Decision memo format</div>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:4px">One page from result to recommendation.</div>
+</a>
+</div>
+</div>
+</div>
+</dc-import>
+
+<section data-screen-label="Footer" style="max-width:1060px;margin:0 auto;padding:96px 24px 100px">
+<div style="border-top:1px solid #ebebeb;padding-top:24px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.02em;text-transform:uppercase">
+<span style="font-weight:700">content-morphia</span>
+<span style="font-weight:400">Page templates</span>
+<a href="content-morphia T1 Topic.dc.html" style="font-weight:700;margin-left:auto;text-decoration:none;border-bottom:1.5px solid #1bbd94;padding-bottom:1px">TEMPLATE 01</a>
+</div>
+</section>
+</x-dc>
+</body>
+</html>

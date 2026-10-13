@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&amp;family=JetBrains+Mono:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#fff;color:#000;font-family:'Nunito',sans-serif}
+a{color:#000;text-decoration:underline;text-decoration-color:#1bbd94;text-decoration-thickness:1.5px;text-underline-offset:3px}
+a:hover{background:rgba(27,189,148,.3)}
+::selection{background:rgba(27,189,148,.35)}
+button{font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;background:none;border:none;padding:0;margin:0;text-align:left;cursor:pointer}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px solid #000;outline-offset:3px}
+@media(max-width:640px){[style*="columns:1fr 1fr"],[style*="columns:repeat(2,1fr)"],[style*="columns:repeat(3,1fr)"],[style*="columns:repeat(4,1fr)"]{grid-template-columns:1fr!important}}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:#f1f1f1;border-radius:999px}
+::-webkit-scrollbar-thumb{background:rgba(0,0,0,.22);border-radius:999px}
+::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.45)}
+
+[data-nav-group] [data-nav-menu]{display:none}
+[data-nav-group]:hover [data-nav-menu],[data-nav-group]:focus-within [data-nav-menu]{display:block}
+</style>
+</helmet>
+
+<dc-import name="cm-nav" page="T4 Guide.dc.html" chip="T4 Guide" hint-size="100%,58px"></dc-import>
+
+
+
+<dc-import name="cm-mast" title="Experimentation platform rollout" crumbs='[["Library","content-morphia T1 Topic.dc.html"],["Experimentation","content-morphia T1 Topic.dc.html"],["Platform rollout"]]' hint-size="100%,300px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:16px">A three-phase program for taking a team from ad-hoc testing to a self-serve experimentation platform with governance that holds.</div>
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:20px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.02em;text-transform:uppercase">
+<span style="padding:2px 8px;border-radius:4px;border:1px solid #000;font-weight:700">Guide</span>
+<span style="padding:3px 10px;border-radius:999px;border:1px solid #000;font-weight:700">3 phases · 2 quarters</span>
+<span style="padding:3px 10px;border-radius:999px;background:rgba(64,196,255,.22);font-weight:700">Phase 2 active</span>
+<span style="font-weight:400">owner · data platform lead</span>
+</div>
+</dc-import>
+
+<section data-screen-label="Objective" style="max-width:1060px;margin:0 auto;padding:64px 24px 0">
+<div style="width:28px;height:3px;background:#1bbd94;border-radius:999px;margin-bottom:10px"></div>
+<h2 style="margin:0;font-weight:800;font-size:21px">Objective</h2>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px">By end of Q3: any product squad can launch a guardrailed A/B test without data-team involvement, and every decision memo lands in one searchable archive. Success is measured on the three metrics at the bottom of this page.</div>
+<div style="background:#fff;border:1px solid #ebebeb;border-radius:14px;padding:24px 28px;margin-top:20px">
+<h3 style="margin:0 0 6px;font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;line-height:1.3">Prerequisites</h3>
+<div style="display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;padding:10px 0;border-bottom:1px dotted #d9d9d9">
+<span style="width:20px;height:20px;border-radius:999px;background:rgba(0,230,118,.2);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900">✓</span>
+<span style="font-size:14px;font-weight:700">Event warehouse with sessionization — live since Q1</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:2px 8px;border-radius:4px;border:1px solid #000;background:#fff">Tool</span>
+</div>
+<div style="display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;padding:10px 0">
+<span style="width:20px;height:20px;border-radius:999px;background:#fff;border:1px solid #000"></span>
+<span style="font-size:14px;font-weight:400">Metric definitions ratified by finance + product — <a href="content-morphia T2 Framework.dc.html">in review</a></span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:2px 8px;border-radius:4px;border:1px solid #000;background:#fff">Task</span>
+</div>
+</div>
+</section>
+
+<section data-screen-label="Phases" style="max-width:1060px;margin:0 auto;padding:64px 24px 0">
+<div style="width:28px;height:3px;background:#1bbd94;border-radius:999px;margin-bottom:10px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-weight:800;font-size:21px">Phases</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase">teal offset = current phase</span></div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:20px">
+<div style="background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:24px">
+<div style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase"><span>Phase 1 · Apr–May</span><span style="margin-left:auto;padding:2px 8px;border-radius:4px;background:rgba(0,230,118,.2)">Done</span></div>
+<div style="font-weight:900;font-size:18px;margin-top:10px">Foundation</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.7;margin-top:6px">Assignment service, exposure logging, SRM alerting.</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;margin-top:12px;line-height:1.9">MILESTONE · first flagged test<br>MILESTONE · SRM alert fires in staging</div>
+</div>
+<div style="background:#fff;border:1.5px solid #000;border-radius:14px;padding:24px;box-shadow:5px 5px 0 #1bbd94">
+<div style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase"><span>Phase 2 · Jun–Jul</span><span style="margin-left:auto;padding:2px 8px;border-radius:4px;background:rgba(64,196,255,.22)">Active</span></div>
+<div style="font-weight:900;font-size:18px;margin-top:10px">Pilot squads</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.7;margin-top:6px">Two squads run the full <a href="content-morphia T3 Process.dc.html">lifecycle</a> end-to-end; platform team shadows every step.</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;margin-top:12px;line-height:1.9">MILESTONE · 6 tests through memo<br>MILESTONE · self-serve sizing tool</div>
+</div>
+<div style="background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:24px">
+<div style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase"><span>Phase 3 · Aug–Sep</span><span style="margin-left:auto;padding:2px 8px;border-radius:4px;border:1px solid #000;background:#fff">Planned</span></div>
+<div style="font-weight:900;font-size:18px;margin-top:10px">Scale + governance</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.7;margin-top:6px">All squads onboarded; review ritual and memo archive become the operating norm.</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;margin-top:12px;line-height:1.9">MILESTONE · 100% squads live<br>MILESTONE · quarterly meta-review</div>
+</div>
+</div>
+</section>
+
+<section data-screen-label="Tasks" style="max-width:1060px;margin:0 auto;padding:64px 24px 0">
+<div style="width:28px;height:3px;background:#1bbd94;border-radius:999px;margin-bottom:10px"></div>
+<h2 style="margin:0;font-weight:800;font-size:21px">Phase 2 workstream</h2>
+<div style="background:#fff;border:1px solid #ebebeb;border-radius:12px;margin-top:16px;overflow:hidden">
+<div style="display:grid;grid-template-columns:2.2fr .8fr .9fr .9fr;background:#fff;border-bottom:1px solid #ebebeb;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase">
+<span style="padding:14px 16px">Task</span><span style="padding:14px 16px">Owner</span><span style="padding:14px 16px">Due</span><span style="padding:14px 16px">Status</span>
+</div>
+<div style="display:grid;grid-template-columns:2.2fr .8fr .9fr .9fr;align-items:center">
+<span style="padding:16px;font-size:14px;font-weight:600">Pilot squad onboarding sessions ×2</span>
+<span style="padding:16px;font-family:'JetBrains Mono',monospace;font-size:12px">PLATFORM</span>
+<span style="padding:16px;font-family:'JetBrains Mono',monospace;font-size:12px">JUN 20</span>
+<span style="padding:16px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:2px 8px;border-radius:4px;background:rgba(0,230,118,.2)">Done</span></span>
+</div>
+<div style="display:grid;grid-template-columns:2.2fr .8fr .9fr .9fr;align-items:center">
+<span style="padding:16px;font-size:14px;font-weight:600">Self-serve sizing calculator</span>
+<span style="padding:16px;font-family:'JetBrains Mono',monospace;font-size:12px">DATA</span>
+<span style="padding:16px;font-family:'JetBrains Mono',monospace;font-size:12px">JUL 11</span>
+<span style="padding:16px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:2px 8px;border-radius:4px;background:rgba(64,196,255,.22)">In progress</span></span>
+</div>
+<div style="display:grid;grid-template-columns:2.2fr .8fr .9fr .9fr;align-items:center">
+<span style="padding:16px;font-size:14px;font-weight:600">Decision-memo template + archive index</span>
+<span style="padding:16px;font-family:'JetBrains Mono',monospace;font-size:12px">PM GUILD</span>
+<span style="padding:16px;font-family:'JetBrains Mono',monospace;font-size:12px">JUL 18</span>
+<span style="padding:16px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:2px 8px;border-radius:4px;background:rgba(64,196,255,.22)">In progress</span></span>
+</div>
+<div style="display:grid;grid-template-columns:2.2fr .8fr .9fr .9fr;align-items:center">
+<span style="padding:16px;font-size:14px;font-weight:600">Guardrail alert routing to squad channels</span>
+<span style="padding:16px;font-family:'JetBrains Mono',monospace;font-size:12px">ENG</span>
+<span style="padding:16px;font-family:'JetBrains Mono',monospace;font-size:12px">JUL 25</span>
+<span style="padding:16px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:2px 8px;border-radius:4px;border:1px solid #000;background:#fff">Queued</span></span>
+</div>
+</div>
+</section>
+
+<section data-screen-label="Risks" style="max-width:1060px;margin:0 auto;padding:64px 24px 0">
+<div style="width:28px;height:3px;background:#1bbd94;border-radius:999px;margin-bottom:10px"></div>
+<h2 style="margin:0;font-weight:800;font-size:21px">Risks</h2>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px">
+<div style="background:#fff;border:1px solid #ebebeb;border-left:4px solid #ff5252;border-radius:14px;padding:20px 24px">
+<div style="display:flex;align-items:center;gap:8px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:2px 8px;border-radius:4px;background:#ff5252;border:1.5px solid #000">High</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase">mitigation owned by data lead</span></div>
+<div style="font-weight:800;font-size:15.5px;margin-top:10px">Metric definitions stay contested</div>
+<div style="font-size:14px;font-weight:400;line-height:1.7;margin-top:6px">If finance and product do not ratify definitions by Jul 1, every memo is re-litigated. Mitigation: definitions workshop, decisions binding for the quarter.</div>
+</div>
+<div style="background:#fff;border:1px solid #ebebeb;border-left:4px solid #ffd600;border-radius:14px;padding:20px 24px">
+<div style="display:flex;align-items:center;gap:8px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:2px 8px;border-radius:4px;background:rgba(255,214,0,.3)">Medium</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase">mitigation owned by platform</span></div>
+<div style="font-weight:800;font-size:15.5px;margin-top:10px">Pilot squads revert to ad-hoc tests</div>
+<div style="font-size:14px;font-weight:400;line-height:1.7;margin-top:6px">Old habits return under deadline pressure. Mitigation: platform path must be faster than the workaround by Phase 2 exit — measured, not asserted.</div>
+</div>
+</div>
+</section>
+
+<section data-screen-label="Success metrics" style="max-width:1060px;margin:0 auto;padding:64px 24px 0">
+<div style="width:28px;height:3px;background:#1bbd94;border-radius:999px;margin-bottom:10px"></div>
+<h2 style="margin:0;font-weight:800;font-size:21px">Success metrics</h2>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:20px">
+<div style="background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:24px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase">Tests / quarter</div>
+<div style="display:flex;align-items:baseline;gap:8px;margin-top:8px"><span style="font-weight:900;font-size:30px">11</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400">TARGET 20</span></div>
+<div style="height:6px;background:#f1f1f1;border-radius:999px;margin-top:10px;overflow:hidden"><div style="width:55%;height:100%;background:#1bbd94;border-radius:999px"></div></div>
+</div>
+<div style="background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:24px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase">Self-serve launches</div>
+<div style="display:flex;align-items:baseline;gap:8px;margin-top:8px"><span style="font-weight:900;font-size:30px">40%</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400">TARGET 90%</span></div>
+<div style="height:6px;background:#f1f1f1;border-radius:999px;margin-top:10px;overflow:hidden"><div style="width:44%;height:100%;background:#1bbd94;border-radius:999px"></div></div>
+</div>
+<div style="background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:24px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase">Memos archived</div>
+<div style="display:flex;align-items:baseline;gap:8px;margin-top:8px"><span style="font-weight:900;font-size:30px">100%</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400">TARGET 100%</span></div>
+<div style="height:6px;background:#f1f1f1;border-radius:999px;margin-top:10px;overflow:hidden"><div style="width:100%;height:100%;background:#1bbd94;border-radius:999px"></div></div>
+</div>
+</div>
+</section>
+
+<section data-screen-label="Pager" style="max-width:1060px;margin:0 auto;padding:88px 24px 100px">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+<a href="content-morphia T3 Process.dc.html" style="display:block;text-decoration:none;background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:20px 24px" style-hover="transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18);border-color:#000">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em;text-transform:uppercase">← Previous</div>
+<div style="font-weight:800;font-size:14.5px;margin-top:8px">The A/B test lifecycle</div>
+</a>
+<a href="content-morphia T5 Module.dc.html" style="display:block;text-decoration:none;background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:20px 24px;text-align:right" style-hover="transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18);border-color:#000">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em;text-transform:uppercase">Next →</div>
+<div style="font-weight:800;font-size:14.5px;margin-top:8px">Statistical inference — learning module</div>
+</a>
+</div>
+<div style="border-top:1px solid #ebebeb;margin-top:56px;padding-top:24px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.02em;text-transform:uppercase">
+<span style="font-weight:700">content-morphia</span>
+<span style="font-weight:400">Template 04 · implementation guide · sample content</span>
+<a href="content-morphia Templates.dc.html" style="font-weight:700;margin-left:auto;text-decoration:none;border-bottom:1.5px solid #1bbd94;padding-bottom:1px">ALL TEMPLATES</a>
+</div>
+</section>
+</x-dc>
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&amp;family=JetBrains+Mono:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#fafafa;color:#000;font-family:'Nunito',sans-serif}
+a{color:#000;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px}
+a:hover{background:rgba(29,233,182,.3)}
+::selection{background:rgba(29,233,182,.35)}
+button{font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;background:none;border:none;padding:0;margin:0;text-align:left;cursor:pointer}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px solid #000;outline-offset:3px}
+@media(max-width:640px){[style*="columns:1fr 1fr"],[style*="columns:repeat(2,1fr)"],[style*="columns:repeat(3,1fr)"],[style*="columns:repeat(4,1fr)"]{grid-template-columns:1fr!important}}
+@media(max-width:1150px){#page-grid{display:flex!important;flex-direction:column-reverse!important;align-items:stretch!important}#page-rail{position:static!important;flex-direction:row!important;flex-wrap:wrap!important}#page-toc{max-height:none!important;overflow:visible!important}#page-toc{flex-direction:row!important;flex-wrap:wrap!important}}
+@media(max-width:800px){#t6-hero{grid-template-columns:1fr!important;min-width:0!important}}
+@media(max-width:800px) and (min-width:641px){#t6-bands{min-width:0!important}}
+summary::-webkit-details-marker{display:none}
+details>summary [data-mark]::before{content:"+"}
+details[open]>summary [data-mark]::before{content:"\2212"}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:#f1f1f1;border-radius:999px}
+::-webkit-scrollbar-thumb{background:rgba(0,0,0,.22);border-radius:999px}
+::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.45)}
+
+[data-nav-group] [data-nav-menu]{display:none}
+[data-nav-group]:hover [data-nav-menu],[data-nav-group]:focus-within [data-nav-menu]{display:block}
+</style>
+</helmet>
+
+<div style="position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid #ebebeb">
+<div style="max-width:1060px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:18px;row-gap:10px;flex-wrap:wrap">
+<span style="font-weight:900;font-size:16px;letter-spacing:.01em">content-morphia</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid #000;background:#fff">T6 Metric</span>
+<nav aria-label="Design system" style="display:flex;align-items:center;gap:4px;row-gap:6px;flex-wrap:wrap"><div data-nav-group style="position:relative"><a href="content-morphia Foundations.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Foundations</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Foundations.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Foundations</a><a href="content-morphia Icons.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Icons</a><a href="content-morphia Print.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Print</a><a href="content-morphia Equivalents.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Non-visual equivalents</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Structured.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Components</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Structured.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Structured components</a><a href="content-morphia Prose.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Prose primitives</a><a href="content-morphia Wayfinding.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Wayfinding</a><a href="content-morphia Provenance.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Provenance</a><a href="content-morphia Charts.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Charts</a><a href="content-morphia Interaction.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Interaction</a><a href="content-morphia Learning.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Learning</a><a href="content-morphia Questions.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Questions and answers</a><a href="content-morphia Change.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Change and status</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Diagrams.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Diagrams</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Diagrams.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Diagram library</a><a href="content-morphia Diagrams at Scale.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Diagrams at scale</a><a href="content-morphia Diagrams II.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Technical families</a><a href="content-morphia Diagrams III.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Experience and magnitude</a><a href="content-morphia Diagrams IV.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Structure and notation</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Templates.dc.html" aria-current="page" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:4px 9px;background:#fff;border:1px solid #000;box-shadow:2px 2px 0 #1de9b6">Templates</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Templates.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Template index</a><a href="content-morphia T1 Topic.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T1 Topic</a><a href="content-morphia T2 Framework.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T2 Framework</a><a href="content-morphia T3 Process.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T3 Process</a><a href="content-morphia T4 Guide.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T4 Guide</a><a href="content-morphia T5 Module.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T5 Module</a><span aria-current="page" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:700;background:#f1f1f1">T6 Metric</span><a href="content-morphia T7 Comparison.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T7 Comparison</a><a href="content-morphia T8 Roadmap.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T8 Roadmap</a><a href="content-morphia T9 Reference.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T9 Reference</a><a href="content-morphia T10 Glossary.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T10 Glossary</a><a href="content-morphia T11 Case study.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T11 Case study</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Composition.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Composition</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Composition.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Composition</a><a href="content-morphia Anatomy.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Anatomy and primitives</a><a href="content-morphia Selection.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Selection</a><a href="content-morphia Implementing.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Implementing</a><a href="content-morphia Exemplar.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Worked example</a></div></div></div></nav>
+</div>
+</div>
+
+
+
+<section data-screen-label="Page header" style="max-width:1060px;margin:0 auto;padding:40px 24px 0">
+<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.02em;text-transform:uppercase">
+<a href="content-morphia T1 Topic.dc.html" style="font-weight:400;text-decoration:none;padding:3px 6px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">Library</a>
+<span style="font-weight:300">/</span>
+<a href="content-morphia T1 Topic.dc.html" style="font-weight:400;text-decoration:none;padding:3px 6px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">Data quality</a>
+<span style="font-weight:300">/</span>
+<span aria-current="page" style="font-weight:600;padding:3px 6px">Data freshness</span>
+</div>
+<div style="width:52px;height:5px;background:#1de9b6;border-radius:999px;margin-top:34px;margin-bottom:20px"></div>
+<h1 style="margin:0;font-weight:900;font-size:44px;line-height:1.08;letter-spacing:-.01em">Data freshness</h1>
+<div style="font-size:16px;font-weight:400;line-height:1.8;max-width:70ch;margin-top:16px">Share of SLA-tracked warehouse tables whose latest load landed inside their declared freshness window. The Tier-1 health metric for the analytics platform.</div>
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:18px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.02em;text-transform:uppercase">
+<span style="padding:2px 8px;border-radius:4px;border:1px solid #000;font-weight:600">Metric</span>
+<span style="padding:3px 10px;border-radius:999px;border:1px solid #000;font-weight:600">Data quality</span>
+<span style="padding:3px 10px;border-radius:999px;background:rgba(0,230,118,.2);font-weight:600">Approved</span>
+<span style="font-weight:400">Tier 1 · updated Aug 2026</span>
+</div>
+</section>
+
+<div id="page-grid" data-screen-label="Content" style="max-width:1060px;margin:0 auto;padding:56px 24px 0;display:grid;grid-template-columns:1fr 216px;gap:36px;align-items:start">
+<div style="min-width:0">
+
+<div id="m-current">
+<div style="width:28px;height:3px;background:#1de9b6;border-radius:999px;margin-bottom:10px"></div>
+<h2 style="margin:0;font-weight:900;font-size:28px;line-height:1.15;letter-spacing:-.01em">Current value</h2>
+<div style="background:#fff;border-radius:14px;padding:32px;margin-top:18px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);overflow-x:auto">
+<div id="t6-hero" style="display:grid;grid-template-columns:212px 1fr;gap:34px;min-width:620px">
+<div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">Week 38 · snapshot 09:00 UTC</div>
+<div style="font-weight:900;font-size:56px;line-height:1;letter-spacing:-.02em;margin-top:10px">96.4%</div>
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">
+<span style="padding:3px 8px;border-radius:4px;background:#ffd600;border:1.5px solid #000">Below target</span>
+<span style="padding:3px 8px;border-radius:4px;background:rgba(0,230,118,.2)">▲ +0.9 pp / 4 wk</span>
+</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase;line-height:2.1;margin-top:14px">Target ≥ 98.0%<br>412 SLA-tracked tables<br>Owner · data platform</div>
+</div>
+<div>
+<div style="position:relative;height:128px;border-bottom:1.5px solid #000;display:flex;align-items:flex-end;gap:7px">
+<div style="position:absolute;left:0;right:0;bottom:96px;border-top:2px dotted #000"><span style="position:absolute;right:0;top:-16px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;background:#fff;padding:0 4px">TARGET 98%</span></div>
+<div style="flex:1;height:49px;background:#1de9b6;border-radius:3px 3px 0 0"></div>
+<div style="flex:1;height:60px;background:#1de9b6;border-radius:3px 3px 0 0"></div>
+<div style="flex:1;height:38px;background:#ff5252;border-radius:3px 3px 0 0"></div>
+<div style="flex:1;height:72px;background:#1de9b6;border-radius:3px 3px 0 0"></div>
+<div style="flex:1;height:82px;background:#1de9b6;border-radius:3px 3px 0 0"></div>
+<div style="flex:1;height:65px;background:#1de9b6;border-radius:3px 3px 0 0"></div>
+<div style="flex:1;height:73px;background:#1de9b6;border-radius:3px 3px 0 0"></div>
+<div style="flex:1;height:84px;background:#1de9b6;border-radius:3px 3px 0 0"></div>
+<div style="flex:1;height:78px;background:#1de9b6;border-radius:3px 3px 0 0"></div>
+<div style="flex:1;height:86px;background:#1de9b6;border-radius:3px 3px 0 0"></div>
+<div style="flex:1;height:83px;background:#1de9b6;border-radius:3px 3px 0 0"></div>
+<div style="flex:1;height:77px;background:#000;border-radius:3px 3px 0 0"></div>
+</div>
+<div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase;margin-top:8px"><span>W27</span><span>Weekly · % tables fresh in SLA</span><span style="font-weight:700">W38 · now</span></div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;font-style:italic;margin-top:12px"><span style="display:inline-block;width:8px;height:8px;background:#ff5252;border-radius:2px;margin-right:6px"></span>W29 dip (93.2%) = warehouse loader incident: breach paged on-call, resolved same day.</div>
+<details style="margin-top:16px;border-top:1px solid #ebebeb;padding-top:14px">
+<summary style="display:flex;align-items:center;gap:12px;cursor:pointer;list-style:none">
+<span style="width:20px;height:20px;border-radius:6px;background:#fff;border:1.5px solid #000;box-sizing:border-box;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;flex:none" data-mark></span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">Data table</span>
+<span style="margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase">12 rows · 412 tables</span>
+</summary>
+<div style="margin-top:14px">
+<div style="display:grid;grid-template-columns:1fr 1fr 1.4fr;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;border-bottom:1.5px solid #000"><span style="padding:16px 9px">Week</span><span style="padding:16px 9px">Fresh in SLA</span><span style="padding:16px 9px">Against target</span></div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1.4fr;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:12px"><span style="padding:16px 9px;font-weight:700">W27</span><span style="padding:16px 9px">94.1%</span><span style="padding:16px 9px">−3.9 pp</span></div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1.4fr;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:12px;border-top:1px solid #ebebeb"><span style="padding:16px 9px;font-weight:700">W28</span><span style="padding:16px 9px">95.0%</span><span style="padding:16px 9px">−3.0 pp</span></div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1.4fr;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:12px;border-top:1px solid #ebebeb"><span style="padding:16px 9px;font-weight:700">W29</span><span style="padding:16px 9px">93.2%</span><span style="padding:16px 9px">−4.8 pp · breach</span></div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1.4fr;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:12px;border-top:1px solid #ebebeb"><span style="padding:16px 9px;font-weight:700">W30</span><span style="padding:16px 9px">96.0%</span><span style="padding:16px 9px">−2.0 pp</span></div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1.4fr;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:12px;border-top:1px solid #ebebeb"><span style="padding:16px 9px;font-weight:700">W31</span><span style="padding:16px 9px">96.8%</span><span style="padding:16px 9px">−1.2 pp</span></div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1.4fr;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:12px;border-top:1px solid #ebebeb"><span style="padding:16px 9px;font-weight:700">W32</span><span style="padding:16px 9px">95.4%</span><span style="padding:16px 9px">−2.6 pp</span></div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1.4fr;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:12px;border-top:1px solid #ebebeb"><span style="padding:16px 9px;font-weight:700">W33</span><span style="padding:16px 9px">96.1%</span><span style="padding:16px 9px">−1.9 pp</span></div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1.4fr;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:12px;border-top:1px solid #ebebeb"><span style="padding:16px 9px;font-weight:700">W34</span><span style="padding:16px 9px">97.0%</span><span style="padding:16px 9px">−1.0 pp</span></div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1.4fr;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:12px;border-top:1px solid #ebebeb"><span style="padding:16px 9px;font-weight:700">W35</span><span style="padding:16px 9px">96.5%</span><span style="padding:16px 9px">−1.5 pp</span></div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1.4fr;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:12px;border-top:1px solid #ebebeb"><span style="padding:16px 9px;font-weight:700">W36</span><span style="padding:16px 9px">97.1%</span><span style="padding:16px 9px">−0.9 pp</span></div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1.4fr;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:12px;border-top:1px solid #ebebeb"><span style="padding:16px 9px;font-weight:700">W37</span><span style="padding:16px 9px">96.9%</span><span style="padding:16px 9px">−1.1 pp</span></div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1.4fr;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:12px;border-top:1px solid #ebebeb"><span style="padding:16px 9px;font-weight:700">W38 · now</span><span style="padding:16px 9px">96.4%</span><span style="padding:16px 9px">−1.6 pp</span></div>
+</div>
+</details>
+</div>
+</div>
+</div>
+</div>
+
+<div id="m-def" style="margin-top:64px">
+<div style="width:28px;height:3px;background:#1de9b6;border-radius:999px;margin-bottom:10px"></div>
+<h2 style="margin:0;font-weight:900;font-size:28px;line-height:1.15;letter-spacing:-.01em">Definition &amp; formula</h2>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px">A table is <span style="font-weight:800">fresh</span> when its most recent successful load is younger than its declared SLA. The metric is the share of tracked tables passing that check. Coverage is tracked separately as its own metric: untracked tables can never flatter this number.</div>
+<div style="background:#fff;border:1.5px solid #000;border-radius:12px;padding:26px;margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:17px;font-weight:600;line-height:1.6;overflow-x:auto">
+<div>freshness_pct = 100 × fresh_tables / sla_tracked_tables</div>
+<div style="margin-top:6px">fresh_table ⇔ now() − max(loaded_at) ≤ sla_hours(table)</div>
+</div>
+<div style="background:#fff;border:1px solid #ebebeb;border-radius:14px;padding:20px 24px;margin-top:16px">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:2px 8px;border-radius:4px;background:rgba(64,196,255,.22)">Note</span>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:8px;max-width:66ch">Batch warehouse tables only. Streaming topics are excluded: <a href="#m-related">ingestion lag (p95)</a> guards those. Computed hourly; the reported value is the 09:00 UTC snapshot.</div>
+</div>
+</div>
+
+<div id="m-thresh" style="margin-top:64px">
+<div style="width:28px;height:3px;background:#1de9b6;border-radius:999px;margin-bottom:10px"></div>
+<h2 style="margin:0;font-weight:900;font-size:28px;line-height:1.15;letter-spacing:-.01em">Thresholds &amp; alerting</h2>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-top:16px;margin-bottom:10px">Alert bands · SLA-tracked tables</div>
+<div style="background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:12px;overflow:hidden">
+<div style="overflow-x:auto"><div id="t6-bands" style="min-width:640px">
+<div style="display:grid;grid-template-columns:130px 150px 1fr 190px;padding:16px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;gap:12px;border-bottom:1.5px solid #000"><span>Band</span><span>Range</span><span>Response</span><span>Pages</span></div>
+<div style="display:grid;grid-template-columns:130px 150px 1fr 190px;padding:16px;gap:12px;align-items:center;font-family:'JetBrains Mono',monospace;font-size:12px" style-hover="background:rgba(29,233,182,.12)"><span><span style="font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:rgba(0,230,118,.2)">Healthy</span></span><span>≥ 98.0%</span><span>weekly review only</span><span style="font-weight:300">n/a</span></div>
+<div style="display:grid;grid-template-columns:130px 150px 1fr 190px;padding:16px;gap:12px;border-top:1px solid #ebebeb;align-items:center;font-family:'JetBrains Mono',monospace;font-size:12px" style-hover="background:rgba(29,233,182,.12)"><span><span style="font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:rgba(255,214,0,.3)">Degraded</span></span><span>95.0 – 97.9%</span><span>triage in daily standup</span><span>after 3 consecutive days</span></div>
+<div style="display:grid;grid-template-columns:130px 150px 1fr 190px;padding:16px;gap:12px;border-top:1px solid #ebebeb;align-items:center;font-family:'JetBrains Mono',monospace;font-size:12px" style-hover="background:rgba(29,233,182,.12)"><span><span style="font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:rgba(255,82,82,.16)">Breach</span></span><span>&lt; 95.0%</span><span>page data-platform on-call</span><span>immediately · 24/7</span></div>
+</div></div>
+</div>
+</div>
+
+<div id="m-measure" style="margin-top:64px">
+<div style="width:28px;height:3px;background:#1de9b6;border-radius:999px;margin-bottom:10px"></div>
+<h2 style="margin:0;font-weight:900;font-size:28px;line-height:1.15;letter-spacing:-.01em">How it's measured</h2>
+<div style="background:#fff;border:1px solid #ebebeb;border-radius:14px;padding:8px 26px;margin-top:16px">
+<div style="display:grid;grid-template-columns:170px 1fr;gap:16px;align-items:center;padding:16px 0;border-bottom:1px dotted #d9d9d9"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">Source job</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px"><span style="font-weight:600;background:#fff;border:1px solid #ebebeb;border-radius:6px;padding:2px 8px;font-size:12px">freshness_audit</span> · dbt, prod target</span></div>
+<div style="display:grid;grid-template-columns:170px 1fr;gap:16px;align-items:center;padding:16px 0;border-bottom:1px dotted #d9d9d9"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">Cadence</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px">hourly at :05</span></div>
+<div style="display:grid;grid-template-columns:170px 1fr;gap:16px;align-items:center;padding:16px 0;border-bottom:1px dotted #d9d9d9"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">Store</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px"><span style="font-weight:600;background:#fff;border:1px solid #ebebeb;border-radius:6px;padding:2px 8px;font-size:12px">analytics.meta.freshness_daily</span></span></div>
+<div style="display:grid;grid-template-columns:170px 1fr;gap:16px;align-items:center;padding:16px 0;border-bottom:1px dotted #d9d9d9"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">SLA map</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px"><span style="font-weight:600;background:#fff;border:1px solid #ebebeb;border-radius:6px;padding:2px 8px;font-size:12px">warehouse/sla.yml</span> · hours per table</span></div>
+<div style="display:grid;grid-template-columns:170px 1fr;gap:16px;align-items:center;padding:16px 0;border-bottom:1px dotted #d9d9d9"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">Owner</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px">data platform · on-call rotation</span></div>
+<div style="display:grid;grid-template-columns:170px 1fr;gap:16px;align-items:center;padding:16px 0"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">History</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px">tracked since Nov 2025 · definition reviewed quarterly</span></div>
+</div>
+</div>
+
+<div id="m-related" style="margin-top:64px">
+<div style="width:28px;height:3px;background:#1de9b6;border-radius:999px;margin-bottom:10px"></div>
+<h2 style="margin:0;font-weight:900;font-size:28px;line-height:1.15;letter-spacing:-.01em">Related metrics</h2>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:18px">
+<a href="#m-current" style="display:block;text-decoration:none;background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:28px 22px" style-hover="transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18);border-color:#000">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:2px 8px;border-radius:4px;border:1px solid #000;display:inline-block">Metric</span>
+<div style="font-weight:800;font-size:14px;margin-top:10px">Ingestion lag: p95</div>
+<div style="font-weight:900;font-size:26px;margin-top:6px">42 min</div>
+<div style="margin-top:8px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:rgba(0,230,118,.2)">▼ −9 min / 4 wk</span></div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase;margin-top:10px">Streaming topics · kafka→wh</div>
+</a>
+<a href="#m-current" style="display:block;text-decoration:none;background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:28px 22px" style-hover="transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18);border-color:#000">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:2px 8px;border-radius:4px;border:1px solid #000;display:inline-block">Metric</span>
+<div style="font-weight:800;font-size:14px;margin-top:10px">Pipeline success rate</div>
+<div style="font-weight:900;font-size:26px;margin-top:6px">99.2%</div>
+<div style="margin-top:8px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:rgba(0,230,118,.2)">▲ +0.3 pp / 4 wk</span></div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase;margin-top:10px">Scheduled runs · 7-day</div>
+</a>
+<a href="#m-current" style="display:block;text-decoration:none;background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:28px 22px" style-hover="transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18);border-color:#000">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:2px 8px;border-radius:4px;border:1px solid #000;display:inline-block">Metric</span>
+<div style="font-weight:800;font-size:14px;margin-top:10px">SLA coverage</div>
+<div style="font-weight:900;font-size:26px;margin-top:6px">87%</div>
+<div style="margin-top:8px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:rgba(0,230,118,.2)">▲ +4 pp / 4 wk</span></div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase;margin-top:10px">Tables with declared SLA</div>
+</a>
+</div>
+</div>
+
+</div>
+<div id="page-rail" style="position:sticky;top:76px;display:flex;flex-direction:column;gap:20px">
+<div style="background:#fff;border-radius:14px;padding:32px 22px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11)">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-bottom:10px">On this page</div>
+<div id="page-toc" style="display:flex;flex-direction:column;gap:2px;font-size:14px;max-height:60vh;overflow-y:auto">
+<span style="display:flex;align-items:center;font-weight:700;padding:5px 8px">Current value</span>
+<a href="#m-def" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;font-weight:400;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">Definition &amp; formula</a>
+<a href="#m-thresh" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;font-weight:400;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">Thresholds</a>
+<a href="#m-measure" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;font-weight:400;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">How it's measured</a>
+<a href="#m-related" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;font-weight:400;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">Related metrics</a>
+</div>
+</div>
+<div style="background:#fff;border:1px solid #ebebeb;border-radius:14px;padding:28px 22px">
+<h3 style="margin:0 0 18px;font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;line-height:1.3;letter-spacing:-.01em">Related</h3>
+<div style="font-size:14px;line-height:2.1"><a href="content-morphia T8 Roadmap.dc.html">FY27 platform roadmap</a><br><a href="content-morphia T9 Reference.dc.html">Event taxonomy reference</a><br><a href="content-morphia T3 Process.dc.html">A/B test lifecycle</a></div>
+</div>
+</div>
+</div>
+
+<section data-screen-label="Pager" style="max-width:1060px;margin:0 auto;padding:88px 24px 100px">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+<a href="content-morphia T5 Module.dc.html" style="display:block;text-decoration:none;background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:28px 22px" style-hover="transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18);border-color:#000">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase">← Previous</div>
+<div style="font-weight:800;font-size:14.5px;margin-top:8px">Statistical inference: learning module</div>
+</a>
+<a href="content-morphia T7 Comparison.dc.html" style="display:block;text-decoration:none;background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:28px 22px;text-align:right" style-hover="transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18);border-color:#000">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase">Next →</div>
+<div style="font-weight:800;font-size:14.5px;margin-top:8px">Choosing a stats engine</div>
+</a>
+</div>
+<div style="border-top:1px solid #ebebeb;margin-top:56px;padding-top:24px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.02em;text-transform:uppercase">
+<span style="font-weight:700">content-morphia</span>
+<span style="font-weight:400">Template 06 · metric detail · sample content</span>
+<a href="content-morphia Templates.dc.html" style="font-weight:600;margin-left:auto;text-decoration:none;border-bottom:1.5px solid #1de9b6;padding-bottom:1px">ALL TEMPLATES</a>
+</div>
+</section>
+</x-dc>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@media(max-width:1040px){#cm-toc-links{flex:1 1 100%!important}}
+</style>
+</helmet>
+<div style="background:#fff">
+<div style="max-width:1060px;margin:0 auto;padding:11px 24px;display:flex;align-items:center;gap:24px;row-gap:8px;flex-wrap:wrap">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">On this page</span>
+<nav id="cm-toc-links" aria-label="Sections of this page" style="display:flex;align-items:center;gap:4px;row-gap:6px;flex-wrap:wrap">
+<sc-for list="{{ items }}" as="it" hint-placeholder-count="8">
+<sc-if value="{{ it.here }}" hint-placeholder-val="{{ false }}">
+<span aria-current="true" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;padding:5px 8px">{{ it.label }}</span>
+</sc-if>
+<sc-if value="{{ it.away }}" hint-placeholder-val="{{ true }}">
+<a href="{{ it.href }}" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;text-decoration:underline;text-decoration-color:#1bbd94;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(27,189,148,.3)">{{ it.label }}</a>
+</sc-if>
+</sc-for>
+</nav>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1100,&quot;height&quot;:70},&quot;items&quot;:{&quot;editor&quot;:null,&quot;default&quot;:&quot;[]&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;current&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    let raw = [];
+    try { raw = JSON.parse(this.props.items || '[]'); } catch (e) { raw = []; }
+    const cur = this.props.current || '';
+    return {
+      items: raw.map(r => {
+        const href = Array.isArray(r) ? r[0] : r.href;
+        const label = Array.isArray(r) ? r[1] : r.label;
+        const here = href === cur || label === cur;
+        return { href, label, here, away: !here };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>

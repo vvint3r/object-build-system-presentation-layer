@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&amp;family=JetBrains+Mono:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#fafafa;color:#000;font-family:'Nunito',sans-serif}
+a{color:#000;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px}
+a:hover{background:rgba(29,233,182,.3)}
+::selection{background:rgba(29,233,182,.35)}
+button{font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;background:none;border:none;padding:0;margin:0;text-align:left;cursor:pointer}
+a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid #000;outline-offset:3px}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:#f1f1f1;border-radius:999px}
+::-webkit-scrollbar-thumb{background:rgba(0,0,0,.22);border-radius:999px}
+::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.45)}
+@media(max-width:800px){[data-wide]{min-width:720px!important}[data-twrap]{overflow-x:auto!important}}
+@media(max-width:640px){[data-stack]{grid-template-columns:1fr!important}
+#x1-anchor>div:last-child{border-left:0!important;padding-left:0!important;border-top:1px solid #ebebeb!important;padding-top:16px!important;margin-top:16px!important}}
+
+[data-nav-group] [data-nav-menu]{display:none}
+[data-nav-group]:hover [data-nav-menu],[data-nav-group]:focus-within [data-nav-menu]{display:block}
+</style>
+</helmet>
+
+<div style="position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid #ebebeb">
+<div style="max-width:1060px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:18px;row-gap:10px;flex-wrap:wrap">
+<span style="font-weight:900;font-size:16px;letter-spacing:.01em">content-morphia</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid #000;background:#fff">Worked example</span>
+<nav aria-label="Design system" style="display:flex;align-items:center;gap:4px;row-gap:6px;flex-wrap:wrap"><div data-nav-group style="position:relative"><a href="content-morphia Foundations.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Foundations</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Foundations.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Foundations</a><a href="content-morphia Icons.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Icons</a><a href="content-morphia Print.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Print</a><a href="content-morphia Equivalents.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Non-visual equivalents</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Structured.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Components</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Structured.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Structured components</a><a href="content-morphia Prose.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Prose primitives</a><a href="content-morphia Wayfinding.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Wayfinding</a><a href="content-morphia Provenance.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Provenance</a><a href="content-morphia Charts.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Charts</a><a href="content-morphia Interaction.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Interaction</a><a href="content-morphia Learning.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Learning</a><a href="content-morphia Questions.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Questions and answers</a><a href="content-morphia Change.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Change and status</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Diagrams.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Diagrams</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Diagrams.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Diagram library</a><a href="content-morphia Diagrams at Scale.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Diagrams at scale</a><a href="content-morphia Diagrams II.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Technical families</a><a href="content-morphia Diagrams III.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Experience and magnitude</a><a href="content-morphia Diagrams IV.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Structure and notation</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Templates.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Templates</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Templates.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Template index</a><a href="content-morphia T1 Topic.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T1 Topic</a><a href="content-morphia T2 Framework.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T2 Framework</a><a href="content-morphia T3 Process.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T3 Process</a><a href="content-morphia T4 Guide.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T4 Guide</a><a href="content-morphia T5 Module.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T5 Module</a><a href="content-morphia T6 Metric.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T6 Metric</a><a href="content-morphia T7 Comparison.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T7 Comparison</a><a href="content-morphia T8 Roadmap.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T8 Roadmap</a><a href="content-morphia T9 Reference.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T9 Reference</a><a href="content-morphia T10 Glossary.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T10 Glossary</a><a href="content-morphia T11 Case study.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T11 Case study</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Composition.dc.html" aria-current="page" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:4px 9px;background:#fff;border:1px solid #000;box-shadow:2px 2px 0 #1de9b6">Composition</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Composition.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Composition</a><a href="content-morphia Anatomy.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Anatomy and primitives</a><a href="content-morphia Selection.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Selection</a><a href="content-morphia Implementing.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Implementing</a><span aria-current="page" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:700;background:#f1f1f1">Worked example</span></div></div></div></nav>
+</div>
+</div>
+
+<div style="background:#fafafa;border-bottom:1px solid #ebebeb">
+<div style="max-width:1060px;margin:0 auto;padding:11px 24px;display:flex;align-items:center;gap:10px;row-gap:8px;flex-wrap:wrap">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">On this page</span>
+<span style="width:1px;height:13px;background:#ebebeb"></span>
+<nav aria-label="Sections of this page" style="display:flex;align-items:center;gap:2px;row-gap:6px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase">
+<a href="#x1" onClick="{{ p1 }}" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 01 What it decides</a>
+<a href="#x2" onClick="{{ p2 }}" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 02 Four dials</a>
+<a href="#x3" onClick="{{ p3 }}" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 03 What it costs</a>
+<a href="#x4" onClick="{{ p4 }}" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 04 The timeline</a>
+<a href="#x5" onClick="{{ p5 }}" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 05 Reading a null</a>
+<a href="#x6" onClick="{{ p6 }}" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 06 How it goes wrong</a>
+</nav>
+<span style="margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:#000;color:#fff;border-radius:4px;padding:3px 9px">Reference build · method</span>
+</div>
+</div>
+
+<section data-screen-label="Page header" style="max-width:1060px;margin:0 auto;padding:48px 24px 0">
+<nav aria-label="Breadcrumb" style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.08em;text-transform:uppercase;margin-bottom:20px">
+<a href="content-morphia T1 Topic.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1de9b6;padding-bottom:1px">Analytics practice</a>
+<span style="font-weight:300">/</span>
+<a href="content-morphia T1 Topic.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1de9b6;padding-bottom:1px">Experimentation</a>
+<span style="font-weight:300">/</span>
+<span aria-current="page" style="font-weight:700">Sizing</span>
+</nav>
+<div style="width:52px;height:5px;background:#1de9b6;border-radius:999px;margin-bottom:20px"></div>
+<h1 style="margin:0;font-weight:900;font-size:44px;line-height:1.06;max-width:20ch">Power, sample size and duration</h1>
+<div style="font-size:16px;font-weight:400;line-height:1.8;max-width:68ch;margin-top:14px;text-wrap:pretty">How many units an experiment needs before it can tell a real effect from noise, how long that takes on the traffic actually available, and what the answer costs when the design is not the clean one the formula assumes. Sized throughout on one anchor: new-customer activation on the onboarding surface.</div>
+<div style="display:flex;align-items:center;gap:10px;row-gap:8px;flex-wrap:wrap;margin-top:20px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">
+<span style="padding:3px 10px;border-radius:999px;background:#000;color:#fff">Published</span>
+<span style="padding:3px 10px;border-radius:999px;border:1px solid #000;background:#fff">Method</span>
+<span style="font-weight:400">14 min · reviewed Aug 2026 · owner experimentation pod</span>
+</div>
+</section>
+
+<section id="x1" data-screen-label="ss: 01 What sizing decides" style="max-width:1060px;margin:0 auto;padding:88px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 01</span><h2 style="margin:0;font-weight:900;font-size:28px">What sizing decides</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">A power calculation is a commitment device. Before any exposure you name four quantities, and the sample size follows from them. None of it is recoverable afterwards: power is a property of a design, not of a dataset, so it cannot be computed back into an experiment that has already run.</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:16px;text-wrap:pretty">Everything below is sized on one anchor, so that the numbers compare. Where a figure appears without a unit, it is units per arm.</div>
+
+<div style="margin-top:28px;background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:26px">
+<h3 style="margin:0 0 10px;font-size:15px;font-weight:700;line-height:1.4">The anchor this document sizes on</h3>
+<div id="x1-anchor" data-stack style="display:grid;grid-template-columns:1fr 1fr;gap:28px">
+<div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;margin-bottom:10px">M5 · New-customer activation</div>
+<div style="font-weight:900;font-size:34px;line-height:1.05">34.0%</div>
+<div style="font-size:14px;font-weight:400;line-height:1.7;margin-top:8px">First order placed within 14 days of signup. Randomisation unit is the customer, and the metric is measured on the customer, so no clustering adjustment applies.</div>
+</div>
+<div style="border-left:1px solid #ebebeb;padding-left:28px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;margin-bottom:10px">Traffic available</div>
+<div style="display:grid;row-gap:10px;font-size:14px;line-height:1.6">
+<div style="display:flex;justify-content:space-between;gap:16px"><span style="font-weight:400">Weekly signups</span><span style="font-family:'JetBrains Mono',monospace;font-weight:700">~120,000</span></div>
+<div style="display:flex;justify-content:space-between;gap:16px"><span style="font-weight:400">Reach the onboarding surface</span><span style="font-family:'JetBrains Mono',monospace;font-weight:700">60,000 / wk</span></div>
+<div style="display:flex;justify-content:space-between;gap:16px"><span style="font-weight:400">Eligible per arm at 50/50</span><span style="font-family:'JetBrains Mono',monospace;font-weight:700">30,000 / wk</span></div>
+</div>
+<div style="font-size:14px;font-weight:400;line-height:1.7;margin-top:14px">That last row is the constraint nobody writes into the equation, and it caps the answer before any dial is set.</div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="x2" data-screen-label="ss: 02 Four dials, one equation" style="max-width:1060px;margin:0 auto;padding:88px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 02</span><h2 style="margin:0;font-weight:900;font-size:28px">Four dials, one equation</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">An experiment sees the true effect plus random noise, and whether it can separate them depends on how wide the noise is relative to the effect. Every symbol below is a way of saying that. The four questions people put to a sizing calculator are this one equation rearranged.</div>
+
+<div style="margin-top:24px;background:#000;color:#fff;border-radius:12px;padding:28px 24px;font-family:'JetBrains Mono',monospace;font-size:17px;line-height:1.6;text-align:center;overflow-x:auto">n = (z_(1−α/2) + z_(1−β))² · V / δ²</div>
+
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:20px;text-wrap:pretty">Three of the four are conventions you inherit; the fourth is the one you argue about. Their values on the activation design:</div>
+
+<div data-stack style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:16px">
+<sc-for list="{{ dials }}" as="d" hint-placeholder-count="4">
+<div style="background:#fff;border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:18px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">{{ d.sym }}</div>
+<div style="font-weight:900;font-size:22px;line-height:1.1;margin-top:10px">{{ d.val }}</div>
+<h3 style="margin:10px 0 6px;font-size:15px;font-weight:700;line-height:1.4">{{ d.name }}</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.65">{{ d.note }}</div>
+</div>
+</sc-for>
+</div>
+
+<div style="display:flex;align-items:baseline;gap:12px;margin-top:24px;max-width:70ch;font-size:14px;line-height:1.75">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:#000;color:#fff;border-radius:4px;padding:3px 8px;white-space:nowrap">Important</span>
+<span style="font-weight:400">The traffic budget caps <span style="font-family:'JetBrains Mono',monospace;font-size:12px;background:#fff;border:1px solid #ebebeb;border-radius:6px;padding:1px 6px">n</span> before the dials are set. That is what makes sizing a negotiation rather than a calculation, and why the answer is agreed with the surface owner rather than reported to them.</span>
+</div>
+
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:24px;text-wrap:pretty">On these values the clean answer is <span style="font-family:'JetBrains Mono',monospace;font-size:12px;background:#fff;border:1px solid #ebebeb;border-radius:6px;padding:1px 6px">135,920</span> per arm, which at 30,000 eligible per arm per week is 4.53 weeks. That number is a floor for a design nobody actually runs; ss: 03 prices the difference.</div>
+</section>
+
+<section id="x3" data-screen-label="ss: 03 What the design costs" style="max-width:1060px;margin:0 auto;padding:88px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 03</span><h2 style="margin:0;font-weight:900;font-size:28px">What the design costs on top of the formula</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Four properties of a real design multiply the base figure: clustering, allocation, arm count and triggering. Each is a factor, so they compound. Only the last one is large here, and it is large because effect enters the equation squared.</div>
+
+<div data-twrap style="margin-top:24px;overflow-x:auto">
+<div data-wide style="min-width:720px;background:#fff;border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,.06);overflow:hidden">
+<div style="display:grid;grid-template-columns:1.5fr 2.2fr 90px 1fr;background:#f1f1f1;border-bottom:1px solid #ebebeb;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">
+<span style="padding:15px 16px">Factor</span><span style="padding:15px 16px">On this design</span><span style="padding:15px 16px">Effect</span><span style="padding:15px 16px;text-align:right">Running n</span>
+</div>
+<sc-for list="{{ invoice }}" as="r" hint-placeholder-count="5">
+<div style="{{ r.row }}">
+<span style="padding:16px;font-size:14px;font-weight:700;line-height:1.5">{{ r.factor }}</span>
+<span style="padding:16px;font-size:14px;font-weight:400;line-height:1.6">{{ r.detail }}</span>
+<span style="padding:16px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700">{{ r.eff }}</span>
+<span style="padding:16px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;text-align:right">{{ r.total }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:28px;text-wrap:pretty">Allocation is the one factor teams reach for first and it is the weakest lever available. For fixed total traffic the variance of the arm difference is minimised at an even split, so an uneven split <span style="font-family:'JetBrains Mono',monospace;font-size:12px;background:#fff;border:1px solid #ebebeb;border-radius:6px;padding:1px 6px">r</span> costs exactly 1/(4r(1−r)) times the balanced total.</div>
+
+<figure style="margin:20px 0 0">
+<h3 style="margin:0;font-size:15px;font-weight:700;line-height:1.4">Cost of an uneven split</h3>
+<figcaption style="font-size:14px;font-weight:400;line-height:1.7;margin-top:6px;max-width:64ch">Additional total sample required to hold power constant, relative to a 50/50 split. Nothing below 70/30 is worth trading for.</figcaption>
+<div style="margin-top:16px;display:grid;row-gap:14px;max-width:560px">
+<sc-for list="{{ splits }}" as="s" hint-placeholder-count="4">
+<div style="display:grid;grid-template-columns:86px 1fr 76px;gap:14px;align-items:center">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700">{{ s.label }}</span>
+<div style="height:6px;background:#f1f1f1;border-radius:999px;overflow:hidden"><div style="{{ s.bar }}"></div></div>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;text-align:right">{{ s.cost }}</span>
+</div>
+</sc-for>
+</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.06em;text-transform:uppercase;margin-top:14px">Source · 1/(4r(1−r)), evaluated on the activation design</div>
+</figure>
+</section>
+
+<section id="x4" data-screen-label="ss: 04 The registered timeline" style="max-width:1060px;margin:0 auto;padding:88px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 04</span><h2 style="margin:0;font-weight:900;font-size:28px">The registered timeline</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">The quotient of sample over weekly traffic is the shortest a test can be, never the length it will run. Three floors apply and the tallest wins: the calculated duration, whole weekly cycles so that every weekday is represented equally, and the time the metric itself needs to mature.</div>
+
+<div style="margin-top:24px;background:#fff;border:1.5px solid #000;border-radius:14px;box-shadow:5px 5px 0 #1de9b6;padding:26px">
+<h3 style="margin:0 0 4px;font-size:15px;font-weight:700;line-height:1.4">Registered for the activation test</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.7;max-width:64ch">Exposure runs five whole weeks and ends on the weekday it began. The reporting date sits fourteen days later, because the last cohort has to be given the same fourteen-day window as the first.</div>
+<div data-stack style="display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:20px;padding-top:20px;border-top:1px solid #ebebeb">
+<div style="position:relative;padding:14px 0 0 14px">
+<div style="position:absolute;left:0;top:0;width:14px;height:14px;border-left:2px solid #000;border-top:2px solid #000"></div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px">Floor stack — tallest wins</div>
+<div style="display:grid;row-gap:9px;font-size:14px;line-height:1.5">
+<div style="display:flex;justify-content:space-between;gap:16px"><span style="font-weight:400">Calculated duration</span><span style="font-family:'JetBrains Mono',monospace;font-weight:700">31.7 d</span></div>
+<div style="display:flex;justify-content:space-between;gap:16px"><span style="font-weight:700">Whole weekly cycles</span><span style="font-family:'JetBrains Mono',monospace;font-weight:700">35 d</span></div>
+<div style="display:flex;justify-content:space-between;gap:16px"><span style="font-weight:400">Business / purchase cycle</span><span style="font-family:'JetBrains Mono',monospace;font-weight:400">none registered</span></div>
+<div style="display:flex;justify-content:space-between;gap:16px"><span style="font-weight:400">Metric maturation</span><span style="font-family:'JetBrains Mono',monospace;font-weight:400">+14 d / cohort</span></div>
+</div>
+</div>
+<div style="position:relative;padding:14px 0 0 14px">
+<div style="position:absolute;left:0;top:0;width:14px;height:14px;border-left:2px solid #000;border-top:2px solid #000"></div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px">Registered dates</div>
+<div style="display:grid;row-gap:9px;font-size:14px;line-height:1.5">
+<div style="display:flex;justify-content:space-between;gap:16px"><span style="font-weight:400">Exposure window</span><span style="font-family:'JetBrains Mono',monospace;font-weight:700">35 days</span></div>
+<div style="display:flex;justify-content:space-between;gap:16px"><span style="font-weight:400">Reporting date</span><span style="font-family:'JetBrains Mono',monospace;font-weight:700">+14 days</span></div>
+<div style="display:flex;justify-content:space-between;gap:16px"><span style="font-weight:400">Total to decision</span><span style="font-family:'JetBrains Mono',monospace;font-weight:700">49 days</span></div>
+</div>
+<div style="font-size:14px;font-weight:400;line-height:1.6;margin-top:12px">Extending the window after launch is a change to a registered design and is recorded as one.</div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="x5" data-screen-label="ss: 05 Reading a null" style="max-width:1060px;margin:0 auto;padding:88px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 05</span><h2 style="margin:0;font-weight:900;font-size:28px">Reading a null</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Two nulls look identical on a dashboard and are opposite findings. Separating them means running the sizing equation backwards on the sample actually collected, which is rarely the sample that was registered.</div>
+
+<div style="margin-top:24px;background:#000;color:#fff;border-radius:12px;padding:28px 24px;font-family:'JetBrains Mono',monospace;font-size:17px;line-height:1.6;text-align:center;overflow-x:auto">δ_achieved = (z_(1−α/2) + z_(1−β)) · √(V / n_realised)</div>
+
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:20px;text-wrap:pretty">Compare the result against the effect the decision needed. That comparison, not the p-value, is what separates the two readings:</div>
+
+<div data-stack style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px">
+<div style="background:#fff;border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:24px">
+<h3 style="margin:0 0 8px;font-size:15px;font-weight:700;line-height:1.4">An informative null</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.7">The achieved MDE is at or below the effect the decision required. The test could have seen a difference worth acting on and did not. Ship the decision that follows from no effect.</div>
+</div>
+<div style="background:#fff;border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:24px">
+<h3 style="margin:0 0 8px;font-size:15px;font-weight:700;line-height:1.4">An uninformative null</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.7">The achieved MDE is above it. The test never had the resolution to answer the question, so the result carries no information about the effect and must not be reported as evidence of none.</div>
+</div>
+</div>
+
+<div style="display:flex;align-items:baseline;gap:12px;margin-top:24px;max-width:70ch;font-size:14px;line-height:1.75">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:rgba(255,82,82,.16);border-radius:4px;padding:3px 8px;white-space:nowrap">Limitation</span>
+<span style="font-weight:400">Observed power — power recomputed from the effect the test happened to measure — is the mirror-image temptation and carries no information at all. It is a monotone restatement of the p-value, so it can never tell you anything the p-value did not.</span>
+</div>
+</section>
+
+<section id="x6" data-screen-label="ss: 06 How it goes wrong" style="max-width:1060px;margin:0 auto;padding:88px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 06</span><h2 style="margin:0;font-weight:900;font-size:28px">How it goes wrong</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Five patterns account for nearly every sizing failure reviewed in the last four quarters. Each is priced on the activation design, so the cost is comparable across them.</div>
+
+<div style="margin-top:22px;display:grid;row-gap:22px;max-width:74ch">
+<sc-for list="{{ pitfalls }}" as="p" hint-placeholder-count="5">
+<div style="display:grid;grid-template-columns:34px 1fr;gap:16px;align-items:baseline">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.06em">{{ p.n }}</span>
+<div>
+<div style="display:flex;align-items:baseline;gap:10px;row-gap:8px;flex-wrap:wrap">
+<h3 style="margin:0;font-size:15px;font-weight:700;line-height:1.4">{{ p.title }}</h3>
+<span style="{{ p.chip }}">{{ p.cost }}</span>
+</div>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:6px">{{ p.body }}</div>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:6px"><span style="font-weight:700">Correction.</span> {{ p.fix }}</div>
+</div>
+</div>
+</sc-for>
+</div>
+
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:40px;text-wrap:pretty">Separately from getting it wrong, there are places the calculation cannot help. It needs a variance measured on the metric, at the randomisation unit, over a representative window. Where the metric is new or the surface has never been instrumented, none of those exists, and running the formula on a plausible-looking figure produces a guess wearing the costume of arithmetic.</div>
+
+<div style="display:flex;align-items:baseline;gap:12px;margin-top:20px;max-width:70ch;font-size:14px;line-height:1.75">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:rgba(64,196,255,.22);border-radius:4px;padding:3px 8px;white-space:nowrap">Note</span>
+<span style="font-weight:400">The honest sequence in that case is a pilot to estimate variance — not an A/A test, whose job is validating assignment — and then a design. The same applies wherever the eligible population cannot be counted in advance.</span>
+</div>
+
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:20px;text-wrap:pretty">And one claim is almost always overstated. "We powered the test" nearly always means the primary metric was powered at the overall level. Guardrails, secondary metrics and segment reads carry their own requirements, and those are much larger.</div>
+</section>
+
+<section data-screen-label="Related" style="max-width:1060px;margin:0 auto;padding:88px 24px 0">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;margin-bottom:16px">Related</div>
+<div data-stack style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+<a href="content-morphia T3 Process.dc.html" style="text-decoration:none;background:#fff;border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:22px;display:block" style-hover="box-shadow:3px 3px 0 rgba(0,0,0,.18);border:1.5px solid #000;transform:translate(-1px,-1px)">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Runs before this</div>
+<h3 style="margin:10px 0 6px;font-size:15px;font-weight:700;line-height:1.4">A/B test lifecycle</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.6">Where sizing sits among the six stages, and what has to be settled before it starts.</div>
+</a>
+<a href="content-morphia T6 Metric.dc.html" style="text-decoration:none;background:#fff;border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:22px;display:block" style-hover="box-shadow:3px 3px 0 rgba(0,0,0,.18);border:1.5px solid #000;transform:translate(-1px,-1px)">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Supplies the variance</div>
+<h3 style="margin:10px 0 6px;font-size:15px;font-weight:700;line-height:1.4">Metric detail</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.6">How a metric's definition, unit and window are registered — the inputs this calculation reads.</div>
+</a>
+<a href="content-morphia T2 Framework.dc.html" style="text-decoration:none;background:#fff;border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:22px;display:block" style-hover="box-shadow:3px 3px 0 rgba(0,0,0,.18);border:1.5px solid #000;transform:translate(-1px,-1px)">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Frames the choice</div>
+<h3 style="margin:10px 0 6px;font-size:15px;font-weight:700;line-height:1.4">Framework detail</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.6">Choosing which metric a surface should be measured on before anything is sized against it.</div>
+</a>
+</div>
+</section>
+
+<section data-screen-label="Pager" style="max-width:1060px;margin:0 auto;padding:48px 24px 0">
+<div data-stack style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+<a href="content-morphia T9 Reference.dc.html" style="text-decoration:none;background:#fff;border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:20px 22px;display:block" style-hover="box-shadow:3px 3px 0 rgba(0,0,0,.18);border:1.5px solid #000;transform:translate(-1px,-1px)">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Previous</div>
+<div style="font-weight:700;font-size:15px;margin-top:6px">Event taxonomy reference</div>
+</a>
+<a href="content-morphia Templates.dc.html" style="text-decoration:none;background:#fff;border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:20px 22px;display:block;text-align:right" style-hover="box-shadow:3px 3px 0 rgba(0,0,0,.18);border:1.5px solid #000;transform:translate(-1px,-1px)">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Next</div>
+<div style="font-weight:700;font-size:15px;margin-top:6px">Template index</div>
+</a>
+</div>
+</section>
+
+<section style="max-width:1060px;margin:0 auto;padding:48px 24px 100px">
+<div style="display:flex;align-items:center;gap:12px;row-gap:8px;flex-wrap:wrap;border-top:1px solid #ebebeb;padding-top:20px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase">
+<span style="font-weight:700">content-morphia</span>
+<span style="font-weight:400">Reference build · method page · sample content</span>
+<a href="content-morphia Selection.dc.html" style="font-weight:700;margin-left:auto;text-decoration:none;border-bottom:1.5px solid #1de9b6;padding-bottom:1px">Gate run</a>
+<a href="content-morphia Templates.dc.html" style="font-weight:700;text-decoration:none;border-bottom:1.5px solid #1de9b6;padding-bottom:1px">Templates</a>
+</div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1180,&quot;height&quot;:900},&quot;audience&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Practitioner&quot;,&quot;Executive&quot;],&quot;default&quot;:&quot;Practitioner&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Reading&quot;}}">
+class Component extends DCLogic {
+  state = { nav: 1 };
+
+  renderVals() {
+    const S = this.state;
+    const exec = this.props.audience === 'Executive';
+
+    const dials = [
+      { sym: 'α', val: '0.05', name: 'False-positive rate', note: 'Two-sided. Inherited convention; moving it is a governance decision, not a design one.' },
+      { sym: '1−β', val: '0.80', name: 'Power', note: 'The chance of detecting the effect if it is real. Raising it to 0.90 costs roughly a third more sample.' },
+      { sym: 'V', val: '0.2244', name: 'Variance', note: 'Measured on the metric, at the randomisation unit, over a representative window. Never borrowed.' },
+      { sym: 'δ', val: '0.51 pp', name: 'Minimum detectable effect', note: 'The smallest difference worth acting on. This is the argued one, and it comes from the P&L before it comes from the formula.' }
+    ];
+
+    const INV = [
+      ['Base n', '(z+z)² · V / δ², from the dials in ss: 02', '—', '135,920'],
+      ['Cluster design effect', 'Customer-randomised on a customer metric, so the cluster size is one', '×1.00', '135,920'],
+      ['Allocation', 'Registered at an even 50/50 split', '×1.00', '135,920'],
+      ['Arm count', 'One treatment against control, so no α correction applies', '×1.00', '135,920'],
+      ['Triggering', 'Only half of signups reach the surface, and effect enters squared', '×4.00', '543,681']
+    ].map((r, i) => ({
+      factor: r[0], detail: exec && i > 0 && i < 4 ? 'No adjustment on this design.' : r[1], eff: r[2], total: r[3],
+      row: 'display:grid;grid-template-columns:1.5fr 2.2fr 90px 1fr;align-items:baseline;border-top:1px solid #ebebeb;' + '' + (i === 4 ? ';font-weight:700' : '')
+    }));
+
+    const SP = [['50 / 50', 0, 'reference'], ['60 / 40', 4.2, '+4.2%'], ['70 / 30', 19.0, '+19.0%'], ['80 / 20', 56.3, '+56.3%']];
+    const splits = SP.map((s) => ({
+      label: s[0], cost: s[2],
+      bar: 'height:100%;border-radius:999px;background:#000;width:' + Math.max(1.5, (s[1] / 56.3) * 100) + '%'
+    }));
+
+    const solid = "font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:4px;background:#ff5252;border:1.5px solid #000;white-space:nowrap";
+    const tint = "font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:4px;background:rgba(255,214,0,.3);white-space:nowrap";
+
+    const pitfalls = [
+      ['01', 'The MDE set by convenience rather than by the decision', '305,820 per arm', tint,
+        '"Let us detect one percent" gets chosen for its roundness, and a ten-week request arrives that nobody priced.',
+        'Derive the MDE by dividing build cost plus the cost of being wrong by the annual value of one unit of effect.'],
+      ['02', 'Absolute and relative effects conflated', '8.7× under-sized', solid,
+        'A brief says 1.5%, the calculator takes an absolute figure, and nobody notices which was meant — 15,712 per arm instead of 135,920.',
+        'State the baseline and the unit alongside every MDE, and have the calculator reject an MDE submitted without both.'],
+      ['03', 'Sized on a population wider than the change can reach', '×4 · 9.06 weeks', tint,
+        'The treatment touches a step only half of signups see, but the calculation uses every signup. Sample rises by the square of the trigger rate.',
+        'Fix the estimand first, then size on the population that matches it.'],
+      ['04', 'Variance borrowed from the wrong metric, unit or window', 'DE 6.03', tint,
+        'A figure lifted from a similar-looking metric or a promotional fortnight, or a market-randomised test sized on user counts. Both are invisible at launch.',
+        'Recompute variance on the metric being tested, at the unit being randomised, and include the design effect where units cluster.'],
+      ['05', 'Power claimed after the fact', 'no information', tint,
+        'Power is recomputed from the effect the test happened to measure, and reported as though it validated the design.',
+        'Report the achieved MDE at the realised sample instead, and compare it against the effect the decision required.']
+    ].map((p) => ({ n: p[0], title: p[1], cost: p[2], chip: p[3], body: p[4], fix: p[5] }));
+
+    const teal = '#1de9b6', off = 'transparent';
+    const nv = {};
+    for (let i = 1; i <= 6; i++) { nv['n' + i] = S.nav === i ? teal : off; nv['p' + i] = (() => { const k = i; return () => this.setState({ nav: k }); })(); }
+
+    return Object.assign({ dials, invoice: INV, splits, pitfalls }, nv);
+  }
+}
+</script>
+</body>
+</html>

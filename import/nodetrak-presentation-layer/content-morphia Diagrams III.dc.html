@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&amp;family=JetBrains+Mono:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#fff;color:#000;font-family:'Nunito',sans-serif}
+a{color:#000;text-decoration:underline;text-decoration-color:#1bbd94;text-decoration-thickness:1.5px;text-underline-offset:3px}
+a:hover{background:rgba(27,189,148,.3)}
+::selection{background:rgba(27,189,148,.35)}
+button{font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;background:none;border:none;padding:0;margin:0;text-align:left;cursor:pointer}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px solid #000;outline-offset:3px}
+@media(max-width:900px){[data-stack]{grid-template-columns:1fr!important}}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:#f1f1f1;border-radius:999px}
+::-webkit-scrollbar-thumb{background:rgba(0,0,0,.22);border-radius:999px}
+::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.45)}
+
+[data-nav-group] [data-nav-menu]{display:none}
+[data-nav-group]:hover [data-nav-menu],[data-nav-group]:focus-within [data-nav-menu]{display:block}
+</style>
+</helmet>
+
+<dc-import name="cm-nav" page="Diagrams III.dc.html" chip="Experience" hint-size="100%,58px"></dc-import>
+
+<dc-import name="cm-toc" items='[["#sec-journey","Journey map"],["#sec-blueprint","Service blueprint"],["#sec-sankey","Magnitude flow"],["#sec-rules","Rules"]]' hint-size="100%,44px"></dc-import>
+
+<dc-import name="cm-mast" title="Experience &amp; magnitude" hint-size="100%,260px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:14px;text-wrap:pretty">Three families the node-and-edge grammar could not carry: a journey across phases, a service split by what the customer can see, and a flow whose whole argument is how much moves where. All three are lane diagrams — a fixed rail on the left, phases across the top — and all three follow the capacity rules on <a href="content-morphia Diagrams at Scale.dc.html">Diagrams at scale</a>.</div>
+</dc-import>
+
+<dc-import name="cm-section" n="1" id="sec-journey" title="Journey map" label="ss: 01 Journey map" chip="T2 · 5 phases · 5 lanes" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">One person, one arc, read left to right. Every lane answers the same question for each phase, so columns compare and rows narrate. Sentiment is the one quantity here, and it is drawn as position on a labelled axis — never as a colour.</div>
+
+<div style="margin-top:24px;background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:28px">
+<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:18px">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase">Focus phase</span>
+<button onClick="{{jClear}}" aria-pressed="{{jAllOn}}" style="{{jClearStyle}}">All phases</button>
+<span style="font-size:14px;font-weight:400">{{ jHint }}</span>
+</div>
+<div style="overflow-x:auto;background:#fafafa;border:1px dashed #d9d9d9;border-radius:12px;padding:16px">
+<div style="width:1024px" role="img" aria-label="Journey map: an analyst discovers, evaluates, onboards, adopts and advocates NodeTrak; sentiment dips at onboarding and peaks at advocacy.">
+
+<div style="display:grid;grid-template-columns:152px repeat(5,160px);gap:12px">
+<div></div>
+<sc-for list="{{jPhases}}" as="p" hint-placeholder-count="5">
+<button onClick="{{p.on}}" aria-pressed="{{p.pressed}}" style="{{p.style}}">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase">Phase {{p.n}}</span>
+<span style="font-weight:800;font-size:15.5px;margin-top:6px;display:block">{{p.t}}</span>
+</button>
+</sc-for>
+</div>
+
+<div style="display:grid;grid-template-columns:152px repeat(5,160px);gap:12px;margin-top:16px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;padding-top:14px">Actions</div>
+<sc-for list="{{jAct}}" as="c" hint-placeholder-count="5">
+<div style="{{c.style}}">{{c.text}}</div>
+</sc-for>
+</div>
+
+<div style="display:grid;grid-template-columns:152px repeat(5,160px);gap:12px;margin-top:16px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;padding-top:4px">Touchpoints</div>
+<sc-for list="{{jTp}}" as="c" hint-placeholder-count="5">
+<div style="{{c.style}}">
+<sc-for list="{{c.chips}}" as="ch" hint-placeholder-count="2">
+<span style="font-size:14px;font-weight:600;background:#fff;border:1px solid #000;border-radius:999px;padding:4px 12px;white-space:nowrap">{{ch.t}}</span>
+</sc-for>
+</div>
+</sc-for>
+</div>
+
+<div style="display:grid;grid-template-columns:152px repeat(5,160px);gap:12px;margin-top:16px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;padding-top:4px">Emotion</div>
+<div style="grid-column:2 / span 5;position:relative;height:132px">
+<div style="position:absolute;left:0;top:24px;width:848px;height:0;border-top:1px dotted #d9d9d9"></div>
+<div style="position:absolute;left:0;top:54px;width:848px;height:0;border-top:1px dotted #d9d9d9"></div>
+<div style="position:absolute;left:0;top:84px;width:848px;height:0;border-top:1px dotted #d9d9d9"></div>
+<span style="position:absolute;left:0;top:14px;font-size:14px;font-weight:400">High</span>
+<span style="position:absolute;left:0;top:44px;font-size:14px;font-weight:400">Mid</span>
+<span style="position:absolute;left:0;top:74px;font-size:14px;font-weight:400">Low</span>
+<svg width="848" height="100" style="position:absolute;left:0;top:0">
+<polyline points="{{emoPath}}" fill="none" stroke="#000" stroke-width="2" stroke-linejoin="round"></polyline>
+</svg>
+<sc-for list="{{emoDots}}" as="d" hint-placeholder-count="5">
+<div style="{{d.style}}"></div>
+</sc-for>
+<div style="position:absolute;left:0;top:104px;display:grid;grid-template-columns:repeat(5,160px);gap:12px">
+<sc-for list="{{emoMoods}}" as="m" hint-placeholder-count="5">
+<div style="{{m.style}}">{{m.t}}</div>
+</sc-for>
+</div>
+</div>
+</div>
+
+<div style="display:grid;grid-template-columns:152px repeat(5,160px);gap:12px;margin-top:20px">
+<div style="display:flex;align-items:flex-start;gap:7px;padding-top:16px"><span style="width:10px;height:10px;flex-shrink:0;margin-top:1px;border-radius:3px;border:1px solid #000;background:#ff5252"></span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;line-height:1.35">Pain points</span></div>
+<sc-for list="{{jPain}}" as="c" hint-placeholder-count="5">
+<div style="{{c.style}}">{{c.text}}</div>
+</sc-for>
+</div>
+
+<div style="display:grid;grid-template-columns:152px repeat(5,160px);gap:12px;margin-top:20px">
+<div style="display:flex;align-items:flex-start;gap:7px;padding-top:16px"><span style="width:10px;height:10px;flex-shrink:0;margin-top:1px;border-radius:3px;border:1px solid #000;background:#40c4ff"></span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;line-height:1.35">Opportunities</span></div>
+<sc-for list="{{jOpp}}" as="c" hint-placeholder-count="5">
+<div style="{{c.style}}">{{c.text}}</div>
+</sc-for>
+</div>
+
+</div>
+</div>
+</div>
+</dc-import>
+
+<dc-import name="cm-section" n="2" id="sec-blueprint" title="Service blueprint" label="ss: 02 Service blueprint" chip="T2 · 5 steps · 4 lanes · 3 lines" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">The journey map's back half. Same columns, but the lanes are cut by three boundary lines, and those lines carry the meaning: what the customer touches, what they can see, and what runs entirely out of sight. A blueprint without labelled lines is just a table.</div>
+
+<div style="margin-top:28px">
+<div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:20px">
+<h3 style="margin:0;font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;line-height:1.3">Boundary lines</h3>
+<button onClick="{{bToggle}}" aria-pressed="{{bOn}}" style="{{bBtnStyle}}">{{bBtnLabel}}</button>
+</div>
+<div style="overflow-x:auto;background:#fafafa;border:1px dashed #d9d9d9;border-radius:12px;padding:16px">
+<div style="width:1024px" role="img" aria-label="Service blueprint for dataset certification across submit, review, validate, certify and publish, split by lines of interaction, visibility and internal interaction.">
+
+<div style="display:grid;grid-template-columns:152px repeat(5,160px);gap:12px">
+<div></div>
+<sc-for list="{{bSteps}}" as="s" hint-placeholder-count="5">
+<div style="background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:12px;padding:12px 14px">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase">Step {{s.n}}</span>
+<span style="font-weight:800;font-size:15.5px;margin-top:6px;display:block">{{s.t}}</span>
+</div>
+</sc-for>
+</div>
+
+<sc-for list="{{bLanes}}" as="ln" hint-placeholder-count="4">
+<div style="{{ln.lineWrapStyle}}">
+<div style="{{ln.lineStyle}}"></div>
+<span style="{{ln.lineChipStyle}}">{{ln.lineLabel}}</span>
+<span style="{{ln.lineNoteStyle}}">{{ln.lineNote}}</span>
+</div>
+<div style="display:grid;grid-template-columns:152px repeat(5,160px);gap:12px;margin-top:16px">
+<div style="{{ln.railStyle}}">{{ln.label}}</div>
+<sc-for list="{{ln.cells}}" as="c" hint-placeholder-count="5">
+<div style="{{c.style}}">{{c.text}}</div>
+</sc-for>
+</div>
+</sc-for>
+
+</div>
+</div>
+</div>
+</dc-import>
+
+<dc-import name="cm-section" n="3" id="sec-sankey" title="Magnitude flow" label="ss: 03 Magnitude flow" chip="T2 · 14 nodes · 17 flows" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Use this only when the quantity is the point. Band width is the volume, on one scale across all four columns, and every column sums to the same total — so anything that disappears mid-diagram is a bug in the data, not a drawing choice. Click any node to trace what feeds it and what it feeds.</div>
+
+<div style="margin-top:24px;background:#fff;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:28px">
+<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:20px">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase">Trace</span>
+<button onClick="{{skClear}}" aria-pressed="{{skAllOn}}" style="{{skClearStyle}}">All flows</button>
+<span style="font-size:14px;font-weight:600">{{skReadout}}</span>
+</div>
+<div style="overflow-x:auto;background:#fafafa;border:1px dashed #d9d9d9;border-radius:12px;padding:16px">
+<div style="width:1024px" role="img" aria-label="Magnitude flow: 92 million events per day move from four sources through two ingest paths into four models and four consumers.">
+<div style="position:relative;height:26px">
+<sc-for list="{{skHeads}}" as="h" hint-placeholder-count="4">
+<span style="{{h.style}}">{{h.t}}</span>
+</sc-for>
+</div>
+<div style="position:relative;height:372px;margin-top:16px">
+<svg width="960" height="372" style="position:absolute;left:0;top:0">
+<sc-for list="{{skBands}}" as="b" hint-placeholder-count="12">
+<path d="{{b.d}}" fill="{{b.fill}}"></path>
+</sc-for>
+</svg>
+<sc-for list="{{skNodes}}" as="n" hint-placeholder-count="14">
+<button onClick="{{n.on}}" aria-pressed="{{n.pressed}}" style="{{n.style}}">
+<span style="{{n.barStyle}}"></span>
+<span style="{{n.labStyle}}">
+<span style="font-weight:800;font-size:14px;line-height:1.3;display:block">{{n.name}}</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;margin-top:3px;display:block">{{n.val}}</span>
+</span>
+</button>
+</sc-for>
+</div>
+<div style="margin-top:34px;padding-top:16px;border-top:1px solid #ebebeb;display:flex;gap:28px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase">
+<span style="white-space:nowrap">Scale · 1px = 0.31M events/day</span>
+<span style="white-space:nowrap">Column total · 92M/day</span>
+<span style="white-space:nowrap">Smallest band · 4M/day</span>
+</div>
+</div>
+</div>
+</div>
+</dc-import>
+
+<dc-import name="cm-section" n="4" id="sec-rules" title="Rules" label="ss: 04 Rules" pad-bottom="100" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Four additions to the diagram grammar.</div>
+
+<div style="margin-top:24px;background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:8px 28px">
+<div style="display:flex;gap:24px;align-items:flex-start;padding:20px 0">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;width:64px;flex-shrink:0;padding-top:2px">R11.1</span>
+<div style="flex:1">
+<div style="font-weight:800;font-size:15.5px">Lane rail</div>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:6px;max-width:66ch">Every lane diagram carries a fixed 152px mono rail on the left. Lane names live in the rail and never inside the first content column, so column one stays comparable with the rest.</div>
+</div>
+</div>
+<div style="height:1px;background:#ebebeb"></div>
+<div style="display:flex;gap:24px;align-items:flex-start;padding:20px 0">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;width:64px;flex-shrink:0;padding-top:2px">R11.2</span>
+<div style="flex:1">
+<div style="font-weight:800;font-size:15.5px">Proportional magnitude</div>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:6px;max-width:66ch">Magnitude flow is the one family exempt from the three-step edge-weight rule. Band width is continuously proportional on a single scale across all columns, and the scale plus the column total are always stated in the legend.</div>
+</div>
+</div>
+<div style="height:1px;background:#ebebeb"></div>
+<div style="display:flex;gap:24px;align-items:flex-start;padding:20px 0">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;width:64px;flex-shrink:0;padding-top:2px">R11.3</span>
+<div style="flex:1">
+<div style="font-weight:800;font-size:15.5px">Boundary lines are labelled</div>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:6px;max-width:66ch">Blueprint lines are the subject, not decoration: solid black for interaction, dashed black for visibility, dotted for internal interaction. Each carries a mono label sitting on the line. No boundary line is ever drawn unlabelled.</div>
+</div>
+</div>
+<div style="height:1px;background:#ebebeb"></div>
+<div style="display:flex;gap:24px;align-items:flex-start;padding:20px 0">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;width:64px;flex-shrink:0;padding-top:2px">R11.4</span>
+<div style="flex:1">
+<div style="font-weight:800;font-size:15.5px">Sentiment is position</div>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:6px;max-width:66ch">Emotion is encoded by vertical position on a labelled three-tick axis, plus a mood word in mono under each phase. Never by colour, never by face glyphs.</div>
+</div>
+</div>
+</div>
+</dc-import>
+
+<div style="border-top:1px solid #ebebeb">
+<div style="max-width:1060px;margin:0 auto;padding:28px 24px 44px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase">
+<span>content-morphia · Diagrams III </span>
+<span><a href="content-morphia Diagrams II.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1bbd94">Diagrams II</a> · <a href="content-morphia Diagrams at Scale.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1bbd94">At scale</a> · <a href="content-morphia Diagrams.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1bbd94">Diagram library</a></span>
+</div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1200,&quot;height&quot;:900}}">
+const MONO = "font-family:'JetBrains Mono',monospace;";
+const S1 = 'box-shadow:0 1px 2px rgba(0,0,0,.06);';
+
+const JP = [
+  { n: '01', t: 'Discover', mood: 'Curious', v: 3 },
+  { n: '02', t: 'Evaluate', mood: 'Confident', v: 4 },
+  { n: '03', t: 'Onboard', mood: 'Blocked', v: 2 },
+  { n: '04', t: 'Adopt', mood: 'Steady', v: 3 },
+  { n: '05', t: 'Advocate', mood: 'Proud', v: 5 }
+];
+const J_ACT = [
+  'Hears about lineage tracking from a teammate; reads the explainer.',
+  'Runs a trial import against one warehouse schema.',
+  'Connects production credentials and maps 40 sources.',
+  'Builds team dashboards and sets freshness alerts.',
+  'Presents coverage numbers at the practice review.'
+];
+const J_TP = [
+  ['Docs', 'Blog'],
+  ['Sandbox', 'Sales call'],
+  ['Setup wizard', 'Support'],
+  ['Alert digest', 'Dashboards'],
+  ['Review deck', 'Community']
+];
+const J_PAIN = [
+  'No pricing anywhere on the site.',
+  'Trial caps at one million rows.',
+  'Credential scopes unclear; two failed connections.',
+  'Alert noise through the first week.',
+  'No export for executive reporting.'
+];
+const J_OPP = [
+  'Publish a sizing calculator.',
+  'Raise the trial cap for warehouse imports.',
+  'Ship scope presets per warehouse vendor.',
+  'Default debounce to fifteen minutes.',
+  'One-click coverage export.'
+];
+
+const B_STEPS = [
+  { n: '01', t: 'Submit' }, { n: '02', t: 'Review' }, { n: '03', t: 'Validate' },
+  { n: '04', t: 'Certify' }, { n: '05', t: 'Publish' }
+];
+const B_LANES = [
+  {
+    label: 'Customer actions', line: 'solid', lineLabel: 'Line of interaction',
+    note: 'Everything below this line is the provider. Every crossing is a moment of contact.',
+    cells: ['Files a request with the dataset owner.', 'Answers reviewer questions in thread.', 'Waits; checks status once.', 'Receives the certification notice.', 'Shares the certified link with the team.']
+  },
+  {
+    label: 'Frontstage', line: 'dashed', lineLabel: 'Line of visibility',
+    note: 'Above: what the customer can see happening. Below: what they cannot.',
+    cells: ['Request form with an eligibility checklist.', 'Reviewer comments appear in the thread.', 'Status page reads “Validating”.', 'Badge appears on the dataset page.', 'Catalog entry updates with the owner.']
+  },
+  {
+    label: 'Backstage', line: 'dotted', lineLabel: 'Line of internal interaction',
+    note: 'Below: shared services with no knowledge of this specific request.',
+    cells: ['Ticket routed to the domain steward.', 'Steward assesses ownership and scope.', 'Automated test suite runs on the model.', 'Steward signs off in the registry.', 'Search index rebuilds overnight.']
+  },
+  {
+    label: 'Support processes', line: null,
+    cells: ['Intake SLA — two working days.', 'Reviewer roster and load balancing.', 'Test runner cluster.', 'Certification registry of record.', 'Catalog sync job.']
+  }
+];
+
+const SK_C = [
+  [{ id: 'web', n: 'Web SDK', v: 42 }, { id: 'mob', n: 'Mobile SDK', v: 26 }, { id: 'srv', n: 'Server events', v: 18 }, { id: 'prt', n: 'Partner feeds', v: 6 }],
+  [{ id: 'stm', n: 'Stream pipeline', v: 68 }, { id: 'bat', n: 'Batch loader', v: 24 }],
+  [{ id: 'ses', n: 'Sessions', v: 40 }, { id: 'idn', n: 'Identity', v: 28 }, { id: 'rev', n: 'Revenue', v: 14 }, { id: 'rej', n: 'Rejected', v: 10 }],
+  [{ id: 'dsh', n: 'Dashboards', v: 34 }, { id: 'exp', n: 'Experiments', v: 22 }, { id: 'ret', n: 'Reverse ETL', v: 26 }, { id: 'qrn', n: 'Quarantine', v: 10 }]
+];
+const SK_H = ['Sources', 'Ingest', 'Models', 'Consumers'];
+const SK_F = [
+  ['web', 'stm', 42], ['mob', 'stm', 26], ['srv', 'bat', 18], ['prt', 'bat', 6],
+  ['stm', 'ses', 40], ['stm', 'idn', 24], ['stm', 'rej', 4],
+  ['bat', 'idn', 4], ['bat', 'rev', 14], ['bat', 'rej', 6],
+  ['ses', 'dsh', 24], ['ses', 'exp', 16],
+  ['idn', 'dsh', 10], ['idn', 'exp', 6], ['idn', 'ret', 12],
+  ['rev', 'ret', 14],
+  ['rej', 'qrn', 10]
+];
+
+class Component extends DCLogic {
+  state = { jf: null, bOn: false, sk: null };
+
+  renderVals() {
+    const self = this, st = this.state;
+    const dim = i => (st.jf === null || st.jf === i) ? 1 : 0.24;
+
+    // ---- ss: 01 journey ----
+    const jPhases = JP.map((p, i) => ({
+      n: p.n, t: p.t, pressed: st.jf === i,
+      on: () => self.setState({ jf: st.jf === i ? null : i }),
+      style: 'display:block;width:100%;box-sizing:border-box;padding:12px 14px;border-radius:12px;background:#fff;' +
+        (st.jf === i ? 'border:1.5px solid #000;box-shadow:5px 5px 0 #1bbd94;' : 'border:1px solid #ebebeb;') +
+        'opacity:' + dim(i) + ';transition:opacity .15s'
+    }));
+    const jAct = J_ACT.map((t, i) => ({
+      text: t,
+      style: 'background:#fff;border-radius:12px;' + S1 + 'padding:14px;font-size:14px;font-weight:400;line-height:1.55;opacity:' + dim(i)
+    }));
+    const jTp = J_TP.map((cs, i) => ({
+      chips: cs.map(c => ({ t: c })),
+      style: 'display:flex;flex-wrap:wrap;gap:6px;align-content:flex-start;padding-top:2px;opacity:' + dim(i)
+    }));
+    const LANE_TXT = 'font-size:14px;font-weight:400;line-height:1.65;padding:14px 2px 0;';
+    const jPain = J_PAIN.map((t, i) => ({ text: t, style: LANE_TXT + 'opacity:' + dim(i) }));
+    const jOpp = J_OPP.map((t, i) => ({ text: t, style: LANE_TXT + 'opacity:' + dim(i) }));
+
+    const cx = i => i * 172 + 80, cy = v => 84 - (v - 1) / 4 * 60;
+    const emoPath = JP.map((p, i) => cx(i) + ',' + cy(p.v)).join(' ');
+    const emoDots = JP.map((p, i) => ({
+      style: 'position:absolute;left:' + (cx(i) - 7) + 'px;top:' + (cy(p.v) - 7) + 'px;width:14px;height:14px;' +
+        'border-radius:999px;background:#fff;border:2px solid #000;box-sizing:border-box;opacity:' + dim(i)
+    }));
+    const emoMoods = JP.map((p, i) => ({
+      t: p.mood,
+      style: 'font-size:14px;font-weight:600;text-align:center;opacity:' + dim(i)
+    }));
+
+    const PILL = 'display:inline-block;' + MONO + 'font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:6px 13px;border-radius:999px;white-space:nowrap;';
+
+    // ---- ss: 02 blueprint ----
+    const LINE = {
+      solid: 'border-top:2px solid #000',
+      dashed: 'border-top:2px dashed #000',
+      dotted: 'border-top:2px dotted #000'
+    };
+    const bLanes = B_LANES.map((ln, i) => {
+      const has = !!ln.line;
+      return {
+        label: ln.label,
+        railStyle: MONO + 'font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding-top:17px',
+        lineWrapStyle: has ? 'position:relative;height:' + (st.bOn ? '62px' : '0') + ';margin-top:' + (i === 0 ? '36px' : '44px') : 'display:none',
+        lineStyle: has ? 'width:1024px;height:0;' + LINE[ln.line] : 'display:none',
+        lineChipStyle: has ? 'position:absolute;left:152px;top:-9px;background:#fff;padding:0 10px;' + MONO +
+          'font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap' : 'display:none',
+        lineNoteStyle: (has && st.bOn) ? 'position:absolute;left:152px;top:14px;width:860px;box-sizing:border-box;' +
+          'border:1px dashed #d9d9d9;border-radius:8px;padding:9px 12px;font-size:14px;font-weight:400;line-height:1.5' : 'display:none',
+        lineLabel: ln.lineLabel || '', lineNote: ln.note || '',
+        cells: ln.cells.map(c => ({
+          text: c,
+          style: 'font-size:14px;font-weight:400;line-height:1.7;padding:16px 2px 0'
+        }))
+      };
+    });
+
+    // ---- ss: 03 magnitude flow ----
+    const SKW = 960, SKH = 372, BW = 13, GAP = 24;
+    const scale = (SKH - 3 * GAP) / 92;
+    const np = {};
+    SK_C.forEach((col, ci) => {
+      const x = ci * (SKW - BW) / 3;
+      const tot = col.reduce((a, b) => a + b.v, 0);
+      const h = tot * scale + (col.length - 1) * GAP;
+      let y = (SKH - h) / 2;
+      col.forEach(nd => {
+        np[nd.id] = { x: x, y: y, h: nd.v * scale, v: nd.v, n: nd.n, ci: ci };
+        y += nd.v * scale + GAP;
+      });
+    });
+    const so = {}, to = {};
+    const active = st.sk;
+    const skBands = SK_F.map(f => {
+      const s = np[f[0]], t = np[f[1]], w = f[2] * scale;
+      const sy = s.y + (so[f[0]] || 0), ty = t.y + (to[f[1]] || 0);
+      so[f[0]] = (so[f[0]] || 0) + w; to[f[1]] = (to[f[1]] || 0) + w;
+      const x0 = s.x + BW, x1 = t.x, xm = (x0 + x1) / 2;
+      const on = active === f[0] || active === f[1];
+      return {
+        d: 'M' + x0 + ',' + sy + ' C' + xm + ',' + sy + ' ' + xm + ',' + ty + ' ' + x1 + ',' + ty +
+          ' L' + x1 + ',' + (ty + w) + ' C' + xm + ',' + (ty + w) + ' ' + xm + ',' + (sy + w) + ' ' + x0 + ',' + (sy + w) + ' Z',
+        fill: active ? (on ? 'rgba(27,189,148,.42)' : 'rgba(0,0,0,.05)') : 'rgba(0,0,0,.075)'
+      };
+    });
+    const skHeads = SK_H.map((h, i) => {
+      const x = i * (SKW - BW) / 3;
+      return {
+        t: h,
+        style: 'position:absolute;top:0;' + (i === 3 ? 'right:0;text-align:right;' : 'left:' + x + 'px;') +
+          MONO + 'font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase'
+      };
+    });
+    const skNodes = [];
+    Object.keys(np).forEach(id => {
+      const p = np[id], last = p.ci === 3;
+      const on = active === id, faded = active && !on ? 0.3 : 1;
+      skNodes.push({
+        name: p.n, val: p.v + 'M/d', pressed: on,
+        on: () => self.setState({ sk: active === id ? null : id }),
+        style: 'position:absolute;top:' + p.y + 'px;height:' + p.h + 'px;width:172px;display:flex;align-items:center;gap:9px;' +
+          (last ? 'left:' + (p.x - 159) + 'px;flex-direction:row-reverse;' : 'left:' + p.x + 'px;') +
+          'opacity:' + faded + ';transition:opacity .15s',
+        barStyle: 'width:' + BW + 'px;height:100%;flex-shrink:0;border-radius:3px;background:' + (on ? '#1bbd94' : '#000') +
+          (on ? ';outline:1.5px solid #000' : ''),
+        labStyle: 'display:block;flex:1;' + (last ? 'text-align:right;' : '')
+      });
+    });
+    let skReadout = 'No node selected — all 17 flows shown.';
+    if (active) {
+      const p = np[active];
+      const ins = SK_F.filter(f => f[1] === active), outs = SK_F.filter(f => f[0] === active);
+      skReadout = p.n + ' · ' + p.v + 'M/day · ' + ins.length + ' in, ' + outs.length + ' out';
+    }
+
+    return {
+      jPhases: jPhases, jAct: jAct, jTp: jTp, jPain: jPain, jOpp: jOpp,
+      emoPath: emoPath, emoDots: emoDots, emoMoods: emoMoods,
+      jAllOn: st.jf === null,
+      jHint: st.jf === null ? 'Click a phase to isolate its column' : 'Showing ' + JP[st.jf].t,
+      jClear: () => self.setState({ jf: null }),
+      jClearStyle: PILL + (st.jf === null ? 'background:#000;color:#fff' : 'background:#f1f1f1;color:#000'),
+      bSteps: B_STEPS, bLanes: bLanes, bOn: st.bOn,
+      bToggle: () => self.setState({ bOn: !st.bOn }),
+      bBtnLabel: st.bOn ? 'Hide what each line means' : 'Explain each line',
+      bBtnStyle: PILL + (st.bOn ? 'background:#000;color:#fff' : 'background:#fff;color:#000;border:1px solid #000'),
+      skBands: skBands, skNodes: skNodes, skHeads: skHeads, skReadout: skReadout,
+      skAllOn: !st.sk,
+      skClear: () => self.setState({ sk: null }),
+      skClearStyle: PILL + (!st.sk ? 'background:#000;color:#fff' : 'background:#f1f1f1;color:#000')
+    };
+  }
+}
+
+</script>
+</body>
+</html>

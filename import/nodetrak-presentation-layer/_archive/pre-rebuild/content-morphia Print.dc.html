@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&amp;family=JetBrains+Mono:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#fafafa;color:#000;font-family:'Nunito',sans-serif}
+a{color:#000;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px}
+a:hover{background:rgba(29,233,182,.3)}
+::selection{background:rgba(29,233,182,.35)}
+button{font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;background:none;border:none;padding:0;margin:0;text-align:left;cursor:pointer}
+input,select{font:inherit;color:inherit}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px solid #000;outline-offset:3px}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:#f1f1f1;border-radius:999px}
+::-webkit-scrollbar-thumb{background:rgba(0,0,0,.22);border-radius:999px}
+::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.45)}
+@media(max-width:800px){[data-wide]{min-width:660px!important}[data-twrap]{overflow-x:auto!important}}
+@media(max-width:640px){[data-stack]{grid-template-columns:1fr!important}}
+
+[data-nav-group] [data-nav-menu]{display:none}
+[data-nav-group]:hover [data-nav-menu],[data-nav-group]:focus-within [data-nav-menu]{display:block}
+</style>
+</helmet>
+
+<div style="position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid #ebebeb">
+<div style="max-width:1060px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:18px;row-gap:10px;flex-wrap:wrap">
+<span style="font-weight:900;font-size:16px;letter-spacing:.01em">content-morphia</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid #000;background:#fff">Print</span>
+<nav aria-label="Design system" style="display:flex;align-items:center;gap:4px;row-gap:6px;flex-wrap:wrap"><div data-nav-group style="position:relative"><a href="content-morphia Foundations.dc.html" aria-current="page" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:4px 9px;background:#fff;border:1px solid #000;box-shadow:2px 2px 0 #1de9b6">Foundations</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Foundations.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Foundations</a><a href="content-morphia Icons.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Icons</a><span aria-current="page" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:700;background:#f1f1f1">Print</span><a href="content-morphia Equivalents.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Non-visual equivalents</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Structured.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Components</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Structured.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Structured components</a><a href="content-morphia Prose.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Prose primitives</a><a href="content-morphia Wayfinding.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Wayfinding</a><a href="content-morphia Provenance.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Provenance</a><a href="content-morphia Charts.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Charts</a><a href="content-morphia Interaction.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Interaction</a><a href="content-morphia Learning.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Learning</a><a href="content-morphia Questions.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Questions and answers</a><a href="content-morphia Change.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Change and status</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Diagrams.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Diagrams</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Diagrams.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Diagram library</a><a href="content-morphia Diagrams at Scale.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Diagrams at scale</a><a href="content-morphia Diagrams II.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Technical families</a><a href="content-morphia Diagrams III.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Experience and magnitude</a><a href="content-morphia Diagrams IV.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Structure and notation</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Templates.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Templates</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Templates.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Template index</a><a href="content-morphia T1 Topic.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T1 Topic</a><a href="content-morphia T2 Framework.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T2 Framework</a><a href="content-morphia T3 Process.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T3 Process</a><a href="content-morphia T4 Guide.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T4 Guide</a><a href="content-morphia T5 Module.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T5 Module</a><a href="content-morphia T6 Metric.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T6 Metric</a><a href="content-morphia T7 Comparison.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T7 Comparison</a><a href="content-morphia T8 Roadmap.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T8 Roadmap</a><a href="content-morphia T9 Reference.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T9 Reference</a><a href="content-morphia T10 Glossary.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T10 Glossary</a><a href="content-morphia T11 Case study.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T11 Case study</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Composition.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Composition</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Composition.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Composition</a><a href="content-morphia Anatomy.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Anatomy and primitives</a><a href="content-morphia Selection.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Selection</a><a href="content-morphia Implementing.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Implementing</a><a href="content-morphia Exemplar.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Worked example</a></div></div></div></nav>
+</div>
+</div>
+
+<div style="background:#fafafa;border-bottom:1px solid #ebebeb">
+<div style="max-width:1060px;margin:0 auto;padding:11px 24px;display:flex;align-items:center;gap:10px;row-gap:8px;flex-wrap:wrap">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">On this page</span>
+<span style="width:1px;height:13px;background:#ebebeb"></span>
+<nav aria-label="Sections of this page" style="display:flex;align-items:center;gap:2px;row-gap:6px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase">
+<a href="#a1" onClick="{{ p1 }}" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 01 Losses</a>
+<a href="#a2" onClick="{{ p2 }}" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 02 Substitutions</a>
+<a href="#a3" onClick="{{ p3 }}" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 03 Diagrams</a>
+<a href="#a4" onClick="{{ p4 }}" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 04 Controls</a>
+<a href="#a5" onClick="{{ p5 }}" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 05 Rules</a>
+</nav>
+</div>
+</div>
+
+<section data-screen-label="Page header" style="max-width:1060px;margin:0 auto;padding:48px 24px 0">
+<div style="width:52px;height:5px;background:#1de9b6;border-radius:999px;margin-bottom:20px"></div>
+<h1 style="margin:0;font-weight:900;font-size:44px;line-height:1.06;max-width:22ch">The printed form</h1>
+<div style="font-size:16px;font-weight:400;line-height:1.8;max-width:68ch;margin-top:14px;text-wrap:pretty">Every page prints from the same source it renders from. There is no second design for paper: each token has one printed value, each control has one resolved state, and a diagram too large for a sheet decomposes by the level model it already carries.</div>
+</section>
+
+<section id="a1" data-screen-label="ss: 01 What paper removes" style="max-width:1060px;margin:0 auto;padding:88px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 01</span><h2 style="margin:0;font-weight:900;font-size:28px">What paper removes</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Paper takes three things away and gives one back. It removes interaction, blurred depth, and — on any monochrome device — colour. It gives a fixed page box, which is why nothing printed scrolls, floats or overlays, and why a sheet is the unit that material has to fit.</div>
+
+<div style="margin-top:24px;background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:26px">
+<div style="border-left:2px solid #000;border-top:2px solid #000;width:14px;height:14px"></div>
+<h3 style="margin:12px 0 0;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;line-height:1.4">The three losses</h3>
+<div style="margin-top:12px;display:flex;flex-direction:column;gap:4px">
+<sc-for list="{{ losses }}" as="l" hint-placeholder-count="3">
+<div data-stack style="display:grid;grid-template-columns:148px 1fr;gap:16px;padding:12px;border-radius:6px;background:{{ l.z }}">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.7">{{ l.n }}</span>
+<span style="font-size:14px;font-weight:400;line-height:1.7;text-wrap:pretty">{{ l.t }}</span>
+</div>
+</sc-for>
+</div>
+
+<div style="margin-top:28px;border-top:1px solid #ebebeb;padding-top:20px">
+<div style="border-left:2px solid #000;border-top:2px solid #000;width:14px;height:14px"></div>
+<h3 style="margin:12px 0 0;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;line-height:1.4">What the page box fixes</h3>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Screen geometry is relative to a viewport; printed geometry is relative to a sheet. Four values are settled once and never restated per document.</div>
+<div style="margin-top:14px;display:flex;flex-direction:column;gap:4px">
+<sc-for list="{{ geo }}" as="g" hint-placeholder-count="4">
+<div data-stack style="display:grid;grid-template-columns:148px 1fr;gap:16px;padding:12px;border-radius:6px;background:{{ g.z }}">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.7">{{ g.n }}</span>
+<span style="font-size:14px;font-weight:400;line-height:1.7;text-wrap:pretty">{{ g.t }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+
+<div style="margin-top:28px;background:#fff;border:1.5px solid #000;border-radius:14px;box-shadow:5px 5px 0 #1de9b6;padding:26px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">The print contract</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:12px;text-wrap:pretty">Every accent mark in this system is redundant with a shape, a position or a label, and every semantic fill carries its mono word. Printed in greyscale, a document therefore loses emphasis and no information. A mark that fails that test is not a colour problem to solve at the printer — it is redrawn.</div>
+</div>
+</section>
+
+<section id="a2" data-screen-label="ss: 02 Substitutions" style="max-width:1060px;margin:0 auto;padding:88px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 02</span><h2 style="margin:0;font-weight:900;font-size:28px">One printed value per token</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">The substitution is mechanical and complete: every token in the system resolves to exactly one printed value, and no printed value is chosen at print time. Percentages are of black; rules and type are in points, because a printed measure that is stated in pixels is not a measure.</div>
+
+<div style="margin-top:24px;background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:26px">
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+<sc-for list="{{ classes }}" as="c" hint-placeholder-count="6">
+<button type="button" onClick="{{ c.pick }}" aria-pressed="{{ c.on }}" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:6px 12px;border-radius:999px;background:{{ c.bg }};border:{{ c.bd }};box-shadow:{{ c.sh }}">{{ c.n }} · {{ c.c }}</button>
+</sc-for>
+</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.08em;text-transform:uppercase;margin-top:14px">{{ subLabel }}</div>
+<div data-twrap style="margin-top:10px;overflow-x:visible">
+<div data-wide>
+<div style="display:grid;grid-template-columns:{{ subCols }};background:#f1f1f1;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">
+<span style="padding:12px 12px">Class</span>
+<span style="padding:12px 12px">On screen</span>
+<span style="padding:12px 12px">On paper</span>
+<sc-if value="{{ showWhy }}" hint-placeholder-val="{{ true }}"><span style="padding:12px 12px">Why</span></sc-if>
+</div>
+<sc-for list="{{ subs }}" as="s" hint-placeholder-count="10">
+<div style="display:grid;grid-template-columns:{{ subCols }};border-radius:6px;background:{{ s.z }}">
+<div style="padding:10px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.08em;text-transform:uppercase;line-height:1.7">{{ s.cls }}</div>
+<div style="padding:10px;font-size:14px;font-weight:700;line-height:1.55;text-wrap:pretty">{{ s.from }}</div>
+<div style="padding:10px;font-size:14px;font-weight:400;line-height:1.6;text-wrap:pretty">{{ s.to }}</div>
+<sc-if value="{{ showWhy }}" hint-placeholder-val="{{ true }}"><div style="padding:10px;font-size:14px;font-weight:300;line-height:1.6;text-wrap:pretty">{{ s.why }}</div></sc-if>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+</section>
+
+<section id="a3" data-screen-label="ss: 03 Diagrams on paper" style="max-width:1060px;margin:0 auto;padding:88px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 03</span><h2 style="margin:0;font-weight:900;font-size:28px">Diagrams on paper, by tier</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">A diagram is scaled to the page box only while every label holds the print floor of 8pt. Past that it is not shrunk and it is not cut at the margin: it decomposes into sheets by the same level model it carries on screen. The three capacity tiers each have one printed form, shown here against the ecosystem canvas — forty-four nodes over three levels.</div>
+
+<div style="margin-top:24px;background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:26px">
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+<sc-for list="{{ tierPicks }}" as="t" hint-placeholder-count="3">
+<button type="button" onClick="{{ t.pick }}" aria-pressed="{{ t.on }}" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:6px 12px;border-radius:999px;background:{{ t.bg }};border:{{ t.bd }};box-shadow:{{ t.sh }}">{{ t.n }}</button>
+</sc-for>
+<span style="margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.08em;text-transform:uppercase">{{ tierFacts }}</span>
+</div>
+
+<h3 style="margin:20px 0 0;font-size:15px;font-weight:700;line-height:1.4">{{ tierTitle }}</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.7;max-width:70ch;margin-top:8px;text-wrap:pretty">{{ tierLede }}</div>
+
+<div style="margin-top:20px;border-radius:12px;background:#fff;padding:20px;box-shadow:0 1px 2px rgba(0,0,0,.06)">
+<div style="display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start">
+<sc-for list="{{ sheets }}" as="s" hint-placeholder-count="4">
+<div style="width:{{ s.w }};background:#fff;border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:14px;display:flex;flex-direction:column;gap:8px;min-height:{{ s.h }}">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">{{ s.n }}</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.08em;text-transform:uppercase">{{ s.count }}</span>
+</div>
+<div style="height:1px;background:#ebebeb"></div>
+<div style="font-size:14px;font-weight:700;line-height:1.4">{{ s.t }}</div>
+<div style="font-size:14px;font-weight:400;line-height:1.6;text-wrap:pretty">{{ s.d }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div style="margin-top:24px;border-top:1px solid #ebebeb;padding-top:20px">
+<div style="border-left:2px solid #000;border-top:2px solid #000;width:14px;height:14px"></div>
+<h3 style="margin:12px 0 0;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;line-height:1.4">What this tier settles</h3>
+<div style="margin-top:12px;display:flex;flex-direction:column;gap:10px">
+<sc-for list="{{ tierRules }}" as="r" hint-placeholder-count="3">
+<div style="display:flex;gap:12px;align-items:flex-start">
+<span style="width:3px;height:14px;background:#000;flex:none;margin-top:5px"></span>
+<span style="font-size:14px;font-weight:400;line-height:1.7;max-width:70ch;text-wrap:pretty">{{ r }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+</section>
+
+<section id="a4" data-screen-label="ss: 04 Controls resolved" style="max-width:1060px;margin:0 auto;padding:88px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 04</span><h2 style="margin:0;font-weight:900;font-size:28px">Every control, resolved</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">A control on paper is a dead control, so no control prints. Each one either resolves — the material it governs prints in the state it was in, with that state stated in words — or it has no printed form at all and is removed. Nothing prints inert.</div>
+
+<div style="margin-top:24px;background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:26px">
+<div style="border-left:2px solid #000;border-top:2px solid #000;width:14px;height:14px"></div>
+<h3 style="margin:12px 0 0;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;line-height:1.4">Resolve · the material prints, the state is stated</h3>
+<div data-twrap style="margin-top:12px;overflow-x:visible">
+<div data-wide>
+<div style="display:grid;grid-template-columns:186px 1fr 1fr;background:#f1f1f1;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">
+<span style="padding:12px 12px">Control</span>
+<span style="padding:12px 12px">What prints</span>
+<span style="padding:12px 12px">What is stated</span>
+</div>
+<sc-for list="{{ resolves }}" as="r" hint-placeholder-count="12">
+<div style="display:grid;grid-template-columns:186px 1fr 1fr;border-radius:6px;background:{{ r.z }}">
+<div style="padding:10px;font-size:14px;font-weight:700;line-height:1.45">{{ r.n }}</div>
+<div style="padding:10px;font-size:14px;font-weight:400;line-height:1.6;text-wrap:pretty">{{ r.t }}</div>
+<div style="padding:10px;font-size:14px;font-weight:300;line-height:1.6;text-wrap:pretty">{{ r.s }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div style="margin-top:28px;border-top:1px solid #ebebeb;padding-top:20px">
+<div style="border-left:2px solid #000;border-top:2px solid #000;width:14px;height:14px"></div>
+<h3 style="margin:12px 0 0;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;line-height:1.4">No printed form · removed from the sheet</h3>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">These six exist to move a reader through an index that paper does not have. Removing them costs nothing, because none of them holds material of its own.</div>
+<div data-stack style="margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:16px">
+<sc-for list="{{ drops }}" as="d" hint-placeholder-count="6">
+<div style="border:1px dashed #d9d9d9;border-radius:12px;padding:16px">
+<div style="display:flex;align-items:center;gap:8px"><span style="width:8px;height:8px;background:#000;flex:none"></span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">{{ d.n }}</span></div>
+<div style="font-size:14px;font-weight:400;line-height:1.65;margin-top:10px;text-wrap:pretty">{{ d.t }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+</section>
+
+<section id="a5" data-screen-label="ss: 05 Rules" style="max-width:1060px;margin:0 auto;padding:88px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 05</span><h2 style="margin:0;font-weight:900;font-size:28px">Rules added here</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Ten rules govern the printed form. They bind the same way the screen rules do: a document that breaks one of them is not a print problem, it is a build that was never printable.</div>
+
+<div style="margin-top:24px;background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:26px">
+<div style="display:flex;flex-direction:column;gap:4px">
+<sc-for list="{{ rules }}" as="r" hint-placeholder-count="10">
+<div data-stack style="display:grid;grid-template-columns:108px 1fr;gap:16px;padding:12px;border-radius:6px;background:{{ r.z }}">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;line-height:1.8">{{ r.id }}</span>
+<span style="font-size:14px;font-weight:400;line-height:1.75;text-wrap:pretty">{{ r.t }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<footer style="max-width:1060px;margin:96px auto 0;padding:20px 24px 48px;border-top:1px solid #ebebeb;display:flex;gap:12px;row-gap:8px;flex-wrap:wrap;align-items:center;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">
+<span>content-morphia · the printed form</span>
+<span style="margin-left:auto;display:flex;gap:14px;flex-wrap:wrap;font-weight:400">
+<a href="content-morphia Selection.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1de9b6;padding-bottom:1px">Selection</a>
+<a href="content-morphia Anatomy.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1de9b6;padding-bottom:1px">Anatomy</a>
+<a href="content-morphia Diagrams at Scale.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1de9b6;padding-bottom:1px">Diagrams at scale</a>
+<a href="content-morphia Composition.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1de9b6;padding-bottom:1px">Composition</a>
+</span>
+</footer>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;defaultTier&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;T1&quot;,&quot;T2&quot;,&quot;T3&quot;],&quot;default&quot;:&quot;T3&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Diagrams&quot;},&quot;defaultClass&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;All&quot;,&quot;Depth&quot;,&quot;Colour&quot;,&quot;Surface&quot;,&quot;Type&quot;,&quot;Chrome&quot;],&quot;default&quot;:&quot;All&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Substitutions&quot;},&quot;showWhy&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Substitutions&quot;}}">
+const LOSS = [
+["Interaction","No control has a printed form. Each one resolves to the state it held, and that state is written above the material it produced — the sort key, the applied filters, the selected version. A control that governs nothing on the sheet is removed."],
+["Blurred depth","S1, S2 and S3 are 6–11% black spread over 2–28px of blur. At 300dpi they resolve to nothing on coated stock and to a grey smear on a laser device. The hard offsets are solid ink at a fixed distance and print as drawn."],
+["Colour","A monochrome device flattens the accent and all five semantics to grey. Nothing goes with them: the accent is always redundant with a shape or a position, and a semantic fill never appears without its mono word."]
+];
+const GEO = [
+["Measure","The 1060px grid becomes the page box less its margins — 6.4in on letter, 165mm on A4. The 70ch reading column is unchanged, because it was always a measure and never a width."],
+["Margins","18mm on three sides, 22mm at the foot to clear the running footer. A figure may bleed to 12mm; nothing else does."],
+["Running footer","Document title, current ss: NN, sheet n of m. Mono 7.5pt, on every sheet including the first."],
+["Sheet one","The content header, and at four sections or more the contents block that replaces the rail. Sheet one never carries a figure above the fold of the section that owns it."]
+];
+const SUB = [
+["Depth","S1 rest shadow","0.5pt rule at 20% black","A card at rest is a card because of its padding and its label. The shadow was doing the least work of the three."],
+["Depth","S2 card shadow","0.5pt rule at 20% black, padding held at 26px","The padding is what separated it. Two peer surfaces stay apart on their 16pt gap."],
+["Depth","S3 float","0.5pt rule at 20% black on a 4% fill","The fill carries the step that the blur carried on screen."],
+["Depth","L1 hover lift","Removed","Hover has no printed form. Rows print at rest."],
+["Depth","L1e static emphasis","1pt black rule, offset 4.5pt at 12% black","Solid ink survives; the offset darkens from 8% so it holds at 300dpi."],
+["Depth","L2 reserved offset","1pt black rule, offset 3.75pt in accent — 12% black in greyscale","The border and the offset geometry carry the emphasis. The hue is the only loss."],
+["Depth","L3 overlay","The panel prints inline at its marker","An overlay has no plane on paper. A definition panel becomes a footnote at the end of its section."],
+["Colour","Accent section bar","Printed as drawn · 25% black in greyscale","Length and position mark the section, not hue."],
+["Colour","Accent link underline","Removed","A printed link has no destination. See R25.9."],
+["Colour","Accent column wash",".12 and .25 both print at .25 · 12% black in greyscale","Below a quarter the wash disappears on uncoated stock. The column already carries its ★ and its label."],
+["Colour","Accent data mark","Printed as drawn · 35% black in greyscale","The axis stays at 100%, so population and structure never collide."],
+["Colour","Semantic tint","Printed as drawn · every tint at 14% black in greyscale","Five greys are five indistinguishable greys. The mono word is what separates them, on screen and on paper alike."],
+["Colour","Semantic solid","Fill drops to 14% black, the 1pt border stays","The border is what marks the one verdict once the fill can no longer."],
+["Surface","#fafafa page canvas","White","Paper is already the canvas. Two percent of black over a full sheet buys nothing."],
+["Surface","#fafafa zebra row and recessed canvas","4% black","Here the grey is a step against white, not a background, so it has to survive."],
+["Surface","#f1f1f1 track","8% black","A track must stay visibly behind its fill at every fill level."],
+["Surface","#ebebeb hairline","0.5pt at 20% black","8% grey at one pixel vanishes. The hairline holds its job at half a point."],
+["Surface","#d9d9d9 dotted and dashed","0.5pt at 30% black, 3pt dash on 3pt gap","The dash is what distinguishes a canvas from a card, so its pattern is specified in points."],
+["Type","Body 15.5/1.85","11pt/1.65","The measure is already right; only the leading tightens, because paper has no scroll to absorb it."],
+["Type","T1 900/44 · T2 900/28 · T3 700/15","33pt · 21pt · 11pt bold","One conversion at 0.75, rounded to the point. The tiers keep their ratios."],
+["Type","Mono label 9.5 caps","7.5pt caps, tracking held at .09em","The print floor is 7pt. Ticks and axis labels sit at 7pt and nothing goes under."],
+["Type","Code 13px, no wrap, scrolls","9.5pt, wrapped at the measure with a 2ch hanging indent and a ↳ marker","Scrolling has no printed form and clipping loses the line. Wrapping is the only option that keeps the code true."],
+["Chrome","Sticky header","Removed · replaced by the running footer","The header was wayfinding. On paper the sheet number is the wayfinding."],
+["Chrome","TOC rail","Contents block on sheet one, ss: NN and sheet numbers","A rail needs a viewport to stick to."],
+["Chrome","Scrollbar and scroll region","Removed · the region prints in full or decomposes","A region that cannot do either was too large for the component, not for the sheet."],
+["Chrome","Focus ring","Removed","No printed element takes focus."]
+];
+const TIERS = {
+  "T1": {
+    n: "Tier 1 · ≤7 nodes",
+    title: "Tier 1 prints in place",
+    lede: "Seven nodes or fewer fit the reading column at full size. Nothing is scaled, nothing moves to a figure page, and the diagram keeps its position in the argument that needed it.",
+    facts: "1 sheet · in place · nothing scaled",
+    sheets: [["In place","—","The diagram in the column","Full size, depth substituted, caption and provenance directly beneath. It breaks to the next sheet as one object or it moves whole.","232px","150px"]],
+    rules: [
+      "A tier-1 diagram never becomes a figure page. Separating it from its paragraph costs more than the sheet break it avoids.",
+      "If it will not fit the remaining space on the sheet, the whole diagram moves down — a diagram is never split across a fold.",
+      "Depth substitutes by ss: 02 and nothing else changes: same geometry, same labels, same routing."
+    ]
+  },
+  "T2": {
+    n: "Tier 2 · 8–24 nodes",
+    title: "Tier 2 becomes one figure sheet",
+    lede: "Eight to twenty-four nodes leave the column and take a sheet of their own, scaled to the page box. Scaling stops at the print floor: if any label would fall under 8pt, the diagram is a tier-3 problem regardless of its node count.",
+    facts: "1 sheet · landscape past 1.3:1 · label floor 8pt",
+    sheets: [["Sheet 1","8–24 nodes","The whole canvas","One figure sheet with its title, description and provenance. Rotated to landscape when the canvas is wider than 1.3:1, and the running footer rotates with it.","300px","150px"]],
+    rules: [
+      "The figure sheet carries the section ss: NN it belongs to, so a sheet pulled out of the document still says where it came from.",
+      "Scale to the page box only while every label holds 8pt. Past that, decompose — never shrink, never crop at the margin.",
+      "The legend prints on the same sheet as the diagram. A legend on the facing sheet is a legend nobody reads."
+    ]
+  },
+  "T3": {
+    n: "Tier 3 · 25–80 nodes",
+    title: "Tier 3 decomposes into sheets",
+    lede: "Twenty-five nodes and up cannot be one printed canvas at any legible scale. The diagram decomposes by the level model it already carries on screen: one sheet per level, none over the tier-2 ceiling, and a registry that makes every node findable by name.",
+    facts: "4 sheets · 44 nodes · no sheet over 24 · every node findable",
+    sheets: [
+      ["Sheet 1","9 nodes","L0 · the overview","Each L1 canvas appears here as a single node carrying the sheet it expands onto.","224px","168px"],
+      ["Sheet 2","23 nodes","L1 · the systems","At the tier-2 ceiling and no further. A level that exceeds 24 splits before it prints.","224px","168px"],
+      ["Sheet 3","12 nodes","L2 · the detail","Reached from one L1 node, which carries this sheet number on its off-page connector.","224px","168px"],
+      ["Sheet 4","44 rows","The node registry","Every node by name, with its level, its sheet and the nodes it connects to. This is what replaces the search field.","224px","168px"]
+    ],
+    rules: [
+      "A cross-sheet edge terminates in an off-page connector carrying the target sheet number and node name, never a node id.",
+      "No printed sheet exceeds the tier-2 ceiling of 24 nodes. A level that does splits, and the split is named in the registry.",
+      "The registry is not optional at this tier. Without it the reader has no way to find a node, and the levels are just four unrelated pictures."
+    ]
+  }
+};
+const RES = [
+["Tabs","Every panel in sequence, each under its tab label set as a T3 heading.","Nothing — the labels became the headings, so no state survives to state."],
+["Disclosure sections","All sections open, in source order, on one surface split by inset rules.","Each header keeps its contents fact, which is what it was for."],
+["Sorting and filtering","The register as sorted and as filtered.","The key, the direction and the filtered count in mono above the rows."],
+["Step-through","The whole diagram with every step numbered in place.","The step count, and the terminal each path reaches."],
+["Click-to-isolate","The full population, nothing isolated.","Nothing — the legend already names every encoding in the view."],
+["Definition panel","A footnote at the end of the section, marker kept in the running text.","The term, its one sentence, and its source count."],
+["Faceted browse","The result set under the facets that were applied.","The applied filters as one mono line. Zero-count values drop rather than print disabled."],
+["Version selector and diff","The diff for the selected pair.","Which two versions and both their dates."],
+["Knowledge check","The question and its options, unmarked.","Nothing on the question. The answer key prints at the end of the module."],
+["Chart with a hover readout","The chart, with the readout removed.","Every value the readout would have given, on the axis or in the table beneath it."],
+["Overview and detail","The overview, then each detail record in sequence.","Which overview row each detail belongs to."],
+["Progress track","The value as a bar and as a number.","The count. A track with no number on paper is a shape."]
+];
+const DROP = [
+["Search field","It queries an index that the sheet does not contain. On paper the registry and the contents block do this work."],
+["Pager","Sheet numbers already say where the reader is and what follows."],
+["Recently viewed","Session state. It describes a reader, not a document, and does not survive the print."],
+["Hover lift and hover wash","States with no printed trigger. Rows print at rest."],
+["Sticky rail","A rail needs a viewport to stick to. Its contents move to sheet one."],
+["Filter and sort controls","The controls go; their effect stays, stated in words above the material they produced."]
+];
+const RULES = [
+["R25.1","Print resolves state, it never freezes chrome. Every control renders in the state it held with that state stated in words, or it is removed. Nothing prints inert."],
+["R25.2","Blurred depth does not print. S1, S2 and S3 all become a 0.5pt rule at 20% black; the hard offsets L1e, L2 and L3 print as drawn because they are solid ink. L1 is a hover state and has no printed form."],
+["R25.3","Greyscale is the design target, not a fallback. Every accent mark is redundant with a shape, a position or a label; every semantic fill carries its mono word. A mark that fails this is redrawn, not reprinted in colour."],
+["R25.4","One printed value per token, fixed in ss: 02 and never chosen at print time. Printed measures are stated in points and percentages of black — a printed value expressed in pixels is not a value."],
+["R25.5","Type converts once at 0.75 and rounds to the point: body 11pt, T3 11pt bold, T2 21pt, T1 33pt, mono labels 7.5pt. The print floor is 7pt and it binds ticks and axis labels too."],
+["R25.6","Nothing breaks across a sheet that has to be read as one object: a figure with its provenance, a callout, a code block, a table row, a diagram, a step. A table that must break repeats its header row and says it is continued."],
+["R25.7","A diagram is scaled only while every label holds 8pt. Past that it decomposes by the level model — never shrunk further, never cropped at the margin, never split anywhere but a level boundary."],
+["R25.8","No printed sheet carries more than the tier-2 ceiling of 24 nodes, and any diagram that decomposes prints its node registry. Off-page connectors carry the target sheet number and node name."],
+["R25.9","A printed link is text. Cross-references print their ss: NN and sheet number in mono; the teal underline drops with the interaction. Nothing prints a URL."],
+["R25.10","The L2 ration is per document, not per sheet: one reserved offset in a printed document, on the sheet where the verdict is. The running footer carries title, ss: NN and sheet n of m on every sheet."]
+];
+
+class Component extends DCLogic {
+  state = { sec: "a1", cls: null, tier: null };
+  pick(id) { return () => this.setState({ sec: id }); }
+  under(id) { return this.state.sec === id ? "#1de9b6" : "transparent"; }
+  renderVals() {
+    const showWhy = this.props.showWhy !== false;
+    const cls = this.state.cls ?? (this.props.defaultClass || "All");
+    const tier = this.state.tier ?? (this.props.defaultTier || "T3");
+
+    const names = ["All"]; const count = { All: SUB.length };
+    SUB.forEach(s => { if (!names.includes(s[0])) { names.push(s[0]); count[s[0]] = 0; } count[s[0]]++; });
+
+    const rows = SUB.filter(s => cls === "All" || s[0] === cls);
+    const T = TIERS[tier] || TIERS.T3;
+
+    return {
+      p1: this.pick("a1"), p2: this.pick("a2"), p3: this.pick("a3"), p4: this.pick("a4"), p5: this.pick("a5"),
+      n1: this.under("a1"), n2: this.under("a2"), n3: this.under("a3"), n4: this.under("a4"), n5: this.under("a5"),
+      losses: LOSS.map(([n, t], i) => ({ n, t, z: i % 2 ? "#fafafa" : "#fff" })),
+      geo: GEO.map(([n, t], i) => ({ n, t, z: i % 2 ? "#fafafa" : "#fff" })),
+      showWhy,
+      subCols: showWhy ? "88px 210px 1fr 1fr" : "88px 260px 1fr",
+      subs: rows.map(([c, f, t, w], i) => ({ cls: c, from: f, to: t, why: w, z: i % 2 ? "#fafafa" : "#fff" })),
+      subLabel: "Showing " + rows.length + " of " + SUB.length + " tokens" + (cls === "All" ? " · five classes" : " · " + cls),
+      classes: names.map(n => ({
+        n, c: count[n],
+        pick: () => this.setState({ cls: n }),
+        on: cls === n ? "true" : "false",
+        bg: cls === n ? "#fff" : "#f1f1f1",
+        bd: cls === n ? "1px solid #000" : "1px solid transparent",
+        sh: cls === n ? "2px 2px 0 #1de9b6" : "none"
+      })),
+      tierPicks: Object.keys(TIERS).map(k => ({
+        n: TIERS[k].n,
+        pick: () => this.setState({ tier: k }),
+        on: tier === k ? "true" : "false",
+        bg: tier === k ? "#fff" : "#f1f1f1",
+        bd: tier === k ? "1px solid #000" : "1px solid transparent",
+        sh: tier === k ? "2px 2px 0 #1de9b6" : "none"
+      })),
+      tierTitle: T.title, tierLede: T.lede, tierFacts: T.facts,
+      sheets: T.sheets.map(([n, count2, t, d, w, h]) => ({ n, count: count2, t, d, w, h })),
+      tierRules: T.rules,
+      resolves: RES.map(([n, t, s], i) => ({ n, t, s, z: i % 2 ? "#fafafa" : "#fff" })),
+      drops: DROP.map(([n, t]) => ({ n, t })),
+      rules: RULES.map(([id, t], i) => ({ id, t, z: i % 2 ? "#fafafa" : "#fff" }))
+    };
+  }
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Docs Theme · v3</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   DOCS THEME v3  ·  Knowledge Base & Documentation System
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── 1. TOKENS ─────────────────────────────────────────────────── */
+:root {
+  --bg-0:  #141414;
+  --bg-1:  #1e1e1e;
+  --bg-2:  #242424;
+  --bg-3:  #2a2a2a;
+  --bg-4:  #323232;
+  --bg-5:  #3c3c3c;
+  --tx-0:  #ffffff;
+  --tx-1:  #e8e8e8;
+  --tx-muted: #606060;
+  --ac:    #1de9b6;
+  --ac2:   #00bfa5;
+  --s-ok:    #4ade80;
+  --s-warn:  #fbbf24;
+  --s-crit:  #f87171;
+  --s-info:  #93c5fd;
+  --s-note:  #c084fc;
+  --font-sans: 'Nunito', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --r-sm: 4px; --r-md: 8px; --r-lg: 12px; --r-xl: 16px; --r-pill: 999px;
+  --shadow-sm: 4px 4px 0 rgba(0,0,0,0.22);
+  --shadow-md: 8px 8px 0 rgba(0,0,0,0.26);
+  --bd-sub:  1px solid rgba(255,255,255,0.06);
+  --bd-r:    3px solid rgba(255,255,255,0.18);
+  --bd-b:    3px solid rgba(255,255,255,0.18);
+  --indent:  3rem;
+  --h1-pad:  2.5rem;
+  --bar-w:   36px;
+  --bar-gap: 8px;
+}
+
+/* ── 2. BASE ───────────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body {
+  font-family: var(--font-sans);
+  font-size: 15px; font-weight: 400; line-height: 2;
+  letter-spacing: 0.03em; color: var(--tx-1);
+  background: var(--bg-1);
+  padding: 0 var(--indent) 8rem;
+}
+p { max-width: 74ch; margin-top: 1.4rem; margin-bottom: 1.4rem; }
+a { color: var(--ac); font-family: var(--font-mono); font-size: 0.91em; text-decoration: underline dotted; text-underline-offset: 3px; transition: opacity .15s; }
+a:hover { opacity: .72; }
+strong { font-weight: 800; color: var(--tx-0); }
+em { font-style: italic; color: var(--tx-muted); }
+::selection { background: rgba(29,233,182,.18); color: inherit; }
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:var(--bg-0);}
+::-webkit-scrollbar-thumb{background:var(--bg-5);border-radius:var(--r-pill);}
+
+/* ── 3. CONTENT ALIGNMENT ──────────────────────────────────────── */
+/* Everything aligns with H1 text (body-indent + h1-pad) */
+h2,h3,h4,h5,h6, p, ul, ol, dl, pre,
+.code-title, blockquote, .callout, .summary-callout,
+.pull-insight, details, .cols, .cols-tiles, .dg, .dg-note,
+.card, .ref-link, .breadcrumb, .table-title, .table-citation,
+table, hr, .chart-section, .steps, .case-example,
+.tech-ref, .meta-labels, .media-fig, .media-video, .media-pdf, .definition-callout, .hl-legend {
+  margin-left: var(--h1-pad);
+}
+
+/* ── 4. HEADINGS ───────────────────────────────────────────────── */
+/*
+  Bar widths: percentage of the element's own width.
+  H2: 1 bar  = 75%
+  H3: 2 bars, total 60%  (each ~28%, gap ~4%)
+  H4: 3 bars, total 45%  (each ~13%, gap ~3%)
+  H5: 4 bars, total 32%  (each ~7%, gap ~1.6%)
+  H6: 5 bars, total 22%  (each ~3.4%, gap ~1%)
+  box-shadow copies segments to the right using calc(segW + gap).
+*/
+h1,h2,h3,h4,h5,h6 { font-family: var(--font-sans); font-weight: 800; color: var(--tx-0); line-height: 1.2; letter-spacing: 0.04em; }
+
+h1 {
+  position: relative; font-size: clamp(2.2rem,5vw,3.6em); font-weight: 900;
+  letter-spacing: 0.05em; padding: 5rem 0 3.5rem var(--h1-pad);
+  margin: 6rem 0 0;
+  background: var(--bg-2);
+  border-top: var(--bd-sub); border-left: var(--bd-sub);
+  border-right: var(--bd-r); border-bottom: var(--bd-b);
+  border-radius: var(--r-xl); box-shadow: var(--shadow-md); max-width: 76%;
+}
+h1::before { content:''; position:absolute; top:2.2rem; left:var(--h1-pad); width:var(--bar-w); height:4px; background:var(--ac); border-radius:var(--r-pill); }
+
+/* H2 — 1 bar, 75% width */
+h2 { font-size:2.6em; font-weight:900; text-transform:uppercase; letter-spacing:.09em; margin-top:8rem; margin-bottom:0; }
+h2::after { content:''; display:block; width:75%; height:3px; background:var(--ac); border-radius:var(--r-pill); margin-top:1.4rem; margin-bottom:2.8rem; }
+
+/* H3 — 2 bars, total ~60% (28% each + 4% gap) */
+h3 { font-size:2em; font-weight:800; text-transform:capitalize; letter-spacing:.05em; margin-top:6rem; margin-bottom:0; }
+h3::after { content:''; display:block; width:28%; height:3px; background:var(--ac); box-shadow:calc(28% + 3%) 0 0 var(--ac); border-radius:var(--r-pill); margin-top:1.1rem; margin-bottom:2.4rem; }
+
+/* H4 — 3 bars, total ~45% (13% each + 3% gap) */
+h4 { font-size:1.35em; font-weight:800; text-transform:uppercase; letter-spacing:.09em; margin-top:4.5rem; margin-bottom:0; }
+h4::after { content:''; display:block; width:13%; height:2px; background:var(--ac); box-shadow:calc(13% + 3%) 0 0 var(--ac),calc((13% + 3%)*2) 0 0 var(--ac); border-radius:var(--r-pill); margin-top:.9rem; margin-bottom:2rem; }
+
+/* H5 — 4 bars, total ~32% (7% each + 1.6% gap) */
+h5 { font-size:1.1em; font-weight:700; text-transform:uppercase; letter-spacing:.11em; margin-top:3.5rem; margin-bottom:0; }
+h5::after { content:''; display:block; width:7%; height:2px; background:var(--ac); box-shadow:calc(7% + 1.5%) 0 0 var(--ac),calc((7% + 1.5%)*2) 0 0 var(--ac),calc((7% + 1.5%)*3) 0 0 var(--ac); border-radius:var(--r-pill); margin-top:.8rem; margin-bottom:1.8rem; }
+
+/* H6 — 5 bars, total ~22% (3.4% each + 1% gap) */
+h6 { font-size:.95em; font-weight:700; text-transform:uppercase; letter-spacing:.12em; margin-top:2.8rem; margin-bottom:0; }
+h6::after { content:''; display:block; width:3.4%; height:1px; background:rgba(255,255,255,.28); box-shadow:calc(3.4% + 1%) 0 0 rgba(255,255,255,.28),calc((3.4% + 1%)*2) 0 0 rgba(255,255,255,.28),calc((3.4% + 1%)*3) 0 0 rgba(255,255,255,.28),calc((3.4% + 1%)*4) 0 0 rgba(255,255,255,.28); border-radius:var(--r-pill); margin-top:.7rem; margin-bottom:1.6rem; }
+
+/* ── 5. DIVIDERS ───────────────────────────────────────────────── */
+hr { border:none; margin:7rem auto; width:1px; height:60px; background:rgba(255,255,255,.07); position:relative; overflow:visible; }
+hr::before,hr::after { content:''; position:absolute; left:50%; transform:translateX(-50%); width:6px; height:6px; border-radius:50%; background:var(--bg-1); }
+hr::before { top:0; border:1.5px solid rgba(255,255,255,.14); }
+hr::after  { bottom:0; border:1.5px solid var(--ac); }
+
+/* ── 6. TABLES ─────────────────────────────────────────────────── */
+table { width:100%; border-collapse:collapse; margin-top:1.8rem; margin-bottom:3rem; font-family:var(--font-mono); font-size:.83em; line-height:1.65; letter-spacing:.02em; border-top:var(--bd-sub); border-left:var(--bd-sub); border-right:var(--bd-r); border-bottom:var(--bd-b); border-radius:var(--r-lg); overflow:hidden; box-shadow:var(--shadow-md); }
+thead { background:var(--bg-3); border-bottom:1px solid rgba(255,255,255,.08); }
+th { font-weight:700; font-size:.78em; letter-spacing:.09em; text-transform:uppercase; color:var(--tx-0); padding:1rem 1.1rem 1.4rem; vertical-align:bottom; text-align:left; border-right:1px dashed rgba(255,255,255,.07); white-space:nowrap; }
+th:last-child{border-right:none;}
+td { padding:.9rem 1.1rem; vertical-align:top; color:var(--tx-1); border-right:1px dotted rgba(255,255,255,.05); border-bottom:1px dotted rgba(255,255,255,.04); line-height:1.65; }
+td:last-child{border-right:none;} td:first-child{font-weight:600;color:var(--tx-0);}
+tbody tr:nth-child(even) td{background:rgba(255,255,255,.018);}
+tbody tr:hover td{background:rgba(255,255,255,.038);transition:background .1s;}
+td strong { display:inline-block; font-family:var(--font-mono); font-size:.82em; font-weight:700; letter-spacing:.06em; padding:.1em .6em; border-radius:var(--r-sm); background:var(--bg-0); color:var(--tx-0); white-space:nowrap; border-bottom:2px solid rgba(255,255,255,.13); border-right:2px solid rgba(255,255,255,.13); }
+.tbl{table-layout:fixed;} .tbl th,.tbl td{overflow-wrap:break-word;word-break:break-word;white-space:normal;max-width:0;}
+.w5{width:5%}.w8{width:8%}.w10{width:10%}.w12{width:12%}.w14{width:14%}.w15{width:15%}.w18{width:18%}.w20{width:20%}.w22{width:22%}.w24{width:24%}.w25{width:25%}.w28{width:28%}.w30{width:30%}.w32{width:32%}.w35{width:35%}.w38{width:38%}.w40{width:40%}.w42{width:42%}.w45{width:45%}.w48{width:48%}.w50{width:50%}.w55{width:55%}.w60{width:60%}.w65{width:65%}
+.table-title { display:block; margin-top:3.5rem; margin-bottom:0; font-family:var(--font-mono); font-size:.75em; font-weight:700; letter-spacing:.10em; text-transform:uppercase; color:var(--tx-0); padding-bottom:.9rem; border-bottom:1px solid rgba(255,255,255,.12); }
+.table-citation{display:block;margin-top:-1.8rem;margin-bottom:2rem;font-size:.74em;color:var(--tx-muted);font-style:italic;}
+
+/* ── 7. CODE ───────────────────────────────────────────────────── */
+code { font-family:var(--font-mono); font-size:.84em; background:var(--bg-0); color:#e8f51e; padding:.22em .70em; border-radius:var(--r-pill); white-space:nowrap; border-bottom:2px solid rgba(0,0,0,.7); border-right:2px solid rgba(0,0,0,.7); }
+pre { position:relative; margin-top:2rem; margin-bottom:2.5rem; padding:1.3rem 1.4rem; background:var(--bg-0)!important; border-top:var(--bd-sub); border-left:var(--bd-sub); border-right:var(--bd-r); border-bottom:var(--bd-b); border-radius:var(--r-lg); overflow-x:auto; box-shadow:var(--shadow-md); font-family:var(--font-mono); }
+pre code { font-size:.875em; line-height:2.2; padding:0; background:none!important; border:none; color:inherit; white-space:pre; border-radius:0; }
+pre[data-lang]::before { content:attr(data-lang); position:absolute; top:.6rem; right:.9rem; font-size:.63em; font-family:var(--font-mono); letter-spacing:.08em; text-transform:uppercase; color:var(--tx-muted); opacity:.7; }
+.code-title { display:flex; align-items:center; gap:.55rem; margin-top:2rem; margin-bottom:0; padding:.55rem 1.1rem; background:var(--bg-3); border-top:var(--bd-sub); border-left:var(--bd-sub); border-right:var(--bd-r); border-bottom:none; border-radius:var(--r-md) var(--r-md) 0 0; font-family:var(--font-mono); font-size:.75em; color:var(--tx-1); letter-spacing:.06em; }
+.code-title::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--ac);flex-shrink:0;}
+.code-title+pre{border-radius:0 0 var(--r-lg) var(--r-lg);margin-top:0;}
+
+/* ── 8. CALLOUTS — right border on label only, no backgrounds ──── */
+.callout {
+  display:flex; gap:.85rem; align-items:baseline;
+  margin-top:2rem; margin-bottom:2rem;
+  max-width:76ch; font-size:.92em; line-height:1.85; color:var(--tx-1);
+}
+/* Label: right border only, no background */
+.cl {
+  font-family:var(--font-mono); font-size:.70em; font-weight:700;
+  letter-spacing:.10em; text-transform:uppercase;
+  white-space:nowrap; flex-shrink:0;
+  padding:.12em .65em .12em 0;
+  border-right:2px solid;
+}
+.callout-info .cl  { color:var(--s-info);  border-color:rgba(147,197,253,.40); }
+.callout-ok .cl    { color:var(--s-ok);    border-color:rgba(74,222,128,.38); }
+.callout-warn .cl  { color:var(--s-warn);  border-color:rgba(251,191,36,.40); }
+.callout-crit .cl  { color:var(--s-crit);  border-color:rgba(248,113,113,.40); }
+.callout-note .cl  { color:var(--s-note);  border-color:rgba(192,132,252,.38); }
+
+/* ── 9. SUMMARY CALLOUT — boxed card ───────────────────────────── */
+.summary-callout {
+  position: relative;
+  padding: 1.3rem 1.5rem 1.5rem;
+  background: var(--bg-3);
+  border-top: var(--bd-sub); border-left: var(--bd-sub);
+  border-right: 3px solid rgba(29,233,182,.35);
+  border-bottom: 3px solid rgba(29,233,182,.35);
+  border-radius: var(--r-xl);
+  max-width: 760px;
+  margin-top: 2rem; margin-bottom: 2rem;
+  box-shadow: var(--shadow-sm);
+}
+.summary-callout-label {
+  display: block;
+  font-family: var(--font-mono); font-size: .70em; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ac); margin-bottom: .85rem;
+}
+.summary-callout p { margin: 0; font-size: .93em; line-height: 1.85; color: var(--tx-1); max-width: none; }
+
+/* ── 9b. DEFINITION CALLOUT — inline keyword + description ─────── */
+/* Different from summary: term on its own line in large type,
+   definition text below in smaller type. No box — open layout. */
+.definition-callout {
+  margin-top: 2.5rem; margin-bottom: 2.5rem;
+  max-width: 680px;
+  border-left: 2px solid rgba(255,255,255,.10);
+  padding-left: 1.4rem;
+}
+.definition-callout-term {
+  font-family: var(--font-sans);
+  font-size: 1.25em; font-weight: 900;
+  color: var(--tx-0); line-height: 1.2;
+  letter-spacing: .02em;
+  margin-bottom: .55rem;
+  display: flex; align-items: center; gap: .7rem;
+}
+.definition-callout-term::before {
+  content: 'def';
+  font-family: var(--font-mono); font-size: .48em; font-weight: 400;
+  color: var(--ac); letter-spacing: .06em;
+  border: 1px solid rgba(29,233,182,.35); border-radius: var(--r-sm);
+  padding: .1em .4em; flex-shrink: 0;
+  position: relative; top: .1em;
+}
+.definition-callout p {
+  margin: 0; font-size: .91em; line-height: 1.9;
+  color: var(--tx-1); max-width: none;
+}
+
+/* ── 10. PULL INSIGHT ──────────────────────────────────────────── */
+.pull-insight { position:relative; margin-top:3rem; margin-bottom:3rem; padding-left:1.6rem; max-width:66ch; border-left:2px solid var(--ac); }
+.pull-insight-label { font-family:var(--font-mono); font-size:.68em; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--ac); display:block; margin-bottom:.55rem; }
+.pull-insight p { font-size:1.1em; font-weight:600; line-height:1.75; color:var(--tx-0); margin:0; }
+
+/* ── 11. BLOCKQUOTE ────────────────────────────────────────────── */
+blockquote { margin-top:2rem; margin-bottom:2rem; font-family:var(--font-mono); font-size:.88em; line-height:1.75; color:var(--tx-1); max-width:72ch; }
+blockquote>p:first-child::before { content:'SUMMARY  '; font-weight:700; color:var(--tx-0); letter-spacing:.08em; }
+blockquote p{margin:0;} blockquote strong{color:var(--tx-0);}
+
+/* ── 12. HIGHLIGHTS ────────────────────────────────────────────── */
+mark,.hl         {background:rgba(251,191,36,.12); color:var(--s-warn); padding:.05em .35em; border-radius:var(--r-sm); font-family:var(--font-mono); font-size:.93em;}
+.hl-green        {background:rgba(74,222,128,.10);  color:var(--s-ok);   padding:.05em .35em; border-radius:var(--r-sm); font-family:var(--font-mono); font-size:.93em;}
+.hl-blue         {background:rgba(147,197,253,.10); color:var(--s-info);  padding:.05em .35em; border-radius:var(--r-sm); font-family:var(--font-mono); font-size:.93em;}
+.hl-red          {background:rgba(248,113,113,.10); color:var(--s-crit);  padding:.05em .35em; border-radius:var(--r-sm); font-family:var(--font-mono); font-size:.93em;}
+.hl-purple       {background:rgba(192,132,252,.10); color:var(--s-note);  padding:.05em .35em; border-radius:var(--r-sm); font-family:var(--font-mono); font-size:.93em;}
+/* Underlines: more offset, dimmer colors */
+.ul-teal  {text-decoration:underline;text-decoration-color:rgba(29,233,182,.45);  text-underline-offset:6px;text-decoration-thickness:2px;}
+.ul-amber {text-decoration:underline;text-decoration-color:rgba(251,191,36,.40);  text-underline-offset:6px;text-decoration-thickness:2px;}
+.ul-red   {text-decoration:underline;text-decoration-color:rgba(248,113,113,.40); text-underline-offset:6px;text-decoration-thickness:2px;}
+
+/* Highlight legend */
+.hl-legend {
+  margin-top: 2rem; margin-bottom: 2rem;
+  border-top: var(--bd-sub); border-left: var(--bd-sub);
+  border-right: var(--bd-r); border-bottom: var(--bd-b);
+  border-radius: var(--r-md); overflow: hidden;
+  max-width: 680px; box-shadow: var(--shadow-sm);
+}
+.hl-legend-row {
+  display: grid; grid-template-columns: 130px 1fr;
+  align-items: center; gap: 0;
+  border-bottom: 1px solid rgba(255,255,255,.04);
+  font-size: .84em; line-height: 1.6;
+}
+.hl-legend-row:last-child { border-bottom: none; }
+.hl-legend-swatch {
+  display: flex; align-items: center; gap: .6rem;
+  padding: .75rem 1rem;
+  border-right: 1px solid rgba(255,255,255,.05);
+  font-family: var(--font-mono); font-size: .88em; font-weight: 700;
+  white-space: nowrap;
+}
+.hl-legend-desc { padding: .75rem 1rem; color: var(--tx-1); }
+
+/* ── 13. BADGES — no depth border ──────────────────────────────── */
+.badge { display:inline-flex; align-items:center; font-family:var(--font-mono); font-size:.70em; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:.2em .75em; border-radius:var(--r-sm); white-space:nowrap; vertical-align:middle; }
+.badge-ok      {background:rgba(74,222,128,.10);  color:var(--s-ok);}
+.badge-warn    {background:rgba(251,191,36,.10);  color:var(--s-warn);}
+.badge-crit    {background:rgba(248,113,113,.10); color:var(--s-crit);}
+.badge-info    {background:rgba(147,197,253,.10); color:var(--s-info);}
+.badge-note    {background:rgba(192,132,252,.10); color:var(--s-note);}
+.badge-neutral {background:rgba(255,255,255,.05); color:var(--tx-1);}
+
+/* ── 14. LISTS ─────────────────────────────────────────────────── */
+ul,ol { max-width:74ch; margin-top:1.2rem; margin-bottom:1.8rem; padding-left:1.4rem; font-family:var(--font-sans); line-height:1.9; color:var(--tx-1); }
+ul{list-style:none;padding-left:1.2rem;}
+li{margin-top:.6rem;} li+li{margin-top:.65rem;}
+ul>li{position:relative;}
+ul>li::before{content:'•';position:absolute;left:-1.1rem;color:var(--ac);font-size:.9em;}
+ul ul{margin-top:.4rem;margin-bottom:.2rem;}
+ul ul>li::before{content:'–';color:var(--tx-1);opacity:.5;}
+ul ul ul>li::before{content:'·';opacity:.35;}
+ol{list-style:decimal;} ol>li::marker{color:var(--ac);}
+/* Task list */
+.task-list{list-style:none;padding-left:0;}
+.task-list li{display:flex;align-items:baseline;gap:.65rem;}
+/* Suppress the bullet marker inherited from ul>li::before */
+.task-list li::before{display:none!important;content:none!important;}
+.task-list input[type="checkbox"]{appearance:none;-webkit-appearance:none;width:13px;height:13px;flex-shrink:0;border:1.5px solid rgba(255,255,255,.25);border-radius:3px;background:transparent;cursor:default;position:relative;top:2px;}
+.task-list input[type="checkbox"]:checked{background:var(--ac);border-color:var(--ac);}
+.task-list input[type="checkbox"]:checked::after{content:'✓';position:absolute;font-size:9px;font-weight:900;color:#000;top:50%;left:50%;transform:translate(-50%,-50%);}
+.task-list li:has(input:checked)>span{color:var(--tx-muted);text-decoration:line-through;text-decoration-color:rgba(255,255,255,.2);}
+
+/* ── 15. DEFINITION LISTS ──────────────────────────────────────── */
+dl{margin-top:1.5rem;margin-bottom:2rem;}
+dt {
+  display:flex; align-items:baseline; gap:.6rem;
+  font-family:var(--font-sans); font-weight:800; font-size:1em;
+  color:var(--tx-0); margin-top:2.2rem; line-height:1.4;
+}
+dt:first-child{margin-top:0;}
+/* Definition icon — small bracket mark before the term */
+dt::before {
+  content:'[ ]';
+  font-family:var(--font-mono); font-size:.62em; font-weight:400;
+  color:rgba(255,255,255,.28); letter-spacing:-.05em;
+  flex-shrink:0; position:relative; top:.05em;
+}
+dd{color:var(--tx-1);font-size:.93em;line-height:1.85;margin:.5rem 0 0;padding-left:0;}
+
+/* ── 16. IMAGES / FIGURES ──────────────────────────────────────── */
+img{max-width:100%;display:block;margin-top:1.5rem;margin-bottom:2.5rem;border-radius:var(--r-md);border-top:var(--bd-sub);border-left:var(--bd-sub);border-right:var(--bd-r);border-bottom:var(--bd-b);box-shadow:var(--shadow-md);}
+.media-fig{margin-top:3rem;margin-bottom:3rem;}
+.media-fig img{margin:0;width:100%;}
+.media-label{font-family:var(--font-mono);font-size:.70em;font-weight:700;letter-spacing:.10em;text-transform:uppercase;color:var(--tx-0);margin-bottom:.65rem;display:flex;align-items:center;gap:.5rem;}
+.media-label::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--ac);display:block;}
+.media-caption{font-size:.78em;color:var(--tx-muted);font-style:italic;margin-top:.75rem;}
+
+/* ── 17. VIDEO EMBED ───────────────────────────────────────────── */
+.media-video{margin-top:3rem;margin-bottom:3rem;}
+.media-video iframe{
+  display:block;width:100%;aspect-ratio:16/9;
+  border-radius:var(--r-lg);
+  border-top:var(--bd-sub);border-left:var(--bd-sub);
+  border-right:var(--bd-r);border-bottom:var(--bd-b);
+  box-shadow:var(--shadow-md);
+}
+/* Video placeholder (for demo when iframe blocked) */
+.video-placeholder{
+  aspect-ratio:16/9;background:var(--bg-3);
+  border-radius:var(--r-lg);border-top:var(--bd-sub);border-left:var(--bd-sub);
+  border-right:var(--bd-r);border-bottom:var(--bd-b);
+  box-shadow:var(--shadow-md);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.8rem;
+  color:var(--tx-muted);font-family:var(--font-mono);font-size:.85em;
+}
+.video-play-icon{width:48px;height:48px;border-radius:50%;border:1.5px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;}
+.video-play-icon svg{width:18px;height:18px;fill:var(--tx-1);margin-left:3px;}
+
+/* ── 18. PDF EMBED ─────────────────────────────────────────────── */
+.media-pdf{
+  display:flex;align-items:center;gap:1.2rem;
+  padding:1.1rem 1.4rem;
+  background:var(--bg-3);
+  border-top:var(--bd-sub);border-left:var(--bd-sub);
+  border-right:var(--bd-r);border-bottom:var(--bd-b);
+  border-radius:var(--r-md);
+  box-shadow:var(--shadow-sm);
+  max-width:480px;
+  margin-top:2rem;margin-bottom:2rem;
+}
+.pdf-icon-wrap{width:40px;height:40px;background:rgba(248,113,113,.12);border:1px solid rgba(248,113,113,.25);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.pdf-icon-wrap svg{width:20px;height:20px;fill:var(--s-crit);}
+.pdf-info{flex:1;min-width:0;}
+.pdf-filename{font-family:var(--font-mono);font-size:.85em;font-weight:700;color:var(--tx-0);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pdf-meta{font-size:.75em;color:var(--tx-muted);margin-top:.2rem;font-family:var(--font-mono);}
+.pdf-link{font-family:var(--font-mono);font-size:.72em;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ac);text-decoration:none;white-space:nowrap;padding:.25em .6em;border:1px solid rgba(29,233,182,.25);border-radius:var(--r-sm);}
+.pdf-link:hover{background:rgba(29,233,182,.07);}
+
+/* ── 19. CARDS ─────────────────────────────────────────────────── */
+.card { padding:1.2rem 1.4rem; background:var(--bg-2); border-top:var(--bd-sub); border-left:var(--bd-sub); border-right:var(--bd-r); border-bottom:var(--bd-b); border-radius:var(--r-md); box-shadow:var(--shadow-sm); color:var(--tx-1); }
+.card-title { font-family:var(--font-mono); font-size:.73em; font-weight:700; letter-spacing:.10em; text-transform:uppercase; color:var(--tx-0); margin-bottom:.7rem; }
+.card-title::before{content:'▸ ';color:var(--ac);}
+.card p{margin:0;font-size:.93em;color:var(--tx-1);}
+
+/* ── 20. DETAILS / COLLAPSIBLE ─────────────────────────────────── */
+details { margin-top:1.5rem; margin-bottom:1.5rem; border-top:var(--bd-sub); border-left:var(--bd-sub); border-right:var(--bd-r); border-bottom:var(--bd-b); border-radius:var(--r-md); background:var(--bg-2); overflow:hidden; }
+summary { display:flex; align-items:center; gap:.5rem; padding:.9rem 1.2rem; font-family:var(--font-mono); font-weight:700; font-size:.85em; letter-spacing:.04em; cursor:pointer; color:var(--tx-0); user-select:none; list-style:none; }
+summary::-webkit-details-marker{display:none;}
+summary::before{content:'▸';font-size:.68em;color:var(--ac);transition:transform .2s;flex-shrink:0;}
+details[open]>summary::before{transform:rotate(90deg);}
+details[open]>summary{border-bottom:1px solid rgba(255,255,255,.06);}
+details>*:not(summary){padding:.5rem 1.2rem 1.1rem;color:var(--tx-1);}
+details>p{margin-left:0;}
+/* Preview text shown when collapsed */
+.details-preview{font-size:.78em;color:var(--tx-muted);font-family:var(--font-mono);margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px;}
+details[open] .details-preview{display:none;}
+
+/* ── 21. COLUMN GRID ───────────────────────────────────────────── */
+.cols { display:grid; gap:1.4rem; margin-top:1.8rem; margin-bottom:2.5rem; }
+.cols-2   { grid-template-columns:repeat(2,1fr); }
+.cols-3   { grid-template-columns:repeat(3,1fr); }
+.cols-4   { grid-template-columns:repeat(4,1fr); }
+.cols-1-2 { grid-template-columns:1fr 2fr; }
+.cols-2-1 { grid-template-columns:2fr 1fr; }
+.cols-1-3 { grid-template-columns:1fr 3fr; }
+.cols.gap-sm{gap:.7rem;} .cols.gap-lg{gap:2.2rem;}
+
+/* Tile row — left-aligned, fixed-width items, no stretching */
+.cols-tiles {
+  display:flex; flex-wrap:wrap; gap:1rem; align-items:flex-start;
+  justify-content:flex-start;
+  margin-top:1.8rem; margin-bottom:2.5rem;
+}
+.cols-tiles>.card { flex:0 0 auto; width:200px; }
+
+/* Sidebar / main layout — left col has right separator */
+.col-sidebar {
+  padding-right:1.8rem;
+  border-right:1px solid rgba(255,255,255,.07);
+}
+.col-sidebar .txt-label { display:block; font-family:var(--font-mono); font-size:.68em; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--ac); margin-bottom:.6rem; }
+.col-sidebar p { margin-top:.5rem; font-size:.91em; color:var(--tx-1); }
+.col-main p { margin-top:.5rem; font-size:.91em; }
+
+/* Text cell */
+.txt { color:var(--tx-1); font-size:.93em; line-height:1.9; }
+.txt-label { display:block; font-family:var(--font-mono); font-size:.68em; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--ac); margin-bottom:.6rem; }
+
+@media(max-width:680px){
+  .cols-2,.cols-3,.cols-4,.cols-1-2,.cols-2-1,.cols-1-3{grid-template-columns:1fr;}
+  .col-sidebar{border-right:none;padding-right:0;border-bottom:1px solid rgba(255,255,255,.07);padding-bottom:1.2rem;}
+}
+
+/* ── 22. DIAGRAM SYSTEM — simplified ──────────────────────────── */
+/* Minimal: single dark background, no colored group BGs,
+   groups separated by spacing only, nodes with left-accent only */
+.dg {
+  display:flex; align-items:flex-start; flex-wrap:wrap; gap:0;
+  margin-top:2rem; margin-bottom:2rem; padding:1.4rem;
+  background:var(--bg-0);
+  border-top:var(--bd-sub); border-left:var(--bd-sub);
+  border-right:var(--bd-r); border-bottom:var(--bd-b);
+  border-radius:var(--r-lg); font-size:.88em; line-height:1.45; color:var(--tx-1);
+}
+.dg-grp { padding:0 1rem; display:flex; flex-direction:column; gap:6px; min-width:0; flex:1; }
+.dg-grp+.dg-grp { border-left:1px solid rgba(255,255,255,.06); }
+.dg-hl { font-family:var(--font-mono); font-size:.65em; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:var(--tx-0); margin-bottom:8px; }
+/* Nodes: uniform style, status via left border only */
+.nd { background:var(--bg-3); border-top:var(--bd-sub); border-left:var(--bd-sub); border-right:2px solid rgba(255,255,255,.12); border-bottom:2px solid rgba(255,255,255,.12); border-radius:var(--r-sm); padding:8px 11px; display:flex; flex-direction:column; gap:2px; }
+.nd.nc{border-left:3px solid var(--s-crit);}
+.nd.ng{border-left:3px solid var(--s-ok);}
+.nd.nw{border-left:3px solid var(--s-warn);}
+.nd.nb{border-left:3px solid var(--s-info);}
+.nd.nm{opacity:.4;}
+.nt{font-weight:700;display:flex;align-items:center;gap:6px;color:var(--tx-0);}
+.ns{color:rgba(255,255,255,.45);font-size:.82em;padding-left:16px;line-height:1.4;}
+.dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;display:inline-block;}
+.dot-r{background:var(--s-crit);} .dot-g{background:var(--s-ok);} .dot-w{background:var(--s-warn);} .dot-b{background:var(--s-info);}
+.ar{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 .6rem;gap:2px;flex-shrink:0;min-width:36px;}
+.ar-s{font-size:1.1em;color:rgba(255,255,255,.2);line-height:1;}
+.ar-l{font-size:.60em;color:rgba(255,255,255,.25);text-align:center;line-height:1.3;}
+.dg-note{font-family:var(--font-mono);font-size:.80em;color:var(--tx-muted);margin-top:0;margin-bottom:2rem;line-height:1.6;padding-left:.4rem;border-left:2px solid rgba(255,255,255,.10);}
+
+/* ── 23. TECH REFERENCE LABEL ──────────────────────────────────── */
+/* Clean: icon + name row, then topic text. No colored backgrounds.
+   All icon strokes white. Accent color only on the left border of topic. */
+.tech-ref { margin-top:2.5rem; margin-bottom:2.5rem; max-width:580px; }
+.tech-ref-header { display:flex; align-items:center; gap:.75rem; margin-bottom:.85rem; }
+.tech-icon-badge {
+  width:38px; height:38px; flex-shrink:0;
+  background:var(--bg-3);
+  border-top:var(--bd-sub); border-left:var(--bd-sub);
+  border-right:2px solid rgba(255,255,255,.14); border-bottom:2px solid rgba(255,255,255,.14);
+  border-radius:var(--r-md);
+  display:flex; align-items:center; justify-content:center;
+}
+/* All icon paths: white strokes */
+.tech-icon-badge svg { width:20px; height:20px; }
+.tech-icon-badge svg path,
+.tech-icon-badge svg ellipse,
+.tech-icon-badge svg rect,
+.tech-icon-badge svg circle,
+.tech-icon-badge svg polyline { stroke:#fff !important; }
+.tech-ref-name {
+  font-family:var(--font-mono); font-size:.72em; font-weight:700;
+  letter-spacing:.08em; text-transform:uppercase; color:var(--tx-0);
+}
+.tech-ref-topic {
+  padding:.65rem 1rem;
+  border-left:2px solid var(--ac);
+  font-size:.97em; font-weight:700; color:var(--tx-0); line-height:1.45;
+}
+.tech-ref.accent-teal  .tech-ref-topic { border-color:var(--ac); }
+.tech-ref.accent-amber .tech-ref-topic { border-color:var(--s-warn); }
+.tech-ref.accent-blue  .tech-ref-topic { border-color:var(--s-info); }
+.tech-ref.accent-green .tech-ref-topic { border-color:var(--s-ok); }
+.tech-ref.accent-red   .tech-ref-topic { border-color:var(--s-crit); }
+
+/* ── 24. CASE EXAMPLE ──────────────────────────────────────────── */
+.case-example {
+  margin-top:3rem; margin-bottom:3rem; max-width:820px;
+  border-top:var(--bd-sub); border-left:var(--bd-sub);
+  border-right:3px solid rgba(251,191,36,.35);
+  border-bottom:3px solid rgba(251,191,36,.35);
+  border-radius:var(--r-lg); overflow:hidden;
+  box-shadow:var(--shadow-sm);
+}
+.case-header {
+  display:flex; align-items:center; gap:1rem;
+  padding:.85rem 1.3rem;
+  background:var(--bg-3);
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.case-tag {
+  font-family:var(--font-mono); font-size:.68em; font-weight:700;
+  letter-spacing:.12em; text-transform:uppercase;
+  color:var(--s-warn); background:rgba(251,191,36,.10);
+  padding:.2em .7em; border-radius:var(--r-sm);
+  border-bottom:2px solid rgba(251,191,36,.25); border-right:2px solid rgba(251,191,36,.25);
+  flex-shrink:0;
+}
+.case-title { font-weight:700; font-size:.95em; color:var(--tx-0); }
+.case-body { padding:1.3rem 1.5rem; background:var(--bg-2); }
+.case-body p { margin:0 0 1rem; font-size:.92em; line-height:1.85; color:var(--tx-1); max-width:none; }
+.case-body p:last-child{margin-bottom:0;}
+
+/* ── 25. STEPS ─────────────────────────────────────────────────── */
+.steps { margin-top:2rem; margin-bottom:2rem; max-width:780px; }
+.step {
+  display:grid; grid-template-columns:48px 1fr; gap:0;
+  position:relative;
+}
+.step+.step { margin-top:0; }
+.step-marker {
+  display:flex; flex-direction:column; align-items:center;
+  padding-top:2px;
+}
+.step-num {
+  width:34px; height:34px; border-radius:50%;
+  background:var(--bg-3);
+  border-top:var(--bd-sub); border-left:var(--bd-sub);
+  border-right:2px solid rgba(29,233,182,.4);
+  border-bottom:2px solid rgba(29,233,182,.4);
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-mono); font-size:.72em; font-weight:700;
+  color:var(--ac); flex-shrink:0;
+}
+.step-line { flex:1; width:1px; background:rgba(255,255,255,.07); margin-top:6px; margin-bottom:0; min-height:20px; }
+.step:last-child .step-line { display:none; }
+.step-content { padding-bottom:2.4rem; padding-left:1rem; }
+.step:last-child .step-content { padding-bottom:0; }
+.step-title { font-weight:800; font-size:.95em; color:var(--tx-0); line-height:1.3; margin-bottom:.5rem; padding-top:4px; }
+.step-body { font-size:.90em; line-height:1.85; color:var(--tx-1); }
+.step-body p{margin:0;}
+
+/* ── 26. CATEGORY DROPDOWNS ────────────────────────────────────── */
+.meta-labels {
+  display:flex; flex-wrap:wrap; align-items:center; gap:.7rem;
+  margin-top:2rem; margin-bottom:2rem;
+}
+.meta-item { position:relative; }
+.meta-select {
+  display:flex; align-items:center; gap:.55rem;
+  padding:.4rem .9rem .4rem .7rem;
+  background:var(--bg-3);
+  border-top:var(--bd-sub); border-left:var(--bd-sub);
+  border-right:2px solid rgba(255,255,255,.16); border-bottom:2px solid rgba(255,255,255,.16);
+  border-radius:var(--r-sm); cursor:pointer; user-select:none;
+  font-family:var(--font-mono); font-size:.75em; font-weight:700;
+  letter-spacing:.08em; text-transform:uppercase; color:var(--tx-0);
+  transition:background .15s;
+}
+.meta-select:hover{background:var(--bg-4);}
+.meta-select.open{background:var(--bg-4);border-bottom-left-radius:0;border-bottom-right-radius:0;}
+.meta-select svg{width:14px;height:14px;opacity:.55;flex-shrink:0;}
+.meta-arrow{font-size:.7em;opacity:.5;transition:transform .15s;}
+.meta-select.open .meta-arrow{transform:rotate(180deg);}
+.meta-dropdown {
+  display:none; position:absolute; top:100%; left:0; z-index:50;
+  background:var(--bg-4);
+  border-left:var(--bd-sub); border-right:2px solid rgba(255,255,255,.16);
+  border-bottom:2px solid rgba(255,255,255,.16);
+  border-radius:0 0 var(--r-sm) var(--r-sm);
+  min-width:100%; overflow:hidden;
+}
+.meta-dropdown.open{display:block;}
+.meta-option {
+  padding:.45rem .9rem; font-family:var(--font-mono); font-size:.75em;
+  font-weight:600; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--tx-1); cursor:pointer; white-space:nowrap;
+  transition:background .1s, color .1s;
+}
+.meta-option:hover{background:var(--bg-5);color:var(--tx-0);}
+.meta-option.selected{color:var(--ac);}
+
+/* ── 27. CHART SECTION ─────────────────────────────────────────── */
+.chart-section{margin-top:2rem;margin-bottom:3rem;max-width:820px;}
+/* Title is inside chart-section which already has margin-left — reset it */
+.chart-section .table-title{margin-left:0;}
+.chart-tabs{display:flex;gap:.5rem;margin-bottom:.8rem;}
+.chart-tab{
+  font-family:var(--font-mono);font-size:.70em;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;
+  padding:.28em .8em;background:var(--bg-3);color:var(--tx-muted);
+  border:1px solid rgba(255,255,255,.08);border-radius:var(--r-sm);
+  cursor:pointer;transition:background .15s,color .15s;
+}
+.chart-tab:hover{color:var(--tx-1);}
+.chart-tab.active{background:var(--bg-4);color:var(--ac);border-color:rgba(29,233,182,.25);}
+.chart-wrap{
+  position:relative;padding:1.2rem 1.4rem 1rem;
+  background:var(--bg-0);
+  border-top:var(--bd-sub);border-left:var(--bd-sub);
+  border-right:var(--bd-r);border-bottom:var(--bd-b);
+  border-radius:var(--r-lg);box-shadow:var(--shadow-md);
+  width:100%;box-sizing:border-box;overflow:hidden;
+}
+.chart-wrap canvas{display:block;width:100%!important;}
+
+/* ── 29. UTILITY ───────────────────────────────────────────────── */
+.mono{font-family:var(--font-mono);} .upper{text-transform:uppercase;letter-spacing:.08em;} .muted{color:var(--tx-muted);}
+.ref-link{display:flex;align-items:center;gap:.5rem;margin-top:.5rem;margin-bottom:.5rem;font-family:var(--font-mono);font-size:.79em;color:var(--tx-1);}
+.ref-link::before{content:'→';color:var(--ac);}
+.breadcrumb{display:flex;align-items:center;flex-wrap:wrap;gap:.4rem;font-family:var(--font-mono);font-size:.74em;color:var(--tx-muted);margin-top:1rem;margin-bottom:1rem;}
+.breadcrumb strong{color:var(--tx-0);font-weight:700;}
+.breadcrumb .bc-sep{color:rgba(255,255,255,.15);}
+
+/* ── 30. DEMO NAV ──────────────────────────────────────────────── */
+.demo-nav{
+  position:sticky;top:0;z-index:100;
+  display:flex;flex-wrap:wrap;gap:.35rem;
+  padding:.7rem var(--indent);
+  margin:0 calc(-1*var(--indent));
+  background:rgba(9,9,9,.93);backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.demo-nav a{font-family:var(--font-mono);font-size:.65em;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:.28em .75em;background:var(--bg-3);color:var(--tx-1);border-radius:var(--r-sm);text-decoration:none;border-bottom:2px solid rgba(255,255,255,.10);transition:background .15s,color .15s;}
+.demo-nav a:hover{background:var(--bg-4);color:var(--ac);}
+
+/* ── 31. PRINT ─────────────────────────────────────────────────── */
+@media print{
+  body{background:#fff;color:#000;padding:0;}
+  h1,h2,h3,h4{color:#000;page-break-after:avoid;}
+  pre,blockquote,table{page-break-inside:avoid;}
+  a{color:#000;text-decoration:underline;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="demo-nav">
+  <a href="#hero">Title</a>
+  <a href="#headings">Headings</a>
+  <a href="#tables">Tables</a>
+  <a href="#code">Code</a>
+  <a href="#callouts">Callouts</a>
+  <a href="#summary">Summary</a>
+  <a href="#highlights">Highlights</a>
+  <a href="#badges">Badges</a>
+  <a href="#lists">Lists</a>
+  <a href="#columns">Columns</a>
+  <a href="#charts">Charts</a>
+  <a href="#tech">Tech Labels</a>
+  <a href="#case">Case Example</a>
+  <a href="#steps">Steps</a>
+  <a href="#collapse">Collapse</a>
+  <a href="#dropdowns">Dropdowns</a>
+  <a href="#diagrams">Diagrams</a>
+  <a href="#media">Media</a>
+</nav>
+
+
+<!-- ════════════════ HERO ════════════════════════════════════════ -->
+<h1 id="hero">Docs Theme<br>Component Reference</h1>
+
+<p>A unified CSS system for knowledge base documents, references, and technical notes.</p>
+
+
+<!-- ════════════════ HEADINGS ════════════════════════════════════ -->
+<h2 id="headings">Heading System</h2>
+<p>Stacked teal bars below each heading. Bar count = heading level. Width decreases as level increases. All heading text is white.</p>
+<h3>Sub-section Heading (H3)</h3>
+<p>Two teal bars. Used for thematic groups within an H2.</p>
+<h4>Named Block Label (H4)</h4>
+<p>Three bars. Used for named topic blocks, config entries, or feature groups.</p>
+<h5>Minor Heading (H5)</h5>
+<p>Four bars. Groups closely related items within an H4 block.</p>
+<h6>Micro Label (H6)</h6>
+<p>Five faded bars. Smallest unit — still white text, never grey.</p>
+
+<hr>
+
+
+<!-- ════════════════ TABLES ══════════════════════════════════════ -->
+<h2 id="tables">Tables</h2>
+<span class="table-title">Attribution Model Comparison</span>
+<table class="tbl">
+  <colgroup><col class="w22"><col class="w18"><col class="w28"><col class="w16"><col class="w16"></colgroup>
+  <thead><tr><th>Model</th><th>Type</th><th>Best For</th><th>Status</th><th>Complexity</th></tr></thead>
+  <tbody>
+    <tr><td>Last Touch</td><td>Rule-based</td><td>Simple direct response</td><td><span class="badge badge-warn">Legacy</span></td><td>Low</td></tr>
+    <tr><td>Shapley Value</td><td>Data-driven</td><td>Multi-touch journeys</td><td><span class="badge badge-ok">Active</span></td><td>High</td></tr>
+    <tr><td>Media Mix Model</td><td>Statistical</td><td>Budget allocation</td><td><span class="badge badge-info">Beta</span></td><td>High</td></tr>
+    <tr><td>Last-Non-Direct</td><td>Rule-based</td><td>GA4 default</td><td><span class="badge badge-neutral">Deprecated</span></td><td>Low</td></tr>
+  </tbody>
+</table>
+<span class="table-citation">Source: internal analytics framework, 2024</span>
+
+<hr>
+
+
+<!-- ════════════════ CODE ════════════════════════════════════════ -->
+<h2 id="code">Code</h2>
+<p>Inline: <code>df.groupby()</code>, <code>PARTITION BY</code>, <code>--max-tokens</code>. Block with language badge and optional title bar.</p>
+<div class="code-title">attribution_model.py</div>
+<pre data-lang="python"><code>def compute_shapley(conversions: pd.DataFrame) -> pd.DataFrame:
+    model = LinearRegression()
+    X = conversions[["paid_search", "display", "email", "organic"]]
+    y = conversions["revenue"]
+    model.fit(X, y)
+    return pd.DataFrame({"channel": X.columns, "contribution": model.coef_})</code></pre>
+
+<hr>
+
+
+<!-- ════════════════ CALLOUTS ════════════════════════════════════ -->
+<h2 id="callouts">Callouts — Minimal</h2>
+<p>Label chip + prose. No background box. Color lives only on the label.</p>
+<div class="callout callout-info"><span class="cl">Info</span>Shapley values require exponential compute for large channel sets. Use SHAP approximation above 10 channels.</div>
+<div class="callout callout-ok"><span class="cl">Success</span>Attribution validation passed. Holdout ROAS delta <strong>+12.4%</strong> vs. baseline over 30 days.</div>
+<div class="callout callout-warn"><span class="cl">Warning</span>Cookie deprecation will impact cross-device journey stitching. Validate against server-side logs.</div>
+<div class="callout callout-crit"><span class="cl">Critical</span>Duplicate events in <code>conversions</code> table. Deduplicate on <code>(session_id, event_time)</code> before any run.</div>
+<div class="callout callout-note"><span class="cl">Note</span>Model is calibrated on paid digital only. Layer in geo-lift results for offline channels.</div>
+
+<hr>
+
+
+<!-- ════════════════ SUMMARY CALLOUT ═════════════════════════════ -->
+<h2 id="summary">Summary Callout</h2>
+<p>A bordered card with the label inside at the top. The depth border is tinted with the accent color on right + bottom edges. Used for section summaries or key definitions.</p>
+
+<div class="summary-callout">
+  <span class="summary-callout-label">Summary</span>
+  <p>The modern measurement stack is not a single model — it's a layered system. Media mix models inform budget allocation, incrementality tests validate channel effectiveness, and attribution models guide daily creative and audience decisions. No single method is sufficient on its own.</p>
+</div>
+
+<div class="definition-callout">
+  <div class="definition-callout-term">Incrementality</div>
+  <p>The causal lift in conversions attributable solely to advertising exposure, isolated from organic behavior via controlled holdout experiments. It is the only attribution method that accounts for selection bias and establishes true cause-and-effect between spend and revenue.</p>
+</div>
+
+<div class="pull-insight">
+  <span class="pull-insight-label">Key Insight</span>
+  <p>Shapley values distribute credit fairly by computing the marginal contribution of each channel across all possible channel orderings — not just the first or last touch.</p>
+</div>
+
+<hr>
+
+
+<!-- ════════════════ HIGHLIGHTS ══════════════════════════════════ -->
+<h2 id="highlights">Highlights &amp; Emphasis</h2>
+
+<div class="hl-legend">
+  <div class="hl-legend-row">
+    <div class="hl-legend-swatch"><mark>amber</mark></div>
+    <div class="hl-legend-desc">Default emphasis — critical figures, key metrics, values that need attention. Use when you want the reader to stop and register a number or fact.</div>
+  </div>
+  <div class="hl-legend-row">
+    <div class="hl-legend-swatch"><span class="hl-green">green</span></div>
+    <div class="hl-legend-desc">Positive outcomes — confirmed improvements, healthy states, validated results. Use for values that exceeded targets or passed validation.</div>
+  </div>
+  <div class="hl-legend-row">
+    <div class="hl-legend-swatch"><span class="hl-blue">blue</span></div>
+    <div class="hl-legend-desc">Informational — definitions, references, named frameworks, or proper nouns worth calling out. Low urgency, high signal-to-noise.</div>
+  </div>
+  <div class="hl-legend-row">
+    <div class="hl-legend-swatch"><span class="hl-red">red</span></div>
+    <div class="hl-legend-desc">Warnings and errors — deprecated items, failed states, data quality issues, or anything the reader must act on to avoid problems.</div>
+  </div>
+  <div class="hl-legend-row">
+    <div class="hl-legend-swatch"><span class="hl-purple">purple</span></div>
+    <div class="hl-legend-desc">Secondary annotations — caveats, edge cases, secondary context that enriches but is not critical to the main point.</div>
+  </div>
+  <div class="hl-legend-row">
+    <div class="hl-legend-swatch"><span class="ul-teal" style="font-size:1em">teal line</span></div>
+    <div class="hl-legend-desc">Primary terms and key concepts — use for vocabulary, named methods, or concepts being formally introduced for the first time.</div>
+  </div>
+  <div class="hl-legend-row">
+    <div class="hl-legend-swatch"><span class="ul-amber" style="font-size:1em">amber line</span></div>
+    <div class="hl-legend-desc">Values or dates requiring follow-up — deadlines, thresholds, benchmarks. Use to mark something the reader needs to track.</div>
+  </div>
+  <div class="hl-legend-row">
+    <div class="hl-legend-swatch"><span class="ul-red" style="font-size:1em">red line</span></div>
+    <div class="hl-legend-desc">Deprecated or removed references — legacy systems, sunset APIs, or practices that are no longer recommended.</div>
+  </div>
+</div>
+<p>Attribution modeling has evolved significantly since the era of <mark>last-touch dominance</mark> in the early 2010s. Today, the <span class="hl-blue">Shapley value framework</span> is considered the most theoretically rigorous approach for multi-touch environments. Experimental results in Q3 2024 showed an <span class="hl-green">+18.4% improvement in ROAS</span> after reallocation based on Shapley weights — a finding confirmed by geo-holdout tests across three markets. The legacy <span class="hl-red">pixel-based tracking infrastructure</span> that underpins most last-touch setups introduces significant <span class="hl-purple">selection bias</span>, particularly on iOS devices post-ATT.</p>
+<p>In practice, <span class="ul-teal">incrementality testing</span> should always serve as the calibration anchor before deploying any attribution model. Budget decisions driven by uncalibrated models risk directing spend toward channels like <span class="ul-amber">branded search (historically credited at 78%)</span> while systematically undervaluing the awareness channels that drive intent in the first place. Campaigns identified as <span class="ul-red">deprecated or non-incremental</span> should be sunset before reallocating budget.</p>
+
+<hr>
+
+
+<!-- ════════════════ BADGES ══════════════════════════════════════ -->
+<h2 id="badges">Badges</h2>
+<p style="line-height:2.8;">
+  <span class="badge badge-ok">Active</span>&nbsp;
+  <span class="badge badge-warn">Beta</span>&nbsp;
+  <span class="badge badge-crit">Deprecated</span>&nbsp;
+  <span class="badge badge-info">Experimental</span>&nbsp;
+  <span class="badge badge-note">Draft</span>&nbsp;
+  <span class="badge badge-neutral">Archived</span>
+</p>
+<p>Inline with prose: <code>session_manager</code> is currently <span class="badge badge-warn">Beta</span>, scheduled for GA in Q2. Legacy <code>pixel_collector</code> is <span class="badge badge-crit">Deprecated</span>.</p>
+
+<hr>
+
+
+<!-- ════════════════ LISTS ═══════════════════════════════════════ -->
+<h2 id="lists">Lists</h2>
+
+<h4>Unordered — three levels</h4>
+<ul>
+  <li><strong>Attribution Modeling</strong> — assigning credit to marketing channels</li>
+  <li>Media Mix Modeling
+    <ul>
+      <li>Bayesian MMM with seasonality priors</li>
+      <li>Geo-holdout calibration
+        <ul><li>Synthetic control</li><li>Difference-in-differences</li></ul>
+      </li>
+    </ul>
+  </li>
+  <li>Incrementality Testing</li>
+</ul>
+
+<h4>Ordered</h4>
+<ol>
+  <li><strong>Define KPIs</strong> — north star metric before instrumentation</li>
+  <li>Audit existing tracking — validate event taxonomy</li>
+  <li>Instrument missing touchpoints via server-side events</li>
+  <li>Establish incrementality benchmarks via holdout tests</li>
+</ol>
+
+<h4>Task List</h4>
+<ul class="task-list">
+  <li><input type="checkbox" checked><span>Event taxonomy audit complete</span></li>
+  <li><input type="checkbox" checked><span>Attribution model v1 deployed</span></li>
+  <li><input type="checkbox"><span>Incrementality test — Paid Social (Q2)</span></li>
+  <li><input type="checkbox"><span>MMM calibration run — Q3</span></li>
+</ul>
+
+<h4>Definition List</h4>
+<dl>
+  <dt>ROAS</dt>
+  <dd>Return on Ad Spend — revenue generated per dollar of media spend, before accounting for organic baseline conversion rates.</dd>
+  <dt>Incrementality</dt>
+  <dd>The causal lift in conversions attributable solely to advertising exposure. Measured via controlled holdout experiments to isolate advertising from organic behavior.</dd>
+  <dt>CUPED</dt>
+  <dd>Controlled-experiment using Pre-Existing Data. Reduces variance by incorporating pre-period outcome covariates, increasing test sensitivity without a larger holdout.</dd>
+</dl>
+
+<hr>
+
+
+<!-- ════════════════ COLUMNS & GRIDS ═════════════════════════════ -->
+<h2 id="columns">Columns &amp; Text Grids</h2>
+
+<h4>Sidebar + main — 1:2 asymmetric</h4>
+<div class="cols cols-1-2">
+  <div class="col-sidebar">
+    <span class="txt-label">Context</span>
+    <p>Cookieless measurement requires layering multiple methods. No single model gives the full picture.</p>
+  </div>
+  <div class="col-main">
+    <p>The modern stack combines <strong>MMM</strong> for budget allocation, <strong>incrementality tests</strong> for channel validation, and <strong>multi-touch attribution</strong> for daily optimization. Each operates at a different time granularity and data resolution.</p>
+  </div>
+</div>
+
+<h4>2-column — symmetric comparison</h4>
+<div class="cols cols-2">
+  <div class="txt"><span class="txt-label">Last-Touch</span>Attributes 100% of credit to the final channel before conversion. Simple, zero data requirements. Severely undercredits upper-funnel channels.</div>
+  <div class="txt"><span class="txt-label">Shapley Value</span>Distributes credit based on marginal contribution across all channel combinations. Handles interaction effects correctly but requires session-level path data.</div>
+</div>
+
+<h4>2×2 text grid — concept matrix</h4>
+<div class="cols cols-2">
+  <div class="txt"><span class="txt-label">Strengths</span>Handles cross-channel interaction effects. Accounts for order and recency of touchpoints. Produces channel-level scores for budget reallocation.</div>
+  <div class="txt"><span class="txt-label">Weaknesses</span>Computationally expensive at scale. Requires complete session-level path data. Unstable with small sample sizes per channel combination.</div>
+  <div class="txt"><span class="txt-label">Data Requirements</span>Session-level event stream with channel, timestamp, and conversion value. Minimum 90 days history. At least 5,000 converting paths per channel cluster.</div>
+  <div class="txt"><span class="txt-label">Calibration</span>Validate Shapley outputs against geo-holdout benchmarks quarterly. Flag channels where weight deviates more than 20% from measured holdout lift.</div>
+</div>
+
+<h4>3-column — parallel categories</h4>
+<div class="cols cols-3">
+  <div class="txt"><span class="txt-label">Budget Planning</span>MMM operates at aggregate channel level, weekly or monthly. Ideal for allocating spend across channels and quarters.</div>
+  <div class="txt"><span class="txt-label">Channel Validation</span>Incrementality tests measure true causal lift. Use to validate MMM outputs. Run at minimum quarterly per major channel.</div>
+  <div class="txt"><span class="txt-label">Daily Optimization</span>Multi-touch attribution guides creative and audience decisions at session level. Calibrate against holdout benchmarks monthly.</div>
+</div>
+
+<hr>
+
+
+<!-- ════════════════ CHARTS ══════════════════════════════════════ -->
+<h2 id="charts">Charts</h2>
+<p>Chart.js with tab switching across four types. Uses the document's dark palette and teal accent.</p>
+
+<div class="chart-section">
+  <span class="table-title">Channel Attribution — Shapley vs. Last-Touch</span>
+  <div class="chart-tabs" style="margin-top:1.2rem;">
+    <div class="chart-tab active" onclick="switchChart('line',this)">Line</div>
+    <div class="chart-tab" onclick="switchChart('bar',this)">Bar</div>
+    <div class="chart-tab" onclick="switchChart('scatter',this)">Scatter</div>
+    <div class="chart-tab" onclick="switchChart('doughnut',this)">Doughnut</div>
+  </div>
+  <div class="chart-wrap" style="height:420px;">
+    <canvas id="mainChart"></canvas>
+  </div>
+</div>
+
+<hr>
+
+
+<!-- ════════════════ TECH LABELS ═════════════════════════════════ -->
+<h2 id="tech">Tech Reference Labels</h2>
+<p>Icon + technology name row, followed by a left-bordered topic line. Icon strokes are white. Accent color only on the left border.</p>
+
+<div class="tech-ref accent-amber">
+  <div class="tech-ref-header">
+    <div class="tech-icon-badge">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="12" cy="6" rx="8" ry="3" stroke="white" stroke-width="1.5"/>
+        <path d="M4 6v4c0 1.66 3.58 3 8 3s8-1.34 8-3V6" stroke="white" stroke-width="1.5"/>
+        <path d="M4 10v4c0 1.66 3.58 3 8 3s8-1.34 8-3v-4" stroke="white" stroke-width="1.5"/>
+        <path d="M4 14v4c0 1.66 3.58 3 8 3s8-1.34 8-3v-4" stroke="white" stroke-width="1.5"/>
+      </svg>
+    </div>
+    <span class="tech-ref-name">MySQL</span>
+  </div>
+  <div class="tech-ref-topic">SELECT — Basic Query Syntax</div>
+</div>
+
+<div class="tech-ref accent-teal">
+  <div class="tech-ref-header">
+    <div class="tech-icon-badge">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2C9.5 2 8 3.5 8 5.5V8h4v1H6C4 9 2.5 10.5 2.5 13S4 17 6 17h1v-2.5c0-2 1.5-3.5 3.5-3.5h3c2 0 3.5-1.5 3.5-3.5V5.5C17 3.5 15.5 2 13 2h-1z" stroke="white" stroke-width="1.3" fill="none"/>
+        <path d="M12 22c2.5 0 4-1.5 4-3.5V16h-4v-1h6c2 0 3.5-1.5 3.5-4S18 7 16 7h-1v2.5c0 2-1.5 3.5-3.5 3.5H8.5C6.5 13 5 14.5 5 16.5v2C5 20.5 6.5 22 9 22h3z" stroke="white" stroke-width="1.3" fill="none"/>
+        <circle cx="10" cy="5.5" r="0.8" fill="white"/>
+        <circle cx="14" cy="18.5" r="0.8" fill="white"/>
+      </svg>
+    </div>
+    <span class="tech-ref-name">Python</span>
+  </div>
+  <div class="tech-ref-topic">Permutation Feature Importance in Random Forests</div>
+</div>
+
+<div class="tech-ref accent-blue">
+  <div class="tech-ref-header">
+    <div class="tech-icon-badge">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="3" y="3" width="7" height="7" rx="1.5" stroke="white" stroke-width="1.5"/>
+        <rect x="14" y="3" width="7" height="7" rx="1.5" stroke="white" stroke-width="1.5"/>
+        <rect x="3" y="14" width="7" height="7" rx="1.5" stroke="white" stroke-width="1.5"/>
+        <rect x="14" y="14" width="7" height="7" rx="1.5" stroke="white" stroke-width="1.5"/>
+      </svg>
+    </div>
+    <span class="tech-ref-name">BigQuery</span>
+  </div>
+  <div class="tech-ref-topic">Partitioned Tables and Clustering in BigQuery</div>
+</div>
+
+<hr>
+
+
+<!-- ════════════════ CASE EXAMPLE ════════════════════════════════ -->
+<h2 id="case">Case Example</h2>
+<p>A visually distinct block for real-world examples, case studies, or worked scenarios. Amber depth border signals "example context".</p>
+
+<div class="case-example">
+  <div class="case-header">
+    <span class="case-tag">Case Example</span>
+    <span class="case-title">Shapley Attribution for a D2C E-Commerce Brand</span>
+  </div>
+  <div class="case-body">
+    <p>A direct-to-consumer apparel brand was running six paid channels — Google Search, Meta, YouTube, Pinterest, Display, and Email — with last-touch attribution crediting 78% of conversions to Google Search. The team suspected this was overstating search's contribution.</p>
+    <p>After implementing a Shapley value model over 90 days of session-level path data, Google Search's share dropped to <span class="hl-green">41%</span>, while Meta moved from 6% to <span class="hl-blue">22%</span> and YouTube from 2% to <span class="hl-blue">14%</span>. Incrementality holdouts confirmed the reallocation: budget shifted 30% toward Meta and YouTube drove a net <span class="hl-green">+9.2% ROAS</span> improvement within 60 days.</p>
+    <p><strong>Key takeaway:</strong> Last-touch consistently undervalues awareness channels that influence the path but rarely capture the final click.</p>
+  </div>
+</div>
+
+<hr>
+
+
+<!-- ════════════════ STEPS ═══════════════════════════════════════ -->
+<h2 id="steps">Steps &amp; Guides</h2>
+<p>Sequential process steps with connected number markers. Visually distinct from ordered lists — designed for tutorials, setup guides, and methodologies.</p>
+
+<div class="steps">
+  <div class="step">
+    <div class="step-marker"><div class="step-num">01</div><div class="step-line"></div></div>
+    <div class="step-content">
+      <div class="step-title">Define the Measurement Objective</div>
+      <div class="step-body"><p>Agree on the north star metric before writing a single line of tracking code. Common options: incremental conversions, incremental revenue, or iROAS. Document the objective and get stakeholder sign-off.</p></div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-marker"><div class="step-num">02</div><div class="step-line"></div></div>
+    <div class="step-content">
+      <div class="step-title">Audit the Event Taxonomy</div>
+      <div class="step-body"><p>Map every existing tracking event against the data model. Identify gaps in touchpoint coverage — particularly missing upper-funnel events like ad views and landing page visits.</p></div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-marker"><div class="step-num">03</div><div class="step-line"></div></div>
+    <div class="step-content">
+      <div class="step-title">Instrument Server-Side Events</div>
+      <div class="step-body"><p>For high-confidence conversion data, implement server-side event collection. Browser-based pixels are increasingly unreliable due to ITP, ad blockers, and iOS restrictions.</p></div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-marker"><div class="step-num">04</div><div class="step-line"></div></div>
+    <div class="step-content">
+      <div class="step-title">Run a Baseline Holdout Experiment</div>
+      <div class="step-body"><p>Before deploying any attribution model, establish incrementality benchmarks per channel via geo-holdout or ghost-ad experiments. This becomes your ground truth for calibration.</p></div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-marker"><div class="step-num">05</div><div class="step-line"></div></div>
+    <div class="step-content">
+      <div class="step-title">Model, Calibrate, Iterate</div>
+      <div class="step-body"><p>Deploy the attribution model. Calibrate channel weights against holdout results. Set a quarterly recalibration schedule. Flag any channel where model weight deviates more than 20% from measured lift.</p></div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+
+<!-- ════════════════ COLLAPSIBLE ══════════════════════════════════ -->
+<h2 id="collapse">Collapsible Text</h2>
+<p>Expand/collapse sections with a smooth indicator. Use for supplementary detail, configuration blocks, or extended examples that shouldn't dominate the reading flow.</p>
+
+<details>
+  <summary>Shapley Value — Mathematical Foundation <span class="details-preview">Monte Carlo, game theory...</span></summary>
+  <p>The Shapley value originates from cooperative game theory. For a set of n players (channels), the Shapley value assigns each player a contribution equal to their average marginal contribution across all possible orderings.</p>
+  <p>For channel i, the Shapley value φᵢ is computed as the weighted average of the marginal contribution of i when added to every possible subset S of the remaining channels.</p>
+  <pre data-lang="python"><code># Approximate Shapley via Monte Carlo sampling
+def shapley_mc(channels, conversion_fn, n_permutations=500):
+    contributions = {ch: 0 for ch in channels}
+    for _ in range(n_permutations):
+        perm = random.shuffle(channels.copy())
+        for i, ch in enumerate(perm):
+            subset_with = set(perm[:i+1])
+            subset_without = set(perm[:i])
+            contributions[ch] += conversion_fn(subset_with) - conversion_fn(subset_without)
+    return {ch: v / n_permutations for ch, v in contributions.items()}</code></pre>
+</details>
+
+<details>
+  <summary>Advanced Configuration — Model Parameters <span class="details-preview">permutations, clip, schedule...</span></summary>
+  <pre data-lang="yaml"><code>model:
+  type: shapley
+  permutations: 500
+  clip_sigma: 3.0
+  calibration_schedule: "0 2 * * 0"
+  holdout_window_days: 30
+  min_converting_paths: 5000</code></pre>
+</details>
+
+<hr>
+
+
+<!-- ════════════════ DROPDOWNS ═══════════════════════════════════ -->
+<h2 id="dropdowns">Category &amp; Label Dropdowns</h2>
+<p>Metadata annotation chips — click to select a value. Used for tagging content with learning level, content type, status, or any categorical attribute.</p>
+
+<div class="meta-labels">
+  <div class="meta-item">
+    <div class="meta-select" onclick="toggleMeta(this)">
+      <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="1" y="2" width="14" height="3" rx="1" stroke="currentColor" stroke-width="1.2" fill="none"/>
+        <rect x="1" y="6.5" width="14" height="3" rx="1" stroke="currentColor" stroke-width="1.2" fill="none"/>
+        <rect x="1" y="11" width="14" height="3" rx="1" stroke="currentColor" stroke-width="1.2" fill="none"/>
+      </svg>
+      <span class="meta-val">Core</span>
+      <span class="meta-arrow">▼</span>
+    </div>
+    <div class="meta-dropdown">
+      <div class="meta-option selected" onclick="pickMeta(this,'Core')">Core</div>
+      <div class="meta-option" onclick="pickMeta(this,'Advanced')">Advanced</div>
+      <div class="meta-option" onclick="pickMeta(this,'Expert')">Expert</div>
+    </div>
+  </div>
+  <div class="meta-item">
+    <div class="meta-select" onclick="toggleMeta(this)">
+      <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2 4h12M4 8h8M6 12h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <span class="meta-val">Comprehension</span>
+      <span class="meta-arrow">▼</span>
+    </div>
+    <div class="meta-dropdown">
+      <div class="meta-option selected" onclick="pickMeta(this,'Comprehension')">Comprehension</div>
+      <div class="meta-option" onclick="pickMeta(this,'Application')">Application</div>
+      <div class="meta-option" onclick="pickMeta(this,'Analysis')">Analysis</div>
+      <div class="meta-option" onclick="pickMeta(this,'Synthesis')">Synthesis</div>
+    </div>
+  </div>
+  <div class="meta-item">
+    <div class="meta-select" onclick="toggleMeta(this)">
+      <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.2"/>
+        <path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+      </svg>
+      <span class="meta-val">In Progress</span>
+      <span class="meta-arrow">▼</span>
+    </div>
+    <div class="meta-dropdown">
+      <div class="meta-option" onclick="pickMeta(this,'Not Started')">Not Started</div>
+      <div class="meta-option selected" onclick="pickMeta(this,'In Progress')">In Progress</div>
+      <div class="meta-option" onclick="pickMeta(this,'Complete')">Complete</div>
+      <div class="meta-option" onclick="pickMeta(this,'Archived')">Archived</div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+
+<!-- ════════════════ DIAGRAMS ════════════════════════════════════ -->
+<h2 id="diagrams">Diagram System</h2>
+<p>Simplified: single dark background, no colored group fills. Groups separated by subtle rules. Status communicated only via left-border accent on nodes and small status dots.</p>
+
+<div class="dg">
+  <div class="dg-grp">
+    <div class="dg-hl">Ingestion</div>
+    <div class="nd ng"><div class="nt"><span class="dot dot-g"></span>Events API</div><div class="ns">Server-side · TLS</div></div>
+    <div class="nd nb"><div class="nt"><span class="dot dot-g"></span>Pixel Collector</div><div class="ns">Browser · v2.1</div></div>
+    <div class="nd nm"><div class="nt"><span class="dot dot-r"></span>Legacy Pixel</div><div class="ns">Deprecated</div></div>
+  </div>
+  <div class="ar"><div class="ar-s">→</div><div class="ar-l">stream</div></div>
+  <div class="dg-grp">
+    <div class="dg-hl">Processing</div>
+    <div class="nd ng"><div class="nt"><span class="dot dot-g"></span>Deduplication</div><div class="ns">p95 &lt; 2s</div></div>
+    <div class="nd ng"><div class="nt"><span class="dot dot-g"></span>Schema Validation</div><div class="ns">Avro · Confluent</div></div>
+    <div class="nd nw"><div class="nt"><span class="dot dot-w"></span>Enrichment</div><div class="ns">Latency elevated</div></div>
+  </div>
+  <div class="ar"><div class="ar-s">→</div><div class="ar-l">batch</div></div>
+  <div class="dg-grp">
+    <div class="dg-hl">Storage</div>
+    <div class="nd nb"><div class="nt"><span class="dot dot-b"></span>BigQuery</div><div class="ns">Raw events</div></div>
+    <div class="nd nb"><div class="nt"><span class="dot dot-b"></span>dbt transforms</div><div class="ns">Attribution mart</div></div>
+  </div>
+  <div class="ar"><div class="ar-s">→</div><div class="ar-l">query</div></div>
+  <div class="dg-grp">
+    <div class="dg-hl">Attribution</div>
+    <div class="nd nc"><div class="nt"><span class="dot dot-r"></span>Shapley Runner</div><div class="ns">OOM — needs fix</div></div>
+    <div class="nd ng"><div class="nt"><span class="dot dot-g"></span>MMM Pipeline</div><div class="ns">Daily · healthy</div></div>
+  </div>
+</div>
+<div class="dg-note" style="margin-left:var(--h1-pad)">Shapley Runner hitting memory limits on large session sets. Reduce permutation count or partition by channel. ETA: this sprint.</div>
+
+<hr>
+
+
+<!-- ════════════════ MEDIA ════════════════════════════════════════ -->
+<h2 id="media">Media Assets</h2>
+
+<h4>Image</h4>
+<div class="media-fig">
+  <div class="media-label">Figure</div>
+  <!-- Inline SVG as placeholder image -->
+  <div style="width:100%;aspect-ratio:16/7;background:var(--bg-3);border-radius:var(--r-md);border-top:var(--bd-sub);border-left:var(--bd-sub);border-right:var(--bd-r);border-bottom:var(--bd-b);box-shadow:var(--shadow-md);display:flex;align-items:center;justify-content:center;overflow:hidden;">
+    <svg viewBox="0 0 800 350" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+      <rect width="800" height="350" fill="#212121"/>
+      <rect x="60"  y="180" width="60" height="120" fill="rgba(29,233,182,0.15)" stroke="rgba(29,233,182,0.4)" stroke-width="1" rx="3"/>
+      <rect x="140" y="130" width="60" height="170" fill="rgba(147,197,253,0.12)" stroke="rgba(147,197,253,0.3)" stroke-width="1" rx="3"/>
+      <rect x="220" y="150" width="60" height="150" fill="rgba(147,197,253,0.12)" stroke="rgba(147,197,253,0.3)" stroke-width="1" rx="3"/>
+      <rect x="300" y="100" width="60" height="200" fill="rgba(29,233,182,0.20)" stroke="rgba(29,233,182,0.5)" stroke-width="1" rx="3"/>
+      <rect x="380" y="140" width="60" height="160" fill="rgba(147,197,253,0.12)" stroke="rgba(147,197,253,0.3)" stroke-width="1" rx="3"/>
+      <line x1="40" y1="300" x2="760" y2="300" stroke="rgba(255,255,255,0.10)" stroke-width="1"/>
+      <text x="60" y="320" font-family="JetBrains Mono" font-size="10" fill="rgba(255,255,255,0.3)">Search</text>
+      <text x="140" y="320" font-family="JetBrains Mono" font-size="10" fill="rgba(255,255,255,0.3)">Meta</text>
+      <text x="230" y="320" font-family="JetBrains Mono" font-size="10" fill="rgba(255,255,255,0.3)">Display</text>
+      <text x="305" y="320" font-family="JetBrains Mono" font-size="10" fill="rgba(255,255,255,0.3)">YouTube</text>
+      <text x="385" y="320" font-family="JetBrains Mono" font-size="10" fill="rgba(255,255,255,0.3)">Email</text>
+      <text x="580" y="100" font-family="JetBrains Mono" font-size="11" fill="rgba(255,255,255,0.2)" letter-spacing="1">CHANNEL ATTRIBUTION</text>
+    </svg>
+  </div>
+  <div class="media-caption">Fig 1. Channel attribution shares — Shapley value model vs. last-touch baseline. Q3 2024.</div>
+</div>
+
+<h4>Video (iframe embed)</h4>
+<div class="media-video">
+  <div class="media-label">Video</div>
+  <!-- Placeholder (replace src with actual YouTube/Vimeo URL) -->
+  <div class="video-placeholder">
+    <div class="video-play-icon">
+      <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+    </div>
+    <span>React Conf 2025 · Day 2 Keynote</span>
+    <span style="font-size:.75em;opacity:.5">Replace with &lt;iframe src="https://www.youtube.com/embed/..."&gt;</span>
+  </div>
+  <div class="media-caption">React Conf 2025 Day 2 · youtube.com</div>
+</div>
+
+<h4>PDF Document</h4>
+<div class="media-pdf">
+  <div class="pdf-icon-wrap">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+      <polyline points="14 2 14 8 20 8" fill="none" stroke="rgba(248,113,113,0.6)" stroke-width="1.5"/>
+    </svg>
+  </div>
+  <div class="pdf-info">
+    <div class="pdf-filename">AB_Testing_Handbook.pdf</div>
+    <div class="pdf-meta">4.2 MB · 136 pages · Added 2024-09-12</div>
+  </div>
+  <a class="pdf-link" href="#">Open ↗</a>
+</div>
+
+<hr>
+
+<!-- MISC -->
+<h4>Reference Links</h4>
+<div class="ref-link"><a href="#">Shapley Values in Marketing Attribution — Research Paper</a></div>
+<div class="ref-link"><a href="#">dbt Attribution Model — Internal Runbook</a></div>
+<div class="ref-link"><a href="#">Robyn: Meta Open-Source MMM</a></div>
+
+<h4>Breadcrumb</h4>
+<div class="breadcrumb">
+  <span>Analytics</span><span class="bc-sep">›</span>
+  <span>Marketing</span><span class="bc-sep">›</span>
+  <span>Attribution</span><span class="bc-sep">›</span>
+  <strong>Shapley Values</strong>
+</div>
+
+<hr>
+
+<script>
+/* ── Chart.js ─────────────────────────────────────────────────── */
+const AC = '#1de9b6', BLUE = '#93c5fd', AMBER = '#fbbf24';
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const LINE_DATA = [42,58,51,67,74,68,82,90,85,96,104,112];
+const LINE_DATA2 = [28,32,35,42,38,45,50,46,55,60,58,65];
+
+Chart.defaults.color = 'rgba(255,255,255,0.70)';
+Chart.defaults.borderColor = 'rgba(255,255,255,0.05)';
+
+const axisOpts = {
+  grid: { color: 'rgba(255,255,255,0.04)' },
+  ticks: { color: '#ffffff', font: { family: "'JetBrains Mono',monospace", size: 10 } }
+};
+const legendOpts = {
+  labels: {
+    color: '#ffffff',
+    usePointStyle: true,
+    pointStyle: 'circle',
+    /* No pointStyleWidth — letting Chart.js render natural circles */
+    boxWidth: 8,
+    boxHeight: 8,
+    padding: 24,
+    font: { family: "'JetBrains Mono',monospace", size: 11 }
+  },
+  /* Push legend away from the plot area */
+  margin: 16
+};
+
+const sharedOpts = {
+  responsive: true,
+  maintainAspectRatio: false,
+  animation: { duration: 220 },
+  plugins: { legend: legendOpts },
+  scales: { x: axisOpts, y: axisOpts }
+};
+
+let currentChart = null;
+
+const buildConfigs = () => ({
+  line: {
+    type: 'line',
+    data: {
+      labels: MONTHS,
+      datasets: [
+        { label: 'Attributed Revenue', data: LINE_DATA, borderColor: AC, backgroundColor: 'rgba(29,233,182,0.06)', tension: 0.4, fill: true, pointBackgroundColor: AC, pointRadius: 3, pointHoverRadius: 4, borderWidth: 2 },
+        { label: 'Holdout Baseline', data: LINE_DATA2, borderColor: BLUE, backgroundColor: 'transparent', tension: 0.4, fill: false, pointBackgroundColor: BLUE, pointRadius: 2, pointHoverRadius: 3, borderWidth: 1.5, borderDash: [4,3] }
+      ]
+    },
+    options: { ...sharedOpts }
+  },
+  bar: {
+    type: 'bar',
+    data: {
+      labels: ['Search','Meta','YouTube','Display','Email','Organic'],
+      datasets: [
+        { label: 'Shapley %', data: [41,22,14,10,8,5], backgroundColor: [AC,'rgba(29,233,182,0.5)','rgba(29,233,182,0.4)','rgba(29,233,182,0.3)','rgba(29,233,182,0.2)','rgba(29,233,182,0.15)'], borderRadius: 4, borderSkipped: false },
+        { label: 'Last-Touch %', data: [78,6,2,8,4,2], backgroundColor: 'rgba(147,197,253,0.20)', borderColor: 'rgba(147,197,253,0.5)', borderWidth: 1, borderRadius: 4, borderSkipped: false }
+      ]
+    },
+    options: { ...sharedOpts }
+  },
+  scatter: {
+    type: 'scatter',
+    data: {
+      datasets: [
+        { label: 'Converted', data: Array.from({length:55},()=>({x:+(Math.random()*100).toFixed(1),y:+(Math.random()*100).toFixed(1)})), backgroundColor: 'rgba(29,233,182,0.45)', pointRadius: 3 },
+        { label: 'Non-Converted', data: Array.from({length:75},()=>({x:+(Math.random()*100).toFixed(1),y:+(Math.random()*100).toFixed(1)})), backgroundColor: 'rgba(255,255,255,0.12)', pointRadius: 2 }
+      ]
+    },
+    options: {
+      ...sharedOpts,
+      scales: {
+        x: { ...axisOpts, title: { display: true, text: 'Sessions', color: 'rgba(255,255,255,0.55)', font: { family: "'JetBrains Mono',monospace", size: 10 } } },
+        y: { ...axisOpts, title: { display: true, text: 'Touchpoints', color: 'rgba(255,255,255,0.55)', font: { family: "'JetBrains Mono',monospace", size: 10 } } }
+      }
+    }
+  },
+  doughnut: {
+    type: 'doughnut',
+    data: {
+      labels: ['Paid Search','Meta','YouTube','Display','Email','Organic'],
+      datasets: [{ data: [41,22,14,10,8,5], backgroundColor: [AC,'rgba(147,197,253,0.85)','rgba(251,191,36,0.85)','rgba(192,132,252,0.80)','rgba(74,222,128,0.75)','rgba(248,113,113,0.75)'], borderColor: 'rgba(0,0,0,0.4)', borderWidth: 2, hoverOffset: 4 }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false, animation: { duration: 220 },
+      cutout: '68%',
+      plugins: { legend: { position: 'right', margin: 16, labels: { color: '#ffffff', usePointStyle: true, pointStyle: 'circle', boxWidth: 8, boxHeight: 8, padding: 18, font: { family: "'JetBrains Mono',monospace", size: 11 } } } }
+    }
+  }
+});
+
+function switchChart(type, tabEl) {
+  document.querySelectorAll('.chart-tab').forEach(t => t.classList.remove('active'));
+  tabEl.classList.add('active');
+  if (currentChart) { currentChart.destroy(); currentChart = null; }
+  const ctx = document.getElementById('mainChart').getContext('2d');
+  currentChart = new Chart(ctx, buildConfigs()[type]);
+}
+
+window.addEventListener('load', () => switchChart('line', document.querySelector('.chart-tab')));
+
+/* ── Category Dropdowns ───────────────────────────────────────── */
+function toggleMeta(selectEl) {
+  const item = selectEl.closest('.meta-item');
+  const dropdown = item.querySelector('.meta-dropdown');
+  const isOpen = dropdown.classList.contains('open');
+  // close all
+  document.querySelectorAll('.meta-dropdown').forEach(d => d.classList.remove('open'));
+  document.querySelectorAll('.meta-select').forEach(s => s.classList.remove('open'));
+  if (!isOpen) {
+    dropdown.classList.add('open');
+    selectEl.classList.add('open');
+  }
+  event.stopPropagation();
+}
+
+function pickMeta(optionEl, value) {
+  const item = optionEl.closest('.meta-item');
+  item.querySelector('.meta-val').textContent = value;
+  item.querySelectorAll('.meta-option').forEach(o => o.classList.remove('selected'));
+  optionEl.classList.add('selected');
+  item.querySelector('.meta-dropdown').classList.remove('open');
+  item.querySelector('.meta-select').classList.remove('open');
+  event.stopPropagation();
+}
+
+document.addEventListener('click', () => {
+  document.querySelectorAll('.meta-dropdown').forEach(d => d.classList.remove('open'));
+  document.querySelectorAll('.meta-select').forEach(s => s.classList.remove('open'));
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<div style="display:flex;gap:16px;align-items:baseline;font-size:14px;line-height:1.8">
+<img src="{{ src }}" width="20" height="20" alt="" aria-hidden="true" style="display:block;flex:none;align-self:flex-start;margin-top:2px">
+<span style="{{ chip }}">{{ label }}</span>
+<span style="font-weight:400;flex:1;min-width:0">{{ children }}</span>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:620,&quot;height&quot;:90},&quot;label&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Note&quot;,&quot;Tip&quot;,&quot;Important&quot;,&quot;Warning&quot;,&quot;Example&quot;,&quot;Requirement&quot;,&quot;Limitation&quot;,&quot;Correction&quot;],&quot;default&quot;:&quot;Note&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;fill&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+const TONE = {
+  Note: 'background:rgba(64,196,255,.22)',
+  Tip: 'background:#fff;border:1.5px solid #1bbd94',
+  Important: 'background:#fff;border:1.5px solid #000',
+  Warning: 'background:rgba(255,214,0,.3)',
+  Example: 'background:rgba(179,136,255,.22)',
+  Requirement: 'background:rgba(27,189,148,.25)',
+  Limitation: 'background:rgba(255,82,82,.16)',
+  Correction: 'background:rgba(255,82,82,.16)'
+};
+const GLYPH = {
+  Note: 'note', Tip: 'tip', Important: 'important', Warning: 'warning',
+  Example: 'example', Requirement: 'requirement', Limitation: 'limitation',
+  Correction: 'correction'
+};
+class Component extends DCLogic {
+  renderVals() {
+    const label = this.props.label || 'Note';
+    const key = GLYPH[label] || 'note';
+    const fill = this.props.fill === true || this.props.fill === 'true';
+    return {
+      label,
+      src: 'icons/set/' + key + (fill ? '-f' : '-o') + '.svg',
+      chip: "font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;" +
+        'text-transform:uppercase;border-radius:4px;padding:3px 9px;white-space:nowrap;' +
+        (TONE[label] || TONE.Note)
+    };
+  }
+}
+</script>
+</body>
+</html>

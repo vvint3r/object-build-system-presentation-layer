@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&amp;family=JetBrains+Mono:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#fafafa;color:#000;font-family:'Nunito',sans-serif}
+a{color:#000;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px}
+a:hover{background:rgba(29,233,182,.3)}
+::selection{background:rgba(29,233,182,.35)}
+button{font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;background:none;border:none;padding:0;margin:0;text-align:left;cursor:pointer}
+input,select{font:inherit;color:inherit}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px solid #000;outline-offset:3px}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:#f1f1f1;border-radius:999px}
+::-webkit-scrollbar-thumb{background:rgba(0,0,0,.22);border-radius:999px}
+::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.45)}
+@media(max-width:800px){[data-wide]{min-width:660px!important}[data-twrap]{overflow-x:auto!important}}
+@media(max-width:640px){[data-stack]{grid-template-columns:1fr!important}}
+
+[data-nav-group] [data-nav-menu]{display:none}
+[data-nav-group]:hover [data-nav-menu],[data-nav-group]:focus-within [data-nav-menu]{display:block}
+</style>
+</helmet>
+
+<div style="position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid #ebebeb">
+<div style="max-width:1060px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:18px;row-gap:10px;flex-wrap:wrap">
+<span style="font-weight:900;font-size:16px;letter-spacing:.01em">content-morphia</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid #000;background:#fff">Charts</span>
+<nav aria-label="Design system" style="display:flex;align-items:center;gap:4px;row-gap:6px;flex-wrap:wrap"><div data-nav-group style="position:relative"><a href="content-morphia Foundations.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Foundations</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Foundations.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Foundations</a><a href="content-morphia Icons.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Icons</a><a href="content-morphia Print.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Print</a><a href="content-morphia Equivalents.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Non-visual equivalents</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Structured.dc.html" aria-current="page" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:4px 9px;background:#fff;border:1px solid #000;box-shadow:2px 2px 0 #1de9b6">Components</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Structured.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Structured components</a><a href="content-morphia Prose.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Prose primitives</a><a href="content-morphia Wayfinding.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Wayfinding</a><a href="content-morphia Provenance.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Provenance</a><span aria-current="page" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:700;background:#f1f1f1">Charts</span><a href="content-morphia Interaction.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Interaction</a><a href="content-morphia Learning.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Learning</a><a href="content-morphia Questions.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Questions and answers</a><a href="content-morphia Change.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Change and status</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Diagrams.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Diagrams</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Diagrams.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Diagram library</a><a href="content-morphia Diagrams at Scale.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Diagrams at scale</a><a href="content-morphia Diagrams II.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Technical families</a><a href="content-morphia Diagrams III.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Experience and magnitude</a><a href="content-morphia Diagrams IV.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Structure and notation</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Templates.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Templates</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Templates.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Template index</a><a href="content-morphia T1 Topic.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T1 Topic</a><a href="content-morphia T2 Framework.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T2 Framework</a><a href="content-morphia T3 Process.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T3 Process</a><a href="content-morphia T4 Guide.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T4 Guide</a><a href="content-morphia T5 Module.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T5 Module</a><a href="content-morphia T6 Metric.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T6 Metric</a><a href="content-morphia T7 Comparison.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T7 Comparison</a><a href="content-morphia T8 Roadmap.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T8 Roadmap</a><a href="content-morphia T9 Reference.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T9 Reference</a><a href="content-morphia T10 Glossary.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T10 Glossary</a><a href="content-morphia T11 Case study.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T11 Case study</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Composition.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Composition</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Composition.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Composition</a><a href="content-morphia Anatomy.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Anatomy and primitives</a><a href="content-morphia Selection.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Selection</a><a href="content-morphia Implementing.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Implementing</a><a href="content-morphia Exemplar.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Worked example</a></div></div></div></nav>
+</div>
+</div>
+
+<div style="background:#fafafa;border-bottom:1px solid #ebebeb">
+<div style="max-width:1060px;margin:0 auto;padding:11px 24px;display:flex;align-items:center;gap:10px;row-gap:8px;flex-wrap:wrap">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">On this page</span>
+<span style="width:1px;height:13px;background:#ebebeb"></span>
+<nav aria-label="Sections of this page" style="display:flex;align-items:center;gap:2px;row-gap:6px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase">
+<a href="#c1" onClick="{{ p1 }}" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 01 Choosing</a>
+<a href="#c2" onClick="{{ p2 }}" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 02 Trend</a>
+<a href="#c3" onClick="{{ p3 }}" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 03 Spread and share</a>
+<a href="#c4" onClick="{{ p4 }}" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 04 Nothing to draw</a>
+<a href="#c5" onClick="{{ p5 }}" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 05 Rules</a>
+</nav>
+</div>
+</div>
+
+<section data-screen-label="Page header" style="max-width:1060px;margin:0 auto;padding:48px 24px 0">
+<div style="width:52px;height:5px;background:#1de9b6;border-radius:999px;margin-bottom:20px"></div>
+<h1 style="margin:0;font-weight:900;font-size:44px;line-height:1.06;max-width:18ch">Charts</h1>
+<div style="font-size:16px;font-weight:400;line-height:1.8;max-width:68ch;margin-top:14px;text-wrap:pretty">A chart in this system answers one question and states its scale. Four shapes cover everything the index needs to quantify — magnitude, trend, spread, share — and a fifth state covers the case where the data is not there to draw.</div>
+<div style="display:flex;align-items:center;gap:10px;row-gap:8px;flex-wrap:wrap;margin-top:20px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">
+<span style="padding:3px 10px;border-radius:999px;border:1px solid #000;background:#fff">Components</span>
+<span style="font-weight:400">4 charts · 4 empty conditions · 8 rules · specimens run on 1,412 warehouse tables</span>
+</div>
+</section>
+
+<section id="c1" data-screen-label="ss: 01 Choosing a chart" style="max-width:1060px;margin:0 auto;padding:88px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 01</span><h2 style="margin:0;font-weight:900;font-size:28px">Choosing a chart</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">The question selects the chart, not the shape of the data. Five questions are worth drawing; everything else is a table or a sentence. Each row names the ceiling past which the chart stops working and the substitute it is most often mistaken for.</div>
+
+<div style="margin-top:28px;background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:26px">
+<h3 style="margin:0 0 16px;font-size:15px;font-weight:700;line-height:1.4">One question, one chart</h3>
+<div data-twrap style="overflow-x:visible">
+<div data-wide>
+<div style="display:grid;grid-template-columns:1.5fr 1fr .7fr 1.1fr;background:#f1f1f1;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">
+<span style="padding:9px 12px">Question</span><span style="padding:9px 12px">Chart</span><span style="padding:9px 12px">Ceiling</span><span style="padding:9px 12px">Never</span>
+</div>
+<sc-for list="{{ choose }}" as="c" hint-placeholder-count="5">
+<div style="{{ c.row }}">
+<span style="padding:12px;font-size:14px;font-weight:600;line-height:1.5">{{ c.q }}</span>
+<span style="padding:12px;font-size:14px;font-weight:400;line-height:1.5">{{ c.chart }}</span>
+<span style="padding:12px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;line-height:1.6">{{ c.ceiling }}</span>
+<span style="padding:12px;font-size:14px;font-weight:400;line-height:1.6">{{ c.never }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+</section>
+
+<section id="c2" data-screen-label="ss: 02 Trend over time" style="max-width:1060px;margin:0 auto;padding:96px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 02</span><h2 style="margin:0;font-weight:900;font-size:28px">Trend over time</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">A period series with a threshold drawn on it. Up to three populations may share one chart, separated by fill — solid, hatched, track — because hue is not available to carry meaning here. A truncated axis is legal and must say so.</div>
+
+<div style="margin-top:28px;background:#fff;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:26px">
+<h3 style="margin:0;font-size:15px;font-weight:700;line-height:1.4">Freshness against service level</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.7;margin-top:6px;max-width:70ch">Share of tables refreshed inside their stated SLA window, by quarter, for three populations of the warehouse.</div>
+
+<div style="display:flex;align-items:center;gap:8px;row-gap:8px;flex-wrap:wrap;margin-top:16px">
+<sc-for list="{{ series }}" as="s" hint-placeholder-count="3">
+<button onClick="{{ s.toggle }}" aria-pressed="{{ s.on }}" style="{{ s.btn }}"><span style="{{ s.swatch }}"></span><span style="white-space:nowrap">{{ s.name }}</span></button>
+</sc-for>
+<span style="margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.08em;text-transform:uppercase">{{ axisNote }}</span>
+</div>
+
+<div data-twrap style="margin-top:20px">
+<div data-wide style="display:grid;grid-template-columns:34px 1fr;gap:10px">
+<div style="position:relative;height:220px">
+<sc-for list="{{ ticks }}" as="t" hint-placeholder-count="4">
+<span style="{{ t.style }}">{{ t.label }}</span>
+</sc-for>
+</div>
+<div>
+<div style="position:relative;height:220px">
+<sc-if value="{{ showTarget }}" hint-placeholder-val="{{ true }}">
+<div style="{{ targetStyle }}"></div>
+<span style="{{ targetFlag }}">{{ targetLabel }}</span>
+</sc-if>
+<div style="display:grid;grid-template-columns:repeat(8,1fr);gap:12px;align-items:end;height:100%;position:relative">
+<sc-for list="{{ quarters }}" as="q" hint-placeholder-count="8">
+<div style="display:flex;align-items:flex-end;gap:6px;height:100%">
+<sc-for list="{{ q.bars }}" as="b" hint-placeholder-count="3">
+<div title="{{ b.title }}" style="{{ b.style }}"></div>
+</sc-for>
+</div>
+</sc-for>
+</div>
+</div>
+<div style="height:1.5px;background:#000"></div>
+<div style="display:grid;grid-template-columns:repeat(8,1fr);gap:12px;margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.05em">
+<sc-for list="{{ quarters }}" as="q" hint-placeholder-count="8">
+<span style="text-align:center">{{ q.label }}</span>
+</sc-for>
+</div>
+</div>
+</div>
+</div>
+
+<div style="font-size:14px;font-weight:400;font-style:italic;line-height:1.7;margin-top:16px;max-width:70ch">25-Q1 is the one quarter below the service level: a warehouse migration froze scheduled refreshes for nine days.</div>
+
+<div style="margin-top:20px;border-top:1px solid #ebebeb;padding-top:16px">
+<button type="button" onClick="{{ toggleTrend }}" aria-expanded="{{ trendOpen }}" style="display:flex;align-items:center;gap:12px;width:100%">
+<span style="width:20px;height:20px;border-radius:6px;background:#f1f1f1;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;flex:none">{{ trendMark }}</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">Data table</span>
+<span style="margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.08em;text-transform:uppercase">8 rows · 3 populations</span>
+</button>
+<sc-if value="{{ trendShown }}" hint-placeholder-val="{{ true }}">
+<div data-twrap style="margin-top:14px">
+<div data-wide>
+<div style="display:grid;grid-template-columns:1fr 120px 120px 120px;background:#f1f1f1;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">
+<span style="padding:12px 12px">Quarter</span>
+<span style="padding:12px 12px">All tables</span>
+<span style="padding:12px 12px">Certified</span>
+<span style="padding:12px 12px">Tier 1 only</span>
+</div>
+<sc-for list="{{ trendRows }}" as="r" hint-placeholder-count="8">
+<div style="display:grid;grid-template-columns:1fr 120px 120px 120px;border-radius:6px;background:{{ r.z }};font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400">
+<span style="padding:14px 14px;font-weight:700">{{ r.label }}</span>
+<span style="padding:14px 14px">{{ r.a }}</span>
+<span style="padding:14px 14px">{{ r.b }}</span>
+<span style="padding:14px 14px">{{ r.c }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-if>
+</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.08em;text-transform:uppercase;margin-top:12px">Source: warehouse SLA log · 8 quarters to 26-Q2 · n = 1,412 tables · aggregated 27 Aug 2026</div>
+</div>
+</section>
+
+<section id="c3" data-screen-label="ss: 03 Spread and share" style="max-width:1060px;margin:0 auto;padding:96px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 03</span><h2 style="margin:0;font-weight:900;font-size:28px">Spread and share</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Two charts that report a population rather than a series. A distribution shows where the mass sits and marks its median; a share bar divides one stated total. Neither may be replaced by an average, and neither is ever drawn as a circle.</div>
+
+<div style="display:grid;grid-template-columns:1fr;row-gap:16px;margin-top:28px">
+<div style="background:#fff;border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:26px">
+<h3 style="margin:0;font-size:15px;font-weight:700;line-height:1.4">Time to first refresh after ingest</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.7;margin-top:6px;max-width:70ch">Hours between an event landing in the lake and appearing in a refreshed table. Select a bucket to read it.</div>
+<div data-twrap style="margin-top:20px">
+<div data-wide style="position:relative;height:170px">
+<div style="{{ medianStyle }}"></div>
+<span style="{{ medianFlag }}">{{ medianLabel }}</span>
+<div style="display:grid;grid-template-columns:repeat(10,1fr);gap:6px;align-items:end;height:100%">
+<sc-for list="{{ buckets }}" as="b" hint-placeholder-count="10">
+<button onClick="{{ b.pick }}" aria-pressed="{{ b.on }}" style="display:flex;align-items:flex-end;height:100%;width:100%">
+<span style="{{ b.style }}"></span>
+</button>
+</sc-for>
+</div>
+</div>
+<div data-wide style="height:1.5px;background:#000"></div>
+<div data-wide style="display:grid;grid-template-columns:repeat(10,1fr);gap:6px;margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.04em">
+<sc-for list="{{ buckets }}" as="b" hint-placeholder-count="10">
+<span style="text-align:center">{{ b.label }}</span>
+</sc-for>
+</div>
+</div>
+<div style="display:flex;align-items:center;gap:10px;row-gap:6px;flex-wrap:wrap;margin-top:16px">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:3px 10px;border-radius:4px;background:#fff;border:1px solid #000">{{ readoutLabel }}</span>
+<span style="font-size:14px;font-weight:400;line-height:1.7">{{ readout }}</span>
+</div>
+<div style="margin-top:16px;border-top:1px solid #ebebeb;padding-top:16px">
+<button type="button" onClick="{{ toggleDist }}" aria-expanded="{{ distOpen }}" style="display:flex;align-items:center;gap:12px;width:100%">
+<span style="width:20px;height:20px;border-radius:6px;background:#f1f1f1;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;flex:none">{{ distMark }}</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">Data table</span>
+<span style="margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.08em;text-transform:uppercase">10 rows · 1,412 tables</span>
+</button>
+<sc-if value="{{ distShown }}" hint-placeholder-val="{{ true }}">
+<div data-twrap style="margin-top:14px">
+<div data-wide>
+<div style="display:grid;grid-template-columns:1fr 110px 110px 130px;background:#f1f1f1;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">
+<span style="padding:12px 12px">Bucket · hours</span>
+<span style="padding:12px 12px">Tables</span>
+<span style="padding:12px 12px">Share</span>
+<span style="padding:12px 12px">Cumulative</span>
+</div>
+<sc-for list="{{ distRows }}" as="r" hint-placeholder-count="10">
+<div style="display:grid;grid-template-columns:1fr 110px 110px 130px;border-radius:6px;background:{{ r.z }};font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400">
+<span style="padding:14px 14px;font-weight:700">{{ r.label }}</span>
+<span style="padding:14px 14px">{{ r.count }}</span>
+<span style="padding:14px 14px">{{ r.share }}</span>
+<span style="padding:14px 14px">{{ r.cum }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-if>
+</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.08em;text-transform:uppercase;margin-top:12px">Source: ingest telemetry · 30 days to 27 Aug 2026 · n = 1,412 tables · buckets in hours</div>
+</div>
+
+<div style="background:#fff;border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:26px">
+<h3 style="margin:0;font-size:15px;font-weight:700;line-height:1.4">Ownership state of the warehouse</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.7;margin-top:6px;max-width:70ch">One total divided four ways. The total is stated because a share without its denominator cannot be checked.</div>
+<div style="display:flex;height:28px;border-radius:3px;overflow:hidden;margin-top:20px;border:1px solid #000">
+<sc-for list="{{ shares }}" as="s" hint-placeholder-count="4">
+<div title="{{ s.title }}" style="{{ s.style }}"></div>
+</sc-for>
+</div>
+<div data-stack style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:16px">
+<sc-for list="{{ shares }}" as="s" hint-placeholder-count="4">
+<div style="display:grid;grid-template-columns:14px 1fr;gap:10px;align-items:start">
+<span style="{{ s.swatch }}"></span>
+<div>
+<div style="font-size:14px;font-weight:700;line-height:1.4">{{ s.name }}</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.06em;text-transform:uppercase;margin-top:4px">{{ s.meta }}</div>
+</div>
+</div>
+</sc-for>
+</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.08em;text-transform:uppercase;margin-top:16px">Source: catalog ownership register · 27 Aug 2026 · total 1,412 tables</div>
+</div>
+</div>
+</section>
+
+<section id="c4" data-screen-label="ss: 04 Nothing to draw" style="max-width:1060px;margin:0 auto;padding:96px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 04</span><h2 style="margin:0;font-weight:900;font-size:28px">When there is nothing to draw</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">An absent chart is a fact about the aggregation, so it is reported rather than hidden. Four conditions produce it, and each names what would resolve it. The frame is always drawn: a blank rectangle and a chart of zeroes are both misreadings waiting to happen.</div>
+
+<div style="margin-top:28px;background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:26px">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:16px;row-gap:12px;flex-wrap:wrap">
+<h3 style="margin:0;font-size:15px;font-weight:700;line-height:1.4">The four empty conditions</h3>
+<div style="display:flex;gap:2px;padding:3px;background:#f1f1f1;border-radius:999px">
+<sc-for list="{{ states }}" as="s" hint-placeholder-count="4">
+<button onClick="{{ s.pick }}" aria-pressed="{{ s.on }}" style="{{ s.btn }}"><span style="white-space:nowrap">{{ s.short }}</span></button>
+</sc-for>
+</div>
+</div>
+
+<div data-twrap style="margin-top:20px">
+<div data-wide style="display:grid;grid-template-columns:34px 1fr;gap:10px">
+<div style="position:relative;height:180px">
+<sc-for list="{{ ticks }}" as="t" hint-placeholder-count="4">
+<span style="{{ t.style }}">{{ t.label }}</span>
+</sc-for>
+</div>
+<div>
+<div style="position:relative;height:180px">
+<sc-if value="{{ emptyPartial }}" hint-placeholder-val="{{ false }}">
+<div style="display:grid;grid-template-columns:repeat(8,1fr);gap:12px;align-items:end;height:100%">
+<sc-for list="{{ partialCols }}" as="c" hint-placeholder-count="8">
+<div style="{{ c.style }}"></div>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{ emptyMessage }}" hint-placeholder-val="{{ true }}">
+<div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center">
+<img src="icons/set/empty-data-f.svg" width="32" height="32" alt="" aria-hidden="true" style="display:block">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:4px 12px;border-radius:4px;border:1px solid #000;background:#fff">{{ emptyLabel }}</span>
+<span style="font-size:14px;font-weight:400;line-height:1.7;max-width:48ch">{{ emptyLine }}</span>
+</div>
+</sc-if>
+</div>
+<div style="height:1.5px;background:#000"></div>
+<div style="display:grid;grid-template-columns:repeat(8,1fr);gap:12px;margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.05em">
+<sc-for list="{{ emptyLabels }}" as="l" hint-placeholder-count="8">
+<span style="{{ l.style }}">{{ l.t }}</span>
+</sc-for>
+</div>
+</div>
+</div>
+</div>
+
+<div style="display:grid;grid-template-columns:120px 1fr;gap:16px;align-items:baseline;border-top:1px solid #ebebeb;margin-top:20px;padding-top:16px">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">Resolves when</span>
+<span style="font-size:14px;font-weight:400;line-height:1.7">{{ emptyResolve }}</span>
+</div>
+</div>
+</section>
+
+<section id="c5" data-screen-label="ss: 05 Rules" style="max-width:1060px;margin:0 auto;padding:96px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 05</span><h2 style="margin:0;font-weight:900;font-size:28px">Rules these charts add</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Eight rules, binding on every chart in this system, on top of the chart tokens already in force.</div>
+<div style="display:grid;row-gap:20px;margin-top:24px;max-width:74ch">
+<sc-for list="{{ rules }}" as="r" hint-placeholder-count="8">
+<div style="display:grid;grid-template-columns:70px 1fr;gap:16px;align-items:baseline">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.06em">{{ r.id }}</span>
+<div><span style="font-size:15px;font-weight:700;line-height:1.5">{{ r.head }}</span><span style="font-size:15.5px;font-weight:400;line-height:1.85"> {{ r.body }}</span></div>
+</div>
+</sc-for>
+</div>
+</section>
+
+<footer style="max-width:1060px;margin:96px auto 0;padding:24px;border-top:1px solid #ebebeb">
+<div style="display:flex;align-items:center;gap:16px;row-gap:10px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.08em;text-transform:uppercase">
+<span style="font-weight:700">content-morphia</span>
+<span>Charts · R23.1–R23.8</span>
+<span style="margin-left:auto;display:flex;gap:16px;flex-wrap:wrap"><a href="content-morphia Wayfinding.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1de9b6;padding-bottom:1px">Wayfinding</a><a href="content-morphia Provenance.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1de9b6;padding-bottom:1px">Provenance</a><a href="content-morphia Structured.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1de9b6;padding-bottom:1px">Structured components</a><a href="content-morphia Selection.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1de9b6;padding-bottom:1px">Selection &amp; gate</a></span>
+</div>
+</footer>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1180,&quot;height&quot;:900},&quot;axisMode&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;truncated&quot;,&quot;zero&quot;],&quot;default&quot;:&quot;truncated&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Trend&quot;},&quot;showTargetLine&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Trend&quot;},&quot;emptyState&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Not yet aggregated&quot;,&quot;Insufficient sample&quot;,&quot;Suppressed&quot;,&quot;Partial window&quot;],&quot;default&quot;:&quot;Not yet aggregated&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Empty states&quot;}}">
+class Component extends DCLogic {
+  state = { nav: 1, off: {}, bucket: null, empty: null, tTrend: false, tDist: false };
+
+  renderVals() {
+    const S = this.state;
+    const P = this.props;
+    const teal = '#1de9b6', off = 'transparent';
+
+    // ---------- ss: 01 choosing ----------
+    const choose = [
+      ['How big is each one?', 'Magnitude bars', '12 rows', 'A pie — angles need hue to be read'],
+      ['How has it moved?', 'Trend over time', '3 series · 24 periods', 'Two axes on one chart'],
+      ['How is it spread?', 'Distribution', '12 buckets', 'An average quoted without its spread'],
+      ['What share is each?', 'Share bar', '5 parts', 'A donut, or a share with no total'],
+      ['How far from target?', 'Trend with threshold', '1 threshold', 'A gauge, or a bare red number']
+    ].map((r, i) => ({
+      q: r[0], chart: r[1], ceiling: r[2], never: r[3],
+      row: 'display:grid;grid-template-columns:1.5fr 1fr .7fr 1.1fr;align-items:start;border-radius:6px;' + ''
+    }));
+
+    // ---------- ss: 02 trend ----------
+    const INK = teal;
+    const HATCH = 'repeating-linear-gradient(45deg,#1de9b6 0 2.5px,#fff 2.5px 7px)';
+    const SER = [
+      { key: 'all', name: 'All tables', fill: INK, bd: 'none', v: [96, 97, 92, 96, 97, 96, 98, 98], primary: true },
+      { key: 'cert', name: 'Certified', fill: HATCH, bd: '1px solid #000', v: [99, 99, 97, 99, 99, 99, 100, 100] },
+      { key: 'tier1', name: 'Tier 1 only', fill: '#f1f1f1', bd: '1px solid #000', v: [93, 95, 88, 94, 96, 95, 97, 98] }
+    ];
+    const on = (k) => !S.off[k];
+    const LO = P.axisMode === 'zero' ? 0 : 85, HI = 100;
+    const showTarget = P.showTargetLine !== false;
+    const TARGET = 95;
+    const pct = (v) => Math.max(0, ((v - LO) / (HI - LO)) * 100);
+
+    const series = SER.map((s) => ({
+      name: s.name, on: on(s.key),
+      toggle: () => this.setState((st) => ({ off: Object.assign({}, st.off, { [s.key]: !st.off[s.key] }) })),
+      btn: "display:flex;align-items:center;gap:8px;white-space:nowrap;padding:5px 12px;border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:#fff;border:1px solid #000;"
+        + (on(s.key) ? 'box-shadow:2px 2px 0 rgba(0,0,0,.18)' : 'opacity:.55'),
+      swatch: 'display:inline-block;width:14px;height:10px;border-radius:2px;background:' + s.fill + ';border:' + (s.bd === 'none' ? '0' : s.bd)
+    }));
+
+    const LABELS = ['24-Q3', '24-Q4', '25-Q1', '25-Q2', '25-Q3', '25-Q4', '26-Q1', '26-Q2'];
+    const quarters = LABELS.map((label, i) => ({
+      label,
+      bars: SER.filter((s) => on(s.key)).map((s) => {
+        const v = s.v[i];
+        const breach = s.primary && showTarget && v < TARGET;
+        return {
+          title: s.name + ' · ' + label + ' · ' + v + '%',
+          style: 'flex:1;min-width:0;height:' + pct(v).toFixed(1) + '%;border-radius:3px 3px 0 0;background:'
+            + (breach ? '#ff5252' : s.fill) + ';' + (s.bd === 'none' && !breach ? '' : 'border:' + (breach ? '1px solid #000' : s.bd) + ';box-sizing:border-box;')
+        };
+      })
+    }));
+
+    const trendOpen = S.tTrend;
+    const trendRows = LABELS.map((label, i) => ({
+      label, a: SER[0].v[i] + '%', b: SER[1].v[i] + '%', c: SER[2].v[i] + '%',
+      z: '#fff'
+    }));
+
+    const tickVals = LO === 0 ? [100, 75, 50, 25, 0] : [100, 95, 90, 85];
+    const ticks = tickVals.map((v) => ({
+      label: v,
+      style: "position:absolute;right:0;width:100%;text-align:right;transform:translateY(-50%);top:" + (100 - pct(v)).toFixed(1)
+        + "%;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.04em"
+    }));
+
+    // ---------- ss: 03 distribution ----------
+    const BK = [
+      ['0–1', 63], ['1–2', 148], ['2–4', 286], ['4–6', 331], ['6–8', 214],
+      ['8–12', 152], ['12–16', 96], ['16–24', 61], ['24–36', 38], ['36+', 23]
+    ];
+    const TOTAL = 1412, MAXC = 331;
+    let cum = 0;
+    const cums = BK.map((b) => (cum += b[1]));
+    const sel = S.bucket;
+    const buckets = BK.map((b, i) => ({
+      label: b[0], on: sel === i,
+      pick: () => this.setState({ bucket: sel === i ? null : i }),
+      style: 'display:block;width:100%;height:' + ((b[1] / MAXC) * 100).toFixed(1)
+        + '%;border-radius:3px 3px 0 0;background:' + (sel === i ? '#000' : teal) + ';'
+        + (sel === null || sel === i ? '' : 'opacity:.55')
+    }));
+    const readoutLabel = sel === null ? 'Population' : buckets[sel].label + ' h';
+    const readout = sel === null
+      ? '1,412 tables · median 5.3 h · 59% refresh within six hours'
+      : BK[sel][1].toLocaleString() + ' tables · ' + Math.round((BK[sel][1] / TOTAL) * 100) + '% of the population · '
+        + Math.round((cums[sel] / TOTAL) * 100) + '% cumulative';
+    const distOpen = S.tDist;
+    const distRows = BK.map((b, i) => ({
+      label: b[0], count: b[1].toLocaleString(),
+      share: Math.round((b[1] / TOTAL) * 100) + '%',
+      cum: Math.round((cums[i] / TOTAL) * 100) + '%',
+      z: '#fff'
+    }));
+
+    const medPct = ((3 + (706 - 497) / 331) / 10) * 100;
+    const medianStyle = 'position:absolute;top:0;bottom:0;left:' + medPct.toFixed(1) + '%;border-left:2px dotted #000;z-index:1';
+    const medianFlag = "position:absolute;top:0;left:calc(" + medPct.toFixed(1) + "% + 8px);z-index:2;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:#fff;padding:2px 6px;border-radius:4px";
+
+    // ---------- ss: 03 share ----------
+    const SH = [
+      ['Certified', 578, INK, 'none'],
+      ['Reviewed', 395, HATCH, '1px solid #000'],
+      ['Draft', 311, '#f1f1f1', '1px solid #000'],
+      ['Unowned', 128, '#fff', '1px solid #000']
+    ];
+    const shares = SH.map((s, i) => ({
+      name: s[0],
+      title: s[0] + ' · ' + s[1] + ' tables',
+      meta: Math.round((s[1] / TOTAL) * 100) + '% · ' + s[1].toLocaleString() + ' tables',
+      style: 'width:' + ((s[1] / TOTAL) * 100).toFixed(1) + '%;background:' + s[2] + ';'
+        + (i ? 'border-left:1px solid #000;' : ''),
+      swatch: 'display:block;width:14px;height:14px;border-radius:2px;margin-top:3px;background:' + s[2] + ';'
+        + (s[3] === 'none' ? '' : 'border:' + s[3])
+    }));
+
+    // ---------- ss: 04 empty ----------
+    const ST = [
+      ['Not yet aggregated', 'Pending', 'No aggregation has run against this node. Its first pass is scheduled.', 'The first aggregation completes on 12 Sep 2026.'],
+      ['Insufficient sample', 'Sample', 'Nine sources measure this quantity. The floor for publishing a distribution is thirty.', 'Twenty-one further sources report a value.'],
+      ['Suppressed', 'Suppressed', 'Four sources hold this figure at this granularity, which would identify them individually.', 'A fifth source publishes, or the granularity is widened to region.'],
+      ['Partial window', 'Partial', 'Five of eight quarters have data. The three missing quarters predate instrumentation.', 'The backfill from the archived warehouse completes.']
+    ];
+    const curEmpty = S.empty === null ? (ST.findIndex((s) => s[0] === P.emptyState) + 1 || 1) - 1 : S.empty;
+    const states = ST.map((s, i) => ({
+      short: s[1], on: curEmpty === i,
+      pick: () => this.setState({ empty: i }),
+      btn: "white-space:nowrap;padding:4px 10px;border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;"
+        + (curEmpty === i ? 'background:#fff;border:1px solid #000;box-shadow:2px 2px 0 rgba(0,0,0,.18)' : 'background:' + off)
+    }));
+    const emptyPartial = curEmpty === 3;
+    const HAVE = [null, null, null, 96, 97, 96, 98, 98];
+    const partialCols = HAVE.map((v) => ({
+      style: v === null
+        ? 'height:100%;border:1px dashed #d9d9d9;border-radius:3px'
+        : 'height:' + pct(v).toFixed(1) + '%;border-radius:3px 3px 0 0;background:' + teal
+    }));
+    const emptyLabels = emptyPartial
+      ? LABELS.map((l, i) => ({
+          t: HAVE[i] === null ? 'No data' : l,
+          style: 'text-align:center;' + (HAVE[i] === null ? 'font-weight:700' : '')
+        }))
+      : LABELS.map(() => ({ t: '', style: 'text-align:center' }));
+
+    // ---------- ss: 05 rules ----------
+    const rules = [
+      ['R23.1', 'One chart, one question.', 'The chart\u2019s title states the question it answers, and a second question needs a second chart. A chart that reads as two charts overlaid is two charts.'],
+      ['R23.2', 'Series separate by fill, never by hue.', 'Solid accent, accent hatch, track — one hue at three densities, therefore three series maximum. A fourth population becomes a second chart or a table.'],
+      ['R23.3', 'Every chart states its scale.', 'The baseline sits at zero, or the truncation is declared in mono beside the chart. Units, window and population appear in the provenance line below.'],
+      ['R23.4', 'Share is a bar, not a circle.', 'Part-to-whole is one stacked bar of at most five parts with the total stated. Pies, donuts and radial gauges are illegal: their encodings need hue.'],
+      ['R23.5', 'A semantic fill marks a breach and nothing else.', 'Crit on a data mark means the mark crossed a threshold that is drawn on the same chart. No threshold drawn, no coloured mark.'],
+      ['R23.6', 'An empty chart draws its frame.', 'Axis, baseline and one of the four conditions — not yet aggregated, insufficient sample, suppressed, partial window — each naming what resolves it. Never a blank panel, never a chart of zeroes.'],
+      ['R23.7', 'Black is emphasis ink, not population ink.', 'A population is drawn in the accent. Solid black on a chart is spent on the axis, a threshold or median line, and at most one selected mark — so that where it appears, it is the answer. A field of black bars carries no emphasis left to give.'],
+      ['R23.8', 'A chart surface spends the accent on its marks.', 'The container holding a chart takes no accent chrome \u2014 no reserved offset shadow, no accent-filled chips \u2014 and its own controls carry the neutral active state instead. A colour means one thing per surface, and on a chart it means data.']
+    ].map((r) => ({ id: r[0], head: r[1], body: r[2] }));
+
+    const mk = (i) => ({ pick: () => this.setState({ nav: i }), col: S.nav === i ? teal : off });
+    const N = [1, 2, 3, 4, 5].map(mk);
+
+    return {
+      choose, series, quarters, ticks, showTarget,
+      trendRows, trendShown: trendOpen, trendOpen: trendOpen ? 'true' : 'false', trendMark: trendOpen ? '−' : '+',
+      toggleTrend: () => this.setState({ tTrend: !trendOpen }),
+      distRows, distShown: distOpen, distOpen: distOpen ? 'true' : 'false', distMark: distOpen ? '−' : '+',
+      toggleDist: () => this.setState({ tDist: !distOpen }),
+      axisNote: LO === 0 ? 'Axis 0–100% · full scale' : 'Axis 85–100% · truncated',
+      targetStyle: 'position:absolute;left:0;right:0;bottom:' + pct(TARGET).toFixed(1) + '%;border-top:2px dotted #000;z-index:1',
+      targetFlag: "position:absolute;right:0;bottom:calc(" + pct(TARGET).toFixed(1) + "% + 6px);z-index:2;white-space:nowrap;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:#fff;border:1px solid #000;padding:2px 6px;border-radius:4px",
+      targetLabel: 'SLA ' + TARGET + '%',
+      buckets, readout, readoutLabel, medianStyle, medianFlag, medianLabel: 'Median 5.3 h',
+      shares, states, emptyPartial, emptyMessage: !emptyPartial, partialCols, emptyLabels,
+      emptyLabel: ST[curEmpty][0], emptyLine: ST[curEmpty][2], emptyResolve: ST[curEmpty][3],
+      rules,
+      p1: N[0].pick, p2: N[1].pick, p3: N[2].pick, p4: N[3].pick, p5: N[4].pick,
+      n1: N[0].col, n2: N[1].col, n3: N[2].col, n4: N[3].col, n5: N[4].col
+    };
+  }
+}
+</script>
+</body>
+</html>

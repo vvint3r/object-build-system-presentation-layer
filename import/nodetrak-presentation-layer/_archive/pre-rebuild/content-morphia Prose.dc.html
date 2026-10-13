@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&amp;family=JetBrains+Mono:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#fafafa;color:#000;font-family:'Nunito',sans-serif}
+a{color:#000;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px}
+a:hover{background:rgba(29,233,182,.3)}
+::selection{background:rgba(29,233,182,.35)}
+button{font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;background:none;border:none;padding:0;margin:0;text-align:left;cursor:pointer}
+a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid #000;outline-offset:3px}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:#f1f1f1;border-radius:999px}
+::-webkit-scrollbar-thumb{background:rgba(0,0,0,.22);border-radius:999px}
+::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.45)}
+@media(max-width:800px){[data-wide]{min-width:680px!important}[data-twrap]{overflow-x:auto!important}}
+@media(max-width:640px){[data-stack]{grid-template-columns:1fr!important}}
+
+[data-nav-group] [data-nav-menu]{display:none}
+[data-nav-group]:hover [data-nav-menu],[data-nav-group]:focus-within [data-nav-menu]{display:block}
+</style>
+</helmet>
+
+<div style="position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid #ebebeb">
+<div style="max-width:1060px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:18px;row-gap:10px;flex-wrap:wrap">
+<span style="font-weight:900;font-size:16px;letter-spacing:.01em">content-morphia</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid #000;background:#fff">Prose</span>
+<nav aria-label="Design system" style="display:flex;align-items:center;gap:4px;row-gap:6px;flex-wrap:wrap"><div data-nav-group style="position:relative"><a href="content-morphia Foundations.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Foundations</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Foundations.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Foundations</a><a href="content-morphia Icons.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Icons</a><a href="content-morphia Print.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Print</a><a href="content-morphia Equivalents.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Non-visual equivalents</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Structured.dc.html" aria-current="page" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:4px 9px;background:#fff;border:1px solid #000;box-shadow:2px 2px 0 #1de9b6">Components</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Structured.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Structured components</a><span aria-current="page" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:700;background:#f1f1f1">Prose primitives</span><a href="content-morphia Wayfinding.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Wayfinding</a><a href="content-morphia Provenance.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Provenance</a><a href="content-morphia Charts.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Charts</a><a href="content-morphia Interaction.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Interaction</a><a href="content-morphia Learning.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Learning</a><a href="content-morphia Questions.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Questions and answers</a><a href="content-morphia Change.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Change and status</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Diagrams.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Diagrams</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Diagrams.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Diagram library</a><a href="content-morphia Diagrams at Scale.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Diagrams at scale</a><a href="content-morphia Diagrams II.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Technical families</a><a href="content-morphia Diagrams III.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Experience and magnitude</a><a href="content-morphia Diagrams IV.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Structure and notation</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Templates.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Templates</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Templates.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Template index</a><a href="content-morphia T1 Topic.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T1 Topic</a><a href="content-morphia T2 Framework.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T2 Framework</a><a href="content-morphia T3 Process.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T3 Process</a><a href="content-morphia T4 Guide.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T4 Guide</a><a href="content-morphia T5 Module.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T5 Module</a><a href="content-morphia T6 Metric.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T6 Metric</a><a href="content-morphia T7 Comparison.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T7 Comparison</a><a href="content-morphia T8 Roadmap.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T8 Roadmap</a><a href="content-morphia T9 Reference.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T9 Reference</a><a href="content-morphia T10 Glossary.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T10 Glossary</a><a href="content-morphia T11 Case study.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T11 Case study</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Composition.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Composition</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Composition.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Composition</a><a href="content-morphia Anatomy.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Anatomy and primitives</a><a href="content-morphia Selection.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Selection</a><a href="content-morphia Implementing.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Implementing</a><a href="content-morphia Exemplar.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Worked example</a></div></div></div></nav>
+</div>
+</div>
+
+<div style="background:#fafafa;border-bottom:1px solid #ebebeb">
+<div style="max-width:1060px;margin:0 auto;padding:11px 24px;display:flex;align-items:center;gap:10px;row-gap:8px;flex-wrap:wrap">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">On this page</span>
+<span style="width:1px;height:13px;background:#ebebeb"></span>
+<nav aria-label="Sections of this page" style="display:flex;align-items:center;gap:2px;row-gap:6px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase">
+<a href="#r1" onClick="{{ p1 }}" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 01 Quotation</a>
+<a href="#r2" onClick="{{ p2 }}" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 02 Marks</a>
+<a href="#r3" onClick="{{ p3 }}" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 03 Lists</a>
+<a href="#r4" onClick="{{ p4 }}" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 04 Rules</a>
+</nav>
+</div>
+</div>
+
+<section data-screen-label="Page header" style="max-width:1060px;margin:0 auto;padding:48px 24px 0">
+<div style="width:52px;height:5px;background:#1de9b6;border-radius:999px;margin-bottom:20px"></div>
+<h1 style="margin:0;font-weight:900;font-size:44px;line-height:1.06;max-width:18ch">Prose primitives</h1>
+<div style="font-size:16px;font-weight:400;line-height:1.8;max-width:68ch;margin-top:14px;text-wrap:pretty">The pieces a passage needs that are still prose: a sentence borrowed from a source, a sentence of our own set larger, the two marks that interrupt a line, and the three lists whose shape carries an argument. Each one is a decision about where the words came from, and each has exactly one form.</div>
+<div style="display:flex;align-items:center;gap:10px;row-gap:8px;flex-wrap:wrap;margin-top:20px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">
+<span style="padding:3px 10px;border-radius:999px;border:1px solid #000;background:#fff">Components</span>
+<span style="font-weight:400">7 primitives · 6 rules · specimens from the freshness practice</span>
+</div>
+</section>
+
+<section id="r1" data-screen-label="ss: 01 Quotation" style="max-width:1060px;margin:0 auto;padding:88px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 01</span><h2 style="margin:0;font-weight:900;font-size:28px">Quotation</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Two things look alike on the page and mean opposite things. A quotation carries words this document did not write, so it is bounded and attributed. A pull quote carries a sentence this document already wrote, set larger so a scanning reader meets it, so it is unbounded and never attributed. Confusing the two makes the document appear to cite itself.</div>
+
+<div data-stack style="display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:28px">
+<div>
+<h3 style="margin:0;font-size:15px;font-weight:700;line-height:1.4">Quotation · borrowed words</h3>
+<div style="border-left:2px solid #000;border-top:2px solid #000;width:14px;height:14px;margin-top:14px"></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.8;margin-top:12px;max-width:52ch;text-wrap:pretty">Freshness was the only metric where every team already agreed on the definition, which is why it became the first one we certified.</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-top:6px">— Platform retrospective · Mar 2026</div>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:28px;border-top:1px solid #ebebeb;padding-top:18px;max-width:52ch">Bracket and mono attribution, no fill and no outline. The bracket is the same sub-block marker used everywhere else, so a quotation reads as a bounded piece of someone else's text rather than a decorated aside.</div>
+</div>
+<div>
+<h3 style="margin:0;font-size:15px;font-weight:700;line-height:1.4">Pull quote · our own sentence</h3>
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-top:14px"></div>
+<div style="font-weight:800;font-size:21px;line-height:1.35;margin-top:14px;max-width:24ch;text-wrap:pretty">A metric with no signal above it is vanity.</div>
+<sc-if value="{{ showProvenance }}" hint-placeholder-val="{{ true }}">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-top:6px">Repeated from ss: 02 · not new</div>
+</sc-if>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:28px;border-top:1px solid #ebebeb;padding-top:18px;max-width:52ch">Teal bar and Nunito 800 at 21px, capped at 24 characters a line. No quotation marks, because nothing is being quoted, and no attribution, because the author is this document. A pull quote that says something the passage does not already say is new content in a decorative slot.</div>
+</div>
+</div>
+</section>
+
+<section id="r2" data-screen-label="ss: 02 Marks in a line" style="max-width:1060px;margin:0 auto;padding:96px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 02</span><h2 style="margin:0;font-weight:900;font-size:28px">Marks in a line</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Two superscripts interrupt a sentence and they are not interchangeable. A citation marker points outward at the evidence behind the claim it follows. A footnote points downward at an aside the sentence could not hold. A reader who cannot tell which is which has to open both to find out.</div>
+
+<div style="margin-top:28px;background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:26px">
+<h3 style="margin:0;font-size:15px;font-weight:700;line-height:1.4">Both marks in one passage</h3>
+<div style="font-size:15.5px;font-weight:400;line-height:1.9;margin-top:12px;max-width:70ch;text-wrap:pretty">Ninety-four per cent of certified tables refresh inside their stated window<button type="button" onClick="{{ openCite }}" aria-expanded="{{ citeOpen }}" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;vertical-align:super;line-height:0;padding:0 2px;border-bottom:1.5px solid #1de9b6">214</button>, against seventy-one per cent for the warehouse as a whole. The gap is not evidence that certification improves freshness<sup style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;padding:0 2px">[1]</sup> — teams certify the tables they already maintain well.</div>
+
+<sc-if value="{{ citeShown }}" hint-placeholder-val="{{ true }}">
+<div style="margin-top:16px;background:#fff;border-radius:12px;padding:18px 20px;box-shadow:0 1px 2px rgba(0,0,0,.06)">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">Source set · 214</div>
+<div style="font-size:14px;font-weight:400;line-height:1.7;margin-top:10px;max-width:66ch">Warehouse SLA logs across eleven domains, aggregated 27 Aug 2026. The full panel, with agreement and spread, is the citation component on the <a href="content-morphia Provenance.dc.html">Provenance</a> page — the marker only states the count and opens it.</div>
+</div>
+</sc-if>
+
+<div style="margin-top:20px;border-top:1px solid #ebebeb;padding-top:16px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">Notes</div>
+<div style="display:grid;grid-template-columns:26px 1fr;gap:10px;margin-top:10px;max-width:70ch">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600">[1]</span>
+<span style="font-size:14px;font-weight:400;line-height:1.7">Selection effect. Separating the two would need a table's freshness before and after certification, which the SLA log does not retain.</span>
+</div>
+</div>
+</div>
+
+<div data-stack style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px">
+<div style="background:#fff;border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:24px">
+<h3 style="margin:0;font-size:15px;font-weight:700;line-height:1.4">Citation marker</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:8px">A count, never a sequence number, set in mono with a teal underline and opening a source panel in place. It attaches to the claim, which means it sits after the number or the assertion, not at the end of the paragraph.</div>
+</div>
+<div style="background:#fff;border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:24px">
+<h3 style="margin:0;font-size:15px;font-weight:700;line-height:1.4">Footnote</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:8px">A bracketed ordinal with no underline, resolving in a notes block at the end of its own section rather than the end of the document. A section carries at most three; a fourth means the aside belongs in the passage.</div>
+</div>
+</div>
+</section>
+
+<section id="r3" data-screen-label="ss: 03 Lists that carry an argument" style="max-width:1060px;margin:0 auto;padding:96px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 03</span><h2 style="margin:0;font-weight:900;font-size:28px">Lists that carry an argument</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">A plain bulleted list makes no claim beyond membership. Three shapes claim more than that, and each earns its extra structure only when the claim is true: that the order matters, that the items come in opposed pairs, or that one item contains another.</div>
+
+<div style="margin-top:28px;background:#fff;border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:26px">
+<h3 style="margin:0;font-size:15px;font-weight:700;line-height:1.4">Ranked · order is the argument</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:8px;max-width:70ch">Causes of missed freshness windows, most frequent first. The ordinal sits in its own column at 12px mono so the ranking survives a scan, and the list states what it was ranked over.</div>
+<div style="display:grid;row-gap:{{ rowGap }};margin-top:24px">
+<sc-for list="{{ ranked }}" as="r" hint-placeholder-count="5">
+<div style="display:grid;grid-template-columns:26px 1fr;gap:14px;align-items:baseline">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600">{{ r.n }}</span>
+<div style="font-size:14px;font-weight:400;line-height:1.75;max-width:70ch;text-wrap:pretty"><strong style="font-weight:700">{{ r.t }}.</strong> {{ r.d }}</div>
+</div>
+</sc-for>
+</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.08em;text-transform:uppercase;margin-top:24px">Ranked over 318 breaches · 12 months to Aug 2026</div>
+</div>
+
+<div style="margin-top:28px;background:#fff;border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:26px">
+<h3 style="margin:0;font-size:15px;font-weight:700;line-height:1.4">Paired · every item has an opposite</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:8px;max-width:70ch">Legal only when the two columns are the same length and each row is one decision seen twice. A do list with nothing opposite it is a plain list wearing two columns.</div>
+<div data-stack style="display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:20px">
+<div>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:3px 10px;border-radius:4px;background:#fff;border:1px solid #000">Do</span>
+<div style="display:grid;row-gap:16px;margin-top:18px">
+<sc-for list="{{ dos }}" as="d" hint-placeholder-count="3">
+<div style="display:grid;grid-template-columns:9px 1fr;gap:12px;align-items:baseline"><span style="width:9px;height:9px;background:#000;margin-top:6px"></span><span style="font-size:14px;font-weight:400;line-height:1.7">{{ d }}</span></div>
+</sc-for>
+</div>
+</div>
+<div>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:3px 10px;border-radius:4px;background:#fff;border:1px solid #000">Do not</span>
+<div style="display:grid;row-gap:16px;margin-top:18px">
+<sc-for list="{{ donts }}" as="d" hint-placeholder-count="3">
+<div style="display:grid;grid-template-columns:9px 1fr;gap:12px;align-items:baseline"><span style="width:9px;height:9px;border:1.5px solid #000;box-sizing:border-box;margin-top:6px"></span><span style="font-size:14px;font-weight:400;line-height:1.7">{{ d }}</span></div>
+</sc-for>
+</div>
+</div>
+</div>
+</div>
+
+<div style="margin-top:28px;background:#fff;border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:26px">
+<h3 style="margin:0;font-size:15px;font-weight:700;line-height:1.4">Nested · one level, and only for containment</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:8px;max-width:70ch">A child indents only when it is part of its parent rather than the next thing after it. Depth stops at two: a third level is a table, or the parent is a heading and the list starts again beneath it.</div>
+<div style="display:grid;row-gap:20px;margin-top:20px;max-width:70ch">
+<sc-for list="{{ nested }}" as="g" hint-placeholder-count="3">
+<div>
+<div style="display:grid;grid-template-columns:9px 1fr;gap:12px;align-items:baseline"><span style="width:9px;height:9px;background:#000;margin-top:6px"></span><span style="font-size:14px;font-weight:700;line-height:1.6">{{ g.t }}</span></div>
+<div style="display:grid;row-gap:10px;margin-top:10px;padding-left:20px">
+<sc-for list="{{ g.kids }}" as="k" hint-placeholder-count="2">
+<div style="display:grid;grid-template-columns:9px 1fr;gap:12px;align-items:baseline"><span style="width:9px;height:1.5px;background:#000;margin-top:9px"></span><span style="font-size:14px;font-weight:400;line-height:1.7">{{ k }}</span></div>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+<div style="font-size:14px;font-weight:400;line-height:1.7;margin-top:16px;max-width:70ch">Neither level takes a teal bullet. The accent marks a short scannable list of peers at body size; a list whose items carry children or sub-lines is being read rather than scanned, and takes the black square.</div>
+</div>
+</section>
+
+<section id="r4" data-screen-label="ss: 04 Rules" style="max-width:1060px;margin:0 auto;padding:96px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 04</span><h2 style="margin:0;font-weight:900;font-size:28px">Rules added here</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Six rules, binding on every passage in this system. The label pair Do and Do not joins the closed vocabulary as a seventh entry; nothing else on this page adds a label.</div>
+<div style="display:grid;row-gap:20px;margin-top:24px;max-width:74ch">
+<sc-for list="{{ rules }}" as="r" hint-placeholder-count="6">
+<div style="display:grid;grid-template-columns:86px 1fr;gap:16px;align-items:baseline">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600">{{ r.id }}</span>
+<div style="font-size:14px;font-weight:400;line-height:1.8;text-wrap:pretty"><strong style="font-weight:700">{{ r.h }}</strong> {{ r.b }}</div>
+</div>
+</sc-for>
+</div>
+</section>
+
+<footer style="max-width:1060px;margin:64px auto 0;padding:24px;border-top:1px solid #ebebeb">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.08em;text-transform:uppercase;display:flex;gap:16px;flex-wrap:wrap">
+<span>content-morphia · prose primitives</span>
+<a href="content-morphia Selection.dc.html" style="text-decoration:none;font-weight:700;border-bottom:1.5px solid #1de9b6;padding-bottom:1px">Selection matrix</a>
+<a href="content-morphia Foundations.dc.html" style="text-decoration:none;font-weight:700;border-bottom:1.5px solid #1de9b6;padding-bottom:1px">Foundations</a>
+</div>
+</footer>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showPullQuoteProvenance&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Quotation&quot;},&quot;rankedNumbering&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;ordinal&quot;,&quot;plain&quot;],&quot;default&quot;:&quot;ordinal&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Lists&quot;},&quot;listDensity&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;comfortable&quot;,&quot;compact&quot;],&quot;default&quot;:&quot;comfortable&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Lists&quot;}}">
+class Component extends DCLogic {
+  state = { sec: 1, cite: false };
+  go(n) { return () => this.setState({ sec: n }); }
+  under(n) { return this.state.sec === n ? '#1de9b6' : 'transparent'; }
+
+  renderVals() {
+    const compact = this.props.listDensity === 'compact';
+    const plain = this.props.rankedNumbering === 'plain';
+    const open = this.state.cite;
+
+    const RANKED = [
+      ['Upstream source late', 'The provider missed its own window. Nothing downstream can recover the time.'],
+      ['Loader incident', 'The job ran and failed. Paged, and the largest single contributor to hours lost.'],
+      ['Schema change unannounced', 'The job ran, succeeded, and wrote the wrong shape. Found by the quality gate, not the scheduler.'],
+      ['Queue contention', 'The job was ready and waited. Concentrated in the 06:00 window.'],
+      ['Manual hold', 'Someone paused the pipeline and did not release it.']
+    ];
+
+    const NESTED = [
+      { t: 'Declare the window', kids: ['The window is a clock time, not a duration since the last run.', 'A table with no declared window is not SLA-tracked and is not counted.'] },
+      { t: 'Measure against it', kids: ['Measured at the snapshot, once per day, never on demand.', 'A refresh that lands during the snapshot counts as late.'] },
+      { t: 'Report the breach', kids: ['The owner is paged only when two consecutive snapshots miss.', 'A single miss is recorded and shown in the trend, not paged.'] }
+    ];
+
+    const RULES = [
+      ['R27.2', 'A quotation is bracketed and attributed; a pull quote is barred and is not.',
+       'The bracket and the mono attribution mean the words came from outside this document. A pull quote carries no attribution because the author is the document itself, and no quotation marks because nothing is being quoted.'],
+      ['R27.3', 'A pull quote repeats a sentence the passage already contains.',
+       'It is set at Nunito 800, 21px, capped at 24 characters a line, and it is verbatim. A pull quote that introduces a claim is new content hidden in a decorative slot, where nobody edits or fact-checks it.'],
+      ['R27.4', 'A citation marker states a count; a footnote states an ordinal.',
+       'Citation: mono, teal underline, opens a source panel in place, and attaches to the claim rather than the paragraph. Footnote: bracketed ordinal, no underline, resolving in a notes block at the end of its own section. At most three footnotes per section.'],
+      ['R27.5', 'A ranked list names what it was ranked over.',
+       'The ordinal sits in its own column at identifier size, never as a badge and never a semantic fill. Without the population and the window beneath it, a ranking is an opinion in list form.'],
+      ['R27.6', 'A paired list needs both columns to be the same length.',
+       'Each row is one decision seen from two sides. Do takes a filled square, Do not takes a hollow one, and neither takes a semantic fill: a paired list is guidance, not a verdict. Do and Do not are the only two labels this shape may carry.'],
+      ['R27.7', 'Nesting stops at two levels, and only for containment.',
+       'A child indents because it is part of its parent, not because it comes after it. Neither level takes a teal bullet; the accent is reserved for a short scannable list of peers at body size, and a list with children is being read.']
+    ];
+
+    return {
+      p1: this.go(1), p2: this.go(2), p3: this.go(3), p4: this.go(4),
+      n1: this.under(1), n2: this.under(2), n3: this.under(3), n4: this.under(4),
+
+      showProvenance: this.props.showPullQuoteProvenance !== false,
+
+      citeShown: open, citeOpen: open ? 'true' : 'false',
+      openCite: () => this.setState({ cite: !open }),
+
+      rowGap: compact ? '10px' : '16px',
+      ranked: RANKED.map((r, i) => ({
+        n: plain ? String(i + 1) : String(i + 1).padStart(2, '0'),
+        t: r[0], d: r[1]
+      })),
+
+      dos: [
+        'State the refresh window as a clock time the provider also holds.',
+        'Page the owner only after two consecutive misses.',
+        'Record every miss in the trend, including the ones that did not page.'
+      ],
+      donts: [
+        'Express the window as a duration since the last successful run.',
+        'Page on the first miss, which trains owners to mute the alert.',
+        'Drop unpaged misses, which makes the trend look better than the service.'
+      ],
+
+      nested: NESTED,
+      rules: RULES.map(r => ({ id: r[0], h: r[1], b: r[2] }))
+    };
+  }
+}
+</script>
+</body>
+</html>

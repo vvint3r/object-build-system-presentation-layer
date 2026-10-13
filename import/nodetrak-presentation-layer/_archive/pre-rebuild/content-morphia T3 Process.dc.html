@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&amp;family=JetBrains+Mono:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#fafafa;color:#000;font-family:'Nunito',sans-serif}
+a{color:#000;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px}
+a:hover{background:rgba(29,233,182,.3)}
+::selection{background:rgba(29,233,182,.35)}
+button{font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;background:none;border:none;padding:0;margin:0;text-align:left;cursor:pointer}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px solid #000;outline-offset:3px}
+@media(max-width:640px){[style*="columns:1fr 1fr"],[style*="columns:repeat(2,1fr)"],[style*="columns:repeat(3,1fr)"],[style*="columns:repeat(4,1fr)"]{grid-template-columns:1fr!important}}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:#f1f1f1;border-radius:999px}
+::-webkit-scrollbar-thumb{background:rgba(0,0,0,.22);border-radius:999px}
+::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.45)}
+
+[data-nav-group] [data-nav-menu]{display:none}
+[data-nav-group]:hover [data-nav-menu],[data-nav-group]:focus-within [data-nav-menu]{display:block}
+</style>
+</helmet>
+
+<div style="position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid #ebebeb">
+<div style="max-width:1060px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:18px;row-gap:10px;flex-wrap:wrap">
+<span style="font-weight:900;font-size:16px;letter-spacing:.01em">content-morphia</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid #000;background:#fff">T3 Process</span>
+<nav aria-label="Design system" style="display:flex;align-items:center;gap:4px;row-gap:6px;flex-wrap:wrap"><div data-nav-group style="position:relative"><a href="content-morphia Foundations.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Foundations</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Foundations.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Foundations</a><a href="content-morphia Icons.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Icons</a><a href="content-morphia Print.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Print</a><a href="content-morphia Equivalents.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Non-visual equivalents</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Structured.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Components</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Structured.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Structured components</a><a href="content-morphia Prose.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Prose primitives</a><a href="content-morphia Wayfinding.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Wayfinding</a><a href="content-morphia Provenance.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Provenance</a><a href="content-morphia Charts.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Charts</a><a href="content-morphia Interaction.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Interaction</a><a href="content-morphia Learning.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Learning</a><a href="content-morphia Questions.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Questions and answers</a><a href="content-morphia Change.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Change and status</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Diagrams.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Diagrams</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Diagrams.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Diagram library</a><a href="content-morphia Diagrams at Scale.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Diagrams at scale</a><a href="content-morphia Diagrams II.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Technical families</a><a href="content-morphia Diagrams III.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Experience and magnitude</a><a href="content-morphia Diagrams IV.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Structure and notation</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Templates.dc.html" aria-current="page" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:4px 9px;background:#fff;border:1px solid #000;box-shadow:2px 2px 0 #1de9b6">Templates</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Templates.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Template index</a><a href="content-morphia T1 Topic.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T1 Topic</a><a href="content-morphia T2 Framework.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T2 Framework</a><span aria-current="page" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:700;background:#f1f1f1">T3 Process</span><a href="content-morphia T4 Guide.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T4 Guide</a><a href="content-morphia T5 Module.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T5 Module</a><a href="content-morphia T6 Metric.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T6 Metric</a><a href="content-morphia T7 Comparison.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T7 Comparison</a><a href="content-morphia T8 Roadmap.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T8 Roadmap</a><a href="content-morphia T9 Reference.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T9 Reference</a><a href="content-morphia T10 Glossary.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T10 Glossary</a><a href="content-morphia T11 Case study.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T11 Case study</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Composition.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Composition</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Composition.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Composition</a><a href="content-morphia Anatomy.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Anatomy and primitives</a><a href="content-morphia Selection.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Selection</a><a href="content-morphia Implementing.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Implementing</a><a href="content-morphia Exemplar.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Worked example</a></div></div></div></nav>
+</div>
+</div>
+
+
+
+<section data-screen-label="Page header" style="max-width:1060px;margin:0 auto;padding:40px 24px 0">
+<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase">
+<a href="content-morphia T1 Topic.dc.html" style="font-weight:400;text-decoration:none;padding:3px 6px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">Library</a>
+<span style="font-weight:300">/</span>
+<a href="content-morphia T1 Topic.dc.html" style="font-weight:400;text-decoration:none;padding:3px 6px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">Experimentation</a>
+<span style="font-weight:300">/</span>
+<span aria-current="page" style="font-weight:700;padding:3px 6px">A/B test lifecycle</span>
+</div>
+<div style="width:52px;height:5px;background:#1de9b6;border-radius:999px;margin-top:34px;margin-bottom:20px"></div>
+<h1 style="margin:0;font-weight:900;font-size:44px;line-height:1.08;letter-spacing:-.01em">The A/B test lifecycle</h1>
+<div style="font-size:16px;font-weight:400;line-height:1.8;max-width:70ch;margin-top:16px">Six steps from hypothesis to decision memo. Every failed test we have audited skipped a step — usually sizing or the guardrail check.</div>
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:18px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase">
+<span style="padding:2px 8px;border-radius:4px;border:1px solid #000;font-weight:700">Process</span>
+<span style="padding:3px 10px;border-radius:999px;border:1px solid #000;font-weight:700">6 steps · 3 roles</span>
+<span style="font-weight:400">~25 min · intermediate · updated Jul 2026</span>
+</div>
+</section>
+
+<section data-screen-label="Preconditions" style="max-width:1060px;margin:0 auto;padding:64px 24px 0">
+<div style="width:28px;height:3px;background:#1de9b6;border-radius:999px;margin-bottom:10px"></div>
+<h2 style="margin:0;font-weight:800;font-size:21px">Preconditions</h2>
+<div style="background:#fff;border:1px solid #ebebeb;border-radius:14px;padding:22px 26px;margin-top:16px">
+<div style="display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;padding:10px 0;border-bottom:1px dotted #d9d9d9">
+<span style="width:20px;height:20px;border-radius:999px;background:rgba(0,230,118,.2);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900">✓</span>
+<span style="font-size:14px;font-weight:700">Randomized assignment available at the right unit (user, session, account)</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:14px 14px;border-radius:4px;border:1px solid #000;background:#fff">Tool</span>
+</div>
+<div style="display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;padding:10px 0;border-bottom:1px dotted #d9d9d9">
+<span style="width:20px;height:20px;border-radius:999px;background:rgba(0,230,118,.2);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900">✓</span>
+<span style="font-size:14px;font-weight:700">Primary metric and guardrails defined — see <a href="content-morphia T2 Framework.dc.html">HEART</a> for choosing them</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:14px 14px;border-radius:4px;border:1px solid #000;background:#fff">Knowledge</span>
+</div>
+<div style="display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;padding:10px 0">
+<span style="width:20px;height:20px;border-radius:999px;background:rgba(0,230,118,.2);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900">✓</span>
+<span style="font-size:14px;font-weight:700">Event instrumentation QA'd in the last 90 days</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:14px 14px;border-radius:4px;border:1px solid #000;background:#fff">Task</span>
+</div>
+</div>
+</section>
+
+<section data-screen-label="Steps" style="max-width:1060px;margin:0 auto;padding:64px 24px 0">
+<div style="width:28px;height:3px;background:#1de9b6;border-radius:999px;margin-bottom:10px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-weight:800;font-size:21px">The six steps</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.08em;text-transform:uppercase">roles · PM / Data / Eng</span></div>
+<div style="background:#fff;border:1px solid #ebebeb;border-radius:14px;padding:10px 28px;margin-top:16px">
+<div style="display:grid;grid-template-columns:auto 1fr;gap:20px;padding:20px 0;border-bottom:1px dotted #d9d9d9">
+<span style="width:30px;height:30px;border-radius:999px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;transform:translateY(2px)">1</span>
+<span>
+<span style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap"><span style="font-weight:800;font-size:16px">Frame the hypothesis</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:4px;border:1px solid #000">PM</span></span>
+<span style="display:block;font-size:14px;font-weight:400;line-height:1.7;margin-top:6px;max-width:64ch">One sentence, falsifiable, with a named mechanism: "changing X will move Y because Z."</span>
+<span style="display:block;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.05em;margin-top:8px">IN: opportunity brief → OUT: hypothesis doc</span>
+</span>
+</div>
+<div style="display:grid;grid-template-columns:auto 1fr;gap:20px;padding:20px 0;border-bottom:1px dotted #d9d9d9">
+<span style="width:30px;height:30px;border-radius:999px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;transform:translateY(2px)">2</span>
+<span>
+<span style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap"><span style="font-weight:800;font-size:16px">Size the test</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:4px;border:1px solid #000">Data</span></span>
+<span style="display:block;font-size:14px;font-weight:400;line-height:1.7;margin-top:6px;max-width:64ch">Fix the minimum detectable effect first, then compute sample size and duration. Duration is an output, never an input.</span>
+<span style="display:block;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.05em;margin-top:8px">IN: baseline rate, MDE, α → OUT: n per arm, run length</span>
+</span>
+</div>
+<div style="display:grid;grid-template-columns:auto 1fr;gap:20px;padding:20px 0;border-bottom:1px dotted #d9d9d9">
+<span style="width:30px;height:30px;border-radius:999px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;transform:translateY(2px)">3</span>
+<span>
+<span style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap"><span style="font-weight:800;font-size:16px">Build and QA</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:4px;border:1px solid #000">Eng</span></span>
+<span style="display:block;font-size:14px;font-weight:400;line-height:1.7;margin-top:6px;max-width:64ch">Variant behind a flag; assignment and exposure events verified end-to-end on staging before any traffic.</span>
+<span style="display:block;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.05em;margin-top:8px">IN: hypothesis doc → OUT: flagged variant, event QA log</span>
+</span>
+</div>
+<div style="display:grid;grid-template-columns:auto 1fr;gap:20px;padding:20px 0;border-bottom:1px dotted #d9d9d9">
+<span style="width:30px;height:30px;border-radius:999px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;transform:translateY(2px)">4</span>
+<span>
+<span style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap"><span style="font-weight:800;font-size:16px">Launch on a ramp</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:4px;border:1px solid #000">Eng</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:4px;border:1px solid #000">Data</span></span>
+<span style="display:block;font-size:14px;font-weight:400;line-height:1.7;margin-top:6px;max-width:64ch">5% → 25% → 50% with a sample-ratio check at each gate. Ramp time does not count toward the run length.</span>
+<span style="display:block;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.05em;margin-top:8px">IN: QA'd variant → OUT: ramp log, SRM checks</span>
+</span>
+</div>
+<div style="display:grid;grid-template-columns:auto 1fr;gap:20px;padding:20px 0;border-bottom:1px dotted #d9d9d9">
+<span style="width:30px;height:30px;border-radius:999px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;transform:translateY(2px)">5</span>
+<span>
+<span style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap"><span style="font-weight:800;font-size:16px">Monitor guardrails only</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:4px;border:1px solid #000">Data</span></span>
+<span style="display:block;font-size:14px;font-weight:400;line-height:1.7;margin-top:6px;max-width:64ch">Watch crashes, latency, and revenue guardrails daily. The primary metric stays sealed until the planned end date.</span>
+<span style="display:block;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.05em;margin-top:8px">IN: ramp log → OUT: daily guardrail record</span>
+</span>
+</div>
+<div style="display:grid;grid-template-columns:auto 1fr;gap:20px;padding:20px 0">
+<span style="width:30px;height:30px;border-radius:999px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;transform:translateY(2px)">6</span>
+<span>
+<span style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap"><span style="font-weight:800;font-size:16px">Decide and write the memo</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:4px;border:1px solid #000">PM</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:4px;border:1px solid #000">Data</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:4px;background:rgba(29,233,182,.25)">Decision gate</span></span>
+<span style="display:block;font-size:14px;font-weight:400;line-height:1.7;margin-top:6px;max-width:64ch">Ship, hold, or iterate — one page, pre-registered criteria, guardrail table attached. "Interesting, run it longer" is not one of the three options.</span>
+<span style="display:block;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.05em;margin-top:8px">IN: sealed results → OUT: decision memo</span>
+</span>
+</div>
+</div>
+</section>
+
+<section data-screen-label="Exceptions" style="max-width:1060px;margin:0 auto;padding:64px 24px 0">
+<div style="width:28px;height:3px;background:#1de9b6;border-radius:999px;margin-bottom:10px"></div>
+<h2 style="margin:0;font-weight:800;font-size:21px">Exceptions — stop conditions</h2>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px">
+<div style="background:#fff;border:1px solid #ebebeb;border-left:4px solid #ff5252;border-radius:14px;padding:18px 22px">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:4px;background:#ff5252;border:1.5px solid #000">Critical</span>
+<div style="font-weight:800;font-size:15px;margin-top:10px">Sample ratio mismatch</div>
+<div style="font-size:14px;font-weight:400;line-height:1.7;margin-top:6px">Arms deviate from the planned split (χ² p &lt; .001). Assignment is broken; results are unreadable. <span style="font-weight:800">Stop, fix, restart.</span></div>
+</div>
+<div style="background:#fff;border:1px solid #ebebeb;border-left:4px solid #ffd600;border-radius:14px;padding:18px 22px">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:4px;background:rgba(255,214,0,.3)">Warning</span>
+<div style="font-weight:800;font-size:15px;margin-top:10px">Peeking at the primary</div>
+<div style="font-size:14px;font-weight:400;line-height:1.7;margin-top:6px">Reading the primary metric early inflates false positives ~3×. If leadership must see numbers mid-run, show guardrails — never the primary.</div>
+</div>
+</div>
+</section>
+
+<section data-screen-label="Checklist" style="max-width:1060px;margin:0 auto;padding:64px 24px 0">
+<div style="width:28px;height:3px;background:#1de9b6;border-radius:999px;margin-bottom:10px"></div>
+<h2 style="margin:0;font-weight:800;font-size:21px">Pre-launch checklist</h2>
+<div style="font-size:14px;font-weight:400;line-height:1.8;max-width:70ch;margin-top:8px">Gate for step 4. Two of six done — the ramp does not start until required items are checked.</div>
+<div style="background:#fff;border:1.5px solid #000;border-radius:14px;padding:14px 26px;margin-top:16px;box-shadow:5px 5px 0 #1de9b6">
+<div style="display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;padding:12px 0;border-bottom:1px dotted #d9d9d9">
+<span style="width:20px;height:20px;border-radius:4px;background:rgba(0,230,118,.2);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900">✓</span>
+<span style="font-size:14px;font-weight:700;text-decoration:line-through;text-decoration-thickness:1.5px">Hypothesis doc reviewed and pre-registered</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em">REQUIRED</span>
+</div>
+<div style="display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;padding:12px 0;border-bottom:1px dotted #d9d9d9">
+<span style="width:20px;height:20px;border-radius:4px;background:rgba(0,230,118,.2);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900">✓</span>
+<span style="font-size:14px;font-weight:700;text-decoration:line-through;text-decoration-thickness:1.5px">Sample size and end date computed and calendared</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em">REQUIRED</span>
+</div>
+<div style="display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;padding:12px 0;border-bottom:1px dotted #d9d9d9">
+<span style="width:20px;height:20px;border-radius:4px;background:#fff;border:1px solid #000"></span>
+<span style="font-size:14px;font-weight:700">Exposure + assignment events verified on staging</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em">REQUIRED</span>
+</div>
+<div style="display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;padding:12px 0;border-bottom:1px dotted #d9d9d9">
+<span style="width:20px;height:20px;border-radius:4px;background:#fff;border:1px solid #000"></span>
+<span style="font-size:14px;font-weight:700">Guardrail metrics wired to daily alert</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em">REQUIRED</span>
+</div>
+<div style="display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;padding:12px 0;border-bottom:1px dotted #d9d9d9">
+<span style="width:20px;height:20px;border-radius:4px;background:#fff;border:1px solid #000"></span>
+<span style="font-size:14px;font-weight:400">Screenshot archive of both arms</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.08em">OPTIONAL</span>
+</div>
+<div style="display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;padding:12px 0">
+<span style="width:20px;height:20px;border-radius:4px;background:#fff;border:1px solid #000"></span>
+<span style="font-size:14px;font-weight:400">Stakeholder note with planned end date</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.08em">OPTIONAL</span>
+</div>
+</div>
+</section>
+
+<section data-screen-label="Pager" style="max-width:1060px;margin:0 auto;padding:88px 24px 100px">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+<a href="content-morphia T2 Framework.dc.html" style="display:block;text-decoration:none;background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:20px 22px" style-hover="transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18);border-color:#000">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em;text-transform:uppercase">← Previous</div>
+<div style="font-weight:800;font-size:14.5px;margin-top:8px">The HEART framework</div>
+</a>
+<a href="content-morphia T4 Guide.dc.html" style="display:block;text-decoration:none;background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:20px 22px;text-align:right" style-hover="transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18);border-color:#000">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em;text-transform:uppercase">Next →</div>
+<div style="font-weight:800;font-size:14.5px;margin-top:8px">Experimentation platform rollout</div>
+</a>
+</div>
+<div style="border-top:1px solid #ebebeb;margin-top:56px;padding-top:24px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase">
+<span style="font-weight:700">content-morphia</span>
+<span style="font-weight:400">Template 03 · process detail · sample content</span>
+<a href="content-morphia Templates.dc.html" style="font-weight:700;margin-left:auto;text-decoration:none;border-bottom:1.5px solid #1de9b6;padding-bottom:1px">ALL TEMPLATES</a>
+</div>
+</section>
+</x-dc>
+</body>
+</html>

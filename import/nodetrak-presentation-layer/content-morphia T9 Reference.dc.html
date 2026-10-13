@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&amp;family=JetBrains+Mono:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#fff;color:#000;font-family:'Nunito',sans-serif}
+a{color:#000;text-decoration:underline;text-decoration-color:#1bbd94;text-decoration-thickness:1.5px;text-underline-offset:3px}
+a:hover{background:rgba(27,189,148,.3)}
+::selection{background:rgba(27,189,148,.35)}
+button{font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;background:none;border:none;padding:0;margin:0;text-align:left;cursor:pointer}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px solid #000;outline-offset:3px}
+@media(max-width:640px){[style*="columns:1fr 1fr"],[style*="columns:repeat(2,1fr)"],[style*="columns:repeat(3,1fr)"],[style*="columns:repeat(4,1fr)"]{grid-template-columns:1fr!important}}
+@media(max-width:1150px){#page-grid{display:flex!important;flex-direction:column-reverse!important;align-items:stretch!important}#page-rail{position:static!important;flex-direction:row!important;flex-wrap:wrap!important}#page-toc{max-height:none!important;overflow:visible!important}#page-toc{flex-direction:row!important;flex-wrap:wrap!important}}
+@media(max-width:800px) and (min-width:641px){#t9-fields,#t9-catalog{min-width:0!important}}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:#f1f1f1;border-radius:999px}
+::-webkit-scrollbar-thumb{background:rgba(0,0,0,.22);border-radius:999px}
+::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.45)}
+
+[data-nav-group] [data-nav-menu]{display:none}
+[data-nav-group]:hover [data-nav-menu],[data-nav-group]:focus-within [data-nav-menu]{display:block}
+</style>
+</helmet>
+
+<dc-import name="cm-nav" page="T9 Reference.dc.html" chip="T9 Reference" hint-size="100%,58px"></dc-import>
+
+
+
+<dc-import name="cm-mast" title="Event taxonomy reference" crumbs='[["Library","content-morphia T1 Topic.dc.html"],["Analytics platform","content-morphia T1 Topic.dc.html"],["Event taxonomy"]]' hint-size="100%,300px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:16px">Canonical event names, required fields, and payload shape for the product analytics stream. This page is the tie-breaker: when code and docs disagree, this wins.</div>
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:20px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.02em;text-transform:uppercase">
+<span style="padding:2px 8px;border-radius:4px;border:1px solid #000;font-weight:600">Reference</span>
+<span style="padding:3px 10px;border-radius:999px;border:1px solid #000;font-weight:600">Analytics platform</span>
+<span style="padding:3px 10px;border-radius:999px;background:#fff;border:1px solid #ebebeb;font-weight:600">Published</span>
+<span style="font-weight:400">v2.3 · updated Aug 2026</span>
+</div>
+</dc-import>
+
+<div id="page-grid" data-screen-label="Content" style="max-width:1060px;margin:0 auto;padding:56px 24px 0;display:grid;grid-template-columns:1fr 216px;gap:36px;align-items:start">
+<div style="min-width:0">
+
+<div id="ref-naming">
+<div style="width:28px;height:3px;background:#1bbd94;border-radius:999px;margin-bottom:10px"></div>
+<h2 style="margin:0;font-weight:900;font-size:28px;line-height:1.15;letter-spacing:-.01em">Naming rules</h2>
+<div style="background:#fff;border:1px solid #ebebeb;border-radius:14px;padding:10px 28px;margin-top:16px">
+<div style="padding:16px 0;border-bottom:1px dotted #d9d9d9">
+<div style="font-size:14px;line-height:1.7"><span style="font-weight:800">object_action, snake_case.</span> <span style="font-weight:400">Lowercase object, then the verb. One event per meaningful outcome, not per button.</span></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;background:#fff;border:1px solid #ebebeb;border-radius:6px;padding:2px 8px">checkout_completed</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;background:#fff;border:1px solid #ebebeb;border-radius:6px;padding:2px 8px">experiment_exposure</span></div>
+</div>
+<div style="padding:16px 0;border-bottom:1px dotted #d9d9d9">
+<div style="font-size:14px;line-height:1.7"><span style="font-weight:800">Verbs state what happened.</span> <span style="font-weight:400">_started, _completed, _evaluated, never UI phrasing like _clicked or _tapped. Surfaces change; outcomes don't.</span></div>
+</div>
+<div style="padding:16px 0;border-bottom:1px dotted #d9d9d9">
+<div style="font-size:14px;line-height:1.7"><span style="font-weight:800">No PII, team names, or surfaces in the name.</span> <span style="font-weight:400">Surface lives in</span> <span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;background:#fff;border:1px solid #ebebeb;border-radius:6px;padding:2px 8px">properties.surface</span><span style="font-weight:400">; the owner lives in the catalog. Names outlive both.</span></div>
+</div>
+<div style="padding:16px 0">
+<div style="font-size:14px;line-height:1.7"><span style="font-weight:800">Breaking change = new event.</span> <span style="font-weight:400">Append _v2, mark the old event DEPRECATED, emit both for 90 days. Never mutate a published schema.</span></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;background:#fff;border:1px solid #ebebeb;border-radius:6px;padding:2px 8px">checkout_completed_v2</span></div>
+</div>
+</div>
+</div>
+
+<div id="ref-fields" style="margin-top:64px">
+<div style="width:28px;height:3px;background:#1bbd94;border-radius:999px;margin-bottom:10px"></div>
+<h2 style="margin:0;font-weight:900;font-size:28px;line-height:1.15;letter-spacing:-.01em">Required fields</h2>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-top:16px;margin-bottom:10px">Every event · schema v2.3</div>
+<div style="background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:12px;overflow:hidden">
+<div style="overflow-x:auto"><div id="t9-fields" style="min-width:640px">
+<div style="display:grid;grid-template-columns:130px 150px 150px 1fr;padding:16px 16px;gap:12px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;border-bottom:1.5px solid #000"><span>Field</span><span>Type</span><span>Level</span><span>Notes</span></div>
+<div style="display:grid;grid-template-columns:130px 150px 150px 1fr;padding:16px;gap:12px;align-items:center;font-family:'JetBrains Mono',monospace;font-size:12px" style-hover="background:rgba(27,189,148,.12)"><span style="font-weight:700">event</span><span>string</span><span><span style="font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:#fff;border:1px solid #000">Required</span></span><span>snake_case name from the catalog</span></div>
+<div style="display:grid;grid-template-columns:130px 150px 150px 1fr;padding:16px;gap:12px;align-items:center;font-family:'JetBrains Mono',monospace;font-size:12px;border-top:1px solid #ebebeb" style-hover="background:rgba(27,189,148,.12)"><span style="font-weight:700">ts</span><span>string · iso-8601</span><span><span style="font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:#fff;border:1px solid #000">Required</span></span><span>event time, UTC, ms precision</span></div>
+<div style="display:grid;grid-template-columns:130px 150px 150px 1fr;padding:16px;gap:12px;align-items:center;font-family:'JetBrains Mono',monospace;font-size:12px;border-top:1px solid #ebebeb" style-hover="background:rgba(27,189,148,.12)"><span style="font-weight:700">user_id</span><span>string</span><span><span style="font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:#fff;border:1px solid #000">Required</span></span><span>pseudonymous, never email</span></div>
+<div style="display:grid;grid-template-columns:130px 150px 150px 1fr;padding:16px;gap:12px;align-items:center;font-family:'JetBrains Mono',monospace;font-size:12px;border-top:1px solid #ebebeb" style-hover="background:rgba(27,189,148,.12)"><span style="font-weight:700">session_id</span><span>string</span><span><span style="font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:#1bbd94">Recommended</span></span><span>30-min inactivity window</span></div>
+<div style="display:grid;grid-template-columns:130px 150px 150px 1fr;padding:16px;gap:12px;align-items:center;font-family:'JetBrains Mono',monospace;font-size:12px;border-top:1px solid #ebebeb" style-hover="background:rgba(27,189,148,.12)"><span style="font-weight:700">properties</span><span>object</span><span><span style="font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:3px 8px;border-radius:4px;border:1px solid #000;background:#fff">Optional</span></span><span>event-specific, namespaced keys</span></div>
+</div></div>
+</div>
+</div>
+
+<div id="ref-catalog" style="margin-top:64px">
+<div style="width:28px;height:3px;background:#1bbd94;border-radius:999px;margin-bottom:10px"></div>
+<h2 style="margin:0;font-weight:900;font-size:28px;line-height:1.15;letter-spacing:-.01em">Event catalog</h2>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-top:16px;margin-bottom:10px">Checkout + experimentation slice · 8 of 41 events</div>
+<div style="background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:12px;overflow:hidden">
+<div style="overflow-x:auto"><div id="t9-catalog" style="min-width:640px">
+<div style="display:grid;grid-template-columns:220px 160px 130px 1fr;padding:16px 16px;gap:12px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;border-bottom:1.5px solid #000"><span>Event</span><span>Category</span><span>Status</span><span>Owner</span></div>
+<div style="display:grid;grid-template-columns:220px 160px 130px 1fr;padding:16px;gap:12px;align-items:center;font-family:'JetBrains Mono',monospace;font-size:12px" style-hover="background:rgba(27,189,148,.12)"><span style="font-weight:700">page_view</span><span>core</span><span><span style="font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:#fff;border:1px solid #000">Published</span></span><span>platform pod</span></div>
+<div style="display:grid;grid-template-columns:220px 160px 130px 1fr;padding:16px;gap:12px;align-items:center;font-family:'JetBrains Mono',monospace;font-size:12px;border-top:1px solid #ebebeb" style-hover="background:rgba(27,189,148,.12)"><span style="font-weight:700">experiment_exposure</span><span>experimentation</span><span><span style="font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:#fff;border:1px solid #000">Published</span></span><span>platform pod</span></div>
+<div style="display:grid;grid-template-columns:220px 160px 130px 1fr;padding:16px;gap:12px;align-items:center;font-family:'JetBrains Mono',monospace;font-size:12px;border-top:1px solid #ebebeb" style-hover="background:rgba(27,189,148,.12)"><span style="font-weight:700">experiment_conversion</span><span>experimentation</span><span><span style="font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:#fff;border:1px solid #000">Published</span></span><span>platform pod</span></div>
+<div style="display:grid;grid-template-columns:220px 160px 130px 1fr;padding:16px;gap:12px;align-items:center;font-family:'JetBrains Mono',monospace;font-size:12px;border-top:1px solid #ebebeb" style-hover="background:rgba(27,189,148,.12)"><span style="font-weight:700">feature_flag_evaluated</span><span>experimentation</span><span><span style="font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:3px 8px;border-radius:4px;border:1px solid #000;background:#fff">Draft</span></span><span>platform pod</span></div>
+<div style="display:grid;grid-template-columns:220px 160px 130px 1fr;padding:16px;gap:12px;align-items:center;font-family:'JetBrains Mono',monospace;font-size:12px;border-top:1px solid #ebebeb" style-hover="background:rgba(27,189,148,.12)"><span style="font-weight:700">checkout_started</span><span>commerce</span><span><span style="font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:#fff;border:1px solid #000">Published</span></span><span>growth pod</span></div>
+<div style="display:grid;grid-template-columns:220px 160px 130px 1fr;padding:16px;gap:12px;align-items:center;font-family:'JetBrains Mono',monospace;font-size:12px;border-top:1px solid #ebebeb" style-hover="background:rgba(27,189,148,.12)"><span style="font-weight:700">checkout_completed</span><span>commerce</span><span><span style="font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:#fff;border:1px solid #000">Published</span></span><span>growth pod</span></div>
+<div style="display:grid;grid-template-columns:220px 160px 130px 1fr;padding:16px;gap:12px;align-items:center;font-family:'JetBrains Mono',monospace;font-size:12px;border-top:1px solid #ebebeb" style-hover="background:rgba(27,189,148,.12)"><span style="font-weight:700">account_created</span><span>lifecycle</span><span><span style="font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:#fff;border:1px solid #000">Published</span></span><span>growth pod</span></div>
+<div style="display:grid;grid-template-columns:220px 160px 130px 1fr;padding:16px;gap:12px;align-items:center;font-family:'JetBrains Mono',monospace;font-size:12px;border-top:1px solid #ebebeb" style-hover="background:rgba(27,189,148,.12)"><span style="font-weight:400;text-decoration:line-through">legacy_track</span><span style="font-weight:300">n/a</span><span><span style="font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:#ff5252;border:1.5px solid #000">Deprecated</span></span><span>off Dec 31 · see FY27 roadmap</span></div>
+</div></div>
+</div>
+</div>
+
+<div id="ref-example" style="margin-top:64px">
+<div style="width:28px;height:3px;background:#1bbd94;border-radius:999px;margin-bottom:10px"></div>
+<h2 style="margin:0;font-weight:900;font-size:28px;line-height:1.15;letter-spacing:-.01em">Canonical payload</h2>
+<div style="background:#fff;border:1.5px solid #000;border-radius:14px;padding:28px 28px;margin-top:16px;box-shadow:5px 5px 0 #1bbd94">
+<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.02em;text-transform:uppercase">
+<span style="font-weight:600;padding:3px 10px;border-radius:4px;background:#fff;border:1px solid #ebebeb;">Canonical</span>
+<span style="font-weight:400">experiment_exposure · schema v2.3</span>
+</div>
+<div style="background:#fff;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);border-radius:12px;padding:24px;margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:2.1;overflow-x:auto">
+<div>{</div>
+<div style="margin-left:20px"><span style="color:#6a3ea1;font-weight:700">"event"</span>: "experiment_exposure",</div>
+<div style="margin-left:20px"><span style="color:#6a3ea1;font-weight:700">"ts"</span>: "2026-08-02T14:31:09.412Z",</div>
+<div style="margin-left:20px"><span style="color:#6a3ea1;font-weight:700">"user_id"</span>: "u_84c21f",</div>
+<div style="margin-left:20px"><span style="color:#6a3ea1;font-weight:700">"session_id"</span>: "s_20260802_7d1",</div>
+<div style="margin-left:20px"><span style="color:#6a3ea1;font-weight:700">"properties"</span>: {</div>
+<div style="margin-left:36px"><span style="color:#6a3ea1;font-weight:700">"experiment_key"</span>: "checkout_v3",</div>
+<div style="margin-left:36px"><span style="color:#6a3ea1;font-weight:700">"variant"</span>: "treatment",</div>
+<div style="margin-left:36px"><span style="color:#6a3ea1;font-weight:700">"surface"</span>: "web"</div>
+<div style="margin-left:20px">}</div>
+<div>}</div>
+</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;font-style:italic;margin-top:12px">Validated in CI against events_schema v2.3: payload drift fails the build.</div>
+</div>
+</div>
+
+<div id="ref-links" style="margin-top:64px">
+<div style="width:28px;height:3px;background:#1bbd94;border-radius:999px;margin-bottom:10px"></div>
+<h2 style="margin:0;font-weight:900;font-size:28px;line-height:1.15;letter-spacing:-.01em">References</h2>
+<div style="background:#fff;border:1px solid #ebebeb;border-radius:14px;padding:10px 28px;margin-top:16px">
+<div style="display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;padding:16px 0;border-bottom:1px dotted #d9d9d9"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:3px 9px;border-radius:4px;border:1px solid #000">INT</span><a href="#ref-links" style="font-size:14px;font-weight:600">Tracking plan: living doc</a><span style="justify-self:end;text-align:right;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase">notion · growth pod</span></div>
+<div style="display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;padding:16px 0;border-bottom:1px dotted #d9d9d9"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:3px 9px;border-radius:4px;border:1px solid #000">INT</span><a href="#ref-links" style="font-size:14px;font-weight:600">dbt source models</a><span style="justify-self:end;text-align:right;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase">repo · data platform</span></div>
+<div style="display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;padding:16px 0;border-bottom:1px dotted #d9d9d9"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:3px 9px;border-radius:4px;border:1px solid #000">EXT</span><a href="#ref-links" style="font-size:14px;font-weight:600">Segment track spec</a><span style="justify-self:end;text-align:right;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase">segment.com</span></div>
+<div style="display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;padding:16px 0"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:3px 9px;border-radius:4px;border:1px solid #000">PDF</span><a href="#ref-links" style="font-size:14px;font-weight:600">Data governance policy v3</a><span style="justify-self:end;text-align:right;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase">legal · 2026-03</span></div>
+</div>
+</div>
+
+</div>
+<div id="page-rail" style="position:sticky;top:76px;display:flex;flex-direction:column;gap:20px">
+<div style="background:#fff;border-radius:14px;padding:32px 24px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11)">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-bottom:10px">On this page</div>
+<div id="page-toc" style="display:flex;flex-direction:column;gap:2px;font-size:14px;max-height:60vh;overflow-y:auto">
+<span style="display:flex;align-items:center;font-weight:700;padding:6px 8px">Naming rules</span>
+<a href="#ref-fields" style="text-decoration:underline;text-decoration-color:#1bbd94;text-decoration-thickness:1.5px;text-underline-offset:3px;font-weight:400;padding:6px 8px;border-radius:999px" style-hover="background:rgba(27,189,148,.3)">Required fields</a>
+<a href="#ref-catalog" style="text-decoration:underline;text-decoration-color:#1bbd94;text-decoration-thickness:1.5px;text-underline-offset:3px;font-weight:400;padding:6px 8px;border-radius:999px" style-hover="background:rgba(27,189,148,.3)">Event catalog</a>
+<a href="#ref-example" style="text-decoration:underline;text-decoration-color:#1bbd94;text-decoration-thickness:1.5px;text-underline-offset:3px;font-weight:400;padding:6px 8px;border-radius:999px" style-hover="background:rgba(27,189,148,.3)">Canonical payload</a>
+<a href="#ref-links" style="text-decoration:underline;text-decoration-color:#1bbd94;text-decoration-thickness:1.5px;text-underline-offset:3px;font-weight:400;padding:6px 8px;border-radius:999px" style-hover="background:rgba(27,189,148,.3)">References</a>
+</div>
+</div>
+<div style="background:#fff;border:1px solid #ebebeb;border-radius:14px;padding:28px 24px">
+<h3 style="margin:0 0 20px;font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;line-height:1.3;letter-spacing:-.01em">Related</h3>
+<div style="font-size:14px;line-height:2.1"><a href="content-morphia T8 Roadmap.dc.html">FY27 platform roadmap</a><br><a href="content-morphia T6 Metric.dc.html">Data freshness: metric</a><br><a href="content-morphia T4 Guide.dc.html">Platform rollout guide</a></div>
+</div>
+</div>
+</div>
+
+<section data-screen-label="Pager" style="max-width:1060px;margin:0 auto;padding:88px 24px 100px">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+<a href="content-morphia T8 Roadmap.dc.html" style="display:block;text-decoration:none;background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:28px 24px" style-hover="transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18);border-color:#000">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase">← Previous</div>
+<div style="font-weight:800;font-size:14.5px;margin-top:8px">Analytics platform: FY27 roadmap</div>
+</a>
+<a href="content-morphia Exemplar.dc.html" style="display:block;text-decoration:none;background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:28px 24px;text-align:right" style-hover="transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18);border-color:#000">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase">Next →</div>
+<div style="font-weight:800;font-size:14.5px;margin-top:8px">Reference build: power &amp; sizing</div>
+</a>
+</div>
+<div style="border-top:1px solid #ebebeb;margin-top:56px;padding-top:24px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.02em;text-transform:uppercase">
+<span style="font-weight:700">content-morphia</span>
+<span style="font-weight:400">Template 09 · reference · sample content</span>
+<a href="content-morphia Templates.dc.html" style="font-weight:600;margin-left:auto;text-decoration:none;border-bottom:1.5px solid #1bbd94;padding-bottom:1px">ALL TEMPLATES</a>
+</div>
+</section>
+</x-dc>
+</body>
+</html>

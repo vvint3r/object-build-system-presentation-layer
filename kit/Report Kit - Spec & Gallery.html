@@ -15,6 +15,8 @@
 /* gallery-only helpers; never used in reports */
 .g-comp{display:flex;flex-direction:column;gap:32px}
 .g-comp>header{display:flex;flex-direction:column;gap:14px}
+/* the live example sits 56px under its description (32 gap + 24), the same distance as a section header to its body */
+.g-comp>header+[data-demo]{margin-top:24px}
 .g-comp>header p{font-size:15px;line-height:1.85;max-width:70ch;margin-top:4px}
 .g-src .cm-code{margin-top:14px}
 .g-src pre{max-height:420px;font-size:12px;line-height:1.9}
@@ -181,7 +183,7 @@
           <h3 class="cm-h3">Spacing</h3>
           <div class="cm-props">
             <dl>
-              <dt>Scale</dt><dd>4 · 8 · 12 · 16 · 20 · 24 · 32 · 40 · 48 · 64 · 96 · 128 px</dd>
+              <dt>Scale</dt><dd>Between blocks: 16 · 20 · 24 · 28 · 32 · 36 · 40 · 44 · 48 · 56 · 64 · 80 · 96 · 120 · 128 · 160 px. Inside components: 2 · 3 · 4 · 6 · 7 · 8 · 10 · 12 · 14 · 16 · 18 · 20 · 22 px</dd>
               <dt>Between sections</dt><dd>128px above every section header; 160px above the first appendix</dd>
               <dt>Between blocks</dt><dd>64px between blocks in a section body, set by the kit</dd>
             </dl>
@@ -202,7 +204,7 @@
               <div class="cm-t5">Item title</div>
               <div class="cm-body">Body on the page · 16 / 400 / 1.9</div>
               <div class="cm-small">Body in a container · 15 / 400 / 1.8</div>
-              <div class="cm-label">Label · 12 / 800 / caps</div>
+              <div class="cm-label">Label · 11 / 800 / caps / +0.08em</div>
               <div class="cm-meta">Meta · 13 / 400 · refreshed 2026-10-05</div>
               <div><code>Code · JetBrains Mono 600</code></div>
             </div>

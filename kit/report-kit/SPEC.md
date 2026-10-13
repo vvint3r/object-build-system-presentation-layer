@@ -81,17 +81,18 @@ Semantic meaning is fixed: ok = healthy/validated, warn = attention/at risk, cri
 | T5 | `.cm-t5`, `.cm-timeline__title`, `.cm-step__title`, terms | 16–18 / 700–800 | none |
 | Body | default | 16 / 400 / 1.9 | Reading column, max 70ch |
 | Small | `.cm-small`, text inside surfaces | 15 / 400 / 1.8 | — |
-| Label | `.cm-label`, kinds, table heads, chips, metadata keys | 11–12 / 800 / caps, +0.08em | — |
+| Label | `.cm-label`, kinds, table heads, metadata keys | 11–12 / 800 / caps, +0.08em | — |
+| Chip | `.cm-chip`, `.cm-tag`, `.cm-delta`, property-sheet role tags | 10 / 800 / caps, +0.08em | — |
 | Meta | `.cm-meta` | 13 / 400 | Dates, sizes, provenance |
 | Code | `<code>`, `.cm-code` | JetBrains Mono 600, 0.8em / 13px | — |
 
-The rule thickness follows the heading level; the CSS applies it. Headings never skip a level (h1 → h2 → h3 → h4). Nunito never below 11px (chips) or 13px (running text). `<strong>` marks a phrase, never a whole paragraph. `.cm-aside` (300 italic) de-emphasises a phrase.
+The rule thickness follows the heading level; the CSS applies it. Headings never skip a level (h1 → h2 → h3 → h4). Nunito never below 10px (chips, tags, deltas, role tags and table sort arrows) or 13px (running text). `<strong>` marks a phrase, never a whole paragraph. `.cm-aside` (300 italic) de-emphasises a phrase.
 
 ## 5. Layout and spacing
 
 - Page: `.cm-shell` (rail + main). Reports with fewer than four sections use `.cm-shell.cm-shell--norail` and drop the `<nav class="cm-rail">`.
 - Main column caps at 1060px; prose blocks (`.cm-prose`) cap at 70ch.
-- **Spacing scale:** 4 · 8 · 12 · 16 · 20 · 24 · 32 · 40 · 48 · 64 · 96 · 128 px. Sections start 128px apart (160px before the first appendix). Direct children of `.cm-section__body` are 64px apart automatically.
+- **Spacing scale.** Between blocks: 16 · 20 · 24 · 28 · 32 · 36 · 40 · 44 · 48 · 56 · 64 · 80 · 96 · 120 · 128 · 160 px. Inside components (chips, rails, list gaps, markers): 2 · 3 · 4 · 6 · 7 · 8 · 10 · 12 · 14 · 16 · 18 · 20 · 22 px. Half-pixel paddings on outlined chips and buttons offset a thicker border so outer sizes match; small negative margins align glyphs; scroll offsets of 58 and 80px clear the sticky top bar. The kit applies all of these; never add your own. Sections start 128px apart (160px before the first appendix). Direct children of `.cm-section__body` are 64px apart automatically.
 - **Floor (MUST):** nothing sits closer than 24px to a distinct neighbouring block, and no label sits closer than 8px to the content it names. The kit's spacing already meets this; never add negative margins or tighter wrappers.
 - **Bleed rule:** every top-level surface in a section (figure, card, summary, KPI strip, table wrap, code, collapsible group) carries `.cm-bleed`, so its inner text aligns with the body text. Surfaces nested inside a grid do not; put `.cm-bleed` on the grid instead.
 - Grids: `.cm-grid` + `--2`, `--3`, `--4`, or `--wide` (1.5 : 1). Add `.cm-grid--cols` for 40px text-column gaps. Grids collapse at 800px and 640px automatically.

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<span style="{{ chip }}">{{ children }}</span>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:260,&quot;height&quot;:60},&quot;tone&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;neutral&quot;,&quot;quiet&quot;,&quot;accent&quot;,&quot;ok&quot;,&quot;warn&quot;,&quot;crit&quot;,&quot;info&quot;,&quot;note&quot;,&quot;solid-ok&quot;,&quot;solid-warn&quot;,&quot;solid-crit&quot;,&quot;solid-info&quot;,&quot;solid-note&quot;],&quot;default&quot;:&quot;neutral&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;role&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;label&quot;,&quot;identifier&quot;,&quot;word&quot;],&quot;default&quot;:&quot;label&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;shape&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;chip&quot;,&quot;pill&quot;],&quot;default&quot;:&quot;chip&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+const TONES = {
+  neutral: 'background:#fff;border:1px solid #000',
+  ok: 'background:rgba(0,230,118,.2)',
+  warn: 'background:rgba(255,214,0,.3)',
+  crit: 'background:rgba(255,82,82,.16)',
+  info: 'background:rgba(64,196,255,.22)',
+  note: 'background:rgba(179,136,255,.22)',
+  accent: 'background:rgba(27,189,148,.25)',
+  quiet: 'background:#fff;border:1px solid #ebebeb',
+  'solid-ok': 'background:#00e676;border:1.5px solid #000',
+  'solid-warn': 'background:#ffd600;border:1.5px solid #000',
+  'solid-crit': 'background:#ff5252;border:1.5px solid #000',
+  'solid-info': 'background:#40c4ff;border:1.5px solid #000',
+  'solid-note': 'background:#b388ff;border:1.5px solid #000'
+};
+class Component extends DCLogic {
+  renderVals() {
+    const role = this.props.role || 'label';
+    const tone = TONES[this.props.tone || 'neutral'] || TONES.neutral;
+    const shape = this.props.shape === 'pill' ? '999px' : '4px';
+    let type;
+    if (role === 'identifier') {
+      type = "font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;";
+    } else if (role === 'word') {
+      type = 'font-size:14px;font-weight:600;';
+    } else {
+      type = "font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;";
+    }
+    return {
+      chip: 'display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:' +
+        shape + ';white-space:nowrap;' + type + tone
+    };
+  }
+}
+</script>
+</body>
+</html>

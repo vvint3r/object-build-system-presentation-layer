@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&amp;family=JetBrains+Mono:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#fafafa;color:#000;font-family:'Nunito',sans-serif}
+a{color:#000;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px}
+a:hover{background:rgba(29,233,182,.3)}
+::selection{background:rgba(29,233,182,.35)}
+button{font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;background:none;border:none;padding:0;margin:0;text-align:left;cursor:pointer}
+textarea{font:inherit;color:inherit}
+a:focus-visible,button:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{outline:2px solid #000;outline-offset:3px}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:#f1f1f1;border-radius:999px}
+::-webkit-scrollbar-thumb{background:rgba(0,0,0,.22);border-radius:999px}
+::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.45)}
+@media(max-width:800px){[data-wide]{min-width:680px!important}[data-twrap]{overflow-x:auto!important}}
+@media(max-width:640px){[data-stack]{grid-template-columns:1fr!important}}
+
+[data-nav-group] [data-nav-menu]{display:none}
+[data-nav-group]:hover [data-nav-menu],[data-nav-group]:focus-within [data-nav-menu]{display:block}
+</style>
+</helmet>
+
+<div style="position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid #ebebeb">
+<div style="max-width:1060px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:18px;row-gap:10px;flex-wrap:wrap">
+<span style="font-weight:900;font-size:16px;letter-spacing:.01em">content-morphia</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid #000;background:#fff">Learning</span>
+<nav aria-label="Design system" style="display:flex;align-items:center;gap:4px;row-gap:6px;flex-wrap:wrap"><div data-nav-group style="position:relative"><a href="content-morphia Foundations.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Foundations</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Foundations.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Foundations</a><a href="content-morphia Icons.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Icons</a><a href="content-morphia Print.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Print</a><a href="content-morphia Equivalents.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Non-visual equivalents</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Structured.dc.html" aria-current="page" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:4px 9px;background:#fff;border:1px solid #000;box-shadow:2px 2px 0 #1de9b6">Components</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Structured.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Structured components</a><a href="content-morphia Prose.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Prose primitives</a><a href="content-morphia Wayfinding.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Wayfinding</a><a href="content-morphia Provenance.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Provenance</a><a href="content-morphia Charts.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Charts</a><a href="content-morphia Interaction.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Interaction</a><span aria-current="page" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:700;background:#f1f1f1">Learning</span><a href="content-morphia Questions.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Questions and answers</a><a href="content-morphia Change.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Change and status</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Diagrams.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Diagrams</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Diagrams.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Diagram library</a><a href="content-morphia Diagrams at Scale.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Diagrams at scale</a><a href="content-morphia Diagrams II.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Technical families</a><a href="content-morphia Diagrams III.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Experience and magnitude</a><a href="content-morphia Diagrams IV.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Structure and notation</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Templates.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Templates</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Templates.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Template index</a><a href="content-morphia T1 Topic.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T1 Topic</a><a href="content-morphia T2 Framework.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T2 Framework</a><a href="content-morphia T3 Process.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T3 Process</a><a href="content-morphia T4 Guide.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T4 Guide</a><a href="content-morphia T5 Module.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T5 Module</a><a href="content-morphia T6 Metric.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T6 Metric</a><a href="content-morphia T7 Comparison.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T7 Comparison</a><a href="content-morphia T8 Roadmap.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T8 Roadmap</a><a href="content-morphia T9 Reference.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T9 Reference</a><a href="content-morphia T10 Glossary.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T10 Glossary</a><a href="content-morphia T11 Case study.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T11 Case study</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Composition.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Composition</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Composition.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Composition</a><a href="content-morphia Anatomy.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Anatomy and primitives</a><a href="content-morphia Selection.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Selection</a><a href="content-morphia Implementing.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Implementing</a><a href="content-morphia Exemplar.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Worked example</a></div></div></div></nav>
+</div>
+</div>
+
+<div style="background:#fafafa;border-bottom:1px solid #ebebeb">
+<div style="max-width:1060px;margin:0 auto;padding:11px 24px;display:flex;align-items:center;gap:10px;row-gap:8px;flex-wrap:wrap">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">On this page</span>
+<span style="width:1px;height:13px;background:#ebebeb"></span>
+<nav aria-label="Sections of this page" style="display:flex;align-items:center;gap:2px;row-gap:6px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase">
+<a href="#l1" onClick="{{ p1 }}" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 01 Checks</a>
+<a href="#l2" onClick="{{ p2 }}" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 02 Summary</a>
+<a href="#l3" onClick="{{ p3 }}" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 03 Cycle</a>
+<a href="#l4" onClick="{{ p4 }}" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 04 Model</a>
+<a href="#l5" onClick="{{ p5 }}" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 05 Rules</a>
+</nav>
+</div>
+</div>
+
+<section data-screen-label="Page header" style="max-width:1060px;margin:0 auto;padding:48px 24px 0">
+<div style="width:52px;height:5px;background:#1de9b6;border-radius:999px;margin-bottom:20px"></div>
+<h1 style="margin:0;font-weight:900;font-size:44px;line-height:1.06;max-width:18ch">Learning</h1>
+<div style="font-size:16px;font-weight:400;line-height:1.8;max-width:68ch;margin-top:14px;text-wrap:pretty">Four components a teaching surface needs beyond prose: the three checks that are not single choice, the summary that closes a module, the cycle that repeats on a cadence, and the model that names an abstraction along with the condition that breaks it.</div>
+<div style="display:flex;align-items:center;gap:10px;row-gap:8px;flex-wrap:wrap;margin-top:20px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">
+<span style="padding:3px 10px;border-radius:999px;border:1px solid #000;background:#fff">Components</span>
+<span style="font-weight:400">3 check variants · 3 components · 6 rules · specimens from the table-certification module</span>
+</div>
+</section>
+
+<section id="l1" data-screen-label="ss: 01 Checking understanding" style="max-width:1060px;margin:0 auto;padding:88px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 01</span><h2 style="margin:0;font-weight:900;font-size:28px">Checking understanding</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">A check tests one stated objective, and the intent selects its shape. Single choice covers one right answer and lives with the learning components in Structured. The three below cover the rest: a set of answers, a claim, and a question with no answer at all. There is no fifth shape.</div>
+
+<div style="display:grid;grid-template-columns:1fr;row-gap:16px;margin-top:28px">
+
+<div style="background:#fff;border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:26px">
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;row-gap:8px;flex-wrap:wrap">
+<h3 style="margin:0;font-size:15px;font-weight:700;line-height:1.4">Multi-select check</h3>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Q1 · Objective 1 · 3 of 5 correct</span>
+</div>
+<div style="font-size:14px;font-weight:400;line-height:1.7;margin-top:6px;max-width:70ch">Use when the answer is a set. The number of correct options is stated before the reader answers, because a set with an unknown size cannot be completed with any confidence.</div>
+<div style="font-size:16px;font-weight:800;line-height:1.5;margin-top:18px;max-width:66ch">Which of these block a table from being certified?</div>
+<div style="display:flex;flex-direction:column;gap:8px;margin-top:14px">
+<sc-for list="{{ msOpts }}" as="o" hint-placeholder-count="5">
+<button onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" style="{{ o.style }}">
+<span style="{{ o.box }}">{{ o.glyph }}</span>
+<span style="font-size:14px;font-weight:400;line-height:1.6;flex:1">{{ o.text }}</span>
+<span style="{{ o.markStyle }}">{{ o.mark }}</span>
+</button>
+</sc-for>
+</div>
+<div style="display:flex;align-items:center;gap:12px;row-gap:8px;flex-wrap:wrap;margin-top:16px">
+<button onClick="{{ msAct }}" style="padding:8px 16px;border-radius:999px;background:#000;color:#fff;font-weight:700;font-size:14px" style-hover="box-shadow:3px 3px 0 #1de9b6;transform:translate(-1px,-1px)">{{ msBtn }}</button>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.08em;text-transform:uppercase">{{ msHint }}</span>
+</div>
+<sc-if value="{{ msRevealed }}" hint-placeholder-val="{{ false }}">
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:14px;max-width:70ch;border-top:1px solid #ebebeb;padding-top:14px">{{ msWhy }}</div>
+</sc-if>
+</div>
+
+<div data-stack style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+
+<div style="background:#fff;border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:26px">
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;row-gap:8px;flex-wrap:wrap">
+<h3 style="margin:0;font-size:15px;font-weight:700;line-height:1.4">True or false</h3>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Q2 · Objective 2</span>
+</div>
+<div style="font-size:14px;font-weight:400;line-height:1.7;margin-top:6px">Use for a claim of one clause. Two clauses make the answer ambiguous and the check untrustworthy.</div>
+<div style="font-size:16px;font-weight:800;line-height:1.5;margin-top:18px">A certified table stays certified until one of its checks fails.</div>
+<div style="display:flex;gap:8px;margin-top:16px">
+<sc-for list="{{ tfOpts }}" as="t" hint-placeholder-count="2">
+<button onClick="{{ t.pick }}" aria-pressed="{{ t.on }}" style="{{ t.style }}">{{ t.label }}</button>
+</sc-for>
+</div>
+<sc-if value="{{ tfRevealed }}" hint-placeholder-val="{{ false }}">
+<div style="{{ tfMarkStyle }}">{{ tfMark }}</div>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:10px">Certification is time-boxed. It expires ninety days after issue whether or not a check has failed, and re-issue requires the whole check set to pass again.</div>
+<button onClick="{{ tfReset }}" style="margin-top:14px;padding:7px 14px;border-radius:999px;background:#fff;border:1.5px solid #000;font-weight:700;font-size:14px" style-hover="box-shadow:2px 2px 0 rgba(0,0,0,.18);transform:translate(-1px,-1px)">Try again</button>
+</sc-if>
+</div>
+
+<div style="background:#fff;border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:26px">
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;row-gap:8px;flex-wrap:wrap">
+<h3 style="margin:0;font-size:15px;font-weight:700;line-height:1.4">Reflection</h3>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Not scored</span>
+</div>
+<div style="font-size:14px;font-weight:400;line-height:1.7;margin-top:6px">Use where the question has no single answer. A reflection never gates the module and never reports a result.</div>
+<div style="font-size:16px;font-weight:800;line-height:1.5;margin-top:18px">Your team owns forty tables and can certify six a quarter. Which six do you take first, and what makes the other thirty-four acceptable to leave?</div>
+<textarea rows="4" placeholder="Write your answer. It stays on this page." style="width:100%;box-sizing:border-box;margin-top:14px;padding:12px;border:1px solid #000;border-radius:8px;font-size:14px;line-height:1.6;resize:vertical;background:#fff"></textarea>
+<button onClick="{{ reflToggle }}" style="margin-top:12px;padding:7px 14px;border-radius:999px;background:#fff;border:1.5px solid #000;font-weight:700;font-size:14px" style-hover="box-shadow:2px 2px 0 rgba(0,0,0,.18);transform:translate(-1px,-1px)">{{ reflBtn }}</button>
+<sc-if value="{{ reflOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position:relative;padding:14px 0 0 16px;margin-top:16px">
+<div style="position:absolute;left:0;top:0;width:14px;height:14px;border-left:2px solid #000;border-top:2px solid #000"></div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">A reference answer</div>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:10px">Rank by consumers against decision latency: a table read by a contract feed outranks a larger one read at quarterly review. The other thirty-four are acceptable when each carries a named owner and a declared freshness expectation — an uncertified table with those two facts is legible, and without them it is unreadable whether certified or not.</div>
+</div>
+</sc-if>
+</div>
+
+</div>
+</div>
+</section>
+
+<section id="l2" data-screen-label="ss: 02 Comprehension summary" style="max-width:1060px;margin:0 auto;padding:96px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 02</span><h2 style="margin:0;font-weight:900;font-size:28px">Comprehension summary</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">The block that closes a module. It restates the objectives declared at the top in the completed tense, says where each was covered and how it was assessed, and names the boundary. It introduces nothing: a statement here that appears nowhere above is a gap in the module, not a line in the summary.</div>
+
+<div style="margin-top:28px;background:#fff;border:1.5px solid #000;border-radius:14px;box-shadow:5px 5px 0 #1de9b6;padding:26px">
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;row-gap:8px;flex-wrap:wrap">
+<h3 style="margin:0;font-size:15px;font-weight:700;line-height:1.4">What this module established</h3>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Module · Table certification · 5 sections · 12 min</span>
+</div>
+<div data-twrap style="margin-top:20px">
+<div data-wide style="display:grid;row-gap:4px">
+<sc-for list="{{ summary }}" as="s" hint-placeholder-count="4">
+<div style="{{ s.row }}">
+<span style="font-size:15.5px;font-weight:400;line-height:1.65;padding:12px">{{ s.text }}</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.06em;text-transform:uppercase;padding:12px">{{ s.where }}</span>
+<span style="padding:9px 12px"><span style="{{ s.chip }}">{{ s.assessed }}</span></span>
+</div>
+</sc-for>
+</div>
+</div>
+<div style="border-top:1px solid #ebebeb;margin-top:18px;padding-top:18px">
+<div style="position:relative;padding:14px 0 0 16px">
+<div style="position:absolute;left:0;top:0;width:14px;height:14px;border-left:2px solid #000;border-top:2px solid #000"></div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">Not covered here</div>
+<div style="display:grid;row-gap:8px;margin-top:10px;max-width:70ch">
+<div style="display:grid;grid-template-columns:14px 1fr;gap:10px;align-items:baseline"><span style="width:3px;height:3px;background:#000;margin-top:8px"></span><span style="font-size:14px;font-weight:400;line-height:1.75">How an SLA window is negotiated with the consumer, which the service-level topic covers.</span></div>
+<div style="display:grid;grid-template-columns:14px 1fr;gap:10px;align-items:baseline"><span style="width:3px;height:3px;background:#000;margin-top:8px"></span><span style="font-size:14px;font-weight:400;line-height:1.75">The migration exception path, which suspends expiry for named tables under an approved freeze.</span></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="l3" data-screen-label="ss: 03 Cyclical framework" style="max-width:1060px;margin:0 auto;padding:96px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 03</span><h2 style="margin:0;font-weight:900;font-size:28px">Cyclical framework</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">A framework whose last stage returns to its first. It is drawn as a line with the return shown beneath it, never as a ring: a ring has no entry point and rotates its labels past legibility. The cadence is part of the component — a sequence that does not repeat on a stated interval is a process, and belongs with the process views in Structured.</div>
+
+<div style="margin-top:28px;background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:26px">
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;row-gap:8px;flex-wrap:wrap">
+<h3 style="margin:0;font-size:15px;font-weight:700;line-height:1.4">The certification cycle</h3>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Cadence · every 90 days · 5 stages</span>
+</div>
+<div style="font-size:14px;font-weight:400;line-height:1.7;margin-top:6px;max-width:70ch">Select a stage to read what it takes in, what it produces, and the condition that lets it hand on.</div>
+
+<div data-twrap style="margin-top:20px">
+<div data-wide style="background:#fafafa;border:1px dashed #d9d9d9;border-radius:12px;padding:24px">
+<div style="display:flex;align-items:stretch">
+<sc-for list="{{ stages }}" as="s" hint-placeholder-count="5">
+<button onClick="{{ s.pick }}" aria-pressed="{{ s.on }}" style="{{ s.style }}">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">{{ s.num }}</span>
+<span style="font-size:15px;font-weight:700;line-height:1.35;margin-top:6px;display:block">{{ s.name }}</span>
+</button>
+<div style="{{ s.conn }}"><span style="{{ s.line }}"></span><span style="{{ s.head }}"></span></div>
+</sc-for>
+</div>
+<div style="position:relative;height:38px;margin-top:10px">
+<div style="position:absolute;left:calc((100% - 136px)/10);right:calc((100% - 136px)/10);top:0;height:28px;border:2px solid #000;border-top:0;border-radius:0 0 10px 10px"></div>
+<div style="position:absolute;left:calc((100% - 136px)/10);top:-9px;margin-left:-5px;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:8px solid #000"></div>
+<span style="position:absolute;left:50%;transform:translateX(-50%);top:19px;padding:0 10px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">Returns every 90 days</span>
+</div>
+</div>
+</div>
+
+<div style="position:relative;padding:14px 0 0 16px;margin-top:22px">
+<div style="position:absolute;left:0;top:0;width:14px;height:14px;border-left:2px solid #000;border-top:2px solid #000"></div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">Stage {{ stageNum }} · {{ stageName }}</div>
+<div data-stack style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:12px">
+<div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Takes in</div><div style="font-size:14px;font-weight:400;line-height:1.7;margin-top:10px">{{ stageIn }}</div></div>
+<div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Produces</div><div style="font-size:14px;font-weight:400;line-height:1.7;margin-top:10px">{{ stageOut }}</div></div>
+<div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Hands on when</div><div style="font-size:14px;font-weight:400;line-height:1.7;margin-top:10px">{{ stageExit }}</div></div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="l4" data-screen-label="ss: 04 Model" style="max-width:1060px;margin:0 auto;padding:96px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 04</span><h2 style="margin:0;font-weight:900;font-size:28px">Model</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">A named abstraction the reader is meant to carry away and apply. Four parts are mandatory: the schematic, the parts it names, the relationship that binds them, and the condition under which it breaks. The last one is what separates a model from a diagram, and it is the part most often left out.</div>
+
+<div style="margin-top:32px">
+<h3 style="margin:0;font-size:15px;font-weight:700;line-height:1.4">The refresh placement model</h3>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;margin-top:10px;max-width:70ch;text-wrap:pretty">Where a table's refresh belongs is decided by two costs and nothing else: what a stale answer costs the reader, and what a refresh costs to run. Pick a placement to read what it commits you to.</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.07em;text-transform:uppercase;margin-top:24px">Vertical · cost of a stale answer, high at top &nbsp;·&nbsp; Horizontal · cost to refresh, low at left</div>
+
+<div data-stack style="display:grid;grid-template-columns:1fr 320px;gap:32px;margin-top:14px;align-items:start">
+<div style="background:#fff;border-radius:12px;padding:20px;box-shadow:0 1px 2px rgba(0,0,0,.06)">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+<sc-for list="{{ quads }}" as="q" hint-placeholder-count="4">
+<button onClick="{{ q.pick }}" aria-pressed="{{ q.on }}" style="{{ q.style }}">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase">{{ q.coord }}</span>
+<span style="font-size:16px;font-weight:800;line-height:1.3;margin-top:8px;display:block">{{ q.name }}</span>
+<span style="font-size:14px;font-weight:400;line-height:1.65;margin-top:6px;display:block">{{ q.rule }}</span>
+</button>
+</sc-for>
+</div>
+</div>
+<div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">Placement · {{ quadName }}</div>
+<div style="display:grid;row-gap:20px;margin-top:16px">
+<div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Service level it implies</div><div style="font-size:15px;font-weight:700;line-height:1.6;margin-top:10px">{{ quadSla }}</div></div>
+<div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Typical table</div><div style="font-size:15.5px;font-weight:400;line-height:1.75;margin-top:10px">{{ quadEg }}</div></div>
+<div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Disqualified when</div><div style="font-size:15.5px;font-weight:400;line-height:1.75;margin-top:10px">{{ quadNot }}</div></div>
+</div>
+</div>
+</div>
+
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.08em;text-transform:uppercase;margin-top:20px">Model: internal · derived from 1,412 placement decisions · reviewed 27 Aug 2026</div>
+
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:32px;text-wrap:pretty">The two costs are read independently, and neither can be inferred from the other. Where either is unknown the model returns no placement, and the unknown cost is itself the finding.</div>
+<div style="display:grid;row-gap:16px;margin-top:20px;max-width:70ch">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;text-wrap:pretty"><strong style="font-weight:700">It holds when</strong> both costs are estimable within an order of magnitude, and the table serves one class of consumer.</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;text-wrap:pretty"><strong style="font-weight:700">It breaks when</strong> one table serves a dashboard and a contract feed. Two costs of staleness means two placements, so the table is split before it is placed.</div>
+</div>
+</div>
+</section>
+
+<section id="l5" data-screen-label="ss: 05 Rules" style="max-width:1060px;margin:0 auto;padding:96px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 05</span><h2 style="margin:0;font-weight:900;font-size:28px">Rules these components add</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Six rules binding on every learning surface in this system.</div>
+<div style="display:grid;row-gap:20px;margin-top:24px;max-width:74ch">
+<sc-for list="{{ rules }}" as="r" hint-placeholder-count="6">
+<div style="display:grid;grid-template-columns:76px 1fr;gap:16px;align-items:baseline">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.06em">{{ r.id }}</span>
+<div><span style="font-size:15px;font-weight:700;line-height:1.5">{{ r.head }}</span><span style="font-size:15.5px;font-weight:400;line-height:1.85"> {{ r.body }}</span></div>
+</div>
+</sc-for>
+</div>
+</section>
+
+<footer style="max-width:1060px;margin:96px auto 0;padding:24px;border-top:1px solid #ebebeb">
+<div style="display:flex;align-items:center;gap:16px;row-gap:10px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.08em;text-transform:uppercase">
+<span style="font-weight:700">content-morphia</span>
+<span>Learning · R23.9–R23.14</span>
+<span style="margin-left:auto;display:flex;gap:16px;flex-wrap:wrap"><a href="content-morphia Structured.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1de9b6;padding-bottom:1px">Structured components</a><a href="content-morphia Charts.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1de9b6;padding-bottom:1px">Charts</a><a href="content-morphia T5 Module.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1de9b6;padding-bottom:1px">T5 Module</a><a href="content-morphia Selection.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1de9b6;padding-bottom:1px">Selection &amp; gate</a></span>
+</div>
+</footer>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1180,&quot;height&quot;:900},&quot;showCheckHints&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Checks&quot;},&quot;summaryDensity&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;with assessment&quot;,&quot;statements only&quot;],&quot;default&quot;:&quot;with assessment&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Summary&quot;}}">
+class Component extends DCLogic {
+  state = { nav: 1, ms: {}, msRev: false, tf: null, refl: false, stage: 2, quad: 0 };
+
+  renderVals() {
+    const S = this.state, P = this.props, teal = '#1de9b6', off = 'transparent';
+    const hints = P.showCheckHints !== false;
+    const bare = P.summaryDensity === 'statements only';
+    const mono = "font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;";
+    const TINT = { ok: 'rgba(0,230,118,.2)', warn: 'rgba(255,214,0,.3)', crit: 'rgba(255,82,82,.16)' };
+
+    // ---------- ss: 01 multi-select ----------
+    const MS = [
+      ['No named owner in the register', true],
+      ['Fewer than thirty days of refresh history', false],
+      ['A column type changed without a version bump', true],
+      ['More than twelve downstream consumers', false],
+      ['No declared freshness SLA', true]
+    ];
+    const rev = S.msRev;
+    const msOpts = MS.map((o, i) => {
+      const on = !!S.ms[i], right = o[1];
+      let mark = '', tint = '';
+      if (rev) {
+        if (on && right) { mark = 'Correct'; tint = TINT.ok; }
+        else if (!on && right) { mark = 'Missed'; tint = TINT.warn; }
+        else if (on && !right) { mark = 'Wrong'; tint = TINT.crit; }
+      }
+      return {
+        text: o[0], on, glyph: on ? '\u2715' : '',
+        pick: () => { if (this.state.msRev) return; this.setState((st) => ({ ms: Object.assign({}, st.ms, { [i]: !st.ms[i] }) })); },
+        style: 'width:100%;box-sizing:border-box;display:flex;gap:12px;align-items:center;padding:12px 14px;border-radius:12px;background:#fff;'
+          + 'border:1px solid #000;' + (rev ? 'cursor:default;' : '') + (rev && !mark ? 'opacity:.55;' : ''),
+        box: 'flex:none;width:18px;height:18px;border-radius:4px;border:1.5px solid #000;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;'
+          + (on ? 'background:' + teal + ';' : 'background:#fff;'),
+        mark, markStyle: mono + 'flex:none;padding:3px 9px;border-radius:4px;background:' + tint + ';' + (mark ? '' : 'display:none')
+      };
+    });
+    const picked = MS.filter((o, i) => S.ms[i]).length;
+    const msHint = !hints ? '' : (rev
+      ? MS.filter((o, i) => o[1] && S.ms[i]).length + ' of 3 found · ' + MS.filter((o, i) => !o[1] && S.ms[i]).length + ' wrong'
+      : (picked === 0 ? 'Select three' : picked + ' of 3 selected'));
+
+    // ---------- ss: 01 true/false ----------
+    const TFC = 'f';
+    const tfOpts = [['True', 't'], ['False', 'f']].map((t) => {
+      const on = S.tf === t[1];
+      return {
+        label: t[0], on,
+        pick: () => this.setState({ tf: t[1] }),
+        style: 'padding:9px 22px;border-radius:999px;font-weight:700;font-size:14px;border:1.5px solid #000;background:#fff;'
+          + (on ? 'box-shadow:2px 2px 0 rgba(0,0,0,.18);transform:translate(-1px,-1px);' : '')
+      };
+    });
+    const tfRight = S.tf === TFC;
+
+    // ---------- ss: 02 comprehension summary ----------
+    const SUM = [
+      ['State the three conditions that block certification.', 'ss: 02', 'Checked · Q1'],
+      ['Say when a certificate expires and what re-issues it.', 'ss: 03', 'Checked · Q2'],
+      ['Order a certification backlog against a fixed quarterly budget.', 'ss: 05', 'Reflection'],
+      ['Read a freshness breach against the declared SLA window.', 'ss: 04', 'Not assessed']
+    ];
+    const summary = SUM.map((s, i) => ({
+      text: s[0], where: bare ? '' : 'Covered ' + s[1], assessed: bare ? '' : s[2],
+      row: 'display:grid;grid-template-columns:' + (bare ? '1fr' : '1fr 150px 130px') + ';align-items:baseline;border-radius:6px;' + '',
+      chip: mono + 'display:inline-block;padding:3px 9px;border-radius:4px;white-space:nowrap;' + (bare ? 'display:none;' : '')
+        + (s[2].indexOf('Checked') === 0 ? 'background:' + TINT.ok : 'background:#fff;border:1px solid #000')
+    }));
+
+    // ---------- ss: 03 cycle ----------
+    const CY = [
+      ['Declare', 'A table with a consumer and no record.', 'An owner and an SLA window on the register.', 'Both fields are non-empty and the owner has acknowledged.'],
+      ['Instrument', 'The declaration and the current schema.', 'Freshness, volume and schema checks wired to the scheduler.', 'Three checks have reported at least once.'],
+      ['Verify', 'Ninety days of check results.', 'A pass record listing every failure and its resolution.', 'No failure remains unresolved inside the window.'],
+      ['Certify', 'The pass record.', 'A certificate carrying an issue date and an expiry date.', 'The certificate is published on the table page.'],
+      ['Review', 'The certificate and its consumer list.', 'A confirmation that the SLA still matches what consumers need.', 'Every consumer class has confirmed, or the SLA is re-opened.']
+    ];
+    const st = S.stage;
+    const stages = CY.map((c, i) => ({
+      num: '0' + (i + 1), name: c[0], on: st === i,
+      pick: () => this.setState({ stage: i }),
+      style: 'flex:1;min-width:0;box-sizing:border-box;padding:16px 14px;border-radius:12px;background:#fff;border:1.5px solid ' + (st === i ? '#000' : 'transparent') + ';'
+        + (st === i ? 'box-shadow:6px 6px 0 rgba(0,0,0,.08);' : 'box-shadow:0 1px 2px rgba(0,0,0,.06);'),
+      conn: i === 4 ? 'display:none' : 'flex:none;width:34px;display:flex;align-items:center;justify-content:center;gap:0',
+      line: 'display:block;width:12px;height:2px;background:#000',
+      head: 'display:block;width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:6px solid #000'
+    }));
+
+    // ---------- ss: 04 model ----------
+    const Q = [
+      ['High stale cost · low refresh cost', 'Stream', 'Refresh continuously; the consumer reads the current row.', 'Minutes, continuous', 'An order-status feed read by an operations console.', 'The refresh cannot run inside the window the consumer waits.'],
+      ['High stale cost · high refresh cost', 'Trigger', 'Refresh on the consumer\u2019s request, and state the wait.', 'On demand, within 15 minutes', 'An attribution rebuild requested before a spend review.', 'Requests arrive faster than a run completes — then it is a stream.'],
+      ['Low stale cost · low refresh cost', 'Schedule', 'Refresh on a fixed schedule, and publish the schedule.', 'Daily by 06:00', 'The finance daily extract.', 'A consumer needs an answer between two scheduled runs.'],
+      ['Low stale cost · high refresh cost', 'Archive', 'Refresh on request only; keep the last run\u2019s timestamp in view.', 'On request, within 5 days', 'A seven-year event archive queried for audits.', 'The table starts appearing in a recurring report.']
+    ];
+    const qi = S.quad;
+    const quads = Q.map((q, i) => ({
+      coord: q[0], name: q[1], rule: q[2], on: qi === i,
+      pick: () => this.setState({ quad: i }),
+      style: 'box-sizing:border-box;padding:16px;border-radius:12px;background:#fff;border:1.5px solid ' + (qi === i ? '#000' : 'transparent') + ';'
+        + (qi === i ? 'box-shadow:6px 6px 0 rgba(0,0,0,.08);' : 'box-shadow:0 1px 2px rgba(0,0,0,.06);')
+    }));
+
+    // ---------- ss: 05 rules ----------
+    const rules = [
+      ['R23.9', 'Four check shapes, and no fifth.', 'Single choice for one right answer, multi-select for a set, true or false for a claim of one clause, reflection for a question with no answer. A check that fits none of the four is testing something the module never taught.'],
+      ['R23.10', 'A multi-select states its size before the answer.', 'The number of correct options is given up front, and on reveal every option is marked as one of three: correct, missed, wrong. No partial score, no silent options.'],
+      ['R23.11', 'A reflection is never scored and never gates.', 'It reports nothing, blocks nothing, and offers a reference answer on request — a worked example, not a key. A reflection that decides whether the reader may continue is a check wearing the wrong shape.'],
+      ['R23.12', 'A comprehension summary introduces nothing.', 'It restates the declared objectives in the completed tense, cites the section that covered each and the check that assessed it, and names what the module left out. Material appearing first in the summary is a gap in the module.'],
+      ['R23.13', 'A cycle is a line with a stated return, not a ring.', 'The return is drawn beneath the sequence and carries the cadence. Without a cadence the shape is a process, and a ring is illegal in either case: it hides the entry point and rotates its labels.'],
+      ['R23.14', 'A model states the condition that breaks it.', 'Schematic, parts, the relationship binding them, and the limit — all four, or it is a diagram with a name on it. The limit says what the model does not decide, which is the part a reader needs before applying it.']
+    ].map((r) => ({ id: r[0], head: r[1], body: r[2] }));
+
+    const mk = (i) => ({ pick: () => this.setState({ nav: i }), col: S.nav === i ? teal : off });
+    const N = [1, 2, 3, 4, 5].map(mk);
+
+    return {
+      msOpts, msRevealed: rev, msHint,
+      msBtn: rev ? 'Reset' : 'Check answer',
+      msAct: () => this.setState((s) => (s.msRev ? { ms: {}, msRev: false } : { msRev: true })),
+      msWhy: 'A short refresh history and a large consumer count both change how often the certificate is reviewed. Neither decides whether it can be issued.',
+      tfOpts, tfRevealed: S.tf !== null,
+      tfMark: tfRight ? 'Correct \u00b7 the claim is false' : 'Not quite \u00b7 the claim is false',
+      tfMarkStyle: mono + 'display:inline-block;margin-top:16px;padding:4px 10px;border-radius:4px;background:' + (tfRight ? TINT.ok : TINT.crit),
+      tfReset: () => this.setState({ tf: null }),
+      reflOpen: S.refl,
+      reflBtn: S.refl ? 'Hide the reference answer' : 'Show a reference answer',
+      reflToggle: () => this.setState((s) => ({ refl: !s.refl })),
+      summary,
+      stages, stageNum: '0' + (st + 1), stageName: CY[st][0], stageIn: CY[st][1], stageOut: CY[st][2], stageExit: CY[st][3],
+      quads, quadName: Q[qi][1], quadSla: Q[qi][3], quadEg: Q[qi][4], quadNot: Q[qi][5],
+      rules,
+      p1: N[0].pick, p2: N[1].pick, p3: N[2].pick, p4: N[3].pick, p5: N[4].pick,
+      n1: N[0].col, n2: N[1].col, n3: N[2].col, n4: N[3].col, n5: N[4].col
+    };
+  }
+}
+
+</script>
+</body>
+</html>

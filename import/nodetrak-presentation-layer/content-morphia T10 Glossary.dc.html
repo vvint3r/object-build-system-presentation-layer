@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&amp;family=JetBrains+Mono:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#fff;color:#000;font-family:'Nunito',sans-serif}
+a{color:#000;text-decoration:underline;text-decoration-color:#1bbd94;text-decoration-thickness:1.5px;text-underline-offset:3px}
+a:hover{background:rgba(27,189,148,.3)}
+::selection{background:rgba(27,189,148,.35)}
+button{font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;background:none;border:none;padding:0;margin:0;text-align:left;cursor:pointer}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px solid #000;outline-offset:3px}
+@media(max-width:640px){[style*="columns:1fr 1fr"],[style*="columns:repeat(2,1fr)"],[style*="columns:repeat(3,1fr)"]{grid-template-columns:1fr!important}}
+@media(max-width:800px){#gl-index [data-row]{grid-template-columns:1fr 1fr!important;row-gap:8px!important}#gl-head{display:none!important}}
+@media(max-width:640px){#gl-index [data-row]{grid-template-columns:1fr!important}#gl-entry{grid-template-columns:1fr!important}}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:#f1f1f1;border-radius:999px}
+::-webkit-scrollbar-thumb{background:rgba(0,0,0,.22);border-radius:999px}
+::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.45)}
+
+[data-nav-group] [data-nav-menu]{display:none}
+[data-nav-group]:hover [data-nav-menu],[data-nav-group]:focus-within [data-nav-menu]{display:block}
+</style>
+</helmet>
+
+<dc-import name="cm-nav" page="T10 Glossary.dc.html" chip="T10 Glossary" hint-size="100%,58px"></dc-import>
+
+<dc-import name="cm-toc" items='[["#g1","ss: 01 Index"],["#g2","ss: 02 Entry"],["#g3","ss: 03 Compound terms"],["#g4","ss: 04 In running text"],["#g5","ss: 05 Rules"]]' hint-size="100%,44px"></dc-import>
+
+<dc-import name="cm-mast" title="Data platform glossary" crumbs='[["Library","content-morphia T1 Topic.dc.html"],["Analytics platform","content-morphia T1 Topic.dc.html"],["Glossary"]]' hint-size="100%,300px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:16px;text-wrap:pretty">Every term the platform documentation uses in a load-bearing way, defined once. Where another page needs one of these words to mean something exact, it links here rather than restating it.</div>
+<div style="display:flex;align-items:center;gap:8px;row-gap:8px;flex-wrap:wrap;margin-top:20px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.02em;text-transform:uppercase">
+<span style="padding:2px 8px;border-radius:4px;border:1px solid #000;font-weight:700">Glossary</span>
+<span style="padding:3px 10px;border-radius:999px;border:1px solid #000;font-weight:700">Analytics platform</span>
+<span style="padding:3px 10px;border-radius:999px;background:rgba(0,230,118,.2);font-weight:700">Published</span>
+<span style="font-weight:400">{{ termCount }} terms · re-aggregated 29 Aug 2026</span>
+</div>
+</dc-import>
+
+<dc-import name="cm-section" n="1" id="g1" title="Index" label="ss: 01 Index" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">The whole vocabulary on one surface, alphabetical, with a one-line gloss beside each term so a reader can decide whether to open it. Filter by initial or by family; select a term to read its entry below.</div>
+
+<div style="margin-top:28px;display:flex;align-items:center;gap:6px;row-gap:8px;flex-wrap:wrap">
+<sc-for list="{{ letters }}" as="l" hint-placeholder-count="26">
+<button onClick="{{ l.pick }}" disabled="{{ l.off }}" aria-pressed="{{ l.on }}" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;min-width:26px;text-align:center;padding:6px 6px;border-radius:999px;background:{{ l.bg }};color:{{ l.fg }};opacity:{{ l.op }}" style-hover="box-shadow:2px 2px 0 rgba(0,0,0,.18)">{{ l.ch }}</button>
+</sc-for>
+</div>
+
+<div style="margin-top:20px;display:flex;align-items:center;gap:10px;row-gap:10px;flex-wrap:wrap">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase">Family</span>
+<sc-for list="{{ fams }}" as="f" hint-placeholder-count="6">
+<button onClick="{{ f.pick }}" aria-pressed="{{ f.on }}" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:6px 12px;border-radius:999px;border:1px solid #000;background:{{ f.bg }};color:{{ f.fg }}" style-hover="box-shadow:2px 2px 0 rgba(0,0,0,.18)">{{ f.name }}</button>
+</sc-for>
+</div>
+
+<div id="gl-index" style="margin-top:24px;background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:28px">
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;row-gap:8px;flex-wrap:wrap">
+<h3 style="margin:0;font-size:21px;font-weight:800;line-height:1.3">All terms</h3>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase">{{ shownCount }} shown · {{ termCount }} total</span>
+</div>
+<div id="gl-head" data-row style="display:grid;grid-template-columns:minmax(190px,1fr) 2fr 148px 96px;gap:16px;padding:12px;margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;background:#fff;border-bottom:1.5px solid #000">
+<span>Term</span><span>Gloss</span><span>Family</span><span style="text-align:right">Sources</span>
+</div>
+<div style="display:grid;row-gap:2px;margin-top:2px">
+<sc-for list="{{ rows }}" as="r" hint-placeholder-count="8">
+<button data-row onClick="{{ r.pick }}" aria-pressed="{{ r.on }}" style="display:grid;grid-template-columns:minmax(190px,1fr) 2fr 148px 96px;gap:16px;align-items:baseline;padding:12px;border-radius:6px;width:100%;box-sizing:border-box;background:{{ r.bg }}" style-hover="box-shadow:3px 3px 0 rgba(0,0,0,.18)">
+<span style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap"><span style="font-size:15.5px;font-weight:700;line-height:1.45">{{ r.name }}</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600">{{ r.acr }}</span></span>
+<span style="font-size:14px;font-weight:400;line-height:1.7">{{ r.gloss }}</span>
+<span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:3px 9px;border-radius:4px;background:rgba(27,189,148,.25)">{{ r.fam }}</span></span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-align:right">{{ r.src }}</span>
+</button>
+</sc-for>
+</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase;margin-top:20px">Alias rows resolve to their canonical term · aliases are not counted in the total</div>
+</div>
+</dc-import>
+
+<dc-import name="cm-section" n="2" id="g2" title="Term entry" label="ss: 02 Entry" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">One entry per canonical term. The definition comes first and is one sentence long; everything after it is qualification. An entry that opens with history, motivation or an example has buried the thing the reader came for.</div>
+
+<div style="margin-top:32px;background:#fff;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:28px">
+<div style="display:flex;align-items:baseline;gap:12px;row-gap:8px;flex-wrap:wrap">
+<h3 style="margin:0;font-size:28px;font-weight:900;line-height:1.2">{{ entryName }}</h3>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600">{{ entryAcr }}</span>
+<span style="margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:3px 9px;border-radius:4px;background:rgba(27,189,148,.25)">{{ entryFam }}</span>
+</div>
+<div style="font-size:19px;font-weight:400;line-height:1.85;max-width:62ch;margin-top:20px;text-wrap:pretty">{{ entryDef }}</div>
+<div style="border-top:1px solid #ebebeb;margin-top:24px;padding-top:24px">
+<div id="gl-entry" style="display:grid;grid-template-columns:1fr 300px;gap:32px;align-items:start">
+<div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase">How this system uses it</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;margin-top:10px;max-width:66ch;text-wrap:pretty">{{ entryUse }}</div>
+<sc-if value="{{ hasNot }}" hint-placeholder-val="{{ true }}">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;margin-top:24px">Not to be confused with</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;margin-top:10px;max-width:66ch;text-wrap:pretty">{{ entryNot }}</div>
+</sc-if>
+</div>
+<div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase">Also called</div>
+<div style="display:flex;gap:8px;row-gap:8px;flex-wrap:wrap;margin-top:12px">
+<sc-for list="{{ entryAlso }}" as="a" hint-placeholder-count="2">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:3px 10px;border-radius:4px;background:#fff;border:1px solid #000">{{ a }}</span>
+</sc-for>
+</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;margin-top:24px">Related terms</div>
+<div style="display:grid;row-gap:10px;margin-top:12px">
+<sc-for list="{{ entryRel }}" as="t" hint-placeholder-count="3">
+<button onClick="{{ t.pick }}" style="font-size:14px;font-weight:400;line-height:1.75;text-decoration:underline;text-decoration-color:#1bbd94;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(27,189,148,.3)">{{ t.name }}</button>
+</sc-for>
+</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;margin-top:24px">Provenance</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase;line-height:1.9;margin-top:12px">{{ entrySrc }} sources · agreement {{ entryAgree }}<br>Last aggregated {{ entryDate }}</div>
+</div>
+</div>
+</div>
+</div>
+</dc-import>
+
+<dc-import name="cm-section" n="3" id="g3" title="Compound terms" label="ss: 03 Compound terms" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">A term built from three words that each already mean something gets one entry, not three. The breakdown sits inside that entry and states what each part contributes, because a reader who knows all three words can still misread the phrase.</div>
+
+<div style="margin-top:32px">
+<h3 style="margin:0;font-size:21px;font-weight:800;line-height:1.3">Certified freshness window</h3>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Read in order, the three parts narrow from who vouches for the number, to what is being measured, to which end of the range is binding.</div>
+<div style="display:grid;row-gap:2px;margin-top:20px;max-width:78ch">
+<sc-for list="{{ parts }}" as="p" hint-placeholder-count="3">
+<div style="display:grid;grid-template-columns:180px 1fr;gap:24px;align-items:baseline;padding:16px 12px;border-radius:6px;background:{{ p.bg }}">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600">{{ p.word }}</span>
+<span style="font-size:15.5px;font-weight:400;line-height:1.8;text-wrap:pretty">{{ p.means }}</span>
+</div>
+</sc-for>
+</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:24px;text-wrap:pretty">The phrase therefore describes a ceiling a reviewed table has agreed to stay under. It does not describe how often the table refreshes, which is cadence, and it does not describe how fresh the table currently is, which is staleness.</div>
+</div>
+</dc-import>
+
+<dc-import name="cm-section" n="4" id="g4" title="In running text" label="ss: 04 In running text" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Three atoms let a passage use a defined term without stopping to define it. Each is a link to the entry, so a term never acquires a second definition on the page that mentions it.</div>
+
+<div data-stack style="display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:32px">
+<div style="background:#fff;border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:28px">
+<h3 style="margin:0;font-size:21px;font-weight:800;line-height:1.3">First use of an acronym</h3>
+<div style="font-size:15.5px;font-weight:400;line-height:1.9;margin-top:14px;text-wrap:pretty">Each certified table publishes a <a href="#g2">service-level agreement</a> <span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600">(SLA)</span> its consumers may rely on. Where the SLA is silent on a window, the tier default applies.</div>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:28px;border-top:1px solid #ebebeb;padding-top:20px">Expanded once per page, linked on that first use, then used bare. The expansion carries the link; the parenthesised acronym is mono and is not a second link.</div>
+</div>
+<div style="background:#fff;border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:28px">
+<h3 style="margin:0;font-size:21px;font-weight:800;line-height:1.3">A synonym resolving to the canonical term</h3>
+<div style="font-size:15.5px;font-weight:400;line-height:1.9;margin-top:14px;text-wrap:pretty">Operators still call it the <a href="#g2">refresh SLA</a>, which is the same freshness window under an older name.</div>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:28px;border-top:1px solid #ebebeb;padding-top:20px">The alias is written as the reader would say it and links to the canonical entry. It never gets its own definition, and the sentence names the canonical term once so the two are visibly the same thing.</div>
+</div>
+</div>
+
+<div style="margin-top:28px;background:#fff;border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:28px">
+<h3 style="margin:0;font-size:21px;font-weight:800;line-height:1.3">A disambiguation, where two terms are genuinely confusable</h3>
+<div style="font-size:15.5px;font-weight:400;line-height:1.9;margin-top:14px;max-width:70ch;text-wrap:pretty">A table can be inside its <a href="#g2">freshness window</a> and still be stale to a reader: the window is the agreed ceiling, <a href="#g2">staleness</a> is the age right now.</div>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:28px;border-top:1px solid #ebebeb;padding-top:20px;max-width:70ch">Written as one sentence carrying both links, placed at the first point where the confusion could bite rather than at the top of the page. Two terms that merely sound similar do not earn one.</div>
+</div>
+</dc-import>
+
+<dc-import name="cm-section" n="5" id="g5" title="Rules this template adds" label="ss: 05 Rules" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Six rules binding on every glossary and every page that uses a defined term.</div>
+<div style="display:grid;row-gap:20px;margin-top:24px;max-width:74ch">
+<sc-for list="{{ rules }}" as="r" hint-placeholder-count="6">
+<div style="display:grid;grid-template-columns:76px 1fr;gap:16px;align-items:baseline">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em">{{ r.id }}</span>
+<div><span style="font-size:15.5px;font-weight:700;line-height:1.5">{{ r.head }}</span><span style="font-size:15.5px;font-weight:400;line-height:1.85"> {{ r.body }}</span></div>
+</div>
+</sc-for>
+</div>
+</dc-import>
+
+<footer style="max-width:1060px;margin:96px auto 0;padding:24px;border-top:1px solid #ebebeb">
+<div style="display:flex;align-items:center;gap:16px;row-gap:10px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase">
+<span style="font-weight:700">content-morphia</span>
+<span>Template 10 · Glossary</span>
+<span style="margin-left:auto;display:flex;gap:16px;row-gap:8px;flex-wrap:wrap"><a href="content-morphia Templates.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1bbd94;padding-bottom:1px">Template index</a><a href="content-morphia T9 Reference.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1bbd94;padding-bottom:1px">T9 Reference</a><a href="content-morphia Interaction.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1bbd94;padding-bottom:1px">Interaction</a><a href="content-morphia Selection.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1bbd94;padding-bottom:1px">Selection &amp; gate</a></span>
+</div>
+</footer>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1180,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  state = { letter: null, fam: 'All', sel: 5 };
+
+  renderVals() {
+    const T = [
+      ['Backfill', '', 'Pipeline', 'Re-running a pipeline over a past window to replace rows that were missing or wrong.',
+        'A backfill is recorded against the run it repairs, so a table that looks healthy today still shows the gap it had last week.',
+        '', ['Replay'], [1, 12], 12, 'high', '21 Aug 2026'],
+      ['Canonical event', '', 'Taxonomy', 'The one event name the registry accepts for a user action, against which every alias resolves.',
+        'Instrumentation may emit any alias; the warehouse stores only the canonical name, and the alias list lives in the registry entry rather than in code.',
+        'A canonical event is not a table. One event can land in several tables, and a table can carry several events.', ['Registered event'], [9, 2], 9, 'high', '18 Aug 2026'],
+      ['Certification', '', 'Governance', 'The review that admits a table to the catalog as trustworthy, and the state the table then holds.',
+        'Certification is a state with an expiry, not a badge. It lapses after ninety days unless the owner re-runs the review, and a lapsed table is removed from the catalog rather than marked stale.',
+        '', ['Sign-off'], [7, 13], 31, 'high', '27 Aug 2026'],
+      ['Confidence', '', 'Aggregation', 'How strongly the sources behind a context node agree, stated as a band rather than a number.',
+        'Confidence is reported as high, mixed or low, and the band is derived from spread and source count together. A single source can never produce high confidence, however authoritative it is.',
+        'Confidence is about agreement between sources, not about how recent they are. That is freshness.', [], [11, 5], 18, 'mixed', '29 Aug 2026'],
+      ['Context node', '', 'Index', 'An aggregation of sources attached to a topic, or to a relationship between two topics.',
+        'Context nodes re-aggregate on an interval rather than on write, so every node carries the date it last did. Nothing on a node changes between those intervals.',
+        '', ['Evidence node'], [3, 8], 24, 'high', '29 Aug 2026'],
+      ['Freshness window', '', 'Service level', 'The maximum age a table\u2019s newest row may reach before the table counts as stale.',
+        'The window is a ceiling the owner commits to, not a schedule. A table refreshing hourly against a six-hour window has five hours of headroom, and the headroom is what an incident consumes.',
+        'A freshness window is not a refresh cadence. Cadence is how often the pipeline runs; the window is how late it may be before that matters.', ['Refresh SLA'], [12, 10, 2], 44, 'high', '29 Aug 2026'],
+      ['Lineage', '', 'Pipeline', 'The recorded path from a source system to a table, and onward to everything that reads it.',
+        'Lineage is derived from the run log rather than declared, so a dependency that exists only in someone\u2019s notebook does not appear in it.',
+        '', ['Provenance graph'], [0, 6], 15, 'mixed', '14 Aug 2026'],
+      ['Owner', '', 'Governance', 'The single team accountable for a table\u2019s definition, its refresh, and its incidents.',
+        'Ownership is a team, never a person, and never more than one team. A table with two owners is treated as unowned until the registry records which of them holds it.',
+        '', [], [2, 9], 7, 'high', '11 Aug 2026'],
+      ['Provenance', '', 'Aggregation', 'Where a statement came from: which sources, how many, and when they were last aggregated.',
+        'Every figure a document states carries provenance or it does not ship. Provenance is written in mono beneath the thing it attributes, and it names the count rather than listing the sources inline.',
+        '', ['Sourcing'], [4, 3, 11], 33, 'high', '29 Aug 2026'],
+      ['Registry', '', 'Governance', 'The record of every metric and event definition, and the only place a definition may change.',
+        'A definition that exists in a dashboard but not the registry is not a definition. Changes are versioned, and the version a document quotes travels with the quote.',
+        '', ['Definition store'], [1, 7], 11, 'high', '19 Aug 2026'],
+      ['Service-level agreement', 'SLA', 'Service level', 'The freshness and availability a table\u2019s consumers may rely on, stated by its owner.',
+        'An SLA names a freshness window, an availability target, and the tier those apply to. Consumers outside that tier get the default, not a negotiated one.',
+        '', ['Refresh SLA'], [5, 13], 28, 'high', '25 Aug 2026'],
+      ['Spread', '', 'Aggregation', 'The distance between the highest and lowest source values behind an aggregated figure.',
+        'Spread is stated in the figure\u2019s own units beside the figure, never as a percentage of it. Where spread exceeds the figure, the aggregate is withheld and the range is published instead.',
+        '', ['Range'], [3, 11], 6, 'low', '29 Aug 2026'],
+      ['Staleness', '', 'Service level', 'The age of a table\u2019s newest row, measured against its freshness window.',
+        'Staleness is a live measurement and a table crosses into it silently. The alert fires on the third consecutive breach, not the first, because one late run is a run and three are a pattern.',
+        'Staleness is the current age; the freshness window is the agreed ceiling. A table can be stale to a reader while still inside its window.', [], [5, 13], 21, 'high', '29 Aug 2026'],
+      ['Tier', '', 'Service level', 'The consumer class a table serves, which sets its freshness target and its incident severity.',
+        'Four tiers, assigned by who reads the table rather than by who owns it. A table read by a contract feed is tier one whatever else it also serves.',
+        '', ['Criticality class'], [5, 10], 19, 'high', '22 Aug 2026']
+    ].map((r) => ({ name: r[0], acr: r[1], fam: r[2], gloss: r[3], use: r[4], not: r[5], also: r[6], rel: r[7], src: r[8], agree: r[9], date: r[10] }));
+
+    const S = this.state;
+    const teal = 'rgba(27,189,148,.12)';
+    const has = {};
+    T.forEach((t) => { has[t.name[0].toUpperCase()] = true; });
+
+    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map((ch) => {
+      const off = !has[ch];
+      const on = S.letter === ch;
+      return {
+        ch, off, on,
+        bg: on ? '#000' : 'transparent',
+        fg: on ? '#fff' : '#000',
+        op: off ? '.3' : '1',
+        pick: () => this.setState({ letter: on ? null : ch })
+      };
+    });
+
+    const famNames = ['All'].concat(T.map((t) => t.fam).filter((v, i, a) => a.indexOf(v) === i));
+    const fams = famNames.map((name) => {
+      const on = S.fam === name;
+      return { name, on, bg: on ? '#000' : '#fff', fg: on ? '#fff' : '#000', pick: () => this.setState({ fam: name }) };
+    });
+
+    const rows = T.map((t, i) => ({ t, i }))
+      .filter(({ t }) => (S.letter ? t.name[0].toUpperCase() === S.letter : true) && (S.fam === 'All' || t.fam === S.fam))
+      .map(({ t, i }, n) => ({
+        name: t.name, acr: t.acr, gloss: t.gloss, fam: t.fam, src: t.src,
+        on: S.sel === i,
+        bg: S.sel === i ? teal : (n % 2 ? '#fafafa' : '#fff'),
+        pick: () => this.setState({ sel: i })
+      }));
+
+    const e = T[S.sel] || T[0];
+    const parts = [
+      ['certified', 'The table passed review and holds an unexpired certificate. Without it the window is an intention, not a commitment.'],
+      ['freshness', 'The measurement is the age of the newest row, not the age of the pipeline run and not the volume of rows written.'],
+      ['window', 'The number is a ceiling rather than a target. Being well inside it earns nothing; crossing it opens an incident.']
+    ].map((p, i) => ({ word: p[0], means: p[1], bg: '#fff' }));
+
+    const rules = [
+      ['R29.1', 'A term is defined once.', 'The glossary holds the definition and every other page links to it. A page that restates a definition creates a second one that will drift.'],
+      ['R29.2', 'The definition is one sentence and does not contain the term.', 'Qualification, examples and history follow it; a definition that needs a second sentence is two terms wearing one name.'],
+      ['R29.3', 'An acronym is expanded on first use, then used bare.', 'The expansion carries the link and the parenthesised acronym is mono at identifier size. Nothing is expanded twice on one page.'],
+      ['R29.4', 'Synonyms resolve to one canonical term.', 'An alias appears in the index and points at the canonical entry. It never carries a definition of its own, and it is not counted in the term total.'],
+      ['R29.5', 'A disambiguation names what the term is not.', 'One sentence, carrying both links, placed where the confusion would bite. Two terms that merely sound alike do not earn one.'],
+      ['R29.6', 'Every entry carries its source count and last-aggregated date.', 'A term with no provenance is a draft and is held out of the index until it has some.']
+    ].map((r) => ({ id: r[0], head: r[1], body: r[2] }));
+
+    return {
+      termCount: T.length, shownCount: rows.length,
+      letters, fams, rows, parts, rules,
+      entryName: e.name, entryAcr: e.acr, entryFam: e.fam, entryDef: e.gloss, entryUse: e.use,
+      hasNot: !!e.not, entryNot: e.not,
+      entryAlso: e.also.length ? e.also : ['No recorded alias'],
+      entryRel: e.rel.map((i) => ({ name: T[i].name, pick: () => this.setState({ sel: i }) })),
+      entrySrc: e.src, entryAgree: e.agree, entryDate: e.date
+    };
+  }
+}
+</script>
+</body>
+</html>

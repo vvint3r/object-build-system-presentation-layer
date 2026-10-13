@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&amp;family=JetBrains+Mono:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#fafafa;color:#000;font-family:'Nunito',sans-serif}
+a{color:#000;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px}
+a:hover{background:rgba(29,233,182,.3)}
+::selection{background:rgba(29,233,182,.35)}
+button{font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;background:none;border:none;padding:0;margin:0;text-align:left;cursor:pointer}
+a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid #000;outline-offset:3px}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:#f1f1f1;border-radius:999px}
+::-webkit-scrollbar-thumb{background:rgba(0,0,0,.22);border-radius:999px}
+::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.45)}
+@media(max-width:800px){[data-wide]{min-width:760px!important}[data-twrap]{overflow-x:auto!important}}
+@media(max-width:640px){[data-stack]{grid-template-columns:1fr!important}}
+
+[data-nav-group] [data-nav-menu]{display:none}
+[data-nav-group]:hover [data-nav-menu],[data-nav-group]:focus-within [data-nav-menu]{display:block}
+</style>
+</helmet>
+
+<div style="position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid #ebebeb">
+<div style="max-width:1060px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:18px;row-gap:10px;flex-wrap:wrap">
+<span style="font-weight:900;font-size:16px;letter-spacing:.01em">content-morphia</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid #000;background:#fff">Selection</span>
+<nav aria-label="Design system" style="display:flex;align-items:center;gap:4px;row-gap:6px;flex-wrap:wrap"><div data-nav-group style="position:relative"><a href="content-morphia Foundations.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Foundations</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Foundations.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Foundations</a><a href="content-morphia Icons.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Icons</a><a href="content-morphia Print.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Print</a><a href="content-morphia Equivalents.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Non-visual equivalents</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Structured.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Components</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Structured.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Structured components</a><a href="content-morphia Prose.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Prose primitives</a><a href="content-morphia Wayfinding.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Wayfinding</a><a href="content-morphia Provenance.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Provenance</a><a href="content-morphia Charts.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Charts</a><a href="content-morphia Interaction.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Interaction</a><a href="content-morphia Learning.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Learning</a><a href="content-morphia Questions.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Questions and answers</a><a href="content-morphia Change.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Change and status</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Diagrams.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Diagrams</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Diagrams.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Diagram library</a><a href="content-morphia Diagrams at Scale.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Diagrams at scale</a><a href="content-morphia Diagrams II.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Technical families</a><a href="content-morphia Diagrams III.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Experience and magnitude</a><a href="content-morphia Diagrams IV.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Structure and notation</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Templates.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Templates</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Templates.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Template index</a><a href="content-morphia T1 Topic.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T1 Topic</a><a href="content-morphia T2 Framework.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T2 Framework</a><a href="content-morphia T3 Process.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T3 Process</a><a href="content-morphia T4 Guide.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T4 Guide</a><a href="content-morphia T5 Module.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T5 Module</a><a href="content-morphia T6 Metric.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T6 Metric</a><a href="content-morphia T7 Comparison.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T7 Comparison</a><a href="content-morphia T8 Roadmap.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T8 Roadmap</a><a href="content-morphia T9 Reference.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T9 Reference</a><a href="content-morphia T10 Glossary.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T10 Glossary</a><a href="content-morphia T11 Case study.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T11 Case study</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Composition.dc.html" aria-current="page" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:4px 9px;background:#fff;border:1px solid #000;box-shadow:2px 2px 0 #1de9b6">Composition</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Composition.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Composition</a><a href="content-morphia Anatomy.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Anatomy and primitives</a><span aria-current="page" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:700;background:#f1f1f1">Selection</span><a href="content-morphia Implementing.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Implementing</a><a href="content-morphia Exemplar.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Worked example</a></div></div></div></nav>
+</div>
+</div>
+
+<div style="background:#fafafa;border-bottom:1px solid #ebebeb">
+<div style="max-width:1060px;margin:0 auto;padding:11px 24px;display:flex;align-items:center;gap:10px;row-gap:8px;flex-wrap:wrap">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">On this page</span>
+<span style="width:1px;height:13px;background:#ebebeb"></span>
+<nav aria-label="Sections of this page" style="display:flex;align-items:center;gap:2px;row-gap:6px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase">
+<a href="#sec-vocab" onClick="{{ pick1 }}" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 01 Vocabulary</a>
+<a href="#sec-matrix" onClick="{{ pick2 }}" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 02 Selection matrix</a>
+<a href="#sec-gate" onClick="{{ pick3 }}" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 03 Pre-flight gate</a>
+</nav>
+</div>
+</div>
+
+<section style="max-width:1060px;margin:0 auto;padding:56px 24px 0">
+<div style="width:52px;height:5px;background:#1de9b6;border-radius:999px;margin-bottom:20px"></div>
+<h1 style="margin:0;font-weight:900;font-size:44px;line-height:1.06">Selection</h1>
+<div style="font-size:16px;font-weight:400;line-height:1.8;max-width:68ch;margin-top:14px;text-wrap:pretty">The three closed lists an implementer works from: which labels exist, which component the material calls for, and what must be true before the page ships. A label outside ss: 01 is not a label. A component chosen against ss: 02 is the wrong component even when it renders correctly. ss: 03 is run against finished output, not read before starting.</div>
+</section>
+
+<section id="sec-vocab" data-screen-label="ss: 01 Label vocabulary" style="max-width:1060px;margin:0 auto;padding:88px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 01</span><h2 style="margin:0;font-weight:900;font-size:28px">Label vocabulary</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Three closed lists. Eight callouts, six status chips, three requirement levels — seventeen labels, and no eighteenth. Do and Do not sit outside the count: they are paired-list markers, legal only in that shape. Each callout carries the nearest label it is not, because every wrong label in practice has been a near miss rather than a wild one. Fill intensity follows the tint rule: tint by default, one solid verdict per view.</div>
+
+<div data-twrap style="margin-top:24px;overflow-x:auto">
+<div data-wide style="min-width:880px;background:#fff;border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,.06);overflow:hidden">
+<div style="display:grid;grid-template-columns:132px 96px 1fr 1fr;background:#f1f1f1;border-bottom:1px solid #ebebeb;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">
+<span style="padding:15px 16px">Label</span><span style="padding:15px 16px">Fill</span><span style="padding:15px 16px">Use when</span><span style="padding:15px 16px">Not the one next to it</span>
+</div>
+<sc-for list="{{ callouts }}" as="c" hint-placeholder-count="8">
+<div style="{{ c.row }}">
+<span style="padding:16px;display:flex;align-items:flex-start"><span style="{{ c.chip }}">{{ c.label }}</span></span>
+<span style="padding:16px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.06em;text-transform:uppercase">{{ c.fill }}</span>
+<span style="padding:16px;font-size:14px;font-weight:400;line-height:1.65">{{ c.use }}</span>
+<span style="padding:16px;font-size:14px;font-weight:400;line-height:1.65">{{ c.not }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div data-stack style="display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:32px">
+<div>
+<h3 style="margin:0 0 10px;font-size:15px;font-weight:700;line-height:1.4">Status chips — six, in one order</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-bottom:14px">A surface carries at most one. A title block carries at most three chips of any kind; aliases past four collapse behind a disclosure.</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">
+<span style="padding:3px 10px;border-radius:999px;border:1px solid #000;background:#fff">Draft</span>
+<span style="padding:3px 10px;border-radius:999px;background:rgba(255,214,0,.3)">In review</span>
+<span style="padding:3px 10px;border-radius:999px;background:rgba(0,230,118,.2)">Approved</span>
+<span style="padding:3px 10px;border-radius:999px;background:#000;color:#fff">Published</span>
+<span style="padding:3px 10px;border-radius:999px;background:rgba(255,82,82,.16)">Deprecated</span>
+<span style="padding:3px 10px;border-radius:999px;background:#f1f1f1">Archived</span>
+</div>
+</div>
+<div>
+<h3 style="margin:0 0 10px;font-size:15px;font-weight:700;line-height:1.4">Requirement levels — three</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-bottom:14px">Applied to a field, a step or a condition. A requirement that is not one of these three is a status chip and belongs in the row above.</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">
+<span style="padding:3px 10px;border-radius:999px;background:#000;color:#fff">Required</span>
+<span style="padding:3px 10px;border-radius:999px;background:#1de9b6">Recommended</span>
+<span style="padding:3px 10px;border-radius:999px;border:1px solid #000;background:#fff">Optional</span>
+</div>
+</div>
+</div>
+
+<div style="margin-top:32px">
+<h3 style="margin:0 0 10px;font-size:15px;font-weight:700;line-height:1.4">Labels that are not in the vocabulary</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.75;max-width:70ch;margin-bottom:16px">Each of these has been written into a build. None of them is a new meaning; every one resolves to a label that already exists. Where a source document uses one of these words, keep the word in the prose and set the chip to its mapping.</div>
+<div data-stack style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+<sc-for list="{{ aliases }}" as="a" hint-placeholder-count="8">
+<div style="display:flex;align-items:baseline;gap:12px;padding:10px 0;border-top:1px dotted #d9d9d9">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;min-width:104px">{{ a.from }}</span>
+<span style="font-size:14px;font-weight:400;line-height:1.6">{{ a.to }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<section id="sec-matrix" data-screen-label="ss: 02 Selection matrix" style="max-width:1060px;margin:0 auto;padding:88px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 02</span><h2 style="margin:0;font-weight:900;font-size:28px">Component selection matrix</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Every shipped component, with the condition that selects it, the condition that disqualifies it, what it may contain and what it may not. Read the shape of the source material, never its subject: a page about a process does not earn a process diagram, material that is ordered steps does. Rows marked <span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:4px;background:rgba(255,214,0,.3)">Not built</span> name the substitute to use until they ship.</div>
+
+<div style="display:flex;align-items:center;gap:8px;row-gap:8px;flex-wrap:wrap;margin-top:20px">
+<sc-for list="{{ famChips }}" as="f" hint-placeholder-count="9">
+<button style="{{ f.style }}" aria-pressed="{{ f.on }}" onClick="{{ f.pick }}">{{ f.name }}</button>
+</sc-for>
+<span style="margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.06em;text-transform:uppercase">{{ matrixCount }}</span>
+</div>
+
+<div data-twrap style="margin-top:16px;overflow-x:auto">
+<div data-wide style="min-width:940px;background:#fff;border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,.06);overflow:hidden">
+<div style="display:grid;grid-template-columns:186px 1fr 1fr 1fr 1fr;background:#f1f1f1;border-bottom:1px solid #ebebeb;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">
+<span style="padding:15px 16px">Component</span><span style="padding:15px 16px">When</span><span style="padding:15px 16px">When not</span><span style="padding:15px 16px">What goes inside</span><span style="padding:15px 16px">What never does</span>
+</div>
+<sc-for list="{{ matrix }}" as="m" hint-placeholder-count="14">
+<div style="{{ m.row }}">
+<span style="padding:16px">
+<span style="display:block;font-size:14px;font-weight:700;line-height:1.4">{{ m.name }}</span>
+<span style="{{ m.whereStyle }}">{{ m.where }}</span>
+</span>
+<span style="padding:16px;font-size:14px;font-weight:400;line-height:1.6">{{ m.when }}</span>
+<span style="padding:16px;font-size:14px;font-weight:400;line-height:1.6">{{ m.not }}</span>
+<span style="padding:16px;font-size:14px;font-weight:400;line-height:1.6">{{ m.inside }}</span>
+<span style="padding:16px;font-size:14px;font-weight:400;line-height:1.6">{{ m.never }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div style="margin-top:24px;font-size:14px;font-weight:400;line-height:1.75;max-width:70ch;text-wrap:pretty">When more than one row fits, precedence decides: prose wins by default, then fewest new surfaces, then no empty fields, then items-or-relationships, then reuse over variety, then escalate once. The full order is on <a href="content-morphia Implementing.dc.html">Implementing ss: 06</a>.</div>
+</section>
+
+<section id="sec-gate" data-screen-label="ss: 03 Pre-flight gate" style="max-width:1060px;margin:0 auto;padding:88px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 03</span><h2 style="margin:0;font-weight:900;font-size:28px">Pre-flight gate</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Run against finished output, in order, counting before judging. Every item names a number or a boolean, so a pass is a fact rather than an opinion. A page that fails any item in passes one to three does not ship; passes four to six are corrected in place.</div>
+
+<div style="margin-top:24px;display:flex;align-items:center;gap:16px;row-gap:12px;flex-wrap:wrap">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">{{ gateDone }} of {{ gateTotal }} cleared</span>
+<div style="flex:1;min-width:180px;height:6px;background:#f1f1f1;border-radius:999px;overflow:hidden"><div style="{{ gateBar }}"></div></div>
+<button style="padding:6px 14px;border-radius:999px;border:1.5px solid #000;background:#fff;font-weight:700;font-size:14px" style-hover="box-shadow:2px 2px 0 rgba(0,0,0,.25);transform:translate(-1px,-1px)" onClick="{{ gateReset }}">Reset</button>
+</div>
+
+<div style="margin-top:28px;background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:26px">
+<h3 style="margin:0 0 6px;font-size:15px;font-weight:700;line-height:1.4">A cleared run</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.75;max-width:70ch">Measured on <a href="content-morphia Exemplar.dc.html">the reference build</a>, a method page carrying a formula, a table, a figure, a verdict and five failure patterns. These are the numbers a passing page produces; a page that cannot report them has not been run against.</div>
+<div data-stack style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:20px">
+<sc-for list="{{ runStats }}" as="s" hint-placeholder-count="8">
+<div>
+<div style="font-weight:900;font-size:24px;line-height:1.1">{{ s.v }}</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-top:6px">{{ s.k }}</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.06em;text-transform:uppercase;margin-top:3px">{{ s.lim }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div style="margin-top:28px;display:grid;row-gap:32px">
+<sc-for list="{{ passes }}" as="p" hint-placeholder-count="6">
+<div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">Pass {{ p.n }}</span>
+<h3 style="margin:0;font-size:15px;font-weight:700;line-height:1.4">{{ p.title }}</h3>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.06em;text-transform:uppercase;margin-left:auto">{{ p.count }}</span>
+</div>
+<div style="font-size:14px;font-weight:400;line-height:1.7;max-width:70ch;margin-top:6px">{{ p.blurb }}</div>
+<div style="margin-top:14px">
+<sc-for list="{{ p.items }}" as="it" hint-placeholder-count="5">
+<button style="{{ it.row }}" aria-pressed="{{ it.on }}" onClick="{{ it.toggle }}">
+<span style="{{ it.box }}">{{ it.tick }}</span>
+<span style="{{ it.text }}">{{ it.label }}</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;white-space:nowrap">{{ it.rule }}</span>
+</button>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section style="max-width:1060px;margin:0 auto;padding:88px 24px 100px">
+<div style="display:flex;align-items:center;gap:12px;row-gap:8px;flex-wrap:wrap;border-top:1px solid #ebebeb;padding-top:20px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase">
+<span style="font-weight:700">content-morphia</span>
+<span style="font-weight:400">Selection · vocabulary, matrix, gate</span>
+<a href="content-morphia Composition.dc.html" style="font-weight:700;margin-left:auto;text-decoration:none;border-bottom:1.5px solid #1de9b6;padding-bottom:1px">Composition</a>
+<a href="content-morphia Implementing.dc.html" style="font-weight:700;text-decoration:none;border-bottom:1.5px solid #1de9b6;padding-bottom:1px">Implementing</a>
+</div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1180,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  state = { nav: 1, fam: 'All', done: {} };
+
+  renderVals() {
+    const S = this.state;
+    const mono = "font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:4px;";
+    const zebra = (i) => 'display:grid;grid-template-columns:132px 96px 1fr 1fr;align-items:start;border-top:1px solid #ebebeb;' + '';
+
+    const CO = [
+      ['Note', 'Info tint', 'An aside the reader can skip without losing the thread of the section.', 'Not TIP — a note explains something, a tip changes what the reader does.', 'background:rgba(64,196,255,.22)'],
+      ['Tip', 'Accent chip', 'A faster or safer way to do the thing described immediately above.', 'Not NOTE — a tip is actionable, and it is never the only way to proceed.', 'background:#1de9b6'],
+      ['Important', 'Ink', 'A consequence the reader will hit if they skim past this passage.', 'Not WARNING — important is about the outcome, warning is about the action.', 'background:#000;color:#fff'],
+      ['Warning', 'Warn tint', 'An action that can lose data, cost money, or be hard to reverse.', 'Not LIMITATION — a warning is about what the reader may do next.', 'background:rgba(255,214,0,.3)'],
+      ['Requirement', 'Outline + id', 'A condition that must hold, traceable by a REQ number elsewhere.', 'Not IMPORTANT — a requirement is testable and carries an identifier.', 'background:#fff;border:1px solid #000'],
+      ['Example', 'Note tint', 'A worked instance of the rule or definition immediately above it.', 'Not TIP — an example demonstrates, it does not recommend.', 'background:rgba(179,136,255,.22)'],
+      ['Limitation', 'Crit tint', 'Something the described thing cannot do, stated so the reader stops looking for it.', 'Not WARNING — a limitation is about the system, not the reader.', 'background:rgba(255,82,82,.16)'],
+      ['Correction', 'Crit tint', 'A published statement that was wrong when it was published, corrected in place.', 'Not REVISED — a revision replaced material that was right at the time; only a correction carries a date.', 'background:rgba(255,82,82,.16)'],
+    ];
+    const callouts = CO.map((c, i) => ({
+      label: c[0], fill: c[1], use: c[2], not: c[3],
+      chip: mono + c[4], row: zebra(i)
+    }));
+
+    const aliases = [
+      ['Caution', 'WARNING when the reader can act on it, LIMITATION when they cannot.'],
+      ['Key point', 'Prose. If it is the point of the section, it is the first sentence.'],
+      ['Rule', 'REQUIREMENT with an id, or prose in a specification page.'],
+      ['Info', 'NOTE.'],
+      ['Pro tip', 'TIP.'],
+      ['Best practice', 'TIP, or RECOMMENDED as a requirement level on a step.'],
+      ['Gotcha', 'WARNING.'],
+      ['Remember', 'Prose. Repetition is the emphasis, not a chip.'],
+      ['Key takeaway', 'A corner-bracket sub-block at the end of the passage, not a callout.'],
+      ['Deprecated', 'The DEPRECATED status chip, on the surface it applies to.']
+    ].map((a) => ({ from: a[0], to: a[1] }));
+
+    const M = [
+      ['Containers', 'Content header', 'Every leaf page', 'Once at the top of every leaf page.', 'Mid-page as a section marker — that is a section header.', 'Breadcrumb ≤3 levels, title, one-line description, ≤3 status chips, actions.', 'A second title, a summary paragraph, or a fourth chip.'],
+      ['Containers', 'Section header', 'Every page ss: NN', 'A page divided into two or more numbered sections.', 'A page with one section — the content header already titles it.', 'Teal bar, ss: NN, title, intro ≤70ch.', 'A status chip, a semantic fill, or a container immediately after it.'],
+      ['Containers', 'One-surface module', 'Foundations ss: 12', 'Two or more sibling sections belonging to one subject.', 'Independent peers — those take separate surfaces.', 'Sections split by inset hairline dividers.', 'A nested card, or a second enclosure inside it.'],
+      ['Containers', 'Corner-bracket sub-block', 'Foundations ss: 12', 'A labelled part of a module that is not a peer of anything outside it.', 'Content that needs its own boundary — that is a peer, give it a surface.', 'A mono label and its content, on the parent surface.', 'A shadow, a fill, or an outline. Six per page is the ceiling.'],
+      ['Containers', 'Summary card', 'Foundations ss: 09', 'A standalone passage the reader may skip.', 'Sequential prose — it sits on the page.', 'A T3 title and up to four lines.', 'A nested card or a second title.'],
+      ['Containers', 'Key-concept card', 'Foundations ss: 09', 'A term that is referenced again later in the document.', 'A term used once — define it inline.', 'The term, a one-sentence definition.', 'A link list or a diagram.'],
+      ['Containers', 'Callout', 'Foundations ss: 08', 'An aside that deliberately interrupts the reading order.', 'The point of the paragraph — that is prose.', 'One label from ss: 01 and up to three lines.', 'A heading, a table, or a second callout adjacent to it.'],
+      ['Containers', 'Data table', 'Foundations ss: 11', 'Three or more rows compared on two or more fields.', 'Two rows — write the sentence.', 'Mono cells, zebra rows, status chips in cells.', 'A semantic fill as a column header, or a bolded whole row.'],
+      ['Containers', 'Figure', 'Foundations ss: 14', 'An image or drawn diagram carrying evidence.', 'Decoration, or a diagram the system can draw natively.', 'T3 title, one-line description above, mono provenance below.', 'An untitled image, or one with no stated source.'],
+      ['Containers', 'Code block', 'Foundations ss: 14', 'Two or more lines of code, or a full payload.', 'An identifier inside a sentence — that is a code chip.', 'Filename bar, language badge, ink body, weight-only emphasis.', 'Syntax hue, or a caption doing the work of a description.'],
+      ['Containers', 'Black display slab', 'Composition ss: 04', 'The one defining equation of a section.', 'Any other maths on the page — set it inline.', 'One equation, at least 24px of padding.', 'Prose, a heading, or a second equation.'],
+
+      ['Sequences', 'Stepper', 'Structured ss: 01', 'Ordered steps a reader performs.', 'An ordered list of facts — use the ordered list.', 'Step number, title, IN/OUT lines, role chip, decision gate.', 'A step with no actor, or nested sub-steps.'],
+      ['Sequences', 'Checklist', 'Foundations ss: 10', 'Steps the reader ticks off as they go.', 'Steps that must be read in order — use the stepper.', 'Task text and a progress track.', 'Sub-steps, or a task that cannot be completed in one action.'],
+      ['Sequences', 'Ordered list', 'Foundations ss: 10', 'Ordered facts with no action attached.', 'Unordered peers — use the bulleted list.', 'Mono 01/02 numerals and body text.', 'A container per item, or a divider between items.'],
+      ['Sequences', 'Phase timeline', 'Structured ss: 05', 'Events placed on a date axis.', 'Steps without dates — use the stepper.', 'Phase bars and date ticks.', 'A status per item without a legend.'],
+      ['Sequences', 'Roadmap board', 'T8 Roadmap', 'Items across periods by tracks.', 'A single track — use the timeline.', 'Period columns, track rows, one status per item, a legend.', 'A period column with nothing in it and no note saying why.'],
+
+      ['Sets', 'Comparison cards', 'Structured ss: 07', 'Two to four options read whole, one at a time.', 'Five or more options, or options compared field by field.', 'Profile, strengths, tradeoffs, best-for line.', 'A numeric score — that is a criteria table.'],
+      ['Sets', 'Criteria table', 'T7 Comparison', 'Options scored against shared criteria.', 'Options with no criteria in common.', 'One row per criterion, one recommended column with a wash and a star.', 'A criterion only one option has, or two recommended columns.'],
+      ['Sets', '2×2 matrix', 'Structured ss: 03', 'Items placed on two independent axes.', 'Items ranked on one axis — use a sorted table.', 'Both axis labels, items in quadrants.', 'A third dimension encoded as colour.'],
+      ['Sets', 'Set relations', 'Diagrams IV ss: 02', 'Up to three sets whose overlaps carry the meaning.', 'Sets that do not overlap — use a table.', 'Counts at region centroids, set names in the outer lobes, the outside population.', 'A fourth set, or a label placed inside a pair region.'],
+      ['Sets', 'Definition list', 'Foundations ss: 10', 'Terms with fixed meanings, read as a set.', 'One term — define it inline.', 'Term at 800 weight and its definition.', 'A link or a status chip per term.'],
+
+      ['Quantities', 'Metric hero', 'T6 Metric', 'The one number the page is about.', 'A supporting number — put it in a metric card.', 'Value, unit, trend chip, target, one chart.', 'A second hero, or a value with no comparison.'],
+      ['Quantities', 'Trend strip', 'T6 Metric', 'One series across up to sixteen periods.', 'Two unrelated series — split the charts.', 'Bars, baseline, dotted target, one semantic breach bar.', 'A hue per bar, or more than three series.'],
+      ['Quantities', 'Magnitude bars', 'Composition ss: 05', 'Ranked quantities on one shared scale.', 'Quantities measured on different scales.', '6px bar, row label at 700, value at the end.', 'A chip inside the bar row — provenance goes below the figure.'],
+      ['Quantities', 'Progress track', 'Structured ss: 06', 'Completion toward a stated whole.', 'An unbounded count — state the number.', 'Filled portion and an n-of-m readout.', 'A percentage with no denominator named.'],
+      ['Quantities', 'Multi-series trend', 'Charts ss: 02', 'Up to three populations of one measure over the same periods.', 'Three measures on different units — split the charts.', 'One fill per series, a drawn threshold, the axis range stated.', 'A second axis, a fourth series, or a hue.'],
+      ['Quantities', 'Distribution', 'Charts ss: 03', 'Where a population sits across a measured range.', 'A single summary figure — state the median in a sentence.', 'Up to twelve buckets, a marked median, a readout naming the selected bucket.', 'An average shown without its spread.'],
+      ['Quantities', 'Share bar', 'Charts ss: 03', 'One stated total divided into up to five parts.', 'Parts that do not sum to the total.', 'Segments by fill, the total, each part with its count and percent.', 'A pie, a donut, or a share with no denominator.'],
+      ['Quantities', 'Chart empty state', 'Charts ss: 04', 'A chart whose data is absent, thin, suppressed or partial.', 'A chart with data — draw it.', 'Axis, baseline, the condition named, and what resolves it.', 'A blank panel, or a chart drawn at zero.'],
+      ['Quantities', 'Magnitude flow', 'Diagrams III ss: 03', 'A flow that conserves one total across columns.', 'Flows that do not sum to a common total.', 'Proportional bands, the scale in the legend, column totals.', 'A column that does not sum, or a second scale.'],
+
+      ['Learning', 'Learning objectives', 'Structured ss: 09', 'What the reader will be able to do after the module.', 'A list of topics covered — that is an outline.', 'Verb-first lines with a Bloom chip.', 'An objective with no verb, or one the module does not test.'],
+      ['Learning', 'Knowledge check · single choice', 'Structured ss: 09', 'One question with exactly one right answer.', 'An answer that is a set — use multi-select.', 'Question, options, feedback, retry.', 'More than one question on one surface.'],
+      ['Learning', 'Knowledge check · multi-select', 'Learning ss: 01', 'The answer is a set, and the reader is told its size.', 'One right answer — use single choice.', 'Options, the count of correct ones, and correct/missed/wrong marks on reveal.', 'A partial score, or an unstated set size.'],
+      ['Learning', 'Knowledge check · true or false', 'Learning ss: 01', 'A claim of one clause, right or wrong.', 'A claim with two clauses — split it or use single choice.', 'The claim, two pills, the verdict and why.', 'A second clause, which makes the answer ambiguous.'],
+      ['Learning', 'Reflection prompt', 'Learning ss: 01', 'A question with no single right answer.', 'Anything that gates progress — a reflection never does.', 'The prompt, a free field, and a reference answer on request.', 'A score, a report, or a gate.'],
+      ['Learning', 'Learning progress', 'T5 Module', 'Position within a multi-lesson path.', 'A single page with no path around it.', 'Done, current and remaining lessons, with a resume point.', 'A percentage with no lesson names behind it.'],
+      ['Learning', 'Comprehension summary', 'Learning ss: 02', 'Closing a module of four sections or more.', 'A short page — the objectives block already covers it.', 'Objectives in the completed tense, where covered, how assessed, and the boundary.', 'Material that appears nowhere above it.'],
+
+      ['Structures', 'Pillar framework', 'Structured ss: 03', 'Parallel components standing on a shared base.', 'Components in sequence — use the sequential variant.', 'Up to five pillars and one base.', 'A sixth pillar, or a pillar with no base.'],
+      ['Structures', 'Layered framework', 'Structured ss: 03', 'Layers where vertical order is the argument.', 'Layers that interact in both directions — use topology.', 'Layers, no edges, one cross-cutting column.', 'An arrow between two layers.'],
+      ['Structures', 'Sequential framework', 'Structured ss: 03', 'Stages that must run in order, once.', 'Stages that repeat — use the cyclical variant.', 'Stage chips with one marked current.', 'A loop drawn back to the first stage.'],
+      ['Structures', 'Cyclical framework', 'Learning ss: 03', 'Stages that repeat on a stated cadence.', 'A sequence that runs once — use the sequential framework.', 'Stages on a line, the return drawn beneath, the cadence named.', 'A ring, or a cycle with no cadence.'],
+      ['Structures', 'Model', 'Learning ss: 04', 'A named abstraction the reader applies elsewhere.', 'A one-off arrangement of this page\u2019s content — that is a diagram.', 'Schematic, parts, the relationship binding them, and the limit.', 'A model with no stated limit, which is a diagram with a name on it.'],
+      ['Structures', 'Taxonomy tree', 'Diagrams ss: 08', 'A strict hierarchy the reader browses.', 'A network with cross-links — use a concept map.', 'Expandable nodes and one selection.', 'A cross-link between branches.'],
+      ['Structures', 'Concept map', 'Diagrams ss: 07', 'Relationships between ideas with no hierarchy.', 'A hierarchy — use the tree.', 'Nodes, typed edges, click-to-inspect.', 'More than 24 nodes in one view.'],
+      ['Structures', 'Entity relationship', 'Diagrams II ss: 02', 'Entities with fields and cardinality.', 'Entities without fields — use a concept map.', 'Field tables, PK/FK chips, cardinality at both ends.', 'Crow\u2019s-foot notation.'],
+      ['Structures', 'Mind map', 'Diagrams IV ss: 01', 'A decomposition of one subject.', 'Anything with direction — that is a flow.', 'Balanced branches, horizontal labels, undirected edges.', 'An arrowhead, or a rotated label.'],
+
+      ['Diagrams', 'Process flow', 'Diagrams ss: 02', 'Ordered steps with a decision or a loop.', 'Steps without branching — use the stepper.', 'Steps, one decision diamond, one loop, one emphasized node.', 'A second emphasized node, or a connector touching a node.'],
+      ['Diagrams', 'User flow', 'Diagrams ss: 03', 'Screens and the actions between them.', 'A backend process — use system flow.', 'Screens, action-labelled edges, merges.', 'A system component or a data store.'],
+      ['Diagrams', 'Data flow diagram', 'Diagrams ss: 04', 'Processes, stores and external entities at one level.', 'A call sequence — use the sequence diagram.', 'Numbered processes, stores, entities, level tabs.', 'Two levels mixed in one view.'],
+      ['Diagrams', 'Decision tree', 'Diagrams ss: 05', 'A question path with an outcome at every leaf.', 'A single question — use a callout.', 'Questions, YES/NO branches, one outcome per leaf.', 'A branch that ends without an outcome.'],
+      ['Diagrams', 'Sequence', 'Diagrams II ss: 01', 'Messages between participants over time.', 'An interaction with no ordering.', 'Lifelines, call and return, numbered messages.', 'A loop drawn over a lifeline.'],
+      ['Diagrams', 'State machine', 'Diagrams II ss: 03', 'States and the events that change them.', 'Steps in a process — use process flow.', 'Initial dot, terminal double border, dashed reversals.', 'A state with no exit transition.'],
+      ['Diagrams', 'Deployment topology', 'Diagrams II ss: 04', 'Components inside trust boundaries.', 'A layered stack — use the layered framework.', 'Zones drawn first, a port on every boundary crossing.', 'An unlabelled boundary.'],
+      ['Diagrams', 'Journey map', 'Diagrams III ss: 01', 'One person\u2019s arc across phases.', 'A service\u2019s internals — use the blueprint.', 'Phases by lanes, sentiment as position on a labelled axis.', 'A face glyph, or emotion encoded as colour.'],
+      ['Diagrams', 'Service blueprint', 'Diagrams III ss: 02', 'The front and back stage of one service.', 'A single actor — use the journey map.', 'Three labelled boundary lines and borderless cells.', 'An unlabelled line, or a tile on top of a boundary.'],
+      ['Diagrams', 'Cause and effect', 'Diagrams IV ss: 03', 'Causes converging on one effect.', 'A process — use process flow.', 'Up to six categories, horizontal labels, one emphasized effect.', 'A bone with no cause attached.'],
+      ['Diagrams', 'Process notation', 'Diagrams IV ss: 04', 'A notation an outside reader must recognise.', 'An internal explanation — use process flow.', 'Six symbols and a toggleable legend.', 'A semantic fill on a notation symbol.'],
+      ['Diagrams', 'Ad-hoc diagram', 'Composition ss: 05', 'Material fitting a ladder, two columns with one join, or a decision gate.', 'Anything else — it becomes a table.', 'Nodes sized to text, arrows on layout axes.', 'Absolute positioning, or a fourth layout.'],
+
+      ['Wayfinding', 'Breadcrumb', 'Templates ss: 03', 'A page two or more levels deep.', 'A top-level page.', 'Up to three levels, current marked aria-current.', 'A fourth level, or a truncated middle.'],
+      ['Wayfinding', 'TOC rail', 'T2 Framework', 'A page with four or more sections and a reading column.', 'Fewer than four sections, or a full-width page.', 'ss: NN anchors, at most 260px wide and 60vh tall.', 'Nested sub-anchors, or a rail that outgrows the viewport.'],
+      ['Wayfinding', 'Anchor pills', 'T8 Roadmap', 'A full-width page with four or more sections.', 'A page that already carries a rail.', 'Horizontal ss: NN pills, current underlined.', 'More than eight pills.'],
+      ['Wayfinding', 'Pager', 'Templates ss: 03', 'The end of every leaf page.', 'A hub page.', 'Previous and next, named.', 'A link to the hub in place of a sibling.'],
+      ['Wayfinding', 'Related strip', 'T1 Topic', 'The end of a leaf page, after the pager content.', 'Mid-page, where it interrupts the argument.', 'Three key-concept cards, each naming its relationship.', 'More than three, or a card with no relationship named.'],
+      ['Wayfinding', 'Search', 'Wayfinding ss: 01', 'An index too deep to browse to a known node.', 'A set of under twenty nodes — use faceted browse.', 'Scope select, result rows stating type, path and source count, an empty state naming the nearest facets.', 'A result without an aggregation state, or a page-level hit.'],
+      ['Wayfinding', 'Faceted browse', 'Wayfinding ss: 02', 'Nodes filtered on facts about them — type, state, depth.', 'Filtering by topic — that is the index itself.', 'Up to three groups, counts recomputed against the other groups, removable filter pills above the results.', 'A zero-count value removed, or a facet that is a subject.'],
+      ['Wayfinding', 'Ranked entry', 'Wayfinding ss: 03', 'A reader with no target node, entering the index cold.', 'A page that already states where to start.', 'A mono ordinal column, a named window, magnitude bars at 6px, absolute dates.', 'A NEW flag, a rank badge, or a window left unnamed.'],
+      ['Wayfinding', 'Version selector', 'Wayfinding ss: 04', 'A node whose earlier aggregations stay reachable.', 'A node aggregated once — state the first-aggregation date instead.', 'Current version with its date, the version it compares against, superseded versions in the list.', 'A version rendered as a status chip.'],
+      ['Wayfinding', 'Diff block', 'Wayfinding ss: 04', 'What changed between two aggregations of one node.', 'A changelog across many nodes — that is release notes, which this is.', 'Three kinds as tints — added, removed, revised — each anchored to a section reference.', 'A fourth kind, or a change described by how it looked.'],
+
+      ['Provenance', 'Aggregation header', 'Provenance ss: 01', 'The opening of every context node.', 'A node that aggregates nothing.', 'Four facts in fixed order: source count, last aggregated, cadence, next due.', 'A rounded source count, or staleness stated without its dates.'],
+      ['Provenance', 'Agreement and spread', 'Provenance ss: 02', 'A claim where sources both take positions and quantify them.', 'A single source, or a claim no source disputes.', 'A three-segment agreement bar, an IQR strip over the sources that quantify, the no-position count.', 'Agreement shown without spread, or a label inside a data mark.'],
+      ['Provenance', 'Confidence qualifier', 'Provenance ss: 03', 'A claim carrying enough evidence to grade.', 'A whole page — confidence attaches to a claim.', 'The level, and all three thresholds with the values that met them.', 'An asserted level, or a level held when a threshold fails.'],
+      ['Provenance', 'Citation marker', 'Provenance ss: 04', 'A sentence resting on a countable set of sources.', 'A sentence resting on one source — name it inline.', 'The count in the marker, and a panel characterising the set by type, recency and discards.', 'A marker without its count, or a separate library page.'],
+
+      ['Interaction', 'Disclosure', 'Interaction ss: 01', 'Two or more skippable peer sections on one surface.', 'A sequence, or anything a later section depends on.', 'A marker, a T3 heading, and the contents fact in mono.', 'A teaser header, or a folded step in a numbered process.'],
+      ['Interaction', 'Sort control', 'Interaction ss: 02', 'A table of five or more rows with a comparable column.', 'A table whose order is itself the content.', 'One active key, a teal underline on its column, the direction in words.', 'Two sorts at once, or a direction shown by a mark alone.'],
+      ['Interaction', 'Table filter', 'Interaction ss: 02', 'A register the reader narrows by a fact about the rows.', 'Narrowing by topic — that is faceted browse.', 'Controls above the table, every filter named, count against the whole.', 'A filter inside the header row, or an empty result with no way back.'],
+      ['Interaction', 'Overview and detail', 'Interaction ss: 03', 'One node with three or more attached nodes read at length.', 'Two attachments — show both.', 'A marked selection, and a detail peer surface naming it again.', 'An overlay over the overview, or a detail with no path line.'],
+      ['Interaction', 'Definition panel', 'Interaction ss: 04', 'A term of art with a node of its own, used mid-sentence.', 'A term used once — define it inline.', 'One sentence, the source count, one link to the node.', 'Two paragraphs, or a second interactive inside the panel.'],
+      ['Interaction', 'Recently viewed', 'Interaction ss: 05', 'A reader returning to an index that re-aggregates.', 'A first visit, or a session with no history.', 'Up to five rows, newest first, each with its delta since the visit.', 'A row without a delta, or an uncapped list.'],
+      ['Prose', 'Quotation', 'Prose ss: 01', 'Words this document did not write, worth reproducing verbatim.', 'A paraphrase, or a claim you are asserting yourself \u2014 that is prose with a citation marker.', 'One to three sentences, a corner bracket, and a mono attribution naming source and date.', 'A fill, an outline, or an attribution that names no date.'],
+      ['Prose', 'Pull quote', 'Prose ss: 01', 'A long passage whose single load-bearing sentence a scanning reader would miss.', 'A passage under 300 words, or a sentence that is not already in it.', 'One verbatim sentence from the passage, Nunito 800 at 21px, 24 characters a line, under a teal bar.', 'New content, quotation marks, an attribution, or more than one per section.'],
+      ['Prose', 'Citation marker', 'Prose ss: 02', 'A number or assertion whose evidence a reader may want to check in place.', 'A whole paragraph of aggregated material \u2014 that takes the aggregation header instead.', 'The source count in mono with a teal underline, opening the source panel where it stands.', 'A sequence number, a marker at the end of a paragraph, or a bare superscript with no count.'],
+      ['Prose', 'Footnote', 'Prose ss: 02', 'An aside that qualifies a sentence and would derail it if inlined.', 'Evidence \u2014 that is a citation marker. Anything a reader must read to follow the argument.', 'A bracketed ordinal, resolving in a notes block at the end of its own section.', 'More than three in one section, or a note the passage depends on.'],
+      ['Prose', 'Ranked list', 'Prose ss: 03', 'Items whose order is itself the finding.', 'Items in an arbitrary or alphabetical order \u2014 that is a plain list.', 'Ordinal in its own column at identifier size, a title, one sentence, and the population it was ranked over.', 'A badge, a semantic fill, or a ranking with no stated window.'],
+      ['Prose', 'Paired list', 'Prose ss: 03', 'Guidance where every recommendation has a named opposite.', 'Advice with no counterpart, or a comparison of two options \u2014 that is the comparison table.', 'Two equal-length columns under the Do and Do not labels, filled square against hollow square.', 'Unequal columns, semantic fills, or a third column.'],
+      ['Questions', 'Question-answer pair', 'Questions ss: 01', 'A question readers actually asked, whose answer is short enough to resolve in a paragraph.', 'A question invented to introduce a topic \u2014 that is a heading.', 'Question at 17px/800 in the reader\u2019s words; answer resolving in its first sentence.', 'A heading above the question, or an answer that opens with history.'],
+      ['Questions', 'FAQ list', 'Questions ss: 02', 'Five or more asked questions on one subject, each answerable in a paragraph.', 'Questions whose answers need a section each \u2014 those are topics with a jump list.', 'Collapsed rows on one surface, ordered by ask frequency, with the count and period below.', 'Open on arrival, or ordered logically rather than by frequency.'],
+      ['Questions', 'Said and actual', 'Questions ss: 03', 'A belief readers hold that the documentation has to correct.', 'A simple fact with no counter-belief attached.', 'One row, two halves: the claim as people say it, the correction beside it in 700.', 'Two separate lists of myths and facts, or a claim written to mock the reader.'],
+      ['Questions', 'Confusion table', 'Questions ss: 04', 'Two defined terms readers swap, where one question tells them apart.', 'A pair with no separating test \u2014 the glossary already carries both definitions.', 'Three columns: the term, what it gets read as, and the question that separates them.', 'A row without a test column.'],
+      ['Glossary', 'Glossary index', 'T10 ss: 01', 'A vocabulary of ten or more load-bearing terms used across several pages.', 'Fewer than ten terms \u2014 define them inline where they first appear.', 'One row per canonical term: term, one-line gloss, family, source count. Filterable by initial and family.', 'An alias row counted in the term total, or a gloss that runs past one line.'],
+      ['Glossary', 'Term entry', 'T10 ss: 02', 'A term whose exact meaning other pages depend on.', 'A term used on one page only \u2014 that is a definition panel.', 'Definition sentence first, then usage, disambiguation, aliases, related terms, provenance.', 'History, motivation or an example before the definition.'],
+      ['Glossary', 'Compound-term breakdown', 'T10 ss: 03', 'A term of three or more words whose parts each already mean something.', 'A two-word term whose meaning is the sum of its words.', 'One row per part, mono identifier plus what that part contributes, in reading order.', 'A separate entry for each part of the phrase.'],
+      ['Glossary', 'Acronym first use', 'T10 ss: 04', 'An acronym a reader may not hold, on the page where it first appears.', 'The second and later uses on the same page.', 'Expansion carrying the link, then the acronym in mono at identifier size in parentheses.', 'Expanding the same acronym twice on one page.'],
+      ['Glossary', 'Disambiguation line', 'T10 ss: 04', 'Two defined terms a reader could plausibly swap.', 'Two terms that merely sound similar.', 'One sentence carrying both links, at the point the confusion would bite.', 'A disambiguation block at the top of the page, away from the confusion.'],
+      ['Prose', 'Nested list', 'Prose ss: 03', 'Items that contain other items, one level deep.', 'A sequence of steps, or anything three levels deep \u2014 that is a table.', 'Parent at 14px/700 with a black square, children at 13.5px/400 with a short rule, indented 21px.', 'A teal bullet at either level, or a third level.'],
+      ['Change', 'State notice', 'Change ss: 01', 'A node in any state other than published.', 'A published node \u2014 the absence of a notice is the signal.', 'One chip from the closed six, one sentence, and the successor or served version named.', 'A second notice, a filled banner, or a state invented outside the six.'],
+      ['Change', 'Index change log', 'Change ss: 02', 'Changes across many nodes, for a reader returning after a gap.', 'One node\u2019s own history \u2014 that is the version selector and its diff.', 'Absolute date, kind chip, node name, one sentence per row.', 'Presentation-only edits, or a relative date.'],
+      ['Change', 'Correction notice', 'Change ss: 03', 'A published statement that was wrong when it was published.', 'A statement that was right and has since been overtaken \u2014 that is a revision.', 'What was said, what is true, how long the wrong figure was live, what depended on it.', 'A silent overwrite, or the date of the error in place of the date of the correction.'],
+      ['Change', 'Limitation register', 'Change ss: 04', 'A node carrying four or more known limits.', 'One or two limits \u2014 those are callouts, placed where the reader expects the answer.', 'The limit, its reason, and a date or no date.', 'Under investigation, or a limit with no reason.'],
+      ['Case study', 'Proof node', 'T11 Case study', 'One documented instance a method node needs as evidence.', 'A method, a process or a comparison \u2014 those are their own templates.', 'The claim, scope and period, before and after, the intervention dated, what did not work.', 'A result with no losses in it, or a claim the method node does not cite back.'],
+      ['Case study', 'Before and after', 'T11 ss: 02', 'Two periods of the same measure either side of one change.', 'A series over time \u2014 that is a trend chart.', 'Same definition both sides, both windows stated, every value beside its own bar, direction as a word.', 'A shared axis across different units, or a chip inside a bar row.'],
+      ['Case study', 'Confound statement', 'T11 ss: 02', 'Anything else that changed inside the measured period.', 'A limitation of the system \u2014 that is the LIMITATION callout.', 'What changed, when, and which measure it plausibly moved.', 'A general caveat at the foot of the page, unattached to a measure.'],
+      ['Case study', 'Practitioner note', 'T11 ss: 03', 'A judgement, cost or surprise the measures cannot carry.', 'Praise, or a restatement of the passage above \u2014 neither is evidence.', 'Verbatim words, role and date, bound to the passage it belongs to.', 'A testimonial, an anonymous quote, or a company name in place of a role.'],
+    ].map((r) => ({ fam: r[0], name: r[1], where: r[2], when: r[3], not: r[4], inside: r[5], never: r[6] }));
+
+    const fams = ['All', 'Containers', 'Sequences', 'Sets', 'Quantities', 'Prose', 'Learning', 'Structures', 'Diagrams', 'Wayfinding', 'Provenance', 'Interaction', 'Questions', 'Glossary', 'Change', 'Case study'];
+    const chipBase = "font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 12px;border-radius:999px;";
+    const famChips = fams.map((f) => ({
+      name: f, on: S.fam === f,
+      style: chipBase + (S.fam === f ? 'background:#fff;border:1px solid #000;box-shadow:2px 2px 0 #1de9b6' : 'background:#f1f1f1'),
+      pick: () => this.setState({ fam: f })
+    }));
+
+    const whereBase = "display:inline-block;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.06em;text-transform:uppercase;margin-top:5px;";
+    const shown = M.filter((m) => S.fam === 'All' || m.fam === S.fam);
+    const matrix = shown.map((m, i) => Object.assign({}, m, {
+      row: 'display:grid;grid-template-columns:186px 1fr 1fr 1fr 1fr;align-items:start;border-top:1px solid #ebebeb;' + '',
+      whereStyle: whereBase + (m.where.indexOf('Not built') === 0
+        ? 'font-weight:700;padding:2px 7px;border-radius:4px;background:rgba(255,214,0,.3)'
+        : '')
+    }));
+
+    const P = [
+      [1, 'Count it', 'Nothing here needs judgement. Count, compare against the ceiling, stop at the first breach.', [
+        ['Sections per page ≤ 8', 'R18.8'],
+        ['Surface clusters per section ≤ 2', 'R18.8'],
+        ['Untagged reserved teal offsets in the view ≤ 1', 'Rule 5'],
+        ['Solid semantic fills in the view ≤ 1', 'R19.1'],
+        ['Black display slabs per section ≤ 1', 'R19.4'],
+        ['Corner-bracket sub-blocks per page ≤ 6', 'R18.8'],
+        ['Dotted dividers per section ≤ 2', 'R18.8'],
+        ['Charts per section ≤ 1 · tables per section ≤ 1', 'R18.8']
+      ]],
+      [2, 'Tokens', 'Mechanical. Every value below is either in the set or it is not.', [
+        ['Zero grey text · zero teal text — sanctioned glyph bullets exempt', 'Rules 1, 2'],
+        ['Radii in {4, 6, 8, 12, 14, 999} plus 2–3px bar caps', 'Rule 8'],
+        ['Mono labels ≥ 9.5px · ticks ≥ 9px · nothing below 9px', 'Rule 3'],
+        ['Structural spacing from 16/20/24/28/32/48/88/96, plus 26 for primary padding', 'Rule 9'],
+        ['Component spacing from 2/3/4/6/8/9/10/12/14', 'Rule 9'],
+        ['Teal washes in {.12, .25, .3}, selection .35', 'Rule 2']
+      ]],
+      [3, 'Depth', 'The one rule that authoring by append reliably breaks, because the violation only appears once a wrapper and its children are written in different passes.', [
+        ['No shadowed element contains another shadowed element', 'Rule 5'],
+        ['A container of lifted children carries a 1px dashed #d9d9d9 frame, never its own shadow', 'Rule 5'],
+        ['No element carries a blurred shadow and a border at once', 'Rule 5'],
+        ['No two S2 peers sit side by side — a peer grid is S1', 'Rule 5'],
+        ['Hairline and soft shadow never appear on the same surface', 'Rule 5']
+      ]],
+      [4, 'Hierarchy and labels', 'Read every container heading and every chip once, in order.', [
+        ['Every container, card, callout, figure and table carries a T3 title at 700/15', 'R19.2'],
+        ['No mono label is a container\u2019s only heading', 'R19.2'],
+        ['Every callout label is one of the eight in ss: 01', 'R19.1'],
+        ['No semantic fill serves as a heading or a column header', 'R19.1'],
+        ['Title blocks carry at most three status chips', 'R19.1'],
+        ['One marker per link — underline or arrow prefix, never both', 'R19.5'],
+        ['Teal bullets only in a peer list of five or fewer at body size', 'R19.6'],
+        ['Quarter-document boundaries take the part-transition tier, not a label', 'R19.3']
+      ]],
+      [5, 'Composition', 'Walk the page top to bottom and ask, at each container, why it is a container.', [
+        ['Every container is a compared peer, a skippable aside, or an interactive surface', 'R19.7'],
+        ['No container is a container\u2019s first child, and no two container levels nest', 'R19.7'],
+        ['No heading is followed immediately by a container group', 'R19.8'],
+        ['Dividers appear only between siblings sharing one surface', 'R19.9'],
+        ['Every figure carries a title, a one-line description above, provenance below', 'R19.11'],
+        ['Every ad-hoc diagram is a ladder, two columns with one join, or a decision gate', 'R19.10'],
+        ['The most important structure is third in the section, not nineteenth', 'R18.11']
+      ]],
+      [6, 'Chrome and access', 'Last, because none of it is visible until the rest is right.', [
+        ['Every interactive is a real element, pill-shaped, with the 2px focus ring', 'Rule 11'],
+        ['h1 masthead · h2 sections · aria-current on the breadcrumb', 'Rule 11'],
+        ['Nav rows one and two match every other page; anchors take scroll-margin-top:78px', 'Rule 17'],
+        ['Scrollbar reset declared in the helmet; sticky rail ≤260px and ≤60vh', 'R19.11'],
+        ['Checked at 1150, 800 and 640', 'Rule 12']
+      ]]
+    ];
+
+    const BLURB = [
+      'Nothing here needs judgement. Count, compare against the ceiling, stop at the first breach.',
+      'Mechanical. Every value below is either in the set or it is not.',
+      'The one rule that authoring by append reliably breaks: the violation only appears once a wrapper and its children are written in different passes.',
+      'Read every container heading and every chip once, in order.',
+      'Walk the page top to bottom and ask, at each container, why it is a container.',
+      'Last, because none of it is visible until the rest is right.'
+    ];
+    let idx = 0;
+    const passes = P.map((p) => {
+      const items = p[3].map((it) => {
+        const key = 'k' + (idx++);
+        const on = !!S.done[key];
+        return {
+          label: it[0], rule: it[1], on, tick: on ? '✓' : '',
+          toggle: () => this.setState((st) => ({ done: Object.assign({}, st.done, { [key]: !st.done[key] }) })),
+          row: 'display:grid;grid-template-columns:18px 1fr auto;gap:12px;align-items:start;width:100%;padding:10px 0;border-top:1px dotted #d9d9d9',
+          box: 'width:18px;height:18px;box-sizing:border-box;border-radius:4px;display:flex;align-items:center;justify-content:center;line-height:1;font-size:14px;font-weight:900;margin-top:2px;background:' + (on ? '#1de9b6' : '#fff') + ';border:1.5px solid #000',
+          text: 'font-size:14px;line-height:1.6;' + (on ? 'font-weight:300' : 'font-weight:400')
+        };
+      });
+      const n = items.filter((i) => i.on).length;
+      return { n: String(p[0]).padStart(2, '0'), title: p[1], blurb: BLURB[p[0] - 1], items, count: n + ' / ' + items.length };
+    });
+
+    const total = passes.reduce((a, p) => a + p.items.length, 0);
+    const doneN = passes.reduce((a, p) => a + p.items.filter((i) => i.on).length, 0);
+    const teal = '#1de9b6', off = 'transparent';
+
+    const runStats = [
+      ['6', 'Sections', 'ceiling 8'],
+      ['1', 'Clusters per section', 'ceiling 2'],
+      ['1', 'Reserved teal offset', 'ceiling 1'],
+      ['1', 'Solid semantic fill', 'ceiling 1'],
+      ['1', 'Black slab per section', 'ceiling 1'],
+      ['0', 'Depth-nesting breaches', 'must be 0'],
+      ['0', 'Grey or teal text', 'must be 0'],
+      ['0', 'Type below 9.5px', 'must be 0']
+    ].map((r) => ({ v: r[0], k: r[1], lim: r[2] }));
+
+    return {
+      runStats, callouts, aliases, famChips, matrix,
+      matrixCount: shown.length + ' of ' + M.length + ' components',
+      passes, gateTotal: total, gateDone: doneN,
+      gateBar: 'height:100%;border-radius:999px;background:#000;width:' + (total ? Math.round((doneN / total) * 100) : 0) + '%',
+      gateReset: () => this.setState({ done: {} }),
+      navA1: S.nav === 1 ? teal : off, navA2: S.nav === 2 ? teal : off, navA3: S.nav === 3 ? teal : off,
+      pick1: () => this.setState({ nav: 1 }), pick2: () => this.setState({ nav: 2 }), pick3: () => this.setState({ nav: 3 })
+    };
+  }
+}
+</script>
+</body>
+</html>

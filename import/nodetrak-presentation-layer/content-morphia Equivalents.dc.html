@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&amp;family=JetBrains+Mono:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#fff;color:#000;font-family:'Nunito',sans-serif}
+a{color:#000;text-decoration:underline;text-decoration-color:#1bbd94;text-decoration-thickness:1.5px;text-underline-offset:3px}
+a:hover{background:rgba(27,189,148,.3)}
+::selection{background:rgba(27,189,148,.35)}
+button{font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;background:none;border:none;padding:0;margin:0;text-align:left;cursor:pointer}
+input,select{font:inherit;color:inherit}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px solid #000;outline-offset:3px}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:#f1f1f1;border-radius:999px}
+::-webkit-scrollbar-thumb{background:rgba(0,0,0,.22);border-radius:999px}
+::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.45)}
+@media(max-width:800px){[data-wide]{min-width:620px!important}[data-twrap]{overflow-x:auto!important}}
+@media(max-width:640px){[data-stack]{grid-template-columns:1fr!important}}
+
+[data-nav-group] [data-nav-menu]{display:none}
+[data-nav-group]:hover [data-nav-menu],[data-nav-group]:focus-within [data-nav-menu]{display:block}
+</style>
+</helmet>
+
+<dc-import name="cm-nav" page="Equivalents.dc.html" chip="Equivalents" hint-size="100%,58px"></dc-import>
+
+<dc-import name="cm-toc" items='[["#e1","ss: 01 Three forms"],["#e2","ss: 02 Description"],["#e3","ss: 03 The table"],["#e4","ss: 04 Rules"]]' hint-size="100%,44px"></dc-import>
+
+<dc-import name="cm-mast" title="Non-visual equivalents" hint-size="100%,240px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:14px;text-wrap:pretty">Nothing in this system is reachable only by looking at it. Every diagram, chart and canvas carries one equivalent that states the same facts in words or rows, and which one it carries is settled by what the visual encodes.</div>
+</dc-import>
+
+<dc-import name="cm-section" n="1" id="e1" title="One equivalent per visual" label="ss: 01 Three forms" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">There are three forms and no fourth. The form follows what the visual encodes — structure, values, or a population too large to describe — never how large the visual is or how long it took to draw.</div>
+
+<div style="margin-top:24px;background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:28px">
+<div data-twrap style="overflow-x:visible">
+<div data-wide>
+<div style="display:grid;grid-template-columns:132px 190px 1fr 1fr;background:#fff;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;border-bottom:1.5px solid #000">
+<span style="padding:12px 12px">Form</span>
+<span style="padding:12px 12px">Carried by</span>
+<span style="padding:12px 12px">What it contains</span>
+<span style="padding:12px 12px">Where it sits</span>
+</div>
+<sc-for list="{{ forms }}" as="f" hint-placeholder-count="3">
+<div style="display:grid;grid-template-columns:132px 190px 1fr 1fr;border-radius:6px;background:{{ f.z }}">
+<div style="padding:10px;font-size:14px;font-weight:700;line-height:1.45">{{ f.n }}</div>
+<div style="padding:10px;font-size:14px;font-weight:400;line-height:1.75;text-wrap:pretty">{{ f.by }}</div>
+<div style="padding:10px;font-size:14px;font-weight:400;line-height:1.75;text-wrap:pretty">{{ f.has }}</div>
+<div style="padding:10px;font-size:14px;font-weight:300;line-height:1.75;text-wrap:pretty">{{ f.at }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div style="margin-top:28px;border-top:1px solid #ebebeb;padding-top:20px">
+<div style="border-left:2px solid #000;border-top:2px solid #000;width:14px;height:14px"></div>
+<h3 style="margin:12px 0 0;font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;line-height:1.3">What needs no equivalent</h3>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">A mark whose value is already written beside it has its equivalent: the writing. Magnitude bars in a labelled row, progress tracks that state their count, legend swatches, section bars and status chips take nothing further. Adding a table under a six-pixel bar restates a number that was never hidden.</div>
+</div>
+</div>
+
+<div style="margin-top:28px;background:#fff;border:1.5px solid #000;border-radius:14px;box-shadow:5px 5px 0 #1bbd94;padding:28px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase">The rule this page exists for</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:12px;text-wrap:pretty">A diagram, a chart or an interactive visual is never the only route to a fact. If a number exists nowhere but inside a mark, or appears only when a mark is selected, the mark is not the problem — the equivalent is missing.</div>
+</div>
+</dc-import>
+
+<dc-import name="cm-section" n="2" id="e2" title="A description is four parts" label="ss: 02 The description" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">One sentence, assembled in a fixed order: what kind of thing it is, how much of it there is, how the parts relate, and the one thing a reader would have noticed by looking. It describes what the visual shows and never what it looks like — no colours, no positions, no shapes.</div>
+
+<div style="margin-top:24px;background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:28px">
+<div style="border-left:2px solid #000;border-top:2px solid #000;width:14px;height:14px"></div>
+<h3 style="margin:12px 0 0;font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;line-height:1.3">The four parts, in order</h3>
+<div style="margin-top:12px;display:flex;flex-direction:column;gap:4px">
+<sc-for list="{{ parts }}" as="p" hint-placeholder-count="4">
+<div data-stack style="display:grid;grid-template-columns:120px 1fr;gap:16px;padding:12px;border-radius:6px;background:{{ p.z }}">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;line-height:1.7">{{ p.n }}</span>
+<span style="font-size:14px;font-weight:400;line-height:1.7;text-wrap:pretty">{{ p.t }}</span>
+</div>
+</sc-for>
+</div>
+
+<div style="margin-top:28px;border-top:1px solid #ebebeb;padding-top:20px">
+<div style="border-left:2px solid #000;border-top:2px solid #000;width:14px;height:14px"></div>
+<h3 style="margin:12px 0 0;font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;line-height:1.3">Assembled · two worked descriptions</h3>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Both are written against visuals that exist elsewhere in this system, so the counts can be checked against the thing they describe.</div>
+<div style="margin-top:16px;display:flex;flex-direction:column;gap:16px">
+<sc-for list="{{ worked }}" as="w" hint-placeholder-count="2">
+<div style="border-radius:12px;padding:20px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06)">
+<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase">{{ w.of }}</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase;padding:3px 10px;border-radius:4px;border:1px solid #000;background:#fff">{{ w.tier }}</span>
+</div>
+<div style="margin-top:14px;display:flex;flex-direction:column;gap:8px">
+<sc-for list="{{ w.slots }}" as="s" hint-placeholder-count="4">
+<div data-stack style="display:grid;grid-template-columns:120px 1fr;gap:16px">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;line-height:1.7">{{ s.n }}</span>
+<span style="font-size:15.5px;font-weight:400;line-height:1.7;text-wrap:pretty">{{ s.t }}</span>
+</div>
+</sc-for>
+</div>
+<div style="margin-top:16px;background:#fff;border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:16px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase">Accessible name</div>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:8px;text-wrap:pretty">{{ w.sentence }}</div>
+</div>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div style="margin-top:28px;border-top:1px solid #ebebeb;padding-top:20px">
+<div style="border-left:2px solid #000;border-top:2px solid #000;width:14px;height:14px"></div>
+<h3 style="margin:12px 0 0;font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;line-height:1.3">Three descriptions that fail</h3>
+<div data-stack style="margin-top:14px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px">
+<sc-for list="{{ fails }}" as="f" hint-placeholder-count="3">
+<div style="border:1px dashed #d9d9d9;border-radius:12px;padding:16px">
+<div style="display:flex;align-items:center;gap:8px"><span style="width:8px;height:8px;background:#000;flex:none"></span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase">{{ f.n }}</span></div>
+<div style="font-size:14px;font-weight:400;font-style:italic;line-height:1.75;margin-top:10px;text-wrap:pretty">{{ f.bad }}</div>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:10px;text-wrap:pretty">{{ f.why }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+</dc-import>
+
+<dc-import name="cm-section" n="3" id="e3" title="Every chart carries its table" label="ss: 03 The table under the chart" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Charts take a table without exception, because a chart's whole content is values and a sentence cannot carry twenty of them. The table sits in a disclosure directly beneath, closed by default with its row count in the header, and it carries every value a reader could have obtained by selecting a mark.</div>
+
+<div style="margin-top:24px;background:#fff;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:28px">
+<h3 style="margin:0;font-size:21px;font-weight:800;line-height:1.3">Time to first refresh after ingest</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.7;margin-top:6px;max-width:70ch">Hours between an event landing in the lake and appearing in a refreshed table.</div>
+<div data-twrap style="margin-top:20px">
+<div data-wide role="img" aria-label="Distribution. One thousand four hundred and twelve warehouse tables across ten buckets of hours to first refresh. The distribution is right-skewed with a single peak at four to six hours; fifty-nine per cent of tables refresh within six hours and the long tail past twenty-four holds sixty-one tables.">
+<div style="display:flex;align-items:flex-end;gap:6px;height:170px;border-bottom:2px solid #000;padding-bottom:0">
+<sc-for list="{{ bars }}" as="b" hint-placeholder-count="10">
+<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:stretch;height:100%">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;text-align:center;margin-bottom:4px">{{ b.v }}</span>
+<div style="height:{{ b.h }};background:#1bbd94;border-radius:3px 3px 0 0"></div>
+</div>
+</sc-for>
+</div>
+<div style="display:flex;gap:6px;margin-top:6px">
+<sc-for list="{{ bars }}" as="b" hint-placeholder-count="10">
+<span style="flex:1;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;text-align:center">{{ b.label }}</span>
+</sc-for>
+</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;text-align:center;margin-top:8px">Hours to first refresh</div>
+</div>
+</div>
+
+<div style="margin-top:20px;border-top:1px solid #ebebeb;padding-top:16px">
+<button type="button" onClick="{{ toggleTable }}" aria-expanded="{{ tableOpen }}" style="display:flex;align-items:center;gap:12px;width:100%">
+<span style="width:20px;height:20px;border-radius:6px;background:#f1f1f1;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;flex:none">{{ tableMark }}</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase">Data table</span>
+<span style="margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase">10 rows · 1,412 tables</span>
+</button>
+<sc-if value="{{ tableShown }}" hint-placeholder-val="{{ true }}">
+<div data-twrap style="margin-top:14px;overflow-x:visible">
+<div data-wide>
+<div style="display:grid;grid-template-columns:1fr 110px 110px 130px;background:#fff;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;border-bottom:1.5px solid #000">
+<span style="padding:12px 12px">Bucket · hours</span>
+<span style="padding:12px 12px">Tables</span>
+<span style="padding:12px 12px">Share</span>
+<span style="padding:12px 12px">Cumulative</span>
+</div>
+<sc-for list="{{ rows }}" as="r" hint-placeholder-count="10">
+<div style="display:grid;grid-template-columns:1fr 110px 110px 130px;border-radius:6px;background:{{ r.z }};font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400">
+<span style="padding:14px 14px;font-weight:700">{{ r.label }}</span>
+<span style="padding:14px 14px">{{ r.count }}</span>
+<span style="padding:14px 14px">{{ r.share }}</span>
+<span style="padding:14px 14px">{{ r.cum }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-if>
+</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase;margin-top:16px">Source: ingest telemetry · 30 days to 27 Aug 2026 · n 1,412</div>
+</div>
+
+<div style="margin-top:28px;background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:28px">
+<div style="border-left:2px solid #000;border-top:2px solid #000;width:14px;height:14px"></div>
+<h3 style="margin:12px 0 0;font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;line-height:1.3">How the table is built</h3>
+<div style="margin-top:12px;display:flex;flex-direction:column;gap:10px">
+<sc-for list="{{ tableRules }}" as="t" hint-placeholder-count="5">
+<div style="display:flex;gap:12px;align-items:flex-start">
+<span style="width:3px;height:14px;background:#000;flex:none;margin-top:6px"></span>
+<span style="font-size:14px;font-weight:400;line-height:1.7;max-width:70ch;text-wrap:pretty">{{ t }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</dc-import>
+
+<dc-import name="cm-section" n="4" id="e4" title="Rules added here" label="ss: 04 Rules" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Six rules. They apply to every visual the system draws, and an equivalent is part of the component — a chart without its table is an unfinished chart, not a chart missing an extra.</div>
+
+<div style="margin-top:24px;background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:28px">
+<div style="display:flex;flex-direction:column;gap:4px">
+<sc-for list="{{ rules }}" as="r" hint-placeholder-count="6">
+<div data-stack style="display:grid;grid-template-columns:108px 1fr;gap:16px;padding:12px;border-radius:6px;background:{{ r.z }}">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;line-height:1.8">{{ r.id }}</span>
+<span style="font-size:14px;font-weight:400;line-height:1.75;text-wrap:pretty">{{ r.t }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</dc-import>
+
+<footer style="max-width:1060px;margin:96px auto 0;padding:20px 24px 48px;border-top:1px solid #ebebeb;display:flex;gap:12px;row-gap:8px;flex-wrap:wrap;align-items:center;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase">
+<span>content-morphia · non-visual equivalents</span>
+<span style="margin-left:auto;display:flex;gap:14px;flex-wrap:wrap;font-weight:400">
+<a href="content-morphia Foundations.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1bbd94;padding-bottom:1px">Foundations</a>
+<a href="content-morphia Charts.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1bbd94;padding-bottom:1px">Charts</a>
+<a href="content-morphia Diagrams at Scale.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1bbd94;padding-bottom:1px">Diagrams at scale</a>
+<a href="content-morphia Print.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1bbd94;padding-bottom:1px">Print</a>
+</span>
+</footer>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;tableOpen&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Chart table&quot;},&quot;showFailures&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Description&quot;}}">
+const FORMS = [
+["Description","Every diagram, tier 1 to tier 3","One sentence in four parts: type, population, relation, and the one thing worth noticing.","The element's accessible name. In print it is the figure's description line, so the same sentence serves both."],
+["Data table","Every chart, without exception","Every mark's value in axis order, plus any value a selection would have revealed.","A disclosure directly beneath the chart, closed by default, its row count in the header."],
+["Node register","Every tier-2 and tier-3 canvas","Every node by name with its level and the nodes it connects to.","A disclosure beneath the canvas. On paper it becomes a sheet of its own (R25.8)."]
+];
+const PARTS = [
+["Type","What kind of visual it is, named from the library — sequence, journey map, Sankey, distribution. The reader has to know what shape of thing they are being told about before the counts mean anything."],
+["Population","How much of it there is, in whole numbers: nodes, edges, phases, lanes, buckets, series. This is what tells a reader whether they are missing three facts or three hundred."],
+["Relation","How the parts connect — what flows into what, what depends on what, what is ordered against what. One clause, and never a list of every edge."],
+["Notice","The one thing a reader would have seen at a glance: the peak, the break, the outlier, the phase where it falls. Without this the description is an inventory, not a substitute."]
+];
+const WORKED = [{
+  of: "Distribution · ss: 03 on this page",
+  tier: "Chart",
+  slots: [
+    ["Type", "Distribution."],
+    ["Population", "One thousand four hundred and twelve warehouse tables across ten buckets of hours to first refresh."],
+    ["Relation", "Right-skewed with a single peak at four to six hours."],
+    ["Notice", "Fifty-nine per cent refresh within six hours, and the tail past twenty-four holds sixty-one tables."]
+  ],
+  sentence: "Distribution. One thousand four hundred and twelve warehouse tables across ten buckets of hours to first refresh. The distribution is right-skewed with a single peak at four to six hours; fifty-nine per cent of tables refresh within six hours and the long tail past twenty-four holds sixty-one tables."
+}, {
+  of: "The ecosystem canvas · Diagrams at scale ss: 05",
+  tier: "Tier 3",
+  slots: [
+    ["Type", "Three-level ecosystem map."],
+    ["Population", "Forty-four nodes: nine at level 0, twenty-three at level 1, twelve at level 2."],
+    ["Relation", "Each level-0 node expands into a level-1 group, and one of those expands again into the level-2 detail."],
+    ["Notice", "Over half the population sits at level 1, which is the level that splits first when the canvas is printed."]
+  ],
+  sentence: "Three-level ecosystem map. Forty-four nodes: nine at level 0, twenty-three at level 1, twelve at level 2. Each level-0 node expands into a level-1 group and one of those expands again into the level-2 detail; over half the population sits at level 1, which is the level that splits first when the canvas is printed."
+}];
+const FAILS = [
+["Names the picture","“Diagram showing the data pipeline architecture.”","Nothing in it could not have been guessed from the title above it. No population, no relation, no fact."],
+["Restates the title","“Time to first refresh after ingest.”","The title is already read out. A description that duplicates it leaves the reader with the heading twice and the content never."],
+["Describes the styling","“A teal bar chart with ten bars rising to a peak in the middle and a black baseline.”","Colour, shape and position are the encoding, not the content. Decoded, they say four to six hours holds the most tables — that is the sentence to write."]
+];
+const TABLE_RULES = [
+"Columns follow the axis order the chart implies, so reading down the table walks the chart left to right.",
+"Values are as plotted. A table is not the place to round further, and a chart is not the place to round at all.",
+"A column the chart implied but never drew belongs in the table — cumulative share here, which the bars encode by position and no mark states.",
+"The provenance line serves both. It sits below the pair and is never repeated inside the table.",
+"The disclosure header states the row count before it is opened, so a reader knows the size of what they are about to enter.",
+"Long tables scroll horizontally with the chart above them, never independently — the two stay in register."
+];
+const RULES = [
+["R26.1","Nothing is reachable only by looking. Every diagram, chart and canvas carries one non-visual equivalent: a description, a data table or a node register."],
+["R26.2","The form follows what is encoded, not size. Diagrams take a description; charts take a table without exception; tier-2 and tier-3 canvases take a register as well as their description."],
+["R26.3","A description is one sentence in four parts — type, population, relation, notice. It states what the visual shows and never what it looks like: no colour, no shape, no position."],
+["R26.4","A chart's table carries every mark's value in axis order plus every value a selection would have revealed, in a closed disclosure beneath the chart with its row count in the header."],
+["R26.5","A mark whose value is written beside it already has its equivalent. Magnitude bars, progress tracks, legend swatches and status chips take no second one."],
+["R26.6","An interaction is not an equivalent. If selecting, hovering or stepping is the only way to reach a number, that number belongs in the table."]
+];
+
+class Component extends DCLogic {
+  state = { sec: "e1", open: null };
+  pick(id) { return () => this.setState({ sec: id }); }
+  under(id) { return this.state.sec === id ? "#1bbd94" : "transparent"; }
+  renderVals() {
+    const open = this.state.open ?? (this.props.tableOpen === true);
+    const BK = [["0–1", 63], ["1–2", 148], ["2–4", 286], ["4–6", 331], ["6–8", 214], ["8–12", 152], ["12–16", 96], ["16–24", 61], ["24–36", 38], ["36+", 23]];
+    const TOTAL = 1412, MAX = 331;
+    let run = 0;
+    const rows = BK.map(([label, c], i) => {
+      run += c;
+      return {
+        label: label + " h", count: c.toLocaleString(), share: Math.round((c / TOTAL) * 100) + "%",
+        cum: Math.round((run / TOTAL) * 100) + "%", z: i % 2 ? "#fafafa" : "#fff"
+      };
+    });
+    return {
+      p1: this.pick("e1"), p2: this.pick("e2"), p3: this.pick("e3"), p4: this.pick("e4"),
+      n1: this.under("e1"), n2: this.under("e2"), n3: this.under("e3"), n4: this.under("e4"),
+      forms: FORMS.map(([n, by, has, at], i) => ({ n, by, has, at, z: i % 2 ? "#fafafa" : "#fff" })),
+      parts: PARTS.map(([n, t], i) => ({ n, t, z: i % 2 ? "#fafafa" : "#fff" })),
+      worked: WORKED.map(w => ({ ...w, slots: w.slots.map(([n, t]) => ({ n, t })) })),
+      fails: this.props.showFailures === false ? [] : FAILS.map(([n, bad, why]) => ({ n, bad, why })),
+      bars: BK.map(([label, c]) => ({ label, v: c, h: Math.round((c / MAX) * 138) + "px" })),
+      rows, tableShown: open, tableOpen: open ? "true" : "false", tableMark: open ? "−" : "+",
+      toggleTable: () => this.setState({ open: !open }),
+      tableRules: TABLE_RULES,
+      rules: RULES.map(([id, t], i) => ({ id, t, z: i % 2 ? "#fafafa" : "#fff" }))
+    };
+  }
+}
+
+</script>
+</body>
+</html>

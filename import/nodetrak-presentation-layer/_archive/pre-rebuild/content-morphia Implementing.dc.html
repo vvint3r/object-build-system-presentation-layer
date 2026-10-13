@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&amp;family=JetBrains+Mono:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#fafafa;color:#000;font-family:'Nunito',sans-serif}
+a{color:#000;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px}
+a:hover{background:rgba(29,233,182,.3)}
+::selection{background:rgba(29,233,182,.35)}
+button{font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;background:none;border:none;padding:0;margin:0;text-align:left;cursor:pointer}
+a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid #000;outline-offset:3px}
+@media(max-width:800px){[data-adj-table]{min-width:0!important}#adj-wrap{overflow-x:auto!important}}
+@media(max-width:640px){[data-stack]{grid-template-columns:1fr!important}}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:#f1f1f1;border-radius:999px}
+::-webkit-scrollbar-thumb{background:rgba(0,0,0,.22);border-radius:999px}
+::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.45)}
+
+[data-nav-group] [data-nav-menu]{display:none}
+[data-nav-group]:hover [data-nav-menu],[data-nav-group]:focus-within [data-nav-menu]{display:block}
+</style>
+</helmet>
+
+<div style="position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid #ebebeb">
+<div style="max-width:1060px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:18px;row-gap:10px;flex-wrap:wrap">
+<span style="font-weight:900;font-size:16px;letter-spacing:.01em">content-morphia</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid #000;background:#fff">Implementing</span>
+<nav aria-label="Design system" style="display:flex;align-items:center;gap:4px;row-gap:6px;flex-wrap:wrap"><div data-nav-group style="position:relative"><a href="content-morphia Foundations.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Foundations</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Foundations.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Foundations</a><a href="content-morphia Icons.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Icons</a><a href="content-morphia Print.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Print</a><a href="content-morphia Equivalents.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Non-visual equivalents</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Structured.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Components</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Structured.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Structured components</a><a href="content-morphia Prose.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Prose primitives</a><a href="content-morphia Wayfinding.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Wayfinding</a><a href="content-morphia Provenance.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Provenance</a><a href="content-morphia Charts.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Charts</a><a href="content-morphia Interaction.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Interaction</a><a href="content-morphia Learning.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Learning</a><a href="content-morphia Questions.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Questions and answers</a><a href="content-morphia Change.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Change and status</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Diagrams.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Diagrams</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Diagrams.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Diagram library</a><a href="content-morphia Diagrams at Scale.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Diagrams at scale</a><a href="content-morphia Diagrams II.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Technical families</a><a href="content-morphia Diagrams III.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Experience and magnitude</a><a href="content-morphia Diagrams IV.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Structure and notation</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Templates.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Templates</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Templates.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Template index</a><a href="content-morphia T1 Topic.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T1 Topic</a><a href="content-morphia T2 Framework.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T2 Framework</a><a href="content-morphia T3 Process.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T3 Process</a><a href="content-morphia T4 Guide.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T4 Guide</a><a href="content-morphia T5 Module.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T5 Module</a><a href="content-morphia T6 Metric.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T6 Metric</a><a href="content-morphia T7 Comparison.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T7 Comparison</a><a href="content-morphia T8 Roadmap.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T8 Roadmap</a><a href="content-morphia T9 Reference.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T9 Reference</a><a href="content-morphia T10 Glossary.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T10 Glossary</a><a href="content-morphia T11 Case study.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T11 Case study</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Composition.dc.html" aria-current="page" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:4px 9px;background:#fff;border:1px solid #000;box-shadow:2px 2px 0 #1de9b6">Composition</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Composition.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Composition</a><a href="content-morphia Anatomy.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Anatomy and primitives</a><a href="content-morphia Selection.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Selection</a><span aria-current="page" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:700;background:#f1f1f1">Implementing</span><a href="content-morphia Exemplar.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Worked example</a></div></div></div></nav>
+</div>
+</div>
+
+<div style="background:#fafafa;border-bottom:1px solid #ebebeb">
+<div style="max-width:1060px;margin:0 auto;padding:11px 24px;display:flex;align-items:center;gap:10px;row-gap:8px;flex-wrap:wrap">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">On this page</span>
+<span style="width:1px;height:13px;background:#ebebeb"></span>
+<nav aria-label="Sections of this page" style="display:flex;align-items:center;gap:2px;row-gap:6px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase">
+<a href="#sec-why" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">Evidence</a>
+<a href="#sec-adj" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">Adjacency table</a>
+<a href="#sec-scale" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">The scale is wrong</a>
+<a href="#sec-ceiling" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">Ceilings</a>
+<a href="#sec-shape" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">Shape → component</a>
+<a href="#sec-prec" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">Precedence</a>
+<a href="#sec-spine" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">Composition order</a>
+</nav>
+</div>
+</div>
+
+<section style="max-width:1060px;margin:0 auto;padding:56px 24px 0">
+<div style="width:52px;height:5px;background:#1de9b6;border-radius:999px;margin-bottom:20px"></div>
+<h1 style="margin:0;font-weight:900;font-size:44px;line-height:1.06">Implementing content-morphia</h1>
+<div style="font-size:16px;font-weight:400;line-height:1.8;max-width:68ch;margin-top:14px;text-wrap:pretty">Everything the rest of the system does not say. The specs elsewhere determine how each component looks; they never say how far apart two things go, which component the material calls for, how many a view may carry, or in what order. An agent build proved that a page can obey every locked rule and still be unusable. This is the missing half: a spacing lookup, then the selection rules.</div>
+<div style="margin-top:18px;display:flex;gap:8px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">
+<span style="border:1px solid #000;border-radius:4px;padding:3px 9px;background:#fff">25 adjacencies</span>
+<span style="border:1px solid #000;border-radius:4px;padding:3px 9px;background:#fff">20 source shapes</span>
+<span style="border:1px solid #000;border-radius:4px;padding:3px 9px;background:#fff">Two spacing scales</span>
+</div>
+</section>
+
+<section id="sec-why" data-screen-label="ss: 01 Evidence" style="max-width:1060px;margin:0 auto;padding:88px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 01</span><h2 style="margin:0;font-weight:900;font-size:28px">What the agent build proved</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">An agent restyled a reference document onto this system with no help beyond the spec. The result was judged poor. Measuring it explains why, and the explanation is not the one anyone expected: it obeyed the rules.</div>
+
+<div style="margin-top:24px;background:#fff;border-radius:14px;padding:26px;box-shadow:0 1px 2px rgba(0,0,0,.06)">
+
+<h3 style="margin:12px 0 0;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;line-height:1.4">Token compliance — measured, not assumed</h3>
+<div data-stack style="margin-top:14px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+<sc-for list="{{pass}}" as="p" hint-placeholder-count="6">
+<div style="background:#fff;border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:16px">
+<div style="display:flex;align-items:center;gap:8px"><span style="width:10px;height:10px;border-radius:999px;border:1px solid #000;background:#00e676;flex:none"></span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">{{p.rule}}</span></div>
+<div style="font-size:14px;font-weight:600;line-height:1.5;margin-top:10px">{{p.t}}</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;line-height:1.6;margin-top:8px">{{p.n}}</div>
+</div>
+</sc-for>
+</div>
+
+<div style="margin-top:28px;border-top:1px solid #ebebeb;padding-top:20px">
+<div style="border-left:2px solid #000;border-top:2px solid #000;width:14px;height:14px"></div>
+<h3 style="margin:12px 0 0;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;line-height:1.4">What it did instead — one document</h3>
+<div data-stack style="margin-top:14px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+<sc-for list="{{density}}" as="d" hint-placeholder-count="8">
+<div style="background:#fff;border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:16px">
+<div style="font-weight:900;font-size:30px;line-height:1">{{d.n}}</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-top:10px">{{d.t}}</div>
+</div>
+</sc-for>
+</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:20px;text-wrap:pretty">Every one of those elements is legal. The document is 671,000 characters and unreadable. No rule in this system was broken to produce it, because no rule in this system constrains how much a view carries, in what order, or how far apart any two things sit — only which values are permitted once you have decided. Its per-section density is twice the live pages'; its length is nearly four times.</div>
+</div>
+
+<div style="margin-top:28px;border-top:1px solid #ebebeb;padding-top:20px">
+<div style="border-left:2px solid #000;border-top:2px solid #000;width:14px;height:14px"></div>
+<h3 style="margin:12px 0 0;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;line-height:1.4">The floor became the default</h3>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:12px;text-wrap:pretty">Tile gaps have a floor of 16. The build used <strong style="font-weight:800">gap:16 one hundred and eighty-four times</strong> — more than every other gap value combined. Module padding has a floor of 24, and 24 outnumbers the 26 and 28 the spec prefers for primary containers by two to one. Told a minimum and nothing else, an implementer builds at the minimum everywhere, and the result is a page with one spacing value.</div>
+<div style="margin-top:16px;display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end">
+<sc-for list="{{gapBars}}" as="g" hint-placeholder-count="6">
+<div style="display:flex;flex-direction:column;justify-content:flex-end;gap:8px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700">{{g.count}}</div>
+<div style="width:52px;background:#1de9b6;border-radius:3px 3px 0 0;height:{{g.h}}"></div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;border-top:1px solid #000;padding-top:8px;text-align:center">{{g.label}}</div>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+</section>
+
+<section id="sec-adj" data-screen-label="ss: 02 Adjacency table" style="max-width:1060px;margin:0 auto;padding:88px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 02</span><h2 style="margin:0;font-weight:900;font-size:28px">The adjacency table</h2><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:1px solid #000;border-radius:4px;padding:2px 8px;background:#fff;white-space:nowrap">{{adjCount}}</span></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Keyed on the pair of things being separated, not on the element. One number, no ranges — a range is what produced the last build. Values are the dominant measured value across all seventeen live pages, so this is a description of the system as built, promoted to a rule. The floors survive underneath as the violation check, and where a value sits at its floor the table says so.</div>
+
+<div id="adj-wrap" style="margin-top:24px;background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:26px;overflow-x:visible">
+<sc-for list="{{groups}}" as="g" hint-placeholder-count="4">
+<div style="margin-top:{{g.mt}}">
+<div style="border-left:2px solid #000;border-top:2px solid #000;width:14px;height:14px"></div>
+<div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-top:8px">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">{{g.t}}</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.06em;text-transform:uppercase">{{g.axis}}</span>
+</div>
+<div data-adj-table style="margin-top:12px;min-width:520px"><sc-for list="{{g.rows}}" as="r" hint-placeholder-count="5">
+<div style="display:grid;grid-template-columns:minmax(0,1fr) max-content 120px">
+<div style="padding:14px 12px;border-radius:6px 0 0 6px;background:{{r.zebra}};">
+<div style="font-size:14.5px;font-weight:600;line-height:1.45">{{r.pair}}</div>
+<div style="font-size:14px;font-weight:300;line-height:1.55;margin-top:4px;max-width:52ch;text-wrap:pretty">{{r.note}}</div>
+</div>
+<div style="padding:14px 12px;background:{{r.zebra}};text-align:right;white-space:nowrap">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700">{{r.v}}</span><span style="{{r.vNote}}">{{r.vNoteText}}</span>
+</div>
+<div style="padding:14px 12px;border-radius:0 6px 6px 0;background:{{r.zebra}}">
+<span style="{{r.flagStyle}}">{{r.flag}}</span>
+</div>
+</div>
+</sc-for></div>
+</div>
+</sc-for>
+</div>
+
+<div data-stack style="margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:16px">
+<div style="background:#fff;border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:24px">
+<h3 style="margin:0 0 10px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;line-height:1.4">How to read it</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:10px;text-wrap:pretty">Find the pair, use the number. If a pair is not listed, it is not an adjacency this system produces — which usually means the composition is wrong, not that the table is incomplete. Nothing here is a suggestion and nothing here is a range.</div>
+</div>
+<div style="background:#fff;border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:24px">
+<h3 style="margin:0 0 10px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;line-height:1.4">What happened to the floors</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:10px;text-wrap:pretty">They stay, demoted to what they always were: a check that catches a violation after the fact. Six of the values above sit exactly on their floor and are marked. The rest sit above it, which is the point — a floor was never meant to be the answer.</div>
+</div>
+</div>
+</section>
+
+<section id="sec-scale" data-screen-label="ss: 03 The scale is wrong" style="max-width:1060px;margin:0 auto;padding:88px 24px 96px;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 03</span><h2 style="margin:0;font-weight:900;font-size:28px">The 4px scale is fiction</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Rule 9 states a scale of 4, 8, 12, 16, 24, 32, 48, 96. Every padding and gap declaration across all seventeen live pages, counted: <strong style="font-weight:800">{{offPct}}</strong> of them are not on it. 10px is the third most used value in the entire system and has never been legal. The agent build matched the pages rather than the spec, which was the right instinct. The spec was what was wrong.</div>
+
+<div style="margin-top:24px;background:#fff;border-radius:14px;padding:26px;box-shadow:0 1px 2px rgba(0,0,0,.06)">
+<div style="display:flex;gap:8px;flex-wrap:nowrap;align-items:flex-end">
+<sc-for list="{{scaleBars}}" as="b" hint-placeholder-count="21">
+<div style="display:flex;flex-direction:column;justify-content:flex-end;gap:8px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700">{{b.count}}</div>
+<div style="width:24px;background:{{b.fill}};border:{{b.border}};border-radius:3px 3px 0 0;height:{{b.h}}"></div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.06em;border-top:1px solid #000;padding-top:8px;text-align:center">{{b.label}}</div>
+</div>
+</sc-for>
+</div>
+<div style="margin-top:20px;display:flex;gap:20px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">
+<span style="display:flex;align-items:center;gap:8px"><span style="width:12px;height:12px;background:#1de9b6;border:1px solid #000;border-radius:2px"></span>On the stated scale</span>
+<span style="display:flex;align-items:center;gap:8px"><span style="width:12px;height:12px;background:#fff;border:1px solid #000;border-radius:2px"></span>Off it, and in constant use</span>
+<span style="display:flex;align-items:center;gap:8px">{{offShare}}</span>
+</div>
+
+<div style="margin-top:28px;border-top:1px solid #ebebeb;padding-top:20px">
+<div style="border-left:2px solid #000;border-top:2px solid #000;width:14px;height:14px"></div>
+<h3 style="margin:12px 0 0;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;line-height:1.4">Proposed replacement — two scales, by altitude</h3>
+<div data-stack style="margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:16px">
+<div style="background:#fff;border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:20px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Structural · 4px steps</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;margin-top:10px">16 · 20 · 24 · 28 · 32 · 48 · 88 · 96</div>
+<div style="font-size:14px;font-weight:400;line-height:1.7;margin-top:10px;text-wrap:pretty">Anything at module altitude or above: section rhythm, module padding, gaps between surfaces, column gaps. The 4px discipline holds here and always has.</div>
+</div>
+<div style="background:#fff;border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:20px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Component · sub-4px steps to 14</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;margin-top:10px">2 · 3 · 4 · 6 · 8 · 9 · 10 · 12 · 14</div>
+<div style="font-size:14px;font-weight:400;line-height:1.7;margin-top:10px;text-wrap:pretty">Interior chrome: chip and pill padding, label offsets, table cell padding, icon gaps. A 4px grid cannot express a 9.5px mono label sitting correctly inside a pill, which is why every page quietly abandoned it.</div>
+</div>
+</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:20px;text-wrap:pretty">This is a description of what seventeen pages already do, not a new direction. One exception is sanctioned rather than hidden: 26px primary-container padding (27 uses) sits off the 4px structural steps and stays, because rule 5 gives primary containers a visibly deeper inset than their siblings. It stops the spec from lying without touching a single page.</div>
+</div>
+</div>
+
+<div style="margin-top:16px;background:#fff;border-radius:14px;border:1.5px solid #000;box-shadow:5px 5px 0 #1de9b6;padding:24px">
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border-radius:4px;padding:2px 8px;background:rgba(0,230,118,.2)">Binding</span>
+</div>
+<div style="font-weight:800;font-size:16px;margin-top:12px">Two spacing scales, split by altitude</div>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:8px;text-wrap:pretty">Rule 9 carries both scales, 26px primary-container padding is named as the one sanctioned off-step value, and the adjacency table above is canon.</div>
+</div>
+</section>
+
+<section id="sec-ceiling" data-screen-label="ss: 04 Ceilings" style="max-width:1060px;margin:0 auto;padding:88px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 04</span><h2 style="margin:0;font-weight:900;font-size:28px">Density ceilings</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Nothing in this system has ever said how much a view may carry. These ceilings are the live pages’ own restraint written down: 52 surface clusters across 110 sections, 0.47 each, and 1.29 on the densest page. The right-hand column is what the agent build did to the same measure, in the same unit — and the interesting part is that its per-section density is only twice the system’s. Its real excess is length: 24 sections against a live average of 6.5, so 22 clusters accumulate in one document where a typical page carries three.</div>
+
+<div style="margin-top:24px;background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:26px">
+<div><sc-for list="{{ceilings}}" as="c" hint-placeholder-count="8">
+<div style="display:grid;grid-template-columns:minmax(0,1fr) 72px max-content">
+<div style="padding:14px 12px;border-radius:6px 0 0 6px;background:{{c.zebra}};">
+<div style="font-size:14.5px;font-weight:600;line-height:1.45">{{c.label}}</div>
+<div style="font-size:14px;font-weight:300;line-height:1.55;margin-top:4px;max-width:56ch;text-wrap:pretty">{{c.note}}</div>
+</div>
+<div style="padding:14px 12px;background:{{c.zebra}};text-align:right;white-space:nowrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700">{{c.v}}</span></div>
+<div style="padding:14px 12px;border-radius:0 6px 6px 0;background:{{c.zebra}};text-align:right"><span style="{{c.overStyle}}">{{c.over}}</span></div>
+</div>
+</sc-for></div>
+<div style="margin-top:28px;border-top:1px solid #ebebeb;padding-top:20px">
+<div style="border-left:2px solid #000;border-top:2px solid #000;width:14px;height:14px"></div>
+<h3 style="margin:12px 0 0;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;line-height:1.4">The one exemption</h3>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:12px;text-wrap:pretty">A catalogue page — Foundations, Diagrams, this one — exists to show specimens side by side, so its density is its subject. It declares the exemption in its header and nothing else may claim it. A document that is teaching something is never a catalogue.</div>
+</div>
+</div>
+</section>
+
+<section id="sec-shape" data-screen-label="ss: 05 Shape to component" style="max-width:1060px;margin:0 auto;padding:88px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 05</span><h2 style="margin:0;font-weight:900;font-size:28px">Shape → component</h2><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:1px solid #000;border-radius:4px;padding:2px 8px;background:#fff;white-space:nowrap">{{shapeCount}}</span></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Read the shape of the source material, never its topic. A page about a process does not get a process diagram; material that is ordered steps does. This is the mapping the last build had to guess at, and guessing by subject is what produced nineteen tables.</div>
+
+<div style="margin-top:24px;background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:26px">
+<sc-for list="{{shapes}}" as="g" hint-placeholder-count="5">
+<div style="margin-top:{{g.mt}}">
+<div style="border-left:2px solid #000;border-top:2px solid #000;width:14px;height:14px"></div>
+<h3 style="margin:12px 0 0;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;line-height:1.4">{{g.t}}</h3>
+<div style="margin-top:12px"><sc-for list="{{g.rows}}" as="r" hint-placeholder-count="4">
+<div style="display:grid;grid-template-columns:38% 24% minmax(0,1fr)">
+<div style="padding:14px 12px;border-radius:6px 0 0 6px;background:{{r.zebra}}"><div style="font-size:14.5px;font-weight:600;line-height:1.45">{{r.shape}}</div></div>
+<div style="padding:14px 12px;background:{{r.zebra}}"><div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;line-height:1.4">{{r.comp}}</div></div>
+<div style="padding:14px 12px;border-radius:0 6px 6px 0;background:{{r.zebra}};"><div style="font-size:14px;font-weight:300;line-height:1.55;text-wrap:pretty">{{r.note}}</div></div>
+</div>
+</sc-for></div>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section id="sec-prec" data-screen-label="ss: 06 Precedence" style="max-width:1060px;margin:0 auto;padding:88px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 06</span><h2 style="margin:0;font-weight:900;font-size:28px">When several fit</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">ss: 05 often returns more than one answer. Apply these in order and stop at the first that decides.</div>
+
+<div data-stack style="margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:16px">
+<sc-for list="{{precedence}}" as="p" hint-placeholder-count="6">
+<div style="background:#fff;border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:24px">
+<div style="display:flex;align-items:baseline;gap:10px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.06em">{{p.n}}</span><span style="font-weight:800;font-size:16px;line-height:1.35">{{p.t}}</span></div>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:10px;text-wrap:pretty">{{p.d}}</div>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section id="sec-spine" data-screen-label="ss: 07 Composition order" style="max-width:1060px;margin:0 auto;padding:88px 24px 96px;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 07</span><h2 style="margin:0;font-weight:900;font-size:28px">Default composition order</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">The spine every document follows unless the material demands otherwise. The rule that matters most is the third: the single most important structure goes first, not last. The agent build put its strongest table in the nineteenth section.</div>
+
+<div style="margin-top:24px;background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:26px">
+<div><sc-for list="{{spine}}" as="s" hint-placeholder-count="7">
+<div style="display:grid;grid-template-columns:56px 28% minmax(0,1fr)">
+<div style="padding:14px 12px;border-radius:6px 0 0 6px;background:{{s.zebra}}"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.06em">{{s.n}}</span></div>
+<div style="padding:14px 12px;background:{{s.zebra}}"><div style="font-size:14.5px;font-weight:700;line-height:1.4">{{s.t}}</div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-top:4px">{{s.when}}</div></div>
+<div style="padding:14px 12px;border-radius:0 6px 6px 0;background:{{s.zebra}};"><div style="font-size:14px;font-weight:400;line-height:1.65;text-wrap:pretty">{{s.d}}</div></div>
+</div>
+</sc-for></div>
+</div>
+
+<div style="margin-top:16px;background:#fff;border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:24px">
+<h3 style="margin:0 0 10px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;line-height:1.4">What is still missing</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:10px;max-width:70ch;text-wrap:pretty">Four of the shapes in ss: 05 point at components that do not exist yet — cyclical framework, composition chart, question-and-answer block, and the aggregation-density half of research finding. Each row says so and says what to do instead. A mapping that quietly pointed at unbuilt components would be worse than no mapping.</div>
+</div>
+</section>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1200,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  renderVals() {
+    const pass = [
+      { rule: 'Rule 1', t: 'Text is #000 or #fff only', n: '337 declarations · 0 grey · 0 tinted' },
+      { rule: 'Rule 2', t: 'Accent is never text', n: '75 teal uses · 0 as colour' },
+      { rule: 'Rule 3', t: 'Mono label floor held', n: 'smallest type 9.5px · 0 below' },
+      { rule: 'Rule 4', t: 'No retired greys', n: '#e4e4e4 absent · #ebebeb 241' },
+      { rule: 'Rule 5', t: 'Depth families kept apart', n: '0 hairline + soft collisions · 1 L2' },
+      { rule: 'Rule 8', t: 'Every radius legal', n: '3 · 4 · 6 · 8 · 12 · 14 · 999' },
+      { rule: 'R12.5', t: 'Depth nesting clean', n: '72 surfaces · 0 nested inside another' }
+    ];
+    const density = [
+      { n: '22', t: 'h2 sections' }, { n: '48', t: 'h3 sub-heads' },
+      { n: '72', t: 'shadowed surfaces' }, { n: '19', t: 'tables' },
+      { n: '12', t: 'svg figures' }, { n: '102', t: 'corner brackets' },
+      { n: '120', t: 'dotted dividers' }, { n: '34', t: 'controls' }
+    ];
+    const gapRaw = [['16', 184], ['12', 126], ['28', 34], ['7', 29], ['8', 26], ['14', 13]];
+    const gapMax = 184;
+    const gapBars = gapRaw.map(([label, count]) => ({
+      label: label + 'px', count: String(count),
+      h: Math.max(6, Math.round(count / gapMax * 132)) + 'px'
+    }));
+
+    const onScale = [4, 8, 12, 16, 24, 32, 48, 96];
+    // every padding + gap declaration across all 17 live specimen pages — complete, not truncated
+    const scaleRaw = [[2, 13], [3, 4], [4, 7], [6, 35], [7, 11], [8, 108], [9, 26], [10, 138], [11, 2], [12, 220], [14, 51], [16, 135], [18, 6], [20, 41], [22, 6], [24, 68], [26, 27], [28, 15], [32, 2], [34, 1], [36, 4]];
+    const sMax = 220;
+    const scaleBars = scaleRaw.map(([v, count]) => {
+      const on = onScale.includes(v);
+      return {
+        label: String(v), count: String(count),
+        h: Math.max(3, Math.round(count / sMax * 140)) + 'px',
+        fill: on ? '#1de9b6' : '#fff',
+        border: '1px solid #000'
+      };
+    });
+
+    const G = [
+      { t: 'Page & section', axis: 'vertical', rows: [
+        ['Section → next section', '96', 'The rhythm in rule 9. Unchanged, and the one number nobody got wrong.', ''],
+        ['Section top padding', '88', 'Below a sticky header. 96 minus the 8px the header edge already gives.', ''],
+        ['Teal bar → ss: NN + title row', '14', 'Bar is 4px tall at section level, 5px at page level.', ''],
+        ['Title row → intro prose', '10', 'Same as any mono label to its content. Tighter than it looks correct at, deliberately.', ''],
+        ['Intro prose → first module', '24', 'The only place a 24 reads as generous rather than minimal.', '']
+      ]},
+      { t: 'Between surfaces', axis: 'vertical', rows: [
+        ['Module → sibling module', '16', 'Independent peers, each with its own surface.', 'floor'],
+        ['Primary module → its own follow-up card', '16', 'A card that belongs to the module above, not a peer.', 'floor'],
+        ['Card → card in a grid', '16', 'Both axes. The value the last build used everywhere for everything.', 'floor'],
+        ['Content column → content column', '28', 'Two reading columns, or a rail against a body.', ''],
+        ['Rail → body content', '28', 'Same as a column gap; a rail is a column.', '']
+      ]},
+      { t: 'Inside a module', axis: 'interior', rows: [
+        ['Module edge → its content', '24', 'Ordinary containers. Below this the surface stops reading as a surface.', 'floor'],
+        ['Primary container edge → content', '26', 'One per cluster, carrying S2. The 2px is visible and does the work.', ''],
+        ['Hero or chart frame edge → content', '26', 'S3 floats read heavier, so they do not need more padding, they need the same.', ''],
+        ['Mono label → the content it labels', '10', 'Every label in the system. No exceptions found in seventeen pages.', 'floor'],
+        ['Corner bracket → its mono label', '8', 'Vertical. The bracket is 14×14 and sits flush left.', ''],
+        ['Sibling sections of one module', '28', 'Above the inset hairline divider.', ''],
+        ['Inset divider → content below it', '20', 'Asymmetric on purpose: more above the rule than below.', '']
+      ]},
+      { t: 'Inside a component', axis: 'chrome', rows: [
+        ['Chip or badge — padding', '2 / 8', 'Vertical then horizontal. 3 / 9 at page-header scale only.', ''],
+        ['Pill button — padding', '5 / 9', 'Nav and filter pills. Touch targets get 44px min-height instead.', ''],
+        ['Table cell — padding', '9 / 10', 'Vertical then horizontal, on a 6px-radius zebra row.', 'floor'],
+        ['Table row → its footnote', '14', 'Above the hairline; 12 below it.', ''],
+        ['Figure → its caption', '10', 'Caption is mono, so this is the label gap by another name.', ''],
+        ['Chip → chip in a row', '8', 'Metadata strips and filter rows.', ''],
+        ['Stat value → its mono label', '10', 'Number above, label below. Never the reverse.', ''],
+        ['Diagram node → diagram node', '14', 'Minimum; 24 on magnitude canvases and 26 row gaps at scale.', 'floor']
+      ]}
+    ];
+    const flagStyle = "font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:1px solid transparent;border-radius:4px;padding:2px 8px;white-space:nowrap;background:rgba(255,214,0,.3)";
+    let n = 0;
+    const groups = G.map((g, gi) => ({
+      t: g.t, axis: g.axis, mt: gi === 0 ? '0px' : '28px',
+      rows: g.rows.map((r, i) => {
+        n++;
+        const paired = r[1].indexOf('/') > -1;
+        const v = paired ? r[1].split('/').map(x => x.trim() + 'px').join(' / ') : r[1] + 'px';
+        return {
+          pair: r[0], v, note: r[2],
+          vNote: paired ? "font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;display:block;margin-top:4px" : 'display:none',
+          vNoteText: paired ? 'y / x' : '',
+          flag: r[3] === 'floor' ? 'At floor' : '',
+          flagStyle: r[3] === 'floor' ? flagStyle : 'display:none',
+          zebra: i % 2 === 1 ? '#fafafa' : '#fff'
+        };
+      })
+    }));
+    const cRow = (i) => (i % 2 === 1 ? '#fafafa' : '#fff');
+    const ceilings = [
+      ['Surface clusters per section', '2', 'A cluster is one primary surface, or one grid of sibling tiles read as a single set. Tiles nested inside a cluster are not separate surfaces. Live pages: 52 clusters across 110 sections — 0.47 each, and 1.29 on the densest. The agent build: 22 across 24, or 0.92.', '2.0× over'],
+      ['Sections per page', '8', 'Live average 6.5 — 110 sections across seventeen pages. Foundations runs 17 because it is a catalogue, which is an exemption, not a precedent. This is the ceiling the agent build missed by the widest margin, and the one that did the most damage.', '24 sections'],
+      ['Corner-bracket sub-blocks per page', '6', '23 brackets across all seventeen pages — 1.4 a page.', '102'],
+      ['Dotted dividers per section', '2', '95 across 110 sections. A divider marks a change of kind, not every gap.', '120'],
+      ['Charts per section', '1', 'Two charts in one section is a comparison, and a comparison is a table.', ''],
+      ['Tables per section', '1', 'The seventeen specimen pages contain no table element at all — the zebra-row treatment is specified and barely used. Nineteen in one document had no precedent in the library.', '19 on one page'],
+      ['Nesting depth of surfaces', '2', 'R12.5 already forbids a third: a container whose children carry shadows carries none.', ''],
+      ['Untagged L2 teal offsets per view', '1', 'Already ruled in R12.2. Restated because it is a density ceiling, not a colour rule.', '']
+    ].map((r, i) => ({
+      label: r[0], v: r[1], note: r[2], zebra: cRow(i),
+      over: r[3], overStyle: r[3] ? "font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:1px solid transparent;border-radius:4px;padding:2px 8px;white-space:nowrap;background:rgba(255,82,82,.16)" : 'display:none'
+    }));
+
+    const shapeGroups = [
+      { t: 'Sets of things', rows: [
+        ['Several items, shared fields, complete', 'Comparison table', 'Fields become columns. If any cell would be empty, this is the wrong shape.'],
+        ['Several items, shared fields, gaps', 'Card grid', 'A missing field is invisible in a card and glaring in a table row.'],
+        ['Several items, no shared fields', 'Reference list', 'Nothing to align, so nothing should be aligned.'],
+        ['Term and its meaning', 'Definition', 'One pair or many; the list form is the same component repeated.']
+      ]},
+      { t: 'Sequences', rows: [
+        ['Ordered steps, one actor', 'Step sequence', 'Numbered. Never a diagram — a line of steps is a list.'],
+        ['Ordered steps, several actors', 'Swimlane', 'The actor is the axis. If there is only one actor, there is no lane.'],
+        ['Steps containing a branch', 'Decision diagram', 'The diamond is the content. Without a branch, use a step sequence.'],
+        ['Phases across time', 'Roadmap', 'Phases × tracks. A single track is a step sequence again.']
+      ]},
+      { t: 'Structures', rows: [
+        ['Named parts of a whole, unordered', 'Pillar framework', 'Equal weight, no dependency, no sequence.'],
+        ['Named parts with dependency', 'Layered framework', 'Bottom supports top. If nothing supports anything, use pillars.'],
+        ['Parts that feed each other in a loop', 'Cyclical framework', 'Unbuilt. Until then, a layered framework with a stated return.'],
+        ['Nodes and their relationships', 'Concept map or taxonomy tree', 'Only when the relationships are the content, not the nodes.']
+      ]},
+      { t: 'Quantities', rows: [
+        ['One number over time', 'Metric with trend', 'The trend strip. One series unless the second is a target.'],
+        ['One number against a target', 'Metric with target line', '2px dotted black plus a mono flag. Not a second series.'],
+        ['Parts of a total', 'Composition chart', 'Unbuilt. A table of shares reads better than a bad pie.'],
+        ['Magnitudes across categories', 'Magnitude bars', '#f1f1f1 track, 2–3px caps. Three series maximum, never coloured apart.']
+      ]},
+      { t: 'Assertions', rows: [
+        ['Claim, evidence, source', 'Research finding', 'Partial — the source half needs the aggregation-density pass (R18.1).'],
+        ['Consequence of getting it wrong', 'Semantic callout', 'One per section. A page of callouts has no warnings in it.'],
+        ['Question and its answer', 'Q&A block', 'Unbuilt. Prose until then.'],
+        ['Code and what it does', 'Code block with caption', 'Filename bar, language badge, weight-only highlighting.']
+      ]}
+    ];
+    const shapes = shapeGroups.map((g, gi) => ({
+      t: g.t, mt: gi === 0 ? '0px' : '28px',
+      rows: g.rows.map((r, i) => ({ shape: r[0], comp: r[1], note: r[2], zebra: cRow(i) }))
+    }));
+
+    const precedence = [
+      ['Prose wins by default', 'If the material reads correctly as a sentence, it stays a sentence. A component is a claim that the shape carries meaning the prose cannot.'],
+      ['Fewest new surfaces', 'Between two components that both fit, take the one that adds no enclosure. This is what the 0.47 clusters-per-section figure is made of.'],
+      ['No empty fields, ever', 'A component whose fields the source cannot fill is the wrong component, however well its subject matches.'],
+      ['Items or relationships', 'If the reader needs the items, use a list or a table. A diagram is only correct when the relationships are the thing being read.'],
+      ['Reuse over variety', 'Where two components fit equally, choose the one already on the page. Variety is not a goal and reads as inconsistency.'],
+      ['Escalate once', 'One promotion per view: at most one thing becomes the L2 offset, the S3 float, or the full-bleed figure. Everything cannot be emphasised.']
+    ].map((r, i) => ({ n: String(i + 1).padStart(2, '0'), t: r[0], d: r[1] }));
+
+    const spine = [
+      ['Content header', 'Always', 'Title, one-line summary, metadata strip. Full form on a landing surface, compact everywhere else.'],
+      ['Orientation', 'Always', 'What this is and who it is for, in prose, under 70ch. Never a callout.'],
+      ['The one thing', 'Always', 'The single most important structure — the table, the diagram, the sequence. It gets the S2 or S3 surface and it goes first.'],
+      ['Supporting detail', 'Usually', 'Sub-blocks under corner brackets inside the same surface, not new surfaces.'],
+      ['Evidence', 'When it exists', 'Figures, research findings, code. Each with its source and its caption.'],
+      ['Caveats', 'When they exist', 'Semantic callouts, one per section, at the point of risk rather than collected at the end.'],
+      ['Where next', 'Always', 'Related nodes, upstream and downstream. On this product that is the context-node link set.']
+    ].map((r, i) => ({ n: String(i + 1).padStart(2, '0'), t: r[0], when: r[1], d: r[2], zebra: cRow(i) }));
+
+    const onSum = scaleRaw.filter(([v]) => onScale.includes(v)).reduce((a, [, c]) => a + c, 0);
+    const offSum = scaleRaw.reduce((a, [, c]) => a + c, 0) - onSum;
+    return {
+      pass, density, gapBars, scaleBars, groups, ceilings, shapes, precedence, spine,
+      shapeCount: shapeGroups.reduce((a, g) => a + g.rows.length, 0) + ' shapes',
+      adjCount: n + ' adjacencies',
+      offShare: Math.round(offSum / (onSum + offSum) * 100) + '% off-scale · ' + (onSum + offSum) + ' declarations · 17 pages',
+      offPct: Math.round(offSum / (onSum + offSum) * 100) + '%'
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&amp;family=JetBrains+Mono:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#fafafa;color:#000;font-family:'Nunito',sans-serif}
+a{color:#000;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px}
+a:hover{background:rgba(29,233,182,.3)}
+::selection{background:rgba(29,233,182,.35)}
+button{font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;background:none;border:none;padding:0;margin:0;text-align:left;cursor:pointer}
+input,select{font:inherit;color:inherit}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px solid #000;outline-offset:3px}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:#f1f1f1;border-radius:999px}
+::-webkit-scrollbar-thumb{background:rgba(0,0,0,.22);border-radius:999px}
+::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.45)}
+@media(max-width:1150px){#i3-grid{grid-template-columns:1fr!important}}
+@media(max-width:800px){[data-wide]{min-width:680px!important}[data-twrap]{overflow-x:auto!important}}
+@media(max-width:640px){[data-stack]{grid-template-columns:1fr!important}}
+
+[data-nav-group] [data-nav-menu]{display:none}
+[data-nav-group]:hover [data-nav-menu],[data-nav-group]:focus-within [data-nav-menu]{display:block}
+</style>
+</helmet>
+
+<div style="position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid #ebebeb">
+<div style="max-width:1060px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:18px;row-gap:10px;flex-wrap:wrap">
+<span style="font-weight:900;font-size:16px;letter-spacing:.01em">content-morphia</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid #000;background:#fff">Interaction</span>
+<nav aria-label="Design system" style="display:flex;align-items:center;gap:4px;row-gap:6px;flex-wrap:wrap"><div data-nav-group style="position:relative"><a href="content-morphia Foundations.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Foundations</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Foundations.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Foundations</a><a href="content-morphia Icons.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Icons</a><a href="content-morphia Print.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Print</a><a href="content-morphia Equivalents.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Non-visual equivalents</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Structured.dc.html" aria-current="page" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:4px 9px;background:#fff;border:1px solid #000;box-shadow:2px 2px 0 #1de9b6">Components</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Structured.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Structured components</a><a href="content-morphia Prose.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Prose primitives</a><a href="content-morphia Wayfinding.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Wayfinding</a><a href="content-morphia Provenance.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Provenance</a><a href="content-morphia Charts.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Charts</a><span aria-current="page" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:700;background:#f1f1f1">Interaction</span><a href="content-morphia Learning.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Learning</a><a href="content-morphia Questions.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Questions and answers</a><a href="content-morphia Change.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Change and status</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Diagrams.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Diagrams</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Diagrams.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Diagram library</a><a href="content-morphia Diagrams at Scale.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Diagrams at scale</a><a href="content-morphia Diagrams II.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Technical families</a><a href="content-morphia Diagrams III.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Experience and magnitude</a><a href="content-morphia Diagrams IV.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Structure and notation</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Templates.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Templates</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Templates.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Template index</a><a href="content-morphia T1 Topic.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T1 Topic</a><a href="content-morphia T2 Framework.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T2 Framework</a><a href="content-morphia T3 Process.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T3 Process</a><a href="content-morphia T4 Guide.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T4 Guide</a><a href="content-morphia T5 Module.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T5 Module</a><a href="content-morphia T6 Metric.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T6 Metric</a><a href="content-morphia T7 Comparison.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T7 Comparison</a><a href="content-morphia T8 Roadmap.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T8 Roadmap</a><a href="content-morphia T9 Reference.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T9 Reference</a><a href="content-morphia T10 Glossary.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T10 Glossary</a><a href="content-morphia T11 Case study.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T11 Case study</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Composition.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Composition</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Composition.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Composition</a><a href="content-morphia Anatomy.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Anatomy and primitives</a><a href="content-morphia Selection.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Selection</a><a href="content-morphia Implementing.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Implementing</a><a href="content-morphia Exemplar.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Worked example</a></div></div></div></nav>
+</div>
+</div>
+
+<div style="background:#fafafa;border-bottom:1px solid #ebebeb">
+<div style="max-width:1060px;margin:0 auto;padding:11px 24px;display:flex;align-items:center;gap:10px;row-gap:8px;flex-wrap:wrap">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">On this page</span>
+<span style="width:1px;height:13px;background:#ebebeb"></span>
+<nav aria-label="Sections of this page" style="display:flex;align-items:center;gap:2px;row-gap:6px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase">
+<a href="#i1" onClick="{{ p1 }}" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 01 Disclosure</a>
+<a href="#i2" onClick="{{ p2 }}" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 02 Sort &amp; filter</a>
+<a href="#i3" onClick="{{ p3 }}" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 03 Overview &amp; detail</a>
+<a href="#i4" onClick="{{ p4 }}" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 04 Definitions</a>
+<a href="#i5" onClick="{{ p5 }}" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 05 Recently viewed</a>
+<a href="#i6" onClick="{{ p6 }}" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 06 Rules</a>
+</nav>
+</div>
+</div>
+
+<section data-screen-label="Page header" style="max-width:1060px;margin:0 auto;padding:48px 24px 0">
+<div style="width:52px;height:5px;background:#1de9b6;border-radius:999px;margin-bottom:20px"></div>
+<h1 style="margin:0;font-weight:900;font-size:44px;line-height:1.06;max-width:20ch">Interaction in place</h1>
+<div style="font-size:16px;font-weight:400;line-height:1.8;max-width:68ch;margin-top:14px;text-wrap:pretty">Five controls that change what is visible without changing where the reader is. Nothing here fetches, submits or mutates a node: each one is view state over material the page already holds, which is why every one of them must state what it is hiding.</div>
+<div style="display:flex;align-items:center;gap:10px;row-gap:8px;flex-wrap:wrap;margin-top:20px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">
+<span style="padding:3px 10px;border-radius:999px;border:1px solid #000;background:#fff">Components</span>
+<span style="font-weight:400">5 components · 8 rules · specimens run on the certification sample</span>
+</div>
+</section>
+
+<section id="i1" data-screen-label="ss: 01 Disclosure" style="max-width:1060px;margin:0 auto;padding:88px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 01</span><h2 style="margin:0;font-weight:900;font-size:28px">Disclosure</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">A disclosure trades certainty for length: the reader accepts a shorter page in exchange for trusting the header to describe what is folded away. That trust is the whole component, so the header states the contents — a count, a date, a threshold — not a teaser.</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:16px;text-wrap:pretty">It follows that only skippable material collapses. Three peer policies, each read on its own, are the correct case. A sequence is not: if the reader needs the third section to follow the fourth, folding it hides the argument rather than the detail.</div>
+
+<div style="margin-top:28px;background:#fff;border:1.5px solid #000;border-radius:14px;box-shadow:5px 5px 0 #1de9b6;padding:26px">
+<div style="display:flex;align-items:baseline;gap:12px;row-gap:8px;flex-wrap:wrap;margin-bottom:16px">
+<h3 style="margin:0;font-size:15px;font-weight:700;line-height:1.4">Certification policy · three peer sections</h3>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.08em;text-transform:uppercase;margin-left:auto">{{ modeLabel }}</span>
+</div>
+<div style="display:grid">
+<div style="padding:16px 0">
+<button onClick="{{ t1 }}" aria-expanded="{{ e1 }}" style="width:100%;display:flex;align-items:baseline;gap:12px;row-gap:6px;flex-wrap:wrap" style-hover="background:rgba(29,233,182,.3)">
+<span style="width:20px;height:20px;border-radius:999px;background:#f1f1f1;display:inline-flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;flex:none">{{ m1 }}</span>
+<span style="font-size:15px;font-weight:700;line-height:1.4">Certification gates</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-left:auto">5 gates · all must pass</span>
+</button>
+<sc-if value="{{ o1 }}" hint-placeholder-val="{{ true }}">
+<div style="padding-left:32px;margin-top:12px;max-width:70ch">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85">A pipeline is certified when all five gates hold on the same run. A gate that passed on an earlier run does not carry forward, because the failure modes the gates catch are introduced by change.</div>
+<div style="display:grid;row-gap:8px;margin-top:12px">
+<div style="display:grid;grid-template-columns:12px 1fr;gap:10px;align-items:baseline"><span style="width:5px;height:5px;border-radius:999px;background:#1de9b6;margin-top:8px"></span><span style="font-size:15.5px;font-weight:400;line-height:1.7">Schema contract matches the registered version.</span></div>
+<div style="display:grid;grid-template-columns:12px 1fr;gap:10px;align-items:baseline"><span style="width:5px;height:5px;border-radius:999px;background:#1de9b6;margin-top:8px"></span><span style="font-size:15.5px;font-weight:400;line-height:1.7">Freshness over the trailing 30 days meets the tier threshold.</span></div>
+<div style="display:grid;grid-template-columns:12px 1fr;gap:10px;align-items:baseline"><span style="width:5px;height:5px;border-radius:999px;background:#1de9b6;margin-top:8px"></span><span style="font-size:15.5px;font-weight:400;line-height:1.7">Row counts reconcile against the source of record.</span></div>
+<div style="display:grid;grid-template-columns:12px 1fr;gap:10px;align-items:baseline"><span style="width:5px;height:5px;border-radius:999px;background:#1de9b6;margin-top:8px"></span><span style="font-size:15.5px;font-weight:400;line-height:1.7">Owner and escalation path resolve to a current team.</span></div>
+<div style="display:grid;grid-template-columns:12px 1fr;gap:10px;align-items:baseline"><span style="width:5px;height:5px;border-radius:999px;background:#1de9b6;margin-top:8px"></span><span style="font-size:15.5px;font-weight:400;line-height:1.7">A documented backfill procedure exists and has been run once.</span></div>
+</div>
+</div>
+</sc-if>
+</div>
+<div style="height:1px;background:#ebebeb"></div>
+<div style="padding:16px 0">
+<button onClick="{{ t2 }}" aria-expanded="{{ e2 }}" style="width:100%;display:flex;align-items:baseline;gap:12px;row-gap:6px;flex-wrap:wrap" style-hover="background:rgba(29,233,182,.3)">
+<span style="width:20px;height:20px;border-radius:999px;background:#f1f1f1;display:inline-flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;flex:none">{{ m2 }}</span>
+<span style="font-size:15px;font-weight:700;line-height:1.4">Backfill policy</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-left:auto">Restated 14 Aug 2026</span>
+</button>
+<sc-if value="{{ o2 }}" hint-placeholder-val="{{ false }}">
+<div style="padding-left:32px;margin-top:12px;max-width:70ch">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85">A backfill rewrites history, so it suspends the freshness measure for the partitions it touches rather than repairing them. The measure resumes at the next scheduled run, and the suspended window is stated on the metric node instead of being smoothed away.</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;margin-top:12px">Backfills longer than seven days require the owning team to re-run certification, because a rewrite of that size changes the reconciliation baseline the gates test against.</div>
+</div>
+</sc-if>
+</div>
+<div style="height:1px;background:#ebebeb"></div>
+<div style="padding:16px 0">
+<button onClick="{{ t3 }}" aria-expanded="{{ e3 }}" style="width:100%;display:flex;align-items:baseline;gap:12px;row-gap:6px;flex-wrap:wrap" style-hover="background:rgba(29,233,182,.3)">
+<span style="width:20px;height:20px;border-radius:999px;background:#f1f1f1;display:inline-flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;flex:none">{{ m3 }}</span>
+<span style="font-size:15px;font-weight:700;line-height:1.4">Exemptions</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-left:auto">2 standing · both expire</span>
+</button>
+<sc-if value="{{ o3 }}" hint-placeholder-val="{{ false }}">
+<div style="padding-left:32px;margin-top:12px;max-width:70ch">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85">Two feeds hold standing exemptions from the freshness gate: a weekly vendor extract that cannot arrive daily, and a partner file whose delivery window is contractual. Both carry an expiry date, and an expired exemption fails the gate like any other breach.</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;margin-top:12px">No exemption is granted for tier 1. A tier-1 table that cannot meet the threshold is re-tiered, which is a decision about the table rather than about the measure.</div>
+</div>
+</sc-if>
+</div>
+</div>
+</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;font-style:italic;margin-top:10px">Header = marker + T3 title + the contents fact. Sections are peers on one surface, split by inset hairlines. The marker never carries meaning the words do not.</div>
+</section>
+
+<section id="i2" data-screen-label="ss: 02 Sorting and filtering" style="max-width:1060px;margin:0 auto;padding:96px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 02</span><h2 style="margin:0;font-weight:900;font-size:28px">Sorting and filtering</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Sorting reorders a table; filtering shortens it. The reader can see the first and cannot see the second, so a filtered table states its own count against the whole and names every filter in force. A sort states its key and its direction in words, because a mark on a column head tells the reader which column and not which way.</div>
+
+<div style="margin-top:28px;background:#fff;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:26px">
+<h3 style="margin:0 0 16px;font-size:15px;font-weight:700;line-height:1.4">Pipeline certification register</h3>
+<div style="display:flex;align-items:center;gap:16px;row-gap:12px;flex-wrap:wrap">
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">Tier</span>
+<sc-for list="{{ tierChips }}" as="c" hint-placeholder-count="3">
+<button onClick="{{ c.pick }}" aria-pressed="{{ c.on }}" style="padding:4px 12px;border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:1px solid #000;background:{{ c.bg }};box-shadow:{{ c.sh }}" style-hover="background:rgba(29,233,182,.3)">{{ c.label }}</button>
+</sc-for>
+</div>
+<sc-if value="{{ anyFilter }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ clearFilters }}" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border-bottom:1.5px solid #1de9b6;padding-bottom:1px">Clear filters</button>
+</sc-if>
+<span style="margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.06em;text-transform:uppercase">{{ tableState }}</span>
+</div>
+<div data-twrap style="margin-top:16px;overflow-x:auto">
+<div data-wide style="font-size:14px"><div style="display:grid;grid-template-columns:minmax(0,1.5fr) 88px 104px 124px 132px">
+<div style="text-align:left;padding:0"><button onClick="{{ s1 }}" style="width:100%;padding:14px 14px;background:#f1f1f1;border-radius:6px 0 0 6px" style-hover="background:rgba(29,233,182,.3)"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Table</span><div style="height:2px;border-radius:999px;margin-top:5px;background:{{ h1 }}"></div></button></div>
+<div style="text-align:left;padding:0"><button onClick="{{ s2 }}" style="width:100%;padding:14px 14px;background:#f1f1f1" style-hover="background:rgba(29,233,182,.3)"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Tier</span><div style="height:2px;border-radius:999px;margin-top:5px;background:{{ h2 }}"></div></button></div>
+<div style="text-align:left;padding:0"><button onClick="{{ s3 }}" style="width:100%;padding:14px 14px;background:#f1f1f1" style-hover="background:rgba(29,233,182,.3)"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Freshness</span><div style="height:2px;border-radius:999px;margin-top:5px;background:{{ h3 }}"></div></button></div>
+<div style="text-align:left;padding:0"><button onClick="{{ s4 }}" style="width:100%;padding:14px 14px;background:#f1f1f1" style-hover="background:rgba(29,233,182,.3)"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Last certified</span><div style="height:2px;border-radius:999px;margin-top:5px;background:{{ h4 }}"></div></button></div>
+<div style="text-align:left;padding:14px 14px;background:#f1f1f1;border-radius:0 6px 6px 0;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">State</div>
+</div>
+<sc-for list="{{ rows }}" as="r" hint-placeholder-count="8">
+<div style="display:grid;grid-template-columns:minmax(0,1.5fr) 88px 104px 124px 132px">
+<div style="padding:14px 14px;background:{{ r.bg }};border-radius:6px 0 0 6px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400">{{ r.name }}</div>
+<div style="padding:14px 14px;background:{{ r.bg }};font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em">{{ r.tier }}</div>
+<div style="padding:14px 14px;background:{{ r.bg }};font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700">{{ r.fresh }}</div>
+<div style="padding:14px 14px;background:{{ r.bg }};font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.04em">{{ r.date }}</div>
+<div style="padding:14px 14px;background:{{ r.bg }};border-radius:0 6px 6px 0"><span style="display:inline-block;padding:3px 10px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:{{ r.stateBg }}">{{ r.state }}</span></div>
+</div>
+</sc-for></div>
+</div>
+<sc-if value="{{ noRows }}" hint-placeholder-val="{{ false }}">
+<div style="background:#fff;margin-top:16px;padding:20px;border-radius:12px;max-width:70ch;box-shadow:0 1px 2px rgba(0,0,0,.06)">
+<div style="font-size:15px;font-weight:700;line-height:1.5">No table matches these tiers.</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;margin-top:6px">The register holds eight tables across three tiers. Clearing the tier filter restores all eight; the filter is the only thing removed from view.</div>
+</div>
+</sc-if>
+</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;font-style:italic;margin-top:10px">One sort at a time. The active column carries a teal underline; the state line above the table carries the words. Filters live above the table, never inside the header row.</div>
+</section>
+
+<section id="i3" data-screen-label="ss: 03 Overview and detail" style="max-width:1060px;margin:0 auto;padding:96px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 03</span><h2 style="margin:0;font-weight:900;font-size:28px">Overview and detail</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">A node with a dozen context nodes attached cannot show them all at reading length, and a list of titles alone will not tell the reader which one answers the question. The pair solves it: the overview stays visible and marks the selection, the detail reads at full length beside it.</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:16px;text-wrap:pretty">The detail is a peer surface, not an overlay. An overlay would cover the list the reader is comparing against, which is the one thing this component exists to prevent.</div>
+
+<div id="i3-grid" style="display:grid;grid-template-columns:340px 1fr;gap:28px;margin-top:28px;align-items:start">
+<div style="background:#fff;border-radius:12px;padding:20px;box-shadow:0 1px 2px rgba(0,0,0,.06)">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;margin-bottom:12px">Context nodes · 5 attached</div>
+<div style="display:grid;row-gap:14px">
+<sc-for list="{{ items }}" as="it" hint-placeholder-count="5">
+<button onClick="{{ it.pick }}" aria-current="{{ it.cur }}" style="display:grid;row-gap:6px;background:#fff;border:{{ it.bd }};border-radius:12px;box-shadow:{{ it.sh }};padding:14px" style-hover="transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18);border:1px solid #000">
+<span style="font-size:14px;font-weight:700;line-height:1.4">{{ it.title }}</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.06em;text-transform:uppercase">{{ it.meta }}</span>
+</button>
+</sc-for>
+</div>
+</div>
+<div style="background:#fff;border:1px solid #ebebeb;border-radius:14px;padding:26px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">{{ detailPath }}</div>
+<h3 style="margin:10px 0 0;font-size:15px;font-weight:700;line-height:1.4">{{ detailTitle }}</h3>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.06em;text-transform:uppercase;margin-top:10px">{{ detailMeta }}</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:16px;text-wrap:pretty">{{ detailBody }}</div>
+<div style="height:1px;background:#ebebeb;margin:20px 0"></div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">What this node settles</div>
+<div style="display:grid;row-gap:8px;margin-top:12px;max-width:70ch">
+<sc-for list="{{ detailPoints }}" as="pt" hint-placeholder-count="3">
+<div style="display:grid;grid-template-columns:12px 1fr;gap:10px;align-items:baseline"><span style="width:5px;height:5px;border-radius:999px;background:#1de9b6;margin-top:8px"></span><span style="font-size:15.5px;font-weight:400;line-height:1.7">{{ pt }}</span></div>
+</sc-for>
+</div>
+</div>
+</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;font-style:italic;margin-top:10px">Overview = a dashed canvas of lifted rows; detail = a hairline card. Two depth families, so the pair never reads as two competing cards. Below 1150px the detail stacks under the overview and keeps its heading.</div>
+</section>
+
+<section id="i4" data-screen-label="ss: 04 Definitions in place" style="max-width:1060px;margin:0 auto;padding:96px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 04</span><h2 style="margin:0;font-weight:900;font-size:28px">Definitions in place</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">A term of art has a node of its own, and sending the reader to it mid-sentence costs them their place. The definition panel gives one sentence and the way through to the node — a definition, never an explanation. Two paragraphs in a panel means the term deserved a link.</div>
+
+<div style="margin-top:28px;background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:26px">
+<h3 style="margin:0 0 14px;font-size:15px;font-weight:700;line-height:1.4">Passage with two defined terms</h3>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;text-wrap:pretty">Tier 1 tables are held to a <span style="position:relative;display:inline-block"><button onClick="{{ d1 }}" aria-expanded="{{ x1 }}" style="font-weight:700;border-bottom:1.5px solid #1de9b6;padding-bottom:1px">freshness SLA</button><sc-if value="{{ o1d }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;top:calc(100% + 10px);left:0;z-index:40;width:340px;display:block;background:#fff;border:1px solid #000;border-radius:12px;box-shadow:10px 10px 0 rgba(0,0,0,.12);padding:20px">
+<span style="display:block;font-size:15px;font-weight:700;line-height:1.4">Freshness SLA</span>
+<span style="display:block;font-size:14px;font-weight:400;line-height:1.7;margin-top:8px">The share of scheduled runs that land inside their promised window, measured over the trailing 30 days.</span>
+<span style="display:block;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.06em;text-transform:uppercase;margin-top:12px">84 sources · high confidence · aggregated 14 Aug 2026</span>
+<span style="display:flex;align-items:center;gap:16px;margin-top:14px"><a href="content-morphia T6 Metric.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border-bottom:1.5px solid #1de9b6;padding-bottom:1px">Open the node</a><button onClick="{{ dclose }}" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-left:auto">Close</button></span>
+</span></sc-if></span> of 98% over the trailing thirty days, and a run that lands outside its window counts against the measure even when the data eventually arrives complete. Three consecutive breaches, or any breach that goes unacknowledged for a week, opens a <span style="position:relative;display:inline-block"><button onClick="{{ d2 }}" aria-expanded="{{ x2 }}" style="font-weight:700;border-bottom:1.5px solid #1de9b6;padding-bottom:1px">certification lapse</button><sc-if value="{{ o2d }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;top:calc(100% + 10px);left:0;z-index:40;width:340px;display:block;background:#fff;border:1px solid #000;border-radius:12px;box-shadow:10px 10px 0 rgba(0,0,0,.12);padding:20px">
+<span style="display:block;font-size:15px;font-weight:700;line-height:1.4">Certification lapse</span>
+<span style="display:block;font-size:14px;font-weight:400;line-height:1.7;margin-top:8px">The state a certified pipeline enters when a gate stops holding, until the owning team clears it or the table is re-tiered.</span>
+<span style="display:block;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.06em;text-transform:uppercase;margin-top:12px">52 sources · high confidence · aggregated 09 Aug 2026</span>
+<span style="display:flex;align-items:center;gap:16px;margin-top:14px"><a href="content-morphia T9 Reference.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border-bottom:1.5px solid #1de9b6;padding-bottom:1px">Open the node</a><button onClick="{{ dclose }}" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-left:auto">Close</button></span>
+</span></sc-if></span>, which is a state on the table rather than an event in a log.</div>
+<div style="height:1px;background:#ebebeb;margin:20px 0"></div>
+<div style="font-size:14px;font-weight:400;line-height:1.7;max-width:70ch">A defined term takes the same teal underline as a link and no second marker. One panel is open at a time, and the panel holds one link and its close control — nothing else is interactive inside it.</div>
+</div>
+</section>
+
+<section id="i5" data-screen-label="ss: 05 Recently viewed" style="max-width:1060px;margin:0 auto;padding:96px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 05</span><h2 style="margin:0;font-weight:900;font-size:28px">Recently viewed</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">The index re-aggregates while the reader is away, so a return visit is not a repeat of the last one. The trail is therefore ordered by recency and carries the delta: what changed on that node since the reader last saw it, or a plain statement that nothing did.</div>
+
+<div style="margin-top:28px;background:#fff;border-radius:12px;padding:20px;box-shadow:0 1px 2px rgba(0,0,0,.06)">
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:12px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">Your last five nodes</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.06em;text-transform:uppercase;margin-left:auto">Capped at five · newest first</div>
+</div>
+<div style="display:grid;row-gap:14px">
+<div style="background:#fff;border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:16px 18px;display:grid;grid-template-columns:129px 1fr;gap:16px;align-items:baseline">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase">2 hours ago</span>
+<div>
+<div style="font-size:15px;font-weight:700;line-height:1.4">Freshness SLA thresholds by tier</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.06em;text-transform:uppercase;margin-top:6px">Data quality / Freshness</div>
+<sc-if value="{{ deltas }}" hint-placeholder-val="{{ true }}"><div style="font-size:14px;font-weight:400;line-height:1.7;margin-top:8px">Unchanged since your visit. Next aggregation due 04 Sep 2026.</div></sc-if>
+</div>
+</div>
+<div style="background:#fff;border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:16px 18px;display:grid;grid-template-columns:129px 1fr;gap:16px;align-items:baseline">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase">Yesterday</span>
+<div>
+<div style="font-size:15px;font-weight:700;line-height:1.4">Certification lapse recovery</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.06em;text-transform:uppercase;margin-top:6px">Data quality / Certification</div>
+<sc-if value="{{ deltas }}" hint-placeholder-val="{{ true }}"><div style="font-size:14px;font-weight:400;line-height:1.7;margin-top:8px">Re-aggregated over 52 sources, up 14. ss: 03 revised: the acknowledgement window is now seven days, not ten.</div></sc-if>
+</div>
+</div>
+<div style="background:#fff;border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:16px 18px;display:grid;grid-template-columns:129px 1fr;gap:16px;align-items:baseline">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase">3 days ago</span>
+<div>
+<div style="font-size:15px;font-weight:700;line-height:1.4">Backfill and its effect on the measure</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.06em;text-transform:uppercase;margin-top:6px">Data quality / Freshness</div>
+<sc-if value="{{ deltas }}" hint-placeholder-val="{{ true }}"><div style="font-size:14px;font-weight:400;line-height:1.7;margin-top:8px">Confidence moved provisional to moderate. The seven-day re-certification threshold was added.</div></sc-if>
+</div>
+</div>
+<div style="background:#fff;border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:16px 18px;display:grid;grid-template-columns:129px 1fr;gap:16px;align-items:baseline">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase">6 days ago</span>
+<div>
+<div style="font-size:15px;font-weight:700;line-height:1.4">Vendor feed exceptions</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.06em;text-transform:uppercase;margin-top:6px">Governance / Exemptions</div>
+<sc-if value="{{ deltas }}" hint-placeholder-val="{{ true }}"><div style="font-size:14px;font-weight:400;line-height:1.7;margin-top:8px">One exemption expired and was not renewed, leaving two standing.</div></sc-if>
+</div>
+</div>
+<div style="background:#fff;border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:16px 18px;display:grid;grid-template-columns:129px 1fr;gap:16px;align-items:baseline">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase">2 weeks ago</span>
+<div>
+<div style="font-size:15px;font-weight:700;line-height:1.4">Freshness against completeness</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.06em;text-transform:uppercase;margin-top:6px">Measurement / Models</div>
+<sc-if value="{{ deltas }}" hint-placeholder-val="{{ true }}"><div style="font-size:14px;font-weight:400;line-height:1.7;margin-top:8px">Unchanged since your visit. Aggregation cadence is quarterly.</div></sc-if>
+</div>
+</div>
+</div>
+</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;font-style:italic;margin-top:10px">A trail with no delta is a bookmark list, which this product does not have. Five rows is the cap; the sixth pushes the oldest out.</div>
+</section>
+
+<section id="i6" data-screen-label="ss: 06 Rules" style="max-width:1060px;margin:0 auto;padding:96px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 06</span><h2 style="margin:0;font-weight:900;font-size:28px">Rules added</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Eight rules, binding on any surface in this system that hides, reorders or defers material.</div>
+<div style="display:grid;row-gap:20px;margin-top:24px;max-width:74ch">
+<div style="display:grid;grid-template-columns:70px 1fr;gap:16px;align-items:baseline">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.06em">R24.1</span>
+<div><span style="font-size:15px;font-weight:700;line-height:1.5">Disclosure hides peers, never a sequence.</span><span style="font-size:15.5px;font-weight:400;line-height:1.85"> If the reader needs the folded section to follow the next one, it does not fold. Numbered steps, arguments and anything a later section depends on stay open.</span></div>
+</div>
+<div style="display:grid;grid-template-columns:70px 1fr;gap:16px;align-items:baseline">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.06em">R24.2</span>
+<div><span style="font-size:15px;font-weight:700;line-height:1.5">A disclosure header states its contents, not a promise.</span><span style="font-size:15.5px;font-weight:400;line-height:1.85"> A count, a date, a threshold or a verdict — the fact that lets the reader skip it safely. The header is a real button with its own T3 heading and aria-expanded; peers share one surface split by inset hairlines.</span></div>
+</div>
+<div style="display:grid;grid-template-columns:70px 1fr;gap:16px;align-items:baseline">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.06em">R24.3</span>
+<div><span style="font-size:15px;font-weight:700;line-height:1.5">A sort states key and direction in words.</span><span style="font-size:15.5px;font-weight:400;line-height:1.85"> One sort at a time. The active column takes a 2px teal underline; the direction is written out beside the row count, because a mark on a column head names the column and not the order.</span></div>
+</div>
+<div style="display:grid;grid-template-columns:70px 1fr;gap:16px;align-items:baseline">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.06em">R24.4</span>
+<div><span style="font-size:15px;font-weight:700;line-height:1.5">A filtered table states its count against the whole.</span><span style="font-size:15.5px;font-weight:400;line-height:1.85"> Filters sit above the table, never inside the header row, and every filter in force is named. An empty result keeps the controls and says what would restore the rows.</span></div>
+</div>
+<div style="display:grid;grid-template-columns:70px 1fr;gap:16px;align-items:baseline">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.06em">R24.5</span>
+<div><span style="font-size:15px;font-weight:700;line-height:1.5">Detail is a peer surface, never an overlay.</span><span style="font-size:15.5px;font-weight:400;line-height:1.85"> The overview stays visible and marks the selection; the detail names it again in its own heading. The two surfaces take different depth families — a dashed canvas of lifted rows against a hairline card — so the pair never reads as two competing cards.</span></div>
+</div>
+<div style="display:grid;grid-template-columns:70px 1fr;gap:16px;align-items:baseline">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.06em">R24.6</span>
+<div><span style="font-size:15px;font-weight:700;line-height:1.5">A definition panel defines; it does not explain.</span><span style="font-size:15.5px;font-weight:400;line-height:1.85"> One sentence, the source count, and one link to the node. Two paragraphs means the term needed a link instead of a panel.</span></div>
+</div>
+<div style="display:grid;grid-template-columns:70px 1fr;gap:16px;align-items:baseline">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.06em">R24.7</span>
+<div><span style="font-size:15px;font-weight:700;line-height:1.5">One panel open at a time, at overlay depth.</span><span style="font-size:15.5px;font-weight:400;line-height:1.85"> A defined term carries the link marker and no second marker. The panel holds its one link and a close control; nothing else inside it is interactive.</span></div>
+</div>
+<div style="display:grid;grid-template-columns:70px 1fr;gap:16px;align-items:baseline">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.06em">R24.8</span>
+<div><span style="font-size:15px;font-weight:700;line-height:1.5">A trail carries the delta or says there is none.</span><span style="font-size:15.5px;font-weight:400;line-height:1.85"> Recently viewed is ordered by recency, capped at five, and every row states what changed on that node since the visit. Without the delta it is a bookmark list, which this product does not have.</span></div>
+</div>
+</div>
+</section>
+
+<footer style="max-width:1060px;margin:96px auto 0;padding:24px;border-top:1px solid #ebebeb">
+<div style="display:flex;align-items:center;gap:16px;row-gap:10px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.08em;text-transform:uppercase">
+<span style="font-weight:700">content-morphia</span>
+<span>Interaction · R24.1–R24.8</span>
+<span style="margin-left:auto;display:flex;gap:16px;flex-wrap:wrap"><a href="content-morphia Wayfinding.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1de9b6;padding-bottom:1px">Wayfinding</a><a href="content-morphia Learning.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1de9b6;padding-bottom:1px">Learning</a><a href="content-morphia Structured.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1de9b6;padding-bottom:1px">Structured components</a><a href="content-morphia Selection.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1de9b6;padding-bottom:1px">Selection &amp; gate</a></span>
+</div>
+</footer>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;disclosureMode&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;One at a time&quot;,&quot;Many open&quot;],&quot;default&quot;:&quot;One at a time&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Disclosure&quot;},&quot;defaultSort&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Table&quot;,&quot;Tier&quot;,&quot;Freshness&quot;,&quot;Last certified&quot;],&quot;default&quot;:&quot;Freshness&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Sort &amp; filter&quot;},&quot;showDeltas&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Recently viewed&quot;}}">
+class Component extends DCLogic {
+  state = {sec:1, open:['g1'], sk:null, di:0, tiers:[], sel:0, term:null};
+
+  tableRows = [
+    {n:'events.web_sessions', t:'T1', f:99.2, d:'14 Aug 2026', ts:20260814, s:'Certified'},
+    {n:'events.app_sessions', t:'T1', f:97.4, d:'12 Aug 2026', ts:20260812, s:'Review due'},
+    {n:'orders.line_items', t:'T1', f:99.8, d:'21 Aug 2026', ts:20260821, s:'Certified'},
+    {n:'finance.revenue_daily', t:'T2', f:94.1, d:'02 Aug 2026', ts:20260802, s:'Review due'},
+    {n:'marketing.attribution', t:'T2', f:88.6, d:'19 Jun 2026', ts:20260619, s:'Lapsed'},
+    {n:'ml.feature_store', t:'T2', f:99.5, d:'25 Aug 2026', ts:20260825, s:'Certified'},
+    {n:'support.tickets', t:'T3', f:96.9, d:'09 Aug 2026', ts:20260809, s:'Certified'},
+    {n:'product.feature_flags', t:'T3', f:91.3, d:'27 Jul 2026', ts:20260727, s:'Review due'}
+  ];
+
+  sortKeys = {
+    'Table':{get:r=>r.n, dirs:['A to Z','Z to A'], word:'table name'},
+    'Tier':{get:r=>r.t, dirs:['tier 1 first','tier 3 first'], word:'tier'},
+    'Freshness':{get:r=>r.f, dirs:['lowest first','highest first'], word:'freshness'},
+    'Last certified':{get:r=>r.ts, dirs:['oldest first','newest first'], word:'last certified'}
+  };
+
+  nodes = [
+    {t:'SLA thresholds by tier', p:'Data quality / Freshness', s:84, c:'high',
+     b:'Each tier carries one threshold and one measurement window, and the two move together: a shorter window makes a threshold harder to hold, so tier 1 is measured over thirty days rather than seven. The thresholds were set from observed delivery, not from ambition.',
+     pts:['Tier 1 at 98%, tier 2 at 95%, tier 3 at 90%, all over the trailing thirty days.','A missed window counts as a breach even when the data later arrives complete.','Re-tiering, not exemption, is the remedy for a table that cannot hold its threshold.']},
+    {t:'Freshness against completeness', p:'Measurement / Models', s:61, c:'moderate',
+     b:'The two measures disagree by design. A partition can land on time and short, or late and whole, and a pipeline optimised for one will fail the other. This node states which one governs at each tier and why the answer differs.',
+     pts:['Freshness governs tier 1; completeness governs the finance marts.','A late-and-whole delivery is a freshness breach, not a completeness one.','The measures are reported separately and never averaged into a single score.']},
+    {t:'Backfill and its effect on the measure', p:'Data quality / Freshness', s:38, c:'moderate',
+     b:'A backfill rewrites history, which means the freshness measure cannot describe the partitions it touches. The measure is suspended for that window rather than repaired, and the suspension is stated on the metric node.',
+     pts:['Suspended partitions are named on the metric node, not smoothed away.','Backfills longer than seven days force re-certification.','The reconciliation baseline resets at the first clean scheduled run.']},
+    {t:'Certification lapse recovery', p:'Data quality / Certification', s:52, c:'high',
+     b:'A lapse is a state on the table, not an event in a log, so it persists until someone clears it. Recovery is a full gate re-run: the gates that were still holding at the time of the lapse do not carry forward.',
+     pts:['Three consecutive breaches, or one unacknowledged for seven days, opens a lapse.','Recovery requires all five gates to pass on the same run.','A lapse older than a quarter escalates to a re-tiering review.']},
+    {t:'Vendor feed exceptions', p:'Governance / Exemptions', s:23, c:'provisional',
+     b:'Two feeds cannot meet a daily window for reasons outside the platform: a weekly vendor extract and a partner file with a contractual delivery slot. Both hold standing exemptions with expiry dates.',
+     pts:['An expired exemption fails the gate like any other breach.','No exemption is granted at tier 1 under any circumstance.','Confidence is provisional: twenty-three sources, most of them contracts rather than measurements.']}
+  ];
+
+  toggle(id) {
+    const many = (this.props.disclosureMode || 'One at a time') === 'Many open';
+    const on = this.state.open.indexOf(id) >= 0;
+    if (many) this.setState({open: on ? this.state.open.filter(k => k !== id) : this.state.open.concat([id])});
+    else this.setState({open: on ? [] : [id]});
+  }
+
+  sortBy(k) {
+    const cur = this.state.sk || this.props.defaultSort || 'Freshness';
+    if (cur === k && this.state.sk) this.setState({di: this.state.di ? 0 : 1});
+    else this.setState({sk: k, di: 0});
+  }
+
+  renderVals() {
+    const st = this.state;
+    const openSet = st.open;
+    const isOpen = id => openSet.indexOf(id) >= 0;
+    const mark = on => ({bg: on ? '#fff' : 'transparent', sh: on ? '2px 2px 0 #1de9b6' : 'none', on: on ? 'true' : 'false'});
+
+    const sk = st.sk || this.props.defaultSort || 'Freshness';
+    const def = this.sortKeys[sk] || this.sortKeys['Freshness'];
+    const tiers = st.tiers;
+    let rows = this.tableRows.filter(r => tiers.length === 0 || tiers.indexOf(r.t) >= 0);
+    rows = rows.slice().sort((a, b) => {
+      const x = def.get(a), y = def.get(b);
+      const c = x < y ? -1 : (x > y ? 1 : 0);
+      return st.di ? -c : c;
+    });
+    const stateBg = {'Certified':'rgba(0,230,118,.2)', 'Review due':'rgba(255,214,0,.3)', 'Lapsed':'rgba(255,82,82,.16)'};
+    const filterWords = tiers.length ? ' · tier ' + tiers.slice().sort().join(', ') : '';
+    const tableState = 'Sorted by ' + def.word + ', ' + def.dirs[st.di] + ' · ' + rows.length + ' of ' + this.tableRows.length + ' tables' + filterWords;
+
+    const sel = this.nodes[st.sel] || this.nodes[0];
+
+    return {
+      n1: st.sec === 1 ? '#1de9b6' : 'transparent', n2: st.sec === 2 ? '#1de9b6' : 'transparent',
+      n3: st.sec === 3 ? '#1de9b6' : 'transparent', n4: st.sec === 4 ? '#1de9b6' : 'transparent',
+      n5: st.sec === 5 ? '#1de9b6' : 'transparent', n6: st.sec === 6 ? '#1de9b6' : 'transparent',
+      p1: () => this.setState({sec:1}), p2: () => this.setState({sec:2}), p3: () => this.setState({sec:3}),
+      p4: () => this.setState({sec:4}), p5: () => this.setState({sec:5}), p6: () => this.setState({sec:6}),
+
+      modeLabel: (this.props.disclosureMode || 'One at a time') === 'Many open' ? 'Any number open' : 'One open at a time',
+      o1: isOpen('g1'), o2: isOpen('g2'), o3: isOpen('g3'),
+      e1: isOpen('g1') ? 'true' : 'false', e2: isOpen('g2') ? 'true' : 'false', e3: isOpen('g3') ? 'true' : 'false',
+      m1: isOpen('g1') ? '\u2212' : '+', m2: isOpen('g2') ? '\u2212' : '+', m3: isOpen('g3') ? '\u2212' : '+',
+      t1: () => this.toggle('g1'), t2: () => this.toggle('g2'), t3: () => this.toggle('g3'),
+
+      tierChips: ['T1','T2','T3'].map(t => Object.assign({label: t, pick: () => this.setState({tiers: tiers.indexOf(t) >= 0 ? tiers.filter(v => v !== t) : tiers.concat([t])})}, mark(tiers.indexOf(t) >= 0))),
+      anyFilter: tiers.length > 0,
+      clearFilters: () => this.setState({tiers: []}),
+      tableState: tableState,
+      rows: rows.map((r, i) => ({name: r.n, tier: r.t, fresh: r.f.toFixed(1) + '%', date: r.d, state: r.s,
+        stateBg: stateBg[r.s], bg: 'transparent'})),
+      noRows: rows.length === 0,
+      h1: sk === 'Table' ? '#1de9b6' : 'transparent', h2: sk === 'Tier' ? '#1de9b6' : 'transparent',
+      h3: sk === 'Freshness' ? '#1de9b6' : 'transparent', h4: sk === 'Last certified' ? '#1de9b6' : 'transparent',
+      s1: () => this.sortBy('Table'), s2: () => this.sortBy('Tier'), s3: () => this.sortBy('Freshness'), s4: () => this.sortBy('Last certified'),
+
+      items: this.nodes.map((n, i) => ({title: n.t, meta: n.s + ' sources · ' + n.c, cur: i === st.sel ? 'true' : 'false',
+        bd: i === st.sel ? '1px solid #000' : '1px solid transparent',
+        sh: i === st.sel ? '2px 2px 0 #1de9b6' : '0 1px 2px rgba(0,0,0,.06)',
+        pick: () => this.setState({sel: i})})),
+      detailTitle: sel.t, detailPath: sel.p,
+      detailMeta: sel.s + ' sources · ' + sel.c + ' confidence · selected from 5 attached',
+      detailBody: sel.b, detailPoints: sel.pts,
+
+      o1d: st.term === 'sla', o2d: st.term === 'lapse',
+      x1: st.term === 'sla' ? 'true' : 'false', x2: st.term === 'lapse' ? 'true' : 'false',
+      d1: () => this.setState({term: st.term === 'sla' ? null : 'sla'}),
+      d2: () => this.setState({term: st.term === 'lapse' ? null : 'lapse'}),
+      dclose: () => this.setState({term: null}),
+
+      deltas: this.props.showDeltas !== false
+    };
+  }
+}
+</script>
+</body>
+</html>

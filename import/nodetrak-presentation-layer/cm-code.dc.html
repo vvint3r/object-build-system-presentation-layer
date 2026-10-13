@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<div style="background:#fff;border-radius:12px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);overflow:hidden">
+<div style="display:flex;align-items:center;gap:12px;padding:14px 20px;box-shadow:0 1px 0 rgba(0,0,0,.06)">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600">{{ file }}</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;border:1px solid #000;border-radius:4px;padding:3px 9px;margin-left:auto">{{ lang }}</span>
+</div>
+<pre style="margin:0;padding:20px 16px;overflow:auto;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;line-height:1.9;color:#000">{{ children }}</pre>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:620,&quot;height&quot;:220},&quot;file&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;example.sql&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;lang&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;sql&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    return { file: this.props.file || '', lang: this.props.lang || 'text' };
+  }
+}
+</script>
+</body>
+</html>

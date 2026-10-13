@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&amp;family=JetBrains+Mono:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#fafafa;color:#000;font-family:'Nunito',sans-serif}
+a{color:#000;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px}
+a:hover{background:rgba(29,233,182,.3)}
+::selection{background:rgba(29,233,182,.35)}
+button{font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;background:none;border:none;padding:0;margin:0;text-align:left;cursor:pointer}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px solid #000;outline-offset:3px}
+@media(max-width:800px){#ladder{grid-template-columns:1fr!important;row-gap:10px!important}#reg [data-row],#gr [data-row]{grid-template-columns:1fr!important;row-gap:6px!important}#reg-head,#gr-head{display:none!important}}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:#f1f1f1;border-radius:999px}
+::-webkit-scrollbar-thumb{background:rgba(0,0,0,.22);border-radius:999px}
+::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.45)}
+
+[data-nav-group] [data-nav-menu]{display:none}
+[data-nav-group]:hover [data-nav-menu],[data-nav-group]:focus-within [data-nav-menu]{display:block}
+</style>
+</helmet>
+
+<div style="position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid #ebebeb">
+<div style="max-width:1060px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:18px;row-gap:10px;flex-wrap:wrap">
+<span style="font-weight:900;font-size:16px;letter-spacing:.01em">content-morphia</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid #000;background:#fff">Icons</span>
+<nav aria-label="Design system" style="display:flex;align-items:center;gap:4px;row-gap:6px;flex-wrap:wrap"><div data-nav-group style="position:relative"><a href="content-morphia Foundations.dc.html" aria-current="page" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:4px 9px;background:#fff;border:1px solid #000;box-shadow:2px 2px 0 #1de9b6">Foundations</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Foundations.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Foundations</a><span aria-current="page" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:700;background:#f1f1f1">Icons</span><a href="content-morphia Print.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Print</a><a href="content-morphia Equivalents.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Non-visual equivalents</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Structured.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Components</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Structured.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Structured components</a><a href="content-morphia Prose.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Prose primitives</a><a href="content-morphia Wayfinding.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Wayfinding</a><a href="content-morphia Provenance.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Provenance</a><a href="content-morphia Charts.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Charts</a><a href="content-morphia Interaction.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Interaction</a><a href="content-morphia Learning.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Learning</a><a href="content-morphia Questions.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Questions and answers</a><a href="content-morphia Change.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Change and status</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Diagrams.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Diagrams</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Diagrams.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Diagram library</a><a href="content-morphia Diagrams at Scale.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Diagrams at scale</a><a href="content-morphia Diagrams II.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Technical families</a><a href="content-morphia Diagrams III.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Experience and magnitude</a><a href="content-morphia Diagrams IV.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Structure and notation</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Templates.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Templates</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Templates.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Template index</a><a href="content-morphia T1 Topic.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T1 Topic</a><a href="content-morphia T2 Framework.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T2 Framework</a><a href="content-morphia T3 Process.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T3 Process</a><a href="content-morphia T4 Guide.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T4 Guide</a><a href="content-morphia T5 Module.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T5 Module</a><a href="content-morphia T6 Metric.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T6 Metric</a><a href="content-morphia T7 Comparison.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T7 Comparison</a><a href="content-morphia T8 Roadmap.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T8 Roadmap</a><a href="content-morphia T9 Reference.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T9 Reference</a><a href="content-morphia T10 Glossary.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T10 Glossary</a><a href="content-morphia T11 Case study.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T11 Case study</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Composition.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Composition</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Composition.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Composition</a><a href="content-morphia Anatomy.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Anatomy and primitives</a><a href="content-morphia Selection.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Selection</a><a href="content-morphia Implementing.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Implementing</a><a href="content-morphia Exemplar.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Worked example</a></div></div></div></nav>
+</div>
+</div>
+
+<div style="background:#fafafa;border-bottom:1px solid #ebebeb">
+<div style="max-width:1060px;margin:0 auto;padding:11px 24px;display:flex;align-items:center;gap:10px;row-gap:8px;flex-wrap:wrap">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">On this page</span>
+<span style="width:1px;height:13px;background:#ebebeb"></span>
+<nav aria-label="Sections of this page" style="display:flex;align-items:center;gap:2px;row-gap:6px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase">
+<a href="#s1" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 01 The set</a>
+<a href="#s2" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 02 The ration</a>
+<a href="#s3" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 03 Placement</a>
+<a href="#s4" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 04 The register</a>
+</nav>
+</div>
+</div>
+
+<section data-screen-label="Page header" style="max-width:1060px;margin:0 auto;padding:40px 24px 0">
+<div style="width:52px;height:5px;background:#1de9b6;border-radius:999px;margin-bottom:20px"></div>
+<h1 style="margin:0;font-weight:900;font-size:44px;line-height:1.06">Icons</h1>
+<div style="font-size:16px;font-weight:400;line-height:1.8;max-width:68ch;margin-top:14px;text-wrap:pretty">One glyph family, one fill rule, and a short list of the places a glyph may appear. The family is a 24px outline set that ships a solid twin for every shape, which is what makes the accent fill possible without redrawing a single glyph.</div>
+<div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase"><span>Source</span><span style="font-weight:400;letter-spacing:.06em">Basil Icons community set · 497 glyphs · 24px grid · every shape ships a solid twin</span></div>
+</section>
+
+<section id="s1" data-screen-label="ss: 01 The set" style="max-width:1060px;margin:0 auto;padding:88px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;row-gap:8px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 01</span><h2 style="margin:0;font-weight:900;font-size:28px;line-height:1.15">The set and its treatment</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">A glyph is black, drawn on a 24px grid at 1.5px. The accent enters as a fill above a waterline at 13 of 24 — one number for the whole family, never set per glyph. The solid twin supplies the fill and the outline is drawn over it, so a filled glyph and a plain one are the same shape at the same weight.</div>
+
+<div style="margin-top:24px;background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:26px">
+<h3 style="margin:0;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;line-height:1.4">The two states</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.7;max-width:70ch;margin-top:6px;text-wrap:pretty">Every glyph is drawn once and appears in both states. The fill is the only difference between the rows.</div>
+
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;margin-top:20px">Outline · the default</div>
+<div style="display:flex;flex-wrap:wrap;gap:28px;row-gap:18px;margin-top:12px">
+<div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start"><img src="icons/set/note-o.svg" width="24" height="24" alt="Note" style="display:block"><sc-if value="{{ showNames }}" hint-placeholder-val="{{ true }}"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Note</span></sc-if></div>
+<div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start"><img src="icons/set/tip-o.svg" width="24" height="24" alt="Tip" style="display:block"><sc-if value="{{ showNames }}" hint-placeholder-val="{{ true }}"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Tip</span></sc-if></div>
+<div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start"><img src="icons/set/important-o.svg" width="24" height="24" alt="Important" style="display:block"><sc-if value="{{ showNames }}" hint-placeholder-val="{{ true }}"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Important</span></sc-if></div>
+<div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start"><img src="icons/set/warning-o.svg" width="24" height="24" alt="Warning" style="display:block"><sc-if value="{{ showNames }}" hint-placeholder-val="{{ true }}"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Warning</span></sc-if></div>
+<div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start"><img src="icons/set/requirement-o.svg" width="24" height="24" alt="Requirement" style="display:block"><sc-if value="{{ showNames }}" hint-placeholder-val="{{ true }}"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Requirement</span></sc-if></div>
+<div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start"><img src="icons/set/example-o.svg" width="24" height="24" alt="Example" style="display:block"><sc-if value="{{ showNames }}" hint-placeholder-val="{{ true }}"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Example</span></sc-if></div>
+<div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start"><img src="icons/set/limitation-o.svg" width="24" height="24" alt="Limitation" style="display:block"><sc-if value="{{ showNames }}" hint-placeholder-val="{{ true }}"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Limitation</span></sc-if></div>
+<div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start"><img src="icons/set/correction-o.svg" width="24" height="24" alt="Correction" style="display:block"><sc-if value="{{ showNames }}" hint-placeholder-val="{{ true }}"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Correction</span></sc-if></div>
+</div>
+
+<div style="height:1px;background:#ebebeb;margin-top:24px"></div>
+
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;margin-top:24px">Partial fill · rationed</div>
+<div style="display:flex;flex-wrap:wrap;gap:28px;row-gap:18px;margin-top:12px">
+<div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start"><img src="icons/set/note-f.svg" width="24" height="24" alt="Note, filled" style="display:block"><sc-if value="{{ showNames }}" hint-placeholder-val="{{ true }}"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Note</span></sc-if></div>
+<div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start"><img src="icons/set/tip-f.svg" width="24" height="24" alt="Tip, filled" style="display:block"><sc-if value="{{ showNames }}" hint-placeholder-val="{{ true }}"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Tip</span></sc-if></div>
+<div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start"><img src="icons/set/important-f.svg" width="24" height="24" alt="Important, filled" style="display:block"><sc-if value="{{ showNames }}" hint-placeholder-val="{{ true }}"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Important</span></sc-if></div>
+<div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start"><img src="icons/set/warning-f.svg" width="24" height="24" alt="Warning, filled" style="display:block"><sc-if value="{{ showNames }}" hint-placeholder-val="{{ true }}"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Warning</span></sc-if></div>
+<div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start"><img src="icons/set/requirement-f.svg" width="24" height="24" alt="Requirement, filled" style="display:block"><sc-if value="{{ showNames }}" hint-placeholder-val="{{ true }}"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Requirement</span></sc-if></div>
+<div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start"><img src="icons/set/example-f.svg" width="24" height="24" alt="Example, filled" style="display:block"><sc-if value="{{ showNames }}" hint-placeholder-val="{{ true }}"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Example</span></sc-if></div>
+<div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start"><img src="icons/set/limitation-f.svg" width="24" height="24" alt="Limitation, filled" style="display:block"><sc-if value="{{ showNames }}" hint-placeholder-val="{{ true }}"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Limitation</span></sc-if></div>
+<div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start"><img src="icons/set/correction-f.svg" width="24" height="24" alt="Correction, filled" style="display:block"><sc-if value="{{ showNames }}" hint-placeholder-val="{{ true }}"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Correction</span></sc-if></div>
+</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.06em;text-transform:uppercase;margin-top:20px">24px grid · waterline 13 of 24 · fill #1de9b6 · outline #000 at 1.5px</div>
+</div>
+
+<sc-if value="{{ showConstruction }}" hint-placeholder-val="{{ true }}">
+<div style="margin-top:32px;border-left:2px solid #000;border-top:2px solid #000;width:14px;height:14px"></div>
+<h3 style="margin:12px 0 0;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;line-height:1.4">How the fill is drawn</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.7;max-width:70ch;margin-top:6px;text-wrap:pretty">Three operations, in this order, on the pair of files the family already ships.</div>
+<div style="display:flex;flex-direction:column;gap:12px;margin-top:16px;max-width:70ch">
+<div style="display:flex;gap:14px;align-items:baseline"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;flex:none;padding-top:2px">01</span><span style="font-size:15.5px;font-weight:400;line-height:1.85">The solid twin is clipped to the top 13 units of the 24-unit box and filled in the accent.</span></div>
+<div style="display:flex;gap:14px;align-items:baseline"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;flex:none;padding-top:2px">02</span><span style="font-size:15.5px;font-weight:400;line-height:1.85">The outline is drawn over it at full height, unchanged, so the silhouette and every interior detail stay black.</span></div>
+<div style="display:flex;gap:14px;align-items:baseline"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;flex:none;padding-top:2px">03</span><span style="font-size:15.5px;font-weight:400;line-height:1.85">Nothing else moves. The waterline is a constant of the family, not a property of a glyph or a placement.</span></div>
+</div>
+</sc-if>
+
+<div style="margin-top:32px;border-left:2px solid #000;border-top:2px solid #000;width:14px;height:14px"></div>
+<h3 style="margin:12px 0 0;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;line-height:1.4">Where the fill starts</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.7;max-width:70ch;margin-top:6px;text-wrap:pretty">At 16px the band is under 9px tall and reads as a printing error rather than a mark, so the fill is dropped and the glyph runs as outline only.</div>
+<div id="ladder" style="display:grid;grid-template-columns:120px 1fr 1fr 1fr 1fr;gap:16px;align-items:center;margin-top:16px;max-width:620px">
+<span></span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">16 px</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">20 px</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">24 px</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">32 px</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">Outline</span>
+<img src="icons/set/tip-o.svg" width="16" height="16" alt="" aria-hidden="true" style="display:block">
+<img src="icons/set/tip-o.svg" width="20" height="20" alt="" aria-hidden="true" style="display:block">
+<img src="icons/set/tip-o.svg" width="24" height="24" alt="" aria-hidden="true" style="display:block">
+<img src="icons/set/tip-o.svg" width="32" height="32" alt="" aria-hidden="true" style="display:block">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">Partial fill</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600">— not at this size</span>
+<img src="icons/set/tip-f.svg" width="20" height="20" alt="" aria-hidden="true" style="display:block">
+<img src="icons/set/tip-f.svg" width="24" height="24" alt="" aria-hidden="true" style="display:block">
+<img src="icons/set/tip-f.svg" width="32" height="32" alt="" aria-hidden="true" style="display:block">
+</div>
+</section>
+
+<section id="s2" data-screen-label="ss: 02 The ration" style="max-width:1060px;margin:0 auto;padding:88px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;row-gap:8px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 02</span><h2 style="margin:0;font-weight:900;font-size:28px;line-height:1.15">The ration</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">The accent is reserved by rule, so a family that carried it everywhere would spend the reservation on decoration. Four limits keep the fill a mark rather than a texture.</div>
+<div style="display:flex;flex-direction:column;gap:10px;margin-top:20px;max-width:70ch">
+<div style="display:flex;gap:12px;align-items:flex-start"><span style="width:7px;height:7px;background:#1de9b6;border-radius:999px;flex:none;margin-top:11px"></span><span style="font-size:15.5px;font-weight:400;line-height:1.85">The fill appears at 20px and above. Below that the glyph is outline only.</span></div>
+<div style="display:flex;gap:12px;align-items:flex-start"><span style="width:7px;height:7px;background:#1de9b6;border-radius:999px;flex:none;margin-top:11px"></span><span style="font-size:15.5px;font-weight:400;line-height:1.85">One filled glyph per view, at the same altitude as the reserved offset shadow.</span></div>
+<div style="display:flex;gap:12px;align-items:flex-start"><span style="width:7px;height:7px;background:#1de9b6;border-radius:999px;flex:none;margin-top:11px"></span><span style="font-size:15.5px;font-weight:400;line-height:1.85">Only the placements in ss: 03 may carry it, and a grid of peers never does.</span></div>
+<div style="display:flex;gap:12px;align-items:flex-start"><span style="width:7px;height:7px;background:#1de9b6;border-radius:999px;flex:none;margin-top:11px"></span><span style="font-size:15.5px;font-weight:400;line-height:1.85">The fill is never the only cue. The glyph's shape and its mono label carry the meaning without it.</span></div>
+</div>
+
+<div style="margin-top:32px;border-left:2px solid #000;border-top:2px solid #000;width:14px;height:14px"></div>
+<h3 style="margin:12px 0 0;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;line-height:1.4">What the fill must survive</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.7;max-width:70ch;margin-top:6px;text-wrap:pretty">Three conditions the treatment was set against, and what it costs in each.</div>
+<div style="display:flex;flex-direction:column;gap:12px;margin-top:16px;max-width:70ch">
+<div style="display:flex;gap:12px;align-items:flex-start"><span style="width:3px;height:3px;background:#000;flex:none;margin-top:13px"></span><span style="font-size:15.5px;font-weight:400;line-height:1.85"><span style="font-weight:700">The smallest working size.</span> At 24px the band is 13px tall; at 16px it is under 9px, which is why 20px is the floor for a filled glyph.</span></div>
+<div style="display:flex;gap:12px;align-items:flex-start"><span style="width:3px;height:3px;background:#000;flex:none;margin-top:13px"></span><span style="font-size:15.5px;font-weight:400;line-height:1.85"><span style="font-weight:700">Greyscale.</span> On paper the band prints as one tone and nothing is lost, because a filled glyph and a plain one are the same shape and the label states the kind.</span></div>
+<div style="display:flex;gap:12px;align-items:flex-start"><span style="width:3px;height:3px;background:#000;flex:none;margin-top:13px"></span><span style="font-size:15.5px;font-weight:400;line-height:1.85"><span style="font-weight:700">Cost per glyph.</span> Zero. The solid twin already knocks its own interior detail out, so no glyph is redrawn and a new one joins the family with no extra work.</span></div>
+</div>
+</section>
+
+<section id="s3" data-screen-label="ss: 03 Placement" style="max-width:1060px;margin:0 auto;padding:88px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;row-gap:8px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 03</span><h2 style="margin:0;font-weight:900;font-size:28px;line-height:1.15">Placement</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">A glyph belongs in four places. Everywhere else the label carries the meaning on its own, and a glyph beside it either repeats the label or competes with it. Where two of these placements meet in one view, the fill goes to the one higher in the register.</div>
+
+<div id="reg" style="margin-top:24px;background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:26px">
+<h3 style="margin:0;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;line-height:1.4">Where a glyph is allowed</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.7;max-width:70ch;margin-top:6px;text-wrap:pretty">Four placements, each with the size it runs at and whether the fill is available there. The glyphs themselves are in ss: 04.</div>
+<div id="reg-head" data-row style="display:grid;grid-template-columns:1.1fr .5fr .8fr 2.4fr;gap:16px;background:#f1f1f1;border-radius:6px;padding:12px 12px;margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">
+<span>Placement</span><span>Size</span><span>Fill</span><span>What the glyph adds</span>
+</div>
+<div data-row style="display:grid;grid-template-columns:1.1fr .5fr .8fr 2.4fr;gap:16px;padding:16px 12px;align-items:baseline">
+<span style="font-size:15.5px;font-weight:700">Callout label</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600">20 px</span>
+<span style="font-size:15.5px;font-weight:400">Allowed</span>
+<span style="font-size:15.5px;font-weight:400">The kind of aside is visible before the word is read, which is what makes a callout skippable.</span>
+</div>
+<div data-row style="display:grid;grid-template-columns:1.1fr .5fr .8fr 2.4fr;gap:16px;padding:16px 12px;align-items:baseline">
+<span style="font-size:15.5px;font-weight:700">Empty state</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600">32 px</span>
+<span style="font-size:15.5px;font-weight:400">Allowed</span>
+<span style="font-size:15.5px;font-weight:400">A surface with nothing in it still carries a mark, so the absence reads as deliberate rather than broken.</span>
+</div>
+<div data-row style="display:grid;grid-template-columns:1.1fr .5fr .8fr 2.4fr;gap:16px;padding:16px 12px;align-items:baseline">
+<span style="font-size:15.5px;font-weight:700">Index or hub card</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600">24 px</span>
+<span style="font-size:15.5px;font-weight:400">Outline only</span>
+<span style="font-size:15.5px;font-weight:400">One destination separates from its neighbours. These are peers in a grid, so a fill per card is the texture the ration forbids.</span>
+</div>
+<div data-row style="display:grid;grid-template-columns:1.1fr .5fr .8fr 2.4fr;gap:16px;padding:16px 12px;align-items:baseline">
+<span style="font-size:15.5px;font-weight:700">Register row label</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600">20 px</span>
+<span style="font-size:15.5px;font-weight:400">Outline only</span>
+<span style="font-size:15.5px;font-weight:400">The family a row belongs to, where that family repeats down a column and the words would repeat with it.</span>
+</div>
+</div>
+
+<sc-if value="{{ showNever }}" hint-placeholder-val="{{ true }}">
+<div style="margin-top:32px;border-left:2px solid #000;border-top:2px solid #000;width:14px;height:14px"></div>
+<h3 style="margin:12px 0 0;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;line-height:1.4">Never carries a glyph</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.7;max-width:70ch;margin-top:6px;text-wrap:pretty">Six placements where a glyph was tried in earlier drafts and removed.</div>
+<div style="display:flex;flex-direction:column;gap:12px;margin-top:16px;max-width:70ch">
+<div style="display:flex;gap:12px;align-items:flex-start"><span style="width:3px;height:3px;background:#000;flex:none;margin-top:13px"></span><span style="font-size:15.5px;font-weight:400;line-height:1.85"><span style="font-weight:700">Inside a sentence.</span> A glyph in running text breaks the line box and is read as punctuation.</span></div>
+<div style="display:flex;gap:12px;align-items:flex-start"><span style="width:3px;height:3px;background:#000;flex:none;margin-top:13px"></span><span style="font-size:15.5px;font-weight:400;line-height:1.85"><span style="font-weight:700">A nav pill or a tab.</span> The pill is already the shape that marks it; a glyph inside competes with its own label.</span></div>
+<div style="display:flex;gap:12px;align-items:flex-start"><span style="width:3px;height:3px;background:#000;flex:none;margin-top:13px"></span><span style="font-size:15.5px;font-weight:400;line-height:1.85"><span style="font-weight:700">A table cell.</span> Cells carry mono values, and a glyph in one column makes that column a different kind of data.</span></div>
+<div style="display:flex;gap:12px;align-items:flex-start"><span style="width:3px;height:3px;background:#000;flex:none;margin-top:13px"></span><span style="font-size:15.5px;font-weight:400;line-height:1.85"><span style="font-weight:700">A status chip.</span> The tint and the mono word are the two cues the chip is built from; a third is noise.</span></div>
+<div style="display:flex;gap:12px;align-items:flex-start"><span style="width:3px;height:3px;background:#000;flex:none;margin-top:13px"></span><span style="font-size:15.5px;font-weight:400;line-height:1.85"><span style="font-weight:700">A button.</span> The label states the action; a glyph beside it either repeats the label or contradicts it.</span></div>
+<div style="display:flex;gap:12px;align-items:flex-start"><span style="width:3px;height:3px;background:#000;flex:none;margin-top:13px"></span><span style="font-size:15.5px;font-weight:400;line-height:1.85"><span style="font-weight:700">A list bullet.</span> Bullets are a teal dot or a black square by rule, and a glyph in that position is read as a bullet anyway.</span></div>
+</div>
+</sc-if>
+</section>
+
+<section id="s4" data-screen-label="ss: 04 The register" style="max-width:1060px;margin:0 auto;padding:88px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;row-gap:8px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 04</span><h2 style="margin:0;font-weight:900;font-size:28px;line-height:1.15">The register</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Every glyph the system uses, and the one concept it stands for. This is a closed list on the same terms as the label vocabulary: a concept that is not in it takes no glyph, and no two concepts share a shape. A placement being available does not entitle the material in it to a glyph.</div>
+
+<div id="gr" style="margin-top:24px;background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:26px">
+<h3 style="margin:0;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;line-height:1.4">Concept to glyph</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.7;max-width:70ch;margin-top:6px;text-wrap:pretty">Shown at the size each placement runs at. Whether that placement may spend the accent is set in ss: 03.</div>
+<div id="gr-head" data-row style="display:grid;grid-template-columns:44px 1.2fr 1.3fr 1.9fr;gap:16px;background:#f1f1f1;border-radius:6px;padding:12px 12px;margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">
+<span>Glyph</span><span>Concept</span><span>Placement</span><span>Where it appears</span>
+</div>
+<sc-for list="{{ glyphs }}" as="g" hint-placeholder-count="12">
+<div data-row style="{{ g.row }}">
+<span style="display:flex;align-items:center"><img src="{{ g.src }}" width="{{ g.px }}" height="{{ g.px }}" alt="" aria-hidden="true" style="display:block"></span>
+<span style="font-size:15.5px;font-weight:700">{{ g.concept }}</span>
+<span style="font-size:15.5px;font-weight:400">{{ g.place }}</span>
+<span style="font-size:15.5px;font-weight:400">{{ g.where }}</span>
+</div>
+</sc-for>
+</div>
+
+<div style="margin-top:32px;border-left:2px solid #000;border-top:2px solid #000;width:14px;height:14px"></div>
+<h3 style="margin:12px 0 0;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;line-height:1.4">How a concept earns a glyph</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.7;max-width:70ch;margin-top:6px;text-wrap:pretty">Four conditions, all of which must hold before a shape is added.</div>
+<div style="display:flex;flex-direction:column;gap:12px;margin-top:16px;max-width:70ch">
+<div style="display:flex;gap:12px;align-items:flex-start"><span style="width:3px;height:3px;background:#000;flex:none;margin-top:13px"></span><span style="font-size:15.5px;font-weight:400;line-height:1.85"><span style="font-weight:700">It is already a closed-vocabulary name.</span> A glyph marks a callout label, a status, a template or an empty condition — never a subject, a topic or a technology.</span></div>
+<div style="display:flex;gap:12px;align-items:flex-start"><span style="width:3px;height:3px;background:#000;flex:none;margin-top:13px"></span><span style="font-size:15.5px;font-weight:400;line-height:1.85"><span style="font-weight:700">It repeats.</span> A concept that appears once does not need a mark; the word is shorter to read than a shape is to learn.</span></div>
+<div style="display:flex;gap:12px;align-items:flex-start"><span style="width:3px;height:3px;background:#000;flex:none;margin-top:13px"></span><span style="font-size:15.5px;font-weight:400;line-height:1.85"><span style="font-weight:700">The shape is unclaimed.</span> Two concepts on one shape means neither can be recognised, so the family reuses nothing and the register is checked before a glyph is drawn.</span></div>
+<div style="display:flex;gap:12px;align-items:flex-start"><span style="width:3px;height:3px;background:#000;flex:none;margin-top:13px"></span><span style="font-size:15.5px;font-weight:400;line-height:1.85"><span style="font-weight:700">Its solid twin floods an area above the waterline.</span> On a glyph drawn as a stroke — a check, a magnifier, a bolt — the solid twin is nearly the outline, so the black outline covers the band and the fill is invisible. Those shapes stay out of the fill placements.</span></div>
+</div>
+</section>
+
+<div style="height:96px"></div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showNames&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Specimens&quot;},&quot;showConstruction&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Specimens&quot;},&quot;showNever&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Specimens&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const G = [
+      ['note', 'Note', 'Callout label', 'The eight callouts at Foundations ss: 08, one per view.', 20],
+      ['tip', 'Tip', 'Callout label', 'The eight callouts at Foundations ss: 08, one per view.', 20],
+      ['important', 'Important', 'Callout label', 'The eight callouts at Foundations ss: 08, one per view.', 20],
+      ['warning', 'Warning', 'Callout label', 'The eight callouts at Foundations ss: 08, one per view.', 20],
+      ['requirement', 'Requirement', 'Callout label', 'The eight callouts at Foundations ss: 08, one per view.', 20],
+      ['example', 'Example', 'Callout label', 'The eight callouts at Foundations ss: 08, one per view.', 20],
+      ['limitation', 'Limitation', 'Callout label', 'The eight callouts at Foundations ss: 08, one per view.', 20],
+      ['correction', 'Correction', 'Callout label', 'The eight callouts at Foundations ss: 08, one per view.', 20],
+      ['empty-search', 'Nothing matched', 'Empty state', 'A search that returns no nodes, at Wayfinding ss: 01.', 32],
+      ['empty-data', 'No data to draw', 'Empty state', 'A chart in any of its four empty conditions, at Charts ss: 04.', 32],
+      ['empty-clear', 'Nothing open', 'Empty state', 'A queue with no items left in it, at Roadmap ss: 05.', 32],
+      ['t1', 'Topic overview', 'Index card', 'The template index at Templates ss: 01.', 24],
+      ['t2', 'Framework', 'Index card', 'The template index at Templates ss: 01.', 24],
+      ['t3', 'Process', 'Index card', 'The template index at Templates ss: 01.', 24],
+      ['t4', 'Implementation guide', 'Index card', 'The template index at Templates ss: 01.', 24],
+      ['t5', 'Learning module', 'Index card', 'The template index at Templates ss: 01.', 24],
+      ['t6', 'Metric', 'Index card', 'The template index at Templates ss: 01.', 24],
+      ['t7', 'Comparison', 'Index card', 'The template index at Templates ss: 01.', 24],
+      ['t8', 'Roadmap', 'Index card', 'The template index at Templates ss: 01.', 24],
+      ['t9', 'Reference', 'Index card', 'The template index at Templates ss: 01.', 24],
+      ['t10', 'Glossary', 'Index card', 'The template index at Templates ss: 01.', 24],
+      ['t11', 'Case study', 'Index card', 'The template index at Templates ss: 01.', 24],
+      ['method', 'Method', 'Index card', 'The reference build card at Templates ss: 01.', 24]
+    ];
+    const col = 'display:grid;grid-template-columns:44px 1.2fr 1.3fr 1.9fr;gap:16px;padding:16px 12px;align-items:baseline';
+    const glyphs = G.map((g, i) => ({
+      src: 'icons/set/' + g[0] + '-o.svg',
+      concept: g[1], place: g[2], where: g[3], px: g[4],
+      row: col + (i ? ';border-top:1px solid #ebebeb' : '')
+    }));
+    return {
+      glyphs,
+      showNames: this.props.showNames ?? true,
+      showConstruction: this.props.showConstruction ?? true,
+      showNever: this.props.showNever ?? true
+    };
+  }
+}
+</script>
+</body>
+</html>

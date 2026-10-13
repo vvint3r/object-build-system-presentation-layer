@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<div>
+<sc-if value="{{ hasTitle }}" hint-placeholder-val="{{ false }}">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-bottom:16px">{{ title }}</div>
+</sc-if>
+<div role="table" style="{{ surface }}">
+<div role="row" style="{{ headStyle }}">
+<sc-for list="{{ head }}" as="h" hint-placeholder-count="4">
+<span role="columnheader" style="{{ h.style }}">{{ h.text }}</span>
+</sc-for>
+</div>
+{{ rows }}
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:720,&quot;height&quot;:240},&quot;cols&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;1fr 1fr&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;head&quot;:{&quot;editor&quot;:null,&quot;default&quot;:&quot;[]&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;title&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const cols = this.props.cols || '1fr 1fr';
+    let head = [];
+    try { head = JSON.parse(this.props.head || '[]'); } catch (e) { head = []; }
+    const mono = this.props.mono === true || this.props.mono === 'true';
+    const grid = 'display:grid;grid-template-columns:' + cols + ';align-items:baseline;';
+    const cellCss = mono
+      ? { padding: '16px 16px 16px 0', fontSize: '12px', fontWeight: 400 }
+      : { padding: '16px 14px 16px 0', fontSize: '14px', lineHeight: 1.75, fontWeight: 400 };
+    const rows = React.Children.map(this.props.children, (row, ri) => {
+      if (!row || typeof row !== 'object' || !row.props) return row;
+      const cells = React.Children.map(row.props.children, cell => {
+        if (!cell || typeof cell !== 'object' || !cell.props) return cell;
+        return React.cloneElement(cell, {
+          role: cell.props.role || 'cell',
+          style: Object.assign({}, cellCss, cell.props.style || {})
+        });
+      });
+      return React.cloneElement(row, {
+        role: row.props.role || 'row',
+        style: Object.assign({
+          display: 'grid', gridTemplateColumns: cols, alignItems: 'baseline',
+          borderTop: ri === 0 ? 'none' : '1px solid #ebebeb', margin: '0 32px'
+        }, row.props.style || {})
+      }, cells);
+    });
+    return {
+      title: this.props.title || '',
+      hasTitle: !!this.props.title,
+      surface: 'background:#fff;border-radius:12px;box-shadow:0 4px 14px rgba(0,0,0,.08);overflow:hidden;margin:0 -32px' +
+        (mono ? ";font-family:'JetBrains Mono',monospace" : ''),
+      headStyle: grid + 'border-bottom:1.5px solid #000;margin:0 32px',
+      head: head.map(t => {
+        const wash = typeof t === 'object' && t.wash;
+        const text = typeof t === 'object' ? t.text : t;
+        return {
+          text,
+          style: "font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;" +
+            'letter-spacing:.02em;text-transform:uppercase;padding:16px 16px 16px 0' +
+            (wash ? ';background:rgba(27,189,148,.25);box-shadow:inset 0 0 0 4px #fff;padding-left:12px' : '')
+        };
+      }),
+      rows
+    };
+  }
+}
+</script>
+</body>
+</html>

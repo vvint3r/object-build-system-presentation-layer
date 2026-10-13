@@ -1,0 +1,1556 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#171717;font-family:"Nunito",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#25d09d;text-decoration:none}
+a:hover{color:#5fe3bb}
+.dv-turn{padding:44px 48px 40px;border-bottom:1px solid rgba(255,255,255,0.07);scroll-margin-top:16px}
+.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 26px}
+.dv-tid{font:800 10px/1 "Fira Code",monospace;letter-spacing:1px;padding:4px 8px;background:#25d09d;color:#0d2a22;border-radius:4px;text-decoration:none}
+.dv-tname{font:500 14px/1.2 "Nunito",sans-serif;letter-spacing:1.2px;color:#ffffff}
+.dv-opts{display:flex;flex-wrap:wrap;gap:40px 32px;align-items:flex-start}
+.dv-opt{flex:none;display:flex;flex-direction:column;gap:10px;scroll-margin-top:16px}
+.dv-oid{font:500 10.5px/1 "Fira Code",monospace;letter-spacing:0.5px;padding:4px 7px;background:rgba(255,255,255,0.09);color:#fff;border-radius:5px;text-decoration:none}
+.dv-oid:hover{background:rgba(37,208,157,0.22);color:#25d09d}
+.dv-olabel{display:flex;align-items:center;gap:9px;font:400 11.5px/1.3 "Nunito",sans-serif;letter-spacing:1px;color:#ffffff}
+.dv-opt:target .dv-oid{background:#25d09d;color:#0d2a22}
+.dv-next{margin:30px 0 0;font:400 12px/1.6 "Nunito",sans-serif;letter-spacing:1px;color:#ffffff}
+.sp{display:grid;grid-template-columns:auto 1fr;gap:3px 14px;font:400 10px/1.5 "Fira Code",monospace;letter-spacing:0;padding:11px 13px;background:rgba(255,255,255,0.025);border-left:2px solid rgba(37,208,157,0.25);border-radius:0 6px 6px 0}
+.sp b{font-weight:400;color:#ffffff}
+.sp i{font-style:normal;font-weight:600;color:#ffffff}
+.kit{width:472px;background:#191919;border-radius:8px;padding:18px 20px 20px;display:flex;flex-direction:column;gap:14px}
+.kith{font:800 10px/1 Nunito,sans-serif;letter-spacing:1.2px;text-transform:uppercase;color:#ffffff}
+.pnl{width:900px;box-sizing:border-box;background:#191919;border-radius:8px;box-shadow:10px 10px 0 rgba(0,0,0,0.5);padding:22px 24px 24px}
+.pkick{font:800 10px/1 Nunito,sans-serif;letter-spacing:1.2px;text-transform:uppercase;color:#25d09d}
+.ptitle{font:300 20px/1.2 Nunito,sans-serif;letter-spacing:0.6px;color:#ffffff}
+.phd{display:flex;flex-direction:column;gap:5px;margin-bottom:18px}
+.cap{width:900px;box-sizing:border-box;padding:0 24px;margin-top:14px;font:400 10px/1.6 "Fira Code",monospace;color:#8a8a8a}
+.pnl.s{width:600px}
+.pnl.l{width:1200px}
+.cap.s{width:600px}
+.cap.l{width:1200px}
+</style>
+</helmet>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<marker id="ah-dim" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M1,1.5 L9,5 L1,8.5 Z" fill="rgba(255,255,255,0.42)"></path></marker>
+<marker id="ah-fail" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M1,1.5 L9,5 L1,8.5 Z" fill="#ff7d8a"></path></marker>
+<marker id="ah-ok" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M1,1.5 L9,5 L1,8.5 Z" fill="#25d09d"></path></marker>
+<marker id="ah-open" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M1.5,1.5 L8.5,5 L1.5,8.5" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></marker>
+<marker id="ah-dot" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="10" markerHeight="10" orient="auto"><circle cx="5" cy="5" r="3" fill="rgba(255,255,255,0.42)"></circle></marker>
+</defs></svg>
+
+<section class="dv-turn" id="t0" style="border-bottom:1px solid rgba(255,255,255,0.12)">
+<div class="dv-thd"><a class="dv-tid" href="#t0">KIT</a><span class="dv-tname">Diagram kit index — every variable needed to draw a new one</span></div>
+
+<div style="max-width:880px;margin:0 0 26px;font:300 14px/1.75 Nunito,sans-serif;letter-spacing:0.4px;color:#ffffff;text-wrap:pretty">Mermaid buys speed and costs control: fixed node shapes, right-angle routing, no say over where a label sits. These are authored as SVG paths instead. Colour now lives in a hard backdrop — a copy of the shape offset four pixels right and down, zero blur, full opacity — so a node reads as a lifted card rather than an outlined box. Six node types, three frame types, six connectors, five terminators. Nothing is generated at runtime.</div>
+
+<div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start">
+
+<div class="kit">
+<div class="kith">Depth — the backdrop replaces the outline</div>
+<svg width="432" height="112" viewBox="0 0 432 112" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="4" y="4" width="120" height="52" rx="7" fill="#25d09d"></rect>
+<rect x="0" y="0" width="120" height="52" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<circle cx="16" cy="22" r="3.5" fill="#25d09d"></circle>
+<text x="30" y="26" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Healthy</text>
+<text x="30" y="44" font-family="Nunito, sans-serif" font-size="11" fill="#ffffff">#25d09d</text>
+
+<rect x="160" y="4" width="120" height="52" rx="7" fill="#ffca00"></rect>
+<rect x="156" y="0" width="120" height="52" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<circle cx="172" cy="22" r="3.5" fill="#ffca00"></circle>
+<text x="186" y="26" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Degraded</text>
+<text x="186" y="44" font-family="Nunito, sans-serif" font-size="11" fill="#ffffff">#ffca00</text>
+
+<rect x="312" y="4" width="120" height="52" rx="7" fill="rgba(255,255,255,0.22)"></rect>
+<rect x="308" y="0" width="120" height="52" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<circle cx="324" cy="22" r="3.5" fill="rgba(255,255,255,0.35)"></circle>
+<text x="338" y="26" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">No state</text>
+<text x="338" y="44" font-family="Nunito, sans-serif" font-size="11" fill="#ffffff">22% white</text>
+
+<text x="0" y="84" font-family="Fira Code, monospace" font-size="10" fill="#ffffff">offset 4,4 · blur 0 · opacity 1 · same rx</text>
+<text x="0" y="100" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">reserve 4px of gutter on every right and bottom edge</text>
+</svg>
+<div class="sp">
+<b>depth.rect</b><i>x+4 · y+4 · same w/h/rx · fill = state colour, no alpha</i>
+<b>depth.order</b><i>drawn first, node rect painted opaque on top</i>
+<b>node.fill</b><i>#151515 — must be opaque or the backdrop shows through</i>
+<b>node.stroke</b><i>rgba(255,255,255,0.14) · 1px — neutral, never the state colour</i>
+<b>no depth on</b><i>frames, lanes, lifelines, ghost nodes, junctions</i>
+</div>
+</div>
+
+<div class="kit">
+<div class="kith">Node types</div>
+<svg width="432" height="292" viewBox="0 0 432 292" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="4" y="4" width="190" height="52" rx="7" fill="#25d09d"></rect>
+<rect x="0" y="0" width="190" height="52" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<circle cx="16" cy="22" r="3.5" fill="#25d09d"></circle>
+<text x="30" y="26" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Attribution</text>
+<text x="30" y="44" font-family="Nunito, sans-serif" font-size="11" fill="#ffffff">title over a sub</text>
+<text x="0" y="74" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">rect · the default</text>
+
+<rect x="246" y="8" width="186" height="44" rx="22" fill="rgba(255,255,255,0.22)"></rect>
+<rect x="242" y="4" width="186" height="44" rx="22" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="335" y="31" text-anchor="middle" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Segment delivering?</text>
+<text x="242" y="74" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">pill · questions only</text>
+
+<rect x="4" y="94" width="190" height="92" rx="7" fill="#ff7d8a"></rect>
+<rect x="0" y="90" width="190" height="92" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<circle cx="16" cy="112" r="3.5" fill="#ff7d8a"></circle>
+<text x="30" y="116" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Conversion events</text>
+<text x="30" y="140" font-family="Fira Code, monospace" font-size="10" fill="#ffffff">UserSignedUp</text>
+<text x="30" y="158" font-family="Fira Code, monospace" font-size="10" fill="#ffffff">ContractCreated</text>
+<text x="30" y="176" font-family="Fira Code, monospace" font-size="10" fill="#ffffff">PaymentSubmitted</text>
+<text x="0" y="204" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">list · mono rows, 18px lead</text>
+
+<rect x="246" y="94" width="186" height="92" rx="7" fill="#ffca00"></rect>
+<rect x="242" y="90" width="186" height="92" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="258" y="116" font-family="Nunito, sans-serif" font-size="11" fill="#ffffff">Events per day</text>
+<text x="258" y="156" font-family="Fira Code, monospace" font-size="28" font-weight="600" fill="#ffffff">259K</text>
+<text x="258" y="174" font-family="Fira Code, monospace" font-size="10" fill="#ffca00">0% delivered</text>
+<text x="242" y="204" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">metric · one number, one label</text>
+
+<rect x="0" y="224" width="190" height="44" rx="7" fill="none" stroke="rgba(255,255,255,0.20)" stroke-dasharray="4 4"></rect>
+<circle cx="16" cy="246" r="3.5" fill="rgba(255,255,255,0.30)"></circle>
+<text x="30" y="250" font-family="Nunito, sans-serif" font-size="13" font-weight="600" font-weight="400" fill="#ffffff">Planned service</text>
+<text x="0" y="286" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">ghost · not built yet, no depth</text>
+
+<path d="M242,232 C280,232 296,246 320,246" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round"></path>
+<path d="M242,260 C280,260 296,246 320,246" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round"></path>
+<path d="M326,246 H400" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<circle cx="322" cy="246" r="4" fill="#25d09d"></circle>
+<text x="242" y="286" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">junction · r 4, no depth</text>
+</svg>
+</div>
+
+<div class="kit">
+<div class="kith">Frames, lanes and bands</div>
+<svg width="432" height="258" viewBox="0 0 432 258" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0" y="0" width="200" height="118" rx="12" stroke="rgba(255,255,255,0.10)" stroke-dasharray="4 5"></rect>
+<text x="16" y="24" font-family="Nunito, sans-serif" font-size="10" font-weight="600" letter-spacing="1.2" fill="#ffffff">GROUP FRAME</text>
+<text x="16" y="39" font-family="Fira Code, monospace" font-size="9" font-weight="500" letter-spacing="0.6" fill="#25d09d">HEALTHY</text>
+<rect x="18" y="58" width="160" height="40" rx="7" fill="#25d09d"></rect>
+<rect x="14" y="54" width="160" height="40" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<circle cx="30" cy="74" r="3.5" fill="#25d09d"></circle>
+<text x="44" y="78" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">One member</text>
+
+<rect x="232" y="0" width="200" height="118" rx="12" stroke="rgba(255,125,138,0.45)" stroke-dasharray="4 5"></rect>
+<text x="248" y="24" font-family="Nunito, sans-serif" font-size="10" font-weight="600" letter-spacing="1.2" fill="#ffffff">FAILED FRAME</text>
+<text x="248" y="39" font-family="Fira Code, monospace" font-size="9" font-weight="500" letter-spacing="0.6" fill="#ff7d8a">100% FAILURE</text>
+<rect x="246" y="52" width="172" height="52" rx="10" stroke="rgba(255,255,255,0.10)" stroke-dasharray="4 5"></rect>
+<text x="260" y="72" font-family="Nunito, sans-serif" font-size="10" font-weight="600" letter-spacing="1.2" fill="#ffffff">NESTED</text>
+<text x="260" y="92" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">inset 14 · rx 10</text>
+
+<rect x="116" y="140" width="316" height="80" rx="12" stroke="rgba(255,255,255,0.10)" stroke-dasharray="4 5"></rect>
+<text x="100" y="184" text-anchor="end" font-family="Nunito, sans-serif" font-size="10" font-weight="600" letter-spacing="1.2" fill="#ffffff">LANE LABEL</text>
+<rect x="140" y="162" width="140" height="40" rx="7" fill="#6ea8ff"></rect>
+<rect x="136" y="158" width="140" height="40" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<circle cx="152" cy="178" r="3.5" fill="#6ea8ff"></circle>
+<text x="166" y="182" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Step in lane</text>
+<text x="0" y="238" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">lane · right-aligned label</text>
+<text x="0" y="252" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">in a 104px gutter</text>
+</svg>
+<div class="sp">
+<b>frame</b><i>rx 12 · no fill · stroke rgba(255,255,255,.10) · dash 4 5</i>
+<b>frame.state</b><i>stroke tinted to the state @ 0.45 when the group has failed</i>
+<b>frame.pad</b><i>14 side · 34 top under the label · 12 below the last node</i>
+<b>nested</b><i>rx 10 · inset 14 from the parent frame</i>
+<b>lane</b><i>h 100 · pitch 116 · label gutter 104px, text-anchor end</i>
+<b>phase</b><i>divider 1px @ .13 full height · band fill rgba(255,255,255,.02) · name 6px right of the divider, duration 6px left of the next</i>
+</div>
+</div>
+
+<div class="kit">
+<div class="kith">Connectors</div>
+<svg width="432" height="306" viewBox="0 0 432 306" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M8,52 C52,52 60,20 104,20" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<text x="8" y="80" font-family="Fira Code, monospace" font-size="10" fill="#ffffff">S-curve · the default</text>
+<text x="8" y="94" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">C x1+0.42dx,y1 · x2−0.42dx,y2</text>
+
+<path d="M240,20 C276,20 280,42 308,42 L324,42" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M240,64 C280,64 280,42 308,42" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round"></path>
+<text x="240" y="80" font-family="Fira Code, monospace" font-size="10" fill="#ffffff">fan merge · one arrowhead</text>
+<text x="240" y="94" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">siblings meet, travel as one</text>
+
+<path d="M8,126 H40 C52,126 58,133 58,143 V151 C58,161 65,168 77,168 H96" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<text x="8" y="192" font-family="Fira Code, monospace" font-size="10" fill="#ffffff">rounded lane · corner r 14</text>
+<text x="8" y="206" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">for routes that clear nodes</text>
+
+<path d="M240,146 H294" stroke="#ff7d8a" stroke-opacity="0.75" stroke-width="1.25" stroke-dasharray="5 5" stroke-linecap="round"></path>
+<path d="M318,146 H360" stroke="#ff7d8a" stroke-opacity="0.75" stroke-width="1.25" stroke-dasharray="5 5" stroke-linecap="round" marker-end="url(#ah-fail)"></path>
+<circle cx="306" cy="146" r="9" fill="#191919"></circle>
+<path d="M301,141 L311,151 M311,141 L301,151" stroke="#ff7d8a" stroke-width="1.7" stroke-linecap="round"></path>
+<text x="240" y="192" font-family="Fira Code, monospace" font-size="10" fill="#ffffff">severed · dashed + ✕</text>
+<text x="240" y="206" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">the only red line in a diagram</text>
+
+<path d="M14,244 H98" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-start="url(#ah-dim)" marker-end="url(#ah-dim)"></path>
+<text x="8" y="278" font-family="Fira Code, monospace" font-size="10" fill="#ffffff">bidirectional</text>
+<text x="8" y="292" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">marker-start + marker-end</text>
+
+<path d="M240,232 H288 C300,232 300,240 300,248 C300,256 294,262 284,262 H246" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<text x="240" y="278" font-family="Fira Code, monospace" font-size="10" fill="#ffffff">self-call · 60×30 loop</text>
+<text x="240" y="292" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">leaves and returns on one side</text>
+</svg>
+</div>
+
+<div class="kit">
+<div class="kith">Terminators, labels and marks</div>
+<svg width="432" height="200" viewBox="0 0 432 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M8,20 H80" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<text x="98" y="24" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">solid · flow</text>
+<path d="M240,20 H312" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-open)"></path>
+<text x="330" y="24" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">open · reply</text>
+<path d="M8,52 H76" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dot)"></path>
+<text x="98" y="56" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">dot · attaches to a field</text>
+<path d="M240,52 H300" stroke="#25d09d" stroke-opacity="0.8" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-ok)"></path>
+<text x="318" y="56" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">accent · happy path</text>
+
+<path d="M8,104 H120" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round"></path>
+<rect x="26" y="95" width="78" height="18" rx="3" fill="#191919"></rect>
+<text x="65" y="108" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">edge label</text>
+<text x="140" y="108" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">pill masks the line, rx 3</text>
+
+<rect x="8" y="136" width="62" height="18" rx="4" fill="rgba(37,208,157,0.16)"></rect>
+<text x="39" y="149" text-anchor="middle" font-family="Fira Code, monospace" font-size="9" font-weight="500" letter-spacing="0.8" fill="#25d09d">ACTIVE</text>
+<rect x="80" y="136" width="70" height="18" rx="4" fill="rgba(255,125,138,0.16)"></rect>
+<text x="115" y="149" text-anchor="middle" font-family="Fira Code, monospace" font-size="9" font-weight="500" letter-spacing="0.8" fill="#ff7d8a">BROKEN</text>
+<text x="170" y="149" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">status chip · 16% tint of its state</text>
+
+<circle cx="17" cy="180" r="9" fill="#151515" stroke="rgba(255,255,255,0.18)"></circle>
+<text x="17" y="184" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" font-weight="500" fill="#ffffff">3</text>
+<text x="36" y="184" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">step badge</text>
+<text x="150" y="184" font-family="Fira Code, monospace" font-size="11" font-weight="500" fill="#b4b4b4">1</text>
+<text x="166" y="184" font-family="Fira Code, monospace" font-size="11" font-weight="500" fill="#b4b4b4">∗</text>
+<text x="186" y="184" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">cardinality · 6px off the line end</text>
+</svg>
+</div>
+
+<div class="kit">
+<div class="kith">Connectors · second set</div>
+<svg width="432" height="312" viewBox="0 0 432 312" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M8,20 H56 C68,20 74,26 74,36 V52 C74,62 81,68 92,68 H124" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<text x="8" y="86" font-family="Fira Code, monospace" font-size="10" fill="#ffffff">elbow · r 12 corners</text>
+<text x="8" y="100" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">when a curve would read as a swerve</text>
+
+<path d="M240,30 H384" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-dasharray="4 4" stroke-linecap="round" marker-end="url(#ah-open)"></path>
+<text x="240" y="86" font-family="Fira Code, monospace" font-size="10" fill="#ffffff">async · dash 4 4, open head</text>
+<text x="240" y="100" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">fire and forget, no reply drawn</text>
+
+<path d="M8,130 C36,130 44,148 68,148" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round"></path>
+<path d="M8,166 C36,166 44,148 68,148" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round"></path>
+<circle cx="68" cy="148" r="3.5" fill="rgba(255,255,255,0.42)"></circle>
+<path d="M68,148 H124" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<text x="8" y="192" font-family="Fira Code, monospace" font-size="10" fill="#ffffff">junction · dot where lines merge</text>
+<text x="8" y="206" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">never a bare crossing</text>
+
+<path d="M312,120 V176" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round"></path>
+<path d="M240,148 H305 A7,7 0 0 1 319,148 H388" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<text x="240" y="192" font-family="Fira Code, monospace" font-size="10" fill="#ffffff">hop · r 7 over the crossed line</text>
+<text x="240" y="206" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">the horizontal always hops</text>
+
+<path d="M8,252 H44" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round"></path>
+<path d="M44,252 C58,252 60,236 74,236 H120" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M44,252 C58,252 60,268 74,268 H120" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<text x="132" y="240" font-family="Fira Code, monospace" font-size="9" fill="#7d7d7d">yes</text>
+<text x="132" y="272" font-family="Fira Code, monospace" font-size="9" fill="#7d7d7d">no</text>
+<text x="8" y="292" font-family="Fira Code, monospace" font-size="10" fill="#ffffff">fork · stubs carry the branch label</text>
+<text x="8" y="306" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">both arms leave the same point</text>
+
+<path d="M240,236 H320 C332,236 338,243 338,253 C338,263 331,270 320,270 H246" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<text x="240" y="292" font-family="Fira Code, monospace" font-size="10" fill="#ffffff">u-turn · back into the same lane</text>
+<text x="240" y="306" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">r 12, 34px of travel</text>
+</svg>
+</div>
+
+<div class="kit">
+<div class="kith">Annotation layer</div>
+<svg width="432" height="288" viewBox="0 0 432 288" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="12" y="24" width="64" height="36" rx="7" fill="#25d09d"></rect>
+<rect x="8" y="20" width="64" height="36" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<circle cx="72" cy="30" r="2.5" fill="rgba(255,255,255,0.42)"></circle>
+<path d="M72,30 C96,30 100,18 124,18 H184" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round"></path>
+<text x="124" y="12" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">the note itself</text>
+<text x="8" y="86" font-family="Fira Code, monospace" font-size="10" fill="#ffffff">callout · leader off the edge</text>
+<text x="8" y="100" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">dot at the source, text above the line</text>
+
+<path d="M248,24 V44" stroke="rgba(255,255,255,0.18)"></path>
+<path d="M416,24 V44" stroke="rgba(255,255,255,0.18)"></path>
+<path d="M252,34 H412" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-start="url(#ah-dim)" marker-end="url(#ah-dim)"></path>
+<rect x="308" y="25" width="48" height="18" rx="3" fill="#191919"></rect>
+<text x="332" y="38" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">90 px</text>
+<text x="240" y="86" font-family="Fira Code, monospace" font-size="10" fill="#ffffff">dimension · ticks 20px</text>
+<text x="240" y="100" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">label masks the rule</text>
+
+<rect x="11" y="107" width="52" height="30" rx="6" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<rect x="71" y="107" width="52" height="30" rx="6" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<path d="M8,146 V152 C8,158 12,160 18,160 H56 C62,160 64,161 64,166 C64,161 66,160 72,160 H110 C116,160 120,158 120,152 V146" stroke="rgba(255,255,255,0.22)" stroke-width="1.25" stroke-linecap="round"></path>
+<text x="134" y="164" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">one unit</text>
+<text x="8" y="184" font-family="Fira Code, monospace" font-size="10" fill="#ffffff">brace · groups siblings</text>
+<text x="8" y="198" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">label sits at the open end</text>
+
+<text x="240" y="120" font-family="Nunito, sans-serif" font-size="10" font-weight="600" letter-spacing="1.2" fill="#ffffff">LEGEND</text>
+<circle cx="246" cy="132" r="4.5" fill="#25d09d"></circle>
+<text x="260" y="136" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">live</text>
+<circle cx="246" cy="146" r="4.5" fill="#ffca00"></circle>
+<text x="260" y="150" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">degraded</text>
+<circle cx="246" cy="164" r="4.5" fill="#ff7d8a"></circle>
+<text x="260" y="168" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">severed</text>
+<text x="240" y="184" font-family="Fira Code, monospace" font-size="10" fill="#ffffff">legend · only past two colours</text>
+<text x="240" y="198" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">inside the panel, never below it</text>
+
+<circle cx="17" cy="228" r="9" fill="#151515" stroke="rgba(255,255,255,0.18)"></circle>
+<text x="17" y="232" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" font-weight="500" fill="#ffffff">1</text>
+<text x="34" y="232" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">marker in place</text>
+<text x="8" y="260" font-family="Fira Code, monospace" font-size="10" fill="#ffffff">footnote · prose under the panel</text>
+<text x="8" y="274" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">keeps sentences off the canvas</text>
+
+<rect x="268" y="212" width="76" height="32" rx="6" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="306" y="232" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" fill="#ffffff">hot path</text>
+<ellipse cx="306" cy="228" rx="58" ry="30" stroke="#ffca00" stroke-opacity="0.55" stroke-width="1.25" stroke-dasharray="3 4"></ellipse>
+<text x="240" y="260" font-family="Fira Code, monospace" font-size="10" fill="#ffffff">emphasis · dashed ring in warn</text>
+<text x="240" y="274" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">one per diagram, at most</text>
+</svg>
+</div>
+
+<div class="kit">
+<div class="kith">Canvas, type ramp and colour</div>
+<div class="sp">
+<b>canvas.wide</b><i>852 × h — inside a 900 panel at 24px padding</i>
+<b>canvas.half</b><i>682 × h — inside a 730 panel</i>
+<b>canvas.narrow</b><i>301 × h — inside a 349 panel</i>
+<b>column pitch</b><i>90px gutters between depth levels, 24px between siblings</i>
+<b>edge.standoff</b><i>8px clear of the node edge, both ends</i>
+<b>row pitch</b><i>governed by what the gap carries, not by the node — h + 34 where a label sits in it, geometric floor h + 30; h is the bar above, throughout, since that is the edge the gutter is measured from. Every step bar here is 22px and 7 of the 8 gaps run at 56, the exception being the 112px lane break. That leaves a 34px gutter, and a label centred in it clears 7.98px on each side: 34 less the 18.04px the label actually paints — 14.04px of ink plus 2px of knockout halo on each side — split in two. Centring is what makes h + 34 work; the earlier arithmetic here concluded it could not hold 8px and demanded h + 39, but that was derived for a label pinned at a fixed baseline offset and left-aligned in the gutter, which the panel no longer does. Measure the air from the painted extent and split the surplus; do not add a term for the depth rect, which is offset +4,+4 and so consumes room below and to the right of a bar, never above it. Where labels are set inside the node instead, the gap owes nothing and closes to 9px</i>
+<b>bar label</b><i>the label goes wherever the row has room, and the order of preference is above, below, then beside — not beside first. Above or below it sits on its own bar, 8px clear of it, which needs no leader: the bar is directly under the words. Centred by default, but slid along the bar in 8px steps where a reserved connector stub occupies the space directly above or below it — 5 of the 17 are slid, up to 40px off centre — and the slide runs only as far as the overlap floor allows, which is what stops a label drifting off the bar it names. Beside, it takes a 12–32px hairline leader at rgba(255,255,255,.22) from the bar’s mid-height; a label set deep in a gutter takes the same hairline run vertically from the bar’s edge instead. In 4c that lands 19 above or below and 5 beside, with 7 leaders — 5 horizontal, 2 vertical. Attribution without a leader is horizontal, never a matter of distance: the label must sit over the bar it names — all 17 of them overlap their own bar by at least 16px, and never less than 61.6% of that bar’s width — with no other bar of that row beneath the words, and 7.97px of painted air to the bar, halo included. Distance alone cannot carry it: an above-or-below label sits about 10px of ink off its own bar while a neighbour in the same row is only 2–8px further, so a distance margin is unreachable by construction, and anything that cannot sit over its bar takes a leader instead — which is also what licenses a placement deep in a tall gutter, where proximity would attribute the label to the wrong row. Reserve every connector’s departure and arrival stub before placing, since the space directly above a bar is the same space its handoff needs. Where both compete, the label may intrude on a stub reservation but never on drawn geometry — the reservation is a heuristic, the bar is a fact</i>
+<b>handoff · shared boundary</b><i>one continuous curve, not a cornered route, and a single cubic wherever the route allows: 10 of 4c’s 14 are one cubic, 4 take one waypoint and emit two. It leaves and lands 8px clear of the middle of a bar edge — all 28 endpoints do, exactly — and the tangent at each end is that edge’s normal, so the exit and the entry are square to the bar with no straight stub standing in front of them. The handle length is what makes it read as fluid rather than plumbed: half the travel measured along that same normal, floored at 10px and capped at 92, so a long climb bows across its whole length while a short sideways step turns tight instead of ballooning past its target. Curvature is spread over the travel and never spent in a corner, and no segment’s tangent turns back on its own chord at any point — that reversal is what shows up as a kink at the tail or a small loop under the arrowhead, and it is the thing to test for, since it survives every clearance check. The midpoint has to outrank path length in the scoring, not merely be offered as one option among mid ±6/12/18: score on length alone and anchors wander to a corner to save two or three px of arc, which is the “random corner” read. Where an edge is already claimed the second handoff moves to a different edge and takes that midpoint; where the geometry leaves no other edge, the two sit symmetric about the midpoint of a wide one — 1004 in and 1036 out on the 64px bar at 988@330 — never off-centre alone. Waypoints sit on gutter midlines and are chosen for clearance, not for shape, and a route is only allowed one if the direct cubic fails: try direct first, always, or the drawing fills with corridors it did not need. Top and bottom edges are the default; a side edge at mid-height is legal where a bar carries no beside-label, and 9 of the 14 connectors use one (11 such anchors in all). Anchors come from a shared registry, 12px apart at the least, or two arrowheads land on the same point and the pair reads as one line passing through the bar — the closest pair in the drawing is 24.8px. The registry and the route search run together: allocate as you route, narrowest bars first, since a 16px bar has a 4px usable span and cannot hold two anchors on one edge at all. Clearance is measured on the sampled curve at 0.5px against rendered ink, and the floors it holds are 8px to every bar, 10.1px to the nearest label, 22.5px to the nearest leader, and the lane column left of x=112 untouched</i>
+<b>sealed corridor</b><i>two of 4c’s sixteen handoffs are not drawn: 780@330 → 812@442 and 956@554 → 972@442. Routes exist for both — 6.66× and 4.55× their direct distance — but a curve that crosses half the panel to move a step sideways is the defect, not the fix, so they are omitted rather than drawn. Both were retested with the blocking label shifted through every position that still clears its bar, and neither yields anything under 2.6×. The cause is arithmetic: a bar narrower than its label plus two 20px stubs has no side left for both, and bar 812@442 is 48px wide with a 100px label and anchors on both edges. Four bars are in that condition at 24 steps in 1152px. Four steps pay for it, all of them solid step bars: 812@442 and 972@442 each lose their only inbound edge and 780@330 and 956@554 their only outbound — and 956@554, a flow origin with no inbound by design, is left with no edges at all — the only solid step bar in that condition, where the panel’s four other edgeless bars are dashed queue bars carrying none by design. So the flow does not read as continuous through any of them. That is a content loss, and the fix is a wider panel or shorter labels, not a longer curve</i>
+<b>node.title</b><i>Nunito 600 · 13px · #ffffff · baseline top+28</i>
+<b>node.sub</b><i>Nunito 400 · 11px · #ffffff · title+20 — 600 when it is a row’s primary</i>
+<b>node.mono</b><i>Fira Code 400 · 10px · #ffffff · 18px leading — 600 for a field name</i>
+<b>node.meta</b><i>Fira Code 400 · 9px · #ffffff — dwell times, set inside the node</i>
+<b>node.marker</b><i>Fira Code · 9px · right-aligned · state colour, never white — 600 for a state name, 400 for a key type</i>
+<b>node.metric</b><i>Fira Code 600 · 28px · #ffffff</i>
+<b>frame.label</b><i>Nunito 600 · 10px · ls 1.2 · UPPER · #ffffff</i>
+<b>frame.status</b><i>Fira Code 500 · 9px · ls 0.6 · state colour</i>
+<b>edge.label</b><i>Fira Code 400 · 10px · #b4b4b4</i>
+<b>caption</b><i>Fira Code 400 · 10px · #8a8a8a — under the panel, never inside</i>
+<b>lifeline</b><i>rgba(255,255,255,0.14) · dash 3 5 · 1px</i>
+<b>divider</b><i>rgba(255,255,255,0.06) · 1px — table rows only</i>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:14px 18px">
+<div style="display:flex;align-items:center;gap:7px;font:400 10px/1 'Fira Code',monospace;color:#ffffff"><span style="width:9px;height:9px;border-radius:50%;background:#25d09d"></span>ok #25d09d</div>
+<div style="display:flex;align-items:center;gap:7px;font:400 10px/1 'Fira Code',monospace;color:#ffffff"><span style="width:9px;height:9px;border-radius:50%;background:#ff7d8a"></span>fail #ff7d8a</div>
+<div style="display:flex;align-items:center;gap:7px;font:400 10px/1 'Fira Code',monospace;color:#ffffff"><span style="width:9px;height:9px;border-radius:50%;background:#ffca00"></span>warn #ffca00</div>
+<div style="display:flex;align-items:center;gap:7px;font:400 10px/1 'Fira Code',monospace;color:#ffffff"><span style="width:9px;height:9px;border-radius:50%;background:#6ea8ff"></span>info #6ea8ff</div>
+<div style="display:flex;align-items:center;gap:7px;font:400 10px/1 'Fira Code',monospace;color:#ffffff"><span style="width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,0.22)"></span>idle 22% white</div>
+<div style="display:flex;align-items:center;gap:7px;font:400 10px/1 'Fira Code',monospace;color:#ffffff"><span style="width:9px;height:9px;border-radius:2px;background:#151515;border:1px solid rgba(255,255,255,0.14)"></span>node #151515</div>
+<div style="display:flex;align-items:center;gap:7px;font:400 10px/1 'Fira Code',monospace;color:#ffffff"><span style="width:9px;height:9px;border-radius:2px;background:#191919"></span>panel #191919</div>
+</div>
+</div>
+
+</div>
+</section>
+
+<section class="dv-turn" id="t5">
+<div class="dv-thd"><a class="dv-tid" href="#t5">QA</a><span class="dv-tname">Drawing rules — checked before any panel here is called done</span></div>
+<div style="max-width:880px;margin:-6px 0 26px;font:300 14px/1.75 Nunito,sans-serif;letter-spacing:0.4px;color:#ffffff;text-wrap:pretty">Nearly every fault worth fixing in this set came from one of twenty things, so they are written down rather than rediscovered. The numbers are in the drawing's own units at the type sizes the kit states; shrink the type and every number moves. Anyone adding a panel walks the list before calling it finished, and the block at the foot is the set of faults that mean redraw rather than nudge.</div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="5a">
+<div class="dv-olabel"><a class="dv-oid" href="#5a">5a</a>The list</div>
+<div class="pnl l">
+<div class="phd"><div class="pkick">Quality assurance</div><div class="ptitle">Twenty rules, then the reject list</div></div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:30px 44px">
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="font:800 10px/1 Nunito,sans-serif;letter-spacing:1.2px;color:#25d09d">CLEARANCE</div>
+<div style="display:grid;grid-template-columns:22px 1fr;gap:8px 10px;font:400 11.5px/1.55 Nunito,sans-serif;color:#ffffff;text-wrap:pretty">
+<span style="font:400 10px/1.65 'Fira Code',monospace;color:#7d7d7d">01</span><span>Every connector ends 8px clear of the node it points at and starts 8px clear of the node it leaves. An arrowhead never touches a box.</span>
+<span style="font:400 10px/1.65 'Fira Code',monospace;color:#7d7d7d">02</span><span>No connector crosses a node or a label. Where the direct line would, route through the nearest clear corridor and enter the target from its side. Crossing a phase boundary is fine — that is what a transition does.</span>
+<span style="font:400 10px/1.65 'Fira Code',monospace;color:#7d7d7d">03</span><span>A connector never approaches a node on the side its label occupies. On a bar row that side is the top, so a handoff leaves and enters at the bottom or the side — never the top. Where a terminus lands beside a text run it stands 8px off that run’s painted box, halo included; an arrow that begins or ends inside a label is the failure this rule exists to catch.</span>
+<span style="font:400 10px/1.65 'Fira Code',monospace;color:#7d7d7d">04</span><span>A node label clears its box by 8px, measured to the descender, not the baseline — and to the outside of the knockout halo where it has one, which is 2px past the descender. Measured, not assumed: a 10.5px label paints 3.5px below its baseline, so a haloed one paints 5.5px below it and wants a 14px gutter to hold 8px of air.</span>
+<span style="font:400 10px/1.65 'Fira Code',monospace;color:#7d7d7d">05</span><span>A label that rides a connector sets its baseline 8px off the line — 4.4px of air under the descender at 10px, the same in every panel. Cardinality markers are the exception: they sit against the line they annotate.</span>
+<span style="font:400 10px/1.65 'Fira Code',monospace;color:#7d7d7d">06</span><span>Measure all of the above against <b style="font-weight:600">painted</b> extent, not the bounding box: a knockout halo adds 2px on every side, a depth shadow adds 4px below and to the right.</span>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="font:800 10px/1 Nunito,sans-serif;letter-spacing:1.2px;color:#25d09d">PADDING</div>
+<div style="display:grid;grid-template-columns:22px 1fr;gap:8px 10px;font:400 11.5px/1.55 Nunito,sans-serif;color:#ffffff;text-wrap:pretty">
+<span style="font:400 10px/1.65 'Fira Code',monospace;color:#7d7d7d">07</span><span>16px from a node border to its first mark; 14px from its last text to the far border. A field-list node — a title, a rule, then rows — is a different species: 14px on the sides, its rule 32px below the top border, rows on a 24px pitch, and 7px of air under the last row’s descender. There the pitch sets the bottom inset, not the padding number.</span>
+<span style="font:400 10px/1.65 'Fira Code',monospace;color:#7d7d7d">08</span><span>On a two-line node both lines share one left edge. A leading dot sits outside that edge, never on it.</span>
+<span style="font:400 10px/1.65 'Fira Code',monospace;color:#7d7d7d">09</span><span>10px minimum from any text to the panel frame. A phase divider is a hairline, not a container: text sits 6px off it, and symmetrically — the phase name 6px right of its divider, the duration 6px left of the next. A node’s own border is rule 07’s business, not this one.</span>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="font:800 10px/1 Nunito,sans-serif;letter-spacing:1.2px;color:#25d09d">TYPE</div>
+<div style="display:grid;grid-template-columns:22px 1fr;gap:8px 10px;font:400 11.5px/1.55 Nunito,sans-serif;color:#ffffff;text-wrap:pretty">
+<span style="font:400 10px/1.65 'Fira Code',monospace;color:#7d7d7d">10</span><span>12px minimum for a node’s title line at 900 and above; 10px is the floor in the 600-wide compact panels. 9px is the metadata tier and nothing else — units, axis labels, dwell times, and key or state markers set inside a node.</span>
+<span style="font:400 10px/1.65 'Fira Code',monospace;color:#7d7d7d">11</span><span>Hierarchy is size and weight. The first line is 600, the second is 400 — and both are white.</span>
+<span style="font:400 10px/1.65 'Fira Code',monospace;color:#7d7d7d">12</span><span>Grey #7d7d7d belongs to axis ticks, legends and captions. Never to a node’s own content.</span>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="font:800 10px/1 Nunito,sans-serif;letter-spacing:1.2px;color:#25d09d">ALIGNMENT</div>
+<div style="display:grid;grid-template-columns:22px 1fr;gap:8px 10px;font:400 11.5px/1.55 Nunito,sans-serif;color:#ffffff;text-wrap:pretty">
+<span style="font:400 10px/1.65 'Fira Code',monospace;color:#7d7d7d">13</span><span>One left edge per panel: the drawing, its how-to-read line, its legend and its caption all start at the same x.</span>
+<span style="font:400 10px/1.65 'Fira Code',monospace;color:#7d7d7d">14</span><span>Nodes in a row share a top edge; labels in a row share a baseline.</span>
+<span style="font:400 10px/1.65 'Fira Code',monospace;color:#7d7d7d">15</span><span>Sibling nodes that mean the same kind of thing share a width.</span>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="font:800 10px/1 Nunito,sans-serif;letter-spacing:1.2px;color:#25d09d">COLOUR</div>
+<div style="display:grid;grid-template-columns:22px 1fr;gap:8px 10px;font:400 11.5px/1.55 Nunito,sans-serif;color:#ffffff;text-wrap:pretty">
+<span style="font:400 10px/1.65 'Fira Code',monospace;color:#7d7d7d">16</span><span>Teal is work running, yellow is waiting, red is stalled, grey dashed is nothing running. No other hue carries meaning.</span>
+<span style="font:400 10px/1.65 'Fira Code',monospace;color:#7d7d7d">17</span><span>Colour encodes one variable. Size may encode one more, and the panel has to say which.</span>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="font:800 10px/1 Nunito,sans-serif;letter-spacing:1.2px;color:#25d09d">EVERY PANEL CARRIES</div>
+<div style="display:grid;grid-template-columns:22px 1fr;gap:8px 10px;font:400 11.5px/1.55 Nunito,sans-serif;color:#ffffff;text-wrap:pretty">
+<span style="font:400 10px/1.65 'Fira Code',monospace;color:#7d7d7d">18</span><span>A one-line how-to-read above the drawing.</span>
+<span style="font:400 10px/1.65 'Fira Code',monospace;color:#7d7d7d">19</span><span>A legend at the foot naming every colour and mark that appears in it.</span>
+<span style="font:400 10px/1.65 'Fira Code',monospace;color:#7d7d7d">20</span><span>A caption stating what the drawing argues, not what it contains.</span>
+</div>
+</div>
+</div>
+<div style="margin-top:30px;padding-top:18px;border-top:1px solid rgba(255,255,255,0.09);display:flex;flex-direction:column;gap:10px">
+<div style="font:400 11.5px/1.55 Nunito,sans-serif;color:#ffffff;margin:0 0 18px;max-width:820px;text-wrap:pretty">After resizing any box, re-measure every mark that was placed against its old edges — connectors, cardinality markers and labels all carry those coordinates and none of them move on their own.</div>
+<div style="font:800 10px/1 Nunito,sans-serif;letter-spacing:1.2px;color:#ff7d8a">REDRAW, DO NOT NUDGE, IF</div>
+<div style="display:flex;flex-wrap:wrap;gap:8px 10px">
+<span style="font:400 10.5px/1 'Fira Code',monospace;color:#ffffff;padding:7px 11px;background:rgba(255,125,138,0.1);border:1px solid rgba(255,125,138,0.28);border-radius:5px">an arrowhead overlaps text</span>
+<span style="font:400 10.5px/1 'Fira Code',monospace;color:#ffffff;padding:7px 11px;background:rgba(255,125,138,0.1);border:1px solid rgba(255,125,138,0.28);border-radius:5px">a connector crosses a box</span>
+<span style="font:400 10.5px/1 'Fira Code',monospace;color:#ffffff;padding:7px 11px;background:rgba(255,125,138,0.1);border:1px solid rgba(255,125,138,0.28);border-radius:5px">labels in one row sit at different baselines</span>
+<span style="font:400 10.5px/1 'Fira Code',monospace;color:#ffffff;padding:7px 11px;background:rgba(255,125,138,0.1);border:1px solid rgba(255,125,138,0.28);border-radius:5px">a node’s own content is grey</span>
+<span style="font:400 10.5px/1 'Fira Code',monospace;color:#ffffff;padding:7px 11px;background:rgba(255,125,138,0.1);border:1px solid rgba(255,125,138,0.28);border-radius:5px">the legend omits a mark that appears</span>
+<span style="font:400 10.5px/1 'Fira Code',monospace;color:#ffffff;padding:7px 11px;background:rgba(255,125,138,0.1);border:1px solid rgba(255,125,138,0.28);border-radius:5px">equal boxes on a grid carry unequal quantities</span>
+</div>
+</div>
+</div>
+<div class="cap">Written from the faults actually found in turns 1 to 4, not from a style guide. Rules 01 to 05 account for most of them: an arrowhead resting on a label is the single most common defect, because the standoff was set against the box and the label was never measured. The reject list is separate because those six are not finishing errors — each one means the drawing is encoding something it has not earned, and adjusting the geometry hides it rather than fixing it.</div>
+</div>
+
+</div>
+</section>
+
+<section class="dv-turn" id="t4">
+<div class="dv-thd"><a class="dv-tid" href="#t4">4</a><span class="dv-tname">Density — how many nodes the kit actually holds</span></div>
+<div style="max-width:880px;margin:-6px 0 26px;font:300 14px/1.75 Nunito,sans-serif;letter-spacing:0.4px;color:#ffffff;text-wrap:pretty">Every arrow now stands 8px clear of the node it leaves and the node it enters, which is what stops a dense canvas from reading as a solid mass. Past roughly sixteen nodes that is not enough on its own: equal boxes on a grid read as a table, so every drawing below gives its blocks a real quantity to be sized by. Below, the same lifecycle at 24 states and at 40, and a flow at 24 steps, drawn at full size so the ceiling is visible rather than asserted. Colour carries one meaning across all four: teal is moving, yellow is waiting, red is stalled, grey dashed is terminal, and every panel states it again at its own foot.</div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="4a">
+<div class="dv-olabel"><a class="dv-oid" href="#4a">4a</a>State machine at 24 · 1200 · time-proportional blocks, instants as points, S-linked</div>
+<div class="pnl l">
+<div class="phd"><div class="pkick">Lifecycle · 24 states</div><div class="ptitle">A marketplace order, drawn on its own clock</div></div>
+<div style="font:400 10px/1.6 'Fira Code',monospace;color:#7d7d7d;margin:0 0 12px">read left to right inside a phase band, then down to the next band · block width is time spent, on a log scale<br>colour is what is happening: teal work running, yellow waiting, red stalled, dashed nothing running</div>
+<svg width="1152" height="768" viewBox="0 0 1152 768" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;max-width:100%">
+<rect x="0" y="0" width="1152" height="160" rx="12" stroke="rgba(255,255,255,0.10)" stroke-dasharray="4 5"></rect>
+<text x="16" y="20" font-family="Nunito, sans-serif" font-size="10" font-weight="600" letter-spacing="1.2" fill="#ffffff">INTAKE</text>
+<rect x="0" y="188" width="1152" height="160" rx="12" stroke="rgba(255,255,255,0.10)" stroke-dasharray="4 5"></rect>
+<text x="16" y="208" font-family="Nunito, sans-serif" font-size="10" font-weight="600" letter-spacing="1.2" fill="#ffffff">FULFILMENT</text>
+<rect x="0" y="376" width="1152" height="160" rx="12" stroke="rgba(255,255,255,0.10)" stroke-dasharray="4 5"></rect>
+<text x="16" y="396" font-family="Nunito, sans-serif" font-size="10" font-weight="600" letter-spacing="1.2" fill="#ffffff">DELIVERY</text>
+<rect x="0" y="564" width="1152" height="160" rx="12" stroke="rgba(255,255,255,0.10)" stroke-dasharray="4 5"></rect>
+<text x="16" y="584" font-family="Nunito, sans-serif" font-size="10" font-weight="600" letter-spacing="1.2" fill="#ffffff">AFTER</text>
+<path d="M174,96 C206,96 202,56 234,56" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M268,56 C300,56 300,104 332,104" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M366,104 C398,104 398,64 430,64" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M886,64 C918,64 914,112 946,112" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M1062,112 C1094,112 1090,62 1122,62" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M30,246 C61,246 60,292 91,292" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M214,292 C245,292 240,248 271,248" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M353,248 C384,248 379,298 410,298" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M444,298 C475,298 474,254 505,254" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M662,254 C693,254 688,288 719,288" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M146,480 C177,480 172,434 203,434" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M319,434 C350,434 345,476 376,476" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M575,476 C606,476 601,438 632,438" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M666,438 C697,438 696,484 727,484" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M761,484 C792,484 791,440 822,440" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M300,626 C331,626 326,672 357,672" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M391,672 C422,672 421,622 452,622" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M678,622 C709,622 704,666 735,666" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M920,666 C951,666 946,624 977,624" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M1011,624 C1042,624 1041,670 1072,670" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M1139,79 C1139,105 1139,174 1075,174 H124 C110,174 110,188 110,202 V234 C110,244 100,246 90,246 H29" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M936,326 C936,352 936,362 872,362 H133 C69,362 69,420 69,446" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M988,478 C988,504 988,550 924,550 H210 C146,550 146,566 146,592" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<rect x="8" y="74" width="158" height="52" rx="7" fill="rgba(255,255,255,0.22)"></rect>
+<rect x="4" y="70" width="158" height="52" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)" stroke-dasharray="4 5"></rect>
+<text x="18" y="94" font-family="Nunito, sans-serif" font-size="12" font-weight="600" fill="#ffffff">Draft</text>
+<text x="18" y="112" font-family="Fira Code, monospace" font-size="9" fill="#ffffff">buyer, open</text>
+<text x="251" y="37" text-anchor="middle" font-family="Nunito, sans-serif" font-size="11" font-weight="600" fill="#ffffff">Submitted</text>
+<circle cx="251" cy="56" r="6" fill="#25d09d"></circle>
+<text x="349" y="85" text-anchor="middle" font-family="Nunito, sans-serif" font-size="11" font-weight="600" fill="#ffffff">Validating</text>
+<circle cx="349" cy="104" r="6" fill="#25d09d"></circle>
+<rect x="442" y="42" width="436" height="52" rx="7" fill="#ffca00"></rect>
+<rect x="438" y="38" width="436" height="52" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<path d="M656,90 V99" stroke="#ff7d8a" stroke-opacity="0.75" stroke-width="1.5" stroke-dasharray="3 3" stroke-linecap="round"></path>
+<text x="452" y="62" font-family="Nunito, sans-serif" font-size="12" font-weight="600" fill="#ffffff">Payment held</text>
+<text x="452" y="80" font-family="Fira Code, monospace" font-size="9" fill="#ffffff">up to 7d</text>
+<rect x="958" y="90" width="96" height="52" rx="7" fill="#25d09d"></rect>
+<rect x="954" y="86" width="96" height="52" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<path d="M1002,138 V147" stroke="#ff7d8a" stroke-opacity="0.75" stroke-width="1.5" stroke-dasharray="3 3" stroke-linecap="round"></path>
+<text x="1002" y="76" text-anchor="middle" font-family="Nunito, sans-serif" font-size="11" font-weight="600" fill="#ffffff">Fraud check</text>
+<text x="1002" y="116" text-anchor="middle" font-family="Fira Code, monospace" font-size="9" fill="#ffffff">0–30m</text>
+<text x="1139" y="43" text-anchor="end" font-family="Nunito, sans-serif" font-size="11" font-weight="600" fill="#ffffff">Approved</text>
+<circle cx="1139" cy="62" r="9" stroke="rgba(255,255,255,0.34)"></circle>
+<circle cx="1139" cy="62" r="4.5" fill="#25d09d"></circle>
+<text x="4" y="227" text-anchor="start" font-family="Nunito, sans-serif" font-size="11" font-weight="600" fill="#ffffff">Allocated</text>
+<circle cx="13" cy="246" r="6" fill="#25d09d"></circle>
+<rect x="103" y="270" width="103" height="52" rx="7" fill="#25d09d"></rect>
+<rect x="99" y="266" width="103" height="52" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<path d="M151,318 V327" stroke="#ff7d8a" stroke-opacity="0.75" stroke-width="1.5" stroke-dasharray="3 3" stroke-linecap="round"></path>
+<text x="151" y="256" text-anchor="middle" font-family="Nunito, sans-serif" font-size="11" font-weight="600" fill="#ffffff">Picked</text>
+<text x="151" y="296" text-anchor="middle" font-family="Fira Code, monospace" font-size="9" fill="#ffffff">2–6h</text>
+<rect x="283" y="226" width="62" height="52" rx="7" fill="#25d09d"></rect>
+<rect x="279" y="222" width="62" height="52" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="310" y="212" text-anchor="middle" font-family="Nunito, sans-serif" font-size="11" font-weight="600" fill="#ffffff">Packed</text>
+<text x="310" y="252" text-anchor="middle" font-family="Fira Code, monospace" font-size="9" fill="#ffffff">~1h</text>
+<text x="427" y="279" text-anchor="middle" font-family="Nunito, sans-serif" font-size="11" font-weight="600" fill="#ffffff">Labelled</text>
+<circle cx="427" cy="298" r="6" fill="#25d09d"></circle>
+<rect x="517" y="232" width="137" height="52" rx="7" fill="#ffca00"></rect>
+<rect x="513" y="228" width="137" height="52" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="527" y="252" font-family="Nunito, sans-serif" font-size="12" font-weight="600" fill="#ffffff">Carrier pickup</text>
+<text x="527" y="270" font-family="Fira Code, monospace" font-size="9" fill="#ffffff">same day</text>
+<rect x="731" y="266" width="418" height="52" rx="7" fill="#25d09d"></rect>
+<rect x="727" y="262" width="418" height="52" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="741" y="286" font-family="Nunito, sans-serif" font-size="12" font-weight="600" fill="#ffffff">In transit</text>
+<text x="741" y="304" font-family="Fira Code, monospace" font-size="9" fill="#ffffff">1–4d</text>
+<rect x="8" y="458" width="130" height="52" rx="7" fill="#ffca00"></rect>
+<rect x="4" y="454" width="130" height="52" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="18" y="478" font-family="Nunito, sans-serif" font-size="12" font-weight="600" fill="#ffffff">At hub</text>
+<text x="18" y="496" font-family="Fira Code, monospace" font-size="9" fill="#ffffff">6–12h</text>
+<rect x="215" y="412" width="96" height="52" rx="7" fill="#25d09d"></rect>
+<rect x="211" y="408" width="96" height="52" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="259" y="398" text-anchor="middle" font-family="Nunito, sans-serif" font-size="11" font-weight="600" fill="#ffffff">Out for delivery</text>
+<text x="259" y="438" text-anchor="middle" font-family="Fira Code, monospace" font-size="9" fill="#ffffff">~4h</text>
+<rect x="388" y="454" width="179" height="52" rx="7" fill="#ff7d8a"></rect>
+<rect x="384" y="450" width="179" height="52" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="398" y="474" font-family="Nunito, sans-serif" font-size="12" font-weight="600" fill="#ffffff">Attempted</text>
+<text x="398" y="492" font-family="Fira Code, monospace" font-size="9" fill="#ffffff">retry ×3</text>
+<text x="649" y="419" text-anchor="middle" font-family="Nunito, sans-serif" font-size="11" font-weight="600" fill="#ffffff">Delivered</text>
+<circle cx="649" cy="438" r="9" stroke="rgba(255,255,255,0.34)"></circle>
+<circle cx="649" cy="438" r="4.5" fill="#25d09d"></circle>
+<text x="744" y="465" text-anchor="middle" font-family="Nunito, sans-serif" font-size="11" font-weight="600" fill="#ffffff">Proof filed</text>
+<circle cx="744" cy="484" r="6" fill="#25d09d"></circle>
+<rect x="834" y="418" width="315" height="52" rx="7" fill="rgba(255,255,255,0.22)"></rect>
+<rect x="830" y="414" width="315" height="52" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)" stroke-dasharray="4 5"></rect>
+<text x="844" y="438" font-family="Nunito, sans-serif" font-size="12" font-weight="600" fill="#ffffff">Window closed</text>
+<text x="844" y="456" font-family="Fira Code, monospace" font-size="9" fill="#ffffff">+30d</text>
+<rect x="8" y="604" width="284" height="52" rx="7" fill="rgba(255,255,255,0.22)"></rect>
+<rect x="4" y="600" width="284" height="52" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)" stroke-dasharray="4 5"></rect>
+<text x="18" y="624" font-family="Nunito, sans-serif" font-size="12" font-weight="600" fill="#ffffff">Return opened</text>
+<text x="18" y="642" font-family="Fira Code, monospace" font-size="9" fill="#ffffff">buyer, 30d</text>
+<text x="374" y="653" text-anchor="middle" font-family="Nunito, sans-serif" font-size="11" font-weight="600" fill="#ffffff">Label sent</text>
+<circle cx="374" cy="672" r="6" fill="#25d09d"></circle>
+<rect x="464" y="600" width="206" height="52" rx="7" fill="#ffca00"></rect>
+<rect x="460" y="596" width="206" height="52" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="474" y="620" font-family="Nunito, sans-serif" font-size="12" font-weight="600" fill="#ffffff">Return received</text>
+<text x="474" y="638" font-family="Fira Code, monospace" font-size="9" fill="#ffffff">2–7d</text>
+<rect x="747" y="644" width="165" height="52" rx="7" fill="#25d09d"></rect>
+<rect x="743" y="640" width="165" height="52" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="757" y="664" font-family="Nunito, sans-serif" font-size="12" font-weight="600" fill="#ffffff">Inspected</text>
+<text x="757" y="682" font-family="Fira Code, monospace" font-size="9" fill="#ffffff">1–2d</text>
+<text x="994" y="605" text-anchor="middle" font-family="Nunito, sans-serif" font-size="11" font-weight="600" fill="#ffffff">Refunded</text>
+<circle cx="994" cy="624" r="9" stroke="rgba(255,255,255,0.34)"></circle>
+<circle cx="994" cy="624" r="4.5" fill="#25d09d"></circle>
+<rect x="1084" y="648" width="65" height="52" rx="7" fill="rgba(255,255,255,0.22)"></rect>
+<rect x="1080" y="644" width="65" height="52" rx="7" fill="#151515" stroke="rgba(255,255,255,0.3)" stroke-dasharray="4 5"></rect>
+<rect x="1084" y="648" width="57" height="44" rx="4" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="1113" y="634" text-anchor="middle" font-family="Nunito, sans-serif" font-size="11" font-weight="600" fill="#ffffff">Closed</text>
+<text x="1113" y="674" text-anchor="middle" font-family="Fira Code, monospace" font-size="9" fill="#ffffff">terminal</text>
+<rect x="4" y="744" width="12" height="12" rx="3" fill="#25d09d"></rect>
+<text x="22" y="754" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">work running</text>
+<rect x="118" y="744" width="12" height="12" rx="3" fill="#ffca00"></rect>
+<text x="136" y="754" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">waiting</text>
+<rect x="196" y="744" width="12" height="12" rx="3" fill="#ff7d8a"></rect>
+<text x="214" y="754" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">stalled</text>
+<rect x="274" y="744" width="12" height="12" rx="3" fill="rgba(255,255,255,0.22)" stroke="rgba(255,255,255,0.22)" stroke-dasharray="3 3"></rect>
+<text x="292" y="754" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">nothing running</text>
+<circle cx="404" cy="750" r="6" fill="#25d09d"></circle>
+<text x="418" y="754" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">instant · a point, no duration</text>
+<circle cx="612" cy="750" r="7" stroke="rgba(255,255,255,0.34)"></circle><circle cx="612" cy="750" r="3.5" fill="#25d09d"></circle>
+<text x="626" y="754" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">reported outside the company</text>
+<path d="M826,744 V756" stroke="#ff7d8a" stroke-opacity="0.75" stroke-width="1.5" stroke-dasharray="3 3" stroke-linecap="round"></path>
+<text x="838" y="754" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">can cancel here</text>
+<text x="1148" y="754" text-anchor="end" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">block width is time, log scale</text>
+</svg>
+</div>
+<div class="cap l">Equal boxes on a grid make a spreadsheet, so the boxes are not equal: each block is as wide as the time the order spends in it, on a log scale. Instant machine states collapse to slivers with the name turned on its side, waits stretch out, and the silhouette becomes the argument — one payment hold is wider than the whole of picking, packing and labelling together. Colour and form carry the rest: teal where work is actually running, yellow where the order is only waiting on someone, red where it has stalled, dashed edges where nothing is running at all, a double stroke on the terminal state, a ring on the four states reported outside the company, a red tick where an order can still cancel. Instant states are not thin boxes, they are points — a state with no duration has nothing to be wide about — so every label stays horizontal. No two neighbours share a baseline, which makes each connector a symmetric S leaving one right edge and arriving at the next left edge, curving only because it has to.</div>
+</div>
+
+<div class="dv-opt" id="4b">
+<div class="dv-olabel"><a class="dv-oid" href="#4b">4b</a>The same machine at 40 · 900 · five stages, band thickness = accounts</div>
+<div class="pnl">
+<div class="phd"><div class="pkick">Lifecycle · 40 states → 5 stages</div><div class="ptitle">Ten thousand signups, one year on</div></div>
+<svg width="852" height="470" viewBox="0 0 852 470" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;max-width:100%">
+<text x="0" y="12" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">band thickness is how many accounts take that path · ten thousand signups in</text><text x="0" y="24" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">left to right is stage order, not elapsed time — the conversion rate is printed under each stage</text><path d="M56,64 C125,64 125,64 194,64 L194,225 C125,225 125,225 56,225 Z" fill="#25d09d" fill-opacity="0.14" stroke="#25d09d" stroke-opacity="0.22" stroke-width="1"></path><path d="M206,64 C275,64 275,64 344,64 L344,147 C275,147 275,147 206,147 Z" fill="#25d09d" fill-opacity="0.14" stroke="#25d09d" stroke-opacity="0.22" stroke-width="1"></path><path d="M356,64 C425,64 425,64 494,64 L494,97 C425,97 425,97 356,97 Z" fill="#25d09d" fill-opacity="0.14" stroke="#25d09d" stroke-opacity="0.22" stroke-width="1"></path><path d="M506,64 C593,64 593,64 680,64 L680,87 C593,87 593,87 506,87 Z" fill="#25d09d" fill-opacity="0.14" stroke="#25d09d" stroke-opacity="0.22" stroke-width="1"></path><path d="M506,87 C593,87 593,110 680,110 L680,120 C593,120 593,97 506,97 Z" fill="#ff7d8a" fill-opacity="0.2" stroke="#ff7d8a" stroke-opacity="0.22" stroke-width="1"></path><path d="M356,97 C518,97 518,120 680,120 L680,170 C518,170 518,147 356,147 Z" fill="#ff7d8a" fill-opacity="0.2" stroke="#ff7d8a" stroke-opacity="0.22" stroke-width="1"></path><path d="M206,147 C443,147 443,170 680,170 L680,253 C443,253 443,230 206,230 Z" fill="#ff7d8a" fill-opacity="0.2" stroke="#ff7d8a" stroke-opacity="0.22" stroke-width="1"></path><path d="M56,225 C368,225 368,253 680,253 L680,352 C368,352 368,324 56,324 Z" fill="#ff7d8a" fill-opacity="0.2" stroke="#ff7d8a" stroke-opacity="0.22" stroke-width="1"></path><path d="M692,349 C732,349 736,400 698,400 L214,400 C186,400 182,384 184,300 C186,262 190,252 194,248" stroke="#191919" stroke-width="11" fill="none"></path><path d="M692,349 C732,349 736,400 698,400 L214,400 C186,400 182,384 184,300 C186,262 190,252 194,248" stroke="#ffca00" stroke-opacity="0.55" stroke-width="5" fill="none"></path><path d="M188,248 L194,237 L200,248 Z" fill="#ffca00" fill-opacity="0.85"></path><rect x="366" y="391" width="148" height="18" rx="3" fill="#191919"></rect><text x="440" y="404" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" fill="#ffca00" stroke="#191919" stroke-width="3" stroke-linejoin="round" paint-order="stroke">won back · 180 · 1.8%</text><rect x="44" y="64" width="12" height="260" rx="2" fill="#25d09d" fill-opacity="0.8"></rect><text x="44" y="44" font-family="Nunito, sans-serif" font-size="12" font-weight="600" fill="#ffffff">Signup</text><text x="44" y="56" font-family="Fira Code, monospace" font-size="9" fill="#b4b4b4">10,000 signups</text><rect x="194" y="64" width="12" height="166" rx="2" fill="#25d09d" fill-opacity="0.8"></rect><text x="194" y="44" font-family="Nunito, sans-serif" font-size="12" font-weight="600" fill="#ffffff">Trial started</text><text x="194" y="56" font-family="Fira Code, monospace" font-size="9" fill="#b4b4b4">6,380 · 62% of signups</text><rect x="344" y="64" width="12" height="83" rx="2" fill="#25d09d" fill-opacity="0.8"></rect><text x="344" y="44" font-family="Nunito, sans-serif" font-size="12" font-weight="600" fill="#ffffff">Activated</text><text x="344" y="56" font-family="Fira Code, monospace" font-size="9" fill="#b4b4b4">3,190 · 50% of trials</text><rect x="494" y="64" width="12" height="33" rx="2" fill="#25d09d" fill-opacity="0.8"></rect><text x="494" y="44" font-family="Nunito, sans-serif" font-size="12" font-weight="600" fill="#ffffff">Paid</text><text x="494" y="56" font-family="Fira Code, monospace" font-size="9" fill="#b4b4b4">1,276 · 40% of activated</text><rect x="680" y="64" width="12" height="23" rx="2" fill="#25d09d" fill-opacity="0.8"></rect><text x="680" y="44" font-family="Nunito, sans-serif" font-size="12" font-weight="600" fill="#ffffff">Retained 12mo</text><text x="680" y="56" font-family="Fira Code, monospace" font-size="9" fill="#b4b4b4">893 · 70% of paid</text><rect x="680" y="110" width="12" height="242" rx="2" fill="#151515" stroke="#ff7d8a" stroke-opacity="0.55" stroke-dasharray="4 5"></rect><text x="698" y="225" font-family="Nunito, sans-serif" font-size="12" font-weight="600" fill="#ffffff">Lost</text><text x="698" y="238" font-family="Fira Code, monospace" font-size="9" fill="#ff7d8a">9,287 · 93% of signups</text><text x="698" y="256" font-family="Fira Code, monospace" font-size="9" fill="#7d7d7d">never started trial · 3,800</text><text x="698" y="269" font-family="Fira Code, monospace" font-size="9" fill="#7d7d7d">lapsed in trial · 3,190</text><text x="698" y="282" font-family="Fira Code, monospace" font-size="9" fill="#7d7d7d">never converted · 1,914</text><text x="698" y="295" font-family="Fira Code, monospace" font-size="9" fill="#7d7d7d">churned after paying · 383</text><rect x="0" y="437" width="12" height="12" rx="3" fill="#25d09d" fill-opacity="0.24" stroke="#25d09d" stroke-opacity="0.7"></rect><text x="18" y="447" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">moves forward</text><rect x="150" y="437" width="12" height="12" rx="3" fill="#ff7d8a" fill-opacity="0.24" stroke="#ff7d8a" stroke-opacity="0.7"></rect><text x="168" y="447" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">lost at this stage</text><rect x="310" y="437" width="12" height="12" rx="3" fill="#ffca00" fill-opacity="0.24" stroke="#ffca00" stroke-opacity="0.7"></rect><text x="328" y="447" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">won back</text><rect x="420" y="437" width="12" height="12" rx="3" fill="#151515" stroke="#ff7d8a" stroke-opacity="0.55" stroke-dasharray="4 4"></rect><text x="438" y="447" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">terminal</text><path d="M560,429 H572 M566,429 V455 M560,455 H572" stroke="rgba(255,255,255,0.34)" stroke-width="1.25"></path><text x="580" y="445" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">= 1,000 accounts</text>
+</svg>
+</div>
+<div class="cap">Forty states will not fit as forty boxes, so the machine is drawn as the volume moving through it, every band to scale against the same thousand-account rule. The trunk loses roughly half its thickness at each stage, which is the whole reading: 260px of signup arrives as 23px of retained account. The four losses peel to one terminal in trunk order so no band crosses another, and the win-back is a real band carrying its own width back into Trial.</div>
+</div>
+
+<div class="dv-opt" id="4c">
+<div class="dv-olabel"><a class="dv-oid" href="#4c">4c</a>Flow at 24 steps · 1200 · five owner lanes on one continuous day axis</div>
+<div class="pnl l">
+<div class="phd"><div class="pkick">Process · 24 steps · 5 owners</div><div class="ptitle">Enterprise onboarding, first sixty days</div></div>
+<svg width="1152" height="740" viewBox="0 0 1152 740" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;max-width:100%">
+<text x="0" y="18" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">read left to right by day · each lane is who holds the work · colour is what is happening to the account</text><rect x="476" y="76" width="336" height="560" fill="rgba(255,255,255,0.02)"></rect><text x="140" y="40" font-family="Nunito, sans-serif" font-size="10" font-weight="600" letter-spacing="1.2" fill="#ffffff">CONTRACT</text><text x="470" y="40" text-anchor="end" font-family="Fira Code, monospace" font-size="9" fill="#7d7d7d">day 0–21 · 21 days</text><text x="482" y="40" font-family="Nunito, sans-serif" font-size="10" font-weight="600" letter-spacing="1.2" fill="#ffffff">DATA</text><text x="806" y="40" text-anchor="end" font-family="Fira Code, monospace" font-size="9" fill="#7d7d7d">day 21–42 · 21 days</text><text x="818" y="40" font-family="Nunito, sans-serif" font-size="10" font-weight="600" letter-spacing="1.2" fill="#ffffff">LAUNCH</text><text x="1100" y="40" text-anchor="end" font-family="Fira Code, monospace" font-size="9" fill="#7d7d7d">day 42–60 · 18 days</text><path d="M476,76 V636" stroke="rgba(255,255,255,0.13)"></path><path d="M812,76 V636" stroke="rgba(255,255,255,0.13)"></path><path d="M140,64 H1100" stroke="rgba(255,255,255,0.16)"></path><text x="0" y="58" font-family="Nunito, sans-serif" font-size="10" font-weight="600" letter-spacing="1.2" fill="#ffffff">DAY</text><text x="140" y="58" text-anchor="middle" font-family="Fira Code, monospace" font-size="9" fill="#7d7d7d">0</text><text x="300" y="58" text-anchor="middle" font-family="Fira Code, monospace" font-size="9" fill="#7d7d7d">10</text><path d="M300,76 V632" stroke="rgba(255,255,255,0.05)" stroke-dasharray="3 5"></path><text x="460" y="58" text-anchor="middle" font-family="Fira Code, monospace" font-size="9" fill="#7d7d7d">20</text><path d="M460,76 V632" stroke="rgba(255,255,255,0.05)" stroke-dasharray="3 5"></path><text x="620" y="58" text-anchor="middle" font-family="Fira Code, monospace" font-size="9" fill="#7d7d7d">30</text><path d="M620,76 V632" stroke="rgba(255,255,255,0.05)" stroke-dasharray="3 5"></path><text x="780" y="58" text-anchor="middle" font-family="Fira Code, monospace" font-size="9" fill="#7d7d7d">40</text><path d="M780,76 V632" stroke="rgba(255,255,255,0.05)" stroke-dasharray="3 5"></path><text x="940" y="58" text-anchor="middle" font-family="Fira Code, monospace" font-size="9" fill="#7d7d7d">50</text><path d="M940,76 V632" stroke="rgba(255,255,255,0.05)" stroke-dasharray="3 5"></path><text x="1100" y="58" text-anchor="middle" font-family="Fira Code, monospace" font-size="9" fill="#7d7d7d">60</text><path d="M140,76 V632" stroke="rgba(255,255,255,0.08)"></path><path d="M1100,76 V632" stroke="rgba(255,255,255,0.08)"></path><path d="M0,76 H1100" stroke="rgba(255,255,255,0.1)"></path><text x="0" y="100" font-family="Nunito, sans-serif" font-size="12" font-weight="600" fill="#ffffff">Legal</text><text x="0" y="114" font-family="Fira Code, monospace" font-size="9" fill="#7d7d7d">3 steps</text><path d="M0,188 H1100" stroke="rgba(255,255,255,0.06)"></path><text x="0" y="212" font-family="Nunito, sans-serif" font-size="12" font-weight="600" fill="#ffffff">Finance</text><text x="0" y="226" font-family="Fira Code, monospace" font-size="9" fill="#7d7d7d">3 steps</text><path d="M0,300 H1100" stroke="rgba(255,255,255,0.06)"></path><text x="0" y="324" font-family="Nunito, sans-serif" font-size="12" font-weight="600" fill="#ffffff">Customer</text><text x="0" y="338" font-family="Fira Code, monospace" font-size="9" fill="#7d7d7d">7 steps</text><path d="M0,412 H1100" stroke="rgba(255,255,255,0.06)"></path><text x="0" y="436" font-family="Nunito, sans-serif" font-size="12" font-weight="600" fill="#ffffff">Implementation</text><text x="0" y="450" font-family="Fira Code, monospace" font-size="9" fill="#7d7d7d">6 steps</text><path d="M0,524 H1100" stroke="rgba(255,255,255,0.06)"></path><text x="0" y="548" font-family="Nunito, sans-serif" font-size="12" font-weight="600" fill="#ffffff">Engineering</text><text x="0" y="562" font-family="Fira Code, monospace" font-size="9" fill="#7d7d7d">5 steps</text><path d="M0,636 H1100" stroke="rgba(255,255,255,0.10)"></path><path d="M148,322 C148,230 138,117 148,117" stroke="rgba(255,255,255,0.24)" stroke-width="1.25" fill="none" stroke-linecap="round" marker-end="url(#ah-dim)"></path><path d="M244,117 C266,117 273.9,125.3 288,145 C313.9,181.3 306,229 324,229" stroke="rgba(255,255,255,0.24)" stroke-width="1.25" fill="none" stroke-linecap="round" marker-end="url(#ah-dim)"></path><path d="M340,117 C350,117 348,163.5 348,210" stroke="rgba(255,255,255,0.24)" stroke-width="1.25" fill="none" stroke-linecap="round" marker-end="url(#ah-dim)"></path><path d="M484,229 C494,229 484,275.5 484,322" stroke="rgba(255,255,255,0.24)" stroke-width="1.25" fill="none" stroke-linecap="round" marker-end="url(#ah-dim)"></path><path d="M484,360 C484,397 524,397 524,434" stroke="rgba(255,255,255,0.24)" stroke-width="1.25" fill="none" stroke-linecap="round" marker-end="url(#ah-dim)"></path><path d="M564,453 C580,453 596,406.5 596,360" stroke="rgba(255,255,255,0.24)" stroke-width="1.25" fill="none" stroke-linecap="round" marker-end="url(#ah-dim)"></path><path d="M548,341 C498,341 431.5,434.8 448,481 C471.5,546.8 538,565 628,565" stroke="rgba(255,255,255,0.24)" stroke-width="1.25" fill="none" stroke-linecap="round" marker-end="url(#ah-dim)"></path><path d="M732,546 C732,509 764,509 764,472" stroke="rgba(255,255,255,0.24)" stroke-width="1.25" fill="none" stroke-linecap="round" marker-end="url(#ah-dim)"></path><path d="M764,434 C764,397 796,397 796,360" stroke="rgba(255,255,255,0.24)" stroke-width="1.25" fill="none" stroke-linecap="round" marker-end="url(#ah-dim)"></path><path d="M836,472 C836,518.5 842,565 852,565" stroke="rgba(255,255,255,0.24)" stroke-width="1.25" fill="none" stroke-linecap="round" marker-end="url(#ah-dim)"></path><path d="M980,434 C980,397 1004,397 1004,360" stroke="rgba(255,255,255,0.24)" stroke-width="1.25" fill="none" stroke-linecap="round" marker-end="url(#ah-dim)"></path><path d="M1036,360 C1036,406.5 1034,453 1044,453" stroke="rgba(255,255,255,0.24)" stroke-width="1.25" fill="none" stroke-linecap="round" marker-end="url(#ah-dim)"></path><path d="M1068,434 C1068,413.5 1108.5,419.7 1120,393 C1128.5,373.2 1118,341 1108,341" stroke="rgba(255,255,255,0.24)" stroke-width="1.25" fill="none" stroke-linecap="round" marker-end="url(#ah-dim)"></path><rect x="144" y="334" width="16" height="22" rx="5" fill="#25d09d" opacity="0.32"></rect><rect x="140" y="330" width="16" height="22" rx="5" fill="#191919"></rect><rect x="140" y="330" width="16" height="22" rx="5" fill="#25d09d" fill-opacity="0.22" stroke="#25d09d" stroke-opacity="0.6"></rect><rect x="160" y="110" width="80" height="22" rx="5" fill="#25d09d" opacity="0.32"></rect><rect x="156" y="106" width="80" height="22" rx="5" fill="#191919"></rect><rect x="156" y="106" width="80" height="22" rx="5" fill="#25d09d" fill-opacity="0.22" stroke="#25d09d" stroke-opacity="0.6"></rect><rect x="240" y="334" width="80" height="22" rx="5" fill="#ffca00" opacity="0.32"></rect><rect x="236" y="330" width="80" height="22" rx="5" fill="#191919"></rect><rect x="236" y="330" width="80" height="22" rx="5" fill="#ffca00" fill-opacity="0.22" stroke="#ffca00" stroke-opacity="0.6"></rect><rect x="320" y="110" width="16" height="22" rx="5" fill="#25d09d" opacity="0.32"></rect><rect x="316" y="106" width="16" height="22" rx="5" fill="#191919"></rect><rect x="316" y="106" width="16" height="22" rx="5" fill="#25d09d" fill-opacity="0.22" stroke="#25d09d" stroke-opacity="0.6"></rect><rect x="336" y="222" width="32" height="22" rx="5" fill="#25d09d" opacity="0.32"></rect><rect x="332" y="218" width="32" height="22" rx="5" fill="#191919"></rect><rect x="332" y="218" width="32" height="22" rx="5" fill="#25d09d" fill-opacity="0.22" stroke="#25d09d" stroke-opacity="0.6"></rect><rect x="368" y="222" width="112" height="22" rx="5" fill="#ff7d8a" opacity="0.32"></rect><rect x="364" y="218" width="112" height="22" rx="5" fill="#191919"></rect><rect x="364" y="218" width="112" height="22" rx="5" fill="#ff7d8a" fill-opacity="0.28" stroke="#ff7d8a" stroke-opacity="0.9"></rect><rect x="480" y="334" width="16" height="22" rx="5" fill="#25d09d" opacity="0.32"></rect><rect x="476" y="330" width="16" height="22" rx="5" fill="#191919"></rect><rect x="476" y="330" width="16" height="22" rx="5" fill="#25d09d" fill-opacity="0.22" stroke="#25d09d" stroke-opacity="0.6"></rect><rect x="496" y="446" width="64" height="22" rx="5" fill="#25d09d" opacity="0.32"></rect><rect x="492" y="442" width="64" height="22" rx="5" fill="#191919"></rect><rect x="492" y="442" width="64" height="22" rx="5" fill="#25d09d" fill-opacity="0.22" stroke="#25d09d" stroke-opacity="0.6"></rect><rect x="560" y="334" width="80" height="22" rx="5" fill="#ffca00" opacity="0.32"></rect><rect x="556" y="330" width="80" height="22" rx="5" fill="#191919"></rect><rect x="556" y="330" width="80" height="22" rx="5" fill="#ffca00" fill-opacity="0.22" stroke="#ffca00" stroke-opacity="0.6"></rect><rect x="640" y="558" width="80" height="22" rx="5" fill="#ff7d8a" opacity="0.32"></rect><rect x="636" y="554" width="80" height="22" rx="5" fill="#191919"></rect><rect x="636" y="554" width="80" height="22" rx="5" fill="#ff7d8a" fill-opacity="0.28" stroke="#ff7d8a" stroke-opacity="0.9"></rect><rect x="720" y="558" width="32" height="22" rx="5" fill="#25d09d" opacity="0.32"></rect><rect x="716" y="554" width="32" height="22" rx="5" fill="#191919"></rect><rect x="716" y="554" width="32" height="22" rx="5" fill="#25d09d" fill-opacity="0.22" stroke="#25d09d" stroke-opacity="0.6"></rect><rect x="752" y="446" width="32" height="22" rx="5" fill="#25d09d" opacity="0.32"></rect><rect x="748" y="442" width="32" height="22" rx="5" fill="#191919"></rect><rect x="748" y="442" width="32" height="22" rx="5" fill="#25d09d" fill-opacity="0.22" stroke="#25d09d" stroke-opacity="0.6"></rect><rect x="784" y="334" width="32" height="22" rx="5" fill="#ffca00" opacity="0.32"></rect><rect x="780" y="330" width="32" height="22" rx="5" fill="#191919"></rect><rect x="780" y="330" width="32" height="22" rx="5" fill="#ffca00" fill-opacity="0.22" stroke="#ffca00" stroke-opacity="0.6"></rect><rect x="816" y="446" width="48" height="22" rx="5" fill="#25d09d" opacity="0.32"></rect><rect x="812" y="442" width="48" height="22" rx="5" fill="#191919"></rect><rect x="812" y="442" width="48" height="22" rx="5" fill="#25d09d" fill-opacity="0.22" stroke="#25d09d" stroke-opacity="0.6"></rect><rect x="864" y="558" width="96" height="22" rx="5" fill="#ff7d8a" opacity="0.32"></rect><rect x="860" y="554" width="96" height="22" rx="5" fill="#191919"></rect><rect x="860" y="554" width="96" height="22" rx="5" fill="#ff7d8a" fill-opacity="0.28" stroke="#ff7d8a" stroke-opacity="0.9"></rect><rect x="960" y="558" width="16" height="22" rx="5" fill="#25d09d" opacity="0.32"></rect><rect x="956" y="554" width="16" height="22" rx="5" fill="#191919"></rect><rect x="956" y="554" width="16" height="22" rx="5" fill="#25d09d" fill-opacity="0.22" stroke="#25d09d" stroke-opacity="0.6"></rect><rect x="976" y="446" width="16" height="22" rx="5" fill="#25d09d" opacity="0.32"></rect><rect x="972" y="442" width="16" height="22" rx="5" fill="#191919"></rect><rect x="972" y="442" width="16" height="22" rx="5" fill="#25d09d" fill-opacity="0.22" stroke="#25d09d" stroke-opacity="0.6"></rect><rect x="992" y="334" width="64" height="22" rx="5" fill="#ffca00" opacity="0.32"></rect><rect x="988" y="330" width="64" height="22" rx="5" fill="#191919"></rect><rect x="988" y="330" width="64" height="22" rx="5" fill="#ffca00" fill-opacity="0.22" stroke="#ffca00" stroke-opacity="0.6"></rect><rect x="1056" y="446" width="32" height="22" rx="5" fill="#25d09d" opacity="0.32"></rect><rect x="1052" y="442" width="32" height="22" rx="5" fill="#191919"></rect><rect x="1052" y="442" width="32" height="22" rx="5" fill="#25d09d" fill-opacity="0.22" stroke="#25d09d" stroke-opacity="0.6"></rect><rect x="1088" y="334" width="16" height="22" rx="5" fill="#25d09d" opacity="0.32"></rect><rect x="1084" y="330" width="16" height="22" rx="5" fill="#191919"></rect><rect x="1084" y="330" width="16" height="22" rx="5" fill="#25d09d" fill-opacity="0.22" stroke="#25d09d" stroke-opacity="0.6"></rect><rect x="172" y="162" width="112" height="22" rx="5" fill="#191919"></rect><rect x="172" y="162" width="112" height="22" rx="5" fill="#25d09d" fill-opacity="0.09" stroke="#25d09d" stroke-opacity="0.4" stroke-dasharray="5 4"></rect><rect x="972" y="274" width="96" height="22" rx="5" fill="#191919"></rect><rect x="972" y="274" width="96" height="22" rx="5" fill="#25d09d" fill-opacity="0.09" stroke="#25d09d" stroke-opacity="0.4" stroke-dasharray="5 4"></rect><rect x="860" y="498" width="96" height="22" rx="5" fill="#191919"></rect><rect x="860" y="498" width="96" height="22" rx="5" fill="#25d09d" fill-opacity="0.09" stroke="#25d09d" stroke-opacity="0.4" stroke-dasharray="5 4"></rect><rect x="556" y="610" width="112" height="22" rx="5" fill="#191919"></rect><rect x="556" y="610" width="112" height="22" rx="5" fill="#25d09d" fill-opacity="0.09" stroke="#25d09d" stroke-opacity="0.4" stroke-dasharray="5 4"></rect><text x="116.1" y="372.5" font-family="Nunito, sans-serif" font-size="10.5" font-weight="600" font-weight="500" fill="#ffffff" stroke="#191919" stroke-width="4" stroke-linejoin="round" paint-order="stroke">Signature<tspan font-family="Fira Code, monospace" font-size="9" fill="#ffffff" dx="6">1d</tspan></text><text x="223.7" y="372.5" font-family="Nunito, sans-serif" font-size="10.5" font-weight="600" font-weight="500" fill="#ffffff" stroke="#191919" stroke-width="4" stroke-linejoin="round" paint-order="stroke">Counter-signature<tspan font-family="Fira Code, monospace" font-size="9" fill="#ffffff" dx="6">5d</tspan></text><text x="397.8" y="344.5" font-family="Nunito, sans-serif" font-size="10.5" font-weight="600" font-weight="500" fill="#ffffff" stroke="#191919" stroke-width="4" stroke-linejoin="round" paint-order="stroke">Kickoff<tspan font-family="Fira Code, monospace" font-size="9" fill="#ffffff" dx="6">1d</tspan></text><text x="554" y="316.5" font-family="Nunito, sans-serif" font-size="10.5" font-weight="600" font-weight="500" fill="#ffffff" stroke="#191919" stroke-width="4" stroke-linejoin="round" paint-order="stroke">Source access<tspan font-family="Fira Code, monospace" font-size="9" fill="#ffffff" dx="6">5d</tspan></text><text x="746.1" y="316.5" font-family="Nunito, sans-serif" font-size="10.5" font-weight="600" font-weight="500" fill="#ffffff" stroke="#191919" stroke-width="4" stroke-linejoin="round" paint-order="stroke">Mapping sign-off<tspan font-family="Fira Code, monospace" font-size="9" fill="#ffffff" dx="6">2d</tspan></text><text x="921.5" y="344.5" font-family="Nunito, sans-serif" font-size="10.5" font-weight="600" font-weight="500" fill="#ffffff" stroke="#191919" stroke-width="4" stroke-linejoin="round" paint-order="stroke">UAT<tspan font-family="Fira Code, monospace" font-size="9" fill="#ffffff" dx="6">4d</tspan></text><text x="1066.7" y="316.5" font-family="Nunito, sans-serif" font-size="10.5" font-weight="600" font-weight="500" fill="#ffffff" stroke="#191919" stroke-width="4" stroke-linejoin="round" paint-order="stroke">Go live<tspan font-family="Fira Code, monospace" font-size="9" fill="#ffffff" dx="6">1d</tspan></text><text x="151.8" y="92.5" font-family="Nunito, sans-serif" font-size="10.5" font-weight="600" font-weight="500" fill="#ffffff" stroke="#191919" stroke-width="4" stroke-linejoin="round" paint-order="stroke">Redline review<tspan font-family="Fira Code, monospace" font-size="9" fill="#ffffff" dx="6">5d</tspan></text><text x="291.9" y="92.5" font-family="Nunito, sans-serif" font-size="10.5" font-weight="600" font-weight="500" fill="#ffffff" stroke="#191919" stroke-width="4" stroke-linejoin="round" paint-order="stroke">Execution<tspan font-family="Fira Code, monospace" font-size="9" fill="#ffffff" dx="6">1d</tspan></text><text x="291.2" y="260.5" font-family="Nunito, sans-serif" font-size="10.5" font-weight="600" font-weight="500" fill="#ffffff" stroke="#191919" stroke-width="4" stroke-linejoin="round" paint-order="stroke">PO issued<tspan font-family="Fira Code, monospace" font-size="9" fill="#ffffff" dx="6">2d</tspan></text><text x="375" y="204.5" font-family="Nunito, sans-serif" font-size="10.5" font-weight="600" font-weight="500" fill="#ffffff" stroke="#191919" stroke-width="4" stroke-linejoin="round" paint-order="stroke">Payment terms queue<tspan font-family="Fira Code, monospace" font-size="9" fill="#ffffff" dx="6">7d</tspan></text><text x="474" y="484.5" font-family="Nunito, sans-serif" font-size="10.5" font-weight="600" font-weight="500" fill="#ffffff" stroke="#191919" stroke-width="4" stroke-linejoin="round" paint-order="stroke">Schema mapping<tspan font-family="Fira Code, monospace" font-size="9" fill="#ffffff" dx="6">4d</tspan></text><text x="629" y="456.5" font-family="Nunito, sans-serif" font-size="10.5" font-weight="600" font-weight="500" fill="#ffffff" stroke="#191919" stroke-width="4" stroke-linejoin="round" paint-order="stroke">Field validation<tspan font-family="Fira Code, monospace" font-size="9" fill="#ffffff" dx="6">2d</tspan></text><text x="785.7" y="428.5" font-family="Nunito, sans-serif" font-size="10.5" font-weight="600" font-weight="500" fill="#ffffff" stroke="#191919" stroke-width="4" stroke-linejoin="round" paint-order="stroke">Migration dry run<tspan font-family="Fira Code, monospace" font-size="9" fill="#ffffff" dx="6">3d</tspan></text><text x="868" y="456.5" font-family="Nunito, sans-serif" font-size="10.5" font-weight="600" font-weight="500" fill="#ffffff" stroke="#191919" stroke-width="4" stroke-linejoin="round" paint-order="stroke">Smoke tests<tspan font-family="Fira Code, monospace" font-size="9" fill="#ffffff" dx="6">1d</tspan></text><text x="1039.5" y="484.5" font-family="Nunito, sans-serif" font-size="10.5" font-weight="600" font-weight="500" fill="#ffffff" stroke="#191919" stroke-width="4" stroke-linejoin="round" paint-order="stroke">Training<tspan font-family="Fira Code, monospace" font-size="9" fill="#ffffff" dx="6">2d</tspan></text><text x="594.5" y="510.5" font-family="Nunito, sans-serif" font-size="10.5" font-weight="600" font-weight="500" fill="#ffffff" stroke="#191919" stroke-width="4" stroke-linejoin="round" paint-order="stroke">Security review<tspan font-family="Fira Code, monospace" font-size="9" fill="#ffffff" dx="6">5d</tspan></text><text x="722.4" y="596.5" font-family="Nunito, sans-serif" font-size="10.5" font-weight="600" font-weight="500" fill="#ffffff" stroke="#191919" stroke-width="4" stroke-linejoin="round" paint-order="stroke">Sandbox load<tspan font-family="Fira Code, monospace" font-size="9" fill="#ffffff" dx="6">2d</tspan></text><text x="819.8" y="596.5" font-family="Nunito, sans-serif" font-size="10.5" font-weight="600" font-weight="500" fill="#ffffff" stroke="#191919" stroke-width="4" stroke-linejoin="round" paint-order="stroke">Cutover window queue<tspan font-family="Fira Code, monospace" font-size="9" fill="#ffffff" dx="6">6d</tspan></text><text x="960" y="612.5" font-family="Nunito, sans-serif" font-size="10.5" font-weight="600" font-weight="500" fill="#ffffff" stroke="#191919" stroke-width="4" stroke-linejoin="round" paint-order="stroke">Production cutover<tspan font-family="Fira Code, monospace" font-size="9" fill="#ffffff" dx="6">1d</tspan></text><text x="181.6" y="204.5" font-family="Nunito, sans-serif" font-size="10.5" font-weight="600" font-weight="500" fill="#ffffff" stroke="#191919" stroke-width="4" stroke-linejoin="round" paint-order="stroke">DPA addendum<tspan font-family="Fira Code, monospace" font-size="9" fill="#ffffff" dx="6">7d</tspan></text><text x="961.5" y="260.5" font-family="Nunito, sans-serif" font-size="10.5" font-weight="600" font-weight="500" fill="#ffffff" stroke="#191919" stroke-width="4" stroke-linejoin="round" paint-order="stroke">Invoice reconciliation<tspan font-family="Fira Code, monospace" font-size="9" fill="#ffffff" dx="6">6d</tspan></text><text x="984" y="512.5" font-family="Nunito, sans-serif" font-size="10.5" font-weight="600" font-weight="500" fill="#ffffff" stroke="#191919" stroke-width="4" stroke-linejoin="round" paint-order="stroke">Runbook drafting<tspan font-family="Fira Code, monospace" font-size="9" fill="#ffffff" dx="6">6d</tspan></text><text x="519" y="596.5" font-family="Nunito, sans-serif" font-size="10.5" font-weight="600" font-weight="500" fill="#ffffff" stroke="#191919" stroke-width="4" stroke-linejoin="round" paint-order="stroke">Infra pre-provision<tspan font-family="Fira Code, monospace" font-size="9" fill="#ffffff" dx="6">7d</tspan></text><text x="140" y="657" font-family="Nunito, sans-serif" font-size="12.5" font-weight="500" fill="#ffffff">Twenty-six days of work. Thirty-four days of queue.</text><text x="0" y="685" font-family="Nunito, sans-serif" font-size="10" font-weight="600" letter-spacing="1.2" fill="#ffffff">60 DAYS</text><rect x="140" y="668" width="414" height="24" rx="4" fill="#25d09d" fill-opacity="0.24" stroke="#25d09d" stroke-opacity="0.7"></rect><text x="347" y="684" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" fill="#ffffff">26d · work</text><rect x="556" y="668" width="254" height="24" rx="4" fill="#ffca00" fill-opacity="0.24" stroke="#ffca00" stroke-opacity="0.7"></rect><text x="683" y="684" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" fill="#ffffff">16d · waiting</text><rect x="812" y="668" width="288" height="24" rx="4" fill="#ff7d8a" fill-opacity="0.24" stroke="#ff7d8a" stroke-opacity="0.7"></rect><text x="956" y="684" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" fill="#ffffff">18d · stalled</text><rect x="0" y="706" width="12" height="12" rx="3" fill="#25d09d" fill-opacity="0.24" stroke="#25d09d" stroke-opacity="0.7"></rect><text x="18" y="716" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">work in progress</text><rect x="150" y="706" width="12" height="12" rx="3" fill="#ffca00" fill-opacity="0.24" stroke="#ffca00" stroke-opacity="0.7"></rect><text x="168" y="716" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">waiting on someone</text><rect x="330" y="706" width="12" height="12" rx="3" fill="#ff7d8a" fill-opacity="0.24" stroke="#ff7d8a" stroke-opacity="0.7"></rect><text x="348" y="716" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">stalled in a queue</text><path d="M500,717 C512,717 512,706 524,706" stroke="rgba(255,255,255,0.34)" stroke-width="1.25" fill="none"></path><text x="532" y="716" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">handoff to another lane</text><text x="720" y="716" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">dashed = parallel work, off the critical path</text><text x="1100" y="716" text-anchor="end" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">1 day = 16px</text>
+
+<path d="M964,509 H976" stroke="rgba(255,255,255,0.22)" stroke-width="1" fill="none"></path>
+<path d="M640,522 V546" stroke="rgba(255,255,255,0.22)" stroke-width="1" fill="none"></path>
+<path d="M728,453 H740" stroke="rgba(255,255,255,0.22)" stroke-width="1" fill="none"></path>
+<path d="M952,453 H964" stroke="rgba(255,255,255,0.22)" stroke-width="1" fill="none"></path>
+<path d="M456,341 H468" stroke="rgba(255,255,255,0.22)" stroke-width="1" fill="none"></path>
+<path d="M968,341 H980" stroke="rgba(255,255,255,0.22)" stroke-width="1" fill="none"></path>
+
+<path d="M276,322 C276,289.5 268.1,287.5 276,257 C292.1,194.5 324,196.5 324,136" stroke="rgba(255,255,255,0.24)" stroke-width="1.25" fill="none" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+
+
+
+<path d="M964,584 V594" stroke="rgba(255,255,255,0.22)" stroke-width="1" fill="none"></path>
+</svg>
+</div>
+<div class="cap">One axis, no wrapping: every step sits at the day it happens, so position alone answers when. Lanes are owners, which is what a column is supposed to mean, and each arc is a handoff — sixteen of them, standing 8px clear of the bar it leaves and the bar it enters. The long jumps into the customer lane are followed by the yellow bars, which is the finding. The strip at the foot is the same sixty days projected onto one line.</div>
+</div>
+<div class="dv-opt" id="4d">
+<div class="dv-olabel"><a class="dv-oid" href="#4d">4d</a>The ceiling, stated</div>
+<div class="pnl">
+<div class="phd"><div class="pkick">Limits</div><div class="ptitle">What to draw at what size</div></div>
+<div style="font:400 10px/1.6 'Fira Code',monospace;color:#7d7d7d;margin:0 0 14px">each row is a node count and the layout it forces · the last column is the layout, not a picture of data — no colour is encoded here</div>
+<div style="display:grid;grid-template-columns:72px 1fr 236px 100px;gap:0;font:400 12px/1.5 Nunito,sans-serif;color:#ffffff">
+<div style="font:400 10px/1 'Fira Code',monospace;letter-spacing:0.6px;color:#6f6f6f;padding:0 0 10px">NODES</div><div style="font:400 10px/1 'Fira Code',monospace;letter-spacing:0.6px;color:#6f6f6f;padding:0 0 10px">WHAT HAPPENS ON THE CANVAS</div><div style="font:400 10px/1 'Fira Code',monospace;letter-spacing:0.6px;color:#6f6f6f;padding:0 0 10px">WHAT TO DRAW</div><div style="font:400 10px/1 'Fira Code',monospace;letter-spacing:0.6px;color:#6f6f6f;padding:0 0 10px">SHAPE</div>
+<div style="padding:14px 0;border-top:1px solid rgba(255,255,255,0.06);font-family:'Fira Code',monospace;font-size:12px">2 – 8</div><div style="padding:14px 24px 14px 0;border-top:1px solid rgba(255,255,255,0.06);color:#d0d0d0">Nothing. Every edge can be a curve and every node can be placed by hand.</div><div style="padding:14px 24px 14px 0;border-top:1px solid rgba(255,255,255,0.06);color:#d0d0d0">Free layout at 900. <a href="#3a">3a</a>, <a href="#3d">3d</a></div><div style="padding:14px 0;border-top:1px solid rgba(255,255,255,0.06)"><svg width="92" height="36" viewBox="0 0 92 36" fill="#1e1e1e" stroke="rgba(255,255,255,0.26)" xmlns="http://www.w3.org/2000/svg" style="display:block"><rect x="4" y="6" width="22" height="11" rx="3"/><rect x="36" y="19" width="22" height="11" rx="3"/><rect x="66" y="4" width="22" height="11" rx="3"/><path d="M26,12 C33,12 31,25 36,25" fill="none"/><path d="M58,25 C66,25 62,10 66,10" fill="none"/></svg></div>
+<div style="padding:14px 0;border-top:1px solid rgba(255,255,255,0.06);font-family:'Fira Code',monospace;font-size:12px">9 – 16</div><div style="padding:14px 24px 14px 0;border-top:1px solid rgba(255,255,255,0.06);color:#d0d0d0">Edges start to cross. Hand placement stops paying for itself.</div><div style="padding:14px 24px 14px 0;border-top:1px solid rgba(255,255,255,0.06);color:#d0d0d0">Put the nodes on a grid, still 900.</div><div style="padding:14px 0;border-top:1px solid rgba(255,255,255,0.06)"><svg width="92" height="36" viewBox="0 0 92 36" fill="#1e1e1e" stroke="rgba(255,255,255,0.26)" xmlns="http://www.w3.org/2000/svg" style="display:block"><rect x="4" y="5" width="18" height="11" rx="2"/><rect x="26" y="5" width="18" height="11" rx="2"/><rect x="48" y="5" width="18" height="11" rx="2"/><rect x="70" y="5" width="18" height="11" rx="2"/><rect x="4" y="20" width="18" height="11" rx="2"/><rect x="26" y="20" width="18" height="11" rx="2"/><rect x="48" y="20" width="18" height="11" rx="2"/><rect x="70" y="20" width="18" height="11" rx="2"/></svg></div>
+<div style="padding:14px 0;border-top:1px solid rgba(255,255,255,0.06);font-family:'Fira Code',monospace;font-size:12px">17 – 28</div><div style="padding:14px 24px 14px 0;border-top:1px solid rgba(255,255,255,0.06);color:#d0d0d0">Equal boxes on a grid read as a spreadsheet, and any many-to-one transition — cancel, fail, expire — buries the rest.</div><div style="padding:14px 24px 14px 0;border-top:1px solid rgba(255,255,255,0.06);color:#d0d0d0">Size blocks by a real quantity, stagger the baselines, mark exceptions on the node. 1200 wide. <a href="#4a">4a</a></div><div style="padding:14px 0;border-top:1px solid rgba(255,255,255,0.06)"><svg width="92" height="36" viewBox="0 0 92 36" fill="#1e1e1e" stroke="rgba(255,255,255,0.26)" xmlns="http://www.w3.org/2000/svg" style="display:block"><rect x="2" y="4" width="10" height="10" rx="2"/><rect x="16" y="16" width="26" height="10" rx="2"/><rect x="46" y="4" width="16" height="10" rx="2"/><rect x="66" y="16" width="24" height="10" rx="2"/><path d="M12,9 C15,9 13,21 16,21" fill="none"/><path d="M42,21 C45,21 43,9 46,9" fill="none"/><path d="M62,9 C65,9 63,21 66,21" fill="none"/></svg></div>
+<div style="padding:14px 0;border-top:1px solid rgba(255,255,255,0.06);font-family:'Fira Code',monospace;font-size:12px">29 – 44</div><div style="padding:14px 24px 14px 0;border-top:1px solid rgba(255,255,255,0.06);color:#d0d0d0">Labels shrink below 12px or the canvas passes 2000px. Both are failures.</div><div style="padding:14px 24px 14px 0;border-top:1px solid rgba(255,255,255,0.06);color:#d0d0d0">Roll up into 5 stages and draw the volume moving through them, not the states. <a href="#4b">4b</a></div><div style="padding:14px 0;border-top:1px solid rgba(255,255,255,0.06)"><svg width="92" height="36" viewBox="0 0 92 36" fill="#1e1e1e" stroke="rgba(255,255,255,0.26)" xmlns="http://www.w3.org/2000/svg" style="display:block"><rect x="2" y="14" width="10" height="18" rx="2"/><rect x="16" y="20" width="20" height="12" rx="2"/><rect x="40" y="8" width="14" height="24" rx="2"/><rect x="58" y="16" width="12" height="16" rx="2"/><rect x="74" y="12" width="16" height="20" rx="2"/></svg></div>
+<div style="padding:14px 0;border-top:1px solid rgba(255,255,255,0.06);font-family:'Fira Code',monospace;font-size:12px">45 +</div><div style="padding:14px 24px 14px 0;border-top:1px solid rgba(255,255,255,0.06);color:#d0d0d0">The drawing is a picture of a table, and a worse one.</div><div style="padding:14px 24px 14px 0;border-top:1px solid rgba(255,255,255,0.06);color:#d0d0d0">Draw the table. A transition matrix reads faster.</div><div style="padding:14px 0;border-top:1px solid rgba(255,255,255,0.06)"><svg width="92" height="36" viewBox="0 0 92 36" fill="#1e1e1e" stroke="rgba(255,255,255,0.26)" xmlns="http://www.w3.org/2000/svg" style="display:block"><rect x="4" y="5" width="84" height="26" rx="2"/><path d="M4,14 H88 M4,22 H88 M32,5 V31 M60,5 V31" fill="none"/></svg></div>
+<div style="padding:14px 0;border-top:1px solid rgba(255,255,255,0.06);font-family:'Fira Code',monospace;font-size:12px">flows</div><div style="padding:14px 24px 14px 0;border-top:1px solid rgba(255,255,255,0.06);color:#d0d0d0">A vertical chain holds 8 steps before the arrows outweigh the boxes; columns read as parallel, so spending them on sequence misleads.</div><div style="padding:14px 24px 14px 0;border-top:1px solid rgba(255,255,255,0.06);color:#d0d0d0">One continuous time axis, one lane per owner, bars sized by elapsed days. 24 steps at 1200 × 600. <a href="#4c">4c</a></div><div style="padding:14px 0;border-top:1px solid rgba(255,255,255,0.06)"><svg width="92" height="36" viewBox="0 0 92 36" fill="#1e1e1e" stroke="rgba(255,255,255,0.26)" xmlns="http://www.w3.org/2000/svg" style="display:block"><rect x="2" y="4" width="20" height="7" rx="2"/><rect x="2" y="14" width="14" height="7" rx="2"/><rect x="2" y="24" width="24" height="7" rx="2"/><rect x="34" y="4" width="14" height="7" rx="2"/><rect x="34" y="14" width="26" height="7" rx="2"/><rect x="34" y="24" width="18" height="7" rx="2"/><rect x="66" y="4" width="22" height="7" rx="2"/><rect x="66" y="14" width="12" height="7" rx="2"/><rect x="66" y="24" width="20" height="7" rx="2"/></svg></div>
+</div>
+</div>
+<div class="cap">Measured against this kit at its stated type sizes — 12px minimum on a node’s title line, 9px for the metadata tier beneath it, 8px standoff on every arrow. Shrink the type and the numbers move; so does whether anyone reads it.</div>
+
+</div>
+</section>
+
+<section class="dv-turn" id="t3">
+<div class="dv-thd"><a class="dv-tid" href="#t3">3</a><span class="dv-tname">Four new types, plus the first four redrawn at 600</span></div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="3a">
+<div class="dv-olabel"><a class="dv-oid" href="#3a">3a</a>State machine · 900 · pills for states, self-loop, recovery lane</div>
+<div class="pnl">
+<div class="phd"><div class="pkick">Lifecycle</div><div class="ptitle">Every state a subscription can be in</div></div>
+<svg width="852" height="300" viewBox="0 0 852 300" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;max-width:100%">
+<path d="M673,52 V40 C673,28 665,22 653,22 H417 C405,22 397,28 397,40 V52" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<rect x="489" y="13" width="92" height="18" rx="3" fill="#191919"></rect>
+<text x="535" y="26" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">invoice paid</text>
+
+<circle cx="26" cy="86" r="5" fill="rgba(255,255,255,0.42)"></circle>
+<path d="M34,86 H64" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+
+<path d="M224,86 H322" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<rect x="239" y="77" width="60" height="18" rx="3" fill="#191919"></rect>
+<text x="269" y="90" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">converts</text>
+
+<path d="M492,86 H590" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<rect x="495" y="77" width="84" height="18" rx="3" fill="#191919"></rect>
+<text x="537" y="90" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">payment fails</text>
+
+<path d="M348,124 C332,130 328,144 346,152 C364,160 382,148 382,124" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<text x="325" y="150" text-anchor="end" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">renews monthly</text>
+
+<path d="M428,124 V222" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<text x="420" y="175" text-anchor="end" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">user pauses</text>
+<path d="M456,222 V124" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<text x="464" y="175" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">resumes</text>
+
+<path d="M673,124 V222" stroke="#ff7d8a" stroke-opacity="0.75" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-fail)"></path>
+<text x="683" y="175" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">retries exhausted</text>
+
+<path d="M760,256 H782" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<circle cx="800" cy="256" r="8" stroke="rgba(255,255,255,0.18)"></circle>
+<circle cx="800" cy="256" r="3.5" fill="rgba(255,255,255,0.42)"></circle>
+
+<rect x="76" y="64" width="140" height="52" rx="26" fill="#6ea8ff"></rect>
+<rect x="72" y="60" width="140" height="52" rx="26" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="142" y="91" text-anchor="middle" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Trial</text>
+
+<rect x="334" y="64" width="150" height="52" rx="26" fill="#25d09d"></rect>
+<rect x="330" y="60" width="150" height="52" rx="26" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="405" y="91" text-anchor="middle" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Active</text>
+
+<rect x="602" y="64" width="150" height="52" rx="26" fill="#ffca00"></rect>
+<rect x="598" y="60" width="150" height="52" rx="26" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="673" y="91" text-anchor="middle" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Past due</text>
+
+<rect x="334" y="234" width="150" height="52" rx="26" fill="rgba(255,255,255,0.22)"></rect>
+<rect x="330" y="230" width="150" height="52" rx="26" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="405" y="261" text-anchor="middle" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Paused</text>
+
+<rect x="602" y="234" width="150" height="52" rx="26" fill="#ff7d8a"></rect>
+<rect x="598" y="230" width="150" height="52" rx="26" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="673" y="261" text-anchor="middle" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Canceled</text>
+</svg>
+</div>
+<div class="cap">Entry is a filled dot, exit a ring. Transitions read as verbs, states as nouns. The recovery lane runs above the row rather than back through it, so no two edges cross.</div>
+</div>
+
+<div class="dv-opt" id="3b">
+<div class="dv-olabel"><a class="dv-oid" href="#3b">3b</a>Timeline · 1200 · week grid, dependencies, milestones, dimension line</div>
+<div class="pnl l">
+<div class="phd"><div class="pkick">Plan</div><div class="ptitle">Postgres migration, eight weeks</div></div>
+<svg width="1152" height="330" viewBox="0 0 1152 330" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;max-width:100%">
+<path d="M180,26 V282 M301,26 V282 M422,26 V282 M543,26 V282 M664,26 V282 M785,26 V282 M906,26 V282 M1027,26 V282 M1148,26 V282" stroke="rgba(255,255,255,0.07)" stroke-dasharray="3 5"></path>
+<path d="M180,282 H1148" stroke="rgba(255,255,255,0.10)"></path>
+<text x="240" y="16" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">W27</text>
+<text x="361" y="16" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">W28</text>
+<text x="482" y="16" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">W29</text>
+<text x="603" y="16" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">W30</text>
+<text x="724" y="16" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">W31</text>
+<text x="845" y="16" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">W32</text>
+<text x="966" y="16" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">W33</text>
+<text x="1087" y="16" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" fill="#7d7d7d">W34</text>
+
+<path d="M785,26 V282" stroke="#25d09d" stroke-opacity="0.45" stroke-width="1.25" stroke-dasharray="4 4"></path>
+<rect x="757" y="2" width="56" height="18" rx="4" fill="rgba(37,208,157,0.16)"></rect>
+<text x="785" y="15" text-anchor="middle" font-family="Fira Code, monospace" font-size="9" font-weight="500" letter-spacing="0.8" fill="#25d09d">TODAY</text>
+
+<text x="160" y="65" text-anchor="end" font-family="Nunito, sans-serif" font-size="11" font-weight="600" fill="#ffffff">Schema</text>
+<text x="160" y="111" text-anchor="end" font-family="Nunito, sans-serif" font-size="11" font-weight="600" fill="#ffffff">Dual writes</text>
+<text x="160" y="157" text-anchor="end" font-family="Nunito, sans-serif" font-size="11" font-weight="600" fill="#ffffff">Backfill</text>
+<text x="160" y="203" text-anchor="end" font-family="Nunito, sans-serif" font-size="11" font-weight="600" fill="#ffffff">Cutover</text>
+<text x="160" y="249" text-anchor="end" font-family="Nunito, sans-serif" font-size="11" font-weight="600" fill="#ffffff">Decommission</text>
+
+<path d="M890,182 V191 C890,196 893,199 898,199" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M1011,228 V237 C1011,242 1014,245 1019,245" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+
+<rect x="184" y="48" width="242" height="34" rx="6" fill="#6ea8ff"></rect>
+<rect x="180" y="44" width="242" height="34" rx="6" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="194" y="65" font-family="Nunito, sans-serif" font-size="12" font-weight="600" fill="#ffffff">Schema freeze</text>
+<text x="408" y="65" text-anchor="end" font-family="Fira Code, monospace" font-size="10" fill="#ffffff">2w</text>
+
+<rect x="305" y="94" width="363" height="34" rx="6" fill="#25d09d"></rect>
+<rect x="301" y="90" width="363" height="34" rx="6" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="315" y="111" font-family="Nunito, sans-serif" font-size="12" font-weight="600" fill="#ffffff">Dual writes to both stores</text>
+<text x="650" y="111" text-anchor="end" font-family="Fira Code, monospace" font-size="10" fill="#ffffff">3w</text>
+
+<rect x="426" y="140" width="484" height="34" rx="6" fill="#25d09d"></rect>
+<rect x="422" y="136" width="484" height="34" rx="6" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="436" y="157" font-family="Nunito, sans-serif" font-size="12" font-weight="600" fill="#ffffff">Backfill history, verify row counts</text>
+<text x="892" y="157" text-anchor="end" font-family="Fira Code, monospace" font-size="10" fill="#ffffff">4w</text>
+
+<rect x="910" y="186" width="121" height="34" rx="6" fill="#ffca00"></rect>
+<rect x="906" y="182" width="121" height="34" rx="6" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="920" y="203" font-family="Nunito, sans-serif" font-size="12" font-weight="600" fill="#ffffff">Cutover</text>
+
+<rect x="1031" y="232" width="121" height="34" rx="6" fill="rgba(255,255,255,0.22)"></rect>
+<rect x="1027" y="228" width="121" height="34" rx="6" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="1041" y="249" font-family="Nunito, sans-serif" font-size="12" font-weight="600" fill="#ffffff">Teardown</text>
+
+<path d="M301,264 V276 M906,264 V276" stroke="rgba(255,255,255,0.18)"></path>
+<path d="M305,270 H902" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-start="url(#ah-dim)" marker-end="url(#ah-dim)"></path>
+<rect x="530" y="261" width="148" height="18" rx="3" fill="#191919"></rect>
+<text x="604" y="274" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">5 weeks of overlap</text>
+
+<path d="M667,283 l9,9 l-9,9 l-9,-9 z" fill="#ffca00"></path>
+<path d="M664,280 l9,9 l-9,9 l-9,-9 z" fill="#151515" stroke="rgba(255,255,255,0.24)"></path>
+<text x="664" y="316" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">parity check</text>
+<path d="M909,283 l9,9 l-9,9 l-9,-9 z" fill="#ffca00"></path>
+<path d="M906,280 l9,9 l-9,9 l-9,-9 z" fill="#151515" stroke="rgba(255,255,255,0.24)"></path>
+<text x="906" y="316" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">go / no-go</text>
+</svg>
+</div>
+<div class="cap l">Bars carry their own duration; the row label carries the name, so neither repeats. Dependencies are elbows off the left edge of the successor. Milestones are diamonds on the axis, never bars of zero width.</div>
+</div>
+
+<div class="dv-opt" id="3c">
+<div class="dv-olabel"><a class="dv-oid" href="#3c">3c</a>Quadrant · 900 · plotted points, corner labels, metric and legend</div>
+<div class="pnl">
+<div class="phd"><div class="pkick">Portfolio</div><div class="ptitle">Which integrations to fix first</div></div>
+<svg width="852" height="392" viewBox="0 0 852 392" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;max-width:100%">
+<rect x="150" y="24" width="460" height="320" rx="12" stroke="rgba(255,255,255,0.10)" stroke-dasharray="4 5"></rect>
+<path d="M380,24 V344" stroke="rgba(255,255,255,0.12)" stroke-dasharray="3 5"></path>
+<path d="M150,184 H610" stroke="rgba(255,255,255,0.12)" stroke-dasharray="3 5"></path>
+<text x="168" y="46" font-family="Nunito, sans-serif" font-size="10" font-weight="600" letter-spacing="1.2" fill="#ffffff" fill-opacity="0.45">NICHE, SOLID</text>
+<text x="592" y="46" text-anchor="end" font-family="Nunito, sans-serif" font-size="10" font-weight="600" letter-spacing="1.2" fill="#ffffff" fill-opacity="0.45">CORE</text>
+<text x="168" y="330" font-family="Nunito, sans-serif" font-size="10" font-weight="600" letter-spacing="1.2" fill="#ffffff" fill-opacity="0.45">DEPRECATE</text>
+<text x="592" y="330" text-anchor="end" font-family="Nunito, sans-serif" font-size="10" font-weight="600" letter-spacing="1.2" fill="#ffffff" fill-opacity="0.45">URGENT FIX</text>
+
+<path d="M138,344 V32" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<text x="118" y="184" text-anchor="middle" transform="rotate(-90 118 184)" font-family="Nunito, sans-serif" font-size="10" font-weight="600" letter-spacing="1.2" fill="#ffffff">RELIABILITY</text>
+<path d="M150,360 H602" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<text x="380" y="380" text-anchor="middle" font-family="Nunito, sans-serif" font-size="10" font-weight="600" letter-spacing="1.2" fill="#ffffff">MONTHLY CALL VOLUME</text>
+
+<circle cx="250" cy="112" r="6" fill="#25d09d"></circle>
+<text x="264" y="116" font-family="Fira Code, monospace" font-size="10" fill="#ffffff">Zendesk</text>
+<circle cx="452" cy="128" r="6" fill="#25d09d"></circle>
+<text x="466" y="132" font-family="Fira Code, monospace" font-size="10" fill="#ffffff">Shopify</text>
+<circle cx="524" cy="86" r="6" fill="#25d09d"></circle>
+<text x="538" y="90" font-family="Fira Code, monospace" font-size="10" fill="#ffffff">Stripe</text>
+<circle cx="308" cy="206" r="6" fill="#6ea8ff"></circle>
+<text x="322" y="210" font-family="Fira Code, monospace" font-size="10" fill="#ffffff">Segment</text>
+<circle cx="215" cy="288" r="6" fill="#ff7d8a"></circle>
+<text x="229" y="292" font-family="Fira Code, monospace" font-size="10" fill="#ffffff">NetSuite</text>
+<circle cx="556" cy="236" r="6" fill="#ffca00"></circle>
+<text x="542" y="240" text-anchor="end" font-family="Fira Code, monospace" font-size="10" fill="#ffffff">Salesforce</text>
+<circle cx="470" cy="298" r="6" fill="#ff7d8a"></circle>
+<text x="456" y="302" text-anchor="end" font-family="Fira Code, monospace" font-size="10" fill="#ffffff">HubSpot</text>
+<circle cx="586" cy="162" r="6" fill="#ffca00"></circle>
+<text x="572" y="166" text-anchor="end" font-family="Fira Code, monospace" font-size="10" fill="#ffffff">Klaviyo</text>
+
+<rect x="664" y="28" width="188" height="88" rx="7" fill="#ff7d8a"></rect>
+<rect x="660" y="24" width="188" height="88" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="680" y="70" font-family="Fira Code, monospace" font-size="28" font-weight="600" fill="#ffffff">4</text>
+<text x="680" y="92" font-family="Nunito, sans-serif" font-size="11" fill="#ffffff">below the reliability line</text>
+
+<text x="660" y="150" font-family="Nunito, sans-serif" font-size="10" font-weight="600" letter-spacing="1.2" fill="#ffffff">LEGEND</text>
+<circle cx="666" cy="170" r="4.5" fill="#25d09d"></circle>
+<text x="682" y="174" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">99.5%+ uptime</text>
+<circle cx="666" cy="192" r="4.5" fill="#ffca00"></circle>
+<text x="682" y="196" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">99.0 – 99.5%</text>
+<circle cx="666" cy="214" r="4.5" fill="#ff7d8a"></circle>
+<text x="682" y="218" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">under 99.0%</text>
+<circle cx="666" cy="236" r="4.5" fill="#6ea8ff"></circle>
+<text x="682" y="240" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">no SLA agreed</text>
+
+<circle cx="666" cy="284" r="9" fill="#151515" stroke="rgba(255,255,255,0.18)"></circle>
+<text x="666" y="288" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" font-weight="500" fill="#ffffff">1</text>
+<text x="684" y="288" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">position is measured,</text>
+<text x="684" y="304" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">the corner is the action</text>
+</svg>
+</div>
+<div class="cap">Corner labels sit at 45% white so the plotted points stay on top of the reading order. Axis arrows replace boxed axis titles. The metric node repeats the one number a reader should leave with.</div>
+</div>
+
+<div class="dv-opt" id="3d">
+<div class="dv-olabel"><a class="dv-oid" href="#3d">3d</a>Flowchart · 900 · branches, merge junction, loop-back over a hop</div>
+<div class="pnl">
+<div class="phd"><div class="pkick">Policy</div><div class="ptitle">How a refund request is handled</div></div>
+<svg width="852" height="428" viewBox="0 0 852 428" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;max-width:100%">
+<path d="M430,68 V88" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M322,118 H272" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<text x="290" y="110" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">no</text>
+<path d="M430,152 V178" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<text x="440" y="166" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">yes</text>
+<path d="M542,208 H592" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<text x="565" y="200" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">&gt; $500</text>
+<path d="M430,242 V282" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<text x="440" y="260" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">≤ $500</text>
+
+<path d="M700,238 V250 C700,262 692,268 680,268 H438" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round"></path>
+<circle cx="430" cy="268" r="3.5" fill="rgba(255,255,255,0.42)"></circle>
+<text x="546" y="260" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">approved</text>
+
+<path d="M760,242 V336 C760,348 752,356 740,356 H437 A7,7 0 0 0 423,356 H110 C98,356 92,348 92,336 V152" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<text x="560" y="348" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">rejected</text>
+
+<path d="M430,350 V368" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M52,118 H30" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<circle cx="14" cy="118" r="8" stroke="rgba(255,255,255,0.18)"></circle>
+<circle cx="14" cy="118" r="3.5" fill="rgba(255,255,255,0.42)"></circle>
+
+<rect x="330" y="16" width="200" height="40" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)" stroke-dasharray="4 5"></rect>
+<text x="430" y="41" text-anchor="middle" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Refund requested</text>
+
+<rect x="334" y="100" width="200" height="44" rx="22" fill="#6ea8ff"></rect>
+<rect x="330" y="96" width="200" height="44" rx="22" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="430" y="123" text-anchor="middle" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Within 30 days?</text>
+
+<rect x="334" y="190" width="200" height="44" rx="22" fill="#6ea8ff"></rect>
+<rect x="330" y="186" width="200" height="44" rx="22" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="430" y="213" text-anchor="middle" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Amount over $500?</text>
+
+<rect x="64" y="100" width="200" height="44" rx="7" fill="#ff7d8a"></rect>
+<rect x="60" y="96" width="200" height="44" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="160" y="123" text-anchor="middle" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Deny, notify customer</text>
+
+<rect x="604" y="190" width="200" height="44" rx="7" fill="#ffca00"></rect>
+<rect x="600" y="186" width="200" height="44" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="700" y="213" text-anchor="middle" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Manual review</text>
+
+<rect x="334" y="294" width="200" height="48" rx="7" fill="#25d09d"></rect>
+<rect x="330" y="290" width="200" height="48" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="430" y="311" text-anchor="middle" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Issue refund</text>
+<text x="430" y="329" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" fill="#ffffff">T+2 business days</text>
+
+<rect x="364" y="380" width="140" height="36" rx="18" fill="rgba(255,255,255,0.22)"></rect>
+<rect x="360" y="376" width="140" height="36" rx="18" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="430" y="399" text-anchor="middle" font-family="Nunito, sans-serif" font-size="12" font-weight="600" fill="#ffffff">Closed</text>
+</svg>
+</div>
+<div class="cap">Decisions are pills, actions are rectangles, the entry is a ghost. The rejected path loops back rather than repeating the deny node, and hops over the spine on the way.</div>
+</div>
+
+<div class="dv-opt" id="3e">
+<div class="dv-olabel"><a class="dv-oid" href="#3e">3e</a>Sequence · 600 · three lifelines, one self-call</div>
+<div class="pnl s">
+<div class="phd"><div class="pkick">Sequence</div><div class="ptitle">Opening the app</div></div>
+<svg width="552" height="300" viewBox="0 0 552 300" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;max-width:100%">
+<path d="M70,52 V284 M276,52 V284 M482,52 V284" stroke="rgba(255,255,255,0.14)" stroke-dasharray="3 5"></path>
+
+<path d="M70,90 H266" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<text x="168" y="82" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">open app</text>
+<path d="M276,128 H472" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<text x="374" y="120" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">GET /session</text>
+<path d="M482,166 H286" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-open)"></path>
+<text x="384" y="158" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">200 · session</text>
+<path d="M282,204 H322 C334,204 334,212 334,220 C334,228 328,234 318,234 H290" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<text x="348" y="226" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">cache write</text>
+<path d="M270,264 H80" stroke="#25d09d" stroke-opacity="0.8" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-ok)"></path>
+<text x="176" y="256" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">render home</text>
+
+<rect x="14" y="12" width="120" height="40" rx="7" fill="#6ea8ff"></rect>
+<rect x="10" y="8" width="120" height="40" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="70" y="33" text-anchor="middle" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">User</text>
+<rect x="220" y="12" width="120" height="40" rx="7" fill="#25d09d"></rect>
+<rect x="216" y="8" width="120" height="40" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="276" y="33" text-anchor="middle" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">App</text>
+<rect x="426" y="12" width="120" height="40" rx="7" fill="#ffca00"></rect>
+<rect x="422" y="8" width="120" height="40" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="482" y="33" text-anchor="middle" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">API</text>
+</svg>
+</div>
+<div class="cap s">Narrow drops the actors, not the detail: five participants become three, message text stays full length.</div>
+</div>
+
+<div class="dv-opt" id="3f">
+<div class="dv-olabel"><a class="dv-oid" href="#3f">3f</a>Layered architecture · 600 · four bands, one column of flow</div>
+<div class="pnl s">
+<div class="phd"><div class="pkick">Architecture</div><div class="ptitle">Where each piece lives</div></div>
+<svg width="552" height="356" viewBox="0 0 552 356" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;max-width:100%">
+<rect x="0" y="0" width="552" height="76" rx="12" stroke="rgba(255,255,255,0.10)" stroke-dasharray="4 5"></rect>
+<text x="14" y="20" font-family="Nunito, sans-serif" font-size="10" font-weight="600" letter-spacing="1.2" fill="#ffffff">CLIENT</text>
+<rect x="0" y="92" width="552" height="76" rx="12" stroke="rgba(255,255,255,0.10)" stroke-dasharray="4 5"></rect>
+<text x="14" y="112" font-family="Nunito, sans-serif" font-size="10" font-weight="600" letter-spacing="1.2" fill="#ffffff">EDGE</text>
+<rect x="0" y="184" width="552" height="76" rx="12" stroke="rgba(255,255,255,0.10)" stroke-dasharray="4 5"></rect>
+<text x="14" y="204" font-family="Nunito, sans-serif" font-size="10" font-weight="600" letter-spacing="1.2" fill="#ffffff">SERVICES</text>
+<rect x="0" y="276" width="552" height="76" rx="12" stroke="rgba(255,255,255,0.10)" stroke-dasharray="4 5"></rect>
+<text x="14" y="296" font-family="Nunito, sans-serif" font-size="10" font-weight="600" letter-spacing="1.2" fill="#ffffff">DATA</text>
+
+<path d="M138,80 V112 M406,80 V112" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M96,172 V204 M276,172 V204 M452,172 V204" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M96,264 V296 M452,264 V296" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+
+<rect x="18" y="32" width="248" height="40" rx="7" fill="#6ea8ff"></rect>
+<rect x="14" y="28" width="248" height="40" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="138" y="53" text-anchor="middle" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Web app</text>
+<rect x="286" y="32" width="248" height="40" rx="7" fill="#6ea8ff"></rect>
+<rect x="282" y="28" width="248" height="40" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="406" y="53" text-anchor="middle" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">iOS</text>
+
+<rect x="18" y="124" width="516" height="40" rx="7" fill="#25d09d"></rect>
+<rect x="14" y="120" width="516" height="40" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="272" y="145" text-anchor="middle" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">API gateway · auth, rate limit</text>
+
+<rect x="18" y="216" width="164" height="40" rx="7" fill="#25d09d"></rect>
+<rect x="14" y="212" width="164" height="40" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="96" y="237" text-anchor="middle" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Billing</text>
+<rect x="198" y="216" width="156" height="40" rx="7" fill="#25d09d"></rect>
+<rect x="194" y="212" width="156" height="40" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="272" y="237" text-anchor="middle" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Catalog</text>
+<rect x="378" y="216" width="156" height="40" rx="7" fill="#ffca00"></rect>
+<rect x="374" y="212" width="156" height="40" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="452" y="237" text-anchor="middle" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Search</text>
+
+<rect x="18" y="308" width="248" height="40" rx="7" fill="rgba(255,255,255,0.22)"></rect>
+<rect x="14" y="304" width="248" height="40" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="138" y="329" text-anchor="middle" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Postgres</text>
+<rect x="286" y="308" width="248" height="40" rx="7" fill="rgba(255,255,255,0.22)"></rect>
+<rect x="282" y="304" width="248" height="40" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="406" y="329" text-anchor="middle" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Object store</text>
+</svg>
+</div>
+<div class="cap s">Bands span the full canvas at every width; only the column count inside them changes.</div>
+</div>
+
+<div class="dv-opt" id="3g">
+<div class="dv-olabel"><a class="dv-oid" href="#3g">3g</a>Swimlane · 600 · three lanes, orthogonal handoffs</div>
+<div class="pnl s">
+<div class="phd"><div class="pkick">Process</div><div class="ptitle">A refund, lane by lane</div></div>
+<svg width="552" height="256" viewBox="0 0 552 256" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;max-width:100%">
+<rect x="84" y="0" width="468" height="76" rx="12" stroke="rgba(255,255,255,0.10)" stroke-dasharray="4 5"></rect>
+<text x="76" y="42" text-anchor="end" font-family="Nunito, sans-serif" font-size="10" font-weight="600" letter-spacing="1.2" fill="#ffffff">CUSTOMER</text>
+<rect x="84" y="88" width="468" height="76" rx="12" stroke="rgba(255,255,255,0.10)" stroke-dasharray="4 5"></rect>
+<text x="76" y="130" text-anchor="end" font-family="Nunito, sans-serif" font-size="10" font-weight="600" letter-spacing="1.2" fill="#ffffff">SUPPORT</text>
+<rect x="84" y="176" width="468" height="76" rx="12" stroke="rgba(255,255,255,0.10)" stroke-dasharray="4 5"></rect>
+<text x="76" y="218" text-anchor="end" font-family="Nunito, sans-serif" font-size="10" font-weight="600" letter-spacing="1.2" fill="#ffffff">BILLING</text>
+
+<path d="M181,72 C181,79 187,82 194,82 H372 C379,82 385,85 385,92 V96" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<rect x="250" y="73" width="76" height="18" rx="3" fill="#191919"></rect>
+<text x="288" y="86" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">ticket filed</text>
+<path d="M385,160 C385,167 379,170 372,170 H194 C187,170 181,173 181,180 V184" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<rect x="244" y="161" width="88" height="18" rx="3" fill="#191919"></rect>
+<text x="288" y="174" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">approved</text>
+
+<rect x="100" y="20" width="170" height="44" rx="7" fill="#6ea8ff"></rect>
+<rect x="96" y="16" width="170" height="44" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="181" y="43" text-anchor="middle" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Requests refund</text>
+<rect x="304" y="108" width="170" height="44" rx="7" fill="#ffca00"></rect>
+<rect x="300" y="104" width="170" height="44" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="385" y="131" text-anchor="middle" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Reviews claim</text>
+<rect x="100" y="196" width="170" height="44" rx="7" fill="#25d09d"></rect>
+<rect x="96" y="192" width="170" height="44" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="181" y="219" text-anchor="middle" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Issues credit</text>
+</svg>
+</div>
+<div class="cap s">At 600 the handoff curves become elbows: a curve needs horizontal room to read as one, and there is none left.</div>
+</div>
+
+<div class="dv-opt" id="3h">
+<div class="dv-olabel"><a class="dv-oid" href="#3h">3h</a>Data model · 600 · three tables, field-level joins</div>
+<div class="pnl s">
+<div class="phd"><div class="pkick">Schema</div><div class="ptitle">What joins to what</div></div>
+<svg width="552" height="342" viewBox="0 0 552 342" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;max-width:100%">
+<path d="M254,50 C280,50 284,74 302,74" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-start="url(#ah-dot)" marker-end="url(#ah-dim)"></path>
+<text x="252" y="42" font-family="Fira Code, monospace" font-size="11" font-weight="500" fill="#b4b4b4">1</text>
+<text x="296" y="58" text-anchor="end" font-family="Fira Code, monospace" font-size="11" font-weight="500" fill="#b4b4b4">∗</text>
+<path d="M424,128 V246 C424,258 418,264 406,264 H402" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-start="url(#ah-dot)" marker-end="url(#ah-dim)"></path>
+<text x="432" y="138" font-family="Fira Code, monospace" font-size="11" font-weight="500" fill="#b4b4b4">1</text>
+<text x="410" y="248" text-anchor="end" font-family="Fira Code, monospace" font-size="11" font-weight="500" fill="#b4b4b4">∗</text>
+
+<rect x="18" y="10" width="228" height="110" rx="7" fill="#25d09d"></rect>
+<rect x="14" y="6" width="228" height="110" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<path d="M14,38 H242" stroke="rgba(255,255,255,0.06)"></path>
+<text x="28" y="28" font-family="Nunito, sans-serif" font-size="12" font-weight="600" fill="#ffffff">account</text>
+<text x="28" y="59" font-family="Fira Code, monospace" font-size="10" font-weight="600" fill="#ffffff">id</text>
+<text x="228" y="59" text-anchor="end" font-family="Fira Code, monospace" font-size="9" fill="#6ea8ff">pk</text>
+<text x="28" y="83" font-family="Fira Code, monospace" font-size="10" font-weight="600" fill="#ffffff">plan</text>
+<text x="28" y="107" font-family="Fira Code, monospace" font-size="10" font-weight="600" fill="#ffffff">status</text>
+
+<rect x="314" y="10" width="228" height="110" rx="7" fill="#25d09d"></rect>
+<rect x="310" y="6" width="228" height="110" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<path d="M310,38 H538" stroke="rgba(255,255,255,0.06)"></path>
+<text x="324" y="28" font-family="Nunito, sans-serif" font-size="12" font-weight="600" fill="#ffffff">subscription</text>
+<text x="324" y="59" font-family="Fira Code, monospace" font-size="10" font-weight="600" fill="#ffffff">id</text>
+<text x="524" y="59" text-anchor="end" font-family="Fira Code, monospace" font-size="9" fill="#6ea8ff">pk</text>
+<text x="324" y="83" font-family="Fira Code, monospace" font-size="10" font-weight="600" fill="#ffffff">account_id</text>
+<text x="524" y="83" text-anchor="end" font-family="Fira Code, monospace" font-size="9" fill="#ffca00">fk</text>
+<text x="324" y="107" font-family="Fira Code, monospace" font-size="10" font-weight="600" fill="#ffffff">renews_at</text>
+
+<rect x="166" y="200" width="228" height="134" rx="7" fill="#6ea8ff"></rect>
+<rect x="162" y="196" width="228" height="134" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<path d="M162,228 H390" stroke="rgba(255,255,255,0.06)"></path>
+<text x="176" y="218" font-family="Nunito, sans-serif" font-size="12" font-weight="600" fill="#ffffff">invoice</text>
+<text x="176" y="249" font-family="Fira Code, monospace" font-size="10" font-weight="600" fill="#ffffff">id</text>
+<text x="376" y="249" text-anchor="end" font-family="Fira Code, monospace" font-size="9" fill="#6ea8ff">pk</text>
+<text x="176" y="273" font-family="Fira Code, monospace" font-size="10" font-weight="600" fill="#ffffff">subscription_id</text>
+<text x="376" y="273" text-anchor="end" font-family="Fira Code, monospace" font-size="9" fill="#ffca00">fk</text>
+<text x="176" y="297" font-family="Fira Code, monospace" font-size="10" font-weight="600" fill="#ffffff">amount</text>
+<text x="176" y="321" font-family="Fira Code, monospace" font-size="10" font-weight="600" fill="#ffffff">paid_at</text>
+</svg>
+</div>
+<div class="cap s">Tables stagger instead of tiling, which keeps every join a single curve with no crossings to hop.</div>
+</div>
+
+</div>
+</section>
+
+<section class="dv-turn" id="t2">
+<div class="dv-thd"><a class="dv-tid" href="#t2">2</a><span class="dv-tname">Four more output types on the same kit</span></div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="2a">
+<div class="dv-olabel"><a class="dv-oid" href="#2a">2a</a>Sequence · 900 · lifelines, self-call, one severed message</div>
+<div class="pnl">
+<div class="phd"><div class="pkick">Sequence</div><div class="ptitle">One install, end to end</div></div>
+<svg width="852" height="430" viewBox="0 0 852 430" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;max-width:100%">
+<path d="M70,56 V406" stroke="rgba(255,255,255,0.14)" stroke-dasharray="3 5"></path>
+<path d="M247,56 V406" stroke="rgba(255,255,255,0.14)" stroke-dasharray="3 5"></path>
+<path d="M424,56 V406" stroke="rgba(255,255,255,0.14)" stroke-dasharray="3 5"></path>
+<path d="M601,56 V406" stroke="rgba(255,255,255,0.14)" stroke-dasharray="3 5"></path>
+<path d="M778,56 V406" stroke="rgba(255,255,255,0.14)" stroke-dasharray="3 5"></path>
+
+<rect x="4" y="4" width="140" height="44" rx="7" fill="#6ea8ff"></rect>
+<rect x="0" y="0" width="140" height="44" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="70" y="27" text-anchor="middle" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">User</text>
+<rect x="181" y="4" width="140" height="44" rx="7" fill="#6ea8ff"></rect>
+<rect x="177" y="0" width="140" height="44" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="247" y="27" text-anchor="middle" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Mobile app</text>
+<rect x="358" y="4" width="140" height="44" rx="7" fill="#25d09d"></rect>
+<rect x="354" y="0" width="140" height="44" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="424" y="27" text-anchor="middle" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">AppsFlyer</text>
+<rect x="535" y="4" width="140" height="44" rx="7" fill="#ff7d8a"></rect>
+<rect x="531" y="0" width="140" height="44" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="601" y="27" text-anchor="middle" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Segment</text>
+<rect x="712" y="4" width="140" height="44" rx="7" fill="#25d09d"></rect>
+<rect x="708" y="0" width="140" height="44" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="778" y="27" text-anchor="middle" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Warehouse</text>
+
+<path d="M70,92 H245" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<text x="157" y="84" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">taps the ad, installs</text>
+
+<path d="M247,132 H422" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<text x="334" y="124" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">install + click attribution</text>
+
+<path d="M247,172 H599" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<text x="423" y="164" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">track(UserSignedUp)</text>
+
+<path d="M601,222 H548" stroke="#ff7d8a" stroke-opacity="0.75" stroke-width="1.25" stroke-dasharray="5 5" stroke-linecap="round"></path>
+<path d="M524,222 H426" stroke="#ff7d8a" stroke-opacity="0.75" stroke-width="1.25" stroke-dasharray="5 5" stroke-linecap="round" marker-end="url(#ah-fail)"></path>
+<circle cx="536" cy="222" r="9" fill="#191919"></circle>
+<path d="M531,217 L541,227 M541,217 L531,227" stroke="#ff7d8a" stroke-width="1.7" stroke-linecap="round"></path>
+<text x="513" y="206" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" font-weight="500" fill="#ff7d8a">0% forwarded</text>
+
+<path d="M601,262 H774" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<text x="687" y="254" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">sync raw events</text>
+
+<path d="M424,300 H472 C484,300 484,308 484,318 C484,328 478,336 466,336 H430" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<text x="498" y="322" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">compute ROAS</text>
+
+<path d="M424,376 H774" stroke="rgba(255,202,0,0.55)" stroke-width="1.25" stroke-dasharray="5 5" stroke-linecap="round" marker-end="url(#ah-open)"></path>
+<text x="599" y="368" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" font-weight="500" fill="#ffca00">roas = null</text>
+</svg>
+</div>
+<sc-if value="{{ showSources }}" hint-placeholder-val="{{ true }}">
+<div class="cap">5 lifelines · 6 messages · 1 self-call · authored at 852×430</div>
+</sc-if>
+<sc-if value="{{ showSpecs }}" hint-placeholder-val="{{ true }}">
+<div class="sp" style="width:900px;box-sizing:border-box">
+<b>actor pitch</b><i>177px · box 140 wide · lifeline on the box centre</i>
+<b>message pitch</b><i>40px · label baseline 8px above its line</i>
+<b>reply</b><i>dashed 5 5 + open chevron — a return, not a call</i>
+<b>self-call</b><i>out 48, down 36, back 38 — corner r 8, ends 6px off the lifeline</i>
+<b>no activation bars</b><i>they add a second rectangle per call and earn nothing here</i>
+</div>
+</sc-if>
+</div>
+
+<div class="dv-opt" id="2b">
+<div class="dv-olabel"><a class="dv-oid" href="#2b">2b</a>Layered architecture · 900 · four bands, cross-column curves</div>
+<div class="pnl">
+<div class="phd"><div class="pkick">Architecture</div><div class="ptitle">Where each piece lives</div></div>
+<svg width="852" height="428" viewBox="0 0 852 428" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;max-width:100%">
+<rect x="0" y="0" width="852" height="94" rx="12" stroke="rgba(255,255,255,0.10)" stroke-dasharray="4 5"></rect>
+<text x="16" y="22" font-family="Nunito, sans-serif" font-size="10" font-weight="600" letter-spacing="1.2" fill="#ffffff">CLIENT</text>
+<rect x="0" y="110" width="852" height="94" rx="12" stroke="rgba(255,255,255,0.10)" stroke-dasharray="4 5"></rect>
+<text x="16" y="132" font-family="Nunito, sans-serif" font-size="10" font-weight="600" letter-spacing="1.2" fill="#ffffff">EDGE</text>
+<rect x="0" y="220" width="852" height="94" rx="12" stroke="rgba(255,255,255,0.10)" stroke-dasharray="4 5"></rect>
+<text x="16" y="242" font-family="Nunito, sans-serif" font-size="10" font-weight="600" letter-spacing="1.2" fill="#ffffff">SERVICES</text>
+<rect x="0" y="330" width="852" height="94" rx="12" stroke="rgba(255,255,255,0.10)" stroke-dasharray="4 5"></rect>
+<text x="16" y="352" font-family="Nunito, sans-serif" font-size="10" font-weight="600" letter-spacing="1.2" fill="#ffffff">DATA</text>
+
+<path d="M127,90 L127,136" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M426,90 L426,136" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M725,90 V100 Q725,112 711,112 H440 Q426,112 426,124 V136" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M380,202 V214 Q380,226 366,226 H141 Q127,226 127,238 V246" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M426,202 L426,246" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M472,202 V214 Q472,226 486,226 H711 Q725,226 725,238 V246" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M127,310 L127,356" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M426,310 L426,356" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M725,310 L725,356" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+
+<rect x="36" y="38" width="190" height="44" rx="7" fill="#6ea8ff"></rect>
+<rect x="32" y="34" width="190" height="44" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<circle cx="48" cy="56" r="3.5" fill="#6ea8ff"></circle>
+<text x="62" y="60" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Web app</text>
+<rect x="335" y="38" width="190" height="44" rx="7" fill="#6ea8ff"></rect>
+<rect x="331" y="34" width="190" height="44" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<circle cx="347" cy="56" r="3.5" fill="#6ea8ff"></circle>
+<text x="361" y="60" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">iOS app</text>
+<rect x="634" y="38" width="190" height="44" rx="7" fill="#6ea8ff"></rect>
+<rect x="630" y="34" width="190" height="44" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<circle cx="646" cy="56" r="3.5" fill="#6ea8ff"></circle>
+<text x="660" y="60" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Android app</text>
+
+<rect x="36" y="148" width="190" height="44" rx="7" fill="#25d09d"></rect>
+<rect x="32" y="144" width="190" height="44" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<circle cx="48" cy="166" r="3.5" fill="#25d09d"></circle>
+<text x="62" y="170" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">CDN</text>
+<rect x="335" y="148" width="190" height="44" rx="7" fill="#25d09d"></rect>
+<rect x="331" y="144" width="190" height="44" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<circle cx="347" cy="166" r="3.5" fill="#25d09d"></circle>
+<text x="361" y="170" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">API gateway</text>
+<rect x="634" y="148" width="190" height="44" rx="7" fill="#25d09d"></rect>
+<rect x="630" y="144" width="190" height="44" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<circle cx="646" cy="166" r="3.5" fill="#25d09d"></circle>
+<text x="660" y="170" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Auth</text>
+
+<rect x="36" y="258" width="190" height="44" rx="7" fill="#25d09d"></rect>
+<rect x="32" y="254" width="190" height="44" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<circle cx="48" cy="276" r="3.5" fill="#25d09d"></circle>
+<text x="62" y="280" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Attribution</text>
+<rect x="335" y="258" width="190" height="44" rx="7" fill="#ffca00"></rect>
+<rect x="331" y="254" width="190" height="44" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<circle cx="347" cy="276" r="3.5" fill="#ffca00"></circle>
+<text x="361" y="280" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Event router</text>
+<rect x="634" y="258" width="190" height="44" rx="7" fill="#25d09d"></rect>
+<rect x="630" y="254" width="190" height="44" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<circle cx="646" cy="276" r="3.5" fill="#25d09d"></circle>
+<text x="660" y="280" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Billing</text>
+
+<rect x="36" y="368" width="190" height="44" rx="7" fill="#25d09d"></rect>
+<rect x="32" y="364" width="190" height="44" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<circle cx="48" cy="386" r="3.5" fill="#25d09d"></circle>
+<text x="62" y="390" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Warehouse</text>
+<rect x="335" y="368" width="190" height="44" rx="7" fill="#ff7d8a"></rect>
+<rect x="331" y="364" width="190" height="44" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<circle cx="347" cy="386" r="3.5" fill="#ff7d8a"></circle>
+<text x="361" y="390" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Segment CDP</text>
+<rect x="634" y="368" width="190" height="44" rx="7" fill="rgba(255,255,255,0.22)"></rect>
+<rect x="630" y="364" width="190" height="44" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<circle cx="646" cy="386" r="3.5" fill="rgba(255,255,255,0.35)"></circle>
+<text x="660" y="390" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Object store</text>
+</svg>
+</div>
+<sc-if value="{{ showSources }}" hint-placeholder-val="{{ true }}">
+<div class="cap">4 bands · 12 nodes · 9 edges · authored at 852×428</div>
+</sc-if>
+<sc-if value="{{ showSpecs }}" hint-placeholder-val="{{ true }}">
+<div class="sp" style="width:900px;box-sizing:border-box">
+<b>band</b><i>852 × 94 · pitch 110 · label at band.y+22, x 16</i>
+<b>node slot</b><i>y = band.y+34 · h 44 · x 32 / 331 / 630 at w 190</i>
+<b>cross-column</b><i>C x1,y1+30 · x2,y2−28 — vertical control, so the curve leaves straight down</i>
+<b>depth colour</b><i>carries the state; Segment CDP is the only fail node on the map</i>
+<b>ghost</b><i>Object store is planned, so it takes the idle 22% depth</i>
+</div>
+</sc-if>
+</div>
+
+<div class="dv-opt" id="2c">
+<div class="dv-olabel"><a class="dv-oid" href="#2c">2c</a>Swimlane · 900 · three lanes, handoffs as curves between them</div>
+<div class="pnl">
+<div class="phd"><div class="pkick">Process</div><div class="ptitle">Who does what, in order</div></div>
+<svg width="852" height="340" viewBox="0 0 852 340" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;max-width:100%">
+<rect x="116" y="0" width="736" height="100" rx="12" stroke="rgba(255,255,255,0.10)" stroke-dasharray="4 5"></rect>
+<text x="100" y="54" text-anchor="end" font-family="Nunito, sans-serif" font-size="10" font-weight="600" letter-spacing="1.2" fill="#ffffff">FINANCE</text>
+<rect x="116" y="116" width="736" height="100" rx="12" stroke="rgba(255,255,255,0.10)" stroke-dasharray="4 5"></rect>
+<text x="100" y="170" text-anchor="end" font-family="Nunito, sans-serif" font-size="10" font-weight="600" letter-spacing="1.2" fill="#ffffff">GROWTH</text>
+<rect x="116" y="232" width="736" height="100" rx="12" stroke="rgba(255,255,255,0.10)" stroke-dasharray="4 5"></rect>
+<text x="100" y="286" text-anchor="end" font-family="Nunito, sans-serif" font-size="10" font-weight="600" letter-spacing="1.2" fill="#ffffff">DATA ENG</text>
+
+<path d="M211,88 C211,124 391,98 391,132" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M391,204 C391,240 571,214 571,248" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M658,282 C708,282 751,272 751,204" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+
+<rect x="140" y="28" width="150" height="52" rx="7" fill="#25d09d"></rect>
+<rect x="136" y="24" width="150" height="52" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<circle cx="152" cy="46" r="3.5" fill="#25d09d"></circle>
+<text x="166" y="50" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Approve spend</text>
+<text x="166" y="68" font-family="Nunito, sans-serif" font-size="11" fill="#ffffff">quarterly budget</text>
+
+<rect x="320" y="144" width="150" height="52" rx="7" fill="#25d09d"></rect>
+<rect x="316" y="140" width="150" height="52" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<circle cx="332" cy="162" r="3.5" fill="#25d09d"></circle>
+<text x="346" y="166" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Launch campaign</text>
+<text x="346" y="184" font-family="Nunito, sans-serif" font-size="11" fill="#ffffff">Meta + Google</text>
+
+<rect x="500" y="260" width="150" height="52" rx="7" fill="#ffca00"></rect>
+<rect x="496" y="256" width="150" height="52" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<circle cx="512" cy="278" r="3.5" fill="#ffca00"></circle>
+<text x="526" y="282" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Route events</text>
+<text x="526" y="300" font-family="Nunito, sans-serif" font-size="11" fill="#ffffff">conversions missing</text>
+
+<rect x="680" y="144" width="150" height="52" rx="7" fill="#ff7d8a"></rect>
+<rect x="676" y="140" width="150" height="52" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<circle cx="692" cy="162" r="3.5" fill="#ff7d8a"></circle>
+<text x="706" y="166" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Read ROAS</text>
+<text x="706" y="184" font-family="Nunito, sans-serif" font-size="11" fill="#ffffff">blocked</text>
+
+<rect x="247" y="101" width="108" height="18" rx="3" fill="#191919"></rect>
+<text x="301" y="114" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">budget approved</text>
+<rect x="436" y="217" width="90" height="18" rx="3" fill="#191919"></rect>
+<text x="481" y="230" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">installs land</text>
+<rect x="676" y="259" width="94" height="18" rx="3" fill="#191919"></rect>
+<text x="723" y="272" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" font-weight="500" fill="#ffca00">partial data</text>
+</svg>
+</div>
+<sc-if value="{{ showSources }}" hint-placeholder-val="{{ true }}">
+<div class="cap">3 lanes · 4 steps · 3 handoffs · authored at 852×340</div>
+</sc-if>
+<sc-if value="{{ showSpecs }}" hint-placeholder-val="{{ true }}">
+<div class="sp" style="width:900px;box-sizing:border-box">
+<b>lane</b><i>x 116 · w 736 · h 100 · pitch 116 · label gutter 0–104</i>
+<b>step</b><i>w 150 · h 52 · y = lane.y+24 · column pitch 180</i>
+<b>handoff</b><i>leaves the bottom, enters the top — vertical control points, 36px out</i>
+<b>backward step</b><i>the return to Growth enters from below, so it reads as a loop back</i>
+<b>label</b><i>pill sits on the curve at t≈0.5, tinted when the handoff is degraded</i>
+</div>
+</sc-if>
+</div>
+
+<div class="dv-opt" id="2d">
+<div class="dv-olabel"><a class="dv-oid" href="#2d">2d</a>Data model · 900 · field-level connectors, cardinality, one line hop</div>
+<div class="pnl">
+<div class="phd"><div class="pkick">Schema</div><div class="ptitle">What joins to what</div></div>
+<svg width="852" height="340" viewBox="0 0 852 340" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;max-width:100%">
+<path d="M218,107 C266,107 264,73 313,73" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-start="url(#ah-dot)" marker-end="url(#ah-dim)"></path>
+<path d="M313,47 H286 C274,47 262,55 262,67 V84 A6,6 0 0 1 262,96 V239 C262,251 274,259 286,259 H313" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M539,233 C582,233 596,259 634,259" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-start="url(#ah-dot)" marker-end="url(#ah-dim)"></path>
+
+<rect x="4" y="64" width="206" height="112" rx="7" fill="#6ea8ff"></rect>
+<rect x="0" y="60" width="206" height="112" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="16" y="82" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">campaign</text>
+<path d="M0,94 H206" stroke="rgba(255,255,255,0.10)"></path>
+<text x="16" y="111" font-family="Fira Code, monospace" font-size="10.5" font-weight="600" fill="#ffffff">id</text>
+<text x="190" y="111" text-anchor="end" font-family="Fira Code, monospace" font-size="10.5" fill="#6ea8ff">pk</text>
+<path d="M0,120 H206" stroke="rgba(255,255,255,0.06)"></path>
+<text x="16" y="137" font-family="Fira Code, monospace" font-size="10.5" font-weight="600" fill="#ffffff">channel</text>
+<text x="190" y="137" text-anchor="end" font-family="Fira Code, monospace" font-size="10.5" fill="#ffffff">string</text>
+<path d="M0,146 H206" stroke="rgba(255,255,255,0.06)"></path>
+<text x="16" y="163" font-family="Fira Code, monospace" font-size="10.5" font-weight="600" fill="#ffffff">budget</text>
+<text x="190" y="163" text-anchor="end" font-family="Fira Code, monospace" font-size="10.5" fill="#ffffff">decimal</text>
+
+<rect x="325" y="4" width="206" height="138" rx="7" fill="#25d09d"></rect>
+<rect x="321" y="0" width="206" height="138" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="337" y="22" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">install</text>
+<path d="M321,34 H527" stroke="rgba(255,255,255,0.10)"></path>
+<text x="337" y="51" font-family="Fira Code, monospace" font-size="10.5" font-weight="600" fill="#ffffff">id</text>
+<text x="511" y="51" text-anchor="end" font-family="Fira Code, monospace" font-size="10.5" fill="#6ea8ff">pk</text>
+<path d="M321,60 H527" stroke="rgba(255,255,255,0.06)"></path>
+<text x="337" y="77" font-family="Fira Code, monospace" font-size="10.5" font-weight="600" fill="#ffffff">campaign_id</text>
+<text x="511" y="77" text-anchor="end" font-family="Fira Code, monospace" font-size="10.5" fill="#ffca00">fk</text>
+<path d="M321,86 H527" stroke="rgba(255,255,255,0.06)"></path>
+<text x="337" y="103" font-family="Fira Code, monospace" font-size="10.5" font-weight="600" fill="#ffffff">device</text>
+<text x="511" y="103" text-anchor="end" font-family="Fira Code, monospace" font-size="10.5" fill="#ffffff">string</text>
+<path d="M321,112 H527" stroke="rgba(255,255,255,0.06)"></path>
+<text x="337" y="129" font-family="Fira Code, monospace" font-size="10.5" font-weight="600" fill="#ffffff">installed_at</text>
+<text x="511" y="129" text-anchor="end" font-family="Fira Code, monospace" font-size="10.5" fill="#ffffff">timestamp</text>
+
+<rect x="325" y="190" width="206" height="138" rx="7" fill="#ff7d8a"></rect>
+<rect x="321" y="186" width="206" height="138" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="337" y="208" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">conversion</text>
+<text x="511" y="208" text-anchor="end" font-family="Fira Code, monospace" font-size="9" font-weight="600" letter-spacing="0.6" fill="#ff7d8a">EMPTY</text>
+<path d="M321,220 H527" stroke="rgba(255,255,255,0.10)"></path>
+<text x="337" y="237" font-family="Fira Code, monospace" font-size="10.5" font-weight="600" fill="#ffffff">id</text>
+<text x="511" y="237" text-anchor="end" font-family="Fira Code, monospace" font-size="10.5" fill="#6ea8ff">pk</text>
+<path d="M321,246 H527" stroke="rgba(255,255,255,0.06)"></path>
+<text x="337" y="263" font-family="Fira Code, monospace" font-size="10.5" font-weight="600" fill="#ffffff">install_id</text>
+<text x="511" y="263" text-anchor="end" font-family="Fira Code, monospace" font-size="10.5" fill="#ffca00">fk</text>
+<path d="M321,272 H527" stroke="rgba(255,255,255,0.06)"></path>
+<text x="337" y="289" font-family="Fira Code, monospace" font-size="10.5" font-weight="600" fill="#ffffff">event</text>
+<text x="511" y="289" text-anchor="end" font-family="Fira Code, monospace" font-size="10.5" fill="#ffffff">string</text>
+<path d="M321,298 H527" stroke="rgba(255,255,255,0.06)"></path>
+<text x="337" y="315" font-family="Fira Code, monospace" font-size="10.5" font-weight="600" fill="#ffffff">value</text>
+<text x="511" y="315" text-anchor="end" font-family="Fira Code, monospace" font-size="10.5" fill="#ffffff">decimal</text>
+
+<rect x="646" y="190" width="206" height="112" rx="7" fill="rgba(255,255,255,0.22)"></rect>
+<rect x="642" y="186" width="206" height="112" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="658" y="208" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">payout</text>
+<path d="M642,220 H848" stroke="rgba(255,255,255,0.10)"></path>
+<text x="658" y="237" font-family="Fira Code, monospace" font-size="10.5" font-weight="600" fill="#ffffff">id</text>
+<text x="832" y="237" text-anchor="end" font-family="Fira Code, monospace" font-size="10.5" fill="#6ea8ff">pk</text>
+<path d="M642,246 H848" stroke="rgba(255,255,255,0.06)"></path>
+<text x="658" y="263" font-family="Fira Code, monospace" font-size="10.5" font-weight="600" fill="#ffffff">conversion_id</text>
+<text x="832" y="263" text-anchor="end" font-family="Fira Code, monospace" font-size="10.5" fill="#ffca00">fk</text>
+<path d="M642,272 H848" stroke="rgba(255,255,255,0.06)"></path>
+<text x="658" y="289" font-family="Fira Code, monospace" font-size="10.5" font-weight="600" fill="#ffffff">amount</text>
+<text x="832" y="289" text-anchor="end" font-family="Fira Code, monospace" font-size="10.5" fill="#ffffff">decimal</text>
+
+<text x="220" y="100" font-family="Fira Code, monospace" font-size="11" font-weight="500" fill="#b4b4b4">1</text>
+<text x="298" y="66" text-anchor="end" font-family="Fira Code, monospace" font-size="11" font-weight="500" fill="#b4b4b4">∗</text>
+<text x="306" y="40" text-anchor="middle" font-family="Fira Code, monospace" font-size="11" font-weight="500" fill="#b4b4b4">1</text>
+<text x="306" y="244" text-anchor="middle" font-family="Fira Code, monospace" font-size="11" font-weight="500" fill="#b4b4b4">∗</text>
+<text x="541" y="226" font-family="Fira Code, monospace" font-size="11" font-weight="500" fill="#b4b4b4">1</text>
+<text x="628" y="244" text-anchor="end" font-family="Fira Code, monospace" font-size="11" font-weight="500" fill="#b4b4b4">∗</text>
+</svg>
+</div>
+<sc-if value="{{ showSources }}" hint-placeholder-val="{{ true }}">
+<div class="cap">4 entities · 3 relations · 1 hop · authored at 852×340</div>
+</sc-if>
+<sc-if value="{{ showSpecs }}" hint-placeholder-val="{{ true }}">
+<div class="sp" style="width:900px;box-sizing:border-box">
+<b>entity</b><i>w 206 · header 34 · row 26 · h = 34 + 26·rows</i>
+<b>row rule</b><i>rgba(255,255,255,.06); the rule under the header is .10</i>
+<b>field type</b><i>right-aligned · pk #6ea8ff · fk #ffca00 · plain types #ffffff</i>
+<b>relation</b><i>starts on the field row centre with a dot terminator, ends with an arrow</i>
+<b>cardinality</b><i>Fira Code 500 11px · 8px clear of each end of the line</i>
+<b>line hop</b><i>A 6,6 0 0 1 — a 12px semicircle where one route crosses another</i>
+</div>
+</sc-if>
+</div>
+
+</div>
+</section>
+
+<section class="dv-turn" id="t1">
+<div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">The first two, restyled on the backdrop</span></div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="1a">
+<div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>System flow · 900 · three frames, one severed edge, insight bar</div>
+<div class="pnl">
+<div class="phd"><div class="pkick">Attribution</div><div class="ptitle">Why ROAS cannot be calculated</div></div>
+<svg width="852" height="440" viewBox="0 0 852 440" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;max-width:100%">
+<rect x="0" y="40" width="186" height="172" rx="12" stroke="rgba(255,255,255,0.10)" stroke-dasharray="4 5"></rect>
+<text x="16" y="64" font-family="Nunito, sans-serif" font-size="10" font-weight="600" letter-spacing="1.2" fill="#ffffff">PLATFORM INTEGRATIONS</text>
+<text x="16" y="79" font-family="Fira Code, monospace" font-size="9" font-weight="500" letter-spacing="0.6" fill="#25d09d">ACTIVE</text>
+<rect x="280" y="20" width="340" height="408" rx="12" stroke="rgba(255,255,255,0.10)" stroke-dasharray="4 5"></rect>
+<text x="296" y="44" font-family="Nunito, sans-serif" font-size="10" font-weight="600" letter-spacing="1.2" fill="#ffffff">APPSFLYER</text>
+<text x="296" y="59" font-family="Fira Code, monospace" font-size="9" letter-spacing="0.6" fill="#b4b4b4">attribution hub</text>
+<rect x="656" y="20" width="196" height="298" rx="12" stroke="rgba(255,125,138,0.45)" stroke-dasharray="4 5"></rect>
+<text x="672" y="44" font-family="Nunito, sans-serif" font-size="10" font-weight="600" letter-spacing="1.2" fill="#ffffff">SEGMENT PIPELINE</text>
+<text x="672" y="59" font-family="Fira Code, monospace" font-size="9" font-weight="500" letter-spacing="0.6" fill="#ff7d8a">BROKEN — 100% FAILURE</text>
+
+<path d="M182,173 C214,173 218,105 240,105" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round"></path>
+<path d="M184,115 C208,115 216,105 240,105 H290" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M425,148 L425,198" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M562,105 H598 C608,105 616,113 616,125 V356 C616,368 608,376 598,376 H592" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M425,282 L425,340" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M754,212 L754,234" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M662,273 C650,273 638,266 638,256 V248 C638,240 632,236 622,236 H562" stroke="#ff7d8a" stroke-opacity="0.75" stroke-width="1.25" stroke-dasharray="5 5" stroke-linecap="round" marker-end="url(#ah-fail)"></path>
+<circle cx="638" cy="258" r="9" fill="#191919"></circle>
+<path d="M633,253 L643,263 M643,253 L633,263" stroke="#ff7d8a" stroke-width="1.7" stroke-linecap="round"></path>
+
+<rect x="18" y="96" width="158" height="46" rx="7" fill="#6ea8ff"></rect>
+<rect x="14" y="92" width="158" height="46" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<circle cx="30" cy="116" r="3.5" fill="#6ea8ff"></circle>
+<text x="44" y="120" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Meta Ads</text>
+<rect x="18" y="154" width="158" height="46" rx="7" fill="#6ea8ff"></rect>
+<rect x="14" y="150" width="158" height="46" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<circle cx="30" cy="174" r="3.5" fill="#6ea8ff"></circle>
+<text x="44" y="178" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Google Ads</text>
+
+<rect x="304" y="78" width="250" height="62" rx="7" fill="#25d09d"></rect>
+<rect x="300" y="74" width="250" height="62" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<circle cx="316" cy="98" r="3.5" fill="#25d09d"></circle>
+<text x="330" y="102" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Install &amp; click data</text>
+<text x="330" y="122" font-family="Nunito, sans-serif" font-size="11" fill="#ffffff">WHO installed, which campaign</text>
+
+<rect x="304" y="212" width="250" height="62" rx="7" fill="#ff7d8a"></rect>
+<rect x="300" y="208" width="250" height="62" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<circle cx="316" cy="232" r="3.5" fill="#ff7d8a"></circle>
+<text x="330" y="236" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">In-app conversion events</text>
+<text x="330" y="256" font-family="Nunito, sans-serif" font-size="11" fill="#ffffff">WHAT users did after install</text>
+
+<rect x="304" y="354" width="280" height="62" rx="7" fill="#ffca00"></rect>
+<rect x="300" y="350" width="280" height="62" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<circle cx="316" cy="374" r="3.5" fill="#ffca00"></circle>
+<text x="330" y="378" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">ROAS calculation engine</text>
+<text x="330" y="398" font-family="Nunito, sans-serif" font-size="11" fill="#ffffff">Impaired — missing conversion data</text>
+
+<rect x="676" y="78" width="164" height="126" rx="7" fill="#ff7d8a"></rect>
+<rect x="672" y="74" width="164" height="126" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<circle cx="688" cy="98" r="3.5" fill="#ff7d8a"></circle>
+<text x="702" y="102" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Conversion events</text>
+<text x="702" y="126" font-family="Fira Code, monospace" font-size="10" fill="#ffffff">UserSignedUp</text>
+<text x="702" y="144" font-family="Fira Code, monospace" font-size="10" fill="#ffffff">UnderwritingComplete</text>
+<text x="702" y="162" font-family="Fira Code, monospace" font-size="10" fill="#ffffff">ContractCreated</text>
+<text x="702" y="180" font-family="Fira Code, monospace" font-size="10" fill="#ffffff">PaymentSubmitted</text>
+
+<rect x="676" y="248" width="164" height="58" rx="7" fill="#ff7d8a"></rect>
+<rect x="672" y="244" width="164" height="58" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<circle cx="688" cy="268" r="3.5" fill="#ff7d8a"></circle>
+<text x="702" y="272" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Segment CDP</text>
+<text x="702" y="291" font-family="Fira Code, monospace" font-size="10" fill="#ffffff">198K–259K events/day</text>
+
+<text x="233" y="72" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">install</text>
+<text x="233" y="86" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">+ click</text>
+<text x="606" y="164" text-anchor="end" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">Has: campaign, ad set,</text>
+<text x="606" y="178" text-anchor="end" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">cost, install timestamp</text>
+<text x="300" y="302" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">Needs: post-install</text>
+<text x="300" y="316" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">conversions to match</text>
+</svg>
+<sc-if value="{{ showInsight }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;gap:16px;margin-top:22px;padding:16px 18px;background:#1c1c1c;border-radius:8px">
+<div style="flex:none;width:3px;border-radius:2px;background:#ff7d8a"></div>
+<div style="font:300 13.5px/1.7 Nunito,sans-serif;letter-spacing:0.3px;color:#ffffff;text-wrap:pretty">AppsFlyer knows <span style="font-weight:600">who</span> installed and from which campaign — the Meta and Google integrations are healthy. It has <span style="font-weight:600">no record</span> of what those users did afterwards, because Segment has delivered none of the four conversion events. ROAS needs both halves.</div>
+</div>
+</sc-if>
+</div>
+<sc-if value="{{ showSources }}" hint-placeholder-val="{{ true }}">
+<div class="cap">3 frames · 8 nodes · 6 edges · one severed · authored at 852×440</div>
+</sc-if>
+<sc-if value="{{ showSpecs }}" hint-placeholder-val="{{ true }}">
+<div class="sp" style="width:900px;box-sizing:border-box">
+<b>draw order</b><i>frames → edges → node backdrops + nodes → edge labels, so nothing is clipped</i>
+<b>lane routing</b><i>x 616 inside the AppsFlyer frame, x 652 in the gutter between frames</i>
+<b>clearance</b><i>every outgoing edge leaves from x+w+8 or y+h+8 — 8px past the backdrop</i>
+<b>merge point</b><i>Meta and Google converge at 240,105 then travel as one arrow</i>
+<b>severed edge</b><i>dash 5 5 · ✕ over a #191919 disc r 9 · label in the fail colour</i>
+<b>insight bar</b><i>#1c1c1c · 3px fail-colour rule · Nunito 300 13.5 · bold on the two claims</i>
+</div>
+</sc-if>
+</div>
+
+<div class="dv-opt" id="1b">
+<div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a>Decision tree · 900 · left-to-right, pills for questions</div>
+<div class="pnl">
+<div class="phd"><div class="pkick">Triage</div><div class="ptitle">Where to look when ROAS goes blank</div></div>
+<svg width="852" height="360" viewBox="0 0 852 360" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;max-width:100%">
+<path d="M212,160 C248,160 250,68 280,68" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M212,160 C248,160 250,249 280,249" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M532,249 C554,249 556,202 570,202" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+<path d="M532,249 C554,249 556,314 570,314" stroke="rgba(255,255,255,0.28)" stroke-width="1.25" stroke-linecap="round" marker-end="url(#ah-dim)"></path>
+
+<rect x="4" y="136" width="200" height="56" rx="28" fill="rgba(255,255,255,0.22)"></rect>
+<rect x="0" y="132" width="200" height="56" rx="28" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="100" y="165" text-anchor="middle" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">ROAS unavailable</text>
+
+<rect x="294" y="44" width="230" height="56" rx="7" fill="#ffca00"></rect>
+<rect x="290" y="40" width="230" height="56" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<circle cx="306" cy="64" r="3.5" fill="#ffca00"></circle>
+<text x="320" y="68" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Check platform integrations</text>
+<text x="320" y="86" font-family="Nunito, sans-serif" font-size="11" fill="#ffffff">Meta / Google install feed</text>
+
+<rect x="294" y="228" width="230" height="50" rx="25" fill="rgba(255,255,255,0.22)"></rect>
+<rect x="290" y="224" width="230" height="50" rx="25" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<text x="405" y="254" text-anchor="middle" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Segment delivering?</text>
+
+<rect x="584" y="178" width="264" height="56" rx="7" fill="#ff7d8a"></rect>
+<rect x="580" y="174" width="264" height="56" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<circle cx="596" cy="198" r="3.5" fill="#ff7d8a"></circle>
+<text x="610" y="202" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Repair Segment destination</text>
+<text x="610" y="220" font-family="Nunito, sans-serif" font-size="11" fill="#ffffff">Delivery is at 0% — start here</text>
+
+<rect x="584" y="290" width="264" height="56" rx="7" fill="#ffca00"></rect>
+<rect x="580" y="286" width="264" height="56" rx="7" fill="#151515" stroke="rgba(255,255,255,0.14)"></rect>
+<circle cx="596" cy="310" r="3.5" fill="#ffca00"></circle>
+<text x="610" y="314" font-family="Nunito, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Remap event names</text>
+<text x="610" y="332" font-family="Nunito, sans-serif" font-size="11" fill="#ffffff">Arriving, but not matching the schema</text>
+
+<rect x="196" y="105" width="102" height="18" rx="3" fill="#191919"></rect>
+<text x="247" y="118" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">no install data</text>
+<rect x="195" y="196" width="104" height="18" rx="3" fill="#191919"></rect>
+<text x="247" y="209" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">no conversions</text>
+<rect x="540" y="217" width="27" height="18" rx="3" fill="#191919"></rect>
+<text x="553" y="230" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">no</text>
+<rect x="537" y="273" width="33" height="18" rx="3" fill="#191919"></rect>
+<text x="553" y="286" text-anchor="middle" font-family="Fira Code, monospace" font-size="10" fill="#b4b4b4">yes</text>
+</svg>
+</div>
+<sc-if value="{{ showSources }}" hint-placeholder-val="{{ true }}">
+<div class="cap">Depth 3 · 2 questions · 3 outcomes · authored at 852×360</div>
+</sc-if>
+<sc-if value="{{ showSpecs }}" hint-placeholder-val="{{ true }}">
+<div class="sp" style="width:900px;box-sizing:border-box">
+<b>direction</b><i>left → right; depth reads as columns, siblings stack vertically</i>
+<b>question node</b><i>pill rx h/2 · idle 22% backdrop · text centred, no dot</i>
+<b>outcome node</b><i>rect rx 7 · state backdrop + state dot · title over an 11px sub</i>
+<b>branch curve</b><i>C dx·0.42 from each end — both siblings leave the same point</i>
+<b>branch label</b><i>on the curve at t=0.5, over a #191919 pill rx 3, 6px side padding</i>
+<b>column x</b><i>0 · 290 · 580 — 86px gutters after the 4px backdrop is counted</i>
+</div>
+</sc-if>
+</div>
+
+</div>
+<p class="dv-next">Try next: “add a state machine and a timeline” · “narrow variants at 730 and 349” · “show the kit at 2× depth” · “build me a diagram of <em>x</em>”</p>
+</section>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showSpecs&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Reference&quot;},&quot;showSources&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Reference&quot;},&quot;showInsight&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Diagram 1a&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      showSpecs: this.props.showSpecs !== false,
+      showSources: this.props.showSources !== false,
+      showInsight: this.props.showInsight !== false
+    };
+  }
+}
+</script>
+</body>
+</html>

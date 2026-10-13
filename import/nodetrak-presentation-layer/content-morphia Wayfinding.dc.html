@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&amp;family=JetBrains+Mono:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#fff;color:#000;font-family:'Nunito',sans-serif}
+a{color:#000;text-decoration:underline;text-decoration-color:#1bbd94;text-decoration-thickness:1.5px;text-underline-offset:3px}
+a:hover{background:rgba(27,189,148,.3)}
+::selection{background:rgba(27,189,148,.35)}
+button{font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;background:none;border:none;padding:0;margin:0;text-align:left;cursor:pointer}
+input,select{font:inherit;color:inherit}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px solid #000;outline-offset:3px}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:#f1f1f1;border-radius:999px}
+::-webkit-scrollbar-thumb{background:rgba(0,0,0,.22);border-radius:999px}
+::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.45)}
+@media(max-width:1150px){#w2-grid{grid-template-columns:1fr!important}#w2-rail{border-right:0!important;padding-right:0!important;border-bottom:1px solid #ebebeb!important;padding-bottom:24px!important;display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:24px!important}}
+@media(max-width:800px){[data-wide]{min-width:680px!important}[data-twrap]{overflow-x:auto!important}}
+@media(max-width:640px){[data-stack]{grid-template-columns:1fr!important}#w2-rail{grid-template-columns:1fr!important}}
+
+[data-nav-group] [data-nav-menu]{display:none}
+[data-nav-group]:hover [data-nav-menu],[data-nav-group]:focus-within [data-nav-menu]{display:block}
+</style>
+</helmet>
+
+<dc-import name="cm-nav" page="Wayfinding.dc.html" chip="Wayfinding" hint-size="100%,58px"></dc-import>
+
+<dc-import name="cm-toc" items='[["#w1","ss: 01 Search"],["#w2","ss: 02 Faceted browse"],["#w3","ss: 03 Ranked entry"],["#w4","ss: 04 Change over time"],["#w5","ss: 05 Rules"]]' hint-size="100%,44px"></dc-import>
+
+<dc-import name="cm-mast" title="Wayfinding in a deep index" hint-size="100%,240px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:14px;text-wrap:pretty">The index nests further than a breadcrumb can describe, so arrival is not the same problem as navigation. These five components carry it: search over nodes, facets over their properties, ranked entry points, and the two controls that make an updated node legible — a version selector and a diff.</div>
+<div style="display:flex;align-items:center;gap:10px;row-gap:8px;flex-wrap:wrap;margin-top:20px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase">
+<span style="padding:3px 10px;border-radius:999px;border:1px solid #000;background:#fff">Components</span>
+<span style="font-weight:400">5 components · 6 rules · specimens run on a 15-node sample index</span>
+</div>
+</dc-import>
+
+<dc-import name="cm-section" n="1" id="w1" title="Search" label="ss: 01 Search" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Search returns nodes, not pages. A result therefore has to answer three questions at once: what kind of thing this is, where it sits in the index, and how well aggregated it is — because a node with forty sources and one with three hundred are not the same answer to the same query.</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:16px;text-wrap:pretty">The field carries a scope control. Scoping to a pillar is the cheapest way to cut a broad query, and it is stated in the result count rather than left in the control.</div>
+
+<div style="margin-top:28px;background:#fff;border:1.5px solid #000;border-radius:14px;box-shadow:5px 5px 0 #1bbd94;padding:28px">
+<h3 style="margin:0 0 14px;font-size:21px;font-weight:800;line-height:1.3">Search field and results</h3>
+<div data-stack style="display:grid;grid-template-columns:1fr 200px auto;gap:10px;align-items:center">
+<input type="search" value="{{ query }}" onChange="{{ onQuery }}" placeholder="Search the index" aria-label="Search the index" style="width:100%;box-sizing:border-box;padding:12px 14px;border:1px solid #000;border-radius:8px;background:#fff;font-size:14px;font-weight:400">
+<select value="{{ scope }}" onChange="{{ onScope }}" aria-label="Search scope" style="width:100%;box-sizing:border-box;padding:12px 12px;border:1px solid #000;border-radius:8px;background:#fff;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase">
+<sc-for list="{{ scopes }}" as="s" hint-placeholder-count="5"><option value="{{ s }}">{{ s }}</option></sc-for>
+</select>
+<button onClick="{{ onSearch }}" style="padding:12px 24px;border-radius:999px;background:#000;color:#fff;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase" style-hover="box-shadow:3px 3px 0 #1bbd94;transform:translate(-1px,-1px)">Search</button>
+</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;margin-top:16px">{{ countLine }}</div>
+
+<sc-if value="{{ hasResults }}" hint-placeholder-val="{{ true }}">
+<div style="margin-top:12px;display:grid">
+<sc-for list="{{ results }}" as="r" hint-placeholder-count="3">
+<div style="padding:16px 0;border-top:1px solid #ebebeb">
+<div style="display:flex;align-items:center;gap:10px;row-gap:6px;flex-wrap:wrap">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:3px 9px;border-radius:4px;border:1px solid #000;background:#fff">{{ r.type }}</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase">{{ r.path }}</span>
+</div>
+<h4 style="margin:9px 0 0;font-size:21px;font-weight:800;line-height:1.3"><a href="#w1" style="text-decoration:none;border-bottom:1.5px solid #1bbd94;padding-bottom:1px">{{ r.title }}</a></h4>
+<div style="font-size:14px;font-weight:400;line-height:1.7;margin-top:6px;max-width:76ch">
+<sc-for list="{{ r.parts }}" as="p" hint-placeholder-count="1"><span style="border-radius:3px;padding:2px 0;background:{{ p.bg }}">{{ p.t }}</span></sc-for>
+</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase;margin-top:9px">{{ r.meta }}</div>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top:12px;border-top:1px solid #ebebeb;padding-top:20px">
+<img src="icons/set/empty-search-f.svg" width="32" height="32" alt="" aria-hidden="true" style="display:block;margin-bottom:12px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase">No matching nodes</div>
+<div style="font-size:14px;font-weight:400;line-height:1.7;margin-top:10px;max-width:64ch">Nothing in the index answers this. The empty state names the two recoveries rather than apologising: widen the scope, or enter through the nearest branch.</div>
+<div style="display:flex;gap:8px;row-gap:8px;flex-wrap:wrap;margin-top:14px">
+<sc-for list="{{ recovery }}" as="c" hint-placeholder-count="4">
+<button onClick="{{ c.go }}" style="padding:6px 12px;border-radius:999px;border:1px solid #000;background:#fff;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase" style-hover="background:rgba(27,189,148,.3)">{{ c.label }}</button>
+</sc-for>
+</div>
+</div>
+</sc-if>
+</div>
+
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:24px;text-wrap:pretty">A result row is fixed in four parts and admits no fifth: type chip and path, title, one snippet line, and the aggregation meta. Matched terms take a teal wash, which is legible only because the query sits directly above it and the match count is stated in the meta line.</div>
+</dc-import>
+
+<dc-import name="cm-section" n="2" id="w2" title="Faceted browse" label="ss: 02 Faceted browse" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">A facet is a fact about a node — its type, its pillar, how well evidenced it is. It is never a topic; topics are the index itself, and duplicating them into a rail gives two conflicting maps of the same thing.</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:16px;text-wrap:pretty">Counts recompute against every other group but never against a facet's own group, so selecting one value does not zero its siblings. A value that reaches zero stays visible and disabled: removing it would quietly change the shape of the index the reader is learning.</div>
+
+<div style="margin-top:28px;background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:28px">
+<h3 style="margin:0 0 20px;font-size:21px;font-weight:800;line-height:1.3">Facet rail and filtered results</h3>
+<div id="w2-grid" style="display:grid;grid-template-columns:224px 1fr;gap:32px">
+<div id="w2-rail">
+<sc-for list="{{ groups }}" as="g" hint-placeholder-count="3">
+<div style="position:relative;padding-left:14px;padding-top:14px;margin-bottom:24px">
+<div style="position:absolute;left:0;top:0;width:14px;height:14px;border-left:2px solid #000;border-top:2px solid #000"></div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;margin-bottom:10px">{{ g.label }}</div>
+<div style="display:grid;row-gap:3px">
+<sc-for list="{{ g.values }}" as="v" hint-placeholder-count="4">
+<label style="display:flex;align-items:center;gap:9px;padding:4px 0;cursor:pointer;font-size:14px;font-weight:400;line-height:1.75;opacity:{{ v.op }}">
+<input type="checkbox" checked="{{ v.on }}" disabled="{{ v.off }}" onChange="{{ v.toggle }}" style="width:14px;height:14px;accent-color:#000;margin:0;flex:none">
+<span style="flex:1">{{ v.name }}</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em">{{ v.count }}</span>
+</label>
+</sc-for>
+</div>
+<sc-if value="{{ g.more }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ g.expand }}" style="margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;border-bottom:1.5px solid #1bbd94;padding-bottom:1px">{{ g.moreLabel }}</button>
+</sc-if>
+</div>
+</sc-for>
+</div>
+
+<div style="border-left:1px solid #ebebeb;padding-left:32px">
+<div style="display:flex;align-items:center;gap:10px;row-gap:8px;flex-wrap:wrap;min-height:26px">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase">{{ browseCount }}</span>
+<sc-for list="{{ chips }}" as="c" hint-placeholder-count="0">
+<button onClick="{{ c.remove }}" style="display:flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:rgba(27,189,148,.25);font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase" style-hover="box-shadow:3px 3px 0 rgba(0,0,0,.18);border:1px solid #000;transform:translate(-1px,-1px)">{{ c.label }}<span style="font-weight:400">✕</span></button>
+</sc-for>
+<sc-if value="{{ anyChips }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ clearAll }}" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;border-bottom:1.5px solid #1bbd94;padding-bottom:1px">Clear all</button>
+</sc-if>
+</div>
+<div style="display:grid;margin-top:6px">
+<sc-for list="{{ browse }}" as="b" hint-placeholder-count="6">
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:20px;padding:12px 0;border-top:1px solid #ebebeb">
+<div>
+<div style="font-size:15.5px;font-weight:700;line-height:1.4">{{ b.title }}</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase;margin-top:6px">{{ b.meta }}</div>
+</div>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:3px 9px;border-radius:4px;border:1px solid #000;background:#fff;flex:none">{{ b.type }}</span>
+</div>
+</sc-for>
+</div>
+<sc-if value="{{ browseEmpty }}" hint-placeholder-val="{{ false }}">
+<div style="border-top:1px solid #ebebeb;padding-top:16px;font-size:14px;font-weight:400;line-height:1.7;max-width:56ch">No node carries every selected facet. The rail keeps its zero counts visible above, so the combination that failed can be read off directly and one value dropped.</div>
+</sc-if>
+</div>
+</div>
+</div>
+
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:24px;text-wrap:pretty">Selections are restated above the results as removable pills. The rail alone is not enough: at 1150px it collapses to a top strip and, on a long result list, scrolls out of view entirely.</div>
+</dc-import>
+
+<dc-import name="cm-section" n="3" id="w3" title="Ranked entry points" label="ss: 03 Ranked entry" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Readers who arrive without a query need a way in that is not the root of the tree. Two lists do it, and they answer different questions: what the practice reads, and what the index has learned since the last visit. Both state the window they were computed over, because a ranking without one is a claim with no bounds.</div>
+
+<div data-stack style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:28px">
+<div style="background:#fff;border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:24px">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:16px;row-gap:12px;flex-wrap:wrap">
+<h3 style="margin:0;font-size:21px;font-weight:800;line-height:1.3">Most read</h3>
+<div style="display:flex;gap:2px;padding:3px;background:#f1f1f1;border-radius:999px">
+<sc-for list="{{ windows }}" as="w" hint-placeholder-count="3">
+<button onClick="{{ w.pick }}" style="padding:4px 10px;border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;background:{{ w.bg }};border:{{ w.bd }};box-shadow:{{ w.sh }}">{{ w.label }}</button>
+</sc-for>
+</div>
+</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase;margin-top:10px">{{ popWindow }}</div>
+<div style="display:grid;row-gap:14px;margin-top:16px">
+<sc-for list="{{ popular }}" as="p" hint-placeholder-count="5">
+<div style="display:grid;grid-template-columns:20px 1fr;gap:12px;align-items:baseline">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em">{{ p.rank }}</span>
+<div>
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:14px"><span style="font-size:14px;font-weight:700;line-height:1.4">{{ p.title }}</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;flex:none">{{ p.val }}</span></div>
+<div style="height:6px;border-radius:3px;background:#f1f1f1;margin-top:8px"><div style="height:6px;border-radius:3px;background:#1bbd94;width:{{ p.w }}"></div></div>
+</div>
+</div>
+</sc-for>
+</div>
+<div style="margin-top:20px;border-top:1px solid #ebebeb;padding-top:14px">
+<button type="button" onClick="{{ togglePopTable }}" aria-expanded="{{ popTableOpen }}" style="display:flex;align-items:center;gap:12px;width:100%">
+<span style="width:20px;height:20px;border-radius:6px;background:#f1f1f1;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;flex:none">{{ popTableMark }}</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase">Data table</span>
+<span style="margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase">{{ popTableCount }}</span>
+</button>
+<sc-if value="{{ popTableShown }}" hint-placeholder-val="{{ true }}">
+<div style="margin-top:14px">
+<div style="display:grid;grid-template-columns:1fr 62px 62px 62px;background:#fff;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;border-bottom:1.5px solid #000">
+<span style="padding:12px 12px">Node</span>
+<span style="padding:8px 6px;text-align:right">7 d</span>
+<span style="padding:8px 6px;text-align:right">30 d</span>
+<span style="padding:12px 12px 8px 6px;text-align:right">90 d</span>
+</div>
+<sc-for list="{{ popRows }}" as="r" hint-placeholder-count="8">
+<div style="display:grid;grid-template-columns:1fr 62px 62px 62px;border-radius:6px;background:{{ r.z }};font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;align-items:center">
+<span style="padding:14px 14px;font-weight:700;line-height:1.35">{{ r.n }}</span>
+<span style="padding:14px 14px;text-align:right">{{ r.a }}</span>
+<span style="padding:14px 14px;text-align:right">{{ r.b }}</span>
+<span style="padding:14px 14px 8px 6px;text-align:right">{{ r.c }}</span>
+</div>
+</sc-for>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase;margin-top:10px">Em dash = outside the top five for that window</div>
+</div>
+</sc-if>
+</div>
+</div>
+
+<div style="background:#fff;border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:24px">
+<h3 style="margin:0;font-size:21px;font-weight:800;line-height:1.3">Recently updated</h3>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase;margin-top:10px">Re-aggregated in the last 30 days · 6 of 15 nodes</div>
+<div style="display:grid;row-gap:16px;margin-top:16px">
+<sc-for list="{{ recent }}" as="r" hint-placeholder-count="5">
+<div style="display:grid;grid-template-columns:78px 1fr;gap:12px;align-items:baseline">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em">{{ r.date }}</span>
+<div>
+<div style="font-size:14px;font-weight:700;line-height:1.4">{{ r.title }}</div>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:4px">{{ r.what }}</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase;margin-top:6px">{{ r.delta }}</div>
+</div>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:24px;text-wrap:pretty">Rank is a mono ordinal in its own column, never a badge — a badge would compete with the type chips that carry meaning elsewhere. Recency is a date, not a NEW flag: the reader's last visit is unknown, so only the absolute date is honest.</div>
+</dc-import>
+
+<dc-import name="cm-section" n="4" id="w4" title="Change over time" label="ss: 04 Change over time" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">A node re-aggregates on a cadence, so a reader returning to it is reading a different document from the one they left. Two controls make that legible: a selector naming which version is on screen, and a diff naming what moved between two of them.</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:16px;text-wrap:pretty">A diff describes meaning, not presentation. Three kinds are permitted — added, removed, revised — and each is a tint with its own mono label, so the kind survives being read without colour.</div>
+
+<div style="margin-top:28px;background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:28px">
+<h3 style="margin:0 0 16px;font-size:21px;font-weight:800;line-height:1.3">Version selector and diff block</h3>
+<div style="display:flex;align-items:center;gap:8px;row-gap:8px;flex-wrap:wrap">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;margin-right:4px">Version</span>
+<sc-for list="{{ versions }}" as="v" hint-placeholder-count="5">
+<button onClick="{{ v.pick }}" aria-current="{{ v.cur }}" style="padding:6px 12px;border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;background:{{ v.bg }};border:{{ v.bd }};box-shadow:{{ v.sh }}">{{ v.label }}</button>
+</sc-for>
+</div>
+<div style="display:flex;align-items:baseline;gap:10px;row-gap:6px;flex-wrap:wrap;margin-top:16px;padding-top:16px;border-top:1px solid #ebebeb">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase">{{ diffHead }}</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase">{{ diffSummary }}</span>
+</div>
+<div style="display:grid;row-gap:3px;margin-top:12px">
+<sc-for list="{{ diffRows }}" as="d" hint-placeholder-count="4">
+<div style="display:grid;grid-template-columns:110px 1fr;gap:12px;align-items:baseline;padding:14px 14px;border-radius:6px;background:{{ d.bg }}">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase">{{ d.kind }}</span>
+<div><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em">{{ d.ref }}</span><span style="font-size:14px;font-weight:400;line-height:1.75"> {{ d.text }}</span></div>
+</div>
+</sc-for>
+</div>
+<sc-if value="{{ isFirst }}" hint-placeholder-val="{{ false }}">
+<div style="font-size:14px;font-weight:400;line-height:1.7;max-width:64ch;margin-top:12px">First aggregation. There is no prior version to compare against, and the block says so rather than rendering an empty diff.</div>
+</sc-if>
+</div>
+
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:24px;text-wrap:pretty">The selector states the date beside the version, because version numbers on an aggregated node carry no interval. Older versions stay reachable: a superseded reading is still the reading someone cited.</div>
+</dc-import>
+
+<dc-import name="cm-section" n="5" id="w5" title="Rules these components add" label="ss: 05 Rules" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Six rules, binding on any wayfinding surface in this system.</div>
+<div style="display:grid;row-gap:20px;margin-top:24px;max-width:74ch">
+<sc-for list="{{ rules }}" as="r" hint-placeholder-count="6">
+<div style="display:grid;grid-template-columns:70px 1fr;gap:16px;align-items:baseline">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em">{{ r.id }}</span>
+<div><span style="font-size:15.5px;font-weight:700;line-height:1.5">{{ r.head }}</span><span style="font-size:15.5px;font-weight:400;line-height:1.85"> {{ r.body }}</span></div>
+</div>
+</sc-for>
+</div>
+</dc-import>
+
+<footer style="max-width:1060px;margin:96px auto 0;padding:24px;border-top:1px solid #ebebeb">
+<div style="display:flex;align-items:center;gap:16px;row-gap:10px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase">
+<span style="font-weight:700">content-morphia</span>
+<span>Wayfinding · R22.1–R22.6</span>
+<span style="margin-left:auto;display:flex;gap:16px;flex-wrap:wrap"><a href="content-morphia Provenance.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1bbd94;padding-bottom:1px">Provenance</a><a href="content-morphia Structured.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1bbd94;padding-bottom:1px">Structured components</a><a href="content-morphia Selection.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1bbd94;padding-bottom:1px">Selection &amp; gate</a><a href="content-morphia Charts.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1bbd94;padding-bottom:1px">Charts</a></span>
+</div>
+</footer>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;resultDensity&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;comfortable&quot;,&quot;compact&quot;],&quot;default&quot;:&quot;comfortable&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Search&quot;},&quot;showFacetCounts&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Facets&quot;},&quot;defaultWindow&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;7 days&quot;,&quot;30 days&quot;,&quot;90 days&quot;],&quot;default&quot;:&quot;30 days&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Ranked entry&quot;}}">
+class Component extends DCLogic {
+  nodes = [
+    {t:'Power, sample size and duration',p:'Experimentation / Sizing',ty:'Method',pi:'Experimentation',c:'High',s:214,u:'14 Aug 2026',d:16,sn:'How many units an experiment needs before it can separate a real effect from noise, and what that costs in weeks of traffic.'},
+    {t:'Data freshness',p:'Data quality / Service levels',ty:'Metric',pi:'Data quality',c:'High',s:96,u:'27 Aug 2026',d:3,sn:'Lag between an event occurring and being queryable, measured per pipeline against a stated service level.'},
+    {t:'HEART framework',p:'Measurement / Models',ty:'Framework',pi:'Measurement',c:'Moderate',s:141,u:'30 Jun 2026',d:61,sn:'Five dimensions for turning a product goal into signals and then into metrics that survive a quarter.'},
+    {t:'A/B test lifecycle',p:'Experimentation / Operations',ty:'Process',pi:'Experimentation',c:'High',s:78,u:'21 Aug 2026',d:9,sn:'The six stages from hypothesis to decision record, including the sample size gate before exposure begins.'},
+    {t:'Event taxonomy',p:'Governance / Naming',ty:'Reference',pi:'Governance',c:'High',s:342,u:'02 Aug 2026',d:28,sn:'Canonical event names, required fields and the payload contract every producer is validated against.'},
+    {t:'Stats engines compared',p:'Experimentation / Tooling',ty:'Comparison',pi:'Experimentation',c:'Moderate',s:63,u:'11 Jul 2026',d:50,sn:'Four engines against eight criteria, with the sample size each requires for the same minimum detectable effect.'},
+    {t:'Platform roadmap FY27',p:'Governance / Planning',ty:'Roadmap',pi:'Governance',c:'Provisional',s:12,u:'29 Aug 2026',d:1,sn:'Quarters by track for the coming year, with exit criteria on the next milestone only.'},
+    {t:'Sequential testing',p:'Experimentation / Sizing',ty:'Method',pi:'Experimentation',c:'Moderate',s:187,u:'19 May 2026',d:103,sn:'Peeking at a fixed-sample design inflates error; sequential boundaries price the peek in advance.'},
+    {t:'Pipeline certification',p:'Data quality / Assurance',ty:'Process',pi:'Data quality',c:'High',s:54,u:'25 Aug 2026',d:5,sn:'The five checks a pipeline clears before its output can be cited, and what recertification is triggered by.'},
+    {t:'Metric tree',p:'Measurement / Models',ty:'Framework',pi:'Measurement',c:'Moderate',s:129,u:'08 Apr 2026',d:144,sn:'Decomposing a north-star into inputs that teams can move, stopping where ownership stops.'},
+    {t:'Sample ratio mismatch',p:'Experimentation / Diagnostics',ty:'Method',pi:'Experimentation',c:'High',s:233,u:'18 Aug 2026',d:12,sn:'When arm sizes diverge from the intended split, the assignment is broken and the sample cannot be read.'},
+    {t:'Warehouse cost per query',p:'Data quality / Service levels',ty:'Metric',pi:'Data quality',c:'Provisional',s:41,u:'29 Jul 2026',d:32,sn:'Compute spend attributed to the query that caused it, with the two attribution models that disagree.'},
+    {t:'Consent and retention',p:'Governance / Policy',ty:'Reference',pi:'Governance',c:'Moderate',s:88,u:'12 Mar 2026',d:171,sn:'What may be collected, for how long it may be held, and which fields are excluded from every export.'},
+    {t:'North-star selection',p:'Measurement / Models',ty:'Comparison',pi:'Measurement',c:'Moderate',s:71,u:'09 Aug 2026',d:21,sn:'Three candidate north-stars scored on sensitivity, gameability and the lag before they respond.'},
+    {t:'Instrumenting a new surface',p:'Data quality / Onboarding',ty:'Guide',pi:'Data quality',c:'Moderate',s:47,u:'06 Aug 2026',d:24,sn:'From surface spec to certified pipeline in nine steps, with the sample of events reviewed at each gate.'}
+  ];
+  scopes = ['Whole index','Experimentation','Data quality','Measurement','Governance'];
+  types = ['Method','Metric','Framework','Process','Reference','Comparison','Roadmap','Guide'];
+  pillars = ['Experimentation','Data quality','Measurement','Governance'];
+  confs = ['High','Moderate','Provisional'];
+  vers = [
+    {v:'v1.0',d:'04 Nov 2025'},
+    {v:'v1.1',d:'18 Feb 2026'},
+    {v:'v1.2',d:'06 May 2026'},
+    {v:'v1.3',d:'22 Jul 2026'},
+    {v:'v1.4',d:'14 Aug 2026'}
+  ];
+  diffs = [
+    {sum:'4 sections changed · 62 sources added · confidence moderate → moderate',rows:[
+      {k:'Added',r:'ss: 04',x:'Duration on available traffic, replacing the flat two-week default.'},
+      {k:'Revised',r:'ss: 02',x:'Minimum detectable effect restated as a business threshold rather than a statistical one.'},
+      {k:'Removed',r:'ss: 07',x:'Rule-of-thumb table; three of its five rows disagreed with the equation above it.'}
+    ]},
+    {sum:'3 sections changed · 48 sources added · confidence moderate → high',rows:[
+      {k:'Added',r:'ss: 05',x:'Reading a null result, and the two conditions under which a null is uninformative.'},
+      {k:'Revised',r:'ss: 03',x:'Cost of an underpowered test now priced in weeks of delayed decision, not in units.'}
+    ]},
+    {sum:'5 sections changed · 33 sources added · confidence high → high',rows:[
+      {k:'Revised',r:'ss: 01',x:'Anchor metric moved to new-customer activation so every figure in the document compares.'},
+      {k:'Added',r:'ss: 06',x:'Cluster randomisation, and the variance inflation it forces into the sample size.'},
+      {k:'Removed',r:'ss: 08',x:'Vendor calculator walkthrough; superseded by the engine comparison node.'},
+      {k:'Revised',r:'ss: 02',x:'Variance now stated per arm, matching the notation used across the sizing branch.'}
+    ]},
+    {sum:'2 sections changed · 41 sources added · confidence high → high',rows:[
+      {k:'Added',r:'ss: 06',x:'Sequential designs cross-referenced where the fixed-sample answer is unaffordable.'},
+      {k:'Revised',r:'ss: 04',x:'Traffic figures re-aggregated against the current onboarding surface, raising duration by nine days.'}
+    ]}
+  ];
+  pop = {
+    '7 days':[['Sample ratio mismatch',1840],['Data freshness',1520],['Power, sample size and duration',1310],['Event taxonomy',990],['A/B test lifecycle',760]],
+    '30 days':[['Power, sample size and duration',7420],['Event taxonomy',6180],['Sample ratio mismatch',5340],['Data freshness',4900],['Metric tree',3120]],
+    '90 days':[['Event taxonomy',19800],['Power, sample size and duration',17240],['HEART framework',12600],['Data freshness',11450],['Sequential testing',8300]]
+  };
+  recentRows = [
+    {date:'29 Aug',t:'Platform roadmap FY27',w:'Q3 exit criteria replaced after the certification date moved.',dl:'12 sources · 3 sections revised'},
+    {date:'27 Aug',t:'Data freshness',w:'Two pipelines re-baselined; the alert band on ingest tightened to 20 minutes.',dl:'96 sources · +14 since last aggregation'},
+    {date:'25 Aug',t:'Pipeline certification',w:'A fifth check added covering schema drift between producer releases.',dl:'54 sources · 1 section added'},
+    {date:'21 Aug',t:'A/B test lifecycle',w:'The sizing gate is now blocking rather than advisory.',dl:'78 sources · 2 sections revised'},
+    {date:'18 Aug',t:'Sample ratio mismatch',w:'Diagnostic thresholds split by assignment mechanism.',dl:'233 sources · +31 since last aggregation'}
+  ];
+  rules = [
+    {id:'R22.1',head:'Search returns nodes, not pages.',body:'Every result states its type, its path in the index, and its aggregation state. A result without a source count is not a result in this product.'},
+    {id:'R22.2',head:'A facet is a fact about a node, never a topic.',body:'Facet groups are closed lists with counts. Counts recompute against the other groups but never against a facet\u2019s own group, and a zero-count value stays visible at .55 opacity and disabled — removing it hides the shape of the index.'},
+    {id:'R22.3',head:'Active filters are restated above the results.',body:'Removable pills, teal-washed and never bordered until hover. Rail state alone does not count: the rail collapses at 1150px and scrolls away on any long list.'},
+    {id:'R22.4',head:'Rank is a mono ordinal in its own column.',body:'Never a badge, never a semantic fill. A ranked list always names the window it was computed over, and recency is an absolute date, never a NEW flag.'},
+    {id:'R22.5',head:'A diff names what changed, not how it looked.',body:'Three kinds only — added, removed, revised — each a tint with its own mono label, each anchored to a section reference. Presentation changes are not diffed.'},
+    {id:'R22.6',head:'Version is a control, not a chip.',body:'The selector names the current version with its date, states what it is compared against, and keeps superseded versions reachable. A first aggregation says so instead of rendering an empty diff.'}
+  ];
+
+  state = {q:'sample',scope:'Whole index',f:{Type:[],Pillar:[],Confidence:[]},typeAll:false,win:null,ver:4,sec:1};
+
+  fit(n,f,skip){
+    if(skip!=='Type'&&f.Type.length&&f.Type.indexOf(n.ty)<0)return false;
+    if(skip!=='Pillar'&&f.Pillar.length&&f.Pillar.indexOf(n.pi)<0)return false;
+    if(skip!=='Confidence'&&f.Confidence.length&&f.Confidence.indexOf(n.c)<0)return false;
+    return true;
+  }
+  toggle(g,v){
+    this.setState(s=>{
+      const f={Type:s.f.Type.slice(),Pillar:s.f.Pillar.slice(),Confidence:s.f.Confidence.slice()};
+      const i=f[g].indexOf(v);
+      if(i<0)f[g].push(v);else f[g].splice(i,1);
+      return {f};
+    });
+  }
+
+  renderVals(){
+    const st=this.state, dense=(this.props.resultDensity||'comfortable')==='compact';
+    const showCounts=this.props.showFacetCounts!==false;
+    const q=st.q.trim().toLowerCase();
+    const scoped=this.nodes.filter(n=>st.scope==='Whole index'||n.pi===st.scope);
+    const hit=n=>{
+      const inT=n.t.toLowerCase().indexOf(q)>=0, inS=n.sn.toLowerCase().indexOf(q)>=0, inP=n.p.toLowerCase().indexOf(q)>=0;
+      return q?(inT||inS||inP):false;
+    };
+    const found=q?scoped.filter(hit):[];
+    const results=found.slice(0,dense?4:6).map(n=>{
+      const low=n.sn.toLowerCase(); const parts=[]; let i=0,c=0;
+      while(true){const j=low.indexOf(q,i); if(j<0||q.length===0)break;
+        if(j>i)parts.push({t:n.sn.slice(i,j),bg:'transparent'});
+        parts.push({t:n.sn.slice(j,j+q.length),bg:'rgba(27,189,148,.35)'}); i=j+q.length; c++;}
+      if(i<n.sn.length)parts.push({t:n.sn.slice(i),bg:'transparent'});
+      const inT=n.t.toLowerCase().indexOf(q)>=0;
+      const total=c+(inT?1:0);
+      return {type:n.ty,path:n.p,title:n.t,parts:parts,
+        meta:n.s+' sources · updated '+n.u+' · confidence '+n.c+' · '+total+' match'+(total===1?'':'es')};
+    });
+    const countLine=!q?'Enter a query — the index holds 15 nodes'
+      :(found.length+' node'+(found.length===1?'':'s')+' · scope '+st.scope.toLowerCase()+' · query “'+st.q.trim()+'”');
+
+    const groups=[
+      {key:'Type',label:'Type',vals:this.types,get:n=>n.ty},
+      {key:'Pillar',label:'Pillar',vals:this.pillars,get:n=>n.pi},
+      {key:'Confidence',label:'Confidence',vals:this.confs,get:n=>n.c}
+    ].map(g=>{
+      const pool=this.nodes.filter(n=>this.fit(n,st.f,g.key));
+      const all=g.vals.map(v=>{
+        const ct=pool.filter(n=>g.get(n)===v).length;
+        const on=st.f[g.key].indexOf(v)>=0;
+        return {name:v,count:showCounts?String(ct):'',on:on,off:ct===0&&!on,op:(ct===0&&!on)?'.55':'1',
+          toggle:()=>this.toggle(g.key,v)};
+      });
+      const cap=(g.key==='Type'&&!st.typeAll)?6:all.length;
+      return {label:g.label,values:all.slice(0,cap),
+        more:g.key==='Type'&&all.length>6&&!st.typeAll,
+        moreLabel:'Show '+(all.length-6)+' more',
+        expand:()=>this.setState({typeAll:true})};
+    });
+
+    const browsed=this.nodes.filter(n=>this.fit(n,st.f,null));
+    const chips=[];
+    ['Type','Pillar','Confidence'].forEach(g=>st.f[g].forEach(v=>chips.push({label:v,remove:()=>this.toggle(g,v)})));
+
+    const popNames=[];
+    ['90 days','30 days','7 days'].forEach(w=>this.pop[w].forEach(r=>{if(popNames.indexOf(r[0])<0)popNames.push(r[0]);}));
+    const readsIn=(w,n)=>{const hit=this.pop[w].find(r=>r[0]===n);return hit?hit[1].toLocaleString():'\u2014';};
+    const popRows=popNames.map((n,i)=>({n,a:readsIn('7 days',n),b:readsIn('30 days',n),c:readsIn('90 days',n),z:i%2?'#fafafa':'#fff'}));
+    const popTableOpen=!!st.popTable;
+
+    const win=st.win||this.props.defaultWindow||'30 days';
+    const rows=this.pop[win]||this.pop['30 days'];
+    const max=rows[0][1];
+    const popular=rows.map((r,i)=>({rank:String(i+1).padStart(2,'0'),title:r[0],
+      val:r[1].toLocaleString(),w:Math.round(r[1]/max*100)+'%'}));
+
+    const vi=st.ver, isFirst=vi===0;
+    const cur=this.vers[vi], prev=isFirst?null:this.vers[vi-1];
+    const dv=isFirst?null:this.diffs[vi-1];
+    const tint={Added:'rgba(0,230,118,.2)',Removed:'rgba(255,82,82,.16)',Revised:'rgba(64,196,255,.22)'};
+
+    const mark=on=>({bg:on?'#fff':'transparent',bd:on?'1px solid #000':'1px solid transparent',sh:on?'2px 2px 0 #1bbd94':'none'});
+
+    return {
+      n1:st.sec===1?'#1bbd94':'transparent',n2:st.sec===2?'#1bbd94':'transparent',n3:st.sec===3?'#1bbd94':'transparent',
+      n4:st.sec===4?'#1bbd94':'transparent',n5:st.sec===5?'#1bbd94':'transparent',
+      p1:()=>this.setState({sec:1}),p2:()=>this.setState({sec:2}),p3:()=>this.setState({sec:3}),
+      p4:()=>this.setState({sec:4}),p5:()=>this.setState({sec:5}),
+
+      query:st.q,scope:st.scope,scopes:this.scopes,
+      onQuery:e=>this.setState({q:e.target.value}),
+      onScope:e=>this.setState({scope:e.target.value}),
+      onSearch:e=>{e.preventDefault();},
+      results:results,countLine:countLine,
+      hasResults:results.length>0,noResults:!!q&&found.length===0,
+      recovery:[{label:'Whole index',go:()=>this.setState({scope:'Whole index'})},
+        {label:'Clear query',go:()=>this.setState({q:''})},
+        {label:'Sizing',go:()=>this.setState({q:'sample',scope:'Whole index'})},
+        {label:'Governance',go:()=>this.setState({q:'',scope:'Governance'})}],
+
+      groups:groups,chips:chips,anyChips:chips.length>0,
+      clearAll:()=>this.setState({f:{Type:[],Pillar:[],Confidence:[]}}),
+      browseCount:browsed.length+' of 15 nodes',
+      browse:browsed.slice(0,7).map(n=>({title:n.t,type:n.ty,meta:n.p+' · '+n.s+' sources · '+n.c.toLowerCase()+' confidence'})),
+      browseEmpty:browsed.length===0,
+
+      windows:['7 days','30 days','90 days'].map(w=>Object.assign({label:w,pick:()=>this.setState({win:w})},mark(w===win))),
+      popWindow:'Reads per node · trailing '+win,
+      popRows,popTableShown:popTableOpen,popTableOpen:popTableOpen?'true':'false',popTableMark:popTableOpen?'\u2212':'+',
+      togglePopTable:()=>this.setState({popTable:!popTableOpen}),
+      popTableCount:popRows.length+' rows · 3 windows',
+      popular:popular,recent:this.recentRows.map(r=>({date:r.date,title:r.t,what:r.w,delta:r.dl})),
+
+      versions:this.vers.map((v,i)=>Object.assign({label:v.v,cur:i===vi?'true':'false',pick:()=>this.setState({ver:i})},mark(i===vi))),
+      diffHead:isFirst?('Showing '+cur.v+' · '+cur.d):('Comparing '+prev.v+' → '+cur.v+' · '+cur.d),
+      diffSummary:isFirst?'First aggregation':dv.sum,
+      diffRows:isFirst?[]:dv.rows.map(r=>({kind:r.k,ref:r.r,text:r.x,bg:tint[r.k]})),
+      isFirst:isFirst,
+      rules:this.rules
+    };
+  }
+}
+</script>
+</body>
+</html>

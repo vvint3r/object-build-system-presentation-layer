@@ -1,0 +1,37 @@
+/* content-morphia · spacing
+   Two scales split by altitude. A value from the wrong scale is a violation.
+   The census found ~1,300 declarations off both scales; see reconciliation.md. */
+:root {
+  /* structural — module altitude and above */
+  --s-16: 16px;   /* sibling surfaces */
+  --s-20: 20px;   /* card and tile grid gaps */
+  --s-24: 24px;   /* sub-section clearance above an inset rule */
+  --s-28: 28px;   /* container interior padding, sub-section separation */
+  --s-32: 32px;   /* primary container interior padding */
+  --s-48: 48px;   /* block separation inside a section */
+  --s-88: 88px;   /* part transition clearance */
+  --s-96: 96px;   /* section rhythm */
+
+  /* component — interior chrome: chip, pill, row, label, tick */
+  --c-2: 2px;
+  --c-3: 3px;
+  --c-4: 4px;
+  --c-6: 6px;
+  --c-8: 8px;
+  --c-9: 9px;
+  --c-10: 10px;
+  --c-12: 12px;
+  --c-14: 14px;
+
+  /* floors, asserted by lint.js */
+  --floor-label-gap: 12px;
+  --floor-row-pad-y: 16px;
+  --floor-list-gap: 12px;
+  --floor-diagram-gap: 14px;
+
+  /* layout */
+  --grid-max: 1060px;
+  --read-max: 70ch;
+  --rail-max: 260px;
+  --anchor-offset: 78px;   /* scroll-margin-top under the sticky bar */
+}

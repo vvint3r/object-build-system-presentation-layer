@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&amp;family=JetBrains+Mono:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#fff;color:#000;font-family:'Nunito',sans-serif}
+a{color:#000;text-decoration:underline;text-decoration-color:#1bbd94;text-decoration-thickness:1.5px;text-underline-offset:3px}
+a:hover{background:rgba(27,189,148,.3)}
+::selection{background:rgba(27,189,148,.35)}
+button{font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;background:none;border:none;padding:0;margin:0;text-align:left;cursor:pointer}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px solid #000;outline-offset:3px}
+@media(max-width:900px){[data-stack]{grid-template-columns:1fr!important}}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:#f1f1f1;border-radius:999px}
+::-webkit-scrollbar-thumb{background:rgba(0,0,0,.22);border-radius:999px}
+::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.45)}
+
+[data-nav-group] [data-nav-menu]{display:none}
+[data-nav-group]:hover [data-nav-menu],[data-nav-group]:focus-within [data-nav-menu]{display:block}
+</style>
+</helmet>
+
+<dc-import name="cm-nav" page="Diagrams IV.dc.html" chip="Structure" hint-size="100%,58px"></dc-import>
+
+<dc-import name="cm-toc" items='[["#sec-mind","Mind map"],["#sec-sets","Set relations"],["#sec-cause","Cause &amp; effect"],["#sec-bpmn","Process notation"],["#sec-rules","Rules"]]' hint-size="100%,44px"></dc-import>
+
+<dc-import name="cm-mast" title="Structure &amp; notation" hint-size="100%,260px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:14px;text-wrap:pretty">Four shapes of argument the earlier waves could not make: a subject decomposed outward, membership across overlapping sets, many causes converging on one effect, and a process written in the notation engineers already read. Capacity rules come from <a href="content-morphia Diagrams at Scale.dc.html">Diagrams at scale</a>; depth and fill come from R12.4 / R12.5.</div>
+</dc-import>
+
+<dc-import name="cm-section" n="1" id="sec-mind" title="Mind map" label="ss: 01 Mind map" chip="T2 · 14 nodes · 3 rings" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Decomposition, not flow. Edges carry no direction and no label — the only claim is that a child belongs to its parent. Branches balance left and right of the subject so the whole map reads at one glance, and every label stays horizontal: rotated text is what makes most mind maps unreadable.</div>
+
+<div style="margin-top:24px;background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:28px">
+<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:18px">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase">Focus branch</span>
+<button onClick="{{mmClear}}" aria-pressed="{{mmAllOn}}" style="{{mmClearStyle}}">Whole map</button>
+<span style="font-size:14px;font-weight:400">{{ mmHint }}</span>
+</div>
+<div style="overflow-x:auto;background:#fafafa;border:1px dashed #d9d9d9;border-radius:12px;padding:16px">
+<div style="width:960px;height:460px;position:relative" role="img" aria-label="Mind map: the data quality practice decomposes into ingest, modelling, governance, monitoring, enablement and tooling, each with two or three sub-topics.">
+<svg width="960" height="460" style="position:absolute;left:0;top:0;pointer-events:none">
+<sc-for list="{{mmEdges}}" as="e" hint-placeholder-count="13">
+<path d="{{e.d}}" fill="none" stroke="#000" stroke-width="{{e.w}}" opacity="{{e.op}}"></path>
+</sc-for>
+</svg>
+<div style="position:absolute;left:390px;top:203px;width:180px;height:54px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;padding:0 16px;background:#fff;border:1.5px solid #000;border-radius:12px;box-shadow:6px 6px 0 rgba(0,0,0,.08)">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase">Subject</span>
+<span style="font-weight:800;font-size:14px;margin-top:3px">Data quality practice</span>
+</div>
+<sc-for list="{{mmBranches}}" as="b" hint-placeholder-count="6">
+<button onClick="{{b.on}}" aria-pressed="{{b.pressed}}" style="{{b.style}}">
+<span style="font-weight:800;font-size:14px">{{b.t}}</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;display:block;margin-top:3px">{{b.n}}</span>
+</button>
+</sc-for>
+<sc-for list="{{mmLeaves}}" as="l" hint-placeholder-count="13">
+<div style="{{l.style}}">{{l.t}}</div>
+</sc-for>
+</div>
+</div>
+<div style="margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase">{{mmReadout}}</div>
+</div>
+</dc-import>
+
+<dc-import name="cm-section" n="2" id="sec-sets" title="Set relations" label="ss: 02 Set relations" chip="T1 · 3 sets · 7 regions" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Three sets is the ceiling: four circles cannot draw all sixteen regions, and the diagrams that claim to are lying about two of them. Overlap depth is the one thing colour encodes here — one set is a light wash, two is mid, three is full — so the reader gets the count before reading a single number.</div>
+
+<div style="margin-top:24px;background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:28px">
+<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:18px">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase">Region</span>
+<button onClick="{{vnClear}}" aria-pressed="{{vnAllOn}}" style="{{vnClearStyle}}">All regions</button>
+<span style="font-size:14px;font-weight:400">{{ vnHint }}</span>
+</div>
+<div style="overflow-x:auto;background:#fafafa;border:1px dashed #d9d9d9;border-radius:12px;padding:16px">
+<div style="width:960px;height:440px;position:relative" role="img" aria-label="Venn diagram of 48 datasets across three sets: certified, has an owner, and SLA-backed. Eleven datasets are in all three; three are in none.">
+<svg width="960" height="440" style="position:absolute;left:0;top:0;pointer-events:none">
+<sc-for list="{{vnCircles}}" as="c" hint-placeholder-count="3">
+<circle cx="{{c.cx}}" cy="{{c.cy}}" r="120" fill="rgba(27,189,148,.12)" stroke="#000" stroke-width="1.5" opacity="{{c.op}}"></circle>
+</sc-for>
+</svg>
+<sc-for list="{{vnNames}}" as="s" hint-placeholder-count="3">
+<span style="{{s.style}}">{{s.t}}</span>
+</sc-for>
+<sc-for list="{{vnRegions}}" as="r" hint-placeholder-count="7">
+<button onClick="{{r.on}}" aria-pressed="{{r.pressed}}" aria-label="{{r.aria}}" style="{{r.style}}">{{r.count}}</button>
+</sc-for>
+<div style="position:absolute;right:0;bottom:0;display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase"><span style="width:26px;height:0;border-top:1px dotted #d9d9d9"></span>3 datasets in no set</div>
+</div>
+</div>
+<div style="margin-top:18px;border-top:1px solid #ebebeb;padding-top:16px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase">{{vnTitle}}</div>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:10px;max-width:70ch;text-wrap:pretty">{{vnBody}}</div>
+</div>
+</div>
+</dc-import>
+
+<dc-import name="cm-section" n="3" id="sec-cause" title="Cause &amp; effect" label="ss: 03 Cause and effect" chip="T2 · 6 categories · 12 causes" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">The one family allowed to break orthogonal routing: the diagonal bone is the notation, not a shortcut. Everything converges right, on a single named effect, and that effect is the emphasized node. Categories are chosen before the causes are written, so an empty bone is a finding rather than a gap.</div>
+
+<div style="margin-top:24px;background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:28px">
+<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:18px">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase">Focus category</span>
+<button onClick="{{fbClear}}" aria-pressed="{{fbAllOn}}" style="{{fbClearStyle}}">All causes</button>
+<span style="font-size:14px;font-weight:400">{{ fbHint }}</span>
+</div>
+<div style="overflow-x:auto;background:#fafafa;border:1px dashed #d9d9d9;border-radius:12px;padding:16px">
+<div style="width:960px;height:400px;position:relative" role="img" aria-label="Fishbone diagram: people, process, tooling, data, monitoring and upstream causes converging on fourteen missed freshness SLAs in the second quarter.">
+<svg width="960" height="400" style="position:absolute;left:0;top:0;pointer-events:none">
+<defs><marker id="mfb" markerWidth="9" markerHeight="9" refX="8" refY="3.2" orient="auto"><path d="M0,0 L8,3.2 L0,6.4 z" fill="#000"></path></marker></defs>
+<path d="M40,200 H756" fill="none" stroke="#000" stroke-width="2" marker-end="url(#mfb)"></path>
+<sc-for list="{{fbBones}}" as="b" hint-placeholder-count="6">
+<path d="{{b.d}}" fill="none" stroke="#000" stroke-width="2" opacity="{{b.op}}" marker-end="url(#mfb)"></path>
+</sc-for>
+<sc-for list="{{fbTicks}}" as="t" hint-placeholder-count="12">
+<path d="{{t.d}}" fill="none" stroke="#000" stroke-width="1.5" opacity="{{t.op}}"></path>
+</sc-for>
+</svg>
+<div style="position:absolute;left:772px;top:170px;width:180px;height:60px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;padding:0 16px;background:#fff;border:1.5px solid #000;border-radius:12px;box-shadow:6px 6px 0 rgba(0,0,0,.08)">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase">Effect</span>
+<span style="font-weight:800;font-size:14px;margin-top:3px;line-height:1.3">Freshness SLA missed 14× in Q2</span>
+</div>
+<sc-for list="{{fbCats}}" as="c" hint-placeholder-count="6">
+<button onClick="{{c.on}}" aria-pressed="{{c.pressed}}" style="{{c.style}}">{{c.t}}</button>
+</sc-for>
+<sc-for list="{{fbCauses}}" as="c" hint-placeholder-count="12">
+<div style="{{c.style}}">{{c.t}}</div>
+</sc-for>
+</div>
+</div>
+<div style="margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase">{{fbReadout}}</div>
+</div>
+</dc-import>
+
+<dc-import name="cm-section" n="4" id="sec-bpmn" title="Process notation" label="ss: 04 Process notation" chip="T2 · BPMN subset · 2 pools" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Where ss: 02 of the <a href="content-morphia Diagrams.dc.html">diagram library</a> draws a process for a reader, this draws one for an implementer. Six symbols only — start, task, exclusive gateway, end, sequence flow, message flow — because a notation nobody can read back is worse than prose. Shape carries the meaning; colour carries none of it.</div>
+
+<div style="background:#fff;border-radius:14px;padding:28px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);margin-top:24px">
+<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:18px">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase">Notation</span>
+<button onClick="{{bpToggle}}" aria-pressed="{{bpOn}}" style="{{bpBtnStyle}}">{{bpBtnLabel}}</button>
+</div>
+<sc-if value="{{bpOn}}" hint-placeholder-val="{{true}}">
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px" data-stack>
+<sc-for list="{{bpLegend}}" as="g" hint-placeholder-count="6">
+<div style="display:flex;align-items:flex-start;gap:12px">
+<div style="width:46px;height:46px;position:relative;flex-shrink:0;border-radius:8px">
+<div style="{{g.glyph}}"></div>
+</div>
+<div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase">{{g.t}}</div>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:5px">{{g.d}}</div>
+</div>
+</div>
+</sc-for>
+</div>
+</sc-if>
+<div style="overflow-x:auto;background:#fafafa;border:1px dashed #d9d9d9;border-radius:12px;padding:16px">
+<div style="width:960px" role="img" aria-label="BPMN diagram: a certification request is submitted, triaged and scoped, gated on scope, tested by automation, signed off and certified; messages pass to and from the data consumer pool.">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;margin-bottom:10px">Pool · NodeTrak platform</div>
+<div style="display:grid;grid-template-columns:100px 848px;gap:12px">
+<div style="display:grid;grid-template-rows:104px 104px 104px;gap:8px">
+<div style="display:flex;align-items:center;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;line-height:1.4">Requester</div>
+<div style="display:flex;align-items:center;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;line-height:1.4">Steward</div>
+<div style="display:flex;align-items:center;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;line-height:1.4">Automation</div>
+</div>
+<div style="position:relative;height:328px">
+<div style="position:absolute;left:0;top:108px;width:848px;height:0;border-top:1px solid #ebebeb"></div>
+<div style="position:absolute;left:0;top:220px;width:848px;height:0;border-top:1px solid #ebebeb"></div>
+<svg width="848" height="328" style="position:absolute;left:0;top:0;overflow:visible;pointer-events:none">
+<defs>
+<marker id="mbp" markerWidth="9" markerHeight="9" refX="8" refY="3.2" orient="auto"><path d="M0,0 L8,3.2 L0,6.4 z" fill="#000"></path></marker>
+<marker id="mbpo" markerWidth="10" markerHeight="10" refX="8.5" refY="3.4" orient="auto"><path d="M0.6,0.6 L8.4,3.4 L0.6,6.2" fill="none" stroke="#000" stroke-width="1.4"></path></marker>
+</defs>
+<sc-for list="{{bpEdges}}" as="e" hint-placeholder-count="9">
+<path d="{{e.d}}" fill="none" stroke="#000" stroke-width="2" stroke-dasharray="{{e.dash}}" marker-end="{{e.marker}}"></path>
+</sc-for>
+</svg>
+<sc-for list="{{bpLabels}}" as="l" hint-placeholder-count="4">
+<span style="{{l.style}}">{{l.t}}</span>
+</sc-for>
+<sc-for list="{{bpNodes}}" as="n" hint-placeholder-count="8">
+<div style="{{n.style}}">
+<span style="{{n.labStyle}}">{{n.t}}</span>
+</div>
+</sc-for>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:100px 848px;gap:12px;margin-top:20px">
+<div></div>
+<div style="height:62px;display:flex;align-items:center;padding:0 20px;box-sizing:border-box;background:#fff;border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,.06);gap:12px">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;border:1px solid #000;border-radius:4px;padding:2px 8px;white-space:nowrap">Collapsed pool</span>
+<span style="font-weight:800;font-size:14px">Data consumer</span>
+<span style="font-size:14px;font-weight:400">Internals out of scope — only the two messages cross.</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</dc-import>
+
+<dc-import name="cm-section" n="5" id="sec-rules" title="Rules" label="ss: 05 Rules" chip="R13.1 – R13.5" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Five rules these four families added to the grammar.</div>
+
+<div style="margin-top:24px;background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:8px 28px">
+<sc-for list="{{rules}}" as="r" hint-placeholder-count="5">
+<div style="{{r.style}}">
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;background:#000;color:#fff;border-radius:4px;padding:3px 8px;white-space:nowrap">{{r.id}}</span>
+<span style="font-weight:800;font-size:16px">{{r.t}}</span>
+</div>
+<div style="font-size:14.5px;font-weight:400;line-height:1.8;margin-top:9px;max-width:70ch;text-wrap:pretty">{{r.d}}</div>
+</div>
+</sc-for>
+</div>
+
+</dc-import>
+
+<div style="border-top:1px solid #ebebeb;margin-top:96px">
+<div style="max-width:1060px;margin:0 auto;padding:28px 24px 44px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase">
+<span>content-morphia · Diagrams IV </span>
+<span><a href="content-morphia Diagrams III.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1bbd94">Diagrams III</a> · <a href="content-morphia Diagrams II.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1bbd94">Diagrams II</a> · <a href="content-morphia Diagrams at Scale.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1bbd94">At scale</a> · <a href="content-morphia Diagrams.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1bbd94">Diagram library</a></span>
+</div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1200,&quot;height&quot;:900}}">
+const MONO = "font-family:'JetBrains Mono',monospace;";
+const S1 = 'box-shadow:0 1px 2px rgba(0,0,0,.06);';
+const PILL = 'display:inline-block;' + MONO + 'font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:6px 13px;border-radius:999px;white-space:nowrap;';
+const LAB = MONO + 'font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;';
+
+/* ---------- ss: 01 mind map ---------- */
+const MM = [
+  { side: 'r', n: 'Ring 2', t: 'Ingest', leaves: ['Source contracts', 'Schema drift'] },
+  { side: 'r', n: 'Ring 2', t: 'Modelling', leaves: ['Grain & keys', 'Test coverage', 'Lineage depth'] },
+  { side: 'r', n: 'Ring 2', t: 'Governance', leaves: ['Ownership', 'Certification'] },
+  { side: 'l', n: 'Ring 2', t: 'Monitoring', leaves: ['Freshness SLAs', 'Alert routing'] },
+  { side: 'l', n: 'Ring 2', t: 'Enablement', leaves: ['Onboarding path', 'Office hours'] },
+  { side: 'l', n: 'Ring 2', t: 'Tooling', leaves: ['Catalog', 'Runner cluster'] }
+];
+
+/* ---------- ss: 02 set relations ---------- */
+const VN_SETS = [
+  { id: 'A', t: 'Certified', cx: 400, cy: 160, lx: 360, ly: 92 },
+  { id: 'B', t: 'Has owner', cx: 560, cy: 160, lx: 600, ly: 92 },
+  { id: 'C', t: 'SLA-backed', cx: 480, cy: 282, lx: 480, ly: 360 }
+];
+const VN_R = [
+  { k: 'A', label: 'Certified only', c: 6, x: 352, y: 150, sets: ['A'], d: 'Certified against a stale definition and nobody left to maintain it. Six datasets carry a badge with no owner and no service level — the badge is the least trustworthy signal on the page.' },
+  { k: 'B', label: 'Owner only', c: 9, x: 608, y: 150, sets: ['B'], d: 'Nine datasets have a named owner and nothing else. This is the healthy backlog: the cheapest region to move, because the person to ask already exists.' },
+  { k: 'C', label: 'SLA only', c: 4, x: 480, y: 312, sets: ['C'], d: 'Four datasets are monitored to a freshness target that no one has agreed to and no one is accountable for. Alerts here page a rota, not an owner.' },
+  { k: 'AB', label: 'Certified + owner', c: 7, x: 480, y: 116, sets: ['A', 'B'], d: 'Seven datasets are certified and owned but unmonitored. Certification asserts a quality bar that nothing continuously checks.' },
+  { k: 'AC', label: 'Certified + SLA', c: 3, x: 415, y: 255, sets: ['A', 'C'], d: 'Three certified, monitored, ownerless datasets. When the SLA breaks, the alert has nowhere to go.' },
+  { k: 'BC', label: 'Owner + SLA', c: 5, x: 545, y: 255, sets: ['B', 'C'], d: 'Five datasets are owned and monitored but uncertified — usually because certification review is queued, not because they failed it.' },
+  { k: 'ABC', label: 'All three', c: 11, x: 480, y: 200, sets: ['A', 'B', 'C'], d: 'Eleven datasets are certified, owned and SLA-backed. This is the only region the practice counts as covered, and the number every roadmap target is written against.' }
+];
+
+/* ---------- ss: 03 fishbone ---------- */
+const FB = [
+  { t: 'People', sx: 200, up: true, causes: ['Steward rota unstaffed', 'On-call unfamiliar with the DAG'] },
+  { t: 'Process', sx: 400, up: true, causes: ['No pre-merge freshness test', 'Backfills run unscheduled'] },
+  { t: 'Tooling', sx: 600, up: true, causes: ['Runner cluster undersized', 'Retry limit set too low'] },
+  { t: 'Data', sx: 300, up: false, causes: ['Partner feed arrives late', 'Schema drift on two sources'] },
+  { t: 'Monitoring', sx: 500, up: false, causes: ['Threshold set per table', 'Digest batched hourly'] },
+  { t: 'Upstream', sx: 700, up: false, causes: ['Vendor API rate caps', 'Timezone change unannounced'] }
+];
+
+/* ---------- ss: 04 BPMN ---------- */
+const BP_NODES = [
+  { k: 'start', t: 'Request received', cx: 56, cy: 64, above: true },
+  { k: 'task', t: 'Submit request', cx: 176, cy: 64 },
+  { k: 'task', t: 'Triage & scope', cx: 308, cy: 164 },
+  { k: 'gate', t: 'Scope?', cx: 440, cy: 164 },
+  { k: 'end', t: 'Declined', cx: 572, cy: 164 },
+  { k: 'task', t: 'Run test suite', cx: 572, cy: 276 },
+  { k: 'task', t: 'Certify & sign off', cx: 704, cy: 164 },
+  { k: 'end', t: 'Certified', cx: 812, cy: 64, above: true }
+];
+const BP_EDGES = [
+  { d: 'M83,64 H109', dash: '0', m: 'url(#mbp)' },
+  { d: 'M243,64 H308 V130', dash: '0', m: 'url(#mbp)' },
+  { d: 'M375,164 H399.5', dash: '0', m: 'url(#mbp)' },
+  { d: 'M480.5,164 H545', dash: '0', m: 'url(#mbp)' },
+  { d: 'M440,204.5 V276 H505', dash: '0', m: 'url(#mbp)' },
+  { d: 'M639,276 H704 V198', dash: '0', m: 'url(#mbp)' },
+  { d: 'M771,164 H812 V91', dash: '0', m: 'url(#mbp)' },
+  { d: 'M56,340 V91', dash: '5 5', m: 'url(#mbpo)' },
+  { d: 'M740,198 V340', dash: '5 5', m: 'url(#mbpo)' }
+];
+const BP_LABELS = [
+  { t: 'no', x: 494, y: 143 },
+  { t: 'yes', x: 450, y: 224 },
+  { t: 'certification request', x: 68, y: 246 },
+  { t: 'certified notice', x: 600, y: 226 }
+];
+const CTR = 'position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);box-sizing:border-box;';
+const BP_LEGEND = [
+  { t: 'Start event', d: 'Thin circle. What begins the process, named for the trigger.', glyph: CTR + 'width:34px;height:34px;border-radius:999px;border:2px solid #000;background:#fff' },
+  { t: 'Task', d: 'Rounded rectangle, white and lifted. One unit of work with one owner.', glyph: CTR + 'width:36px;height:22px;border-radius:7px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06)' },
+  { t: 'Exclusive gateway', d: 'Diamond. Exactly one outgoing path is taken; every path is labelled.', glyph: 'position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(45deg);box-sizing:border-box;width:26px;height:26px;border:2px solid #000;background:#fff;border-radius:3px' },
+  { t: 'End event', d: 'Thick circle. A terminal state, named for the outcome.', glyph: CTR + 'width:34px;height:34px;border-radius:999px;border:4px solid #000;background:#fff' },
+  { t: 'Sequence flow', d: 'Solid line, filled arrowhead. Order of work inside one pool.', glyph: CTR + 'width:44px;height:0;border-top:2px solid #000' },
+  { t: 'Message flow', d: 'Dashed line, open arrowhead. Crosses a pool boundary — never inside one.', glyph: CTR + 'width:44px;height:0;border-top:2px dashed #000' }
+];
+
+const RULES = [
+  { id: 'R13.1', t: 'Radial layouts are balanced and computed', d: 'A mind map places leaves on a fixed pitch and puts each branch at the centroid of its own leaves, left and right of the subject. Nothing is nudged by eye, and no label is ever rotated: text stays horizontal at every ring, which is what separates a readable decomposition from a decorative one. Edges are undirected — a mind map that grows arrowheads has become a flow and should be redrawn as one.' },
+  { id: 'R13.2', t: 'Overlap depth is the only thing colour counts', d: 'Set diagrams cap at three sets. Wash depth encodes membership count and nothing else — one set at rgba .12, two at .25, three at .3 — so a reader sees the count before reading a number. Every region carries its own count as a mono label, because area is not a quantity anyone can read, and the population outside all sets is always stated: an unlabelled outside is the most common lie in a Venn diagram.' },
+  { id: 'R13.3', t: 'The diagonal is notation, not a shortcut', d: 'Cause-and-effect diagrams are exempt from orthogonal routing (R10) because the angled bone is the family\u2019s identity. The exemption is narrow: bones sit at one shared angle, all text stays horizontal, and every bone terminates on the spine with the R12.1 standoff. No other family may borrow the diagonal.' },
+  { id: 'R13.4', t: 'In a notation, shape carries the meaning', d: 'The BPMN subset is six symbols — start, task, exclusive gateway, end, sequence flow, message flow. Semantics live in shape and line style only; the accent never marks a node type, and a semantic fill would compete with the notation it is drawn inside. A subset is declared in a legend the reader can toggle, so the diagram teaches its own vocabulary.' },
+  { id: 'R13.5', t: 'Boundaries are drawn once, and named', d: 'Pools, lanes and set circles are boundary lines, not containers to be filled. Lanes divide with an inset hairline; a pool whose internals are out of scope is drawn collapsed rather than emptied, and says so. Nodes stay white and lifted inside every one of them (R12.4), so the boundary reads as a boundary and never as a card.' }
+];
+
+class Component extends DCLogic {
+  state = { mm: null, vn: null, fb: null, bp: true };
+
+  renderVals() {
+    const self = this, st = this.state;
+
+    /* ================= ss: 01 mind map ================= */
+    const rows = { r: [], l: [] };
+    ['r', 'l'].forEach(side => {
+      const bs = MM.filter(b => b.side === side);
+      const n = bs.reduce((a, b) => a + b.leaves.length, 0);
+      const pitch = 42, total = n * pitch - 12;
+      let y = (460 - total) / 2 + 15, i = 0;
+      bs.forEach(b => {
+        const ys = b.leaves.map(() => { const v = y; y += pitch; return v; });
+        rows[side].push({ b: b, ys: ys, cy: (ys[0] + ys[ys.length - 1]) / 2 });
+        i++;
+      });
+    });
+    const mmEdges = [], mmBranches = [], mmLeaves = [];
+    let bi = 0;
+    ['r', 'l'].forEach(side => {
+      const R = side === 'r';
+      rows[side].forEach(g => {
+        const idx = bi++, on = st.mm === null || st.mm === idx;
+        const op = on ? 1 : 0.28;
+        const bx = R ? 640 : 320, bcy = g.cy;
+        mmEdges.push({
+          d: R ? 'M578,230 C606,230 606,' + bcy + ' 632,' + bcy
+                : 'M382,230 C354,230 354,' + bcy + ' 328,' + bcy,
+          w: 2, op: op
+        });
+        mmBranches.push({
+          t: g.b.t, n: g.b.leaves.length + ' sub-topics', pressed: st.mm === idx,
+          on: (function (k) { return function () { self.setState({ mm: st.mm === k ? null : k }); }; })(idx),
+          style: 'position:absolute;top:' + (bcy - 25) + 'px;' + (R ? 'left:640px;' : 'left:180px;') +
+            'width:140px;height:50px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;padding:0 14px;' +
+            'border-radius:12px;background:#fff;' +
+            (st.mm === idx ? 'border:1.5px solid #000;box-shadow:3px 3px 0 rgba(0,0,0,.18);' : S1) +
+            'opacity:' + op + ';transition:opacity .15s'
+        });
+        g.b.leaves.forEach((t, k) => {
+          const ly = g.ys[k];
+          mmEdges.push({
+            d: R ? 'M788,' + bcy + ' C797,' + bcy + ' 793,' + ly + ' 802,' + ly
+                  : 'M172,' + bcy + ' C163,' + bcy + ' 167,' + ly + ' 158,' + ly,
+            w: 1.5, op: op
+          });
+          mmLeaves.push({
+            t: t,
+            style: 'position:absolute;top:' + (ly - 15) + 'px;' + (R ? 'left:810px;' : 'left:2px;') +
+              'width:148px;height:30px;box-sizing:border-box;display:flex;align-items:center;' +
+              (R ? 'padding:0 12px;' : 'padding:0 12px;justify-content:flex-end;text-align:right;') +
+              'border-radius:12px;background:#fff;font-size:14px;font-weight:400;' +
+              (on ? S1 : '') + 'opacity:' + op + ';transition:opacity .15s'
+          });
+        });
+      });
+    });
+
+    /* ================= ss: 02 set relations ================= */
+    const sel = st.vn === null ? null : VN_R[st.vn];
+    const vnCircles = VN_SETS.map(s => {
+      const on = !sel || sel.sets.indexOf(s.id) >= 0;
+      return { cx: s.cx, cy: s.cy, op: on ? 1 : 0.3 };
+    });
+    const vnNames = VN_SETS.map(s => {
+      const on = !sel || sel.sets.indexOf(s.id) >= 0;
+      return {
+        t: s.t,
+        style: 'position:absolute;left:' + (s.lx - 70) + 'px;top:' + (s.ly - 9) + 'px;width:140px;text-align:center;' +
+          LAB + 'opacity:' + (on ? 1 : 0.35) + ';transition:opacity .15s'
+      };
+    });
+    const vnRegions = VN_R.map((r, i) => {
+      const active = st.vn === i, dim = sel && !active;
+      return {
+        count: r.c, pressed: active, aria: r.label + ', ' + r.c + ' datasets',
+        on: (function (k) { return function () { self.setState({ vn: st.vn === k ? null : k }); }; })(i),
+        style: 'position:absolute;left:' + (r.x - 23) + 'px;top:' + (r.y - 18) + 'px;width:46px;height:36px;' +
+          'box-sizing:border-box;display:flex;align-items:center;justify-content:center;border-radius:8px;' +
+          'font-weight:900;font-size:22px;line-height:1;' +
+          (active ? 'background:#000;color:#fff;' : 'background:transparent;color:#000;') +
+          'opacity:' + (dim ? 0.35 : 1) + ';transition:opacity .15s'
+      };
+    });
+
+    /* ================= ss: 03 fishbone ================= */
+    const fbBones = [], fbTicks = [], fbCats = [], fbCauses = [];
+    FB.forEach((b, i) => {
+      const on = st.fb === null || st.fb === i, op = on ? 1 : 0.28;
+      const dir = b.up ? -1 : 1, tipX = b.sx - 81, tipY = 200 + dir * 140;
+      fbBones.push({ d: 'M' + tipX + ',' + tipY + ' L' + (b.sx - 4.6) + ',' + (200 + dir * 8), op: op });
+      fbCats.push({
+        t: b.t, pressed: st.fb === i,
+        on: (function (k) { return function () { self.setState({ fb: st.fb === k ? null : k }); }; })(i),
+        style: 'position:absolute;left:' + (tipX - 56) + 'px;top:' + (b.up ? 28 : 346) + 'px;width:112px;box-sizing:border-box;' +
+          'text-align:center;padding:6px 10px;border-radius:999px;background:#fff;' + LAB +
+          (st.fb === i ? 'border:1.5px solid #000;box-shadow:3px 3px 0 rgba(0,0,0,.18);' : S1) +
+          'opacity:' + op + ';transition:opacity .15s'
+      });
+      b.causes.forEach((c, k) => {
+        const t = k === 0 ? 0.4 : 0.72;
+        const px = b.sx - 81 * t, py = 200 + dir * 140 * t;
+        fbTicks.push({ d: 'M' + px + ',' + py + ' h9', op: op });
+        fbCauses.push({
+          t: c,
+          style: 'position:absolute;left:' + (px + 13) + 'px;top:' + (py - 9) + 'px;width:132px;' +
+            'font-size:14px;font-weight:400;line-height:1.35;opacity:' + op + ';transition:opacity .15s'
+        });
+      });
+    });
+
+    /* ================= ss: 04 BPMN ================= */
+    const bpNodes = BP_NODES.map(n => {
+      if (n.k === 'task') return {
+        t: n.t,
+        style: 'position:absolute;left:' + (n.cx - 59) + 'px;top:' + (n.cy - 26) + 'px;width:118px;height:52px;' +
+          'box-sizing:border-box;display:flex;align-items:center;padding:0 14px;border-radius:12px;background:#fff;' + S1,
+        labStyle: 'font-weight:700;font-size:14px;line-height:1.3'
+      };
+      if (n.k === 'gate') return {
+        t: n.t,
+        style: 'position:absolute;left:' + (n.cx - 23) + 'px;top:' + (n.cy - 23) + 'px;width:46px;height:46px;' +
+          'box-sizing:border-box;border:2px solid #000;border-radius:4px;background:#fff;transform:rotate(45deg)',
+        labStyle: 'position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-45deg);white-space:nowrap;' + LAB
+      };
+      const thick = n.k === 'end';
+      return {
+        t: n.t,
+        style: 'position:absolute;left:' + (n.cx - 19) + 'px;top:' + (n.cy - 19) + 'px;width:38px;height:38px;' +
+          'box-sizing:border-box;border-radius:999px;background:#fff;border:' + (thick ? '4px' : '2px') + ' solid #000;' +
+          'display:flex;align-items:center;justify-content:center',
+        labStyle: 'position:absolute;' + (n.above ? 'top:-17px;' : 'top:42px;') +
+          'left:50%;transform:translateX(-50%);white-space:nowrap;' + LAB
+      };
+    });
+    const bpEdges = BP_EDGES.map(e => ({ d: e.d, dash: e.dash, marker: e.m }));
+    const bpLabels = BP_LABELS.map(l => ({
+      t: l.t,
+      style: 'position:absolute;left:' + l.x + 'px;top:' + l.y + 'px;background:#fafafa;padding:0 6px;' + LAB + 'white-space:nowrap'
+    }));
+
+    return {
+      mmEdges: mmEdges, mmBranches: mmBranches, mmLeaves: mmLeaves,
+      mmAllOn: st.mm === null,
+      mmHint: st.mm === null ? 'Click a branch to isolate its sub-tree' : 'Showing ' + MM[st.mm].t,
+      mmClear: () => self.setState({ mm: null }),
+      mmClearStyle: PILL + (st.mm === null ? 'background:#000;color:#fff' : 'background:#f1f1f1;color:#000'),
+      mmReadout: st.mm === null ? '6 branches · 13 sub-topics · undirected edges' : MM[st.mm].t + ' · ' + MM[st.mm].leaves.length + ' sub-topics',
+
+      vnCircles: vnCircles, vnRegions: vnRegions, vnNames: vnNames,
+      vnAllOn: st.vn === null,
+      vnHint: st.vn === null ? 'Click a count to read its members' : 'Showing ' + sel.label,
+      vnClear: () => self.setState({ vn: null }),
+      vnClearStyle: PILL + (st.vn === null ? 'background:#000;color:#fff' : 'background:#f1f1f1;color:#000'),
+      vnTitle: sel ? sel.label + ' · ' + sel.c + ' datasets' : '48 datasets · 3 sets · 7 regions',
+      vnBody: sel ? sel.d : 'Certification, ownership and a freshness SLA are the three commitments the practice tracks. Only the centre region counts as covered; every other region names a specific missing commitment, which is what makes the shape actionable rather than decorative.',
+
+      fbBones: fbBones, fbTicks: fbTicks, fbCats: fbCats, fbCauses: fbCauses,
+      fbAllOn: st.fb === null,
+      fbHint: st.fb === null ? 'Click a category to isolate its bone' : 'Showing ' + FB[st.fb].t,
+      fbClear: () => self.setState({ fb: null }),
+      fbClearStyle: PILL + (st.fb === null ? 'background:#000;color:#fff' : 'background:#f1f1f1;color:#000'),
+      fbReadout: st.fb === null ? '6 categories · 12 causes · one effect' : FB[st.fb].t + ' · ' + FB[st.fb].causes.length + ' causes',
+
+      bpNodes: bpNodes, bpEdges: bpEdges, bpLabels: bpLabels, bpLegend: BP_LEGEND,
+      bpOn: st.bp,
+      bpToggle: () => self.setState({ bp: !st.bp }),
+      bpBtnLabel: st.bp ? 'Hide the symbol legend' : 'Show the symbol legend',
+      bpBtnStyle: PILL + (st.bp ? 'background:#000;color:#fff' : 'background:#fff;color:#000;border:1px solid #000'),
+
+      rules: RULES.map((r, i) => ({
+        id: r.id, t: r.t, d: r.d,
+        style: 'padding:22px 0;' + (i < RULES.length - 1 ? 'border-bottom:1px solid #ebebeb;' : '')
+      }))
+    };
+  }
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&amp;family=JetBrains+Mono:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#fafafa;color:#000;font-family:'Nunito',sans-serif}
+a{color:#000;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px}
+a:hover{background:rgba(29,233,182,.3)}
+::selection{background:rgba(29,233,182,.35)}
+button{font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;background:none;border:none;padding:0;margin:0;text-align:left;cursor:pointer}
+a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid #000;outline-offset:3px}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:#f1f1f1;border-radius:999px}
+::-webkit-scrollbar-thumb{background:rgba(0,0,0,.22);border-radius:999px}
+::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.45)}
+@media(max-width:800px){[data-rule-table]{min-width:0!important}[data-twrap]{overflow-x:auto!important}}
+@media(max-width:640px){[data-stack]{grid-template-columns:1fr!important}}
+
+[data-nav-group] [data-nav-menu]{display:none}
+[data-nav-group]:hover [data-nav-menu],[data-nav-group]:focus-within [data-nav-menu]{display:block}
+</style>
+</helmet>
+
+<div style="position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid #ebebeb">
+<div style="max-width:1060px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:18px;row-gap:10px;flex-wrap:wrap">
+<span style="font-weight:900;font-size:16px;letter-spacing:.01em">content-morphia</span>
+<nav aria-label="Design system" style="display:flex;align-items:center;gap:4px;row-gap:6px;flex-wrap:wrap"><div data-nav-group style="position:relative"><a href="content-morphia Foundations.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Foundations</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Foundations.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Foundations</a><a href="content-morphia Icons.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Icons</a><a href="content-morphia Print.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Print</a><a href="content-morphia Equivalents.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Non-visual equivalents</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Structured.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Components</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Structured.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Structured components</a><a href="content-morphia Prose.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Prose primitives</a><a href="content-morphia Wayfinding.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Wayfinding</a><a href="content-morphia Provenance.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Provenance</a><a href="content-morphia Charts.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Charts</a><a href="content-morphia Interaction.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Interaction</a><a href="content-morphia Learning.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Learning</a><a href="content-morphia Questions.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Questions and answers</a><a href="content-morphia Change.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Change and status</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Diagrams.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Diagrams</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Diagrams.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Diagram library</a><a href="content-morphia Diagrams at Scale.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Diagrams at scale</a><a href="content-morphia Diagrams II.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Technical families</a><a href="content-morphia Diagrams III.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Experience and magnitude</a><a href="content-morphia Diagrams IV.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Structure and notation</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Templates.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Templates</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Templates.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Template index</a><a href="content-morphia T1 Topic.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T1 Topic</a><a href="content-morphia T2 Framework.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T2 Framework</a><a href="content-morphia T3 Process.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T3 Process</a><a href="content-morphia T4 Guide.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T4 Guide</a><a href="content-morphia T5 Module.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T5 Module</a><a href="content-morphia T6 Metric.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T6 Metric</a><a href="content-morphia T7 Comparison.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T7 Comparison</a><a href="content-morphia T8 Roadmap.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T8 Roadmap</a><a href="content-morphia T9 Reference.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T9 Reference</a><a href="content-morphia T10 Glossary.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T10 Glossary</a><a href="content-morphia T11 Case study.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T11 Case study</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Composition.dc.html" aria-current="page" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:4px 9px;background:#fff;border:1px solid #000;box-shadow:2px 2px 0 #1de9b6">Composition</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><span aria-current="page" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:700;background:#f1f1f1">Composition</span><a href="content-morphia Anatomy.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Anatomy and primitives</a><a href="content-morphia Selection.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Selection</a><a href="content-morphia Implementing.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Implementing</a><a href="content-morphia Exemplar.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Worked example</a></div></div></div></nav>
+</div>
+</div>
+
+<div style="background:#fafafa;border-bottom:1px solid #ebebeb">
+<div style="max-width:1060px;margin:0 auto;padding:11px 24px;display:flex;align-items:center;gap:10px;row-gap:8px;flex-wrap:wrap">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">On this page</span>
+<span style="width:1px;height:13px;background:#ebebeb"></span>
+<nav aria-label="Sections of this page" style="display:flex;align-items:center;gap:2px;row-gap:6px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase">
+<a href="#sec-type" onClick="{{ pick1 }}" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 01 Hierarchy</a>
+<a href="#sec-emph" onClick="{{ pick2 }}" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 02 Emphasis</a>
+<a href="#sec-cont" onClick="{{ pick3 }}" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 03 Containment</a>
+<a href="#sec-math" onClick="{{ pick4 }}" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 04 Math &amp; links</a>
+<a href="#sec-fig" onClick="{{ pick5 }}" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 05 Figures &amp; chrome</a>
+</nav>
+</div>
+</div>
+
+<section style="max-width:1060px;margin:0 auto;padding:56px 24px 0">
+<div style="width:52px;height:5px;background:#1de9b6;border-radius:999px;margin-bottom:20px"></div>
+<h1 style="margin:0;font-weight:900;font-size:44px;line-height:1.06">Composition</h1>
+<div style="font-size:16px;font-weight:400;line-height:1.8;max-width:68ch;margin-top:14px;text-wrap:pretty">Which treatment the material calls for, and how many a view may carry. The rules elsewhere in this system determine how each component looks; these determine when to reach for it. Where a rule below names a limit, that limit is the rule — a view that exceeds it is wrong even if every component in it is correct.</div>
+</section>
+
+<section id="sec-type" data-screen-label="ss: 01 Hierarchy" style="max-width:1060px;margin:0 auto;padding:88px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 01</span><h2 style="margin:0;font-weight:900;font-size:28px">Hierarchy</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Four tiers carry headings, and mono is not one of them. A heading always outranks the text beneath it.</div>
+
+<div data-twrap style="margin-top:24px;background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:26px;overflow:hidden">
+<div data-rule-table style="min-width:720px"><div style="display:grid;grid-template-columns:12% 26% minmax(0,62%)">
+<div style="text-align:left;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:0 12px 10px 10px">Tier</div>
+<div style="text-align:left;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:0 12px 10px">Specification</div>
+<div style="text-align:left;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:0 10px 10px 12px">Use for</div>
+</div>
+<sc-for list="{{tiers}}" as="t" hint-placeholder-count="5">
+<div style="display:grid;grid-template-columns:12% 26% minmax(0,62%)">
+<div style="background:{{t.bg}};border-radius:6px 0 0 6px;padding:14px 12px 14px 10px;"><div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">{{t.id}}</div></div>
+<div style="background:{{t.bg}};padding:14px 12px;"><div style="font-weight:700;font-size:14px;line-height:1.45">{{t.name}}</div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;line-height:1.6;margin-top:8px">{{t.spec}}</div></div>
+<div style="background:{{t.bg}};border-radius:0 6px 6px 0;padding:14px 10px 14px 12px;font-size:14px;font-weight:400;line-height:1.65;text-wrap:pretty">{{t.use}}</div>
+</div>
+</sc-for></div>
+</div>
+
+<div data-stack style="margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:28px">
+<div style="background:#fff;border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:24px">
+<div style="font-weight:700;font-size:15px">Mono is meta, never a heading</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;margin-top:10px;text-wrap:pretty">JetBrains Mono at 9.5–10px carries units, identifiers, timestamps, table headers, chip text and provenance. It may never be a container's only heading: a container's title is T3. A bulleted item's explanatory sub-line is body text at 13.5px, never mono.</div>
+</div>
+<div style="background:#fff;border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:24px">
+<div style="font-weight:700;font-size:15px">A part transition outranks what it contains</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;margin-top:10px;text-wrap:pretty">A pillar or part boundary is T2 on its own full-width surface, with the pillar name and section range in mono beneath and 96px of clearance above. It is never a chip, and never smaller than the section titles inside it.</div>
+</div>
+</div>
+</section>
+
+<section id="sec-emph" data-screen-label="ss: 02 Emphasis" style="max-width:1060px;margin:0 auto;padding:88px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 02</span><h2 style="margin:0;font-weight:900;font-size:28px">Emphasis</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Emphasis is rationed, not available. Every device below carries a per-view limit, because the failure mode of this system is many correct components competing in one screen.</div>
+
+<div style="margin-top:24px;background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:26px">
+<div style="font-weight:700;font-size:15px">Semantic labels have two intensities</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Tint is the default and carries no border. Solid is a verdict — the one status in a view that must stop the reader — and takes a 1.5px black border. At most one solid label per view. A semantic label is never a heading and never a table column header.</div>
+<div data-stack style="margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:28px">
+<div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">Tint · default</div>
+<div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">
+<sc-for list="{{tints}}" as="t" hint-placeholder-count="5"><span style="border-radius:4px;padding:3px 9px;background:{{t.bg}}">{{t.k}}</span></sc-for>
+</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;line-height:1.7;margin-top:12px">ok rgba(0,230,118,.20) · warn rgba(255,214,0,.30)<br>crit rgba(255,82,82,.16) · info rgba(64,196,255,.22)<br>note rgba(179,136,255,.22)</div>
+</div>
+<div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">Solid · one per view</div>
+<div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">
+<span style="border:1.5px solid #000;border-radius:4px;padding:3px 9px;background:#00e676">Resolved</span>
+</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;line-height:1.7;margin-top:12px">Full-strength fill from rule 7, 1.5px black border.<br>Reserved for the view's verdict. Neutral chip stays<br>white + 1px black border.</div>
+</div>
+</div>
+</div>
+
+<div data-twrap style="margin-top:28px;background:#fff;border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:26px;overflow:hidden">
+<div data-rule-table style="min-width:720px"><div style="display:grid;grid-template-columns:26% 20% minmax(0,54%)">
+<div style="text-align:left;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:0 12px 10px 10px">Device</div>
+<div style="text-align:left;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:0 12px 10px">Limit per view</div>
+<div style="text-align:left;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:0 10px 10px 12px">Condition</div>
+</div>
+<sc-for list="{{limits}}" as="l" hint-placeholder-count="6">
+<div style="display:grid;grid-template-columns:26% 20% minmax(0,54%)">
+<div style="background:{{l.bg}};border-radius:6px 0 0 6px;padding:14px 12px 14px 10px;font-weight:700;font-size:14px;line-height:1.45">{{l.d}}</div>
+<div style="background:{{l.bg}};padding:14px 12px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.04em">{{l.n}}</div>
+<div style="background:{{l.bg}};border-radius:0 6px 6px 0;padding:14px 10px 14px 12px;font-size:14px;font-weight:400;line-height:1.65;text-wrap:pretty">{{l.c}}</div>
+</div>
+</sc-for></div>
+</div>
+</section>
+
+<section id="sec-cont" data-screen-label="ss: 03 Containment" style="max-width:1060px;margin:0 auto;padding:88px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 03</span><h2 style="margin:0;font-weight:900;font-size:28px">Containment</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">The page is the default surface. A container is a claim that its contents are separable from the flow, so it has to earn the enclosure.</div>
+
+<div style="margin-top:24px;background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:26px">
+<div style="font-weight:700;font-size:15px">Wrap only when one of these is true</div>
+<div style="margin-top:14px;display:grid;gap:12px;max-width:70ch">
+<sc-for list="{{wrapTest}}" as="w" hint-placeholder-count="3">
+<div style="display:flex;gap:12px;align-items:flex-start"><span style="width:3px;height:3px;background:#000;margin-top:10px;flex:none"></span><div style="font-size:15.5px;font-weight:400;line-height:1.8;text-wrap:pretty">{{w}}</div></div>
+</sc-for>
+</div>
+<div style="margin-top:20px;border-top:1px solid #ebebeb;padding-top:20px;font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;text-wrap:pretty">Sequential prose, numbered lists and single explanatory passages sit directly on the page. Never two container levels; a container is never another container's first child.</div>
+</div>
+
+<div data-stack style="margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:28px">
+<div style="background:#fff;border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:24px">
+<div style="font-weight:700;font-size:15px">Heading, prose, then containers</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;margin-top:10px;text-wrap:pretty">A group of containers that directly follows a heading is preceded by at least one sentence naming what the group is and why these items are grouped. A heading is never followed immediately by cards. A group that follows prose or another container already has its context and needs no lead.</div>
+</div>
+<div style="background:#fff;border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:24px">
+<div style="font-weight:700;font-size:15px">Dividers separate siblings only</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;margin-top:10px;text-wrap:pretty">A hairline or dotted rule is legal only between two sibling sections sharing one surface, inset to the content padding. Never between a heading and its own body, never between list items, never directly above or below a container. Spacing does that work.</div>
+</div>
+</div>
+
+<div data-twrap style="margin-top:28px;background:#fff;border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:26px;overflow:hidden">
+<div style="font-weight:700;font-size:15px">Depth follows position, not preference</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Rule 5 gives five recipes; this decides which one. Two combinations are illegal in every case: a blurred shadow with a border, and two S2 peers side by side.</div>
+<div data-rule-table style="min-width:720px;margin-top:20px"><div style="display:grid;grid-template-columns:34% 16% minmax(0,50%)">
+<div style="text-align:left;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:0 12px 10px 10px">Position</div>
+<div style="text-align:left;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:0 12px 10px">Recipe</div>
+<div style="text-align:left;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:0 10px 10px 12px">Value</div>
+</div>
+<sc-for list="{{depth}}" as="d" hint-placeholder-count="5">
+<div style="display:grid;grid-template-columns:34% 16% minmax(0,50%)">
+<div style="background:{{d.bg}};border-radius:6px 0 0 6px;padding:14px 12px 14px 10px;font-size:14px;font-weight:400;line-height:1.65;text-wrap:pretty">{{d.p}}</div>
+<div style="background:{{d.bg}};padding:14px 12px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.04em">{{d.r}}</div>
+<div style="background:{{d.bg}};border-radius:0 6px 6px 0;padding:14px 10px 14px 12px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;line-height:1.6">{{d.v}}</div>
+</div>
+</sc-for></div>
+</div>
+</section>
+
+<section id="sec-math" data-screen-label="ss: 04 Math and links" style="max-width:1060px;margin:0 auto;padding:88px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 04</span><h2 style="margin:0;font-weight:900;font-size:28px">Math and links</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Both are inline devices that read as emphasis whether or not emphasis was intended, so both are rationed.</div>
+
+<div data-stack style="margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:28px">
+<div style="background:#fff;border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:24px">
+<div style="font-weight:700;font-size:15px">One display slab per section</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;margin-top:10px;text-wrap:pretty">The black slab is reserved for a section's defining equation: one per section, interior padding ≥24px. Every other expression is inline.</div>
+<div style="margin-top:16px;background:#000;color:#fff;border-radius:12px;padding:24px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400">n = (z_(1−α/2) + z_(1−β))² · V / δ²</div>
+</div>
+<div style="background:#fff;border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:24px">
+<div style="font-weight:700;font-size:15px">Inline math is not a chip</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;margin-top:10px;text-wrap:pretty">Raw arithmetic inside a sentence is plain mono text and takes no fill: 0.01 × 60,000 = 600. A chip means the token is named again elsewhere, and it is mono on white with a 1px #ebebeb hairline at radius 6 — <span style="font-family:'JetBrains Mono',monospace;font-size:12px;border:1px solid #ebebeb;border-radius:6px;padding:2px 6px">δ_achieved</span> — never a black fill.</div>
+</div>
+</div>
+
+<div style="margin-top:28px;background:#fff;border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:24px">
+<div style="font-weight:700;font-size:15px">A link carries one marker</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">The teal underline is the marker: 1.5px thickness, 3px offset. An <a href="#sec-fig">inline link</a> takes nothing else. The arrow prefix belongs to standalone jump lists, where the arrow replaces a bullet, and never appears on a link inside a sentence.</div>
+</div>
+</section>
+
+<section id="sec-fig" data-screen-label="ss: 05 Figures and chrome" style="max-width:1060px;margin:0 auto;padding:88px 24px 96px;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 05</span><h2 style="margin:0;font-weight:900;font-size:28px">Figures and chrome</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">A figure that does not say what it is becomes decoration. Chrome that is not specified gets the browser's default, which belongs to no design system.</div>
+
+<div style="margin-top:24px;background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:26px">
+<div style="font-weight:700;font-size:15px">Every figure carries three things</div>
+<div style="margin-top:14px;display:grid;gap:12px;max-width:70ch">
+<sc-for list="{{figParts}}" as="f" hint-placeholder-count="3">
+<div style="display:flex;gap:12px;align-items:flex-start"><span style="width:3px;height:3px;background:#000;margin-top:10px;flex:none"></span><div style="font-size:15.5px;font-weight:400;line-height:1.8;text-wrap:pretty">{{f}}</div></div>
+</sc-for>
+</div>
+<div style="margin-top:20px;border-top:1px solid #ebebeb;padding-top:20px;font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;text-wrap:pretty">Magnitude bars are 6px tall on a #f1f1f1 track with the row label at 700. No chip sits inside a bar row; provenance goes below the figure.</div>
+</div>
+
+<div style="margin-top:28px;background:#fff;border-radius:14px;padding:26px;box-shadow:0 1px 2px rgba(0,0,0,.06)">
+<div style="font-weight:700;font-size:15px">Diagrams use three layouts, and nothing else</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Nodes size to their text; arrows run on the layout's own axes. No absolute positioning, no crossing connectors, no node narrower than its longest word. Material that fits none of the three becomes a table.</div>
+<div data-stack style="margin-top:20px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+<sc-for list="{{diagrams}}" as="d" hint-placeholder-count="3">
+<div style="background:#fff;border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:16px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">{{d.k}}</div>
+<div style="font-weight:700;font-size:14px;line-height:1.45;margin-top:10px">{{d.h}}</div>
+<div style="font-size:14px;font-weight:400;line-height:1.65;margin-top:8px;text-wrap:pretty">{{d.t}}</div>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div data-stack style="margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:28px">
+<div style="background:#fff;border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:24px">
+<div style="font-weight:700;font-size:15px">Scrollbars</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;margin-top:10px;text-wrap:pretty">8px, black thumb at radius 999, #f1f1f1 track. Declared once in the helmet reset; never left to the browser default on a scrolling table or rail.</div>
+</div>
+<div style="background:#fff;border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:24px">
+<div style="font-weight:700;font-size:15px">The sticky rail</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;margin-top:10px;text-wrap:pretty">Maximum 260px wide and 60vh tall, scrolling internally past that, and collapsing to a top strip at 1150px per rule 12. A rail never occupies more than a quarter of the viewport's width or more than half its height.</div>
+</div>
+</div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+class Component extends DCLogic {
+  state = { active: 'sec-type' };
+
+  // The marker follows the anchor the reader chose, not the scroll position:
+  // this host suspends the component's scroll events, observers and timers.
+  pick = (id) => () => { if (id !== this.state.active) this.setState({ active: id }); };
+
+  renderVals() {
+    const on = (id) => this.state.active === id ? '#1de9b6' : 'transparent';
+    const z = (a) => a.map((r, i) => Object.assign({}, r, { bg: '#fff' }));
+
+    const tiers = z([
+      { id: 'T1', name: 'Page title', spec: 'Nunito 900 · 44px · 1.06', use: 'One per document, above the teal bar and the standfirst.' },
+      { id: 'T2', name: 'Section title', spec: 'Nunito 900 · 28px', use: 'A numbered section, and a part or pillar transition. Preceded by the teal bar and the ss: NN mono marker.' },
+      { id: 'T3', name: 'Module title', spec: 'Nunito 700 · 15px · sentence case', use: 'The heading of any container, card, callout, figure or table. This is the tier that replaces mono caps as a sub-heading.' },
+      { id: 'T4', name: 'Body', spec: 'Nunito 400 · 15.5px · 1.85 · ≤70ch', use: 'Reading text, and a bulleted item\u2019s explanatory sub-line at 13.5px.' },
+      { id: 'Meta', name: 'Mono', spec: 'JetBrains Mono 700 · 9.5\u201310px · caps · ls .08\u2013.1em', use: 'Units, identifiers, timestamps, table headers, chip text, provenance. Never a heading of any kind.' }
+    ]);
+
+    const tints = [
+      { k: 'Ok', bg: 'rgba(0,230,118,.2)' },
+      { k: 'Warn', bg: 'rgba(255,214,0,.3)' },
+      { k: 'Crit', bg: 'rgba(255,82,82,.16)' },
+      { k: 'Info', bg: 'rgba(64,196,255,.22)' },
+      { k: 'Note', bg: 'rgba(179,136,255,.22)' }
+    ];
+
+    const limits = z([
+      { d: 'Solid semantic label', n: '1', c: 'The view\u2019s verdict \u2014 the single status a reader must not miss. Every other status is a tint.' },
+      { d: 'Status chips in a title block', n: '3', c: 'Beyond three, the reader stops reading them. Aliases and secondary identifiers past four collapse behind a disclosure.' },
+      { d: 'Reserved teal offset (L2)', n: '1', c: 'Already rule 5. Zero is legal; two is not.' },
+      { d: 'Black display slab', n: '1 per section', c: 'The section\u2019s defining equation only. All other expressions are inline mono.' },
+      { d: 'Teal list marker', n: '\u22645 items', c: 'A scannable list of peers at body size. Longer or nested lists take a 3px black square. Never on a list whose items carry sub-lines.' },
+      { d: 'Callouts in direct succession', n: '1', c: 'Two callouts never touch. Prose separates them, or they become one callout, or one of them was not needed.' }
+    ]);
+
+    const wrapTest = [
+      'It is one of two or more peers being compared, and the comparison is the point.',
+      'It is an aside the reader may skip without losing the thread.',
+      'It is an interactive surface \u2014 a control, an input, a disclosure.'
+    ];
+
+    const depth = z([
+      { p: 'A card in a grid of peers', r: 'S1', v: '0 1px 2px rgba(0,0,0,.06)' },
+      { p: 'The one primary container in a section', r: 'S2', v: '0 4px 14px rgba(0,0,0,.08)' },
+      { p: 'A hero, chart frame, code frame or sticky rail', r: 'S3', v: '0 14px 28px -6px rgba(0,0,0,.11)' },
+      { p: 'Static emphasis on one element', r: 'L1e', v: '1.5px solid #000 + 6px 6px 0 rgba(0,0,0,.08)' },
+      { p: 'A container whose children carry shadows', r: 'none', v: '1px dashed #d9d9d9 frame \u2014 one depth family per level' }
+    ]);
+
+    const figParts = [
+      'A title at T3, naming what the figure shows rather than restating the section.',
+      'One line of description above it, saying what the reader should take from it.',
+      'Provenance in mono below it \u2014 source, or the fact that the shapes are illustrative.'
+    ];
+
+    const diagrams = [
+      { k: 'Layout 1', h: 'Single-column ladder', t: 'Sequential steps, one arrow between neighbours, no branches.' },
+      { k: 'Layout 2', h: 'Two columns, one join', t: 'Two parallel tracks that meet once. The join is the only horizontal connector.' },
+      { k: 'Layout 3', h: 'Decision gate', t: 'One diamond, a yes path continuing down and a no path leaving right. One gate per diagram.' }
+    ];
+
+    return {
+      tiers, tints, limits, wrapTest, depth, figParts, diagrams,
+      navA1: on('sec-type'), navA2: on('sec-emph'), navA3: on('sec-cont'),
+      navA4: on('sec-math'), navA5: on('sec-fig'),
+      pick1: this.pick('sec-type'), pick2: this.pick('sec-emph'), pick3: this.pick('sec-cont'),
+      pick4: this.pick('sec-math'), pick5: this.pick('sec-fig')
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&amp;family=JetBrains+Mono:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#fff;color:#000;font-family:'Nunito',sans-serif}
+a{color:#000;text-decoration:underline;text-decoration-color:#1bbd94;text-decoration-thickness:1.5px;text-underline-offset:3px}
+a:hover{background:rgba(27,189,148,.3)}
+::selection{background:rgba(27,189,148,.35)}
+button{font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;background:none;border:none;padding:0;margin:0;text-align:left;cursor:pointer}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px solid #000;outline-offset:3px}
+@media(max-width:640px){[style*="columns:1fr 1fr"],[style*="columns:repeat(2,1fr)"],[style*="columns:repeat(4,1fr)"]{grid-template-columns:1fr 1fr!important}}
+@media(max-width:800px){#cs-bars [data-row]{grid-template-columns:1fr!important;row-gap:10px!important}#cs-nw [data-row]{grid-template-columns:1fr!important;row-gap:8px!important}#cs-nw-head{display:none!important}}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:#f1f1f1;border-radius:999px}
+::-webkit-scrollbar-thumb{background:rgba(0,0,0,.22);border-radius:999px}
+::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.45)}
+
+[data-nav-group] [data-nav-menu]{display:none}
+[data-nav-group]:hover [data-nav-menu],[data-nav-group]:focus-within [data-nav-menu]{display:block}
+</style>
+</helmet>
+
+<dc-import name="cm-nav" page="T11 Case study.dc.html" chip="T11 Case study" hint-size="100%,58px"></dc-import>
+
+<dc-import name="cm-toc" items='[["#s1","ss: 01 The claim"],["#s2","ss: 02 Before and after"],["#s3","ss: 03 What was done"],["#s4","ss: 04 What did not work"],["#s5","ss: 05 Rules"]]' hint-size="100%,44px"></dc-import>
+
+<dc-import name="cm-mast" title="Certification as a merge gate" crumbs='[["Library","content-morphia T1 Topic.dc.html"],["Pipeline certification","content-morphia T4 Guide.dc.html"],["Payments domain, 2026"]]' hint-size="100%,300px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:16px;text-wrap:pretty">One domain turned certification from an advisory check into a blocking one over six months. This node records what was measured before and after, what else changed in the same period, and which parts of it were withdrawn.</div>
+<div style="display:flex;align-items:center;gap:8px;row-gap:8px;flex-wrap:wrap;margin-top:20px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.02em;text-transform:uppercase">
+<span style="padding:2px 8px;border-radius:4px;border:1px solid #000;font-weight:700">Case study</span>
+<span style="padding:3px 10px;border-radius:999px;border:1px solid #000;font-weight:700">Payments domain</span>
+<span style="padding:3px 10px;border-radius:999px;background:rgba(0,230,118,.2);font-weight:700">Published</span>
+<span style="font-weight:400">34 tables · 9 teams · Feb–Jul 2026</span>
+</div>
+</dc-import>
+
+<dc-import name="cm-section" n="1" id="s1" title="What this is evidence for" label="ss: 01 The claim" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">A proof node exists to support a claim made somewhere else. The claim is stated first, in the words the method uses, so a reader can tell within one sentence whether this instance is relevant to them.</div>
+
+<div style="margin-top:28px;background:#fff;border-radius:14px;{{ claimDepth }};padding:28px">
+<h3 style="margin:0;font-size:21px;font-weight:800;line-height:1.3">The claim under test</h3>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;margin-top:14px;max-width:64ch;text-wrap:pretty">A blocking certification gate reduces definition drift without materially slowing delivery.</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;margin-top:16px;max-width:64ch;text-wrap:pretty">Half held. Drift incidents fell from fourteen a quarter to three, and the share of certified tables rose from eleven of thirty-four to thirty-one. Delivery did slow: the median schema change took half a day longer at the end of the period than at the start.</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;margin-top:14px;max-width:64ch;text-wrap:pretty">Evidence for <a href="content-morphia T4 Guide.dc.html">Pipeline certification rollout</a>, which cites this node at its gating decision.</div>
+</div>
+
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:32px">
+<sc-for list="{{ scope }}" as="f" hint-placeholder-count="4">
+<div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase">{{ f.k }}</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.7;margin-top:10px">{{ f.v }}</div>
+</div>
+</sc-for>
+</div>
+</dc-import>
+
+<dc-import name="cm-section" n="2" id="s2" title="Before and after" label="ss: 02 Before and after" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Four measures, each read the same way in both periods, each carrying its own value beside the bar. The measure that moved the wrong way sits in the same list as the three that improved: a set of results with no losses in it gets discounted whole, and rightly.</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:16px;text-wrap:pretty">Two of the four had something else change underneath them inside the after period. Annotating them is not a caveat on the finding; it is what lets a reader decide how much of the movement to attribute to the gate.</div>
+
+<div id="cs-bars" style="margin-top:28px;background:#fff;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:28px">
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;row-gap:10px;flex-wrap:wrap">
+<h3 style="margin:0;font-size:21px;font-weight:800;line-height:1.3">Measures, Nov–Jan against May–Jul</h3>
+<button onClick="{{ toggleConfounds }}" aria-pressed="{{ confoundsOn }}" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:8px 16px;border-radius:999px;border:1.5px solid #000;background:#fff" style-hover="transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18)">{{ confoundLabel }}</button>
+</div>
+<div style="display:grid;row-gap:24px;margin-top:24px">
+<sc-for list="{{ measures }}" as="m" hint-placeholder-count="4">
+<div data-row style="display:grid;grid-template-columns:1fr 300px;gap:28px;align-items:start;padding-top:20px;border-top:{{ m.rule }}">
+<div>
+<div style="font-size:15.5px;font-weight:700;line-height:1.5">{{ m.name }}</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;margin-top:10px">{{ m.unit }} · {{ m.dir }}</div>
+<sc-if value="{{ m.showNote }}" hint-placeholder-val="{{ false }}">
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:14px;border-top:1px solid #ebebeb;padding-top:14px;max-width:60ch">{{ m.note }}</div>
+</sc-if>
+</div>
+<div style="display:grid;row-gap:12px">
+<div>
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase"><span>Before</span><span style="font-size:12px;font-weight:600;letter-spacing:0;text-transform:none">{{ m.beforeV }}</span></div>
+<div style="height:6px;border-radius:999px;background:#f1f1f1;margin-top:8px"><div style="height:6px;border-radius:999px;border:1px solid #000;box-sizing:border-box;background:repeating-linear-gradient(45deg,#1bbd94 0 2.5px,#fff 2.5px 7px);width:{{ m.beforeW }}"></div></div>
+</div>
+<div>
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase"><span>After</span><span style="font-size:12px;font-weight:600;letter-spacing:0;text-transform:none">{{ m.afterV }}</span></div>
+<div style="height:6px;border-radius:999px;background:#f1f1f1;margin-top:8px"><div style="height:6px;border-radius:999px;background:#1bbd94;width:{{ m.afterW }}"></div></div>
+</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600">{{ m.delta }}</div>
+</div>
+</div>
+</sc-for>
+</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase;margin-top:24px;border-top:1px solid #ebebeb;padding-top:20px">Each row scaled to its own larger value · every value written beside its bar · three months either side of the gate</div>
+</div>
+</dc-import>
+
+<dc-import name="cm-section" n="3" id="s3" title="What was done, and when" label="ss: 03 What was done" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Four changes over five months, dated, because the dates are what a reader matches against their own measures. This is the intervention, not the method: the method is written once at the guide and is not restated here.</div>
+
+<div style="display:grid;row-gap:20px;margin-top:28px;max-width:74ch">
+<sc-for list="{{ steps }}" as="s" hint-placeholder-count="4">
+<div style="display:grid;grid-template-columns:102px 1fr;gap:20px;align-items:baseline">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600">{{ s.when }}</span>
+<div><span style="font-size:15.5px;font-weight:700;line-height:1.6">{{ s.head }}</span><span style="font-size:15.5px;font-weight:400;line-height:1.85"> {{ s.body }}</span></div>
+</div>
+</sc-for>
+</div>
+
+<div style="margin-top:32px;max-width:74ch">
+<h3 style="margin:0;font-size:21px;font-weight:800;line-height:1.3">The note from the team that ran it</h3>
+<div style="border-left:2px solid #000;border-top:2px solid #000;width:14px;height:14px;margin-top:14px"></div>
+<div style="font-size:19px;font-weight:300;line-height:1.85;margin-top:16px;max-width:56ch;text-wrap:pretty">“Blocking was the easy part — one flag. The month we spent writing down what a definition had to contain is what actually stopped the drift, and we nearly skipped it.”</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;margin-top:6px">— Staff engineer, payments data platform · 14 Jul 2026</div>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:28px;border-top:1px solid #ebebeb;padding-top:20px">Quoted because it carries something the measures do not: which half of the work did the job. A quotation that restates the paragraph above it is decoration, and a proof node has no room for it.</div>
+</div>
+</dc-import>
+
+<dc-import name="cm-section" n="4" id="s4" title="What did not work" label="ss: 04 What did not work" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Three parts of the rollout were withdrawn or never landed. These are the scope conditions on the claim: a reader planning the same change reads this section to find out which pieces to leave out.</div>
+
+<div id="cs-nw" style="margin-top:28px;background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:28px">
+<h3 style="margin:0;font-size:21px;font-weight:800;line-height:1.3">Withdrawn, and why</h3>
+<div id="cs-nw-head" data-row style="display:grid;grid-template-columns:1fr 1.25fr 120px;gap:20px;padding:12px;margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;background:#fff;border-bottom:1.5px solid #000">
+<span>What was tried</span><span>Why it came out</span><span>Ended</span>
+</div>
+<div style="display:grid;row-gap:2px;margin-top:2px">
+<sc-for list="{{ notWorked }}" as="n" hint-placeholder-count="3">
+<div data-row style="display:grid;grid-template-columns:1fr 1.25fr 120px;gap:20px;align-items:baseline;padding:14px 12px;border-radius:6px;background:{{ n.bg }}">
+<span style="font-size:15.5px;font-weight:400;line-height:1.7">{{ n.what }}</span>
+<span style="font-size:14px;font-weight:400;line-height:1.7">{{ n.why }}</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600">{{ n.when }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div style="margin-top:28px;background:rgba(255,82,82,.16);border-radius:12px;padding:20px 20px;max-width:74ch">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase">Limitation</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.8;margin-top:10px;text-wrap:pretty">One domain, one period, no control group. Nothing here separates the gate from the two teams that merged mid-period or from the audit moving to a monthly cadence. Treat the direction as evidence and the magnitudes as this domain's own numbers.</div>
+</div>
+</dc-import>
+
+<dc-import name="cm-section" n="5" id="s5" title="Rules this template adds" label="ss: 05 Rules" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Six rules binding on every proof node and on the before-and-after module wherever it appears.</div>
+<div style="display:grid;row-gap:20px;margin-top:24px;max-width:74ch">
+<sc-for list="{{ rules }}" as="r" hint-placeholder-count="6">
+<div style="display:grid;grid-template-columns:76px 1fr;gap:16px;align-items:baseline">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em">{{ r.id }}</span>
+<div><span style="font-size:15.5px;font-weight:700;line-height:1.5">{{ r.head }}</span><span style="font-size:15.5px;font-weight:400;line-height:1.85"> {{ r.body }}</span></div>
+</div>
+</sc-for>
+</div>
+</dc-import>
+
+<footer style="max-width:1060px;margin:96px auto 0;padding:24px;border-top:1px solid #ebebeb">
+<div style="display:flex;align-items:center;gap:16px;row-gap:10px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase">
+<span style="font-weight:700">content-morphia</span>
+<span>Template 11 · Case study · R32.1–R32.6</span>
+<span style="margin-left:auto;display:flex;gap:16px;row-gap:8px;flex-wrap:wrap"><a href="content-morphia Templates.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1bbd94;padding-bottom:1px">Template index</a><a href="content-morphia T10 Glossary.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1bbd94;padding-bottom:1px">T10 Glossary</a><a href="content-morphia Prose.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1bbd94;padding-bottom:1px">Prose</a><a href="content-morphia Selection.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1bbd94;padding-bottom:1px">Selection &amp; gate</a></span>
+</div>
+</footer>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showConfounds&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Before and after&quot;},&quot;barMode&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Bars&quot;,&quot;Numbers only&quot;],&quot;default&quot;:&quot;Bars&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Before and after&quot;},&quot;emphasis&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Claim&quot;,&quot;None&quot;],&quot;default&quot;:&quot;Claim&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Depth&quot;}}">
+class Component extends DCLogic {
+  constructor(p) {
+    super(p);
+    this.state = { conf: null };
+  }
+
+  SCOPE = [
+    ['Scope', '34 tables across 9 producing teams, one domain.'],
+    ['Period', 'Gate advisory from 12 Mar 2026, blocking from 4 May 2026.'],
+    ['Measured', 'Nov\u2013Jan against May\u2013Jul, three months either side.'],
+    ['Confidence', 'Moderate. One domain, no control group, two known confounds.']
+  ];
+
+  M = [
+    ['Definition drift incidents', 'per quarter', 14, 3, '14', '3', '\u221211 (\u221279%)', 'Improved',
+      'The audit that finds drift moved from a quarterly to a monthly cadence in April, inside the after period. Both figures are counts per quarter, but the after period was inspected three times as often, so the true before figure is likely higher than fourteen rather than lower.'],
+    ['Certified tables in the domain', 'of 34 tables', 11, 31, '11', '31', '+20', 'Improved', ''],
+    ['Certificate lapses', 'per month', 6, 1, '6', '1', '\u22125', 'Improved',
+      'Expiry notices moved from the platform channel to the owning team\u2019s channel in June. A team that now sees its own notice two weeks out is a plausible cause of part of this movement.'],
+    ['Median time to merge a schema change', 'days', 2.1, 2.6, '2.1', '2.6', '+0.5', 'Worsened', '']
+  ];
+
+  STEPS = [
+    ['Feb 2026', 'A registry entry became a precondition for creating a table.', 'No definition, no table. This is the change the team credits, and it landed before anything was gated.'],
+    ['Mar 2026', 'The gate went on in advisory mode.', 'A failing check commented on the merge request and blocked nothing, for eight weeks, so teams could see what would have stopped.'],
+    ['May 2026', 'Advisory became blocking for tier one and tier two.', 'Tier three was left advisory, and stayed that way \u2014 the reason is in the next section.'],
+    ['Jun 2026', 'Expiry notices moved to the owning team\u2019s channel.', 'Previously they went to the platform channel, where nobody owning a table was reading them.']
+  ];
+
+  NW = [
+    ['A two-week grace period after a failed check.', 'Used as an extension by default rather than an exception, on 22 of 26 failures. Removed rather than tightened.', 'Jun 2026'],
+    ['Automated comparison of registry definition against warehouse implementation.', 'Around 60% of what it flagged was a formatting difference. Reviewers stopped reading it inside three weeks.', 'May 2026'],
+    ['Gating tier-three tables.', 'Never attempted. Two thirds have no recorded owner, so a blocking check has nobody to route to.', '\u2014']
+  ];
+
+  RULES = [
+    ['R32.1', 'A proof node names the claim it is evidence for, and links the method that makes it.', 'The method links back. Evidence nothing cites is not indexed, and a case study with no claim above it is a story about a team.'],
+    ['R32.2', 'Before and after use the same measure, the same definition and stated periods.', 'Both figures carry the window they were measured over, and every value is written beside its own bar \u2014 which is what exempts the module from carrying a separate table. Rows scale to their own larger value, never to a shared axis across different units.'],
+    ['R32.3', 'Everything else that changed in the period is stated.', 'A single-site before and after cannot separate the intervention from what ran alongside it. Confounds attach to the measures they affect, not to a caveat at the foot of the page.'],
+    ['R32.4', 'A measure that moved the wrong way sits in the same list as the ones that improved.', 'Not a footnote, not omitted, and not softened by wording. Direction is a mono word in the row, never a colour and never a chip inside the bar.'],
+    ['R32.5', 'A quotation carries something the measures cannot.', 'A judgement, a cost or a surprise, verbatim, with role and date, bound to the passage it belongs to. Never a testimonial, never anonymous, and never a restatement of the paragraph above it.'],
+    ['R32.6', 'What did not work is a section, not a sentence.', 'Which parts were withdrawn, why, and when they ended. These are the scope conditions on the claim: they are what tells the next reader which pieces to leave out.']
+  ];
+
+  renderVals() {
+    const on = this.state.conf === null ? this.props.showConfounds !== false : this.state.conf;
+    const bars = (this.props.barMode || 'Bars') === 'Bars';
+    const emph = (this.props.emphasis || 'Claim') === 'Claim';
+
+    const measures = this.M.map((m, i) => {
+      const max = Math.max(m[2], m[3]) || 1;
+      return {
+        name: m[0], unit: m[1],
+        beforeV: m[4] + ' ' + m[1], afterV: m[5] + ' ' + m[1],
+        beforeW: bars ? (m[2] / max * 100).toFixed(1) + '%' : '0%',
+        afterW: bars ? (m[3] / max * 100).toFixed(1) + '%' : '0%',
+        delta: m[6], dir: m[7], note: m[8],
+        showNote: on && !!m[8],
+        rule: i === 0 ? 'none' : '1px solid #ebebeb'
+      };
+    });
+
+    return {
+      scope: this.SCOPE.map((s) => ({ k: s[0], v: s[1] })),
+      measures,
+      claimDepth: emph ? 'border:1.5px solid #000;box-shadow:5px 5px 0 #1bbd94' : 'box-shadow:0 4px 14px rgba(0,0,0,.08)',
+      confoundsOn: on,
+      confoundLabel: on ? 'Hide confounds' : 'Annotate confounds',
+      toggleConfounds: () => this.setState({ conf: !on }),
+      steps: this.STEPS.map((s) => ({ when: s[0], head: s[1], body: s[2] })),
+      notWorked: this.NW.map((n, i) => ({ what: n[0], why: n[1], when: n[2], bg: '#fff' })),
+      rules: this.RULES.map((r) => ({ id: r[0], head: r[1], body: r[2] }))
+    };
+  }
+}
+
+</script>
+</body>
+</html>

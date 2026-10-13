@@ -1,0 +1,864 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Content Morphia Report Kit · Spec &amp; component gallery</title>
+<script>(function(){var t;try{t=localStorage.getItem('cm-theme')}catch(e){}document.documentElement.dataset.theme=t||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')})()</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,300;1,400&family=JetBrains+Mono:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="report-kit/cm-report.css">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js" defer></script>
+<script src="report-kit/cm-report.js" defer></script>
+<style>
+/* gallery-only helpers; never used in reports */
+.g-comp{display:flex;flex-direction:column;gap:32px}
+.g-comp>header{display:flex;flex-direction:column;gap:14px}
+.g-comp>header p{font-size:15px;line-height:1.85;max-width:70ch;margin-top:4px}
+.g-src .cm-code{margin-top:14px}
+.g-src pre{max-height:420px;font-size:12px;line-height:1.9}
+.g-sw{display:flex;flex-direction:column;gap:12px;min-width:0}
+.g-sw>i{display:block;height:64px;border-radius:12px}
+.g-sw>span{display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+</style>
+</head>
+<body>
+
+<header class="cm-topbar">
+  <div class="cm-topbar__in">
+    <a class="cm-wordmark" href="#top">content-morphia</a>
+    <span class="cm-chip">Report kit 1.1</span>
+    <div class="cm-topbar__actions">
+      <a class="cm-btn cm-btn--quiet cm-btn--sm" href="Sample%20Report%20-%20Q3%20Support%20Review.html">Sample report</a>
+      <button class="cm-btn cm-btn--quiet cm-btn--sm" type="button" data-cm-theme-toggle>Dark mode</button>
+      <button class="cm-btn cm-btn--secondary cm-btn--sm" type="button" data-cm-print>Print / PDF</button>
+    </div>
+  </div>
+</header>
+
+<div class="cm-shell">
+  <nav class="cm-rail" aria-label="Contents">
+    <div class="cm-toc">
+      <span class="cm-label">Contents</span>
+      <ol>
+        <li><a href="#use"><span class="n">01</span>Using the kit</a></li>
+        <li><a href="#changes"><span class="n">02</span>Updates to Foundations</a></li>
+        <li><a href="#tokens"><span class="n">03</span>Tokens</a></li>
+        <li><a href="#anatomy"><span class="n">04</span>Report anatomy</a></li>
+        <li><a href="#components"><span class="n">05</span>Components</a></li>
+        <li><a href="#charts"><span class="n">06</span>Charts</a></li>
+        <li><a href="#modes"><span class="n">07</span>Motion, dark, print</a></li>
+        <li><a href="#checklist"><span class="n">08</span>Agent checklist</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main class="cm-main" id="top">
+    <header class="cm-mast">
+      <nav class="cm-crumbs" aria-label="Breadcrumb"><a href="#top">Content Morphia</a><span class="sep" aria-hidden="true">/</span><span aria-current="page">Report kit</span></nav>
+      <div class="cm-bar" aria-hidden="true"></div>
+      <h1 class="cm-mast__title" data-comment-anchor="6575cb00d1-h1">Report Kit: spec and component gallery</h1>
+      <p class="cm-mast__dek">How agents assemble reports, documents and analyses as HTML artifacts on Content Morphia: the rules, the tokens, every block with copy-paste markup, and the chart method.</p>
+      <dl class="cm-mast__meta">
+        <div><dt>Status</dt><dd><span class="cm-chip">Spec</span><span class="cm-chip cm-chip--warn" data-comment-anchor="3543f5ded7-span">In review</span></dd></div>
+        <div><dt>Version</dt><dd>1.1</dd></div>
+        <div data-comment-anchor="e4dd137118-span"><dt>Last updated</dt><dd>2026-10-12</dd></div>
+        <div><dt>Agent-readable spec</dt><dd><code>report-kit/SPEC.md</code></dd></div>
+      </dl>
+    </header>
+
+    <!-- 01 -->
+    <section class="cm-section" id="use" aria-labelledby="use-t">
+      <header class="cm-section__head"><span class="cm-section__num" data-comment-anchor="e0a636d494-span">Part 01</span><h2 class="cm-section__title" id="use-t" data-comment-anchor="948a4f9c08-h2">Using the kit</h2></header>
+      <div class="cm-section__body">
+        <div class="cm-prose"><p data-comment-anchor="9b20b67d19-p">Every report is one HTML file built from the classes in <code data-comment-anchor="6fb816c3d0-code">cm-report.css</code>, with behaviour from <code>cm-report.js</code> and charts drawn by ECharts. Agents compose; they never style. If a block you need is not in this gallery, use the nearest one and flag the gap.</p></div>
+        <div class="cm-grid cm-grid--4 cm-bleed">
+          <div class="cm-tile"><code>cm-report.css</code><p class="cm-small" style="margin-top:16px">Tokens for light, dark and print, plus every component class.</p></div>
+          <div class="cm-tile"><code>cm-report.js</code><p class="cm-small" style="margin-top:16px">Theme toggle, chart theme and draw-in, sortable tables, contents scroll-spy, print prep.</p></div>
+          <div class="cm-tile"><code>template.html</code><p class="cm-small" style="margin-top:16px">The starter every report copies. Placeholders in <code>{{ }}</code>.</p></div>
+          <div class="cm-tile"><code>SPEC.md</code><p class="cm-small" style="margin-top:16px">The same rules in the form agents read: hard rules, budgets, canonical markup.</p></div>
+        </div>
+        <div class="cm-grid cm-grid--2 cm-bleed">
+          <div class="cm-card">
+            <h3 class="cm-card__title cm-card__title--sm">Linked package</h3>
+            <p class="cm-small">The report links <code>report-kit/cm-report.css</code> and <code>report-kit/cm-report.js</code>. Use when reports are published to one site or folder so a kit update reaches every report.</p>
+          </div>
+          <div class="cm-card">
+            <h3 class="cm-card__title cm-card__title--sm">Self-contained file</h3>
+            <p class="cm-small">Paste the full CSS into one <code>&lt;style&gt;</code> and the full JS into one <code>&lt;script&gt;</code> at the end of <code>&lt;body&gt;</code>. Fonts and ECharts stay on CDN links. Use when the report is emailed or attached.</p>
+          </div>
+        </div>
+        <div class="cm-summary cm-bleed">
+          <span class="cm-chip cm-chip--accent">Kept from Foundations</span>
+          <h3 class="cm-card__title">Three rules for text, accent and emphasis</h3>
+          <div class="cm-grid cm-grid--3 cm-grid--cols cm-small">
+            <div><strong style="font-weight:800">Text is black or white:</strong> focus is carried by weight 300 → 900, never by grey.</div>
+            <div><strong style="font-weight:800">Accent is never text:</strong> teal appears only as bars, underlines, borders, chips, chart marks and the reserved shadow.</div>
+            <div><strong style="font-weight:800">One emphasis per view:</strong> the teal offset shadow marks one element per report, the recommendations.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 -->
+    <section class="cm-section" id="changes" aria-labelledby="changes-t">
+      <header class="cm-section__head"><span class="cm-section__num">Part 02</span><h2 class="cm-section__title" id="changes-t">Updates to Foundations</h2></header>
+      <div class="cm-section__body">
+        <div class="cm-prose"><p>Foundations covers color, type, spacing, depth, buttons, badges, headers, callouts, cards, lists, tables, inputs, media, code and prose. Reports need more. Each update below reuses an existing Foundations primitive; none adds a radius or a shadow.</p></div>
+        <div>
+          <div class="cm-table-title" id="tbl-changes" data-comment-anchor="5698915585-span"><span class="cm-table-title__kind">Table 2.1</span>What the kit adds or changes</div>
+          <div class="cm-table-wrap cm-bleed">
+            <table class="cm-table" aria-labelledby="tbl-changes">
+              <thead><tr><th data-comment-anchor="b1c22cfddf-th">Area</th><th>In Foundations</th><th>Report kit</th><th>Type</th></tr></thead>
+              <tbody>
+                <tr><td class="strong">Type</td><td class="wrap">Nunito text, JetBrains Mono labels</td><td class="wrap">Nunito for all text, labels, tables and charts. JetBrains Mono for code only</td><td><span class="cm-chip">Changed</span></td></tr>
+                <tr><td class="strong">Headings</td><td class="wrap">Number chip, ring marker</td><td class="wrap">“Part 01 /” kicker in 300, T2 title, optional TL;DR, 4px rule closing the header. H3 and H4 underlined to fit at 2.5px and 1.5px</td><td><span class="cm-chip">Changed</span></td></tr>
+                <tr><td class="strong">Chips</td><td class="wrap">Tinted fills</td><td class="wrap">Outlined. Status color is a 2px offset to the right and bottom; one solid ink verdict per table</td><td><span class="cm-chip">Changed</span></td></tr>
+                <tr><td class="strong">Callouts</td><td class="wrap">Icon, tinted label chip, text in one row</td><td class="wrap">Icon and label on one row, body below on the label’s edge. Label underlined in the semantic color; no fill</td><td><span class="cm-chip">Changed</span></td></tr>
+                <tr><td class="strong">Reference blocks</td><td class="wrap">—</td><td class="wrap">Definition, questions and property sheet</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
+                <tr><td class="strong">Charts</td><td class="wrap">Referenced, not specified</td><td class="wrap">ECharts as the single method; theme generated from tokens; palette c1–c4 + context grey; sequential ramp; automatic legend for 2+ series; axis titles with units; annotations</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
+                <tr><td class="strong">Dark mode</td><td class="wrap">Deferred</td><td class="wrap">Full dark token set. Surfaces separate by lightness plus a 1px light ring because soft shadows vanish on dark</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
+                <tr><td class="strong">Print / PDF</td><td class="wrap">Separate page, not supplied</td><td class="wrap">Forced light, chrome hidden, shadows become 1px borders, L2 kept, charts redrawn static at print width, appendices opened</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
+                <tr><td class="strong">Report frame</td><td class="wrap">Content header, page TOC strip</td><td class="wrap">Masthead with labelled metadata and byline. Sticky contents rail with scroll-spy; becomes a strip below 1150px</td><td><span class="cm-chip">Extended</span></td></tr>
+                <tr><td class="strong">KPI blocks</td><td class="wrap">Single metric card</td><td class="wrap">Strip of 2–4 with delta meaning (neutral, good, bad), sparkline, target foot</td><td><span class="cm-chip">Extended</span></td></tr>
+                <tr><td class="strong">Tables</td><td class="wrap">Grid of divs</td><td class="wrap">Native table. 16px column gutters, right-aligned numbers, dotted totals rule, row flags in the left gutter, in-cell bars, sorting</td><td><span class="cm-chip">Changed</span></td></tr>
+                <tr><td class="strong">Timeline, process</td><td class="wrap">Process as inline text</td><td class="wrap">Vertical timeline on one continuous rail; step diagram on S2 tiles with one L1e bottleneck</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
+                <tr><td class="strong">Appendix</td><td class="wrap">Collapsible section header</td><td class="wrap">Native details element; opens automatically for print</td><td><span class="cm-chip">Changed</span></td></tr>
+                <tr><td class="strong">Motion</td><td class="wrap">Hover lift only</td><td class="wrap">Charts draw in once on first view, 900ms ease-out; off under reduced motion and print</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <aside class="cm-callout cm-callout--limitation" data-comment-anchor="dbb76ce24d-aside">
+          <span class="cm-callout__label">Limitation</span>
+          <div class="cm-callout__body"><strong>Not yet covered:</strong> maps, network and hierarchy diagrams, interactive filters, a cover page for long PDFs, and revision history. Foundations’ own Charts, Print and Diagram pages were not supplied; reconcile once they are.</div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 03 -->
+    <section class="cm-section" id="tokens" aria-labelledby="tokens-t">
+      <header class="cm-section__head"><span class="cm-section__num">Part 03</span><h2 class="cm-section__title" id="tokens-t">Tokens</h2></header>
+      <div class="cm-section__body">
+        <div class="cm-prose"><p>All values are CSS variables, so the swatches below follow the theme toggle. Agents never write a hex value in markup; in chart JSON they write a token name such as <code>"$accent"</code>.</p></div>
+        <div class="cm-stack">
+          <h3 class="cm-h3">Inks, surfaces, accent</h3>
+          <div class="cm-grid" style="grid-template-columns:repeat(auto-fit,minmax(110px,1fr))">
+            <div class="g-sw"><i style="background:var(--cm-ink)"></i><span><code>--cm-ink</code></span></div>
+            <div class="g-sw"><i style="background:var(--cm-surface);box-shadow:var(--cm-s2)"></i><span><code>--cm-surface</code></span></div>
+            <div class="g-sw"><i style="background:var(--cm-paper);box-shadow:var(--cm-s2)"></i><span><code>--cm-paper</code></span></div>
+            <div class="g-sw"><i style="background:var(--cm-track)"></i><span><code>--cm-track</code></span></div>
+            <div class="g-sw"><i style="background:var(--cm-hairline)"></i><span><code>--cm-hairline</code></span></div>
+            <div class="g-sw"><i style="background:var(--cm-field)"></i><span><code>--cm-field</code></span></div>
+            <div class="g-sw"><i style="background:var(--cm-accent)"></i><span><code>--cm-accent</code></span></div>
+          </div>
+        </div>
+        <div class="cm-stack">
+          <h3 class="cm-h3">Semantics: offset by default, solid once</h3>
+          <div class="cm-chips">
+            <span class="cm-chip cm-chip--ok">OK</span><span class="cm-chip cm-chip--warn">Warn</span><span class="cm-chip cm-chip--crit">Crit</span><span class="cm-chip cm-chip--info">Info</span><span class="cm-chip cm-chip--note">Note</span><span class="cm-chip">Neutral</span><span class="cm-chip cm-chip--verdict">Breach</span>
+          </div>
+        </div>
+        <div class="cm-stack">
+          <h3 class="cm-h3">Chart palette</h3>
+          <div class="cm-grid" style="grid-template-columns:repeat(auto-fit,minmax(120px,1fr))">
+            <div class="g-sw"><i style="background:var(--cm-c1)"></i><span><code>$c1</code><span class="cm-meta">Focal series</span></span></div>
+            <div class="g-sw"><i style="background:var(--cm-c2)"></i><span><code>$c2</code><span class="cm-meta">Comparison</span></span></div>
+            <div class="g-sw"><i style="background:var(--cm-c3)"></i><span><code>$c3</code><span class="cm-meta">Third category</span></span></div>
+            <div class="g-sw"><i style="background:var(--cm-c4)" data-comment-anchor="925cf91cad-i"></i><span><code>$c4</code><span class="cm-meta">Fourth category</span></span></div>
+            <div class="g-sw"><i style="background:var(--cm-context)"></i><span><code>$context</code><span class="cm-meta">Everything else</span></span></div>
+          </div>
+          <div class="cm-grid" style="grid-template-columns:repeat(5,minmax(0,1fr));gap:4px">
+            <div class="g-sw"><i style="background:var(--cm-seq-1);border-radius:12px 0 0 12px"></i><span class="cm-meta">seq-1</span></div>
+            <div class="g-sw"><i style="background:var(--cm-seq-2);border-radius:0"></i><span class="cm-meta">seq-2</span></div>
+            <div class="g-sw"><i style="background:var(--cm-seq-3);border-radius:0"></i><span class="cm-meta">seq-3</span></div>
+            <div class="g-sw"><i style="background:var(--cm-seq-4);border-radius:0"></i><span class="cm-meta">seq-4</span></div>
+            <div class="g-sw"><i style="background:var(--cm-seq-5);border-radius:0 12px 12px 0"></i><span class="cm-meta">seq-5 · <code>$seq</code></span></div>
+          </div>
+        </div>
+        <div class="cm-stack">
+          <h3 class="cm-h3">Spacing</h3>
+          <div class="cm-props">
+            <dl>
+              <dt>Scale</dt><dd>4 · 8 · 12 · 16 · 20 · 24 · 32 · 40 · 48 · 64 · 96 · 128 px</dd>
+              <dt>Between sections</dt><dd>128px above every section header; 160px above the first appendix</dd>
+              <dt>Between blocks</dt><dd>64px between blocks in a section body, set by the kit</dd>
+            </dl>
+            <dl>
+              <dt>Floor<small>(hard rule)</small></dt><dd><b>24px</b> between any two distinct blocks; <b>8px</b> between a label and the content it names. Nothing sits closer.</dd>
+              <dt>Reading</dt><dd>16px / 1.9 on the page; 15px / 1.8 inside surfaces; 70ch measure</dd>
+            </dl>
+          </div>
+        </div>
+        <div class="cm-grid cm-grid--2 cm-bleed">
+          <div class="cm-card">
+            <h3 class="cm-card__title cm-card__title--sm">Type tiers</h3>
+            <div class="cm-stack" style="gap:16px">
+              <div class="cm-t1">Page title</div>
+              <div class="cm-t2">Section title</div>
+              <div class="cm-t3">Block title</div>
+              <div class="cm-t4">Minor heading</div>
+              <div class="cm-t5">Item title</div>
+              <div class="cm-body">Body on the page · 16 / 400 / 1.9</div>
+              <div class="cm-small">Body in a container · 15 / 400 / 1.8</div>
+              <div class="cm-label">Label · 12 / 800 / caps</div>
+              <div class="cm-meta">Meta · 13 / 400 · refreshed 2026-10-05</div>
+              <div><code>Code · JetBrains Mono 600</code></div>
+            </div>
+          </div>
+          <div class="cm-card">
+            <h3 class="cm-card__title cm-card__title--sm">Elevation</h3>
+            <div class="cm-stack" style="gap:16px">
+              <div class="cm-tile"><span class="cm-label">S1 · tile</span> <span class="cm-meta">nested inside a surface</span></div>
+              <div class="cm-tile" style="box-shadow:var(--cm-s2)"><span class="cm-label">S2 · card</span> <span class="cm-meta">every top-level surface</span></div>
+              <div class="cm-tile" style="box-shadow:var(--cm-s3)"><span class="cm-label">S3 · float</span> <span class="cm-meta">summary, code, sticky rail</span></div>
+              <div class="cm-tile cm-emph"><span class="cm-label">L1e · emphasis</span> <span class="cm-meta">a bottleneck, a must-read</span></div>
+              <div class="cm-tile cm-featured"><span class="cm-label">L2 · reserved</span> <span class="cm-meta">once per report</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 -->
+    <section class="cm-section" id="anatomy" aria-labelledby="anatomy-t">
+      <header class="cm-section__head"><span class="cm-section__num">Part 04</span><h2 class="cm-section__title" id="anatomy-t">Report anatomy</h2></header>
+      <div class="cm-section__body">
+        <div class="cm-prose"><p>Blocks appear in this order. Required blocks are never omitted; optional blocks are left out rather than filled with placeholder content.</p></div>
+        <div>
+          <div class="cm-table-title" id="tbl-anat"><span class="cm-table-title__kind">Table 4.1</span>Block order</div>
+          <div class="cm-table-wrap cm-bleed">
+            <table class="cm-table" aria-labelledby="tbl-anat">
+              <thead><tr><th>#</th><th>Block</th><th>Contains</th><th>Level</th></tr></thead>
+              <tbody>
+                <tr><td>01</td><td class="strong">Top bar</td><td class="wrap">Publisher wordmark, series chip, theme and print buttons</td><td><span class="cm-chip">Required</span></td></tr>
+                <tr><td>02</td><td class="strong">Contents rail</td><td class="wrap">One link per section; omit for reports under 4 sections and use <code>cm-shell--norail</code></td><td><span class="cm-chip cm-chip--dashed">Recommended</span></td></tr>
+                <tr><td>03</td><td class="strong">Masthead</td><td class="wrap">Breadcrumb, accent bar, title, dek, labelled metadata (status, period, published, reading time, version), byline</td><td><span class="cm-chip">Required</span></td></tr>
+                <tr><td>04</td><td class="strong">Part 01 · Executive summary</td><td class="wrap">2–4 sentence lede, KPI strip, summary box with 3–5 key findings</td><td><span class="cm-chip">Required</span></td></tr>
+                <tr><td>05</td><td class="strong">Part 02 … N · body</td><td class="wrap">Each: TL;DR or lede that states the finding → figure or table → callout if needed</td><td><span class="cm-chip">Required</span></td></tr>
+                <tr><td>06</td><td class="strong">Recommendations</td><td class="wrap">The single L2 featured card; owner, due date and expected impact per action</td><td><span class="cm-chip cm-chip--dashed">Recommended</span></td></tr>
+                <tr><td>07</td><td class="strong">Appendix A · Methodology</td><td class="wrap">Definitions, data sources and coverage, queries</td><td><span class="cm-chip">Required with data</span></td></tr>
+                <tr><td>08</td><td class="strong">Appendix B · Notes &amp; sources</td><td class="wrap">Footnotes, then sources list</td><td><span class="cm-chip">Required</span></td></tr>
+                <tr><td>09</td><td class="strong">Footer</td><td class="wrap">Title, version, published date, owner, kit version</td><td><span class="cm-chip">Required</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 COMPONENTS -->
+    <section class="cm-section" id="components" aria-labelledby="components-t">
+      <header class="cm-section__head"><span class="cm-section__num">Part 05</span><h2 class="cm-section__title" id="components-t">Components</h2></header>
+      <div class="cm-section__body" style="gap:112px">
+        <div class="cm-prose"><p>Each block shows its rule, a live example, and the exact markup to copy. Text in the markup is sample copy; structure and class names are fixed.</p></div>
+
+        <div class="g-comp" data-comment-anchor="e2af2191e3-div">
+          <header><span class="cm-label">5.1</span><h3 class="cm-h3">Section header</h3><p>A “Part 01” kicker in weight 300 (the slash is added by the kit), the T2 title, and an optional TL;DR that states the section’s finding. The 4px rule closes the header across the full column. Appendices use “Appendix A”.</p></header>
+          <div data-demo>
+<header class="cm-section__head">
+  <span class="cm-section__num">Part 03</span>
+  <h2 class="cm-section__title" id="service-t">Speed &amp; service levels</h2>
+  <p class="cm-section__tldr"><strong>TL;DR:</strong> median first response fell 27% to 2h 14m. SLA attainment rose to 91.2%, still 3.8 points under target.</p>
+</header>
+          </div>
+        </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">5.2</span><h3 class="cm-h3">KPI strip</h3><p>Two to four KPIs; add <code>cm-kpis--3</code> or <code>cm-kpis--2</code> when there are fewer than four. The delta always names its comparison. <code>cm-delta--good</code> and <code>--bad</code> describe the movement for the reader, not its direction; neutral uses plain <code>cm-delta</code>. Sparklines are optional and carry no axis.</p></header>
+          <div data-demo>
+<div class="cm-kpis cm-kpis--3 cm-bleed">
+  <div class="cm-kpi">
+    <span class="cm-kpi__label">Median first response</span>
+    <span class="cm-kpi__value">2h 14<small>m</small></span>
+    <span class="cm-kpi__delta"><span class="cm-delta cm-delta--good">▼ −27% faster</span></span>
+    <div class="cm-kpi__spark" data-spark data-values="3.0,2.9,2.7,2.6,2.4,2.3,2.8,2.5,2.1,2.0,1.9" aria-hidden="true"></div>
+    <div class="cm-kpi__foot"><span>Target ≤ 2h 30m</span><b>Met</b></div>
+  </div>
+  <div class="cm-kpi">
+    <span class="cm-kpi__label">Escalation rate</span>
+    <span class="cm-kpi__value">6.8<small>%</small></span>
+    <span class="cm-kpi__delta"><span class="cm-delta cm-delta--bad">▲ +0.9 pp worse</span></span>
+    <div class="cm-kpi__foot"><span>Target ≤ 6%</span><b>Helpdesk</b></div>
+  </div>
+  <div class="cm-kpi">
+    <span class="cm-kpi__label">Within SLA</span>
+    <span class="cm-kpi__value">91.2<small>%</small></span>
+    <div class="cm-meter" style="--v:91.2%;--t:95%"><span></span><i></i></div>
+    <div class="cm-kpi__foot"><span>Target 95%</span><b>−3.8 pp</b></div>
+  </div>
+</div>
+          </div>
+        </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">5.3</span><h3 class="cm-h3">Summary and key findings</h3><p>The only boxed summary, once per report, in Part 01. Each finding is a bold claim sentence followed by its evidence.</p></header>
+          <div data-demo>
+<div class="cm-summary cm-bleed">
+  <span class="cm-chip cm-chip--accent">Summary</span>
+  <h3 class="cm-card__title">Key findings</h3>
+  <ol class="cm-findings">
+    <li><strong>Chat intent routing cut first response time by 27%.</strong> Median first response fell from 3h 05m to 2h 14m after routing went live on 8 July.</li>
+    <li><strong>The backlog fell 39% despite higher volume.</strong> Open tickets dropped from 1,940 to 1,186.</li>
+  </ol>
+</div>
+          </div>
+        </div>
+
+        <div class="g-comp" data-comment-anchor="b32e7ccf36-div">
+          <header><span class="cm-label">5.4</span><h3 class="cm-h3">Callouts</h3><p>Icon and label on one row, the body directly under the label. No fill: the label’s underline carries the semantic color and the icon tells the types apart. The label set is closed at eight. At most two callouts in a row; more becomes a list.</p></header>
+          <div data-demo>
+<div class="cm-stack" style="gap:40px">
+  <aside class="cm-callout cm-callout--note"><span class="cm-callout__label">Note</span><div class="cm-callout__body">Context the reader needs to read the figure correctly.</div></aside>
+  <aside class="cm-callout cm-callout--tip"><span class="cm-callout__label">Tip</span><div class="cm-callout__body">A practical shortcut or better method.</div></aside>
+  <aside class="cm-callout cm-callout--important"><span class="cm-callout__label">Important</span><div class="cm-callout__body"><strong>The one thing not to miss.</strong> Use once per section at most.</div></aside>
+  <aside class="cm-callout cm-callout--warning"><span class="cm-callout__label">Warning</span><div class="cm-callout__body">A condition that will produce an incorrect result if it is not accounted for.</div></aside>
+  <aside class="cm-callout cm-callout--example"><span class="cm-callout__label">Example</span><div class="cm-callout__body"><strong>Worked instance:</strong> 412 of 437 runs on time → 94.3%.</div></aside>
+  <aside class="cm-callout cm-callout--requirement"><span class="cm-callout__label">Requirement</span><div class="cm-callout__body">A rule the reader must follow. <span class="cm-id">REQ-04</span></div></aside>
+  <aside class="cm-callout cm-callout--limitation"><span class="cm-callout__label">Limitation</span><div class="cm-callout__body">What the data cannot show.</div></aside>
+  <aside class="cm-callout cm-callout--correction"><span class="cm-callout__label">Correction</span><div class="cm-callout__body"><strong>Previously 91.8%, now 91.2%:</strong> state the old and new values and the cause.</div></aside>
+</div>
+          </div>
+        </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">5.5</span><h3 class="cm-h3">Definition</h3><p>Explains a key term the reader needs before the numbers make sense. A dotted rule separates the icon from the block. The term is in 800, the explanation below it; add an example when the definition alone is abstract. Label “Definition” for one term, “Definitions” for several. Place it where the term first matters, or in Appendix A.1 for the full set.</p></header>
+          <div data-demo>
+<aside class="cm-def" data-comment-anchor="805c49772b-dl">
+  <span class="cm-def__label">Definitions</span>
+  <dl>
+    <div><dt>Backlog</dt><dd>Tickets in open or pending state at the snapshot time. Tickets waiting on the customer count as pending. <strong>Example:</strong> 1,186 tickets open at Sunday 23:59 UTC.</dd></div>
+    <div><dt>CSAT</dt><dd>Share of survey responses scoring 4 or 5 on a 5-point scale, weighted by response count.</dd></div>
+  </dl>
+</aside>
+          </div>
+        </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">5.6</span><h3 class="cm-h3">Questions</h3><p>Answers the questions readers ask about a section, in their words. The question is in 800; the answer states the number or the decision first. Two to five per block, at the end of the section they belong to.</p></header>
+          <div data-demo>
+<div class="cm-qa">
+  <span class="cm-qa__label">Questions</span>
+  <dl>
+    <div><dt>Why did the backlog rise in week 7?</dt><dd>Billing v4 launched on 12 August and billing contacts rose 31%. The backlog peaked at 1,710 that week and fell every week after.</dd></div>
+    <div><dt>Does SLA attainment include weekends?</dt><dd>For chat and phone, yes; both run around the clock. Email and web-form SLAs count business hours only.</dd></div>
+  </dl>
+</div>
+          </div>
+        </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">5.7</span><h3 class="cm-h3">Property sheet</h3><p>Key and value rows for the facts about one thing: a metric, a dataset, a system. Keys are bold caps, with an optional plain sub-label in <code>&lt;small&gt;</code>. Each <code>&lt;dl&gt;</code> is a group; groups are split by a short ink bar under the keys and a dotted hairline under the values. Role tags go in <code>&lt;sup&gt;</code>.</p></header>
+          <div data-demo>
+<div class="cm-props">
+  <dl>
+    <dt>Metric</dt><dd>Resolved within SLA</dd>
+    <dt>Owner</dt><dd>Support Operations Analytics</dd>
+    <dt>Aliases</dt><dd>SLA attainment, SLA %</dd>
+  </dl>
+  <dl>
+    <dt>Rule<small>(per ticket)</small></dt><dd><code>resolved_at &lt;= sla_due_at</code></dd>
+    <dt>Grain</dt><dd>One row per resolved ticket</dd>
+    <dt>Lineage</dt><dd>Helpdesk API → <b>tickets_fact</b><sup>Source</sup> → sla_daily<sup>Derived</sup></dd>
+  </dl>
+  <dl>
+    <dt>Depends on</dt><dd>Business-hours calendar, SLA policy v3</dd>
+  </dl>
+</div>
+          </div>
+        </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">5.8</span><h3 class="cm-h3">Inline emphasis</h3><p>A light semantic wash behind a phrase, at the same size and weight as the text around it. Five roles plus the concept underline for a term’s first use. Bold marks a phrase, never a sentence.</p></header>
+          <div data-demo>
+<p class="cm-prose">Trend alerts produced a <span class="cm-hl cm-hl--validated">+1.8 pp recovery</span>, confirmed by the <span class="cm-hl cm-hl--reference" data-comment-anchor="0e0fc2c404-span">geo-holdout re-run</span>. The <span class="cm-hl cm-hl--failing">legacy collector</span> still under-reports, so cuts stay <span class="cm-hl cm-hl--caveat">directional only</span>. Hold the <span class="cm-hl cm-hl--attention">98% target</span> against the new <span class="cm-concept">freshness SLO</span>.</p>
+          </div>
+        </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">5.9</span><h3 class="cm-h3">Pull quote</h3><p>For verbatim voices: a customer, an interviewee, a stakeholder. One per section at most. Bold the decisive phrase; attribution is always present.</p></header>
+          <div data-demo data-comment-anchor="98bdb60f29-div">
+<blockquote class="cm-quote">
+  <p>Chat had my invoice corrected <strong>before I finished my coffee.</strong> The same fix over email took two days.</p>
+  <footer><b>Customer, mid-market plan</b>CSAT verbatim · September 2026</footer>
+</blockquote>
+          </div>
+        </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">5.10</span><h3 class="cm-h3">Data table</h3><p>Native table. Kind and title above the surface; source below. Columns are split by 16px gutters so no rule runs unbroken. Numbers right-aligned with <code>.num</code>. A totals row in <code>&lt;tfoot&gt;</code> sits under a dotted rule with extra space above it. Status color goes in the row flag (<code>data-flag</code> on the row), a bar in the left gutter; the status word stays in the row. Add <code>data-sortable</code> for click-to-sort.</p></header>
+          <div data-demo>
+<div>
+  <div class="cm-table-title" id="tbl-demo"><span class="cm-table-title__kind">Table 1</span>Team performance, Q3 2026</div>
+  <div class="cm-table-wrap cm-bleed" data-comment-anchor="fc7122d127-div">
+    <table class="cm-table" data-sortable aria-labelledby="tbl-demo">
+      <thead><tr><th>Team</th><th class="num">Tickets</th><th class="num">Share</th><th class="num">Within SLA</th><th data-nosort>Status</th></tr></thead>
+      <tbody>
+        <tr data-flag="ok"><td class="strong">Tier 1 · AMER</td><td class="num" data-value="17940">17,940</td><td class="num" data-value="37.2"><div class="cm-cellbar"><span>37.2%</span><span class="cm-cellbar__track"><span style="--v:100%"></span></span></div></td><td class="num strong">94.6%</td><td>On track</td></tr>
+        <tr data-flag="warn"><td class="strong">Tier 1 · APAC</td><td class="num" data-value="8330">8,330</td><td class="num" data-value="17.3"><div class="cm-cellbar"><span>17.3%</span><span class="cm-cellbar__track"><span style="--v:46%"></span></span></div></td><td class="num strong">87.4%</td><td>At risk</td></tr>
+        <tr data-flag="crit"><td class="strong">Billing</td><td class="num" data-value="5480">5,480</td><td class="num" data-value="11.4"><div class="cm-cellbar"><span>11.4%</span><span class="cm-cellbar__track"><span style="--v:31%"></span></span></div></td><td class="num strong">82.6%</td><td>Breach</td></tr>
+      </tbody>
+      <tfoot><tr><td>All teams</td><td class="num">31,750</td><td class="num">65.9%</td><td class="num">90.8%</td><td></td></tr></tfoot>
+    </table>
+  </div>
+  <span class="cm-caption"><b>Source:</b> helpdesk warehouse · Q3 2026. <b>Flags:</b> green on track, yellow at risk, red breach.</span>
+</div>
+          </div>
+          <div data-demo>
+<div data-comment-anchor="57a3baf8f3-div">
+  <div class="cm-table-title" id="tbl-cmp"><span class="cm-table-title__kind">Table 2</span>Comparison: alerting strategies</div>
+  <div class="cm-table-wrap cm-bleed">
+    <table class="cm-table" aria-labelledby="tbl-cmp">
+      <thead><tr><th>Dimension</th><th>Threshold</th><th class="is-rec">Trend ★</th><th>Anomaly</th></tr></thead>
+      <tbody>
+        <tr><td class="strong">Setup cost</td><td>Low</td><td class="is-rec">Low</td><td>High</td></tr>
+        <tr><td class="strong">False alarms</td><td>High</td><td class="is-rec">Low</td><td>Medium</td></tr>
+        <tr><td class="strong">Time to detect</td><td>Minutes</td><td class="is-rec">Hours</td><td>Minutes</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <span class="cm-caption"><b>★ Recommended:</b> the 4px header rule and the teal bar along the column repeat the star for sighted readers.</span>
+</div>
+          </div>
+        </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">5.11</span><h3 class="cm-h3">Timeline</h3><p>Vertical, dated, oldest first, on one continuous rail. Every marker is ringed in the background color, so the rail stops the same distance from each one. <code>is-done</code> hollow ink marker, <code>is-current</code> filled accent (one at most), <code>is-planned</code> dashed marker and dashed rail. The card title drops its underline; the rail carries the structure.</p></header>
+          <div data-demo>
+<div class="cm-card cm-bleed" data-comment-anchor="5eba3d6e81-div">
+  <span class="cm-label cm-card__kicker">Timeline</span>
+  <h3 class="cm-card__title">Q3 changes and what comes next</h3>
+  <ol class="cm-timeline">
+    <li class="is-done"><span class="cm-timeline__date">Jul 08<small>2026</small></span><span class="cm-timeline__mark"></span><div><div class="cm-timeline__title">Chat routing by intent goes live</div><p class="cm-timeline__body">A classifier assigns chats to queues before pickup.</p><div class="cm-chips"><span class="cm-chip cm-chip--ok">Shipped</span></div></div></li>
+    <li class="is-done"><span class="cm-timeline__date">Aug 12<small>2026</small></span><span class="cm-timeline__mark"></span><div><div class="cm-timeline__title">Billing v4 launch</div><p class="cm-timeline__body">Billing contacts rose 31% over the rest of the quarter.</p></div></li>
+    <li class="is-current"><span class="cm-timeline__date">Sep 16<small>2026</small></span><span class="cm-timeline__mark"></span><div><div class="cm-timeline__title">APAC weekend pilot</div><p class="cm-timeline__body">Two agents per weekend shift; decision due 31 October.</p><div class="cm-chips"><span class="cm-chip cm-chip--warn">Pilot</span></div></div></li>
+    <li class="is-planned"><span class="cm-timeline__date">Nov 02<small>2026</small></span><span class="cm-timeline__mark"></span><div><div class="cm-timeline__title">Billing hiring wave</div><p class="cm-timeline__body">Six specialists before renewals.</p></div></li>
+  </ol>
+</div>
+          </div>
+        </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">5.12</span><h3 class="cm-h3">Process diagram</h3><p>Three to six steps, left to right, stacking below 800px. Set <code>--steps</code> to the step count. Mark one step at most with <code>cm-emph</code> and a chip saying why.</p></header>
+          <div data-demo>
+<ol class="cm-process" style="--steps:4">
+  <li class="cm-step"><span class="cm-step__n">01</span><span class="cm-step__title">Triage</span><span class="cm-step__body">Classified on arrival.</span></li>
+  <li class="cm-step"><span class="cm-step__n">02</span><span class="cm-step__title">Tier 1</span><span class="cm-step__body">71% close here.</span></li>
+  <li class="cm-step cm-emph"><span class="cm-step__n">03</span><span class="cm-step__title">Specialist queue</span><span class="cm-step__body">Median wait 9h 40m.</span><span class="cm-chip cm-chip--warn">Bottleneck</span></li>
+  <li class="cm-step"><span class="cm-step__n">04</span><span class="cm-step__title">Close</span><span class="cm-step__body">Survey after 24h.</span></li>
+</ol>
+          </div>
+        </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">5.13</span><h3 class="cm-h3">Lists</h3><p>Grey dot bullets (the accent bar belongs to titles) and two-digit ordered lists. Items hold inline code, links and bold like any paragraph. When an item leads with a term followed by a colon, the term is bold.</p></header>
+          <div data-demo>
+<div class="cm-grid cm-grid--2 cm-grid--cols">
+  <ul class="cm-list cm-small"><li><strong>Define:</strong> build the metric from raw counts in <code>tickets_fact</code>.</li><li><strong>Target:</strong> set one per tier.</li></ul>
+  <ol class="cm-olist cm-small"><li>Register the pipeline</li><li>Backfill 90 days</li></ol>
+</div>
+          </div>
+        </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">5.14</span><h3 class="cm-h3">Footnotes and sources</h3><p>A footnote link sits after punctuation and points to <code>#fn-N</code>; the note links back. Sources use a type tag: Int, Ext, PDF, Web, API.</p></header>
+          <div data-demo>
+<div class="cm-stack">
+  <p class="cm-prose">Median first response time fell to 2h 14m.<a class="cm-fn" href="#gfn-1" id="gfnref-1">1</a></p>
+  <ol class="cm-notes">
+    <li id="gfn-1">Excludes auto-acknowledgements. <a class="cm-back" href="#gfnref-1" aria-label="Back to text">↩</a></li>
+  </ol>
+  <ol class="cm-sources">
+    <li><span class="cm-tag">Int</span><span>Helpdesk warehouse · <code>support.tickets_fact</code></span><span class="cm-meta">refreshed 2026-10-05</span></li>
+    <li><span class="cm-tag">Ext</span><span><a href="https://example.com/report">Industry support benchmark 2026</a></span><span class="cm-meta">accessed 2026-10-01</span></li>
+  </ol>
+</div>
+          </div>
+        </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">5.15</span><h3 class="cm-h3">Collapsible appendix block</h3><p>Native <code>details</code>. The first block of an appendix starts open. All open automatically when printed.</p></header>
+          <div data-demo>
+<div class="cm-bleed">
+  <details class="cm-collapse" open>
+    <summary><div><span class="cm-label">A.1</span><h3>Definitions</h3></div></summary>
+    <div class="cm-collapse__body"><p class="cm-small">Body content: a definition block, a property sheet, a list, a code block or prose.</p></div>
+  </details>
+  <details class="cm-collapse">
+    <summary><div><span class="cm-label">A.2</span><h3>Data sources and coverage</h3></div></summary>
+    <div class="cm-collapse__body"><p class="cm-small">Collapsed by default.</p></div>
+  </details>
+</div>
+          </div>
+        </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">5.16</span><h3 class="cm-h3">Code block</h3><p>The only place JetBrains Mono appears, with inline <code>&lt;code&gt;</code>. Filename, language tag, five token roles: <code>.k</code> keyword, <code>.s</code> string, <code>.n</code> number, <code>.f</code> callable, <code>.c</code> comment. Hue is allowed here and nowhere else.</p></header>
+          <div data-demo>
+<div class="cm-code cm-bleed">
+  <div class="cm-code__bar"><span class="cm-code__file">sla_by_team.sql</span><span class="cm-tag">SQL</span></div>
+<pre><code><span class="c">-- share of tickets resolved inside SLA</span>
+<span class="k">select</span> team, <span class="f">round</span>(<span class="n">100</span> * <span class="f">avg</span>(in_sla), <span class="n">1</span>) <span class="k">as</span> sla_pct
+<span class="k">from</span> support.tickets_fact
+<span class="k">where</span> quarter = <span class="s">'2026-Q3'</span>
+<span class="k">group by</span> team</code></pre>
+</div>
+          </div>
+        </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">5.17</span><h3 class="cm-h3">Chips, tags, buttons</h3><p>Chips are outlined pills for status and metadata. Status color is a 2px offset to the right and bottom, never a fill; the word carries the meaning. The verdict chip is solid ink, once per table. Tags are 4px labels for types and languages. Buttons only appear in the top bar and in interactive reports.</p></header>
+          <div data-demo>
+<div class="cm-stack" style="gap:24px" data-comment-anchor="9ac2e7e6f6-div">
+  <div class="cm-chips"><span class="cm-chip">Draft</span><span class="cm-chip cm-chip--warn">In review</span><span class="cm-chip cm-chip--ok">Final</span><span class="cm-chip cm-chip--accent">Recommended</span><span class="cm-chip cm-chip--verdict is-ok">Pass</span></div>
+  <div class="cm-chips"><span class="cm-tag">Int</span><span class="cm-tag">SQL</span><span class="cm-tag cm-tag--dashed">Spec specimen</span></div>
+  <div class="cm-chips"><a class="cm-btn" href="#top">Primary</a><a class="cm-btn cm-btn--secondary" href="#top">Secondary</a><a class="cm-btn cm-btn--quiet" href="#top">Quiet</a></div>
+</div>
+          </div>
+        </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">5.18</span><h3 class="cm-h3">Recommendations card</h3><p>Holds the actions the report asks the reader to take. It is the only block in the Recommendations section, which comes after the body sections and before the appendices; it never opens a report (the executive summary does). Each action is a bold instruction, one sentence of reason, then owner, due date and expected impact. It carries the reserved L2 treatment, black border plus teal offset, exactly once per report. It fits its content, between 520px and the reading measure, so short actions give a narrow card.</p></header>
+          <div data-demo>
+<div class="cm-card cm-featured cm-bleed" data-comment-anchor="cec5db1244-div">
+  <div class="cm-card__kicker"><span class="cm-chip cm-chip--accent">Recommended</span></div>
+  <h3 class="cm-card__title">Three actions for Q4</h3>
+  <ol class="cm-findings">
+    <li><strong>Hire six billing specialists before renewals.</strong> Billing is the lowest-performing queue.<div class="cm-chips"><span class="cm-chip">Owner · Support Ops</span><span class="cm-chip">Due 2026-11-02</span><span class="cm-chip cm-chip--accent">+2.1 pp SLA, est.</span></div></li>
+    <li><strong>Make APAC weekend coverage permanent.</strong> The pilot removed the Monday queue spike.<div class="cm-chips"><span class="cm-chip">Owner · APAC lead</span><span class="cm-chip">Decide by 2026-10-31</span></div></li>
+  </ol>
+</div>
+          </div>
+        </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">5.19</span><h3 class="cm-h3">Figure with an image or placeholder</h3><p>Same mat as a chart figure. Use <code>&lt;img&gt;</code> with real alt text, or <code>cm-slot</code> where material is still missing. Images are evidence, never decoration.</p></header>
+          <div data-demo>
+<figure class="cm-figure cm-bleed">
+  <span class="cm-figure__kind">Figure 8</span>
+  <h3 class="cm-figure__title cm-figure__title--sm">Escalation form, before and after</h3>
+  <p class="cm-figure__desc">Screenshots of the agent-side form.</p>
+  <div class="cm-slot"><b>Drop figure · 16:9</b><i>Screenshot or diagram export</i></div>
+  <figcaption class="cm-caption"><b>Source:</b> support tooling · captured 2026-09-20</figcaption>
+</figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 CHARTS -->
+    <section class="cm-section" id="charts" aria-labelledby="charts-t">
+      <header class="cm-section__head"><span class="cm-section__num">Part 06</span><h2 class="cm-section__title" id="charts-t" data-comment-anchor="59341f0e17-h2">Charts</h2></header>
+      <div class="cm-section__body" style="gap:112px">
+        <div class="cm-stack" style="gap:40px">
+          <div class="cm-prose">
+            <p>Every chart is an ECharts option written as JSON inside a <code>.cm-chart</code>. The kit applies the theme: Nunito labels, a 1.5px ink baseline, hairline gridlines, thin rounded bars, a bordered tooltip, dashed ink target lines, and a legend whenever there are two or more series. Agents write data and structure only.</p>
+          </div>
+          <ul class="cm-list" style="max-width:var(--cm-read)">
+            <li data-comment-anchor="2eb9697b06-li"><strong>One message per chart:</strong> the figure title states what it shows; the prose above states the finding.</li>
+            <li data-comment-anchor="e607be6d95-li"><strong>Color by role:</strong> the focal series takes <code>$c1</code>, the comparison <code>$c2</code> or <code>$context</code>. More than four series becomes small multiples or a table.</li>
+            <li><strong>Legend for two or more series:</strong> added automatically, top left, in series order. End labels and value labels may be added; they never replace the legend.</li>
+            <li><strong>Axis titles carry units:</strong> name the value axis (“Tickets per week”) unless every tick already shows the unit (“90%”).</li>
+            <li><strong>Bars and areas start at zero:</strong> lines may zoom.</li>
+            <li><strong>No 3D, gradients or dual y-axes:</strong> pie or donut only for part-to-whole with four slices or fewer.</li>
+            <li data-comment-anchor="ea32da12e3-li"><strong>Text alternative:</strong> every chart has an <code>aria-label</code> stating the type and the finding, and a source line.</li>
+          </ul>
+        </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">6.0</span><h3 class="cm-h3">Chart anatomy</h3><p>The parts a professional chart carries, top to bottom, and which ones the kit draws for you.</p></header>
+          <div>
+            <div class="cm-table-title" id="tbl-anatomy"><span class="cm-table-title__kind">Table 6.1</span>Parts of a chart</div>
+            <div class="cm-table-wrap cm-bleed">
+              <table class="cm-table" aria-labelledby="tbl-anatomy">
+                <thead><tr><th>Part</th><th>Where</th><th>Rule</th><th>When</th></tr></thead>
+                <tbody>
+                  <tr><td class="strong">Kind and number</td><td><code>.cm-figure__kind</code></td><td class="wrap">“Figure 3”, numbered in order across the report</td><td>Always</td></tr>
+                  <tr><td class="strong">Title</td><td><code>.cm-figure__title</code></td><td class="wrap">What is shown, in 10 words or fewer</td><td>Always</td></tr>
+                  <tr><td class="strong">Description</td><td><code>.cm-figure__desc</code></td><td class="wrap">Measure, unit, scope and period in one sentence</td><td>Always</td></tr>
+                  <tr><td class="strong">Legend</td><td>Top left, automatic</td><td class="wrap">Series names in plot order; <code>"legend": false</code> only for a single series</td><td>2+ series</td></tr>
+                  <tr><td class="strong">Axis titles</td><td><code>xAxis.name</code>, <code>yAxis.name</code></td><td class="wrap">Quantity and unit; y title sits above the axis, x title under the labels</td><td>Unit not in ticks</td></tr>
+                  <tr><td class="strong">Tick labels, gridlines</td><td>Automatic</td><td class="wrap">Short labels; hairline gridlines on the value axis only; 1.5px ink baseline</td><td>Always</td></tr>
+                  <tr><td class="strong">Data labels</td><td><code>label</code>, <code>endLabel</code></td><td class="wrap">Values the reader should quote; every bar when there are 12 or fewer</td><td>Key values</td></tr>
+                  <tr><td class="strong">Annotations</td><td><code>markLine</code>, <code>markArea</code></td><td class="wrap">Target, event or period, labelled in 1–3 words</td><td>When relevant</td></tr>
+                  <tr><td class="strong">Source and notes</td><td><code>.cm-caption</code></td><td class="wrap"><b>Source:</b> dataset · scope · refresh date. <b>Note:</b> exclusions or definitions</td><td>Always</td></tr>
+                  <tr><td class="strong">Text alternative</td><td><code>aria-label</code>, <code>.cm-data</code></td><td class="wrap">Chart type and finding; data table for values not in the prose</td><td>Always</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">6.1</span><h3 class="cm-h3">Line: focus against context</h3><p>The current period in <code>$c1</code>; prior period in <code>$context</code>. The legend appears on its own; end labels repeat the series names at the line ends. An event marker is a vertical <code>markLine</code>.</p></header>
+          <div data-demo>
+<figure class="cm-figure cm-bleed">
+  <span class="cm-figure__kind">Figure 1</span>
+  <h3 class="cm-figure__title cm-figure__title--sm">Weekly tickets, Q3 against Q2</h3>
+  <p class="cm-figure__desc">Tickets created per week across all channels, weeks counted from the start of each quarter.</p>
+  <div class="cm-chart" style="--h:320px" data-chart role="img" aria-label="Line chart. Q3 weekly tickets peak at 4,310 in week 7, the Billing v4 launch.">
+    <script type="application/json">
+    {
+      "grid": {"right": 64},
+      "xAxis": {"type": "category", "boundaryGap": false, "data": ["Wk 1","Wk 2","Wk 3","Wk 4","Wk 5","Wk 6","Wk 7","Wk 8","Wk 9","Wk 10"]},
+      "yAxis": {"type": "value", "name": "Tickets per week", "min": 3000},
+      "series": [
+        {"name": "Q2 2026", "type": "line", "data": [3320,3390,3410,3350,3470,3440,3510,3400,3460,3520], "lineStyle": {"color": "$context"}, "itemStyle": {"color": "$context"}, "endLabel": {"show": true, "formatter": "Q2"}},
+        {"name": "Q3 2026", "type": "line", "data": [3410,3520,3480,3655,3590,3720,4310,4120,3790,3700], "endLabel": {"show": true, "formatter": "Q3"},
+         "markLine": {"data": [{"xAxis": "Wk 7", "label": {"formatter": "Launch", "position": "end"}}]}}
+      ]
+    }
+    </script>
+  </div>
+  <figcaption class="cm-caption"><b>Source:</b> helpdesk warehouse, <code>support.tickets_fact</code> · refreshed 2026-10-05</figcaption>
+</figure>
+          </div>
+        </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">6.2</span><h3 class="cm-h3">Bar: ranking with a target</h3><p>Horizontal bars for ranked categories, sorted with the largest at the top. Value labels on, target as a dashed <code>markLine</code>. One series, so no legend.</p></header>
+          <div data-demo>
+<figure class="cm-figure cm-bleed" data-comment-anchor="8f7ddc5e88-figure">
+  <span class="cm-figure__kind">Figure 2</span>
+  <h3 class="cm-figure__title cm-figure__title--sm">SLA attainment by channel</h3>
+  <p class="cm-figure__desc">Share of resolved tickets closed inside the SLA window, Q3 2026.</p>
+  <div class="cm-chart" style="--h:260px" data-chart role="img" aria-label="Bar chart. Only chat, at 96.1%, clears the 95% target.">
+    <script type="application/json">
+    {
+      "grid": {"top": 28, "right": 48},
+      "tooltip": {"axisPointer": {"type": "shadow"}},
+      "xAxis": {"type": "value", "max": 100, "axisLabel": {"formatter": "{value}%"}},
+      "yAxis": {"type": "category", "data": ["Web form","Email","Social","Phone","Chat"]},
+      "series": [{"name": "Within SLA", "type": "bar", "data": [86.9,88.3,90.4,94.8,96.1],
+        "label": {"show": true, "position": "right", "formatter": "{c}%"},
+        "markLine": {"data": [{"xAxis": 95, "label": {"formatter": "Target 95%", "position": "end"}}]}}]
+    }
+    </script>
+  </div>
+  <figcaption class="cm-caption"><b>Source:</b> helpdesk warehouse · resolved tickets, Q3 2026</figcaption>
+</figure>
+          </div>
+        </div>
+
+        <div class="cm-grid cm-grid--2 cm-bleed" style="align-items:start">
+          <div class="g-comp">
+            <header><span class="cm-label">6.3</span><h3 class="cm-h3">Stacked columns: composition</h3><p>Up to four parts. The kit separates segments with a thin surface gap and rounds every segment.</p></header>
+            <div data-demo>
+<figure class="cm-figure">
+  <span class="cm-figure__kind">Figure 3</span>
+  <h3 class="cm-figure__title cm-figure__title--sm">Channel mix by month</h3>
+  <p class="cm-figure__desc">Share of tickets by channel, April to September 2026.</p>
+  <div class="cm-chart" style="--h:300px" data-chart role="img" aria-label="Stacked column chart. Chat grows from 22% of tickets in April to 34% in September.">
+    <script type="application/json">
+    {
+      "tooltip": {"axisPointer": {"type": "shadow"}},
+      "xAxis": {"type": "category", "data": ["Apr","May","Jun","Jul","Aug","Sep"]},
+      "yAxis": {"type": "value", "max": 100, "axisLabel": {"formatter": "{value}%"}},
+      "series": [
+        {"name": "Chat", "type": "bar", "stack": "mix", "data": [22,24,25,27,31,34]},
+        {"name": "Email", "type": "bar", "stack": "mix", "data": [45,44,42,41,38,35]},
+        {"name": "Other", "type": "bar", "stack": "mix", "itemStyle": {"color": "$context"}, "data": [33,32,33,32,31,31]}
+      ]
+    }
+    </script>
+  </div>
+  <figcaption class="cm-caption"><b>Source:</b> helpdesk warehouse</figcaption>
+</figure>
+            </div>
+          </div>
+          <div class="g-comp">
+            <header><span class="cm-label">6.4</span><h3 class="cm-h3">Area: one level over time</h3><p>A single series with <code>"areaStyle": {}</code>. Thresholds as <code>markLine</code> on the y-axis.</p></header>
+            <div data-demo>
+<figure class="cm-figure">
+  <span class="cm-figure__kind">Figure 4</span>
+  <h3 class="cm-figure__title cm-figure__title--sm">Open backlog</h3>
+  <p class="cm-figure__desc">Tickets open or pending at Sunday close, Q3 2026.</p>
+  <div class="cm-chart" style="--h:300px" data-chart role="img" aria-label="Area chart. Backlog falls from 1,940 to 1,186, under the 1,200 ceiling.">
+    <script type="application/json">
+    {
+      "xAxis": {"type": "category", "boundaryGap": false, "data": ["Jul","","","","Aug","","","","Sep","","","",""]},
+      "yAxis": {"type": "value", "name": "Open tickets", "min": 0, "max": 2000, "interval": 500},
+      "series": [{"name": "Backlog", "type": "line", "areaStyle": {}, "data": [1872,1790,1715,1650,1580,1530,1710,1640,1505,1410,1330,1250,1186],
+        "markLine": {"data": [{"yAxis": 1200, "label": {"formatter": "Ceiling", "position": "insideStartTop"}}]}}]
+    }
+    </script>
+  </div>
+  <figcaption class="cm-caption"><b>Source:</b> weekly snapshot, Sunday 23:59 UTC</figcaption>
+</figure>
+            </div>
+          </div>
+        </div>
+
+        <div class="cm-grid cm-grid--2 cm-bleed" style="align-items:start">
+          <div class="g-comp">
+            <header><span class="cm-label">6.5</span><h3 class="cm-h3">Scatter: relationship</h3><p>Name both axes with units. Highlight one point by giving it <code>$c1</code> and a label; the rest stay <code>$c2</code>.</p></header>
+            <div data-demo>
+<figure class="cm-figure">
+  <span class="cm-figure__kind">Figure 5</span>
+  <h3 class="cm-figure__title cm-figure__title--sm">Response time against CSAT</h3>
+  <p class="cm-figure__desc">One point per team, Q3 medians.</p>
+  <div class="cm-chart" style="--h:300px" data-chart role="img" aria-label="Scatter chart. Teams with slower first response have lower CSAT; billing is the outlier.">
+    <script type="application/json">
+    {
+      "grid": {"right": 24},
+      "tooltip": {"trigger": "item"},
+      "xAxis": {"type": "value", "name": "Median first response, hours", "min": 1, "max": 5},
+      "yAxis": {"type": "value", "name": "CSAT, %", "min": 82, "max": 90},
+      "series": [{"name": "Teams", "type": "scatter", "symbolSize": 12, "itemStyle": {"color": "$c2"},
+        "data": [[1.7,89.3],[2.1,87.8],[3.3,85.2],{"value": [3.0,83.9], "itemStyle": {"color": "$c1"}, "label": {"show": true, "formatter": "Billing", "position": "right"}},[4.7,87.0]]}]
+    }
+    </script>
+  </div>
+  <figcaption class="cm-caption"><b>Source:</b> helpdesk warehouse and CSAT export, Q3</figcaption>
+</figure>
+            </div>
+          </div>
+          <div class="g-comp">
+            <header><span class="cm-label">6.6</span><h3 class="cm-h3">Donut: part of a whole</h3><p>Four slices or fewer, labelled with names and values, which act as the legend. Use only when the total itself matters.</p></header>
+            <div data-demo>
+<figure class="cm-figure">
+  <span class="cm-figure__kind">Figure 6</span>
+  <h3 class="cm-figure__title cm-figure__title--sm">Where escalations go</h3>
+  <p class="cm-figure__desc">Share of 3,850 escalated tickets by destination queue.</p>
+  <div class="cm-chart" style="--h:300px" data-chart role="img" aria-label="Donut chart. Billing takes 52% of escalations, technical 33%, account 15%.">
+    <script type="application/json">
+    {
+      "series": [{"type": "pie", "radius": ["44%","66%"], "center": ["50%","50%"],
+        "label": {"show": true, "formatter": "{b}\n{d}%", "lineHeight": 18},
+        "data": [{"name": "Billing", "value": 52}, {"name": "Technical", "value": 33, "itemStyle": {"color": "$c2"}}, {"name": "Account", "value": 15, "itemStyle": {"color": "$context"}}]}]
+    }
+    </script>
+  </div>
+  <figcaption class="cm-caption"><b>Source:</b> escalations, Q3</figcaption>
+</figure>
+            </div>
+          </div>
+        </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">6.7</span><h3 class="cm-h3">Heatmap: two categories and a magnitude</h3><p>Sequential ramp via <code>"inRange": {"color": "$seq"}</code> (applied by default), cells separated by a 3px <code>$surface</code> border. The scale bar under the grid is the legend; give its ends values with <code>text</code>.</p></header>
+          <div data-demo>
+<figure class="cm-figure cm-bleed">
+  <span class="cm-figure__kind">Figure 7</span>
+  <h3 class="cm-figure__title cm-figure__title--sm">Contacts by weekday and time</h3>
+  <p class="cm-figure__desc">Average tickets created per three-hour block, by weekday, local time.</p>
+  <div class="cm-chart" style="--h:260px" data-chart role="img" aria-label="Heatmap. Weekday mornings carry the most contacts; weekends under half.">
+    <script type="application/json">
+    {
+      "grid": {"top": 8, "bottom": 52},
+      "tooltip": {"trigger": "item"},
+      "xAxis": {"type": "category", "axisLine": {"show": false}, "data": ["06","09","12","15","18","21"]},
+      "yAxis": {"type": "category", "inverse": true, "axisLine": {"show": false}, "data": ["Mon","Wed","Fri","Sun"]},
+      "visualMap": {"min": 0, "max": 120, "orient": "horizontal", "left": 0, "bottom": 0, "itemHeight": 200, "text": ["120 per block", "0"], "calculable": false},
+      "series": [{"name": "Avg tickets", "type": "heatmap", "itemStyle": {"borderColor": "$surface", "borderWidth": 3, "borderRadius": 4},
+        "data": [[0,0,30],[1,0,120],[2,0,105],[3,0,98],[4,0,68],[5,0,38],[0,1,26],[1,1,104],[2,1,91],[3,1,85],[4,1,59],[5,1,33],[0,2,23],[1,2,94],[2,2,82],[3,2,77],[4,2,53],[5,2,30],[0,3,10],[1,3,42],[2,3,36],[3,3,34],[4,3,24],[5,3,13]]}]
+    }
+    </script>
+  </div>
+  <figcaption class="cm-caption"><b>Source:</b> helpdesk warehouse. <b>Note:</b> 00:00–06:00 omitted (6% of volume).</figcaption>
+</figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 -->
+    <section class="cm-section" id="modes" aria-labelledby="modes-t">
+      <header class="cm-section__head"><span class="cm-section__num">Part 07</span><h2 class="cm-section__title" id="modes-t">Motion, dark mode, print</h2></header>
+      <div class="cm-section__body">
+        <div class="cm-grid cm-grid--3 cm-bleed">
+          <div class="cm-card">
+            <span class="cm-label cm-card__kicker">Motion</span>
+            <h3 class="cm-card__title cm-card__title--sm">Charts only</h3>
+            <ul class="cm-list cm-small">
+              <li>Each chart draws in once, the first time 15% of it is on screen.</li>
+              <li>900ms ease-out; series stagger by 120ms.</li>
+              <li>Target and event lines appear without animation.</li>
+              <li>Nothing else moves except the hover lift on interactive surfaces.</li>
+              <li>Reduced-motion and print draw charts static.</li>
+            </ul>
+          </div>
+          <div class="cm-card">
+            <span class="cm-label cm-card__kicker">Dark mode</span>
+            <h3 class="cm-card__title cm-card__title--sm">Token swap, no markup</h3>
+            <ul class="cm-list cm-small">
+              <li>Follows the reader’s system setting; the toggle stores their choice.</li>
+              <li>Text turns white; surfaces step up from #0d0d0d to #171717.</li>
+              <li>Accent brightens to #2fd4a8; chart colors lift a step.</li>
+              <li>Charts redraw from the dark tokens.</li>
+            </ul>
+          </div>
+          <div class="cm-card">
+            <span class="cm-label cm-card__kicker">Print / PDF</span>
+            <h3 class="cm-card__title cm-card__title--sm">Always light</h3>
+            <ul class="cm-list cm-small">
+              <li>Top bar, rail and buttons hidden; 16 × 14mm margins.</li>
+              <li>Soft shadows become 1px borders; the L2 card keeps its offset.</li>
+              <li>Side-by-side figures marked <code>cm-print-stack</code> stack full width.</li>
+              <li>Figures, KPIs and callouts never split across pages.</li>
+              <li><code>cm-section--break</code> forces a page break.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08 -->
+    <section class="cm-section" id="checklist" aria-labelledby="checklist-t">
+      <header class="cm-section__head"><span class="cm-section__num">Part 08</span><h2 class="cm-section__title" id="checklist-t">Agent checklist</h2></header>
+      <div class="cm-section__body">
+        <div class="cm-prose"><p>An agent checks each item before publishing. A report that fails any item is not published.</p></div>
+        <div class="cm-card cm-bleed" data-comment-anchor="330c8a61b6-div">
+          <ol class="cm-olist">
+            <li>Started from <code>template.html</code>; no class, color or font outside the kit.</li>
+            <li>No inline style except <code>--h</code>, <code>--v</code>, <code>--t</code> and <code>--steps</code>.</li>
+            <li>Masthead complete: title, dek, status, period, published date, reading time, version, byline.</li>
+            <li>Executive summary has a lede, 2–4 KPIs with stated comparisons, and 3–5 findings.</li>
+            <li>Every number in the summary appears again, with its source, in the body.</li>
+            <li>Every figure has a kind, title, description, legend when there are 2+ series, axis titles with units, <code>aria-label</code> and source line.</li>
+            <li>Every table has a kind and title, <code>.num</code> on numeric columns, and a source caption.</li>
+            <li>One recommendations card, at most one solid verdict chip per table, one summary box.</li>
+            <li>Accent never used as text color; no grey text; mono only for code.</li>
+            <li>Text before a colon that leads a sentence, list item or caption is bold.</li>
+            <li>Nothing closer than 24px to the block next to it.</li>
+            <li>Footnote links resolve both ways; sources list every dataset used.</li>
+            <li>Contents rail links match section ids. Checked in light, dark and print preview.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <footer class="cm-footer">
+      <span><b>Content Morphia Report Kit</b></span>
+      <span>v1.1 · 2026-10-12</span>
+      <span>Derived from Content Morphia Foundations</span>
+    </footer>
+  </main>
+</div>
+
+<script>
+/* gallery only: show each [data-demo]'s markup with a copy button. Runs before the kit so chart JSON is captured. */
+(function(){
+  function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function dedent(s){
+    var lines=s.replace(/\t/g,'  ').split('\n');
+    while(lines.length&&!lines[0].trim())lines.shift();
+    while(lines.length&&!lines[lines.length-1].trim())lines.pop();
+    var min=Math.min.apply(null,lines.filter(function(l){return l.trim();}).map(function(l){return l.match(/^ */)[0].length;}));
+    return lines.map(function(l){return l.slice(min);}).join('\n');
+  }
+  document.querySelectorAll('[data-demo]').forEach(function(d,i){
+    var src=dedent(d.innerHTML.replace(/\s(?:data-om-[\w-]+|data-cc-id|data-dm-ref|data-comment-anchor)="[^"]*"/g,''));
+    var box=document.createElement('details'); box.className='cm-data g-src cm-noprint';
+    box.innerHTML='<summary>Markup</summary><div class="cm-code"><div class="cm-code__bar"><span class="cm-code__file">snippet-'+(i+1)+'.html</span><button class="cm-btn cm-btn--secondary cm-btn--sm" type="button">Copy</button></div><pre><code>'+esc(src)+'</code></pre></div>';
+    box.querySelector('button').addEventListener('click',function(e){
+      var b=e.currentTarget;
+      (navigator.clipboard?navigator.clipboard.writeText(src):Promise.reject()).then(function(){b.textContent='Copied';},function(){b.textContent='Select + copy';}).finally(function(){setTimeout(function(){b.textContent='Copy';},1600);});
+    });
+    d.after(box);
+  });
+})();
+</script>
+</body>
+</html>

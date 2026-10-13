@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&amp;family=JetBrains+Mono:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#fff;color:#000;font-family:'Nunito',sans-serif}
+a{color:#000;text-decoration:underline;text-decoration-color:#1bbd94;text-decoration-thickness:1.5px;text-underline-offset:3px}
+a:hover{background:rgba(27,189,148,.3)}
+::selection{background:rgba(27,189,148,.35)}
+button{font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;background:none;border:none;padding:0;margin:0;text-align:left;cursor:pointer}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px solid #000;outline-offset:3px}
+@media(max-width:640px){[style*="columns:1fr 1fr"],[style*="columns:repeat(2,1fr)"],[style*="columns:repeat(3,1fr)"],[style*="columns:repeat(4,1fr)"]{grid-template-columns:1fr!important}
+#t1-intro-split>div{border-left:none!important;padding-left:0!important;padding-right:0!important}
+#t1-intro-split>div+div{border-top:1px solid #ebebeb!important;padding-top:16px!important;margin-top:16px!important}}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:#f1f1f1;border-radius:999px}
+::-webkit-scrollbar-thumb{background:rgba(0,0,0,.22);border-radius:999px}
+::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.45)}
+
+[data-nav-group] [data-nav-menu]{display:none}
+[data-nav-group]:hover [data-nav-menu],[data-nav-group]:focus-within [data-nav-menu]{display:block}
+</style>
+</helmet>
+
+<dc-import name="cm-nav" page="T1 Topic.dc.html" chip="T1 Topic" hint-size="100%,58px"></dc-import>
+
+
+
+<dc-import name="cm-mast" title="Experimentation" crumbs='[["Library","content-morphia T1 Topic.dc.html"],["Experimentation"]]' hint-size="100%,300px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:16px">Design, run, and read controlled experiments — from hypothesis framing through decision memo. Everything here assumes product context, not a stats classroom.</div>
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:20px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.02em;text-transform:uppercase">
+<span style="padding:3px 10px;border-radius:999px;border:1px solid #000;font-weight:700">Topic</span>
+<span style="font-weight:400">Audience Practitioner · 32 items · 4 subtopics · updated Jul 2026</span>
+</div>
+<div style="background:#fff;border-radius:14px;margin-top:28px;box-shadow:0 4px 14px rgba(0,0,0,.08)">
+<div id="t1-intro-split" data-stack="1" style="display:grid;grid-template-columns:1fr 1fr;padding:24px 28px">
+<div style="padding-right:28px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px">You will be able to</div>
+<div style="font-size:14px;font-weight:400;line-height:1.75">Frame falsifiable hypotheses, size and run a clean test, and write a decision memo a skeptic will sign.</div>
+</div>
+<div style="border-left:1px solid #ebebeb;padding-left:28px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px">Start here</div>
+<div style="font-size:14px;font-weight:400;line-height:1.75">New to testing? Take <a href="content-morphia T5 Module.dc.html">Statistical inference</a> first, then follow the <a href="content-morphia T3 Process.dc.html">A/B test lifecycle</a>.</div>
+</div>
+</div>
+</div>
+</dc-import>
+
+<section data-screen-label="Subtopics" style="max-width:1060px;margin:0 auto;padding:72px 24px 0">
+<div style="display:flex;align-items:baseline;gap:12px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase">Subtopics</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase">· pick a lane</span></div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:16px;margin-top:20px">
+<a href="content-morphia T5 Module.dc.html" style="display:block;text-decoration:none;background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:24px" style-hover="transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18);border-color:#000">
+<div style="font-weight:800;font-size:15.5px;line-height:1.35">Foundations</div>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:6px">Inference, power, error types.</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;margin-top:12px">8 ITEMS</div>
+</a>
+<a href="content-morphia T3 Process.dc.html" style="display:block;text-decoration:none;background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:24px" style-hover="transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18);border-color:#000">
+<div style="font-weight:800;font-size:15.5px;line-height:1.35">Running tests</div>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:6px">Lifecycle, QA, guardrails.</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;margin-top:12px">11 ITEMS</div>
+</a>
+<a href="content-morphia T2 Framework.dc.html" style="display:block;text-decoration:none;background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:24px" style-hover="transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18);border-color:#000">
+<div style="font-weight:800;font-size:15.5px;line-height:1.35">Measurement</div>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:6px">Metric frameworks and trees.</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;margin-top:12px">7 ITEMS</div>
+</a>
+<a href="content-morphia T4 Guide.dc.html" style="display:block;text-decoration:none;background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:24px" style-hover="transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18);border-color:#000">
+<div style="font-weight:800;font-size:15.5px;line-height:1.35">Operating at scale</div>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:6px">Platform, governance, culture.</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;margin-top:12px">6 ITEMS</div>
+</a>
+</div>
+</section>
+
+<section data-screen-label="Featured" style="max-width:1060px;margin:0 auto;padding:72px 24px 0">
+<div style="display:flex;align-items:baseline;gap:12px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase">Featured</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase">· the page most readers need this quarter</span></div>
+<a href="content-morphia T3 Process.dc.html" style="display:block;text-decoration:none;background:#fff;border:1.5px solid #000;border-radius:14px;padding:28px 28px;margin-top:20px;box-shadow:5px 5px 0 #1bbd94">
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.02em;text-transform:uppercase">
+<span style="padding:2px 8px;border-radius:4px;border:1px solid #000;background:#fff">Process</span>
+<span style="padding:3px 10px;border-radius:999px;background:rgba(27,189,148,.25)">Most read</span>
+<span style="margin-left:auto;font-weight:400">~25 min · intermediate</span>
+</div>
+<div style="display:grid;grid-template-columns:1.5fr 1fr;gap:24px;margin-top:14px;align-items:center">
+<div>
+<div style="font-weight:900;font-size:26px;line-height:1.15">The A/B test lifecycle</div>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:8px">Six steps from hypothesis to decision memo, with the two exceptions that kill most tests — peeking and sample ratio mismatch — handled where they occur.</div>
+<div style="margin-top:16px"><span style="display:inline-block;padding:8px 20px;border-radius:999px;background:#000;color:#fff;font-weight:700;font-size:14px">Open the lifecycle →</span></div>
+</div>
+<div style="display:flex;align-items:center;gap:8px;justify-content:center;flex-wrap:wrap">
+<span style="width:34px;height:34px;border-radius:999px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800">1</span>
+<span style="font-weight:300;font-size:14px">→</span>
+<span style="width:34px;height:34px;border-radius:999px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800">2</span>
+<span style="font-weight:300;font-size:14px">→</span>
+<span style="width:34px;height:34px;border-radius:999px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800">3</span>
+<span style="font-weight:300;font-size:14px">→</span>
+<span style="width:34px;height:34px;border-radius:999px;border:1.5px solid #000;background:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800">4</span>
+<span style="font-weight:300;font-size:14px">→</span>
+<span style="width:34px;height:34px;border-radius:999px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800">5</span>
+<span style="font-weight:300;font-size:14px">→</span>
+<span style="width:34px;height:34px;border-radius:999px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800">6</span>
+</div>
+</div>
+</a>
+</section>
+
+<section data-screen-label="Browse by type" style="max-width:1060px;margin:0 auto;padding:72px 24px 0">
+<div style="display:flex;align-items:baseline;gap:12px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase">Browse by type</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase">· same cards, grouped by content family</span></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px">
+<div style="background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:24px 28px">
+<div style="display:flex;align-items:baseline;gap:10px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:2px 8px;border-radius:4px;border:1px solid #000">Frameworks</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em">4 OF 7</span></div>
+<div style="display:flex;flex-direction:column;margin-top:12px;font-size:14px">
+<a href="content-morphia T2 Framework.dc.html" style="text-decoration:none;font-weight:700;padding:9px 2px;border-bottom:1px dotted #d9d9d9" style-hover="background:rgba(27,189,148,.12)">HEART — UX quality metrics</a>
+<a href="content-morphia T2 Framework.dc.html" style="text-decoration:none;font-weight:700;padding:9px 2px;border-bottom:1px dotted #d9d9d9" style-hover="background:rgba(27,189,148,.12)">North-star metric tree</a>
+<a href="content-morphia T2 Framework.dc.html" style="text-decoration:none;font-weight:700;padding:9px 2px;border-bottom:1px dotted #d9d9d9" style-hover="background:rgba(27,189,148,.12)">ICE prioritization</a>
+<a href="content-morphia T2 Framework.dc.html" style="text-decoration:none;font-weight:700;padding:9px 2px" style-hover="background:rgba(27,189,148,.12)">Guardrail metric design</a>
+</div>
+</div>
+<div style="background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:24px 28px">
+<div style="display:flex;align-items:baseline;gap:10px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:2px 8px;border-radius:4px;border:1px solid #000">Methods</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em">4 OF 9</span></div>
+<div style="display:flex;flex-direction:column;margin-top:12px;font-size:14px">
+<a href="content-morphia T3 Process.dc.html" style="text-decoration:none;font-weight:700;padding:9px 2px;border-bottom:1px dotted #d9d9d9" style-hover="background:rgba(27,189,148,.12)">A/B test lifecycle</a>
+<a href="content-morphia T3 Process.dc.html" style="text-decoration:none;font-weight:700;padding:9px 2px;border-bottom:1px dotted #d9d9d9" style-hover="background:rgba(27,189,148,.12)">Holdout design</a>
+<a href="content-morphia T3 Process.dc.html" style="text-decoration:none;font-weight:700;padding:9px 2px;border-bottom:1px dotted #d9d9d9" style-hover="background:rgba(27,189,148,.12)">CUPED variance reduction</a>
+<a href="content-morphia T3 Process.dc.html" style="text-decoration:none;font-weight:700;padding:9px 2px" style-hover="background:rgba(27,189,148,.12)">Funnel analysis</a>
+</div>
+</div>
+<div style="background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:24px 28px">
+<div style="display:flex;align-items:baseline;gap:10px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:2px 8px;border-radius:4px;border:1px solid #000">Metrics</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em">4 OF 10</span></div>
+<div style="display:flex;flex-direction:column;margin-top:12px;font-size:14px">
+<a href="content-morphia T1 Topic.dc.html" style="text-decoration:none;font-weight:700;padding:9px 2px;border-bottom:1px dotted #d9d9d9" style-hover="background:rgba(27,189,148,.12)">Conversion rate</a>
+<a href="content-morphia T1 Topic.dc.html" style="text-decoration:none;font-weight:700;padding:9px 2px;border-bottom:1px dotted #d9d9d9" style-hover="background:rgba(27,189,148,.12)">Sample ratio mismatch</a>
+<a href="content-morphia T1 Topic.dc.html" style="text-decoration:none;font-weight:700;padding:9px 2px;border-bottom:1px dotted #d9d9d9" style-hover="background:rgba(27,189,148,.12)">Minimum detectable effect</a>
+<a href="content-morphia T1 Topic.dc.html" style="text-decoration:none;font-weight:700;padding:9px 2px" style-hover="background:rgba(27,189,148,.12)">Retention D7 / D30</a>
+</div>
+</div>
+<div style="background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:24px 28px">
+<div style="display:flex;align-items:baseline;gap:10px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:2px 8px;border-radius:4px;border:1px solid #000">Guides</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em">3 OF 6</span></div>
+<div style="display:flex;flex-direction:column;margin-top:12px;font-size:14px">
+<a href="content-morphia T4 Guide.dc.html" style="text-decoration:none;font-weight:700;padding:9px 2px;border-bottom:1px dotted #d9d9d9" style-hover="background:rgba(27,189,148,.12)">Experimentation platform rollout</a>
+<a href="content-morphia T4 Guide.dc.html" style="text-decoration:none;font-weight:700;padding:9px 2px;border-bottom:1px dotted #d9d9d9" style-hover="background:rgba(27,189,148,.12)">Decision memo format</a>
+<a href="content-morphia T4 Guide.dc.html" style="text-decoration:none;font-weight:700;padding:9px 2px" style-hover="background:rgba(27,189,148,.12)">Test review ritual</a>
+</div>
+</div>
+</div>
+</section>
+
+<section data-screen-label="Related topics" style="max-width:1060px;margin:0 auto;padding:72px 24px 100px">
+<div style="display:flex;align-items:baseline;gap:12px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase">Related topics</span></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px">
+<a href="content-morphia T1 Topic.dc.html" style="text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:6px 14px;border-radius:999px;border:1px solid #000;background:#fff" style-hover="transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18)">Product analytics</a>
+<a href="content-morphia T1 Topic.dc.html" style="text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:6px 14px;border-radius:999px;border:1px solid #000;background:#fff" style-hover="transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18)">Metric design</a>
+<a href="content-morphia T1 Topic.dc.html" style="text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:6px 14px;border-radius:999px;border:1px solid #000;background:#fff" style-hover="transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18)">Causal inference</a>
+<a href="content-morphia T1 Topic.dc.html" style="text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:6px 14px;border-radius:999px;border:1px solid #000;background:#fff" style-hover="transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18)">Data quality</a>
+</div>
+<div style="border-top:1px solid #ebebeb;margin-top:56px;padding-top:24px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.02em;text-transform:uppercase">
+<span style="font-weight:700">content-morphia</span>
+<span style="font-weight:400">Template 01 · topic overview · sample content</span>
+<a href="content-morphia T2 Framework.dc.html" style="font-weight:700;margin-left:auto;text-decoration:none;border-bottom:1.5px solid #1bbd94;padding-bottom:1px">TEMPLATE 02</a>
+</div>
+</section>
+</x-dc>
+</body>
+</html>

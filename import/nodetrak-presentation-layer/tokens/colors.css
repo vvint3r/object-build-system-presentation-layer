@@ -1,0 +1,39 @@
+/* content-morphia · color
+   Ink is black or white, never anything else. Accent is never ink.
+   Greys are structure only. Semantic hue arrives as a tint behind a label,
+   or as a data mark, never as text. */
+:root {
+  --ink: #000;
+  --ink-inv: #fff;
+  --strike: rgba(0,0,0,.4);        /* line-through decoration on a completed item */
+
+  --accent: #1de9b6;
+  --accent-wash-12: rgba(29,233,182,.12);   /* row hover, recommended column body */
+  --accent-wash-25: rgba(29,233,182,.25);   /* recommended column header */
+  --accent-wash-30: rgba(29,233,182,.3);    /* interactive hover */
+
+  --canvas: #fafafa;
+  --surface: #fff;
+  --track: #f1f1f1;                /* rails, bars, disabled fields, media placeholder zones */
+  --hairline: #ebebeb;
+  --divider-dotted: #d9d9d9;
+
+  /* semantic tint — the default intensity: hue on white, black text, no border */
+  --tint-ok: rgba(0,230,118,.2);
+  --tint-warn: rgba(255,214,0,.3);
+  --tint-crit: rgba(255,82,82,.16);
+  --tint-info: rgba(64,196,255,.22);
+  --tint-note: rgba(179,136,255,.22);
+
+  /* semantic solid — the view's verdict, at most one per view, 1.5px black border */
+  --solid-ok: #00e676;
+  --solid-warn: #ffd600;
+  --solid-crit: #ff5252;
+  --solid-info: #40c4ff;
+  --solid-note: #b388ff;
+
+  /* code tokens — the one place hue enters ink, inside a code surface only */
+  --code-keyword: #6a3ea1;
+  --code-string: #0e7a5f;
+  --code-numeral: #a3441a;
+}

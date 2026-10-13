@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&amp;family=JetBrains+Mono:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#fafafa;color:#000;font-family:'Nunito',sans-serif}
+a{color:#000;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px}
+a:hover{background:rgba(29,233,182,.3)}
+::selection{background:rgba(29,233,182,.35)}
+::placeholder{color:#000;opacity:.4;font-style:italic;font-weight:400}
+button{font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;background:none;border:none;padding:0;margin:0;text-align:left;cursor:pointer}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px solid #000;outline-offset:3px}
+@media(max-width:640px){[style*="columns:1fr 1fr"],[style*="columns:repeat(2,1fr)"],[style*="columns:repeat(3,1fr)"],[style*="columns:repeat(4,1fr)"],[data-stack]{grid-template-columns:1fr!important}}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:#f1f1f1;border-radius:999px}
+::-webkit-scrollbar-thumb{background:rgba(0,0,0,.22);border-radius:999px}
+::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.45)}
+
+[data-nav-group] [data-nav-menu]{display:none}
+[data-nav-group]:hover [data-nav-menu],[data-nav-group]:focus-within [data-nav-menu]{display:block}
+</style>
+</helmet>
+
+<dc-import name="cm-nav" page="Foundations.dc.html" hint-size="100%,58px"></dc-import>
+
+<dc-import name="cm-toc" items='[["#sec-color","Color"],["#sec-type","Type"],["#sec-layout","Layout"],["#sec-depth","Depth"],["#sec-buttons","Buttons"],["#sec-badges","Badges"],["#sec-headers","Headers"],["#sec-callouts","Callouts"],["#sec-cards","Cards"],["#sec-lists","Lists"],["#sec-tables","Tables"],["#sec-inputs","Inputs"],["#sec-media","Media"],["#sec-code","Code"],["#sec-prose","Prose"]]' hint-size="100%,44px"></dc-import>
+
+<section data-screen-label="Masthead" style="max-width:1060px;margin:0 auto;padding:88px 24px 0">
+<div style="width:52px;height:5px;background:#1de9b6;border-radius:999px;margin-bottom:20px"></div>
+<h1 style="margin:0;font-weight:900;font-size:52px;line-height:1.05;letter-spacing:-.01em">Content Morphia</h1>
+<div style="font-size:17px;font-weight:400;line-height:1.8;max-width:68ch;margin-top:18px">A design system for structured knowledge and learning content: frameworks, processes, metrics, roadmaps, comparisons, built to stay readable at reference density. Foundations and core components, demonstrated with data/analytics-practice sample content.</div>
+<div style="display:flex;gap:24px;flex-wrap:wrap;margin-top:36px;padding:20px 22px;background:#fff;border:1px solid #ebebeb;border-radius:14px;font-size:14px;line-height:1.7">
+<div style="flex:1;min-width:200px"><span style="font-weight:800">Text is black or white.</span> <span style="font-weight:400">Focus is carried by weight 300→900, never by grey.</span></div>
+<div style="flex:1;min-width:200px"><span style="font-weight:800">Accent is never text.</span> <span style="font-weight:400">Teal appears only as bars, underlines, borders, chips, and the reserved shadow.</span></div>
+<div style="flex:1;min-width:200px"><span style="font-weight:800">One emphasis per view.</span> <span style="font-weight:400">The teal offset shadow marks a single element on any screen.</span></div>
+</div>
+</dc-import>
+
+<dc-import name="cm-section" n="1" id="sec-color" title="Color" label="ss: 01 Color" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px">Two inks, one accent, five bright semantics. Greys exist only as structure (hairlines, dividers, track fills) and are never applied to text.</div>
+<div style="display:grid;grid-template-columns:repeat(6,1fr);gap:20px;margin-top:28px">
+<div><div style="height:88px;background:#000;border-radius:12px"></div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;margin-top:8px"><span style="font-weight:700">ink</span> <span style="font-weight:400">#000000</span></div></div>
+<div><div style="height:88px;background:#fff;border:1px solid #ebebeb;border-radius:12px"></div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;margin-top:8px"><span style="font-weight:700">surface</span> <span style="font-weight:400">#ffffff</span></div></div>
+<div><div style="height:88px;border:1px solid #ebebeb;border-radius:12px"></div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;margin-top:8px"><span style="font-weight:700">canvas</span> <span style="font-weight:400">#fafafa</span></div></div>
+<div><div style="height:88px;background:#f1f1f1;border-radius:12px"></div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;margin-top:8px"><span style="font-weight:700">track</span> <span style="font-weight:400">#f1f1f1</span></div></div>
+<div><div style="height:88px;background:#ebebeb;border-radius:12px"></div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;margin-top:8px"><span style="font-weight:700">hairline</span> <span style="font-weight:400">#ebebeb</span></div></div>
+<div><div style="height:88px;background:#1de9b6;border-radius:12px"></div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;margin-top:8px"><span style="font-weight:700">accent</span> <span style="font-weight:400">#1de9b6</span></div></div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:28px">
+<div style="background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:28px">
+<h3 style="margin:0 0 18px;font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;line-height:1.3;letter-spacing:-.01em">Accent roles, never ink</h3>
+<div style="display:flex;align-items:center;gap:22px;flex-wrap:wrap">
+<div style="display:flex;flex-direction:column;gap:12px;align-items:flex-start"><div style="width:36px;height:4px;background:#1de9b6;border-radius:999px"></div><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase">Bar</span></div>
+<div style="display:flex;flex-direction:column;gap:12px;align-items:flex-start"><span style="font-weight:700;font-size:14px;border-bottom:2px solid #1de9b6;padding-bottom:1px">Link</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase">Underline</span></div>
+<div style="display:flex;flex-direction:column;gap:12px;align-items:flex-start"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;background:#1de9b6">CHIP</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase">Fill</span></div>
+<div style="display:flex;flex-direction:column;gap:12px;align-items:flex-start"><div style="width:44px;height:26px;background:#fff;border:1.5px solid #000;border-radius:8px;box-shadow:3px 3px 0 #1de9b6"></div><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase">Shadow</span></div>
+<div style="display:flex;flex-direction:column;gap:12px;align-items:flex-start"><div style="width:44px;height:26px;background:#fff;border:2px solid #1de9b6;border-radius:8px"></div><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase">Border</span></div>
+</div>
+</div>
+<div style="background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:28px">
+<h3 style="margin:0;font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;line-height:1.3;letter-spacing:-.01em">Semantic intensities</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:8px;max-width:52ch">Tint is the default and carries no border. Solid is the view's verdict and there is at most one. Meaning never rests on the hue: every semantic carries its mono label.</div>
+
+<div style="margin-top:20px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-bottom:10px">Tint: 16–30% on white, no border</div>
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">
+<span style="padding:4px 11px;border-radius:999px;background:rgba(0,230,118,.2)">OK</span>
+<span style="padding:4px 11px;border-radius:999px;background:rgba(255,214,0,.3)">Warn</span>
+<span style="padding:4px 11px;border-radius:999px;background:rgba(255,82,82,.16)">Crit</span>
+<span style="padding:4px 11px;border-radius:999px;background:rgba(64,196,255,.22)">Info</span>
+<span style="padding:4px 11px;border-radius:999px;background:rgba(179,136,255,.22)">Note</span>
+<span style="padding:4px 11px;border-radius:999px;border:1px solid #000;background:#fff">Neutral</span>
+</div>
+</div>
+
+<div style="margin-top:20px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-bottom:10px">Solid: the verdict, one per view</div>
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">
+<span style="padding:4px 11px;border-radius:999px;background:#ff5252;border:1.5px solid #000">Breach</span>
+</div>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:10px;max-width:52ch">A semantic fill is never a heading and never a column header. Title blocks carry at most three status chips.</div>
+</div>
+
+<div style="margin-top:20px;border-top:1px solid #ebebeb;padding-top:16px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-bottom:10px">Token values: reference only</div>
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">
+<span style="padding:4px 11px;border-radius:999px;background:#00e676">OK #00e676</span>
+<span style="padding:4px 11px;border-radius:999px;background:#ffd600">Warn #ffd600</span>
+<span style="padding:4px 11px;border-radius:999px;background:#ff5252">Crit #ff5252</span>
+<span style="padding:4px 11px;border-radius:999px;background:#40c4ff">Info #40c4ff</span>
+<span style="padding:4px 11px;border-radius:999px;background:#b388ff">Note #b388ff</span>
+</div>
+</div>
+</div>
+</div>
+</dc-import>
+
+<dc-import name="cm-section" n="2" id="sec-type" title="Typography" label="ss: 02 Typography" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px">Nunito carries reading and display; JetBrains Mono carries every label, metadata item, timestamp, table, and code span. Hierarchy is weight, not color.</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:28px">
+<div style="background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:28px">
+<h3 style="margin:0 0 18px;font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;line-height:1.3;letter-spacing:-.01em">Weight ladder: the focus mechanism</h3>
+<div style="display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px"><span style="font-size:19px;font-weight:300">De-emphasized detail</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400">300</span></div>
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px"><span style="font-size:19px;font-weight:400">Reading body</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400">400</span></div>
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px"><span style="font-size:19px;font-weight:600">Gentle emphasis</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400">600</span></div>
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px"><span style="font-size:19px;font-weight:700">Labels &amp; actions</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400">700</span></div>
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px"><span style="font-size:19px;font-weight:800">Component titles</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400">800</span></div>
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px"><span style="font-size:19px;font-weight:900">Page display</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400">900</span></div>
+</div>
+</div>
+<div style="background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:28px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-bottom:16px">Scale</div>
+<div style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px"><span style="font-size:34px;font-weight:900;line-height:1.1">Display</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400">40–52 / 900</span></div>
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px"><span style="font-size:28px;font-weight:900;line-height:1.15">Heading 1</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400">28 / 900</span></div>
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px"><span style="font-size:21px;font-weight:800;line-height:1.2">Heading 2</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400">21 / 800</span></div>
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px"><span style="font-size:16px;font-weight:800;line-height:1.3">Heading 3</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400">16 / 800</span></div>
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px"><span style="font-size:15.5px;font-weight:400;line-height:1.85">Body: generous 1.85 leading</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400">15.5 / 400</span></div>
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px"><span style="font-size:14px;font-weight:400">Small body</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400">13 / 400</span></div>
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">Mono label</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400">10 / 700 / caps</span></div>
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400">mono meta · 2026-07-31</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400">11 / 400</span></div>
+</div>
+</div>
+</div>
+<div style="background:#fff;border:1px solid #ebebeb;border-radius:14px;padding:28px 30px;margin-top:16px">
+<h3 style="margin:0 0 18px;font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;line-height:1.3;letter-spacing:-.01em">Reading sample</h3>
+<div style="max-width:70ch">
+<div style="font-weight:900;font-size:24px;line-height:1.2">Instrumenting a freshness metric</div>
+<div style="font-size:16px;font-weight:400;line-height:1.8;margin-top:12px">Freshness measures the share of pipelines that refreshed on schedule. It is the <span style="font-weight:800">first metric a new data team should govern</span>, because every downstream number inherits its failures.</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;margin-top:16px">Compute it per pipeline as <span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;background:#fff;border:1px solid #ebebeb;padding:.15em .6em;border-radius:6px;white-space:nowrap">on_time_runs / scheduled_runs</span> over a trailing window, then aggregate by <a href="#sec-tables">source system</a>. Runs that never started count as late: <span style="font-weight:300;font-style:italic">silence is the worst kind of failure</span>.</div>
+</div>
+</div>
+</dc-import>
+
+<dc-import name="cm-section" n="3" id="sec-layout" title="Spacing &amp; layout" label="ss: 03 Spacing &amp; layout" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px">4px base. Reading columns cap at 70ch; page content caps at 1060px. Section rhythm is generous: 96px between major sections, 28px between sibling modules. Breathing floors (R8): module padding ≥24 · label→content ≥10 · tile gaps ≥16 · column gaps ≥28 · sibling surfaces ≥16 apart.</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:28px">
+<div style="background:#fff;border:1px solid #ebebeb;border-radius:14px;padding:28px">
+<h3 style="margin:0 0 18px;font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;line-height:1.3;letter-spacing:-.01em">Spacing scale</h3>
+<div style="display:flex;flex-direction:column;gap:12px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400">
+<div style="display:flex;align-items:center;gap:12px"><div style="width:4px;height:12px;background:#000;border-radius:2px"></div><span>4 · hairline gaps</span></div>
+<div style="display:flex;align-items:center;gap:12px"><div style="width:8px;height:12px;background:#000;border-radius:2px"></div><span>8 · chip gaps</span></div>
+<div style="display:flex;align-items:center;gap:12px"><div style="width:12px;height:12px;background:#000;border-radius:2px"></div><span>12 · inline gaps</span></div>
+<div style="display:flex;align-items:center;gap:12px"><div style="width:16px;height:12px;background:#000;border-radius:2px"></div><span>16 · tile gap floor</span></div>
+<div style="display:flex;align-items:center;gap:12px"><div style="width:24px;height:12px;background:#000;border-radius:2px"></div><span>24 · module padding floor</span></div>
+<div style="display:flex;align-items:center;gap:12px"><div style="width:32px;height:12px;background:#000;border-radius:2px"></div><span>32 · block separation</span></div>
+<div style="display:flex;align-items:center;gap:12px"><div style="width:48px;height:12px;background:#000;border-radius:2px"></div><span>48 · sub-section</span></div>
+<div style="display:flex;align-items:center;gap:12px"><div style="width:96px;height:12px;background:#000;border-radius:2px"></div><span>96 · section rhythm</span></div>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="background:#fff;border:1px solid #ebebeb;border-radius:14px;padding:28px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-bottom:16px">Radius</div>
+<div style="display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap">
+<div style="display:flex;flex-direction:column;gap:12px;align-items:center"><div style="width:52px;height:40px;border:1.5px solid #000;border-radius:4px"></div><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400">4 chip</span></div>
+<div style="display:flex;flex-direction:column;gap:12px;align-items:center"><div style="width:52px;height:40px;border:1.5px solid #000;border-radius:8px"></div><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400">8 input</span></div>
+<div style="display:flex;flex-direction:column;gap:12px;align-items:center"><div style="width:52px;height:40px;border:1.5px solid #000;border-radius:12px"></div><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400">12 table</span></div>
+<div style="display:flex;flex-direction:column;gap:12px;align-items:center"><div style="width:52px;height:40px;border:1.5px solid #000;border-radius:14px"></div><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400">14 card</span></div>
+<div style="display:flex;flex-direction:column;gap:12px;align-items:center"><div style="width:52px;height:40px;border:1.5px solid #000;border-radius:999px"></div><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400">999 pill</span></div>
+</div>
+</div>
+<div style="background:#fff;border:1px solid #ebebeb;border-radius:14px;padding:28px">
+<h3 style="margin:0 0 12px;font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;line-height:1.3;letter-spacing:-.01em">Content widths</h3>
+<div style="font-size:15.5px;font-weight:400;line-height:1.8">Reading column <span style="font-weight:700">70ch</span> · component grid <span style="font-weight:700">1060px</span> · full-bleed reserved for diagrams and tables that need it. Breakpoints: <span style="font-family:'JetBrains Mono',monospace;font-size:12px">640 / 960 / 1200</span>: grids collapse to single column below 640.</div>
+</div>
+</div>
+</div>
+</dc-import>
+
+<dc-import name="cm-section" n="4" id="sec-depth" title="Depth &amp; elevation" label="ss: 04 Depth &amp; elevation" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px">Two families. <span style="font-weight:800">Soft shadows are structure at rest</span>: borderless, never stacked with a hairline; the one primary container per cluster takes one, landing near 60% hairline / 40% shadow across a page. <span style="font-weight:800">Hard offsets are emphasis and interaction only.</span> Boundaries are drawn once: sub-blocks carry corner brackets, and sibling sections of one module share a single surface split by inset dividers.</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-top:28px">Soft: structure at rest</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:20px">
+<div style="background:#fff;border-radius:14px;padding:28px;box-shadow:0 1px 2px rgba(0,0,0,.06)">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-bottom:10px">S1 · Rest</div>
+<div style="font-size:14px;font-weight:400;line-height:1.75">Rows, quiet frames, figure mats.</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;margin-top:10px">0 1px 2px rgba(0,0,0,.06)</div>
+</div>
+<div style="background:#fff;border-radius:14px;padding:32px;box-shadow:0 4px 14px rgba(0,0,0,.08)">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-bottom:10px">S2 · Card</div>
+<div style="font-size:14px;font-weight:400;line-height:1.75">The one primary container per cluster.</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;margin-top:10px">0 4px 14px rgba(0,0,0,.08)</div>
+</div>
+<div style="background:#fff;border-radius:14px;padding:32px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11)">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-bottom:10px">S3 · Float</div>
+<div style="font-size:14px;font-weight:400;line-height:1.75">Hero, chart and code frames; sticky rails.</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;margin-top:10px">0 14px 28px -6px rgba(0,0,0,.11)</div>
+</div>
+</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-top:28px">Hard: emphasis &amp; interaction</div>
+<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:20px;margin-top:20px">
+<div style="background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:28px">
+<h3 style="margin:0 0 18px;font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;line-height:1.3;letter-spacing:-.01em">L0 · Rest</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.75">1px hairline on white. The default for every surface.</div>
+</div>
+<div style="background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:28px;cursor:pointer" style-hover="border-color:#000;transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18)">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-bottom:10px">L1 · Hover</div>
+<div style="font-size:14px;font-weight:400;line-height:1.75">Interactive surfaces lift −1,−1 with a soft black offset. Try it.</div>
+</div>
+<div style="background:#fff;border:1.5px solid #000;border-radius:14px;padding:28px;box-shadow:6px 6px 0 rgba(0,0,0,.08)">
+<h3 style="margin:0 0 18px;font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;line-height:1.3;letter-spacing:-.01em">L1e · Emphasis</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.75">Static pop: black border + soft black offset. For containers that must stand out.</div>
+</div>
+<div style="background:#fff;border:1.5px solid #000;border-radius:14px;padding:28px;box-shadow:5px 5px 0 #1de9b6">
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">L2 · Reserved</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:2px 7px;border-radius:4px;border:1px dashed #000;background:#fff">Spec specimen</span></div>
+<div style="font-size:14px;font-weight:400;line-height:1.75">Black border + teal offset. One per view: the emphasized element.</div>
+</div>
+<div style="background:#fff;border:1.5px solid #000;border-radius:14px;padding:28px;box-shadow:10px 10px 0 rgba(0,0,0,.12)">
+<h3 style="margin:0 0 18px;font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;line-height:1.3;letter-spacing:-.01em">L3 · Overlay</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.75">Modals and popovers: black border, deep neutral offset.</div>
+</div>
+</div>
+</dc-import>
+
+<dc-import name="cm-section" n="5" id="sec-buttons" title="Buttons &amp; interactives" label="ss: 05 Buttons &amp; interactives" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px">Every interactive is a pill. Primary actions are black; the accent arrives on hover as the offset shadow.</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:28px">
+<div style="background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:28px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-bottom:16px">Variants</div>
+<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+<span style="padding:9px 18px;border-radius:999px;background:#000;color:#fff;font-weight:700;font-size:14px;cursor:pointer" style-hover="box-shadow:3px 3px 0 #1de9b6;transform:translate(-1px,-1px)">Primary</span>
+<span style="padding:8px 17px;border-radius:999px;background:#fff;border:1.5px solid #000;color:#000;font-weight:700;font-size:14px;cursor:pointer" style-hover="box-shadow:3px 3px 0 rgba(0,0,0,.18);transform:translate(-1px,-1px)">Secondary</span>
+<span style="padding:9px 17px;border-radius:999px;background:#fff;border:1px solid #ebebeb;color:#000;font-weight:700;font-size:14px;cursor:pointer" style-hover="box-shadow:3px 3px 0 rgba(0,0,0,.18);transform:translate(-1px,-1px)">Subtle</span>
+<span style="width:34px;height:34px;border-radius:999px;background:#fff;border:1.5px solid #000;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;cursor:pointer" style-hover="box-shadow:2px 2px 0 #1de9b6;transform:translate(-1px,-1px)">+</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;color:#000;border-bottom:2px solid #1de9b6;padding-bottom:1px;cursor:pointer" style-hover="background:rgba(29,233,182,.3)">LINK ↗</span>
+</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin:20px 0 14px">Sizes</div>
+<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+<span style="padding:5px 12px;border-radius:999px;background:#000;color:#fff;font-weight:700;font-size:14px">Small</span>
+<span style="padding:9px 18px;border-radius:999px;background:#000;color:#fff;font-weight:700;font-size:14px">Medium</span>
+<span style="padding:12px 24px;border-radius:999px;background:#000;color:#fff;font-weight:700;font-size:15px">Large</span>
+</div>
+</div>
+<div style="background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:28px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-bottom:16px">States</div>
+<div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+<div style="display:flex;flex-direction:column;gap:12px;align-items:center"><span style="padding:9px 18px;border-radius:999px;background:#000;color:#fff;font-weight:700;font-size:14px">Default</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase">rest</span></div>
+<div style="display:flex;flex-direction:column;gap:12px;align-items:center"><span style="padding:9px 18px;border-radius:999px;background:#000;color:#fff;font-weight:700;font-size:14px;box-shadow:3px 3px 0 #1de9b6;transform:translate(-1px,-1px)">Hover</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase">lift+shadow</span></div>
+<div style="display:flex;flex-direction:column;gap:12px;align-items:center"><span style="padding:9px 18px;border-radius:999px;background:#000;color:#fff;font-weight:700;font-size:14px;outline:2px solid #000;outline-offset:3px">Focus</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase">ring</span></div>
+<div style="display:flex;flex-direction:column;gap:12px;align-items:center"><span style="padding:9px 18px;border-radius:999px;background:#000;color:#fff;font-weight:700;font-size:14px;box-shadow:1px 1px 0 #1de9b6;transform:translate(1px,1px)">Active</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase">press</span></div>
+<div style="display:flex;flex-direction:column;gap:12px;align-items:center"><span style="padding:9px 18px;border-radius:999px;background:#000;color:#fff;font-weight:700;font-size:14px;opacity:.3">Disabled</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase">opacity .3</span></div>
+</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin:20px 0 14px">Tabs: live</div>
+<div style="display:inline-flex;gap:4px;background:#f1f1f1;border-radius:999px;padding:4px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.02em;text-transform:uppercase">
+<sc-if value="{{ tab0 }}" hint-placeholder-val="{{ true }}"><span style="padding:6px 14px;border-radius:999px;background:#fff;font-weight:600;border:1px solid #000;box-shadow:2px 2px 0 #1de9b6">Overview</span></sc-if>
+<sc-if value="{{ notTab0 }}" hint-placeholder-val="{{ false }}"><button onClick="{{ goTab0 }}" style="padding:6px 14px;border-radius:999px;font-weight:400;cursor:pointer" style-hover="background:#fff">Overview</button></sc-if>
+<sc-if value="{{ tab1 }}" hint-placeholder-val="{{ false }}"><span style="padding:6px 14px;border-radius:999px;background:#fff;font-weight:600;border:1px solid #000;box-shadow:2px 2px 0 #1de9b6">Elements</span></sc-if>
+<sc-if value="{{ notTab1 }}" hint-placeholder-val="{{ true }}"><button onClick="{{ goTab1 }}" style="padding:6px 14px;border-radius:999px;font-weight:400;cursor:pointer" style-hover="background:#fff">Elements</button></sc-if>
+<sc-if value="{{ tab2 }}" hint-placeholder-val="{{ false }}"><span style="padding:6px 14px;border-radius:999px;background:#fff;font-weight:600;border:1px solid #000;box-shadow:2px 2px 0 #1de9b6">Examples</span></sc-if>
+<sc-if value="{{ notTab2 }}" hint-placeholder-val="{{ true }}"><button onClick="{{ goTab2 }}" style="padding:6px 14px;border-radius:999px;font-weight:400;cursor:pointer" style-hover="background:#fff">Examples</button></sc-if>
+</div>
+<div style="font-size:14px;font-weight:400;line-height:1.7;margin-top:12px">{{ tabHint }}</div>
+</div>
+</div>
+</dc-import>
+
+<dc-import name="cm-section" n="6" id="sec-badges" title="Badges, status &amp; metadata" label="ss: 06 Badges, status &amp; metadata" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px">Labels are mono, uppercase, pill-shaped. Categories stay extensible: new labels reuse the same chip chromes: outline, tint, ink. The label set itself is closed; the vocabulary is on Selection ss: 01.</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:28px">
+<div style="background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:28px;display:flex;flex-direction:column;gap:18px">
+<div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-bottom:12px">Content status</div>
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">
+<span style="padding:3px 10px;border-radius:999px;border:1px solid #000;background:#fff">Draft</span>
+<span style="padding:3px 10px;border-radius:999px;background:rgba(255,214,0,.3)">In review</span>
+<span style="padding:3px 10px;border-radius:999px;background:rgba(0,230,118,.2)">Approved</span>
+<span style="padding:3px 10px;border-radius:999px;background:rgba(0,230,118,.2)">Published</span>
+<span style="padding:3px 10px;border-radius:999px;background:rgba(255,82,82,.16)">Deprecated</span>
+<span style="padding:3px 10px;border-radius:999px;border:1px solid #ebebeb">Archived</span>
+</div>
+</div>
+<div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-bottom:12px">Requirement level</div>
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">
+<span style="padding:3px 10px;border-radius:999px;font-weight:600;background:#fff;border:1px solid #ebebeb;">Required</span>
+<span style="padding:3px 10px;border-radius:999px;background:#1de9b6">Recommended</span>
+<span style="padding:3px 10px;border-radius:999px;border:1px solid #000;background:#fff">Optional</span>
+</div>
+</div>
+<div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-bottom:12px">Difficulty / maturity: flexible scale</div>
+<div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.02em;text-transform:uppercase">
+<span style="font-weight:400">●○○ Intro</span>
+<span style="font-weight:600">●●○ Intermediate</span>
+<span style="font-weight:700">●●● Advanced</span>
+</div>
+</div>
+</div>
+<div style="background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:28px;display:flex;flex-direction:column;gap:18px">
+<div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-bottom:12px">Taxonomy labels: select state</div>
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">
+<span style="padding:4px 11px;border-radius:999px;border:1px solid #000;background:#fff;box-shadow:2px 2px 0 #1de9b6">Framework ✓</span>
+<span style="padding:4px 11px;border-radius:999px;border:1px solid #000;background:#fff;cursor:pointer" style-hover="background:rgba(29,233,182,.12)">Process</span>
+<span style="padding:4px 11px;border-radius:999px;border:1px solid #000;background:#fff;cursor:pointer" style-hover="background:rgba(29,233,182,.12)">Metric</span>
+<span style="padding:4px 11px;border-radius:999px;border:1px solid #000;background:#fff;cursor:pointer" style-hover="background:rgba(29,233,182,.12)">Method</span>
+</div>
+</div>
+<div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-bottom:12px">Metadata group: compact</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.02em;text-transform:uppercase;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+<span><span style="font-weight:400">Owner</span> <span style="font-weight:700">Data-Platform</span></span>
+<span><span style="font-weight:400">Reviewed</span> <span style="font-weight:700">2026-06-14</span></span>
+<span><span style="font-weight:400">Est</span> <span style="font-weight:700">12 min</span></span>
+</div>
+</div>
+<div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-bottom:12px">Metadata group: expanded</div>
+<div style="display:grid;grid-template-columns:auto 1fr;gap:6px 18px;font-size:14px;border-top:1px dotted #d9d9d9;padding-top:10px">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase;padding-top:2px">Audience</span><span style="font-weight:600">Analytics engineers, data leads</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase;padding-top:2px">Source</span><span style="font-weight:600">Metric governance handbook ss: 4</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase;padding-top:2px">Depends on</span><span style="font-weight:600">Pipeline registry · Run logs</span>
+</div>
+</div>
+</div>
+</div>
+</dc-import>
+
+<dc-import name="cm-section" n="7" id="sec-headers" title="Content &amp; section headers" label="ss: 07 Content &amp; section headers" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px">The content header opens every detail page: breadcrumb, teal bar, title, description, metadata, actions. Section headers repeat the bar at smaller scale and can collapse.</div>
+<div style="background:#fff;border:1px solid #ebebeb;border-radius:14px;padding:28px 30px;margin-top:28px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase">Library / Frameworks / <span style="font-weight:600;border-bottom:2px solid #1de9b6;padding-bottom:1px">Metric-Design</span></div>
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin:18px 0 12px"></div>
+<div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap">
+<div style="flex:1;min-width:280px">
+<div style="font-weight:900;font-size:30px;line-height:1.12">Metric Design Framework</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.8;margin-top:10px;max-width:60ch">How to define, instrument, and govern metrics that survive contact with real pipelines.</div>
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.02em;text-transform:uppercase">
+<span style="padding:3px 10px;border-radius:999px;border:1px solid #000;font-weight:600">Framework</span>
+<span style="padding:3px 10px;border-radius:999px;background:rgba(0,230,118,.2);font-weight:600">Approved</span>
+<span style="font-weight:400">●●○ Intermediate</span>
+<span style="font-weight:400">12 min</span>
+<span style="font-weight:400">Reviewed 2026-06-14</span>
+</div>
+</div>
+<div style="display:flex;gap:10px;flex-shrink:0">
+<span style="padding:9px 18px;border-radius:999px;background:#000;color:#fff;font-weight:700;font-size:14px;cursor:pointer" style-hover="box-shadow:3px 3px 0 #1de9b6;transform:translate(-1px,-1px)">Start reading</span>
+<span style="padding:8px 17px;border-radius:999px;background:#fff;border:1.5px solid #000;font-weight:700;font-size:14px;cursor:pointer" style-hover="box-shadow:3px 3px 0 rgba(0,0,0,.18);transform:translate(-1px,-1px)">Save</span>
+</div>
+</div>
+</div>
+<div style="background:#fff;border:1px solid #ebebeb;border-radius:14px;padding:16px 22px;margin-top:16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid #000">Compact</span>
+<span style="font-weight:800;font-size:16px">Metric Design Framework</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase">●●○ · 12 min</span>
+<span style="margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;border-bottom:2px solid #1de9b6;padding-bottom:1px;cursor:pointer" style-hover="background:rgba(29,233,182,.3)">OPEN →</span>
+</div>
+<div style="background:#fff;border:1px solid #ebebeb;border-radius:14px;padding:28px 30px;margin-top:16px">
+<button style="display:flex;align-items:center;gap:12px;cursor:pointer;width:100%" onClick="{{ toggleExp }}" aria-expanded="{{ exp }}">
+<div style="width:22px;height:4px;background:#1de9b6;border-radius:999px"></div>
+<span style="font-weight:800;font-size:19px">2 · Choosing the numerator</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase">Section</span>
+<span style="margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.06em">{{ expGlyph }}</span>
+</button>
+<sc-if value="{{ exp }}" hint-placeholder-val="{{ true }}">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:16px">A collapsible section header keeps long reference pages scannable. The chevron, anchor link, and optional action live on the header row; the intro paragraph and body collapse together.</div>
+</sc-if>
+</div>
+</dc-import>
+
+<dc-import name="cm-section" n="8" id="sec-callouts" title="Callouts" label="ss: 08 Callouts" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px">Open layout: a labelled chip, then text. The chip carries the tint and the body sits in the reading flow, so a callout interrupts without breaking the column. The boxed summary variant is the one exception.</div>
+<div style="display:flex;flex-direction:column;gap:20px;margin-top:28px;max-width:74ch">
+<div style="display:flex;gap:14px;align-items:baseline;font-size:14px;line-height:1.8"><img src="icons/set/note-o.svg" width="20" height="20" alt="" aria-hidden="true" style="display:block;flex:none;align-self:flex-start;margin-top:2px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;background:rgba(64,196,255,.22);border-radius:4px;padding:3px 9px;white-space:nowrap">Note</span><span style="font-weight:400">Freshness targets differ by tier: hourly pipelines target 99%, daily pipelines 95%.</span></div>
+<div style="display:flex;gap:14px;align-items:baseline;font-size:14px;line-height:1.8"><img src="icons/set/tip-o.svg" width="20" height="20" alt="" aria-hidden="true" style="display:block;flex:none;align-self:flex-start;margin-top:2px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;background:#1de9b6;border-radius:4px;padding:3px 9px;white-space:nowrap">Tip</span><span style="font-weight:400">Alert on the trend, not the level. Three consecutive drops beat any single threshold.</span></div>
+<div style="display:flex;gap:14px;align-items:baseline;font-size:14px;line-height:1.8"><img src="icons/set/important-o.svg" width="20" height="20" alt="" aria-hidden="true" style="display:block;flex:none;align-self:flex-start;margin-top:2px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;background:#fff;border:1.5px solid #000;border-radius:4px;padding:3px 9px;white-space:nowrap">Important</span><span style="font-weight:400"><span style="font-weight:700">Freshness is a prerequisite metric:</span> report it before any quality or usage number.</span></div>
+<div style="display:flex;gap:14px;align-items:baseline;font-size:14px;line-height:1.8"><img src="icons/set/warning-o.svg" width="20" height="20" alt="" aria-hidden="true" style="display:block;flex:none;align-self:flex-start;margin-top:2px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;background:rgba(255,214,0,.3);border-radius:4px;padding:3px 9px;white-space:nowrap">Warning</span><span style="font-weight:400">Never average a ratio metric across segments. Recompute from raw counts.</span></div>
+<div style="display:flex;gap:14px;align-items:baseline;font-size:14px;line-height:1.8"><img src="icons/set/requirement-o.svg" width="20" height="20" alt="" aria-hidden="true" style="display:block;flex:none;align-self:flex-start;margin-top:2px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;background:#fff;border:1px solid #000;border-radius:4px;padding:3px 9px;white-space:nowrap">Requirement</span><span style="font-weight:400">Every published metric must name an owner and a data source. <span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600">REQ-04</span></span></div>
+<div style="display:flex;gap:14px;align-items:baseline;font-size:14px;line-height:1.8"><img src="icons/set/example-o.svg" width="20" height="20" alt="" aria-hidden="true" style="display:block;flex:none;align-self:flex-start;margin-top:2px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;background:rgba(179,136,255,.22);border-radius:4px;padding:3px 9px;white-space:nowrap">Example</span><span style="font-weight:400">events_core: 412 of 437 scheduled runs on time → 94.3% freshness.</span></div>
+<div style="display:flex;gap:14px;align-items:baseline;font-size:14px;line-height:1.8"><img src="icons/set/limitation-o.svg" width="20" height="20" alt="" aria-hidden="true" style="display:block;flex:none;align-self:flex-start;margin-top:2px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;background:rgba(255,82,82,.16);border-radius:4px;padding:3px 9px;white-space:nowrap">Limitation</span><span style="font-weight:400">Freshness says nothing about correctness: a broken pipeline can be perfectly punctual.</span></div>
+<div style="display:flex;gap:14px;align-items:baseline;font-size:14px;line-height:1.8"><img src="icons/set/correction-o.svg" width="20" height="20" alt="" aria-hidden="true" style="display:block;flex:none;align-self:flex-start;margin-top:2px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;background:rgba(255,82,82,.16);border-radius:4px;padding:3px 9px;white-space:nowrap">Correction</span><span style="font-weight:400">The 94.3% published on 12 Aug counted two backfilled runs as on time. The corrected value is 93.9%.</span></div>
+</div>
+<div style="background:#fff;border:1.5px solid #000;box-shadow:6px 6px 0 rgba(0,0,0,.08);border-radius:14px;padding:28px;margin-top:28px;max-width:74ch">
+<h3 style="margin:0;font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;line-height:1.3;letter-spacing:-.01em">Summary</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.8;margin-top:16px">Define the metric from raw counts, set tier-specific targets, alert on trends, and publish only with an owner attached. Everything else in this guide is elaboration.</div>
+</div>
+<div style="max-width:74ch;margin-top:28px;padding-top:20px;border-top:1px solid #ebebeb;font-size:14px;font-weight:400;line-height:1.8">The summary is the one boxed callout. It carries static emphasis: a 1.5px black border with the offset below and to the right, never a coloured edge on one side. Each label takes its glyph from the Icons register at 20px, outline only; eight callouts shown together are a grid of peers, so the fill is spent once per view.</div>
+</dc-import>
+
+<dc-import name="cm-section" n="9" id="sec-cards" title="Cards" label="ss: 09 Cards" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px">One card chrome, structural variants by content. Interactive cards lift on hover; the reserved treatment marks the single featured item in a collection.</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:28px">
+<div style="background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:28px;cursor:pointer" style-hover="border-color:#000;transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18)">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase;margin-bottom:10px">Summary</div>
+<div style="font-weight:800;font-size:15px;line-height:1.3">Freshness governance guide</div>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:6px">Targets, alerting, and ownership for the freshness metric family.</div>
+<div style="display:flex;align-items:center;gap:8px;margin-top:12px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">
+<span style="padding:2px 8px;border-radius:999px;background:rgba(0,230,118,.2)">Approved</span>
+<span style="font-weight:400">Guide · 12 min</span>
+</div>
+</div>
+<div style="background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:28px;cursor:pointer" style-hover="border-color:#000;transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18)">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase;margin-bottom:10px">Key concept</div>
+<div style="font-weight:800;font-size:15px;line-height:1.3">Leading vs lagging</div>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:6px">Pair every lagging outcome with a leading driver you can act on weekly.</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;margin-top:12px;border-bottom:2px solid #1de9b6;display:inline-block;padding-bottom:1px">4 RELATED →</div>
+</div>
+<div style="background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:28px">
+<h3 style="margin:0 0 18px;font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;line-height:1.3;letter-spacing:-.01em">Metric · Freshness</h3>
+<div style="font-weight:900;font-size:30px;line-height:1">94.2%</div>
+<div style="margin-top:7px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;background:#1de9b6;border-radius:999px;padding:2px 8px">▲ +2.1% VS LAST WK</span></div>
+<div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.02em;text-transform:uppercase"><span style="font-weight:400">Target 95%</span><span style="font-weight:700">DBT_RUNS</span></div>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:2fr 1fr;gap:20px;margin-top:20px">
+<div style="background:#fff;border:1.5px solid #000;border-radius:14px;padding:28px;box-shadow:5px 5px 0 #1de9b6">
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;background:#1de9b6;border-radius:999px;padding:3px 10px">Featured</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:2px 7px;border-radius:4px;border:1px dashed #000;background:#fff">Spec specimen</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase">Reserved emphasis, one per view</span>
+</div>
+<div style="font-weight:900;font-size:20px;line-height:1.2">Metric Design Framework</div>
+<div style="font-size:14px;font-weight:400;line-height:1.7;margin-top:8px;max-width:56ch">The five-element framework this whole sample library hangs off: definition, instrumentation, target, ownership, review cadence.</div>
+<span style="display:inline-block;margin-top:16px;padding:8px 16px;border-radius:999px;background:#000;color:#fff;font-weight:700;font-size:14px;cursor:pointer" style-hover="box-shadow:3px 3px 0 #1de9b6;transform:translate(-1px,-1px)">Open framework</span>
+</div>
+<div style="display:flex;flex-direction:column;gap:14px">
+<div style="background:#fff;border:1px solid #ebebeb;border-radius:14px;padding:16px 18px;display:flex;align-items:center;gap:12px;cursor:pointer" style-hover="border-color:#000;transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18)">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:2px 8px;border-radius:999px;border:1px solid #000;white-space:nowrap">Builds on</span>
+<div style="min-width:0"><div style="font-weight:800;font-size:14px;line-height:1.3">Pipeline registry</div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase;margin-top:2px">Reference</div></div>
+</div>
+<div style="background:#fff;border:1px solid #ebebeb;border-radius:14px;padding:16px 18px;display:flex;align-items:center;gap:12px;cursor:pointer" style-hover="border-color:#000;transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18)">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:2px 8px;border-radius:999px;border:1px solid #000;white-space:nowrap">Next</span>
+<div style="min-width:0"><div style="font-weight:800;font-size:14px;line-height:1.3">Quality metrics 101</div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase;margin-top:2px">Learning module</div></div>
+</div>
+</div>
+</div>
+</dc-import>
+
+<dc-import name="cm-section" n="10" id="sec-lists" title="Lists" label="ss: 10 Lists" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px">Teal markers, black text. The checklist is progress-enabled: click items below.</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:28px">
+<div style="background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:28px">
+<h3 style="margin:0 0 18px;font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;line-height:1.3;letter-spacing:-.01em">Bulleted &amp; ordered</h3>
+<div style="display:flex;flex-direction:column;gap:12px;font-size:14px;font-weight:400;line-height:1.7">
+<div style="display:flex;gap:10px"><span style="flex:none;width:5px;height:5px;border-radius:999px;background:#1de9b6;margin-top:9px"></span><span>Define the metric from raw counts</span></div>
+<div style="display:flex;gap:10px"><span style="flex:none;width:5px;height:5px;border-radius:999px;background:#1de9b6;margin-top:9px"></span><span>Set targets per pipeline tier</span></div>
+<div style="display:flex;gap:10px"><span style="flex:none;width:5px;height:5px;border-radius:999px;background:#1de9b6;margin-top:9px"></span><span>Publish with an owner attached</span></div>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;font-size:14px;font-weight:400;line-height:1.7;margin-top:18px;border-top:1px dotted #d9d9d9;padding-top:16px">
+<div style="display:flex;gap:12px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;min-width:18px">01</span><span>Register the pipeline</span></div>
+<div style="display:flex;gap:12px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;min-width:18px">02</span><span>Attach the run-log source</span></div>
+<div style="display:flex;gap:12px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;min-width:18px">03</span><span>Backfill 90 days of history</span></div>
+</div>
+</div>
+<div style="background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:28px">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">Checklist: live</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700">{{ doneLabel }}</span>
+</div>
+<div style="height:6px;background:#f1f1f1;border-radius:999px;overflow:hidden;margin-bottom:16px"><div style="height:6px;background:#1de9b6;border-radius:999px;transition:width .25s"></div></div>
+<div style="display:flex;flex-direction:column;gap:14px">
+<sc-for list="{{ items }}" as="item" hint-placeholder-count="4">
+<button style="display:flex;gap:11px;align-items:center;cursor:pointer;user-select:none;width:100%" onClick="{{ item.toggle }}" aria-pressed="{{ item.done }}">
+<span style="{{ item.boxStyle }}">{{ item.tick }}</span>
+<span style="{{ item.textStyle }}">{{ item.t }}</span>
+<span style="{{ item.tagStyle }}">{{ item.tag }}</span>
+</button>
+</sc-for>
+</div>
+</div>
+<div style="background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:28px">
+<h3 style="margin:0 0 18px;font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;line-height:1.3;letter-spacing:-.01em">Definition list</h3>
+<div style="display:flex;flex-direction:column;gap:16px">
+<div><div style="display:flex;align-items:baseline;gap:8px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;border:1px solid #000;border-radius:4px;padding:1px 5px">def</span><span style="font-weight:800;font-size:15px">Freshness</span></div><div style="font-size:15.5px;font-weight:400;line-height:1.7;margin-top:5px">Share of scheduled pipeline runs that completed on time over a trailing window.</div></div>
+<div><div style="display:flex;align-items:baseline;gap:8px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;border:1px solid #000;border-radius:4px;padding:1px 5px">def</span><span style="font-weight:800;font-size:15px">Run log</span></div><div style="font-size:15.5px;font-weight:400;line-height:1.7;margin-top:5px">The append-only record of every scheduled execution, successful or not.</div></div>
+</div>
+</div>
+<div style="background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:28px">
+<h3 style="margin:0 0 18px;font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;line-height:1.3;letter-spacing:-.01em">Reference list</h3>
+<div style="display:flex;flex-direction:column">
+<div style="display:flex;align-items:baseline;gap:10px;padding:16px 0;border-bottom:1px dotted #d9d9d9"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:2px 7px;border-radius:999px;border:1px solid #000;white-space:nowrap">Int</span><a href="#sec-cards" style="font-size:14px;font-weight:600">Pipeline registry reference</a></div>
+<div style="display:flex;align-items:baseline;gap:10px;padding:16px 0;border-bottom:1px dotted #d9d9d9"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:2px 7px;border-radius:999px;border:1px solid #000;white-space:nowrap">Ext</span><span style="font-size:14px;font-weight:600">Reliable Data Systems, ch. 7 <span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400">↗</span></span></div>
+<div style="display:flex;align-items:baseline;gap:10px;padding:16px 0"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:2px 7px;border-radius:999px;border:1px solid #000;background:#fff;white-space:nowrap">PDF</span><span style="font-size:14px;font-weight:600">metric-governance-handbook.pdf <span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400">2.4 MB</span></span></div>
+</div>
+</div>
+</div>
+</dc-import>
+
+<dc-import name="cm-section" n="11" id="sec-tables" title="Tables" label="ss: 11 Tables" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px">Tables are fully mono. The title sits above the surface as a label, the header row is white under a single black rule, and body rows are separated by hairlines and air. No outline around the table, no alternating fill inside it. Below 640px, rows collapse into stacked label/value cards.</div>
+<div style="margin-top:28px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-bottom:12px">TBL 4.1 · Source systems: freshness by pipeline</div>
+<div style="background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.06);font-family:'JetBrains Mono',monospace">
+<div style="display:grid;grid-template-columns:1.3fr 1.6fr .8fr .9fr .9fr;border-bottom:1.5px solid #000"><span style="padding:16px 16px;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">Source</span><span style="padding:16px 16px;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">Owner</span><span style="padding:16px 16px;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">Fresh</span><span style="padding:16px 16px;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">Trend</span><span style="padding:16px 16px;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">Status</span></div>
+<div style="display:grid;grid-template-columns:1.3fr 1.6fr .8fr .9fr .9fr;align-items:center" style-hover="background:rgba(29,233,182,.12)"><span style="padding:16px;font-size:12px;font-weight:700;">events_core</span><span style="padding:16px;font-size:12px;font-weight:400;">Data-Platform</span><span style="padding:16px;font-size:12px;font-weight:700;">98.1%</span><span style="padding:16px;font-size:12px;font-weight:700;">▲ +0.4</span><span style="padding:16px"><span style="font-size:12px;font-weight:600;letter-spacing:.02em;padding:3px 9px;border-radius:999px;background:rgba(0,230,118,.2)">LIVE</span></span></div>
+<div style="display:grid;grid-template-columns:1.3fr 1.6fr .8fr .9fr .9fr;align-items:center;border-top:1px solid #ebebeb" style-hover="background:rgba(29,233,182,.12)"><span style="padding:16px;font-size:12px;font-weight:700;">billing_dw</span><span style="padding:16px;font-size:12px;font-weight:400;">Revenue-Eng</span><span style="padding:16px;font-size:12px;font-weight:700;">91.7%</span><span style="padding:16px;font-size:12px;font-weight:700;">▼ −1.8</span><span style="padding:16px"><span style="font-size:12px;font-weight:600;letter-spacing:.02em;padding:3px 9px;border-radius:999px;background:rgba(255,214,0,.3)">DEGRADED</span></span></div>
+<div style="display:grid;grid-template-columns:1.3fr 1.6fr .8fr .9fr .9fr;align-items:center;border-top:1px solid #ebebeb" style-hover="background:rgba(29,233,182,.12)"><span style="padding:16px;font-size:12px;font-weight:700;">crm_sync</span><span style="padding:16px;font-size:12px;font-weight:400;">GTM-Data</span><span style="padding:16px;font-size:12px;font-weight:300;">n/a</span><span style="padding:16px;font-size:12px;font-weight:300;">n/a</span><span style="padding:16px"><span style="font-size:12px;font-weight:600;letter-spacing:.02em;padding:3px 9px;border-radius:999px;border:1px solid #000;background:#fff">DRAFT</span></span></div>
+<div style="display:grid;grid-template-columns:1.3fr 1.6fr .8fr .9fr .9fr;align-items:center;border-top:1px solid #ebebeb" style-hover="background:rgba(29,233,182,.12)"><span style="padding:16px;font-size:12px;font-weight:700;">ml_features</span><span style="padding:16px;font-size:12px;font-weight:400;">ML-Infra</span><span style="padding:16px;font-size:12px;font-weight:700;">84.0%</span><span style="padding:16px;font-size:12px;font-weight:700;">▼ −4.2</span><span style="padding:16px"><span style="font-size:12px;font-weight:600;letter-spacing:.02em;padding:3px 9px;border-radius:999px;background:rgba(255,82,82,.16)">FAILING</span></span></div>
+</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;margin-top:12px;font-style:italic">Source: run-log warehouse, trailing 30 days · refreshed 2026-07-31</div>
+</div>
+<div style="margin-top:48px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-bottom:12px">TBL 4.2 · Comparison: alerting strategies</div>
+<div style="background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.06);font-family:'JetBrains Mono',monospace">
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;border-bottom:1.5px solid #000"><span style="padding:16px 16px;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">Dimension</span><span style="padding:16px 16px;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">Threshold</span><span style="padding:16px 16px;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;background:rgba(29,233,182,.25)">Trend ★</span><span style="padding:16px 16px;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">Anomaly</span></div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;align-items:center"><span style="padding:16px;font-size:12px;font-weight:400;">Setup cost</span><span style="padding:16px;font-size:12px;font-weight:700;">LOW</span><span style="padding:16px;font-size:12px;font-weight:700;background:rgba(29,233,182,.12)">LOW</span><span style="padding:16px;font-size:12px;font-weight:700;">HIGH</span></div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;align-items:center;border-top:1px solid #ebebeb" style-hover="background:rgba(29,233,182,.12)"><span style="padding:16px;font-size:12px;font-weight:400;">False alarms</span><span style="padding:16px;font-size:12px;font-weight:700;">HIGH</span><span style="padding:16px;font-size:12px;font-weight:700;background:rgba(29,233,182,.12)">LOW</span><span style="padding:16px;font-size:12px;font-weight:700;">MED</span></div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;align-items:center;border-top:1px solid #ebebeb" style-hover="background:rgba(29,233,182,.12)"><span style="padding:16px;font-size:12px;font-weight:400;">Best for</span><span style="padding:16px;font-size:12px;font-weight:400;">SLA contracts</span><span style="padding:16px;font-size:12px;font-weight:600;background:rgba(29,233,182,.12)">Most teams</span><span style="padding:16px;font-size:12px;font-weight:400;">High-scale</span></div>
+</div>
+</div>
+<div style="max-width:74ch;margin-top:28px;padding-top:20px;border-top:1px solid #ebebeb;font-size:14px;font-weight:400;line-height:1.8">★ marks the recommended default. The teal wash marks the recommended column and never the text; the star carries the same fact for a reader who cannot see the wash.</div>
+</dc-import>
+
+<section id="sec-blocks" data-screen-label="Core blocks" style="max-width:1060px;margin:0 auto;padding:96px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 12</span><h2 style="margin:0;font-weight:900;font-size:28px">Core content blocks</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px">Four schema-driven blocks that open and anchor knowledge pages: overview, prerequisites, example, use case. Every field is optional: blocks collapse gracefully when a field is empty. Field labels are always mono; reading content is always Nunito. Sub-blocks are marked with a corner bracket + label (R8): the boundary is drawn once, by the parent.</div>
+
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-top:36px;margin-bottom:12px">Overview block · opens a topic or module</div>
+<div style="background:#fff;border-radius:14px;padding:28px;box-shadow:0 4px 14px rgba(0,0,0,.08)">
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">
+<span style="padding:3px 10px;border-radius:999px;border:1px solid #000;background:#fff">Overview</span>
+<span style="margin-left:auto;font-weight:400">Audience Practitioner · Est. effort ~45 min · 6 sections</span>
+</div>
+<div style="font-weight:900;font-size:22px;margin-top:16px">Experimentation practice</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:8px">Equips product and data teams to design, run, and read controlled experiments, from hypothesis framing through decision memo, without a dedicated statistician in the loop.</div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;margin-top:26px">
+<div style="position:relative;padding:12px 0 0 18px"><span style="position:absolute;top:0;left:0;width:14px;height:14px;border-left:2px solid #000;border-top:2px solid #000"></span>
+<div style="font-family:'Nunito',sans-serif;font-size:17px;font-weight:700;line-height:1.3;margin-bottom:12px">Scope</div>
+<div style="font-size:14px;line-height:1.7"><span style="font-weight:800">In:</span> <span style="font-weight:400">A/B and holdout designs, guardrail metrics, decision memos.</span></div>
+<div style="font-size:14px;line-height:1.7;margin-top:6px"><span style="font-weight:800">Out:</span> <span style="font-weight:400">Bandits, quasi-experiments, platform engineering.</span></div>
+</div>
+<div style="position:relative;padding:12px 0 0 18px"><span style="position:absolute;top:0;left:0;width:14px;height:14px;border-left:2px solid #000;border-top:2px solid #000"></span>
+<div style="font-family:'Nunito',sans-serif;font-size:17px;font-weight:700;line-height:1.3;margin-bottom:12px">Key outcomes</div>
+<div style="display:flex;gap:10px;align-items:baseline;font-size:14px;line-height:1.7"><span style="width:14px;height:3px;background:#1de9b6;border-radius:999px;flex:none;transform:translateY(-3px)"></span><span style="font-weight:600">Frame falsifiable hypotheses</span></div>
+<div style="display:flex;gap:10px;align-items:baseline;font-size:14px;line-height:1.7;margin-top:6px"><span style="width:14px;height:3px;background:#1de9b6;border-radius:999px;flex:none;transform:translateY(-3px)"></span><span style="font-weight:600">Size and run a clean test</span></div>
+<div style="display:flex;gap:10px;align-items:baseline;font-size:14px;line-height:1.7;margin-top:6px"><span style="width:14px;height:3px;background:#1de9b6;border-radius:999px;flex:none;transform:translateY(-3px)"></span><span style="font-weight:600">Write a defensible decision</span></div>
+</div>
+<div style="position:relative;padding:12px 0 0 18px"><span style="position:absolute;top:0;left:0;width:14px;height:14px;border-left:2px solid #000;border-top:2px solid #000"></span>
+<div style="font-family:'Nunito',sans-serif;font-size:17px;font-weight:700;line-height:1.3;margin-bottom:12px">Related</div>
+<div style="font-size:14px;line-height:2"><a href="#sec-blocks">Statistical inference module</a></div>
+<div style="font-size:14px;line-height:2"><a href="#sec-blocks">Metric tree framework</a></div>
+<div style="font-size:14px;line-height:2"><a href="#sec-blocks">A/B test lifecycle</a></div>
+</div>
+</div>
+</div>
+
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-top:40px;margin-bottom:12px">Prerequisite block · gate with completion state</div>
+<div style="background:#fff;border:1px solid #ebebeb;border-radius:14px;padding:28px">
+<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:3px 10px;border-radius:999px;border:1px solid #000;background:#fff">Prerequisites</span>
+<span style="margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em">3 OF 4 MET</span>
+</div>
+<div style="height:6px;background:#f1f1f1;border-radius:999px;margin-top:16px;overflow:hidden"><div style="width:75%;height:100%;background:#1de9b6;border-radius:999px"></div></div>
+<div style="display:grid;grid-template-columns:auto 1fr auto auto;gap:16px;align-items:center;padding:16px 0;border-bottom:1px dotted #d9d9d9;margin-top:10px">
+<span style="width:20px;height:20px;border-radius:999px;background:rgba(0,230,118,.2);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900">✓</span>
+<span style="font-size:14px;font-weight:700">Descriptive statistics: means, variance, distributions</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:3px 9px;border-radius:4px;border:1px solid #000;background:#fff">Knowledge</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em">MET</span>
+</div>
+<div style="display:grid;grid-template-columns:auto 1fr auto auto;gap:16px;align-items:center;padding:16px 0;border-bottom:1px dotted #d9d9d9">
+<span style="width:20px;height:20px;border-radius:999px;background:rgba(0,230,118,.2);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900">✓</span>
+<span style="font-size:14px;font-weight:700">Query access to the events warehouse</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:3px 9px;border-radius:4px;border:1px solid #000;background:#fff">Tool</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em">MET</span>
+</div>
+<div style="display:grid;grid-template-columns:auto 1fr auto auto;gap:16px;align-items:center;padding:16px 0;border-bottom:1px dotted #d9d9d9">
+<span style="width:20px;height:20px;border-radius:999px;background:rgba(0,230,118,.2);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900">✓</span>
+<span style="font-size:14px;font-weight:700"><a href="#sec-blocks">Metric definitions module</a>, completed Jun 12</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:3px 9px;border-radius:4px;border:1px solid #000;background:#fff">Task</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em">MET</span>
+</div>
+<div style="display:grid;grid-template-columns:auto 1fr auto auto;gap:16px;align-items:center;padding:16px 0">
+<span style="width:20px;height:20px;border-radius:999px;background:#fff;border:1px solid #000"></span>
+<span style="font-size:14px;font-weight:400"><a href="#sec-blocks">Hypothesis-writing worksheet</a>: 20 min, unlocks ss: 3</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:3px 9px;border-radius:4px;border:1px solid #000;background:#fff">Task</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.05em">OPEN</span>
+</div>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1.55fr;gap:14px;margin-top:40px;align-items:start">
+<div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-bottom:12px">Example block · state: collapsed</div>
+<div style="background:#fff;border:1px solid #ebebeb;border-radius:14px;padding:28px">
+<div style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">
+<span style="padding:3px 10px;border-radius:999px;border:1px solid #000;background:#fff">Example 01</span>
+<span style="font-weight:400">Applied</span>
+</div>
+<div style="font-weight:800;font-size:19px;margin-top:12px;line-height:1.3">Checkout CTA copy test</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.7;margin-top:6px">A two-variant test on checkout button copy at a mid-market retailer.</div>
+<span style="display:inline-block;margin-top:16px;padding:7px 16px;border-radius:999px;background:#fff;border:1.5px solid #000;font-weight:700;font-size:14px;cursor:pointer" style-hover="transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18)">Expand detail ↓</span>
+</div>
+</div>
+<div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-bottom:12px">Example block · state: expanded</div>
+<div style="background:#fff;border-radius:14px;padding:32px;box-shadow:0 4px 14px rgba(0,0,0,.08)">
+<div style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">
+<span style="padding:3px 10px;border-radius:999px;border:1px solid #000;background:#fff">Example 01</span>
+<span style="font-weight:400">Applied</span>
+</div>
+<div style="font-weight:800;font-size:19px;margin-top:12px;line-height:1.3">Checkout CTA copy test</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.75;margin-top:6px;max-width:64ch"><span style="font-weight:800">Scenario:</span> conversion stalled at 61% on the payment step. The team hypothesized that "Place order" set clearer expectations than "Continue".</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:18px">
+<div style="position:relative;padding:12px 0 0 18px"><span style="position:absolute;top:0;left:0;width:14px;height:14px;border-left:2px solid #000;border-top:2px solid #000"></span>
+<div style="font-family:'Nunito',sans-serif;font-size:17px;font-weight:700;line-height:1.3;margin-bottom:12px">Input</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.8">n = 48,200 / arm<br>baseline CR = 61.0%<br>MDE = 1.5pp · α = .05</div>
+</div>
+<div style="position:relative;padding:12px 0 0 18px"><span style="position:absolute;top:0;left:0;width:14px;height:14px;border-left:2px solid #000;border-top:2px solid #000"></span>
+<div style="font-family:'Nunito',sans-serif;font-size:17px;font-weight:700;line-height:1.3;margin-bottom:12px">Output</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.8">variant CR = 63.1%<br>Δ = +2.1pp · p = .003<br>decision: SHIP</div>
+</div>
+</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.75;margin-top:16px;max-width:64ch"><span style="font-weight:800">Explanation:</span> the lift cleared the minimum detectable effect with guardrails flat, so the memo recommended shipping to 100% and archiving the variant assets.</div>
+<div style="position:relative;padding:14px 0 0 14px;margin-top:20px">
+<div style="position:absolute;left:0;top:0;width:14px;height:14px;border-left:2px solid #000;border-top:2px solid #000"></div>
+<div style="font-family:'Nunito',sans-serif;font-size:17px;font-weight:700;line-height:1.3;margin-bottom:12px">Key takeaway</div>
+<div style="font-size:14px;font-weight:600;line-height:1.7;max-width:60ch">Copy that names the consequence outperforms copy that names the mechanism.</div>
+</div>
+<span style="display:inline-block;margin-top:16px;padding:7px 16px;border-radius:999px;background:#fff;border:1.5px solid #000;font-weight:700;font-size:14px;cursor:pointer" style-hover="transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18)">Collapse ↑</span>
+</div>
+</div>
+</div>
+
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-top:40px;margin-bottom:12px">Use-case block · situated application</div>
+<div style="background:#fff;border:1px solid #ebebeb;border-radius:14px;padding:28px">
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:3px 10px;border-radius:999px;border:1px solid #000;background:#fff">Use case</span>
+<span style="margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase">Method · <a href="#sec-blocks">Funnel analysis</a></span>
+</div>
+<div style="font-weight:800;font-size:18px;margin-top:16px">Prioritizing UX debt on a checkout flow</div>
+<div style="display:grid;grid-template-columns:110px 1fr;gap:16px 24px;margin-top:18px;align-items:baseline">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">Context</span>
+<span style="font-size:14px;font-weight:400;line-height:1.7;border-bottom:1px dotted #d9d9d9;padding-bottom:14px">Growth PM at a mid-market retailer; two-week window before the seasonal freeze.</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">Problem</span>
+<span style="font-size:14px;font-weight:400;line-height:1.7;border-bottom:1px dotted #d9d9d9;padding-bottom:14px">Twelve known UX issues, budget to fix three, no shared basis for choosing.</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">Application</span>
+<span style="font-size:14px;font-weight:400;line-height:1.7;border-bottom:1px dotted #d9d9d9;padding-bottom:14px">Mapped each issue to its funnel step, weighted by step traffic × drop-off contribution.</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">Process</span>
+<span style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;border-bottom:1px dotted #d9d9d9;padding-bottom:14px">
+<span style="display:flex;align-items:center;gap:8px"><span style="width:24px;height:24px;border-radius:999px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800">1</span><span style="font-size:14px;font-weight:600">Instrument steps</span></span>
+<span style="font-weight:300;font-size:14px">→</span>
+<span style="display:flex;align-items:center;gap:8px"><span style="width:24px;height:24px;border-radius:999px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800">2</span><span style="font-size:14px;font-weight:600">Attribute drop-off</span></span>
+<span style="font-weight:300;font-size:14px">→</span>
+<span style="display:flex;align-items:center;gap:8px"><span style="width:24px;height:24px;border-radius:999px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800">3</span><span style="font-size:14px;font-weight:600">Score issues</span></span>
+<span style="font-weight:300;font-size:14px">→</span>
+<span style="display:flex;align-items:center;gap:8px"><span style="width:24px;height:24px;border-radius:999px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800">4</span><span style="font-size:14px;font-weight:600">Fix top three</span></span>
+</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">Outcome</span>
+<span style="font-size:14px;line-height:1.7"><span style="font-weight:900;font-size:16px">+9.4% checkout completion</span> <span style="font-weight:400">in the four weeks after release; the scoring sheet became the team's standing triage tool.</span></span>
+</div>
+</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;margin-top:10px;font-style:italic">Boundaries are drawn once (R8): sub-blocks carry a 14×14 corner bracket + mono label, never fills or outlines. Emphasis strips are black, never teal: teal is not a text background.</div>
+</dc-import>
+
+<dc-import name="cm-section" n="13" id="sec-inputs" title="Inputs &amp; fields" label="ss: 13 Inputs and fields" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:16px">The field set, built ahead of search and faceted browse so those patterns compose instead of improvising. Field text is Nunito 14.5/600. Placeholder de-emphasis is black at 40% opacity, italic, the sanctioned move; grey hex stays banned. Focus rides the global ring: 2px black, 3px offset.</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:28px">
+<div style="background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:28px">
+<h3 style="margin:0 0 18px;font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;line-height:1.3;letter-spacing:-.01em">Text field · default / error / disabled</h3>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-bottom:6px">Metric name</div>
+<input placeholder="e.g. Data freshness" style="width:100%;box-sizing:border-box;font-family:'Nunito',sans-serif;font-size:14.5px;font-weight:600;color:#000;background:#fff;border:1px solid #000;border-radius:8px;padding:11px 14px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin:18px 0 6px">Owner</div>
+<input placeholder="Search people…" style="width:100%;box-sizing:border-box;font-family:'Nunito',sans-serif;font-size:14.5px;font-weight:600;color:#000;background:#fff;border:1px solid #000;border-radius:8px;padding:11px 14px;border:1.5px solid #ff5252">
+<div style="display:flex;align-items:center;gap:8px;margin-top:8px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:2px 7px;border-radius:4px;background:rgba(255,82,82,.16)">Required</span><span style="font-size:14px;font-weight:400">An owner is required before publishing.</span></div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin:18px 0 6px">Slug</div>
+<input disabled="disabled" placeholder="auto-generated from name" style="width:100%;box-sizing:border-box;font-family:'Nunito',sans-serif;font-size:14.5px;font-weight:600;color:#000;background:#fff;border:1px solid #000;border-radius:8px;padding:11px 14px;background:#f1f1f1;border:1px solid #ebebeb;cursor:not-allowed">
+</div>
+<div style="background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:28px">
+<h3 style="margin:0 0 18px;font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;line-height:1.3;letter-spacing:-.01em">Select · search</h3>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-bottom:6px">Metric family</div>
+<div style="position:relative">
+<select style="appearance:none;-webkit-appearance:none;width:100%;box-sizing:border-box;font-family:'Nunito',sans-serif;font-size:14.5px;font-weight:600;color:#000;background:#fff;border:1px solid #000;border-radius:8px;padding:11px 14px;cursor:pointer;padding-right:38px">
+<option>Freshness</option>
+<option>Quality score</option>
+<option>Latency</option>
+<option>Coverage</option>
+</select>
+<span style="position:absolute;right:14px;top:50%;transform:translateY(-50%);font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;pointer-events:none">▾</span>
+</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin:18px 0 6px">Library search</div>
+<div style="position:relative">
+<input placeholder="Search the library…" style="width:100%;box-sizing:border-box;font-family:'Nunito',sans-serif;font-size:14.5px;font-weight:600;color:#000;background:#fff;border:1px solid #000;border-radius:8px;padding:11px 14px;border-radius:999px;padding:11px 76px 11px 18px">
+<span style="position:absolute;right:8px;top:50%;transform:translateY(-50%);font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.06em;padding:3px 8px;border-radius:4px;border:1px solid #000;background:#fff;pointer-events:none">⌘K</span>
+</div>
+<div style="font-size:14px;font-weight:400;line-height:1.7;margin-top:16px">Search is a pill: it is an interactive, so it takes the interactive shape. Fields keep the 8px input radius.</div>
+</div>
+<div style="grid-column:1/-1;background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:28px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-bottom:16px">Filter chips: real buttons, active carries the count</div>
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">
+<button style="padding:6px 14px;border-radius:999px;background:#000;color:#fff">All · 24</button>
+<button style="padding:6px 14px;border-radius:999px;background:#fff;border:1px solid #000" style-hover="background:rgba(29,233,182,.3)">Metrics · 9</button>
+<button style="padding:6px 14px;border-radius:999px;background:#fff;border:1px solid #000" style-hover="background:rgba(29,233,182,.3)">Frameworks · 6</button>
+<button style="padding:6px 14px;border-radius:999px;background:#fff;border:1px solid #000" style-hover="background:rgba(29,233,182,.3)">Processes · 5</button>
+<button style="padding:6px 14px;border-radius:999px;background:#fff;border:1px solid #000" style-hover="background:rgba(29,233,182,.3)">References · 4</button>
+</div>
+<div style="font-size:14px;font-weight:400;line-height:1.7;margin-top:16px"><span style="font-weight:800">Rules.</span> Error pairs a 1.5px crit border with a labeled chip: color never alone. Disabled is track fill + hairline + not-allowed cursor, never faded grey text. Tab through this section: every control shows the ring.</div>
+</div>
+</div>
+</dc-import>
+
+<dc-import name="cm-section" n="14" id="sec-media" title="Media" label="ss: 14 Media" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px">Figures and embedded video. Media mats are soft S1 frames, quiet structure around content that carries its own weight. Every mat states what it holds before the slot, and every one ships with provenance under it.</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:28px">
+<div style="background:#fff;border-radius:14px;padding:28px;box-shadow:0 1px 2px rgba(0,0,0,.06)">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">Figure</div>
+<h3 style="margin:12px 0 0;font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;line-height:1.3;letter-spacing:-.01em">Freshness by source system</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.8;margin-top:10px">Trailing 30 days against tier targets, one bar per pipeline.</div>
+<div style="aspect-ratio:16/9;background:#f1f1f1;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:16px;margin-top:20px">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">Drop figure · 16:9</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;font-style:italic">Chart export or diagram, never decorative</span>
+</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;font-style:italic;margin-top:14px">Fig 1. Run-log warehouse · W38 snapshot</div>
+</div>
+<div style="background:#fff;border-radius:14px;padding:28px;box-shadow:0 1px 2px rgba(0,0,0,.06)">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">Video</div>
+<h3 style="margin:12px 0 0;font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;line-height:1.3;letter-spacing:-.01em">Metric certification walkthrough</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.8;margin-top:10px">The four certification gates, walked end to end on one metric.</div>
+<div style="aspect-ratio:16/9;background:#f1f1f1;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:16px;margin-top:20px">
+<span style="width:46px;height:46px;border-radius:999px;border:1.5px solid #000;background:#fff;display:inline-flex;align-items:center;justify-content:center"><span style="width:0;height:0;border-left:12px solid #000;border-top:8px solid transparent;border-bottom:8px solid transparent;margin-left:3px"></span></span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;font-style:italic">Replace with &lt;iframe src="…"&gt; · 16:9 locked</span>
+</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;font-style:italic;margin-top:14px">12 min · internal · Governance team</div>
+</div>
+</div>
+<div style="max-width:74ch;margin-top:28px;padding-top:20px;border-top:1px solid #ebebeb;font-size:14px;font-weight:400;line-height:1.8">The slot fill marks an empty zone waiting for real material, and is the only place a grey field is allowed to stand in for content. Captions are mono and sit under the frame; the title and the one-line description sit above it, so a reader knows what they are about to look at.</div>
+</dc-import>
+
+<dc-import name="cm-section" n="15" id="sec-code" title="Code" label="ss: 15 Code" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px">Code is a domain component, not a media type: it carries a filename, a language, and syntax that a reader parses token by token. The surface is white like every other reading surface, and hue is admitted here and nowhere else in the system.</div>
+<div style="background:#fff;border-radius:12px;overflow:hidden;margin-top:28px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11)">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 22px;border-bottom:1px solid #ebebeb">
+<div style="display:flex;align-items:center;gap:10px"><span style="width:6px;height:6px;border-radius:999px;background:#1de9b6"></span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600">freshness_audit.sql</span></div>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;border:1px solid #000;border-radius:4px;padding:3px 9px">SQL</span>
+</div>
+<div style="padding:22px;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:2.1;overflow-x:auto">
+<div style="font-weight:300;font-style:italic">-- share of tables inside their freshness SLA</div>
+<div><span style="color:#6a3ea1;font-weight:700">select</span></div>
+<div style="margin-left:20px"><span style="font-weight:600">count_if</span>(<span style="font-weight:600">now</span>() - max_loaded_at &lt;= sla_hours) <span style="color:#6a3ea1;font-weight:700">as</span> fresh_tables,</div>
+<div style="margin-left:20px"><span style="font-weight:600">count</span>(*) <span style="color:#6a3ea1;font-weight:700">as</span> sla_tracked_tables,</div>
+<div style="margin-left:20px"><span style="font-weight:600">round</span>(<span style="color:#a3441a">100</span> * fresh_tables / sla_tracked_tables, <span style="color:#a3441a">1</span>) <span style="color:#6a3ea1;font-weight:700">as</span> freshness_pct</div>
+<div><span style="color:#6a3ea1;font-weight:700">from</span> analytics.meta.table_freshness</div>
+<div><span style="color:#6a3ea1;font-weight:700">where</span> sla_hours <span style="color:#6a3ea1;font-weight:700">is not null</span> <span style="color:#6a3ea1;font-weight:700">and</span> tier = <span style="color:#0e7a5f">'daily'</span></div>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px;align-items:start" data-stack="1">
+<div style="background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:28px">
+<h3 style="margin:0;font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;line-height:1.3;letter-spacing:-.01em">Token palette</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.8;margin-top:12px">Five token roles, fixed. A language that needs a sixth borrows the nearest one rather than adding a colour.</div>
+<div style="display:grid;grid-template-columns:auto auto 1fr;gap:14px 16px;align-items:center;margin-top:24px;font-size:14px">
+<span style="width:12px;height:12px;border-radius:3px;background:#6a3ea1"></span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:#6a3ea1;font-weight:700">select</span><span style="font-weight:400">Keyword · 700</span>
+<span style="width:12px;height:12px;border-radius:3px;background:#0e7a5f"></span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:#0e7a5f">'daily'</span><span style="font-weight:400">String · 400</span>
+<span style="width:12px;height:12px;border-radius:3px;background:#a3441a"></span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:#a3441a">100</span><span style="font-weight:400">Numeral · 400</span>
+<span style="width:12px;height:12px;border-radius:3px;background:#000"></span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;font-weight:600">count_if</span><span style="font-weight:400">Callable · black 600</span>
+<span style="width:12px;height:12px;border-radius:3px;border:1px solid #000;background:#fff"></span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:300;font-style:italic">-- note</span><span style="font-weight:400">Comment · black 300 italic</span>
+</div>
+</div>
+<div style="background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:28px">
+<h3 style="margin:0;font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;line-height:1.3;letter-spacing:-.01em">Inline code</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.8;margin-top:12px">A token named inside a sentence takes the hairline chip, not the block surface: <span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;background:#fff;border:1px solid #ebebeb;border-radius:6px;padding:2px 7px">max_loaded_at</span> and <span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;background:#fff;border:1px solid #ebebeb;border-radius:6px;padding:2px 7px">sla_hours</span> both live in the run-log table.</div>
+<div style="margin-top:28px;padding-top:24px;border-top:1px solid #ebebeb">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-bottom:12px">Language badge</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase"><span style="border:1px solid #000;border-radius:4px;padding:3px 9px">SQL</span><span style="border:1px solid #000;border-radius:4px;padding:3px 9px">Python</span><span style="border:1px solid #000;border-radius:4px;padding:3px 9px">TypeScript</span><span style="border:1px solid #000;border-radius:4px;padding:3px 9px">Bash</span></div>
+</div>
+</div>
+</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-top:48px">Technology reference header</div>
+<div style="font-size:14px;font-weight:400;line-height:1.8;margin-top:10px;max-width:70ch">Opens a syntax or API reference. The technology is named in mono, never by logo; the subject is the heading; the accent underlines the heading rather than fencing it on one side.</div>
+<div data-stack="1" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px">
+<div style="background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:28px">
+<div style="display:flex;align-items:center;gap:10px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;border:1px solid #000;border-radius:999px;padding:3px 10px">MySQL</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;margin-left:auto">8.0</span></div>
+<h3 style="margin:18px 0 0;font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;line-height:1.3;letter-spacing:-.01em">SELECT</h3>
+<div style="width:44px;height:3px;background:#1de9b6;border-radius:999px;margin-top:10px"></div>
+<div style="font-size:14px;font-weight:400;line-height:1.8;margin-top:14px">Basic query syntax: projection, source, predicate, ordering.</div>
+</div>
+<div style="background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:28px">
+<div style="display:flex;align-items:center;gap:10px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;border:1px solid #000;border-radius:999px;padding:3px 10px">Python</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;margin-left:auto">scikit-learn 1.5</span></div>
+<h3 style="margin:18px 0 0;font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;line-height:1.3;letter-spacing:-.01em">permutation_importance</h3>
+<div style="width:44px;height:3px;background:#1de9b6;border-radius:999px;margin-top:10px"></div>
+<div style="font-size:14px;font-weight:400;line-height:1.8;margin-top:14px">Feature importance for random forests, measured by shuffling one column at a time.</div>
+</div>
+</div>
+<div style="max-width:74ch;margin-top:28px;padding-top:20px;border-top:1px solid #ebebeb;font-size:14px;font-weight:400;line-height:1.8">The block is a filename bar, a language badge, and a white body. Weight still carries structure: keywords 700, callables 600, comments 300 italic. Colour is additional to weight, never a substitute for it, and the palette stops at five roles so a reader can learn it once.</div>
+</dc-import>
+
+<dc-import name="cm-section" n="16" id="sec-prose" title="Prose emphasis &amp; headings" label="ss: 16 Prose emphasis &amp; headings" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px">Inline highlights stay inside the law: black text on a semantic wash, meaning carried by the legend and the words themselves, never by hue alone. The heading ladder encodes depth with one shrinking teal bar.</div>
+<div data-stack="1" style="display:grid;grid-template-columns:1.1fr 1fr;gap:20px;margin-top:28px;align-items:start">
+<div style="background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:28px">
+<h3 style="margin:0;font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;line-height:1.3;letter-spacing:-.01em">Highlight set</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.8;margin-top:12px">The wash sits behind the phrase only, never behind a whole block. Five roles, black text throughout.</div>
+<div style="display:grid;grid-template-columns:auto 1fr;gap:16px 18px;align-items:baseline;font-size:14px;line-height:1.75;margin-top:24px">
+<span style="background:rgba(255,214,0,.28);border-radius:4px;padding:2px 7px;font-weight:600;font-size:14px;white-space:nowrap;justify-self:start">98% tier target</span><span style="font-weight:400">Values needing attention: thresholds, deadlines, figures to register.</span>
+<span style="background:rgba(0,230,118,.2);border-radius:4px;padding:2px 7px;font-weight:600;font-size:14px;white-space:nowrap;justify-self:start">+1.8 pp recovery</span><span style="font-weight:400">Validated outcomes: confirmed gains, healthy states.</span>
+<span style="background:rgba(64,196,255,.2);border-radius:4px;padding:2px 7px;font-weight:600;font-size:14px;white-space:nowrap;justify-self:start">geo-holdout re-run</span><span style="font-weight:400">References: named methods, frameworks, proper nouns.</span>
+<span style="background:rgba(255,82,82,.18);border-radius:4px;padding:2px 7px;font-weight:600;font-size:14px;white-space:nowrap;justify-self:start">pixel collector</span><span style="font-weight:400">Deprecated or failing: things the reader must act on.</span>
+<span style="background:rgba(179,136,255,.2);border-radius:4px;padding:2px 7px;font-weight:600;font-size:14px;white-space:nowrap;justify-self:start">directional only</span><span style="font-weight:400">Caveats: secondary context that tempers the main point.</span>
+</div>
+<div style="display:grid;grid-template-columns:auto 1fr;gap:16px 18px;align-items:baseline;font-size:14px;line-height:1.75;margin-top:28px;padding-top:24px;border-top:1px solid #ebebeb">
+<span style="font-weight:600;font-size:14px;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:2px;text-underline-offset:4px;white-space:nowrap;justify-self:start">freshness SLO</span><span style="font-weight:400">Key concept at first introduction, the teal underline, off-link.</span>
+</div>
+</div>
+<div style="background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:28px">
+<h3 style="margin:0;font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;line-height:1.3;letter-spacing:-.01em">In prose</h3>
+<p style="margin:16px 0 0;font-size:15.5px;font-weight:400;line-height:2;max-width:60ch">Switching to trend alerts produced a <span style="background:rgba(0,230,118,.2);border-radius:4px;padding:1px 6px;font-weight:600">+1.8 pp recovery</span> in four weeks, confirmed by the <span style="background:rgba(64,196,255,.2);border-radius:4px;padding:1px 6px;font-weight:600">geo-holdout re-run</span> across three regions. The legacy <span style="background:rgba(255,82,82,.18);border-radius:4px;padding:1px 6px;font-weight:600">pixel collector</span> still under-reports mobile sessions, so segment cuts stay <span style="background:rgba(179,136,255,.2);border-radius:4px;padding:1px 6px;font-weight:600">directional only</span> until it sunsets. Hold the <span style="background:rgba(255,214,0,.28);border-radius:4px;padding:1px 6px;font-weight:600">98% tier target</span> against the new <span style="font-weight:600;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:2px;text-underline-offset:4px">freshness SLO</span> before Q4 planning.</p>
+</div>
+</div>
+<div style="background:#fff;border:1px solid #ebebeb;border-radius:14px;padding:28px;margin-top:20px">
+<h3 style="margin:0;font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;line-height:1.3;letter-spacing:-.01em">Heading ladder</h3>
+<div style="font-size:14px;font-weight:400;line-height:1.8;margin-top:12px">Depth is bar width, never bar count. Every rung outranks the body it introduces.</div>
+<div style="display:flex;flex-direction:column;gap:28px;margin-top:28px">
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:20px;flex-wrap:wrap"><div><div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:10px"></div><span style="font-weight:900;font-size:28px">Section title</span></div><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400">H2 · 28/900 · bar 36×4</span></div>
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:20px;flex-wrap:wrap"><div><div style="width:26px;height:3px;background:#1de9b6;border-radius:999px;margin-bottom:10px"></div><span style="font-weight:800;font-size:21px">Container heading</span></div><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400">H3 · 21/800 · bar 26×3</span></div>
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:20px;flex-wrap:wrap"><div><div style="width:18px;height:3px;background:#1de9b6;border-radius:999px;margin-bottom:10px"></div><span style="font-weight:700;font-size:17px">Sub-block title</span></div><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400">H4 · 17/700 · bar 18×3</span></div>
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:20px;flex-wrap:wrap"><div><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">Micro label</span></div><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400">H5 · mono label 10/700 · no bar</span></div>
+</div>
+</div>
+<div style="max-width:74ch;margin-top:28px;padding-top:20px;border-top:1px solid #ebebeb;font-size:14px;font-weight:400;line-height:1.8">All heading text stays black; rank comes from size and weight, never from colour. The lowest rung is the mono label itself, which is why a mono string is never used for a heading above it.</div>
+</dc-import>
+
+<section id="sec-extend" data-screen-label="ss: 17 Extension points" style="max-width:1060px;margin:0 auto;padding:96px 24px 100px;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 17</span><h2 style="margin:0;font-weight:900;font-size:28px">Extension points</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px">Where an implementation is expected to add its own material without adding chrome. Everything named here is data the system reads, not a fixed scheme.</div>
+<div style="display:flex;flex-direction:column;gap:16px;font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:28px">
+<div style="display:flex;gap:14px"><span style="flex:none;width:6px;height:6px;border-radius:999px;background:#1de9b6;margin-top:11px"></span><span>The semantic set (ok, warn, crit, info, note) is remappable. Labels are data; the five tints and their pairings are design.</span></div>
+<div style="display:flex;gap:14px"><span style="flex:none;width:6px;height:6px;border-radius:999px;background:#1de9b6;margin-top:11px"></span><span>Scales assume no fixed level count. Difficulty dots, score segments and progress steps all render from the data they are given.</span></div>
+<div style="display:flex;gap:14px"><span style="flex:none;width:6px;height:6px;border-radius:999px;background:#1de9b6;margin-top:11px"></span><span>Dark mode is deferred, and the polarity rules (black text on light, white text on black) are written to invert cleanly when it lands.</span></div>
+<div style="display:flex;gap:14px"><span style="flex:none;width:6px;height:6px;border-radius:999px;background:#1de9b6;margin-top:11px"></span><span>Content fields follow the source schemas. New fields inherit an existing row, pair or chip; a new field never earns new chrome.</span></div>
+</div>
+<div style="display:flex;align-items:center;gap:12px;margin-top:88px;border-top:1px solid #ebebeb;padding-top:20px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">
+<span style="font-weight:700">content-morphia</span>
+<span style="font-weight:400">Foundations and core components</span>
+<span style="font-weight:400;margin-left:auto">Text black/white · weight = focus · accent never text</span>
+</div>
+</dc-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    tab: 0,
+    exp: true,
+    items: [
+      { t: 'Define metric owner', tag: 'REQ', d: true },
+      { t: 'Write formula + unit', tag: 'REQ', d: true },
+      { t: 'Register data source', tag: 'REQ', d: false },
+      { t: 'Set review cadence', tag: 'OPT', d: false }
+    ]
+  };
+  renderVals() {
+    const hints = [
+      'Active tab: white pill, weight 700, black border, teal offset, the reserved micro-emphasis.',
+      'Elements panel would list the framework\u2019s five elements.',
+      'Examples panel would show applied instances.'
+    ];
+    const items = this.state.items.map((it, i) => ({
+      t: it.t, done: !!it.d,
+      tag: it.tag,
+      tick: it.d ? '✓' : '',
+      boxStyle: 'width:16px;height:16px;border-radius:4px;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;' + (it.d ? 'background:#1de9b6;border:1.5px solid #000' : 'background:#fff;border:1.5px solid #000'),
+      textStyle: 'font-size:14px;line-height:1.7;' + (it.d ? 'font-weight:300;text-decoration:line-through;text-decoration-color:rgba(0,0,0,.4)' : 'font-weight:600'),
+      tagStyle: "font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.02em;margin-left:auto;padding:3px 9px;border-radius:999px;flex-shrink:0;" + (it.tag === 'REQ' ? 'font-weight:700;background:rgba(64,196,255,.22)' : 'font-weight:400;border:1px solid #000'),
+      toggle: () => this.setState(s => {
+        const a = s.items.slice();
+        a[i] = Object.assign({}, a[i], { d: !a[i].d });
+        return { items: a };
+      })
+    }));
+    const done = items.filter((x, i) => this.state.items[i].d).length;
+    return {
+      tab0: this.state.tab === 0, notTab0: this.state.tab !== 0,
+      tab1: this.state.tab === 1, notTab1: this.state.tab !== 1,
+      tab2: this.state.tab === 2, notTab2: this.state.tab !== 2,
+      goTab0: () => this.setState({ tab: 0 }),
+      goTab1: () => this.setState({ tab: 1 }),
+      goTab2: () => this.setState({ tab: 2 }),
+      tabHint: hints[this.state.tab],
+      exp: this.state.exp,
+      expGlyph: this.state.exp ? '− COLLAPSE' : '+ EXPAND',
+      toggleExp: () => this.setState(s => ({ exp: !s.exp })),
+      items,
+      doneLabel: done + '/' + items.length + ' DONE',
+      progressStyle: 'width:' + (done / items.length * 100) + '%'
+    };
+  }
+}
+</script>
+</body>
+</html>

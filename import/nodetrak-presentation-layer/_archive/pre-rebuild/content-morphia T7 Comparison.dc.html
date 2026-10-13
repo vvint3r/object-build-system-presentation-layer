@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&amp;family=JetBrains+Mono:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#fafafa;color:#000;font-family:'Nunito',sans-serif}
+a{color:#000;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px}
+a:hover{background:rgba(29,233,182,.3)}
+::selection{background:rgba(29,233,182,.35)}
+button{font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;background:none;border:none;padding:0;margin:0;text-align:left;cursor:pointer}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px solid #000;outline-offset:3px}
+@media(max-width:640px){[style*="columns:1fr 1fr"],[style*="columns:repeat(2,1fr)"],[style*="columns:repeat(3,1fr)"],[style*="columns:repeat(4,1fr)"]{grid-template-columns:1fr!important}}
+@media(max-width:1150px){#page-grid{display:flex!important;flex-direction:column-reverse!important;align-items:stretch!important}#page-rail{position:static!important;flex-direction:row!important;flex-wrap:wrap!important}#page-toc{flex-direction:row!important;flex-wrap:wrap!important}}
+@media(max-width:800px) and (min-width:641px){#t7-crit{min-width:0!important}}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:#f1f1f1;border-radius:999px}
+::-webkit-scrollbar-thumb{background:rgba(0,0,0,.22);border-radius:999px}
+::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.45)}
+
+[data-nav-group] [data-nav-menu]{display:none}
+[data-nav-group]:hover [data-nav-menu],[data-nav-group]:focus-within [data-nav-menu]{display:block}
+</style>
+</helmet>
+
+<div style="position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid #ebebeb">
+<div style="max-width:1060px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:18px;row-gap:10px;flex-wrap:wrap">
+<span style="font-weight:900;font-size:16px;letter-spacing:.01em">content-morphia</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid #000;background:#fff">T7 Comparison</span>
+<nav aria-label="Design system" style="display:flex;align-items:center;gap:4px;row-gap:6px;flex-wrap:wrap"><div data-nav-group style="position:relative"><a href="content-morphia Foundations.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Foundations</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Foundations.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Foundations</a><a href="content-morphia Icons.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Icons</a><a href="content-morphia Print.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Print</a><a href="content-morphia Equivalents.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Non-visual equivalents</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Structured.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Components</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Structured.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Structured components</a><a href="content-morphia Prose.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Prose primitives</a><a href="content-morphia Wayfinding.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Wayfinding</a><a href="content-morphia Provenance.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Provenance</a><a href="content-morphia Charts.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Charts</a><a href="content-morphia Interaction.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Interaction</a><a href="content-morphia Learning.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Learning</a><a href="content-morphia Questions.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Questions and answers</a><a href="content-morphia Change.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Change and status</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Diagrams.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Diagrams</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Diagrams.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Diagram library</a><a href="content-morphia Diagrams at Scale.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Diagrams at scale</a><a href="content-morphia Diagrams II.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Technical families</a><a href="content-morphia Diagrams III.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Experience and magnitude</a><a href="content-morphia Diagrams IV.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Structure and notation</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Templates.dc.html" aria-current="page" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:4px 9px;background:#fff;border:1px solid #000;box-shadow:2px 2px 0 #1de9b6">Templates</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Templates.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Template index</a><a href="content-morphia T1 Topic.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T1 Topic</a><a href="content-morphia T2 Framework.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T2 Framework</a><a href="content-morphia T3 Process.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T3 Process</a><a href="content-morphia T4 Guide.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T4 Guide</a><a href="content-morphia T5 Module.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T5 Module</a><a href="content-morphia T6 Metric.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T6 Metric</a><span aria-current="page" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:700;background:#f1f1f1">T7 Comparison</span><a href="content-morphia T8 Roadmap.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T8 Roadmap</a><a href="content-morphia T9 Reference.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T9 Reference</a><a href="content-morphia T10 Glossary.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T10 Glossary</a><a href="content-morphia T11 Case study.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T11 Case study</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Composition.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Composition</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Composition.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Composition</a><a href="content-morphia Anatomy.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Anatomy and primitives</a><a href="content-morphia Selection.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Selection</a><a href="content-morphia Implementing.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Implementing</a><a href="content-morphia Exemplar.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Worked example</a></div></div></div></nav>
+</div>
+</div>
+
+
+
+<section data-screen-label="Page header" style="max-width:1060px;margin:0 auto;padding:40px 24px 0">
+<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase">
+<a href="content-morphia T1 Topic.dc.html" style="font-weight:400;text-decoration:none;padding:3px 6px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">Library</a>
+<span style="font-weight:300">/</span>
+<a href="content-morphia T1 Topic.dc.html" style="font-weight:400;text-decoration:none;padding:3px 6px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">Experimentation</a>
+<span style="font-weight:300">/</span>
+<span aria-current="page" style="font-weight:700;padding:3px 6px">Stats engine choice</span>
+</div>
+<div style="width:52px;height:5px;background:#1de9b6;border-radius:999px;margin-top:34px;margin-bottom:20px"></div>
+<h1 style="margin:0;font-weight:900;font-size:44px;line-height:1.08;letter-spacing:-.01em">Choosing a stats engine</h1>
+<div style="font-size:16px;font-weight:400;line-height:1.8;max-width:70ch;margin-top:16px">Three inference approaches for the experimentation platform's default analysis, compared against the criteria that decided the FY27 rollout.</div>
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:18px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase">
+<span style="padding:2px 8px;border-radius:4px;border:1px solid #000;font-weight:700">Comparison</span>
+<span style="padding:3px 10px;border-radius:999px;border:1px solid #000;font-weight:700">Experimentation</span>
+<span style="padding:3px 10px;border-radius:999px;border:1px solid #000;font-weight:700">Decision record</span>
+<span style="font-weight:400">~10 min · updated Aug 2026</span>
+</div>
+</section>
+
+<div id="page-grid" data-screen-label="Content" style="max-width:1060px;margin:0 auto;padding:56px 24px 0;display:grid;grid-template-columns:1fr 216px;gap:36px;align-items:start">
+<div style="min-width:0">
+
+<div id="cmp-overview">
+<div style="width:28px;height:3px;background:#1de9b6;border-radius:999px;margin-bottom:10px"></div>
+<h2 style="margin:0;font-weight:800;font-size:21px">What's being compared</h2>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px">The <a href="content-morphia T4 Guide.dc.html">platform rollout</a> needs one default engine every test gets unless someone argues otherwise. Candidates: fixed-horizon frequentist, Bayesian, and sequential (mSPRT). Criteria are weighted toward <span style="font-weight:800">peeking safety</span> and <span style="font-weight:800">decision speed</span> — most historical damage came from stopping tests early, not from the math.</div>
+</div>
+
+<div id="cmp-options" style="margin-top:64px">
+<div style="width:28px;height:3px;background:#1de9b6;border-radius:999px;margin-bottom:10px"></div>
+<h2 style="margin:0;font-weight:800;font-size:21px">The options</h2>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:18px">
+<div style="background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:24px">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:4px;border:1px solid #000;display:inline-block">Option A</span>
+<div style="font-weight:800;font-size:16px;margin-top:12px;line-height:1.35">Fixed-horizon frequentist</div>
+<div style="font-size:14px;font-weight:400;line-height:1.65;margin-top:6px">Classic t-test at a pre-committed sample size.</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-top:14px">Strengths</div>
+<div style="display:flex;gap:9px;align-items:baseline;font-size:14px;line-height:1.6;margin-top:6px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;flex:none">+</span><span>Universally understood readout</span></div>
+<div style="display:flex;gap:9px;align-items:baseline;font-size:14px;line-height:1.6;margin-top:4px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;flex:none">+</span><span>Cheapest infra, zero new tooling</span></div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-top:12px">Tradeoffs</div>
+<div style="display:flex;gap:9px;align-items:baseline;font-size:14px;line-height:1.6;margin-top:6px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;flex:none">−</span><span>Peeking inflates false positives</span></div>
+<div style="display:flex;gap:9px;align-items:baseline;font-size:14px;line-height:1.6;margin-top:4px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;flex:none">−</span><span>Waits full horizon even on blowouts</span></div>
+<div style="border-top:1px dotted #d9d9d9;margin-top:14px;padding-top:10px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.06em;text-transform:uppercase">Best for · regulated, one-shot analyses</div>
+</div>
+<div style="background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:24px">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:4px;border:1px solid #000;display:inline-block">Option B</span>
+<div style="font-weight:800;font-size:16px;margin-top:12px;line-height:1.35">Bayesian</div>
+<div style="font-size:14px;font-weight:400;line-height:1.65;margin-top:6px">Posterior probability that treatment beats control.</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-top:14px">Strengths</div>
+<div style="display:flex;gap:9px;align-items:baseline;font-size:14px;line-height:1.6;margin-top:6px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;flex:none">+</span><span>Intuitive "P(better)" statement</span></div>
+<div style="display:flex;gap:9px;align-items:baseline;font-size:14px;line-height:1.6;margin-top:4px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;flex:none">+</span><span>Workable on small samples with priors</span></div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-top:12px">Tradeoffs</div>
+<div style="display:flex;gap:9px;align-items:baseline;font-size:14px;line-height:1.6;margin-top:6px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;flex:none">−</span><span>Prior choice becomes the argument</span></div>
+<div style="display:flex;gap:9px;align-items:baseline;font-size:14px;line-height:1.6;margin-top:4px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;flex:none">−</span><span>Heaviest compute + education cost</span></div>
+<div style="border-top:1px dotted #d9d9d9;margin-top:14px;padding-top:10px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.06em;text-transform:uppercase">Best for · low-traffic B2B surfaces</div>
+</div>
+<div style="background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:24px">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:4px;border:1px solid #000;display:inline-block">Option C</span>
+<div style="font-weight:800;font-size:16px;margin-top:12px;line-height:1.35">Sequential — mSPRT</div>
+<div style="font-size:14px;font-weight:400;line-height:1.65;margin-top:6px">Always-valid inference; stop whenever the bound crosses.</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-top:14px">Strengths</div>
+<div style="display:flex;gap:9px;align-items:baseline;font-size:14px;line-height:1.6;margin-top:6px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;flex:none">+</span><span>Peek any time — validity holds</span></div>
+<div style="display:flex;gap:9px;align-items:baseline;font-size:14px;line-height:1.6;margin-top:4px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;flex:none">+</span><span>30–50% faster on clear winners</span></div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-top:12px">Tradeoffs</div>
+<div style="display:flex;gap:9px;align-items:baseline;font-size:14px;line-height:1.6;margin-top:6px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;flex:none">−</span><span>Wider intervals early in the test</span></div>
+<div style="display:flex;gap:9px;align-items:baseline;font-size:14px;line-height:1.6;margin-top:4px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;flex:none">−</span><span>Fewer textbook references for analysts</span></div>
+<div style="border-top:1px dotted #d9d9d9;margin-top:14px;padding-top:10px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.06em;text-transform:uppercase">Best for · platform default, high traffic</div>
+</div>
+</div>
+</div>
+
+<div id="cmp-table" style="margin-top:64px">
+<div style="width:28px;height:3px;background:#1de9b6;border-radius:999px;margin-bottom:10px"></div>
+<h2 style="margin:0;font-weight:800;font-size:21px">Side-by-side</h2>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-top:16px;margin-bottom:10px">Platform-default criteria · ★ = recommended</div>
+<div style="background:#fff;border:1px solid #ebebeb;border-radius:12px;overflow:hidden">
+<div style="overflow-x:auto"><div id="t7-crit" style="min-width:680px">
+<div style="display:grid;grid-template-columns:160px 1fr 1fr 1fr;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase"><span style="background:#f1f1f1;padding:14px 14px">Criterion</span><span style="background:#f1f1f1;padding:14px 14px">Fixed-horizon</span><span style="background:#f1f1f1;padding:14px 14px">Bayesian</span><span style="background:rgba(29,233,182,.25);padding:14px 14px">★ Sequential</span></div>
+<div style="display:grid;grid-template-columns:160px 1fr 1fr 1fr;font-family:'JetBrains Mono',monospace;font-size:12px;align-items:stretch"><span style="padding:14px 14px;font-weight:700">Peeking mid-test</span><span style="padding:14px 14px">inflates false positives</span><span style="padding:14px 14px">tolerated · prior-dependent</span><span style="padding:14px 14px;background:rgba(29,233,182,.12)">safe — always-valid</span></div>
+<div style="display:grid;grid-template-columns:160px 1fr 1fr 1fr;font-family:'JetBrains Mono',monospace;font-size:12px;"><span style="padding:14px 14px;font-weight:700">Time to decision</span><span style="padding:14px 14px">fixed horizon</span><span style="padding:14px 14px">variable</span><span style="padding:14px 14px;background:rgba(29,233,182,.12)">30–50% faster on winners</span></div>
+<div style="display:grid;grid-template-columns:160px 1fr 1fr 1fr;font-family:'JetBrains Mono',monospace;font-size:12px"><span style="padding:14px 14px;font-weight:700">Readout</span><span style="padding:14px 14px">p-value + CI</span><span style="padding:14px 14px">P(B&gt;A) posterior</span><span style="padding:14px 14px;background:rgba(29,233,182,.12)">familiar CI, valid any time</span></div>
+<div style="display:grid;grid-template-columns:160px 1fr 1fr 1fr;font-family:'JetBrains Mono',monospace;font-size:12px;"><span style="padding:14px 14px;font-weight:700">Guardrails</span><span style="padding:14px 14px">manual corrections</span><span style="padding:14px 14px">custom loss per metric</span><span style="padding:14px 14px;background:rgba(29,233,182,.12)">native multi-metric</span></div>
+<div style="display:grid;grid-template-columns:160px 1fr 1fr 1fr;font-family:'JetBrains Mono',monospace;font-size:12px"><span style="padding:14px 14px;font-weight:700">Infra cost</span><span style="padding:14px 14px">low</span><span style="padding:14px 14px">medium–high</span><span style="padding:14px 14px;background:rgba(29,233,182,.12)">medium</span></div>
+<div style="display:grid;grid-template-columns:160px 1fr 1fr 1fr;font-family:'JetBrains Mono',monospace;font-size:12px;"><span style="padding:14px 14px;font-weight:700">Team familiarity</span><span style="padding:14px 14px">high</span><span style="padding:14px 14px">low</span><span style="padding:14px 14px;background:rgba(29,233,182,.12)">medium</span></div>
+</div></div>
+</div>
+</div>
+
+<div id="cmp-verdict" style="margin-top:64px">
+<div style="width:28px;height:3px;background:#1de9b6;border-radius:999px;margin-bottom:10px"></div>
+<h2 style="margin:0;font-weight:800;font-size:21px">Verdict</h2>
+<div style="background:#fff;border:1.5px solid #000;border-radius:14px;padding:24px 26px;margin-top:16px;box-shadow:5px 5px 0 #1de9b6">
+<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase">
+<span style="font-weight:700;padding:3px 10px;border-radius:4px;background:#000;color:#fff">Decision</span>
+<span style="font-weight:400">ADR-014 · accepted</span>
+</div>
+<div style="font-weight:800;font-size:20px;line-height:1.35;margin-top:14px">Sequential (mSPRT) becomes the platform default</div>
+<div style="display:flex;gap:10px;align-items:baseline;font-size:14px;line-height:1.7;margin-top:14px"><span style="width:14px;height:3px;background:#1de9b6;border-radius:999px;flex:none;transform:translateY(-3px)"></span><span style="font-weight:400">Kills the peeking problem structurally — no analyst discipline required</span></div>
+<div style="display:flex;gap:10px;align-items:baseline;font-size:14px;line-height:1.7;margin-top:6px"><span style="width:14px;height:3px;background:#1de9b6;border-radius:999px;flex:none;transform:translateY(-3px)"></span><span style="font-weight:400">Median test 9 days shorter in the 12-test pilot backtest</span></div>
+<div style="display:flex;gap:10px;align-items:baseline;font-size:14px;line-height:1.7;margin-top:6px"><span style="width:14px;height:3px;background:#1de9b6;border-radius:999px;flex:none;transform:translateY(-3px)"></span><span style="font-weight:400">Readout stays a familiar confidence interval — lowest retraining cost</span></div>
+<div style="border-top:1px dotted #d9d9d9;margin-top:18px;padding-top:14px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.08em;text-transform:uppercase">Decided Jul 2026 · review Jan 2027 · owner · experimentation guild</div>
+</div>
+</div>
+
+<div id="cmp-guidance" style="margin-top:64px">
+<div style="width:28px;height:3px;background:#1de9b6;border-radius:999px;margin-bottom:10px"></div>
+<h2 style="margin:0;font-weight:800;font-size:21px">When to deviate</h2>
+<div style="background:#fff;border:1px solid #ebebeb;border-radius:14px;padding:10px 26px;margin-top:16px">
+<div style="padding:16px 0;border-bottom:1px dotted #d9d9d9;font-size:14px;line-height:1.7"><span style="font-weight:800">Regulatory or partner reporting.</span> <span style="font-weight:400">Use fixed-horizon frequentist with the α documented before launch — auditors want the pre-commitment, not the speed.</span></div>
+<div style="padding:16px 0;border-bottom:1px dotted #d9d9d9;font-size:14px;line-height:1.7"><span style="font-weight:800">Tiny samples with strong priors.</span> <span style="font-weight:400">Bayesian, with the prior written into the test plan and reviewed by the guild before data arrives.</span></div>
+<div style="padding:16px 0;font-size:14px;line-height:1.7"><span style="font-weight:800">If the platform adds bandits.</span> <span style="font-weight:400">Re-open ADR-014 — adaptive allocation and inference couple, and the default must be re-argued.</span></div>
+</div>
+</div>
+
+</div>
+<div id="page-rail" style="position:sticky;top:76px;display:flex;flex-direction:column;gap:20px">
+<div style="background:#fff;border-radius:14px;padding:20px 22px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11)">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px">On this page</div>
+<div id="page-toc" style="display:flex;flex-direction:column;gap:2px;font-size:14px">
+<span style="display:flex;align-items:center;gap:8px;font-weight:800;padding:5px 8px"><span style="width:3px;height:13px;background:#1de9b6;border-radius:999px"></span>What's compared</span>
+<a href="#cmp-options" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;font-weight:400;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">The options</a>
+<a href="#cmp-table" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;font-weight:400;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">Side-by-side</a>
+<a href="#cmp-verdict" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;font-weight:400;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">Verdict</a>
+<a href="#cmp-guidance" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;font-weight:400;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">When to deviate</a>
+</div>
+</div>
+<div style="background:#fff;border:1px solid #ebebeb;border-radius:14px;padding:20px 22px">
+<h3 style="margin:0 0 10px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;line-height:1.4">Related</h3>
+<div style="font-size:14px;line-height:2.1"><a href="content-morphia T3 Process.dc.html">A/B test lifecycle</a><br><a href="content-morphia T5 Module.dc.html">Statistical inference</a><br><a href="content-morphia T2 Framework.dc.html">The HEART framework</a></div>
+</div>
+</div>
+</div>
+
+<section data-screen-label="Pager" style="max-width:1060px;margin:0 auto;padding:88px 24px 100px">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+<a href="content-morphia T6 Metric.dc.html" style="display:block;text-decoration:none;background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:20px 22px" style-hover="transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18);border-color:#000">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em;text-transform:uppercase">← Previous</div>
+<div style="font-weight:800;font-size:14.5px;margin-top:8px">Data freshness — metric detail</div>
+</a>
+<a href="content-morphia T8 Roadmap.dc.html" style="display:block;text-decoration:none;background:#fff;border:1.5px solid transparent;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:14px;padding:20px 22px;text-align:right" style-hover="transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(0,0,0,.18);border-color:#000">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em;text-transform:uppercase">Next →</div>
+<div style="font-weight:800;font-size:14.5px;margin-top:8px">Analytics platform — FY27 roadmap</div>
+</a>
+</div>
+<div style="border-top:1px solid #ebebeb;margin-top:56px;padding-top:24px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase">
+<span style="font-weight:700">content-morphia</span>
+<span style="font-weight:400">Template 07 · comparison · sample content</span>
+<a href="content-morphia Templates.dc.html" style="font-weight:700;margin-left:auto;text-decoration:none;border-bottom:1.5px solid #1de9b6;padding-bottom:1px">ALL TEMPLATES</a>
+</div>
+</section>
+</x-dc>
+</body>
+</html>

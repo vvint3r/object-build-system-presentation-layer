@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<section id="{{ id }}" data-screen-label="{{ label }}" style="{{ frame }}">
+<div style="display:grid;grid-template-columns:14px minmax(0,1fr);column-gap:12px;align-items:center">
+<div aria-hidden="true" style="width:14px;height:14px;box-sizing:border-box;background:#fff;border:2.5px solid #000;border-radius:999px"></div>
+<div>
+<sc-if value="{{ hasChip }}" hint-placeholder-val="{{ false }}">
+<div style="margin-bottom:12px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;border:1px solid #000;border-radius:4px;padding:3px 9px;background:#fff">{{ chip }}</span></div>
+</sc-if>
+<h2 style="margin:0;font-weight:900;font-size:36px;line-height:1.15;letter-spacing:-.01em">{{ title }}</h2>
+</div>
+<div></div>
+<div>{{ children }}</div>
+</div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1100,&quot;height&quot;:260},&quot;n&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:1,&quot;max&quot;:40},&quot;title&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Section title&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;id&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;label&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;chip&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const n = String(this.props.n == null ? '' : this.props.n).padStart(2, '0');
+    return {
+      id: this.props.id || ('sec-' + n),
+      title: this.props.title || '',
+      chip: this.props.chip || '',
+      hasChip: !!this.props.chip,
+      label: (this.props.label || this.props.title || '').replace(/^ss: \d\d\s*/, ''),
+      frame: 'max-width:1060px;margin:0 auto;padding:96px 32px ' +
+        (this.props.padBottom != null ? this.props.padBottom : 0) + 'px;scroll-margin-top:78px'
+    };
+  }
+}
+</script>
+</body>
+</html>

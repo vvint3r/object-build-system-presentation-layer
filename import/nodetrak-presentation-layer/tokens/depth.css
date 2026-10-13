@@ -1,0 +1,31 @@
+/* content-morphia · depth and shape
+   Two shadow families. Soft is structure at rest and never combines with a hairline.
+   Hard is emphasis and interaction only. */
+:root {
+  --s1: 0 1px 2px rgba(0,0,0,.06);            /* rest: tiles, peer cards, tables */
+  --s2: 0 4px 14px rgba(0,0,0,.08);           /* one primary container per cluster */
+  --s3: 0 14px 28px -6px rgba(0,0,0,.11);     /* hero, chart and code frames, rails */
+
+  --l1: 3px 3px 0 rgba(0,0,0,.18);            /* hover lift, paired with a black border */
+  --l1e: 6px 6px 0 rgba(0,0,0,.08);           /* static emphasis, 1.5px black border */
+  --l2: 5px 5px 0 var(--accent);              /* reserved: at most one untagged per view */
+  --l2-tab: 2px 2px 0 var(--accent);          /* the one active control in a set */
+  --l3: 10px 10px 0 rgba(0,0,0,.12);          /* overlay */
+
+  --r-pill: 999px;   /* every interactive */
+  --r-card: 14px;
+  --r-table: 12px;
+  --r-input: 8px;
+  --r-code: 6px;
+  --r-chip: 4px;
+  --r-bar: 2px;      /* chart bar caps */
+
+  /* partial radii — two cases only, nothing else takes a one-sided radius */
+  --r-seg-start: var(--r-pill) 0 0 var(--r-pill);   /* segmented control, first control */
+  --r-seg-end: 0 var(--r-pill) var(--r-pill) 0;     /* segmented control, last control */
+  --r-bar-cap: var(--r-bar) var(--r-bar) 0 0;       /* vertical chart bar, top cap */
+
+  --border-hair: 1px solid var(--hairline);
+  --border-mark: 1.5px solid var(--ink);      /* markers and emphasis only */
+  --border-head: 1.5px solid var(--ink);      /* the rule under a table header row */
+}

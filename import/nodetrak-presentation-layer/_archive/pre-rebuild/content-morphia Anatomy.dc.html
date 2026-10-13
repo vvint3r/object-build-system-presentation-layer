@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&amp;family=JetBrains+Mono:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#fafafa;color:#000;font-family:'Nunito',sans-serif}
+a{color:#000;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px}
+a:hover{background:rgba(29,233,182,.3)}
+::selection{background:rgba(29,233,182,.35)}
+button{font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;background:none;border:none;padding:0;margin:0;text-align:left;cursor:pointer}
+input,select{font:inherit;color:inherit}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px solid #000;outline-offset:3px}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:#f1f1f1;border-radius:999px}
+::-webkit-scrollbar-thumb{background:rgba(0,0,0,.22);border-radius:999px}
+::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.45)}
+@media(max-width:800px){[data-wide]{min-width:660px!important}[data-twrap]{overflow-x:auto!important}}
+@media(max-width:640px){[data-stack]{grid-template-columns:1fr!important}}
+
+[data-nav-group] [data-nav-menu]{display:none}
+[data-nav-group]:hover [data-nav-menu],[data-nav-group]:focus-within [data-nav-menu]{display:block}
+</style>
+</helmet>
+
+<div style="position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid #ebebeb">
+<div style="max-width:1060px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:18px;row-gap:10px;flex-wrap:wrap">
+<span style="font-weight:900;font-size:16px;letter-spacing:.01em">content-morphia</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid #000;background:#fff">Anatomy</span>
+<nav aria-label="Design system" style="display:flex;align-items:center;gap:4px;row-gap:6px;flex-wrap:wrap"><div data-nav-group style="position:relative"><a href="content-morphia Foundations.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Foundations</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Foundations.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Foundations</a><a href="content-morphia Icons.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Icons</a><a href="content-morphia Print.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Print</a><a href="content-morphia Equivalents.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Non-visual equivalents</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Structured.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Components</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Structured.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Structured components</a><a href="content-morphia Prose.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Prose primitives</a><a href="content-morphia Wayfinding.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Wayfinding</a><a href="content-morphia Provenance.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Provenance</a><a href="content-morphia Charts.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Charts</a><a href="content-morphia Interaction.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Interaction</a><a href="content-morphia Learning.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Learning</a><a href="content-morphia Questions.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Questions and answers</a><a href="content-morphia Change.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Change and status</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Diagrams.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Diagrams</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Diagrams.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Diagram library</a><a href="content-morphia Diagrams at Scale.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Diagrams at scale</a><a href="content-morphia Diagrams II.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Technical families</a><a href="content-morphia Diagrams III.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Experience and magnitude</a><a href="content-morphia Diagrams IV.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Structure and notation</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Templates.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:5px 10px" style-hover="background:rgba(29,233,182,.3)">Templates</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Templates.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Template index</a><a href="content-morphia T1 Topic.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T1 Topic</a><a href="content-morphia T2 Framework.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T2 Framework</a><a href="content-morphia T3 Process.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T3 Process</a><a href="content-morphia T4 Guide.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T4 Guide</a><a href="content-morphia T5 Module.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T5 Module</a><a href="content-morphia T6 Metric.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T6 Metric</a><a href="content-morphia T7 Comparison.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T7 Comparison</a><a href="content-morphia T8 Roadmap.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T8 Roadmap</a><a href="content-morphia T9 Reference.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T9 Reference</a><a href="content-morphia T10 Glossary.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T10 Glossary</a><a href="content-morphia T11 Case study.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">T11 Case study</a></div></div></div><div data-nav-group style="position:relative"><a href="content-morphia Composition.dc.html" aria-current="page" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;text-decoration:none;display:block;border-radius:999px;padding:4px 9px;background:#fff;border:1px solid #000;box-shadow:2px 2px 0 #1de9b6">Composition</a><div data-nav-menu style="position:absolute;left:0;top:100%;padding-top:7px;z-index:60;min-width:216px"><div style="background:#fff;border:1px solid #000;border-radius:14px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);padding:8px;max-height:62vh;overflow:auto"><a href="content-morphia Composition.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Composition</a><span aria-current="page" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:700;background:#f1f1f1">Anatomy and primitives</span><a href="content-morphia Selection.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Selection</a><a href="content-morphia Implementing.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Implementing</a><a href="content-morphia Exemplar.dc.html" style="display:block;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px" style-hover="background:rgba(29,233,182,.3)">Worked example</a></div></div></div></nav>
+</div>
+</div>
+
+<div style="background:#fafafa;border-bottom:1px solid #ebebeb">
+<div style="max-width:1060px;margin:0 auto;padding:11px 24px;display:flex;align-items:center;gap:10px;row-gap:8px;flex-wrap:wrap">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">On this page</span>
+<span style="width:1px;height:13px;background:#ebebeb"></span>
+<nav aria-label="Sections of this page" style="display:flex;align-items:center;gap:2px;row-gap:6px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">
+<a href="#a1" onClick="{{ p1 }}" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 01 Primitives</a>
+<a href="#a2" onClick="{{ p2 }}" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 02 Notation</a>
+<a href="#a3" onClick="{{ p3 }}" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 03 Anatomies</a>
+<a href="#a4" onClick="{{ p4 }}" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 04 Field types</a>
+<a href="#a5" onClick="{{ p5 }}" style="text-decoration:underline;text-decoration-color:#1de9b6;text-decoration-thickness:1.5px;text-underline-offset:3px;padding:5px 8px;border-radius:999px" style-hover="background:rgba(29,233,182,.3)">ss: 05 Rules</a>
+</nav>
+</div>
+</div>
+
+<section data-screen-label="Page header" style="max-width:1060px;margin:0 auto;padding:48px 24px 0">
+<div style="width:52px;height:5px;background:#1de9b6;border-radius:999px;margin-bottom:20px"></div>
+<h1 style="margin:0;font-weight:900;font-size:44px;line-height:1.06;max-width:22ch">Anatomy and primitives</h1>
+<div style="font-size:16px;font-weight:400;line-height:1.8;max-width:68ch;margin-top:14px;text-wrap:pretty">Eight containers to build in, and for every shipped component the parts it is made of, the field each part reads, and whether that field is required, optional or computed. Selection says which component the material calls for; this says what the component needs before it can be rendered at all.</div>
+</section>
+
+<section id="a1" data-screen-label="ss: 01 Layout primitives" style="max-width:1060px;margin:0 auto;padding:88px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 01</span><h2 style="margin:0;font-weight:900;font-size:28px">Layout primitives</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Every surface in this system is one of eight containers. They are a closed set: material that fits none of them is prose, and prose sits in the reading column without a container around it. The geometry column is the whole specification, a primitive has no variants and no size options.</div>
+
+<div style="margin-top:24px;background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:26px">
+<div style="border-left:2px solid #000;border-top:2px solid #000;width:14px;height:14px"></div>
+<h3 style="margin:12px 0 0;font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;line-height:1.3;letter-spacing:-.01em">The eight · geometry, contents, exclusions</h3>
+<div data-twrap style="margin-top:12px;overflow-x:visible">
+<div data-wide>
+<div style="display:grid;grid-template-columns:152px 216px 1fr 1fr;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;border-bottom:1.5px solid #000">
+<span style="padding:3px 9px">Primitive</span>
+<span style="padding:3px 9px">Geometry</span>
+<span style="padding:3px 9px">Holds</span>
+<span style="padding:3px 9px">Never holds</span>
+</div>
+<sc-for list="{{ prims }}" as="p" hint-placeholder-count="8">
+<div style="display:grid;grid-template-columns:152px 216px 1fr 1fr;border-radius:6px;background:{{ p.z }}">
+<div style="padding:14px 16px;font-size:15px;font-weight:700;line-height:1.4">{{ p.n }}</div>
+<div style="padding:14px 16px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;line-height:1.75">{{ p.geo }}</div>
+<div style="padding:14px 16px;font-size:14px;font-weight:400;line-height:1.75;text-wrap:pretty">{{ p.holds }}</div>
+<div style="padding:14px 16px;font-size:14px;font-weight:300;line-height:1.75;text-wrap:pretty">{{ p.never }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div style="margin-top:28px;border-top:1px solid #ebebeb;padding-top:20px">
+<div style="border-left:2px solid #000;border-top:2px solid #000;width:14px;height:14px"></div>
+<h3 style="margin:12px 0 0;font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;line-height:1.3;letter-spacing:-.01em">The legal stack · four levels, prose at the bottom</h3>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Nesting bottoms out in four levels. Anything deeper is the containment breach, and the fix is always the same: the inner container becomes a sub-block or an inset divider.</div>
+<div style="margin-top:14px;display:flex;flex-direction:column;gap:4px">
+<sc-for list="{{ stack }}" as="s" hint-placeholder-count="5">
+<div style="display:flex;align-items:center;gap:12px;padding:3px 9px;border-radius:6px;margin-left:{{ s.ind }}">
+<span style="width:3px;height:14px;background:#000;flex:none"></span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;min-width:130px">{{ s.n }}</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;line-height:1.75">{{ s.geo }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div style="margin-top:28px;border-top:1px solid #ebebeb;padding-top:20px">
+<div style="border-left:2px solid #000;border-top:2px solid #000;width:14px;height:14px"></div>
+<h3 style="margin:12px 0 0;font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;line-height:1.3;letter-spacing:-.01em">Four arrangements that are never legal</h3>
+<div data-stack style="margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:16px">
+<sc-for list="{{ nevers }}" as="v" hint-placeholder-count="4">
+<div style="border:1px dashed #d9d9d9;border-radius:12px;padding:16px">
+<div style="display:flex;align-items:center;gap:8px"><span style="width:8px;height:8px;background:#000;flex:none"></span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">{{ v.n }}</span></div>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:10px;text-wrap:pretty">{{ v.t }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+</section>
+
+<section id="a2" data-screen-label="ss: 02 Notation" style="max-width:1060px;margin:0 auto;padding:88px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 02</span><h2 style="margin:0;font-weight:900;font-size:28px">Reading an anatomy</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Each part of a component belongs to one of three classes, and the class decides what happens when the field behind it is absent. Three marks carry it, and they are the only three in the register.</div>
+
+<div data-stack style="margin-top:24px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+<div style="background:#fff;border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:20px">
+<span style="display:inline-block;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:#fff;border:1px solid #000">Req</span>
+<div style="font-size:15px;font-weight:700;line-height:1.4;margin-top:12px">Required</div>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:8px;text-wrap:pretty">The component cannot render without it. A missing required field is not an empty part: it disqualifies the component, and the material takes a simpler one.</div>
+</div>
+<div style="background:#fff;border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:20px">
+<span style="display:inline-block;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:#fff;border:1px solid #000">Opt</span>
+<div style="font-size:15px;font-weight:700;line-height:1.4;margin-top:12px">Optional</div>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:8px;text-wrap:pretty">Renders when the field carries data and vanishes entirely when it does not. No empty frame, no dash, no line reading not available.</div>
+</div>
+<div style="background:#fff;border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:20px">
+<span style="display:inline-block;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:rgba(64,196,255,.22)">Derived</span>
+<div style="font-size:15px;font-weight:700;line-height:1.4;margin-top:12px">Computed</div>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:8px;text-wrap:pretty">Produced by the renderer from other parts: step numbers, staleness, set size, zebra, confidence. Supplied by the model, it is ignored.</div>
+</div>
+</div>
+
+<div style="margin-top:28px;background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:26px">
+<div style="border-left:2px solid #000;border-top:2px solid #000;width:14px;height:14px"></div>
+<h3 style="margin:12px 0 0;font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;line-height:1.3;letter-spacing:-.01em">Four reading rules</h3>
+<div style="margin-top:12px;display:flex;flex-direction:column;gap:14px">
+<sc-for list="{{ reading }}" as="r" hint-placeholder-count="4">
+<div style="display:flex;gap:14px;align-items:baseline">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;flex:none;min-width:20px">{{ r.i }}</span>
+<div>
+<div style="font-size:15px;font-weight:700;line-height:1.45">{{ r.t }}</div>
+<div style="font-size:14px;font-weight:400;line-height:1.7;margin-top:4px;max-width:70ch;text-wrap:pretty">{{ r.b }}</div>
+</div>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<section id="a3" data-screen-label="ss: 03 Anatomies" style="max-width:1060px;margin:0 auto;padding:88px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 03</span><h2 style="margin:0;font-weight:900;font-size:28px">Component anatomies</h2><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;border:1px solid #000;border-radius:4px;padding:2px 8px;background:#fff;white-space:nowrap">{{ totalLabel }}</span></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Parts are listed in render order, and that order is fixed, a view never rearranges them. Field names are the contract with the content model: the same name means the same type and the same limit in every component that reads it.</div>
+
+<div style="margin-top:24px;display:flex;align-items:center;gap:10px;row-gap:10px;flex-wrap:wrap">
+<label style="display:flex;align-items:center;gap:8px">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">Find</span>
+<input type="search" value="{{ q }}" onInput="{{ onQ }}" placeholder="component or field" style="width:210px;padding:8px 12px;border-radius:8px;border:1px solid #000;background:#fff;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.04em">
+</label>
+<button onClick="{{ toggleReq }}" aria-pressed="{{ reqOn }}" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:8px 14px;border-radius:999px;border:1px solid #000;background:{{ reqBg }};box-shadow:{{ reqSh }}">Required only</button>
+</div>
+<div style="margin-top:12px;display:flex;align-items:center;gap:4px;row-gap:6px;flex-wrap:wrap">
+<sc-for list="{{ fams }}" as="f" hint-placeholder-count="11">
+<button onClick="{{ f.pick }}" aria-pressed="{{ f.on }}" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:6px 12px;border-radius:999px;border:{{ f.bd }};background:{{ f.bg }};box-shadow:{{ f.sh }}">{{ f.n }} <span style="font-weight:400">{{ f.c }}</span></button>
+</sc-for>
+</div>
+<div style="margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase">{{ shownLabel }}</div>
+
+<sc-if value="{{ hasResults }}" hint-placeholder-val="{{ true }}">
+<div data-stack style="margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start">
+<sc-for list="{{ shown }}" as="c" hint-placeholder-count="6">
+<div style="background:#fff;border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,.06);padding:20px">
+<div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap">
+<div style="font-size:15px;font-weight:700;line-height:1.4">{{ c.n }}</div>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase;margin-left:auto">{{ c.fam }}</span>
+</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-top:12px">{{ c.count }}</div>
+<div style="margin-top:10px;display:flex;flex-direction:column;gap:3px">
+<sc-for list="{{ c.parts }}" as="pt" hint-placeholder-count="4">
+<div style="padding:14px 12px;border-radius:6px;background:{{ pt.z }}">
+<div style="display:flex;align-items:baseline;gap:8px">
+<div style="font-size:14px;font-weight:600;line-height:1.4">{{ pt.p }}</div>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:2px 7px;border-radius:4px;margin-left:auto;flex:none;background:{{ pt.bg }};color:{{ pt.fg }};border:{{ pt.bd }}">{{ pt.mark }}</span>
+</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;line-height:1.75;margin-top:4px">{{ pt.meta }}</div>
+<div style="font-size:14px;font-weight:300;line-height:1.75;margin-top:4px;text-wrap:pretty">{{ pt.note }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+<div style="background:#fff;margin-top:16px;border-radius:14px;padding:28px;box-shadow:0 1px 2px rgba(0,0,0,.06)">
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">No match</div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">{{ emptyLine }} The controls stay where they are: clear the search, or pick another family.</div>
+</div>
+</sc-if>
+</section>
+
+<section id="a4" data-screen-label="ss: 04 Field types" style="max-width:1060px;margin:0 auto;padding:88px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 04</span><h2 style="margin:0;font-weight:900;font-size:28px">Field types the model must supply</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Fourteen names recur across the register. Each has one type, one presentation, and one consequence when it is missing: that last column is the reason the list exists, because an absent field changes which component the material gets, not how it looks.</div>
+
+<div style="margin-top:24px;background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:26px">
+<div style="border-left:2px solid #000;border-top:2px solid #000;width:14px;height:14px"></div>
+<h3 style="margin:12px 0 0;font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;line-height:1.3;letter-spacing:-.01em">Shared fields</h3>
+<div data-twrap style="margin-top:12px;overflow-x:visible">
+<div data-wide>
+<div style="display:grid;grid-template-columns:152px 216px 1fr 1fr;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;border-bottom:1.5px solid #000">
+<span style="padding:3px 9px">Field</span>
+<span style="padding:3px 9px">Type and limit</span>
+<span style="padding:3px 9px">Renders as</span>
+<span style="padding:3px 9px">Absent</span>
+</div>
+<sc-for list="{{ fields }}" as="f" hint-placeholder-count="14">
+<div style="display:grid;grid-template-columns:152px 216px 1fr 1fr;border-radius:6px;background:{{ f.z }}">
+<div style="padding:14px 16px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;line-height:1.5">{{ f.n }}</div>
+<div style="padding:14px 16px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;line-height:1.75">{{ f.t }}</div>
+<div style="padding:14px 16px;font-size:14px;font-weight:400;line-height:1.75;text-wrap:pretty">{{ f.r }}</div>
+<div style="padding:14px 16px;font-size:14px;font-weight:300;line-height:1.75;text-wrap:pretty">{{ f.a }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+</section>
+
+<section id="a5" data-screen-label="ss: 05 Rules" style="max-width:1060px;margin:0 auto;padding:88px 24px 0;scroll-margin-top:78px">
+<div style="width:36px;height:4px;background:#1de9b6;border-radius:999px;margin-bottom:14px"></div>
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.1em">ss: 05</span><h2 style="margin:0;font-weight:900;font-size:28px">Rules this page adds</h2></div>
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Eight rules govern parts and primitives. They bind the same way as the locked rules: a build that breaks one of them fails the pre-flight gate.</div>
+
+<div style="margin-top:24px;background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:26px">
+<div>
+<sc-for list="{{ rules }}" as="r" hint-placeholder-count="8">
+<div style="display:grid;grid-template-columns:100px 1fr;border-radius:6px;background:{{ r.z }}">
+<div style="padding:10px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.06em;line-height:1.7">{{ r.id }}</div>
+<div style="padding:10px;font-size:14.5px;font-weight:400;line-height:1.7;max-width:78ch;text-wrap:pretty">{{ r.t }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<footer style="max-width:1060px;margin:96px auto 0;padding:20px 24px 48px;border-top:1px solid #ebebeb;display:flex;gap:12px;row-gap:8px;flex-wrap:wrap;align-items:center;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase">
+<span>content-morphia · anatomy and primitives</span>
+<span style="margin-left:auto;display:flex;gap:14px;flex-wrap:wrap;font-weight:400">
+<a href="content-morphia Selection.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1de9b6;padding-bottom:1px">Selection</a>
+<a href="content-morphia Implementing.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1de9b6;padding-bottom:1px">Implementing</a>
+<a href="content-morphia Composition.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1de9b6;padding-bottom:1px">Composition</a>
+</span>
+</footer>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;defaultFamily&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;All&quot;,&quot;Structure&quot;,&quot;Emphasis&quot;,&quot;Process &amp; framework&quot;,&quot;Metric &amp; chart&quot;,&quot;Comparison&quot;,&quot;Learning&quot;,&quot;Provenance&quot;,&quot;Wayfinding&quot;,&quot;Interaction&quot;,&quot;Figure &amp; code&quot;],&quot;default&quot;:&quot;All&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Register&quot;},&quot;requiredOnly&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Register&quot;},&quot;showNotes&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Register&quot;}}">
+const PRIM = [
+["Page shell","1060px · gutters 24 · section rhythm 88–96","Sticky header, masthead, sections, footer","Content directly: every block sits inside a section"],
+["Section","Bar 36×4 · ss: NN mono 11 · title 900/28 · intro ≤70ch","Prose, one to four containers, sub-blocks","A second ss: NN, or a section inside a section"],
+["Reading column","70ch · body 15.5/1.85 · sub-line 13.5","Sentences, numbered lists, a single passage","A container: compared peers go to a grid instead"],
+["Module surface","#fff · r14 · S2 · padding 26 · inset hairline dividers","A T3 heading, prose, sub-blocks, one table or figure","A second surface, or a grid of cards"],
+["Peer grid","Borderless #fff · r12 · S1 · gap ≥16 · 2–4 columns","Two to eight peer tiles of one kind","A single tile, mixed kinds, or a tile holding its own grid"],
+["Canvas","#fafafa · 1px dashed #d9d9d9 · r14 · no shadow","Lifted nodes, a diagram, an overview list","Its own shadow, or a hairline border"],
+["Sub-block","14×14 corner bracket + mono label · no fill, no outline","One labelled passage, table or figure inside a module","A border, a background, or a bracket inside a bracket"],
+["Rail split","Content + rail ≤260 · column gap 28 · rail ≤60vh, strip ≤1150","Anchors, contents, a short fact list","Prose, a component, or a second rail"]
+];
+const STACK = [
+[0,"Page shell","1060 · gutters 24 · rhythm 88"],
+[1,"Section","ss: NN · one heading · intro ≤70ch"],
+[2,"Module surface","r14 · S2 · padding 26"],
+[3,"Sub-block","bracket + mono label"],
+[3,"Reading column","70ch · 15.5/1.85"]
+];
+const NEV = [
+["Surface in surface","A module surface holds prose, tables and sub-blocks. A second surface inside it is the nesting breach; the divide is an inset hairline instead."],
+["Container opens a container","A container is never a container's first child. The parent's own T3 heading and one sentence come first."],
+["Grid straight after a heading","At least one sentence names a group before the group appears. A group following prose or another container already has its context."],
+["Divider used as spacing","Dividers separate siblings on one surface. Between a heading and its body, or above a container, the answer is a spacing step."]
+];
+const READ = [
+["01","Order is the anatomy","Parts render in the order listed. A view that needs a different order needs a different component."],
+["02","Absent means gone","An optional part with no data renders nothing at all: not an empty frame, not a dash, not a line saying the value is unavailable."],
+["03","A missing requirement changes the component","Required parts are the selection test. A metric hero without a measurement date is not a metric hero; it is a sentence."],
+["04","Repeatable parts have a cap","Every repeatable part states its ceiling. Past the ceiling the material changes component: tiles become a table, a list becomes a register with a filter."]
+];
+const AN = [
+["Section header","Structure",[
+["Rule bar","—","fixed 36×4","der","Identical on every section; never authored."],
+["Number","number","string ss: NN","req","Mono 11/400, sequential, never skipped."],
+["Title","title","string ≤60","req","T2 at 900/28."],
+["Intro","intro","richtext ≤70ch","opt","One to three sentences. Omitted when the title says it already."]
+]],
+["Module surface","Structure",[
+["Label","label","enum","opt","Mono 9.5 caps from the closed vocabulary. Never the container's only heading."],
+["Title","title","string ≤60","req","T3 at 700/15, sentence case."],
+["Body","blocks","block[]","req","Prose, one table, one figure, or up to four sub-blocks."],
+["Sub-blocks","blocks[].label","string ≤32","opt","Cap 4. Each takes a corner bracket and a mono label."],
+["Footnote","footnote","string","opt","Mono 10 under the last block."]
+]],
+["Table","Structure",[
+["Columns","columns","column[] 2–8","req","Each carries an align derived from its type: numbers right, text left."],
+["Header row","—","fixed","der","Mono 12 caps at 600 on white, under a 1.5px black rule."],
+["Rows","rows","row[] 2–40","req","Past 40 rows the table is a register and needs a filter above it."],
+["Row separator","—","fixed","der","Retired. Rows are separated by a 1px #ebebeb hairline and 16px of air."],
+["Footnote","footnote","string","opt","Units, exclusions, or the scale the numbers share."]
+]],
+["Part transition","Structure",[
+["Part name","part","string ≤40","req","900/28 on a full-width surface, 96px clearance above."],
+["Pillar","pillar","string","req","Mono beneath the name."],
+["Section range","range","string ss: NN–ss: NN","req","Mono. States what the part contains."],
+["Rank","—","fixed","der","Outranks every section title inside it; never set at label size."]
+]],
+["Callout","Emphasis",[
+["Level","level","enum of 7","req","From the closed callout vocabulary. A level outside it is not a callout."],
+["Label","—","fixed","der","Derived from level. Mono 12 caps at 600, black text."],
+["Body","body","richtext ≤3 sentences","req","Longer than three sentences, the material is a module."],
+["Intensity","—","fixed","der","Tint by default; solid only when the callout is the view's single verdict."]
+]],
+["Status chip","Emphasis",[
+["Value","status","enum of 6","req","One of six status words. A free string is content, not a status."],
+["Intensity","—","fixed","der","Tint at 16–30%; solid plus a 1.5px black border only as the view's verdict."],
+["Border","—","fixed","der","1px black when neutral or solid; a tint carries none."]
+]],
+["Display slab","Emphasis",[
+["Expression","expression","string","req","Mono #fff on black, padding ≥24. The section's defining equation only."],
+["Caption","caption","string","opt","Mono 12 below, naming the terms."],
+["Ration","—","fixed","der","One slab per section. Every other formula is inline on white."]
+]],
+["Process step","Process & framework",[
+["Index","—","fixed","der","Computed from position. Never authored, never skipped."],
+["Title","title","string ≤48","req","T3 at 700/15."],
+["Body","body","richtext ≤2 sentences","opt","What happens in the step, not why it exists."],
+["Owner","owner","string","opt","Mono. A role, never a person."],
+["Duration","duration","string","opt","Mono, in words: two days, one sprint."],
+["Exit criteria","exitCriteria","string[] 1–5","opt","Rendered as checks. Absent means the step has no gate."]
+]],
+["Framework pillar","Process & framework",[
+["Name","name","string ≤32","req","T3 at 700/15."],
+["Definition","definition","string, 1 sentence","req","What the pillar covers. Two sentences means it is two pillars."],
+["Practices","practices","string[] 2–5","opt","Teal bullets while ≤5 and at body size."],
+["Maturity","maturity","enum of 3","opt","Achieved, in progress, not started. Teal marks achieved only."]
+]],
+["Ad-hoc diagram","Process & framework",[
+["Layout","layout","enum of 3","req","Ladder, two columns with one join, or decision gate. Nothing else."],
+["Nodes","nodes","node[] ≤7","req","Sized to their text. Past 7 nodes the material needs a named family."],
+["Edges","edges","edge[]","req","On layout axes, 8px standoff at both ends, arrowheads on direction."],
+["Edge labels","edges[].label","string ≤24","opt","Beside the line, never on it."],
+["Emphasis","emphasisNode","node ref","opt","One node at L1e. Never the reserved teal."]
+]],
+["Metric hero","Metric & chart",[
+["Value","value","number","req","900 display. The unit never joins the number as text."],
+["Unit","unit","string","req","Mono beside or under the value."],
+["Label","label","string ≤32","req","Mono 9.5 caps: what is being measured."],
+["Measured at","measuredAt","timestamp","req","Mono. Without it the value is undated and cannot be a hero."],
+["Series","series","number[] 6–14","opt","Bar strip in the accent, black baseline."],
+["Target","target","number","opt","Dotted black line across the strip."],
+["Threshold","threshold","number + direction","opt","Marks the breaching bars and names the band."]
+]],
+["Trend chart","Metric & chart",[
+["Series","series","series[] 1–4","req","6–24 points each. Populations draw in the accent, never solid black."],
+["Axis","—","fixed","der","Black axis and ticks at mono 12. Zero baseline unless the caption says otherwise."],
+["Legend","—","fixed","der","Appears when there is more than one series; position and shape carry identity."],
+["Target line","target","number","opt","Dotted black, labelled at its right end."],
+["Provenance","source, capturedAt","string + timestamp","req","Mono below the frame. A chart with no provenance does not ship."]
+]],
+["Magnitude bar row","Metric & chart",[
+["Label","label","string ≤40","req","700 at body size, left of the bar."],
+["Value","value","number","req","Mono at the bar's end, with its unit."],
+["Bar","—","fixed","der","6px accent fill on an #f1f1f1 track, cap radius 2 to 3. No chip inside the row."],
+["Scale","scale","string","req","One scale for the set, stated once above or in the legend."]
+]],
+["Option profile card","Comparison",[
+["Name","name","string ≤32","req","T3 at 700/15."],
+["Position","position","string, 1 sentence","req","What this option is for. Not a summary of the table."],
+["Facts","facts","pair[] 3–6","req","Mono label plus value. The same keys in the same order on every card."],
+["Recommendation","recommended","boolean","opt","One card in the set at most, and only when the verdict names why."]
+]],
+["Criteria table","Comparison",[
+["Options","options","option[] 2–4","req","Columns. Five or more options is a register, not a comparison."],
+["Criteria","criteria","criterion[] 3–12","req","Rows, in the reader's priority order."],
+["Cells","cells","enum or string ≤24","req","Yes, partial, no: or one short value. Never a paragraph."],
+["Recommended column","recommendedOption","option ref","opt","Teal wash at .12 plus a star. One column only."],
+["Rationale","rationale","richtext","req","Required the moment a recommendation is set. An unexplained pick is not a verdict."]
+]],
+["Knowledge check","Learning",[
+["Kind","kind","enum of 4","req","Single choice, multi-select, true or false, reflection."],
+["Prompt","prompt","richtext ≤2 sentences","req","States the task. A prompt that teaches belongs in the body above."],
+["Options","options","option[] 2–6","req","Omitted for reflection, which has no options and no answer."],
+["Answer","answer","option ref[]","req","Required for every kind except reflection."],
+["Set size","—","fixed","der","Multi-select states how many to pick before the reader answers."],
+["Marks","—","fixed","der","Correct, missed and wrong, each with its own mark and label."]
+]],
+["Comprehension summary","Learning",[
+["Points","points","string[] 3–5","req","One sentence each, in the order the module taught them."],
+["Source sections","sources","ss: NN ref[]","req","Every point names where it came from."],
+["Position","—","fixed","der","End of the module, after the last check. Never the opening."]
+]],
+["Requirement","Learning",[
+["Level","level","enum of 3","req","Must, should, may. The three are the whole vocabulary."],
+["Statement","statement","string, 1 sentence","req","Testable as written."],
+["Rationale","rationale","richtext","opt","Why the level is what it is."],
+["Verification","verification","string","opt","How compliance is checked. Absent means it is not yet checkable."]
+]],
+["Aggregation header","Provenance",[
+["Source count","sourceCount","int ≥1","req","Written in full. Four facts in fixed order start here."],
+["Last aggregated","lastAggregatedAt","timestamp","req","Mono. The claim's date, not the page's."],
+["Cadence","cadence","string","req","The interval in words: every 14 days."],
+["Staleness","—","fixed","der","Fresh, due or stale, computed from cadence against the date."]
+]],
+["Agreement and spread","Provenance",[
+["Agreeing","agreeing","int","req","Counted against the whole source set."],
+["Dissenting","dissenting","int","req","Stated even when it is zero."],
+["Quantifying","quantifying","int","req","The subset that gives a number. Spread is measured over this subset only."],
+["Spread","iqr","[number, number]","opt","Interquartile range with its unit. Never a standard deviation on a small set."],
+["Minority position","minority","string + cause","opt","What the dissenters hold and the cause they share."]
+]],
+["Citation marker","Provenance",[
+["Count","count","int ≥1","req","The marker states how many sources stand behind the claim."],
+["Targets","targets","source ref[]","req","Resolvable. A marker with no targets is decoration."],
+["Panel summary","setSummary","string","req","Characterises the set: kinds, dates, agreement: instead of listing it."],
+["Marker","—","fixed","der","One marker per claim, mono superscript, at the end of the sentence."]
+]],
+["Search result row","Wayfinding",[
+["Title","title","string","req","The node's own title, unabbreviated."],
+["Type","type","enum","req","Mono chip. The reader filters on this, so it is never free text."],
+["Path","path","crumb[] ≤3","req","Where the node sits. Deeper than three, the middle collapses."],
+["Snippet","snippet","string ≤2 lines","opt","The matched sentence, not the node's opening."],
+["Updated at","updatedAt","timestamp","req","Mono. Results in this product are always dated."]
+]],
+["Facet group","Wayfinding",[
+["Name","name","string ≤24","req","Mono 9.5 caps."],
+["Values","values","value[] with counts","req","Counts recomputed against the other groups only."],
+["Zero values","—","fixed","der","Disabled in place, never removed: absence is information."],
+["Disclosure","—","fixed","der","Past six values the group folds behind a count."]
+]],
+["Version selector and diff","Wayfinding",[
+["Versions","versions","version[] ≥2","req","Each with its date. One version renders as a date, not a selector."],
+["Changes","changes","change[]","req","Each change carries a kind: added, changed, removed."],
+["Kind tints","—","fixed","der","Three tints plus a mono word. Colour never carries it alone."],
+["First state","—","fixed","der","With no prior version the block reads as first aggregation."]
+]],
+["Disclosure section","Interaction",[
+["Header title","title","string ≤60","req","T3 at 700/15 inside a real button with aria-expanded."],
+["Contents fact","fact","string","req","A count, a date, a threshold or a verdict. Never a teaser."],
+["Body","blocks","block[]","req","What folds. Peers share one surface split by inset hairlines."],
+["Dependency","dependsOn","section ref","der","A section a later one depends on does not fold."]
+]],
+["Definition panel","Interaction",[
+["Term","term","string ≤32","req","Carries the link marker in the running text, and only one marker."],
+["Definition","definition","string, exactly 1 sentence","req","Two sentences means the term needed a link, not a panel."],
+["Source count","sourceCount","int ≥1","req","Mono, under the sentence."],
+["Link","href","internal ref","opt","One link. The panel holds nothing else but its close control."]
+]],
+["Recently viewed row","Interaction",[
+["Title","title","string","req","The node as it was titled when viewed."],
+["Viewed at","viewedAt","timestamp","req","Newest first, capped at five rows."],
+["Delta","delta","string or null","req","What changed since. Null renders as no change since that date."]
+]],
+["Figure","Figure & code",[
+["Description","description","string, 1 line","req","Above the frame: what to look at."],
+["Title","title","string ≤60","req","T3 at 700/15."],
+["Asset","asset","diagram or figure ref","req","Diagrams and figures only. This system carries no decorative imagery."],
+["Provenance","source, capturedAt","string + timestamp","req","Mono below the frame."]
+]],
+["Code block","Figure & code",[
+["Language","lang","enum","req","Mono chip above. Drives nothing visual but the label."],
+["Body","code","string","req","Black on white. Wrapping is off; the block scrolls."],
+["Emphasis","—","fixed","der","Keyword, string, numeral, callable and comment, five roles. Weight carries structure and hue is additive on ink."],
+["Filename","filename","string","opt","Mono above the frame, beside the language."]
+]]
+];
+const FIELDS = [
+["id","slug, stable, lowercase","Never rendered","The node cannot be linked, cited or diffed"],
+["title","string ≤60","T2 900/28 or T3 700/15 sentence case","The component is not selected"],
+["label","enum, closed vocabulary","Mono 9.5 caps beside or above the title","The container stands on its T3 heading alone"],
+["body","richtext: strong, em, link, code chip","15.5/1.85 in the reading column","Nothing renders: no empty frame"],
+["timestamp","ISO 8601 in the model","Mono, 28 AUG 2026, under the fact it dates","No freshness, cadence or staleness may be claimed"],
+["sourceCount","int ≥1, written in full","Mono beside the claim it supports","The surface renders as a plain statement, not an aggregation"],
+["cadence","string, interval in words","Mono in the aggregation header","Staleness cannot be derived, so it is not shown"],
+["confidence","derived from 3 thresholds, all must hold","One qualifier line in mono","Omitted. Never estimated, never rounded up"],
+["status","enum of 6","Tint chip; solid only as the view's verdict","The row carries no chip"],
+["delta","signed string with unit, or null","Mono beside the row it belongs to","The row is a bookmark, which this product does not have"],
+["series","number[], 6–24 points","Accent marks against a black axis","The metric renders as a value alone"],
+["threshold","number plus direction","Dotted black line and a marked breach","No band, no breach, no alert row"],
+["asset","ref to a diagram or figure","Inside a figure frame with provenance","The figure is not selected"],
+["href","internal ref","1.5px teal underline, one marker per link","The term is plain text"]
+];
+const RULES = [
+["R24.9","The eight layout primitives are a closed set. Material that fits none of them is prose in the reading column, not a new container."],
+["R24.10","Nesting bottoms out at four levels: page shell, section, module surface, sub-block. A fifth level means the inner container becomes a sub-block or an inset divider."],
+["R24.11","Part order is fixed by the anatomy. A view that needs a different order needs a different component."],
+["R24.12","An optional part with no data renders nothing: no empty frame, no dash, no line stating that a value is unavailable."],
+["R24.13","A missing required part disqualifies the component. The material takes the simplest component whose requirements it does meet."],
+["R24.14","Derived parts are computed by the renderer: step index, staleness, set size, zebra, confidence, marks. Supplied by the model, they are ignored."],
+["R24.15","Every repeatable part states a cap. Past the cap the material changes component: tiles become a table, a list becomes a register with a filter."],
+["R24.16","A field name is a contract. The same name carries the same type, the same limit and the same presentation in every component that reads it."]
+];
+
+class Component extends DCLogic {
+  state = { sec: "a1", fam: null, q: "", req: null };
+  pick(id) { return () => this.setState({ sec: id }); }
+  under(id) { return this.state.sec === id ? "#1de9b6" : "transparent"; }
+  renderVals() {
+    const fam = this.state.fam ?? (this.props.defaultFamily || "All");
+    const reqOn = this.state.req ?? (this.props.requiredOnly === true);
+    const showNotes = this.props.showNotes !== false;
+    const q = this.state.q.trim().toLowerCase();
+
+    const comps = AN.map(([n, f, parts]) => ({ n, fam: f, parts }));
+    const famNames = ["All"]; const famCount = { All: comps.length };
+    comps.forEach(c => { if (!famNames.includes(c.fam)) { famNames.push(c.fam); famCount[c.fam] = 0; } famCount[c.fam]++; });
+
+    const markOf = { req: ["Req", "#000", "#fff", "1px solid #000"], opt: ["Opt", "#fff", "#000", "1px solid #000"], der: ["Derived", "rgba(64,196,255,.22)", "#000", "none"] };
+
+    let totalFields = 0;
+    comps.forEach(c => c.parts.forEach(p => { if (p[1] !== "—") totalFields++; }));
+
+    const matches = c => {
+      if (fam !== "All" && c.fam !== fam) return false;
+      if (!q) return true;
+      if (c.n.toLowerCase().includes(q)) return true;
+      return c.parts.some(p => (p[0] + " " + p[1] + " " + p[2]).toLowerCase().includes(q));
+    };
+
+    const shown = comps.filter(matches).map(c => {
+      let parts = c.parts;
+      if (reqOn) parts = parts.filter(p => p[3] === "req");
+      const rows = parts.map((p, i) => {
+        const m = markOf[p[3]];
+        return {
+          p: p[0], meta: p[1] === "—" ? p[2] : p[1] + " · " + p[2],
+          note: showNotes ? p[4] : "", mark: m[0], bg: m[1], fg: m[2], bd: m[3],
+          z: i % 2 ? "#fafafa" : "#fff"
+        };
+      });
+      const nReq = c.parts.filter(p => p[3] === "req").length;
+      return { n: c.n, fam: c.fam, parts: rows, count: reqOn ? rows.length + " required parts" : c.parts.length + " parts · " + nReq + " required" };
+    }).filter(c => c.parts.length > 0);
+
+    const shownFields = shown.reduce((a, c) => a + c.parts.length, 0);
+
+    return {
+      p1: this.pick("a1"), p2: this.pick("a2"), p3: this.pick("a3"), p4: this.pick("a4"), p5: this.pick("a5"),
+      n1: this.under("a1"), n2: this.under("a2"), n3: this.under("a3"), n4: this.under("a4"), n5: this.under("a5"),
+      prims: PRIM.map(([n, geo, holds, never], i) => ({ n, geo, holds, never, z: i % 2 ? "#fafafa" : "#fff" })),
+      stack: STACK.map(([d, n, geo]) => ({ n, geo, ind: (d * 24) + "px" })),
+      nevers: NEV.map(([n, t]) => ({ n, t })),
+      reading: READ.map(([i, t, b]) => ({ i, t, b })),
+      fields: FIELDS.map(([n, t, r, a], i) => ({ n, t, r, a, z: i % 2 ? "#fafafa" : "#fff" })),
+      rules: RULES.map(([id, t], i) => ({ id, t, z: i % 2 ? "#fafafa" : "#fff" })),
+      totalLabel: comps.length + " components · " + totalFields + " fields",
+      shownLabel: "Showing " + shown.length + " of " + comps.length + " components · " + shownFields + (reqOn ? " required parts" : " parts") + (fam === "All" ? "" : " · " + fam) + (q ? " · matching “" + this.state.q.trim() + "”" : ""),
+      shown, hasResults: shown.length > 0, noResults: shown.length === 0,
+      emptyLine: q ? "Nothing in the register matches “" + this.state.q.trim() + "”." : "No component in this family has required parts to show.",
+      q: this.state.q, onQ: e => this.setState({ q: e.target.value }),
+      reqOn: reqOn ? "true" : "false", reqBg: reqOn ? "#fff" : "#f1f1f1", reqSh: reqOn ? "2px 2px 0 #1de9b6" : "none",
+      toggleReq: () => this.setState({ req: !reqOn }),
+      fams: famNames.map(n => ({
+        n, c: famCount[n], on: fam === n ? "true" : "false",
+        pick: () => this.setState({ fam: n }),
+        bd: fam === n ? "1px solid #000" : "1px solid transparent",
+        bg: fam === n ? "#fff" : "#f1f1f1",
+        sh: fam === n ? "2px 2px 0 #1de9b6" : "none"
+      }))
+    };
+  }
+}
+
+</script>
+</body>
+</html>

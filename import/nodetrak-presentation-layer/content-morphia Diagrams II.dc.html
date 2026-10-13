@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&amp;family=JetBrains+Mono:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#fff;color:#000;font-family:'Nunito',sans-serif}
+a{color:#000;text-decoration:underline;text-decoration-color:#1bbd94;text-decoration-thickness:1.5px;text-underline-offset:3px}
+a:hover{background:rgba(27,189,148,.3)}
+::selection{background:rgba(27,189,148,.35)}
+button{font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;background:none;border:none;padding:0;margin:0;text-align:left;cursor:pointer}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px solid #000;outline-offset:3px}
+@media(max-width:900px){[data-stack]{grid-template-columns:1fr!important}}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:#f1f1f1;border-radius:999px}
+::-webkit-scrollbar-thumb{background:rgba(0,0,0,.22);border-radius:999px}
+::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.45)}
+
+[data-nav-group] [data-nav-menu]{display:none}
+[data-nav-group]:hover [data-nav-menu],[data-nav-group]:focus-within [data-nav-menu]{display:block}
+</style>
+</helmet>
+
+<dc-import name="cm-nav" page="Diagrams II.dc.html" chip="Technical families" hint-size="100%,58px"></dc-import>
+
+<dc-import name="cm-toc" items='[["#sec-seq","Sequence"],["#sec-erd","Entity relationship"],["#sec-state","State machine"],["#sec-topo","Topology"],["#sec-layers","Layers"]]' hint-size="100%,44px"></dc-import>
+
+<dc-import name="cm-mast" title="Technical families" hint-size="100%,260px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:14px;text-wrap:pretty">Five diagram types that the flow grammar could not express: interaction over time, data models, lifecycles, network topology, and layered stacks. Each is declared as node and edge data, laid out by computed geometry, and held to the capacity rules on <a href="content-morphia Diagrams at Scale.dc.html">Diagrams at scale</a>.</div>
+</dc-import>
+
+<dc-import name="cm-section" n="1" id="sec-seq" title="Sequence" label="ss: 01 Sequence" chip="T1 · 5 lifelines · 9 messages" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Time runs down, participants run across. The only diagram in the system where vertical position carries meaning, so it gets a dotted lifeline rather than a node grid. Step through the exchange to read it one message at a time.</div>
+
+<div style="background:#fff;border-radius:14px;padding:32px;margin-top:28px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11)">
+<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+<h3 style="margin:0 auto 0 0;font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;line-height:1.3;letter-spacing:-.01em">Freshness breach escalation</h3>
+<button type="button" onClick="{{seqPrev}}" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:8px 14px;border-radius:999px;border:1px solid #000;background:#fff;white-space:nowrap" style-hover="background:rgba(27,189,148,.3)">← Prev</button>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:8px 14px;border-radius:999px;border:1px solid #000;background:#fff;white-space:nowrap">{{seqCounter}}</span>
+<button type="button" onClick="{{seqNext}}" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:8px 14px;border-radius:999px;border:1px solid #000;background:#fff;white-space:nowrap" style-hover="background:rgba(27,189,148,.3)">Next →</button>
+<button type="button" onClick="{{seqAll}}" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:8px 14px;border-radius:999px;background:#fff;border:1px solid #000;white-space:nowrap">Show all</button>
+</div>
+<div style="margin-top:20px;overflow-x:auto;background:#fafafa;border:1px dashed #d9d9d9;border-radius:12px;padding:20px">
+<div style="{{seqCanvas}}" role="img" aria-label="Sequence diagram: the scheduler triggers dbt core, which writes freshness to the metrics store; alerting checks the threshold, debounces, and pages on-call, who triggers a backfill that clears the alert.">
+<sc-for list="{{seqLines}}" as="l" hint-placeholder-count="5">
+<div style="{{l.style}}"></div>
+</sc-for>
+<svg width="{{seqW}}" height="{{seqH}}" style="position:absolute;left:0;top:0;overflow:visible;pointer-events:none">
+<defs><marker id="mseq" markerWidth="9" markerHeight="9" refX="8" refY="3.2" orient="auto"><path d="M0,0 L8,3.2 L0,6.4 z" fill="#000"></path></marker></defs>
+<sc-for list="{{seqMsgs}}" as="m" hint-placeholder-count="9">
+<path d="{{m.d}}" fill="none" stroke="#000" stroke-width="2" stroke-dasharray="{{m.dash}}" opacity="{{m.op}}" marker-end="url(#mseq)"></path>
+</sc-for>
+</svg>
+<sc-for list="{{seqParts}}" as="p" hint-placeholder-count="5">
+<div style="{{p.style}}"><span style="font-weight:700;font-size:14px;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block">{{p.name}}</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-top:3px;display:block">{{p.meta}}</span></div>
+</sc-for>
+<sc-for list="{{seqLabels}}" as="l" hint-placeholder-count="9">
+<span style="{{l.style}}">{{l.text}}</span>
+</sc-for>
+</div>
+</div>
+<div style="display:flex;gap:12px;align-items:baseline;margin-top:18px;max-width:74ch;font-size:14px;line-height:1.7"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;background:#fff;border:1px solid #000;border-radius:4px;padding:3px 8px;white-space:nowrap">Rule</span><span style="font-weight:400">Solid arrows are calls, dashed arrows are returns. A self-message turns right and comes back, never a loop drawn over the lifeline. Lifelines are dotted #d9d9d9 so they read as structure, not as flow.</span></div>
+</div>
+</dc-import>
+
+<dc-import name="cm-section" n="2" id="sec-erd" title="Entity relationship" label="ss: 02 Entity relationship" chip="T1 · 5 entities · 24 fields" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Entities are field tables, not boxes with a name. Keys carry mono chips, cardinality sits at both ends of every relationship, and the star shape does the explaining: facts in the middle, dimensions around them.</div>
+
+<div style="background:#fff;border-radius:14px;padding:32px;margin-top:28px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11)">
+<div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+<h3 style="margin:0 auto 0 0;font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;line-height:1.3;letter-spacing:-.01em">Analytics warehouse: event star schema</h3>
+<div style="display:flex;align-items:center;gap:8px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;background:#fff;border:1px solid #ebebeb;border-radius:4px;padding:2px 8px">PK</span><span style="font-size:14px;font-weight:600">Primary</span></div>
+<div style="display:flex;align-items:center;gap:8px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;background:#fff;border:1px solid #000;border-radius:4px;padding:2px 8px">FK</span><span style="font-size:14px;font-weight:600">Foreign</span></div>
+</div>
+<div style="margin-top:20px;overflow-x:auto;background:#fafafa;border:1px dashed #d9d9d9;border-radius:12px;padding:20px">
+<div style="{{erdCanvas}}" role="img" aria-label="Star schema: fct_event references dim_account, dim_user and dim_date; fct_subscription references dim_account.">
+<svg width="{{erdW}}" height="{{erdH}}" style="position:absolute;left:0;top:0;overflow:visible;pointer-events:none">
+<sc-for list="{{erdEdges}}" as="e" hint-placeholder-count="4">
+<path d="{{e.d}}" fill="none" stroke="#000" stroke-width="2"></path>
+</sc-for>
+</svg>
+<sc-for list="{{erdMarks}}" as="m" hint-placeholder-count="8">
+<span style="{{m.style}}">{{m.text}}</span>
+</sc-for>
+<sc-for list="{{erdCards}}" as="c" hint-placeholder-count="5">
+<div style="{{c.style}}">
+<div style="{{c.headStyle}}">{{c.name}}</div>
+<sc-for list="{{c.fields}}" as="f" hint-placeholder-count="4">
+<div style="{{f.style}}"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400">{{f.name}}</span><span style="{{f.chip}}">{{f.key}}</span></div>
+</sc-for>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+</dc-import>
+
+<dc-import name="cm-section" n="3" id="sec-state" title="State machine" label="ss: 03 State machine" chip="T1 · 6 states · 7 transitions" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">A lifecycle, not a process: the same object sits in exactly one state and transitions are named events. Click any state to isolate what leads into it and what leaves.</div>
+
+<div style="background:#fff;border-radius:14px;padding:32px;margin-top:28px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11)">
+<div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+<h3 style="margin:0 auto 0 0;font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;line-height:1.3;letter-spacing:-.01em">Dataset certification lifecycle</h3>
+<div style="display:flex;align-items:center;gap:8px"><span style="width:14px;height:14px;border-radius:999px;background:#000;display:inline-block"></span><span style="font-size:14px;font-weight:600">Initial</span></div>
+<div style="display:flex;align-items:center;gap:8px"><span style="width:16px;height:16px;border-radius:999px;border:1.5px solid #000;box-shadow:inset 0 0 0 2.5px #fff,inset 0 0 0 4px #000;display:inline-block"></span><span style="font-size:14px;font-weight:600">Terminal</span></div>
+<button type="button" onClick="{{smReset}}" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:8px 14px;border-radius:999px;border:1px solid #000;background:#fff;white-space:nowrap" style-hover="background:rgba(27,189,148,.3)">Reset</button>
+</div>
+<div style="margin-top:20px;overflow-x:auto;background:#fafafa;border:1px dashed #d9d9d9;border-radius:12px;padding:20px">
+<div style="{{smCanvas}}" role="img" aria-label="State machine over six states of a certified metric: draft, in review, changes requested, certified, deprecated and archived. Submit, approve, reject, supersede and a ninety-day retention move it forward; revise and annual review are the two transitions that move it back.">
+<svg width="{{smW}}" height="{{smH}}" style="position:absolute;left:0;top:0;overflow:visible;pointer-events:none">
+<defs><marker id="msm" markerWidth="9" markerHeight="9" refX="8" refY="3.2" orient="auto"><path d="M0,0 L8,3.2 L0,6.4 z" fill="#000"></path></marker></defs>
+<sc-for list="{{smEdges}}" as="e" hint-placeholder-count="7">
+<path d="{{e.d}}" fill="none" stroke="#000" stroke-width="2" stroke-dasharray="{{e.dash}}" opacity="{{e.op}}" marker-end="url(#msm)"></path>
+</sc-for>
+</svg>
+<sc-for list="{{smLabels}}" as="l" hint-placeholder-count="7">
+<span style="{{l.style}}">{{l.text}}</span>
+</sc-for>
+<sc-for list="{{smNodes}}" as="n" hint-placeholder-count="6">
+<button type="button" onClick="{{n.click}}" aria-label="{{n.aria}}" style="{{n.style}}"><span style="font-weight:700;font-size:14px;line-height:1.25">{{n.name}}</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-top:3px;display:block">{{n.meta}}</span></button>
+</sc-for>
+</div>
+</div>
+<div style="font-size:14px;font-weight:400;line-height:1.75;margin-top:18px;max-width:70ch">{{smNote}}</div>
+</div>
+</dc-import>
+
+<dc-import name="cm-section" n="4" id="sec-topo" title="Deployment topology" label="ss: 04 Topology" chip="T2 · 9 nodes · 3 zones" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">Trust boundaries are the subject here, so zones are drawn first and nodes sit inside them. Every edge that crosses a boundary carries its port: an unlabelled crossing is a review finding, not a diagram.</div>
+
+<div style="background:#fff;border-radius:14px;padding:32px;margin-top:28px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11)">
+<div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+<h3 style="margin:0 auto 0 0;font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;line-height:1.3;letter-spacing:-.01em">NodeTrak serving tier</h3>
+<sc-for list="{{topoLegend}}" as="g" hint-placeholder-count="4">
+<div style="display:flex;align-items:center;gap:10px"><div style="{{g.swatch}}"></div><span style="font-size:14px;font-weight:600">{{ g.label }}</span></div>
+</sc-for>
+</div>
+<div style="margin-top:20px;overflow-x:auto;background:#fafafa;border:1px dashed #d9d9d9;border-radius:12px;padding:20px">
+<div style="{{topoCanvas}}" role="img" aria-label="Deployment topology: analyst clients reach a load balancer in the public edge, which routes to the query API in the application subnet; API and job runner reach the warehouse and metrics store in the data subnet.">
+<sc-for list="{{topoZones}}" as="z" hint-placeholder-count="3">
+<div style="{{z.style}}"></div>
+</sc-for>
+<sc-for list="{{topoZoneChips}}" as="z" hint-placeholder-count="3">
+<span style="{{z.style}}">{{z.label}}</span>
+</sc-for>
+<svg width="{{topoW}}" height="{{topoH}}" style="position:absolute;left:0;top:0;overflow:visible;pointer-events:none">
+<defs><marker id="mtp" markerWidth="9" markerHeight="9" refX="8" refY="3.2" orient="auto"><path d="M0,0 L8,3.2 L0,6.4 z" fill="#000"></path></marker></defs>
+<sc-for list="{{topoEdges}}" as="e" hint-placeholder-count="8">
+<path d="{{e.d}}" fill="none" stroke="#000" stroke-width="2" marker-end="url(#mtp)"></path>
+</sc-for>
+</svg>
+<sc-for list="{{topoLabels}}" as="l" hint-placeholder-count="8">
+<span style="{{l.style}}">{{l.text}}</span>
+</sc-for>
+<sc-for list="{{topoNodes}}" as="n" hint-placeholder-count="9">
+<div style="{{n.style}}"><span style="font-weight:700;font-size:14px;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block">{{n.name}}</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-top:3px;display:block">{{n.meta}}</span></div>
+</sc-for>
+</div>
+</div>
+</div>
+</dc-import>
+
+<dc-import name="cm-section" n="5" id="sec-layers" title="Layered architecture" label="ss: 05 Layered architecture" chip="T1 · 6 layers" pad-bottom="100" hint-size="100%,320px">
+<div style="font-size:15.5px;font-weight:400;line-height:1.85;max-width:70ch;margin-top:10px;text-wrap:pretty">No edges at all. Vertical order is the whole argument: each layer depends only on the one beneath it, and concerns that cut across every layer stand in a column of their own. Reach for this when the question is what sits on top of what, not what calls what.</div>
+
+<div style="background:#fff;border-radius:14px;padding:32px;box-shadow:0 14px 28px -6px rgba(0,0,0,.11);margin-top:28px">
+<div role="img" aria-label="Layered architecture of six platform layers, ingestion at the base rising to presentation at the top, each depending only on the layer directly below, with governance, observability, lineage and cost control cutting across all six. It carries no edges because vertical order is the whole argument." style="display:grid;grid-template-columns:1fr 184px;gap:20px;align-items:stretch;border:1px dashed #d9d9d9;border-radius:12px;padding:20px;;border-top:1px solid #ebebeb" data-stack>
+<div style="display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;align-items:center;gap:14px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:12px;padding:16px 20px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;width:78px;flex-shrink:0">Layer 06</span><span style="font-weight:800;font-size:14px;width:132px;flex-shrink:0">Presentation</span><span style="font-size:14px;font-weight:400;line-height:1.7">Dashboards · Notebooks · Embedded reports</span></div>
+<div style="display:flex;align-items:center;gap:14px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:12px;padding:16px 20px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;width:78px;flex-shrink:0">Layer 05</span><span style="font-weight:800;font-size:14px;width:132px;flex-shrink:0">Semantic</span><span style="font-size:14px;font-weight:400;line-height:1.7">Metric definitions · Dimensions · Access policy</span></div>
+<div style="display:flex;align-items:center;gap:14px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:12px;padding:16px 20px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;width:78px;flex-shrink:0">Layer 04</span><span style="font-weight:800;font-size:14px;width:132px;flex-shrink:0">Serving</span><span style="font-size:14px;font-weight:400;line-height:1.7">Warehouse · Metrics store · Query cache</span></div>
+<div style="display:flex;align-items:center;gap:14px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:12px;padding:16px 20px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;width:78px;flex-shrink:0">Layer 03</span><span style="font-weight:800;font-size:14px;width:132px;flex-shrink:0">Transform</span><span style="font-size:14px;font-weight:400;line-height:1.7">Models · Quality gates · Enrichment</span></div>
+<div style="display:flex;align-items:center;gap:14px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:12px;padding:16px 20px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;width:78px;flex-shrink:0">Layer 02</span><span style="font-weight:800;font-size:14px;width:132px;flex-shrink:0">Storage</span><span style="font-size:14px;font-weight:400;line-height:1.7">Raw lake · Staging · Cold archive</span></div>
+<div style="display:flex;align-items:center;gap:14px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:12px;padding:16px 20px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;width:78px;flex-shrink:0">Layer 01</span><span style="font-weight:800;font-size:14px;width:132px;flex-shrink:0">Ingestion</span><span style="font-size:14px;font-weight:400;line-height:1.7">Stream · Batch sync · File loader</span></div>
+</div>
+<div style="border:1.5px dashed #000;border-radius:12px;padding:20px 16px;display:flex;flex-direction:column;justify-content:center;gap:14px">
+<div style="font-size:14px;font-weight:600">Cross-cutting</div>
+<div style="display:flex;flex-direction:column;gap:12px">
+<span style="font-weight:700;font-size:14px">Governance</span>
+<span style="font-weight:700;font-size:14px">Observability</span>
+<span style="font-weight:700;font-size:14px">Lineage</span>
+<span style="font-weight:700;font-size:14px">Cost control</span>
+</div>
+<div style="font-size:14px;font-weight:400;line-height:1.75">Applies at every layer, owned at none.</div>
+</div>
+</div>
+</div>
+</dc-import>
+
+<div style="border-top:1px solid #ebebeb">
+<div style="max-width:1060px;margin:0 auto;padding:28px 24px 44px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase">
+<span>content-morphia · Diagrams II </span>
+<span><a href="content-morphia Diagrams at Scale.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1bbd94">At scale</a> · <a href="content-morphia Diagrams.dc.html" style="text-decoration:none;border-bottom:1.5px solid #1bbd94">Diagram library</a></span>
+</div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1200,&quot;height&quot;:900}}">
+const R = 10;
+const T = {
+  actor: { label: 'Actor', bg: '#fff', extra: 'border:1.5px solid #000;border-radius:4px' },
+  ext:   { label: 'External', bg: '#fff', extra: 'border:1.5px dashed #000;border-radius:12px' },
+  svc:   { label: 'Service', bg: '#fff', extra: 'box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:12px' },
+  store: { label: 'Store', bg: '#fff', extra: 'box-shadow:0 1px 2px rgba(0,0,0,.06);border-top:2px solid #000;border-bottom:2px solid #000' },
+  job:   { label: 'Job', bg: '#fff', extra: 'box-shadow:0 1px 2px rgba(0,0,0,.06);border-left:3px solid #1bbd94;border-radius:12px' }
+};
+const MONO = "font-family:'JetBrains Mono',monospace;";
+const CHIP = MONO + 'font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:#fff;border:1px solid #ebebeb;border-radius:999px;padding:2px 8px;white-space:nowrap;';
+
+function sideOf(a, b) {
+  if (b.x >= a.x + a.w) return 'R';
+  if (b.x + b.w <= a.x) return 'L';
+  return b.y > a.y ? 'B' : 'T';
+}
+const OPP = { R: 'L', L: 'R', T: 'B', B: 'T' };
+
+// Distributes anchors along each node side so edges sharing a side never coincide.
+function anchorSet(pos, edges) {
+  const groups = {}, out = edges.map(() => ({}));
+  const add = (k, v) => { (groups[k] = groups[k] || []).push(v); };
+  edges.forEach((e, i) => {
+    const a = pos[e.f], b = pos[e.t];
+    if (!a || !b) return;
+    const sa = sideOf(a, b);
+    add(e.f + '|' + sa, { i: i, end: 's' });
+    add(e.t + '|' + OPP[sa], { i: i, end: 't' });
+  });
+  Object.keys(groups).forEach(k => {
+    const cut = k.lastIndexOf('|'), id = k.slice(0, cut), side = k.slice(cut + 1);
+    const g = groups[k], n = g.length, box = pos[id];
+    g.forEach((it, j) => {
+      const f = n === 1 ? 0.5 : 0.22 + 0.56 * (j / (n - 1));
+      let p;
+      if (side === 'R') p = { x: box.x + box.w, y: box.y + box.h * f };
+      else if (side === 'L') p = { x: box.x, y: box.y + box.h * f };
+      else if (side === 'T') p = { x: box.x + box.w * f, y: box.y };
+      else p = { x: box.x + box.w * f, y: box.y + box.h };
+      p.side = side;
+      out[it.i][it.end] = p;
+    });
+  });
+  return out;
+}
+// How much of one straight segment lies inside a node box (0 = clear).
+function segHit(sg, b) {
+  const m = 6, bx0 = b.x - m, bx1 = b.x + b.w + m, by0 = b.y - m, by1 = b.y + b.h + m;
+  if (sg.h) {
+    if (sg.y < by0 || sg.y > by1) return 0;
+    const lo = Math.min(sg.a, sg.b), hi = Math.max(sg.a, sg.b);
+    return Math.max(0, Math.min(hi, bx1) - Math.max(lo, bx0));
+  }
+  if (sg.x < bx0 || sg.x > bx1) return 0;
+  const lo = Math.min(sg.a, sg.b), hi = Math.max(sg.a, sg.b);
+  return Math.max(0, Math.min(hi, by1) - Math.max(lo, by0));
+}
+// Picks the turn band that keeps all three legs out of intervening nodes.
+function pickBand(s, t, end, boxes, vertical) {
+  const sA = vertical ? s.y : s.x, tA = end;
+  const lo = Math.min(sA, tA), hi = Math.max(sA, tA), span = hi - lo;
+  const mid = (sA + tA) / 2;
+  if (!boxes || !boxes.length || span < 12) return mid;
+  const cands = [mid];
+  [0.12, 0.25, 0.4, 0.6, 0.75, 0.88].forEach(f => cands.push(lo + span * f));
+  const blocked = [];
+  boxes.forEach(b => {
+    if (vertical) {
+      const c0 = Math.min(s.x, t.x), c1 = Math.max(s.x, t.x);
+      if (b.x + b.w < c0 || b.x > c1) return;
+      blocked.push([b.y - 10, b.y + b.h + 10]);
+    } else {
+      const c0 = Math.min(s.y, t.y), c1 = Math.max(s.y, t.y);
+      if (b.y + b.h < c0 || b.y > c1) return;
+      blocked.push([b.x - 10, b.x + b.w + 10]);
+    }
+  });
+  blocked.sort((p, q) => p[0] - q[0]);
+  let cur = lo;
+  blocked.forEach(iv => { if (iv[0] - cur > 20) cands.push((cur + iv[0]) / 2); cur = Math.max(cur, iv[1]); });
+  if (hi - cur > 20) cands.push((cur + hi) / 2);
+  let best = mid, bp = Infinity, bd = Infinity;
+  cands.forEach(c => {
+    if (c <= lo + 4 || c >= hi - 4) return;
+    const segs = vertical
+      ? [{ x: s.x, a: s.y, b: c }, { h: 1, y: c, a: s.x, b: t.x }, { x: t.x, a: c, b: tA }]
+      : [{ h: 1, y: s.y, a: s.x, b: c }, { x: c, a: s.y, b: t.y }, { h: 1, y: t.y, a: c, b: tA }];
+    let p = 0;
+    boxes.forEach(b => segs.forEach(sg => { p += segHit(sg, b); }));
+    const d = Math.abs(c - mid);
+    if (p < bp - 0.5 || (Math.abs(p - bp) <= 0.5 && d < bd)) { bp = p; bd = d; best = c; }
+  });
+  return best;
+}
+function pathA(s, t, boxes) {
+  if (!s || !t) return '';
+  if (s.side === 'R' || s.side === 'L') {
+    const tx = t.x + (t.side === 'L' ? -4 : 4);
+    if (Math.abs(s.y - t.y) < 1) return 'M' + s.x + ',' + s.y + ' H' + tx;
+    const mx = pickBand(s, t, tx, boxes, false), d = t.y > s.y ? 1 : -1, e = tx > s.x ? 1 : -1;
+    const r = Math.min(R, Math.abs(t.y - s.y) / 2, Math.abs(mx - s.x), Math.abs(tx - mx));
+    return 'M' + s.x + ',' + s.y + ' H' + (mx - e * r) + ' Q' + mx + ',' + s.y + ' ' + mx + ',' + (s.y + d * r) +
+      ' V' + (t.y - d * r) + ' Q' + mx + ',' + t.y + ' ' + (mx + e * r) + ',' + t.y + ' H' + tx;
+  }
+  const ty = t.y + (t.side === 'T' ? -4 : 4);
+  if (Math.abs(s.x - t.x) < 1) return 'M' + s.x + ',' + s.y + ' V' + ty;
+  const my = pickBand(s, t, ty, boxes, true), d = ty > s.y ? 1 : -1, e = t.x > s.x ? 1 : -1;
+  const r2 = Math.min(R, Math.abs(ty - s.y) / 2, Math.abs(t.x - s.x) / 2, Math.abs(my - s.y), Math.abs(ty - my));
+  return 'M' + s.x + ',' + s.y + ' V' + (my - d * r2) + ' Q' + s.x + ',' + my + ' ' + (s.x + e * r2) + ',' + my +
+    ' H' + (t.x - e * r2) + ' Q' + t.x + ',' + my + ' ' + t.x + ',' + (my + d * r2) + ' V' + ty;
+}
+function obstacles(pos, e) {
+  const out = [];
+  Object.keys(pos).forEach(k => { if (k !== e.f && k !== e.t) out.push(pos[k]); });
+  return out;
+}
+function midA(s, t) {
+  if (!s || !t) return { x: 0, y: 0 };
+  return { x: (s.x + t.x) / 2, y: (s.y + t.y) / 2 };
+}
+// Label anchor sits on the path's turn band, not between the two node anchors.
+function labelA(s, t, boxes) {
+  if (!s || !t) return { x: 0, y: 0 };
+  if (s.side === 'R' || s.side === 'L') {
+    const tx = t.x + (t.side === 'L' ? -4 : 4);
+    if (Math.abs(s.y - t.y) < 1) return { x: (s.x + tx) / 2, y: s.y };
+    return { x: pickBand(s, t, tx, boxes, false), y: (s.y + t.y) / 2 };
+  }
+  const ty = t.y + (t.side === 'T' ? -4 : 4);
+  if (Math.abs(s.x - t.x) < 1) return { x: s.x, y: (s.y + ty) / 2 };
+  return { x: (s.x + t.x) / 2, y: pickBand(s, t, ty, boxes, true) };
+}
+function offA(p, d) {
+  if (!p) return { x: 0, y: 0 };
+  if (p.side === 'R') return { x: p.x + d, y: p.y };
+  if (p.side === 'L') return { x: p.x - d, y: p.y };
+  if (p.side === 'T') return { x: p.x, y: p.y - d };
+  return { x: p.x, y: p.y + d };
+}
+
+const SEQ_P = [
+  { id: 'SCH', name: 'Scheduler', type: 'svc' },
+  { id: 'DBT', name: 'dbt core', type: 'job' },
+  { id: 'MET', name: 'Metrics store', type: 'store' },
+  { id: 'ALR', name: 'Alerting', type: 'svc' },
+  { id: 'ONC', name: 'On-call', type: 'actor' }
+];
+const SEQ_M = [
+  { f: 'SCH', t: 'DBT', l: 'run 06:00' },
+  { f: 'DBT', t: 'MET', l: 'write freshness' },
+  { f: 'MET', t: 'ALR', l: 'threshold check' },
+  { f: 'ALR', t: 'ALR', l: 'debounce 15m' },
+  { f: 'ALR', t: 'ONC', l: 'page P2' },
+  { f: 'ONC', t: 'DBT', l: 'trigger backfill' },
+  { f: 'DBT', t: 'MET', l: 'rewrite partition' },
+  { f: 'MET', t: 'ALR', l: 'clear', r: true },
+  { f: 'ALR', t: 'ONC', l: 'resolve', r: true }
+];
+
+const ERD = [
+  { id: 'dim_account', x: 0, y: 0, fields: [['account_id', 'PK'], ['name', ''], ['plan_tier', ''], ['region', '']] },
+  { id: 'dim_user', x: 580, y: 0, fields: [['user_id', 'PK'], ['account_id', 'FK'], ['role', ''], ['created_at', '']] },
+  { id: 'fct_event', x: 290, y: 186, fields: [['event_id', 'PK'], ['account_id', 'FK'], ['user_id', 'FK'], ['date_key', 'FK'], ['event_name', ''], ['properties', '']] },
+  { id: 'dim_date', x: 0, y: 232, fields: [['date_key', 'PK'], ['day', ''], ['iso_week', ''], ['quarter', '']] },
+  { id: 'fct_subscription', x: 580, y: 232, fields: [['subscription_id', 'PK'], ['account_id', 'FK'], ['mrr', ''], ['started_on', '']] }
+];
+const ERD_E = [
+  { f: 'dim_account', t: 'fct_event' },
+  { f: 'dim_user', t: 'fct_event' },
+  { f: 'dim_date', t: 'fct_event' },
+  { f: 'dim_account', t: 'fct_subscription' }
+];
+
+const SM_N = [
+  { id: 'S1', name: 'Draft', col: 0, row: 1, initial: true },
+  { id: 'S2', name: 'In review', col: 1, row: 1 },
+  { id: 'S3', name: 'Changes requested', col: 1, row: 0 },
+  { id: 'S4', name: 'Certified', col: 2, row: 1 },
+  { id: 'S5', name: 'Deprecated', col: 3, row: 1 },
+  { id: 'S6', name: 'Archived', col: 4, row: 1, terminal: true }
+];
+const SM_E = [
+  { f: 'S1', t: 'S2', l: 'submit' },
+  { f: 'S2', t: 'S4', l: 'approve' },
+  { f: 'S2', t: 'S3', l: 'reject' },
+  { f: 'S3', t: 'S1', l: 'revise', dash: true },
+  { f: 'S4', t: 'S5', l: 'supersede' },
+  { f: 'S5', t: 'S6', l: 'retain 90d' },
+  { f: 'S4', t: 'S2', l: 'annual review', dash: true }
+];
+
+const TP_N = [
+  { id: 'CLI', name: 'Analyst client', type: 'actor', col: 0, row: 0.5 },
+  { id: 'IDP', name: 'Identity provider', type: 'ext', col: 0, row: 3.6 },
+  { id: 'LB', name: 'Load balancer', type: 'svc', col: 1, row: 1.25, zone: 'Z1' },
+  { id: 'API', name: 'Query API', type: 'svc', col: 2, row: 0, zone: 'Z2' },
+  { id: 'WRK', name: 'Job runner', type: 'svc', col: 2, row: 1.25, zone: 'Z2' },
+  { id: 'SCH', name: 'Scheduler', type: 'svc', col: 2, row: 2.5, zone: 'Z2' },
+  { id: 'CAC', name: 'Redis cache', type: 'store', col: 3, row: 2.5, zone: 'Z2' },
+  { id: 'WH', name: 'Warehouse', type: 'store', col: 4, row: 0.6, zone: 'Z3' },
+  { id: 'MET', name: 'Metrics store', type: 'store', col: 4, row: 1.9, zone: 'Z3' }
+];
+const TP_E = [
+  { f: 'CLI', t: 'LB', l: '443' }, { f: 'LB', t: 'API', l: '8080' },
+  { f: 'API', t: 'IDP', l: '443' }, { f: 'API', t: 'CAC', l: '6379' },
+  { f: 'API', t: 'WH', l: '5439' }, { f: 'WRK', t: 'WH', l: '5439' },
+  { f: 'WRK', t: 'MET', l: '9090' }, { f: 'SCH', t: 'WRK', l: 'grpc' }
+];
+const TP_Z = [
+  { id: 'Z1', label: 'Public edge', members: ['LB'] },
+  { id: 'Z2', label: 'Application subnet', members: ['API', 'WRK', 'SCH', 'CAC'] },
+  { id: 'Z3', label: 'Data subnet', members: ['WH', 'MET'] }
+];
+
+class Component extends DCLogic {
+  state = { seq: 99, smFocus: null };
+
+  grid(nodes, nw, nh, cg, rg, pad) {
+    const p = {};
+    nodes.forEach(n => {
+      p[n.id] = { x: pad + n.col * (nw + cg), y: pad + n.row * (nh + rg), w: nw, h: nh, n: n };
+    });
+    return p;
+  }
+
+  renderVals() {
+    const self = this, st = this.state;
+
+    // ---- ss: 01 sequence ----
+    const PW = 196, PP = 244, PH = 68, MY0 = 116, MP = 52;
+    const px = {};
+    SEQ_P.forEach((p, i) => { px[p.id] = 20 + i * PP; });
+    const seqH = MY0 + SEQ_M.length * MP + 20;
+    const seqW = 20 + (SEQ_P.length - 1) * PP + PW + 76;
+    const seqParts = SEQ_P.map(p => ({
+      name: p.name, meta: T[p.type].label + ' · ' + p.id,
+      style: 'position:absolute;left:' + px[p.id] + 'px;top:0;width:' + PW + 'px;height:' + PH +
+        'px;box-sizing:border-box;padding:9px 12px;background:' + T[p.type].bg + ';' + T[p.type].extra +
+        ';display:flex;flex-direction:column;justify-content:center;z-index:3'
+    }));
+    const seqLines = SEQ_P.map(p => ({
+      style: 'position:absolute;left:' + (px[p.id] + PW / 2 - 1) + 'px;top:' + PH + 'px;width:0;height:' +
+        (seqH - PH - 10) + 'px;border-left:2px dotted #d9d9d9;z-index:1'
+    }));
+    const seqMsgs = [], seqLabels = [];
+    SEQ_M.forEach((m, i) => {
+      const y = MY0 + i * MP, on = i <= st.seq, op = on ? 1 : 0.12;
+      const a = px[m.f] + PW / 2, b = px[m.t] + PW / 2;
+      let d, lx, ly = y - 13;
+      if (m.f === m.t) {
+        d = 'M' + a + ',' + (y - 10) + ' H' + (a + 46) + ' V' + (y + 14) + ' H' + (a + 6);
+        lx = a + 74; ly = y - 4;
+      } else {
+        const dir = b > a ? -5 : 5;
+        d = 'M' + a + ',' + y + ' H' + (b + dir);
+        lx = (a + b) / 2;
+      }
+      seqMsgs.push({ d: d, dash: m.r ? '6 5' : '0', op: op });
+      seqLabels.push({
+        text: (i + 1) + ' · ' + m.l,
+        style: 'position:absolute;left:' + lx + 'px;top:' + ly + 'px;transform:translate(-50%,-50%);z-index:4;' +
+          CHIP + 'opacity:' + op + (i === st.seq && st.seq < SEQ_M.length ? ';border:1px solid #000' : '')
+      });
+    });
+
+    // ---- ss: 02 ERD ----
+    const EW = 214, EHEAD = 40, EROW = 36;
+    const ep = {};
+    ERD.forEach(e => { ep[e.id] = { x: e.x + 20, y: e.y + 20, w: EW, h: EHEAD + e.fields.length * EROW + 8, e: e }; });
+    let ew = 0, eh = 0;
+    ERD.forEach(e => { ew = Math.max(ew, ep[e.id].x + EW); eh = Math.max(eh, ep[e.id].y + ep[e.id].h); });
+    const erdCards = ERD.map(e => ({
+      name: e.id,
+      style: 'position:absolute;left:' + ep[e.id].x + 'px;top:' + ep[e.id].y + 'px;width:' + EW +
+        'px;background:#fff;border:1.5px solid #000;border-radius:12px;overflow:hidden;z-index:3',
+      headStyle: MONO + 'font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;background:#000;color:#fff;padding:9px 12px',
+      fields: e.fields.map((f, i) => ({
+        name: f[0], key: f[1],
+        style: 'display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 14px;height:' + EROW +
+          'px;box-sizing:border-box' + (i ? ';border-top:1px solid #ebebeb' : ''),
+        chip: f[1] ? (MONO + 'font-size:12px;font-weight:700;letter-spacing:.06em;border-radius:4px;padding:1px 6px;' +
+          (f[1] === 'PK' ? 'background:#000;color:#fff' : 'background:#fff;border:1px solid #000')) : 'display:none'
+      }))
+    }));
+    const erdEdges = [], erdMarks = [];
+    const erdAnc = anchorSet(ep, ERD_E);
+    const mkMark = (p, txt) => ({
+      text: txt,
+      style: 'position:absolute;left:' + p.x + 'px;top:' + p.y + 'px;transform:translate(-50%,-50%);z-index:4;' +
+        MONO + 'font-size:12px;font-weight:700;letter-spacing:.06em;background:#fff;border:1px solid #000;border-radius:999px;padding:1px 7px'
+    });
+    ERD_E.forEach((r, i) => {
+      const A = erdAnc[i];
+      erdEdges.push({ d: pathA(A.s, A.t, obstacles(ep, r)) });
+      erdMarks.push(mkMark(offA(A.s, 15), '1'), mkMark(offA(A.t, 15), 'N'));
+    });
+
+    // ---- ss: 03 state machine ----
+    const SNW = 216, SNH = 70, sp = this.grid(SM_N, SNW, SNH, 76, 34, 26);
+    let sw = 0, sh = 0;
+    SM_N.forEach(n => { sw = Math.max(sw, sp[n.id].x + SNW); sh = Math.max(sh, sp[n.id].y + SNH); });
+    const foc = st.smFocus;
+    const nearS = {};
+    if (foc) { nearS[foc] = true; SM_E.forEach(e => { if (e.f === foc) nearS[e.t] = true; if (e.t === foc) nearS[e.f] = true; }); }
+    const smNodes = SM_N.map(n => {
+      const g = sp[n.id], on = !foc || nearS[n.id];
+      let s = 'position:absolute;left:' + g.x + 'px;top:' + g.y + 'px;width:' + SNW + 'px;height:' + SNH +
+        'px;box-sizing:border-box;padding:14px 16px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06);border-radius:12px;display:flex;flex-direction:column;justify-content:center;z-index:3';
+      if (n.terminal) s += ';border:1.5px solid #000;box-shadow:inset 0 0 0 3px #fff,inset 0 0 0 4.5px #000';
+      if (foc === n.id) s += ';border:1.5px solid #000;box-shadow:5px 5px 0 #1bbd94;background:#fff';
+      if (!on) s += ';opacity:.16';
+      return {
+        name: n.name, meta: (n.initial ? 'Initial · ' : (n.terminal ? 'Terminal · ' : 'State · ')) + n.id,
+        aria: n.name + ' state', style: s,
+        click: function () { self.setState({ smFocus: foc === n.id ? null : n.id }); }
+      };
+    });
+    if (SM_N[0]) {
+      const g0 = sp['S1'];
+      smNodes.unshift({
+        name: '', meta: '', aria: 'Initial marker', click: function () { self.setState({ smFocus: null }); },
+        style: 'position:absolute;left:' + (g0.x - 22) + 'px;top:' + (g0.y + SNH / 2 - 7) + 'px;width:14px;height:14px;border-radius:999px;background:#000;z-index:3;padding:0'
+      });
+    }
+    const smEdges = [], smLabels = [];
+    const smAnc = anchorSet(sp, SM_E);
+    SM_E.forEach((e, i) => {
+      const A = smAnc[i];
+      const on = !foc || (e.f === foc || e.t === foc);
+      const smObs = obstacles(sp, e);
+      smEdges.push({ d: pathA(A.s, A.t, smObs), dash: e.dash ? '6 5' : '0', op: on ? 1 : 0.08 });
+      const m = labelA(A.s, A.t, smObs);
+      smLabels.push({
+        text: e.l,
+        style: 'position:absolute;left:' + m.x + 'px;top:' + m.y + 'px;transform:translate(-50%,-50%);z-index:4;' + CHIP + 'opacity:' + (on ? 1 : 0.1)
+      });
+    });
+    const focName = foc ? (SM_N.filter(n => n.id === foc)[0] || {}).name : null;
+    const smNote = focName
+      ? 'Isolated: ' + focName + '. Everything unrelated has receded: transitions in and out stay at full strength.'
+      : 'Six states, seven transitions, one terminal. Dashed transitions are reversals: a certified dataset returning to review, or a rejection sending the draft back for revision.';
+
+    // ---- ss: 04 topology ----
+    const TNW = 220, TNH = 70, tp = this.grid(TP_N, TNW, TNH, 66, 26, 30);
+    let tw = 0, th = 0;
+    TP_N.forEach(n => { tw = Math.max(tw, tp[n.id].x + TNW); th = Math.max(th, tp[n.id].y + TNH); });
+    const topoZones = [], topoZoneChips = [];
+    TP_Z.forEach(z => {
+      let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
+      z.members.forEach(m => {
+        const g = tp[m]; if (!g) return;
+        x0 = Math.min(x0, g.x); y0 = Math.min(y0, g.y);
+        x1 = Math.max(x1, g.x + g.w); y1 = Math.max(y1, g.y + g.h);
+      });
+      const b = { x: x0 - 16, y: y0 - 24, w: (x1 - x0) + 32, h: (y1 - y0) + 40 };
+      topoZones.push({ style: 'position:absolute;left:' + b.x + 'px;top:' + b.y + 'px;width:' + b.w + 'px;height:' + b.h + 'px;border:1.5px dashed #000;border-radius:12px;z-index:1;opacity:.55' });
+      topoZoneChips.push({
+        label: z.label,
+        style: 'position:absolute;left:' + (b.x + b.w - 10) + 'px;top:' + (b.y - 10) + 'px;transform:translateX(-100%);z-index:5;' +
+          'font-size:14px;font-weight:600;background:#fff;border:1px solid #000;border-radius:999px;padding:4px 12px;white-space:nowrap'
+      });
+      th = Math.max(th, b.y + b.h);
+    });
+    const topoNodes = TP_N.map(n => {
+      const g = tp[n.id];
+      return {
+        name: n.name, meta: T[n.type].label + ' · ' + n.id,
+        style: 'position:absolute;left:' + g.x + 'px;top:' + g.y + 'px;width:' + TNW + 'px;height:' + TNH +
+          'px;box-sizing:border-box;padding:3px 9px;background:' + T[n.type].bg + ';' + T[n.type].extra +
+          ';display:flex;flex-direction:column;justify-content:center;z-index:3'
+      };
+    });
+    const topoEdges = [], topoLabels = [];
+    const tpAnc = anchorSet(tp, TP_E);
+    TP_E.forEach((e, i) => {
+      const A = tpAnc[i];
+      const tpObs = obstacles(tp, e);
+      topoEdges.push({ d: pathA(A.s, A.t, tpObs) });
+      const m = labelA(A.s, A.t, tpObs);
+      topoLabels.push({
+        text: e.l,
+        style: 'position:absolute;left:' + m.x + 'px;top:' + m.y + 'px;transform:translate(-50%,-50%);z-index:4;' + CHIP
+      });
+    });
+    const topoLegend = ['actor', 'ext', 'svc', 'store'].map(k => ({
+      label: T[k].label, swatch: 'width:30px;height:16px;flex-shrink:0;background:' + T[k].bg + ';' + T[k].extra
+    }));
+
+    return {
+      seqParts: seqParts, seqLines: seqLines, seqMsgs: seqMsgs, seqLabels: seqLabels,
+      seqW: seqW, seqH: seqH,
+      seqCanvas: 'position:relative;width:' + seqW + 'px;height:' + seqH + 'px;min-width:' + seqW + 'px',
+      seqCounter: (st.seq >= SEQ_M.length ? SEQ_M.length : st.seq + 1) + ' / ' + SEQ_M.length,
+      seqPrev: () => this.setState({ seq: Math.max(0, (st.seq >= SEQ_M.length ? SEQ_M.length - 1 : st.seq) - 1) }),
+      seqNext: () => this.setState({ seq: Math.min(SEQ_M.length - 1, st.seq + 1) }),
+      seqAll: () => this.setState({ seq: 99 }),
+
+      erdCards: erdCards, erdEdges: erdEdges, erdMarks: erdMarks,
+      erdW: ew + 20, erdH: eh + 20,
+      erdCanvas: 'position:relative;width:' + (ew + 20) + 'px;height:' + (eh + 20) + 'px;min-width:' + (ew + 20) + 'px',
+
+      smNodes: smNodes, smEdges: smEdges, smLabels: smLabels, smNote: smNote,
+      smW: sw + 26, smH: sh + 26,
+      smCanvas: 'position:relative;width:' + (sw + 26) + 'px;height:' + (sh + 26) + 'px;min-width:' + (sw + 26) + 'px',
+      smReset: () => this.setState({ smFocus: null }),
+
+      topoNodes: topoNodes, topoEdges: topoEdges, topoLabels: topoLabels,
+      topoZones: topoZones, topoZoneChips: topoZoneChips, topoLegend: topoLegend,
+      topoW: tw + 30, topoH: th + 30,
+      topoCanvas: 'position:relative;width:' + (tw + 30) + 'px;height:' + (th + 30) + 'px;min-width:' + (tw + 30) + 'px'
+    };
+  }
+}
+
+</script>
+</body>
+</html>

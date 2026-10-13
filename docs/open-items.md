@@ -13,4 +13,14 @@ Inconsistencies inside the original library are tracked separately in
 
 ---
 
-No open items. The first five were answered on 13 Oct 2026; see decision record 055.
+The first five items were answered on 13 Oct 2026; see decision record 055.
+
+## 1. Table head type
+
+- **Spec (before record 056):** `SPEC.md` section 4 listed table heads in the Label tier: 11–12px,
+  weight 800, uppercase, +0.08em tracking.
+- **Code:** `cm-report.css`, `.cm-table th`: 15px, weight 900, no uppercase, no tracking.
+- **Now:** record 056 set the Label tier to 10px and removed table heads from it, so the spec states
+  no table-head size. The code still renders 15 / 900.
+- **Question:** should table heads stay as the code renders them (15 / 900, sentence case), or
+  become labels (10 / 800 / caps / +0.08em)?

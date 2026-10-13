@@ -81,12 +81,11 @@ Semantic meaning is fixed: ok = healthy/validated, warn = attention/at risk, cri
 | T5 | `.cm-t5`, `.cm-timeline__title`, `.cm-step__title`, terms | 16–18 / 700–800 | none |
 | Body | default | 16 / 400 / 1.9 | Reading column, max 70ch |
 | Small | `.cm-small`, text inside surfaces | 15 / 400 / 1.8 | — |
-| Label | `.cm-label`, kinds, table heads, metadata keys | 11–12 / 800 / caps, +0.08em | — |
-| Chip | `.cm-chip`, `.cm-tag`, `.cm-delta`, property-sheet role tags | 10 / 800 / caps, +0.08em | — |
+| Label | `.cm-label`, kinds, metadata keys, callout, definition and question labels; `.cm-chip`, `.cm-tag`, `.cm-delta`, property-sheet role tags | 10 / 800 / caps, +0.08em | — |
 | Meta | `.cm-meta` | 13 / 400 | Dates, sizes, provenance |
 | Code | `<code>`, `.cm-code` | JetBrains Mono 600, 0.8em / 13px | — |
 
-The rule thickness follows the heading level; the CSS applies it. Headings never skip a level (h1 → h2 → h3 → h4). Nunito never below 10px (chips, tags, deltas, role tags and table sort arrows) or 13px (running text). `<strong>` marks a phrase, never a whole paragraph. `.cm-aside` (300 italic) de-emphasises a phrase.
+The rule thickness follows the heading level; the CSS applies it. Headings never skip a level (h1 → h2 → h3 → h4). Nunito never below 10px (labels, chips, tags, deltas, role tags and table sort arrows) or 13px (running text). `<strong>` marks a phrase, never a whole paragraph. `.cm-aside` (300 italic) de-emphasises a phrase.
 
 ## 5. Layout and spacing
 

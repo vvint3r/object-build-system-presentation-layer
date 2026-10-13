@@ -1,0 +1,17 @@
+# R13 — wave 2b: structure & notation (RATIFIED)
+
+- **Date:** not stated in source
+- **Source:** `import/nodetrak-presentation-layer/content-morphia-SPEC.md`, lines 270–281
+- **Status:** historical record, copied verbatim. Current rules are in `docs/spec/rules.md`.
+
+---
+
+`content-morphia Diagrams IV.dc.html` — mind map, set relations, cause & effect, BPMN subset. First families authored *on* the R12.4/R12.5 grammar rather than retro-fitted to it, which is why this wave produced rulings about notation rather than about fills.
+
+- **R13.1 Radial layouts are balanced and computed.** Leaves sit on a fixed pitch (42px); each branch is placed at the centroid of its own leaves; branches split left and right of the subject so the map balances. Nothing is nudged by eye. **No label is ever rotated** — horizontal text at every ring is what separates a readable decomposition from a decorative one. Mind-map edges are **undirected**: no arrowheads, no labels. A mind map that grows arrowheads has become a flow and must be redrawn as one. Edges are bezier (the one curved-edge family), still at the R12.1 8px standoff both ends.
+- **R13.2 Overlap depth is the only thing colour counts.** Set diagrams cap at **three sets** (four circles cannot draw all sixteen regions). Circles are `rgba(29,233,182,.12)` fills with a 1.5px black stroke; alpha stacking produces the sanctioned ramp — one set .12, two ≈.25, three ≈.32 — so overlap *depth* is membership *count*, readable before any number. Region counts are 900-weight numerals placed at computed region centroids, **never labels**: the pair and triple regions of a symmetric Venn are only ~60px wide, so any label placed inside overflows into its neighbours. Set names go in the wide "only" lobes; region names live in the readout. **The population outside all sets is always stated** — an unlabelled outside is the most common lie in a Venn diagram.
+- **R13.3 The diagonal is notation, not a shortcut.** Cause-and-effect diagrams are exempt from orthogonal routing (R10) because the angled bone *is* the family's identity. The exemption is narrow and does not generalise: bones share one angle, all text stays horizontal, causes attach by a horizontal tick, and every bone terminates on the spine with the R12.1 standoff. The effect is the diagram's single emphasized node (R12.2).
+- **R13.4 In a notation, shape carries the meaning.** The BPMN subset is six symbols — start event (2px circle), task (white + S1, radius 10), exclusive gateway (rotated 2px square), end event (4px circle), sequence flow (solid + filled arrowhead), message flow (dashed + open arrowhead). Semantics live in shape and line style **only**; the accent never marks a node type and semantic fills would compete with the notation they sit inside. A subset must declare itself in a legend the reader can toggle.
+- **R13.5 Boundaries are drawn once, and named.** Pools, lanes and set circles are boundary *lines*, not containers to fill. Lanes divide with an inset hairline; a pool whose internals are out of scope is drawn **collapsed** (a single labelled node) rather than emptied. Nodes stay white and lifted inside every boundary (R12.4), so the boundary reads as a boundary and never as a card.
+
+Coverage after wave 2b: **23 built / 0 queued / 4 parked.** The §06 queue on *Diagrams at scale* is empty; the four parked families stay parked until a content need names them. Still open on the original library page: tier badges on every specimen, and re-setting §07 / §08 on the data-driven authoring model.

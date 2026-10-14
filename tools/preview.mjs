@@ -1,6 +1,5 @@
 // Render kit pages in headless Chromium with ECharts served from node_modules, so charts draw
-// where the jsDelivr CDN is unreachable. The page's own CDN URL is answered with the local copy
-// of the same version; nothing in the page is changed.
+// where the jsDelivr CDN is unreachable. Page loading is shared with the checks (tools/load.mjs).
 //
 // Usage:  npm install
 //         npm run preview -- "kit/Sample Report - Q3 Support Review.html" [more pages…]
@@ -11,13 +10,10 @@
 // page falls back to system faces and says so in the output.
 
 import { chromium } from 'playwright';
-import { createRequire } from 'node:module';
 import { mkdirSync } from 'node:fs';
 import path from 'node:path';
+import { load } from './load.mjs';
 
-const require = createRequire(import.meta.url);
-const ECHARTS_URL = 'https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js';
-const ECHARTS_LOCAL = require.resolve('echarts/dist/echarts.min.js');
 const OUT = '.preview';
 
 const pages = process.argv.slice(2);
@@ -31,17 +27,7 @@ const browser = await chromium.launch();
 let failed = false;
 for (const file of pages) {
   for (const theme of ['light', 'dark']) {
-    const page = await browser.newPage({ viewport: { width: 1440, height: 900 }, colorScheme: theme });
-    const errors = [];
-    const requests = [];
-    await page.route(ECHARTS_URL, r => r.fulfill({ path: ECHARTS_LOCAL, contentType: 'application/javascript' }));
-    page.on('pageerror', e => errors.push(e.message));
-    page.on('console', m => { if (m.type() === 'error' && !m.text().startsWith('Failed to load resource')) errors.push(m.text()); });
-    page.on('requestfailed', r => requests.push(new URL(r.url()).host));
-    await page.goto('file://' + path.resolve(file), { waitUntil: 'networkidle', timeout: 60000 });
-    if (theme === 'dark') await page.evaluate(() => document.documentElement.setAttribute('data-theme', 'dark'));
-    await page.evaluate(() => window.CM && window.CM.drawAll && window.CM.drawAll());
-    await page.waitForTimeout(1200);
+    const { page, errors, requests } = await load(browser, file, theme);
     const charts = await page.evaluate(() => ({
       total: document.querySelectorAll('.cm-chart').length,
       drawn: document.querySelectorAll('.cm-chart svg').length,

@@ -21,8 +21,9 @@ the kit · rules · adoption         hand-edited                       compose, 
   and pushes it with `/design-sync` to **Content Morphia View Layer** (project id
   `109effa9-4b07-492a-af04-fbda145be4f9`). Documents are composed there; a finding made there comes back
   as a task and is fixed here.
-- **The kit was built in** the Claude Design project "Objective (Artifact) Development System". Changes
-  made there after 13 Oct 2026 must be re-imported before they are lost.
+- **The kit was built in** the Claude Design project "Objective (Artifact) Development System"
+  (project id `82dab4fa-185a-43b6-8a2c-88a8c38ccba3`). Changes made there after 13 Oct 2026 must be
+  re-imported before they are lost.
 - **The visualization kit is adopted into the report kit.** It brings the build logic for diagrams:
   layout, routing and label placement. Styling comes from the report kit's tokens. A later kit for
   complex diagram authoring, in the manner of Eraser, builds on it.
@@ -37,7 +38,7 @@ the kit · rules · adoption         hand-edited                       compose, 
 | 2 | Split the library's history into decision records, rules and open items | Done |
 | 3 | Adopt Report Kit 1.1 as the baseline; library becomes reference | Done |
 | 4 | Answer the kit's open items and bring spec and code into line | Done |
-| 5 | Turn the spec's hard rules and its pre-publish checklist into automated checks on rendered pages | Next |
+| 5 | Turn the spec's hard rules and its pre-publish checklist into automated checks on rendered pages | Done |
 | 6 | Adopt library features into the kit in the order in `docs/adoption.md` | |
 | 7 | Adopt the visualization kit: node kit, connectors, the lane-flow router with its fixtures | |
 | 8 | Build the design bundle from the kit and sync it to Claude Design | |
@@ -66,10 +67,16 @@ docs/
   plan.md          this file
   decisions/       one record per ruling
   reference/       the library's rules and open items
+checks/
+  run.mjs          run the automated checks (npm run check -- <page>)
+  exempt.mjs       regions a page exempts from named checks, each with its reason
+  *.mjs            one module per rule group: markup, colour, type, radius, budgets, decoration,
+                   meaning, charts, figures, tables, structure, judgment; page.mjs holds shared helpers
 tools/
+  load.mjs         open a kit page in light, dark or print with ECharts served from npm
   preview.mjs      render kit pages with ECharts served from npm (npm run preview -- <page>)
 import/            the three original exports, read-only
 ```
 
-Planned: `checks/` for the automated checks (step 5), `viz/` for the visualization build logic
-(step 7), `bundle/` for the generated design bundle (step 8). Each is created when its step starts.
+Planned: `viz/` for the visualization build logic (step 7), `bundle/` for the generated design bundle
+(step 8). Each is created when its step starts.

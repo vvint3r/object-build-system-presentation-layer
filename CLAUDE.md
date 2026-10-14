@@ -25,6 +25,8 @@ not edited there. See `docs/plan.md`.
 | `kit/Report Kit - Spec & Gallery.html` | Live examples of every component, with copy-paste markup |
 | `kit/Sample Report - Q3 Support Review.html` | Reference output: a complete report built on the kit |
 | `docs/` | Plan, open items, adoption backlog, decisions, library reference |
+| `checks/` | Automated checks on rendered pages: the spec's hard rules and pre-publish checklist |
+| `tools/load.mjs` | Opens a kit page in light, dark or print; shared by the checks and the preview |
 | `tools/preview.mjs` | Renders kit pages with the chart library served locally |
 | `import/report-kit-1.1/` | The kit as imported from Claude Design on 13 Oct 2026 |
 | `import/nodetrak-presentation-layer/` | The original content-morphia library |
@@ -81,6 +83,24 @@ Renders each page in light and dark to `.preview/`, and fails on a script error 
 draw. Reports load ECharts 5.5.1 from jsDelivr, which the cloud environment blocks; the preview serves
 the same version from npm without changing the page. Google Fonts may be unreachable too, in which
 case pages fall back to system faces. Never disable TLS verification to reach a blocked host.
+
+## Checks
+
+```
+npm run check -- "kit/Sample Report - Q3 Support Review.html" "kit/Report Kit - Spec & Gallery.html"
+```
+
+Asserts the hard rules and the pre-publish checklist of `SPEC.md` on each page, in light, dark and
+print. Prints one line per page, mode and check: `ok`, `FAIL` with the selector and computed value of
+each finding, or `warn` for a check that needs judgment. Exits 1 on any failure; warnings never fail
+the run. `--all` lists every finding instead of grouping them.
+
+- Run the checks on every page a change touches, before committing.
+- When a check fails on a kit page, add an item to `docs/open-items.md` with both values and their
+  sources. Do not fix the page or loosen the check.
+- A page exempts a region from named checks only through `checks/exempt.mjs`, with the reason. A rule
+  is never weakened to pass a page.
+- A new component or adopted feature comes with the checks its rules need.
 
 ## Reporting to the owner
 

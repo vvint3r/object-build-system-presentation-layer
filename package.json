@@ -4,7 +4,8 @@
   "description": "Content Morphia Report Kit and tooling. The kit itself has no build step; these packages serve previews and checks.",
   "type": "module",
   "scripts": {
-    "preview": "node tools/preview.mjs"
+    "preview": "node tools/preview.mjs",
+    "check": "node checks/run.mjs"
   },
   "devDependencies": {
     "echarts": "5.5.1",

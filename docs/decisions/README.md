@@ -66,3 +66,4 @@ Rounds 40e and 40f exist only in `CONTINUATION.md` and are taken from there.
 | [053-round-40f-2026-09-07-wynt3r-s-numbered-foundations-review-ap.md](053-round-40f-2026-09-07-wynt3r-s-numbered-foundations-review-ap.md) | Round 40f (2026-09-07) — Wynt3r's numbered Foundations review, applied | 2026-09-07 | CONTINUATION.md |
 | [054-report-kit-1-1-adopted-as-the-baseline.md](054-report-kit-1-1-adopted-as-the-baseline.md) | Report Kit 1.1 adopted as the baseline | 2026-10-13 | owner, in session |
 | [055-kit-spec-and-code-brought-into-line.md](055-kit-spec-and-code-brought-into-line.md) | Kit spec and code brought into line | 2026-10-13 | owner, in session |
+| [056-every-label-at-10px.md](056-every-label-at-10px.md) | Every label at 10px | 2026-10-13 | owner, in session |

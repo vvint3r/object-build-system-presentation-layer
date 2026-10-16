@@ -32,6 +32,8 @@ quote, which starts with its own accent bar.
 Other labels (`.cm-label`, KPI labels, figure and table kinds, metadata keys) stay at 11px. If every
 label is meant to be 10px, that is a further change.
 
+Confirmed on 2026-10-13: every label is 10px. See record 056.
+
 ## Version
 
 The kit stays at 1.1. Two rulings bring the code in line with what the spec already said (colours,

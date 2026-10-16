@@ -69,3 +69,4 @@ Rounds 40e and 40f exist only in `CONTINUATION.md` and are taken from there.
 | [056-every-label-at-10px.md](056-every-label-at-10px.md) | Every label at 10px | 2026-10-13 | owner, in session |
 | [057-automated-checks.md](057-automated-checks.md) | Automated checks | 2026-10-14 | owner, in session |
 | [058-type-sizes-and-weights.md](058-type-sizes-and-weights.md) | Type sizes and weights | 2026-10-16 | owner, in session |
+| [059-colour-and-gradient-exceptions.md](059-colour-and-gradient-exceptions.md) | Colour and gradient exceptions | 2026-10-16 | owner, in session |

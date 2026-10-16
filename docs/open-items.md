@@ -49,17 +49,6 @@ The first five items were answered on 13 Oct 2026; see decision record 055.
 - **Question:** should the class check also accept the classes the spec names, or should
   `cm-report.css` name both classes in a rule?
 
-## 4. Code syntax colours
-
-- **Spec:** text is black or white (`SPEC.md` line 25). The code token spans `k`, `s`, `n`, `f` and
-  `c` are listed with no colours (line 376).
-- **Code:** `cm-report.css` colours three of them: keyword #6a3ea1, string #0e7a5f and number
-  #a3441a in light and print (line 34); #c3a6f5, #5fe0bb and #ffab7a in dark (line 56); applied at
-  lines 414 to 416.
-- **Now:** the text colour check fails on every keyword, string and number span, in all three modes.
-- **Question:** are syntax colours an exception to black or white text (the spec then says so), or
-  should code tokens be ranked by weight only?
-
 ## 6. 2px corners
 
 - **Spec:** "No corners outside the radius set: 4 chip/tag, 6 code chip, 8 input/slot, 12
@@ -70,25 +59,6 @@ The first five items were answered on 13 Oct 2026; see decision record 055.
 - **Now:** the radius check fails on the row flags in the sample, and on the meter, property sheet,
   row flags and recommended column in the gallery, in all three modes.
 - **Question:** should 2px join the radius set for thin bars, or should these bars be square?
-
-## 7. Dashed timeline rail
-
-- **Spec:** a planned timeline item has a "dashed marker and rail" (`SPEC.md` line 322). Rule 11
-  forbids gradients (line 32).
-- **Code:** `cm-report.css` draws the dashed rail with `repeating-linear-gradient` (line 355).
-- **Now:** the gradient check fails on each planned item, in all three modes.
-- **Question:** is a gradient that draws a dashed line allowed (the rule then names it), or should the
-  rail be drawn another way?
-
-## 10. Verdict chip text in dark mode
-
-- **Spec:** text is black or white (`SPEC.md` line 25). The verdict chip is "solid ink with a crit
-  offset" (line 380).
-- **Code:** `.cm-chip--verdict` sets the text to the paper colour on an ink fill (`cm-report.css`
-  line 181). Dark paper is #0d0d0d, so in dark mode the chip text is #0d0d0d, not black.
-- **Now:** the text colour check fails on the verdict chip in dark mode only, on both pages.
-- **Question:** should the paper colour count as black text on a solid ink fill, or should the
-  verdict text be black in dark mode?
 
 ## 11. Formatted cells without `data-value`
 

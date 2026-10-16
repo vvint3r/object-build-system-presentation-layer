@@ -22,14 +22,14 @@ Human-readable version with live examples and copy-paste markup: `Report Kit - S
 1. **MUST** start from `template.html` and compose only from classes in `cm-report.css`.
 2. **MUST NOT** add stylesheets, `<style>` blocks, classes of your own, or inline `style` attributes. Allowed inline custom properties only: `--h` (chart height), `--v` (bar/meter fill), `--t` (meter target), `--steps` (process step count), plus `style="align-items:center"` or `style="align-items:start"` on a grid.
 3. **MUST NOT** write hex, rgb or named colors anywhere in markup. In chart JSON use token strings (`"$accent"`, see §9).
-4. **Text is black or white.** **MUST NOT** use grey text or lowered opacity for de-emphasis. Rank text with weight: 300 (de-emphasised, kickers), 400 (body), 600 (code, chart axis labels), 700 (bold phrase, row keys, role tags), 800 (labels, block titles, terms), 900 (page/section title). These are the weights the kit loads; use no other.
+4. **Text is black or white.** **MUST NOT** use grey text or lowered opacity for de-emphasis. Rank text with weight: 300 (de-emphasised, kickers), 400 (body), 600 (code, chart axis labels), 700 (bold phrase, row keys, role tags), 800 (labels, block titles, terms), 900 (page/section title). These are the weights the kit loads; use no other. Two exceptions to black or white, both applied by the CSS: keywords, strings and numbers in code take the syntax colours (§8.17), and the verdict chip's text takes the paper colour on its ink fill.
 5. **One family for text, one for code.** Nunito for all text, labels, tables, chips and charts. JetBrains Mono **only** for code: `<code>`, `.cm-code`, file names. **MUST NOT** use mono for labels, numbers, dates or IDs.
 6. **Accent is never text.** Teal appears only as bars, underlines, borders, chips, chart marks and the reserved shadow.
 7. **One emphasis per view.** Exactly one `cm-featured` (L2, teal offset) per report, on the recommendations. At most one solid verdict chip (`cm-chip--verdict`) per table or figure. One `cm-summary` per report.
 8. **Color never fills a label.** Status color appears as a chip's 2px offset, a callout label's underline, a table row flag, or a chart mark. **MUST NOT** put a colored background behind a chip, tag or label.
 9. **Meaning never rests on color alone.** Every status chip and flagged row carries a word; every highlight is backed by the sentence; every recommended column carries ★.
 10. **No corners outside the radius set:** 4 chip/tag, 6 code chip, 8 input/slot, 12 table/tile, 14 card, 999 pill. The CSS applies them; never override.
-11. **No decoration.** No emoji, no stock imagery, no icons beyond the glyphs the CSS supplies, no gradients, no colored left borders on cards or callouts, no drop caps.
+11. **No decoration.** No emoji, no stock imagery, no icons beyond the glyphs the CSS supplies, no gradients except where one carries meaning (the dashed rail of a planned timeline item, a chart's colour-scale legend), no colored left borders on cards or callouts, no drop caps.
 12. **No filler.** Omit an optional block rather than pad it. Every number shown is sourced.
 
 ## 2. Packaging
@@ -375,7 +375,7 @@ Appendices only. First item `open`. Never hide findings or anything the summary 
 </div>
 ```
 
-Token spans: `k` keyword, `s` string, `n` number, `f` callable, `c` comment. Escape `<` as `&lt;`. Inline identifiers, file names and token names use `<code>`.
+Token spans: `k` keyword, `s` string, `n` number, `f` callable, `c` comment. Keywords, strings and numbers take the syntax colours the CSS sets; it is the only coloured text in the kit. Escape `<` as `&lt;`. Inline identifiers, file names and token names use `<code>`.
 
 ### 8.18 Chips, tags, buttons
 
@@ -438,7 +438,7 @@ The only `cm-featured` in the report, inside the Recommendations section. 1–5 
 | Two categories × magnitude | `heatmap` | `visualMap` with min/max and `text` end labels; `"yAxis": {"inverse": true}` |
 | Part of a whole | `pie` with `"radius": ["44%","66%"]` | ≤ 4 slices, labels with name and value, only when the total matters |
 
-**MUST NOT:** 3D, gradients, dual y-axes, radar, gauge, word clouds, more than one chart per figure, bars or areas that do not start at zero, a `barWidth` above 16.
+**MUST NOT:** 3D, gradient fills, dual y-axes, radar, gauge, word clouds, more than one chart per figure, bars or areas that do not start at zero, a `barWidth` above 16.
 
 **Annotations:**
 - Target or threshold: `"markLine": {"data": [{"yAxis": 95, "label": {"formatter": "Target 95%", "position": "insideStartTop"}}]}` (use `xAxis` for vertical lines and horizontal bars, `position: "end"`).

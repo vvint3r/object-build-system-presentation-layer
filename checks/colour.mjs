@@ -3,11 +3,21 @@
 export default [
   {
     // Every piece of text, including what the chart library draws, is the theme's ink, black or
-    // white, at full opacity on itself and every ancestor.
-    name: 'text-colour', level: 'fail', source: 'SPEC §1 rule 4',
+    // white, at full opacity on itself and every ancestor. Two exceptions (record 059): keywords,
+    // strings and numbers in code take their syntax colour, and the verdict chip's text is the paper
+    // colour on its ink fill.
+    name: 'text-colour', level: 'fail', source: 'SPEC §1 rule 4; record 059',
     inPage: ({ check }) => {
       const H = window.__cm, out = [];
       const ok = new Set([H.tokens().ink, '#000000', '#ffffff'].filter(Boolean).map(H.norm));
+      const root = getComputedStyle(document.documentElement);
+      const SYNTAX = { k: '--cm-code-kw', s: '--cm-code-str', n: '--cm-code-num' };
+      const allowed = el => {
+        const tok = el.closest('.cm-code .k, .cm-code .s, .cm-code .n');
+        if (tok) return H.norm(root.getPropertyValue(SYNTAX[[...tok.classList].find(c => SYNTAX[c])]).trim());
+        if (el.closest('.cm-chip--verdict')) return H.norm(H.tokens().paper || '');
+        return null;
+      };
       const faded = (el, pseudo) => {
         if (pseudo && parseFloat(getComputedStyle(el, pseudo).opacity) < 1) return el;
         for (let n = el; n && n.nodeType === 1; n = n.parentElement) if (parseFloat(getComputedStyle(n).opacity) < 1) return n;
@@ -16,7 +26,7 @@ export default [
       for (const { el, pseudo, cs } of H.textItems()) {
         if (H.exempt(el, check)) continue;
         const c = H.norm(cs.color);
-        if (!ok.has(c)) out.push({ where: H.where(el, pseudo), value: `color ${c}` });
+        if (!ok.has(c) && c !== allowed(el)) out.push({ where: H.where(el, pseudo), value: `color ${c}` });
         const f = faded(el, pseudo);
         if (f) out.push({ where: H.where(el, pseudo), value: `opacity ${getComputedStyle(f).opacity} on ${f === el ? 'itself' : H.path(f)}` });
       }

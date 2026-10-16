@@ -61,7 +61,8 @@ commit as the spec.
 2. No added stylesheets, `<style>` blocks, custom classes or inline styles, except the custom properties
    the spec allows (`--h`, `--v`, `--t`, `--steps`).
 3. No hex, rgb or named colours in markup. Chart JSON uses `$token` strings.
-4. Text is black or white. No grey text and no lowered opacity; rank with weight.
+4. Text is black or white. No grey text and no lowered opacity; rank with weight. Exceptions: code syntax
+   colours, and the verdict chip's paper-coloured text on its ink fill.
 5. Nunito for all text, labels, tables, chips and charts. JetBrains Mono only for code.
 6. The accent is never text.
 7. One `cm-featured` per report, at most one verdict chip per table or figure, one summary per report.
@@ -69,7 +70,8 @@ commit as the spec.
    mark.
 9. Meaning never rests on colour alone.
 10. Radii only from the set: 4, 6, 8, 12, 14, 999.
-11. No decoration: no emoji, stock imagery, gradients, coloured left borders or drop caps.
+11. No decoration: no emoji, stock imagery, coloured left borders or drop caps, and no gradients except where
+    one carries meaning (a planned timeline item's dashed rail, a chart's colour-scale legend).
 12. No filler. Every number shown is sourced.
 
 ## Preview

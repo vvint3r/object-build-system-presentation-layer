@@ -68,7 +68,7 @@ p,li,dd{text-wrap:pretty}
 img,svg{max-width:100%}
 strong,b{font-weight:700}
 a{color:inherit;text-decoration:underline;text-decoration-color:var(--cm-accent);text-decoration-thickness:1.5px;text-underline-offset:3px}
-a:hover{background:var(--cm-accent-hover)}
+a:hover{background:var(--cm-accent-hover);border-radius:var(--cm-r-chip)}
 ::selection{background:rgba(27,189,148,.35)}
 :focus-visible{outline:2px solid var(--cm-ink);outline-offset:3px}
 button{font:inherit;color:inherit;background:none;border:0;padding:0;margin:0;text-align:left;cursor:pointer}
@@ -322,9 +322,7 @@ pre code{all:unset}
 /* recommended column: ★ in the header, a 4px header rule, a 3px teal bar in the left gutter of the body cells. No fill. */
 .cm-table th.is-rec{border-bottom-width:4px}
 .cm-table tbody td.is-rec{font-weight:700}
-.cm-table tbody td.is-rec::before{content:"";position:absolute;left:-9px;top:0;bottom:-1px;width:3px;background:var(--cm-accent)}
-.cm-table tbody tr:first-child td.is-rec::before{top:12px;border-radius:2px 2px 0 0}
-.cm-table tbody tr:last-child td.is-rec::before{bottom:12px;border-radius:0 0 2px 2px}
+.cm-table tbody td.is-rec::before{content:"";position:absolute;left:-9px;top:12px;bottom:12px;width:3px;border-radius:2px;background:var(--cm-accent)}
 /* row flag: a 4px bar in the left gutter carries status color; the row still states it in words */
 .cm-table tr[data-flag]>td:first-child::before{content:"";position:absolute;left:-10px;top:12px;bottom:12px;width:4px;border-radius:2px;background:var(--f)}
 .cm-table tr[data-flag="ok"]{--f:var(--cm-ok)}

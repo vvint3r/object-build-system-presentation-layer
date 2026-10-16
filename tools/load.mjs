@@ -39,6 +39,8 @@ export async function load(browser, file, mode) {
   await page.evaluate(() => { if (window.CM && window.CM.drawAll) { window.CM.drawAll(); window.CM.redraw(false); } });
   if (mode === 'print') await page.evaluate(() => window.CM && window.CM.beforePrint && window.CM.beforePrint());
   await page.evaluate(() => document.fonts.ready.then(() => true));
+  // Park the pointer outside the viewport so no element is measured in its hover state.
+  await page.mouse.move(-1, -1);
   await page.waitForTimeout(1200);
   return { page, errors, requests };
 }

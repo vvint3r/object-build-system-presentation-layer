@@ -49,17 +49,6 @@ The first five items were answered on 13 Oct 2026; see decision record 055.
 - **Question:** should the class check also accept the classes the spec names, or should
   `cm-report.css` name both classes in a rule?
 
-## 6. 2px corners
-
-- **Spec:** "No corners outside the radius set: 4 chip/tag, 6 code chip, 8 input/slot, 12
-  table/tile, 14 card, 999 pill." (`SPEC.md` line 31). The checks also accept square corners.
-- **Code:** `cm-report.css` rounds five thin bars to 2px: the meter fill (line 211), the
-  property-sheet divider (line 258), the ends of the recommended-column bar (lines 325 and 326) and
-  the table row flag (line 328).
-- **Now:** the radius check fails on the row flags in the sample, and on the meter, property sheet,
-  row flags and recommended column in the gallery, in all three modes.
-- **Question:** should 2px join the radius set for thin bars, or should these bars be square?
-
 ## 11. Formatted cells without `data-value`
 
 - **Spec:** "`data-value` holds the raw number whenever the cell text is formatted" (`SPEC.md`

@@ -69,7 +69,8 @@ commit as the spec.
 8. Colour never fills a label. Status colour is a chip offset, a label underline, a row flag or a chart
    mark.
 9. Meaning never rests on colour alone.
-10. Radii only from the set: 4, 6, 8, 12, 14, 999.
+10. Radii only from the set: 2, 4, 6, 8, 12, 14, 999. Shapes are rounded; only lines, masked icons and the top bar
+    are square.
 11. No decoration: no emoji, stock imagery, coloured left borders or drop caps, and no gradients except where
     one carries meaning (a planned timeline item's dashed rail, a chart's colour-scale legend).
 12. No filler. Every number shown is sourced.

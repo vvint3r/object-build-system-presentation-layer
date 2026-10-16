@@ -67,3 +67,4 @@ Rounds 40e and 40f exist only in `CONTINUATION.md` and are taken from there.
 | [054-report-kit-1-1-adopted-as-the-baseline.md](054-report-kit-1-1-adopted-as-the-baseline.md) | Report Kit 1.1 adopted as the baseline | 2026-10-13 | owner, in session |
 | [055-kit-spec-and-code-brought-into-line.md](055-kit-spec-and-code-brought-into-line.md) | Kit spec and code brought into line | 2026-10-13 | owner, in session |
 | [056-every-label-at-10px.md](056-every-label-at-10px.md) | Every label at 10px | 2026-10-13 | owner, in session |
+| [057-automated-checks.md](057-automated-checks.md) | Automated checks | 2026-10-14 | owner, in session |

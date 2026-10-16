@@ -19,11 +19,11 @@ Kept in `checks/exempt.mjs`, each entry with its reason.
 | Region | Exempt from | Reason |
 | --- | --- | --- |
 | `.g-src` | every check | The markup listing under each demo is source code shown as text. |
-| `[data-demo]` | counts and order across a report: one featured card, one summary, emphasis and section budgets, callouts per section, figure and table numbering, where the sources list sits | A demo shows one component on its own, out of report order. |
+| `[data-demo]` | counts and order across a report: one featured card, one summary, emphasis and section budgets, callouts per section, figure numbering, where the sources list sits | A demo shows one component on its own, out of report order. |
 | `head > style` | stylesheets | The gallery's helper stylesheet lays out the catalogue. |
 | `.g-sw` outside `[data-demo]` | every check | Colour swatches are specimens of tokens, not components. |
-| The page outside `[data-demo]` | classes, inline styles, block gap, table numbering | The scaffolding around the demos uses helper classes and inline spacing and numbers its own tables by section (Table 2.1). Inside a demo, markup meets every rule, since readers copy it. |
-| The whole page | head order, top bar, masthead, summary anatomy, report anatomy, footer, methodology | The gallery has no kit meta, report masthead, summary with KPIs, sources appendix, methodology or report footer, and its top bar links to the sample report. |
+| The page outside `[data-demo]` | classes, inline styles, block gap | The scaffolding around the demos uses helper classes and inline spacing. Inside a demo, markup meets every rule, since readers copy it. |
+| The whole page | head order, top bar, masthead, summary anatomy, report anatomy, footer, methodology, table numbering | The gallery has no kit meta, report masthead, summary with KPIs, sources appendix, methodology or report footer; its top bar links to the sample report, and it numbers its tables by section (Table 2.1). |
 
 ## Checks
 

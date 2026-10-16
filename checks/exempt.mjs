@@ -22,9 +22,9 @@ export const EXEMPT = [
   {
     page: GALLERY,
     selector: '[data-demo]',
-    checks: ['featured', 'summary', 'emph', 'section-limits', 'callouts', 'figure-numbers', 'table-numbers', 'report-anatomy'],
+    checks: ['featured', 'summary', 'emph', 'section-limits', 'callouts', 'figure-numbers', 'report-anatomy'],
     why: 'Each demo shows one component on its own, out of report order. Counts and order across a '
-      + 'report (one featured card, one summary, figure and table numbers in sequence, callouts per '
+      + 'report (one featured card, one summary, figure numbers in sequence, callouts per '
       + 'section, where the sources list sits) do not apply to a specimen. Every rule about how a '
       + 'component looks or is built still applies inside a demo.',
   },
@@ -47,18 +47,17 @@ export const EXEMPT = [
     page: GALLERY,
     selector: 'body',
     outside: '[data-demo]',
-    checks: ['classes', 'inline-styles', 'block-gap', 'table-numbers'],
+    checks: ['classes', 'inline-styles', 'block-gap'],
     why: 'The scaffolding around the demos lays the catalogue out with helper classes and inline '
-      + 'spacing, and numbers its own tables by section (Table 2.1). Inside a demo, markup is held '
-      + 'to every rule, since readers copy it.',
+      + 'spacing. Inside a demo, markup is held to every rule, since readers copy it.',
   },
   {
     page: GALLERY,
     whole: true,
-    checks: ['head-order', 'topbar', 'masthead', 'summary-anatomy', 'report-anatomy', 'footer', 'methodology'],
+    checks: ['head-order', 'topbar', 'masthead', 'summary-anatomy', 'report-anatomy', 'footer', 'methodology', 'table-numbers'],
     why: 'Report anatomy: the gallery is not a report, so it carries no kit meta, report masthead, '
-      + 'summary with KPIs and findings, sources appendix, methodology or report footer, and its '
-      + 'top bar links to the sample report.',
+      + 'summary with KPIs and findings, sources appendix, methodology or report footer, its top '
+      + 'bar links to the sample report, and it numbers its tables by section (Table 2.1).',
   },
 ];
 

@@ -73,3 +73,4 @@ Rounds 40e and 40f exist only in `CONTINUATION.md` and are taken from there.
 | [060-rounded-shapes.md](060-rounded-shapes.md) | Rounded shapes | 2026-10-16 | owner, in session |
 | [061-chart-value-labels.md](061-chart-value-labels.md) | Chart value labels | 2026-10-16 | owner, in session |
 | [062-named-classes-sort-values-and-footnote-3.md](062-named-classes-sort-values-and-footnote-3.md) | Named classes, sort values and footnote 3 | 2026-10-16 | owner, in session |
+| [063-gallery-as-a-catalogue.md](063-gallery-as-a-catalogue.md) | Gallery as a catalogue | 2026-10-16 | owner, in session |

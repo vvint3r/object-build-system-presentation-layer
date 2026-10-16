@@ -1,6 +1,11 @@
 // Regions a page exempts from named checks, or from every check with '*'. A region is a selector;
 // an element inside it is skipped by the checks listed, and everything outside it is checked like
-// any report. No rule changes for an exemption: a report has none of these regions.
+// any report. `outside` narrows a region to what is not inside that selector. An entry with `page`
+// instead of a selector skips the checks it lists for the whole page; the run prints them as skip.
+// No rule changes for an exemption: a report has none of these regions.
+//
+// The gallery is a catalogue (record 063): its demos ([data-demo]) are components and are checked
+// like a report's; the scaffolding around them is the gallery's own helper layer.
 //
 // Each entry names the page (its file name), the region, the checks and the reason.
 
@@ -23,8 +28,45 @@ export const EXEMPT = [
       + 'section, where the sources list sits) do not apply to a specimen. Every rule about how a '
       + 'component looks or is built still applies inside a demo.',
   },
+  {
+    page: GALLERY,
+    selector: 'head > style',
+    checks: ['stylesheets'],
+    why: 'The gallery\'s helper stylesheet: layout for the catalogue (component blocks, swatches, '
+      + 'listings). Reports never carry one.',
+  },
+  {
+    page: GALLERY,
+    selector: '.g-sw',
+    outside: '[data-demo]',
+    checks: ['*'],
+    why: 'Colour swatches: token values drawn as tiles, with their names. Specimens of tokens, not '
+      + 'components. A swatch class inside a demo is still checked.',
+  },
+  {
+    page: GALLERY,
+    selector: 'body',
+    outside: '[data-demo]',
+    checks: ['classes', 'inline-styles', 'block-gap', 'table-numbers'],
+    why: 'The scaffolding around the demos lays the catalogue out with helper classes and inline '
+      + 'spacing, and numbers its own tables by section (Table 2.1). Inside a demo, markup is held '
+      + 'to every rule, since readers copy it.',
+  },
+  {
+    page: GALLERY,
+    whole: true,
+    checks: ['head-order', 'topbar', 'masthead', 'summary-anatomy', 'report-anatomy', 'footer', 'methodology'],
+    why: 'Report anatomy: the gallery is not a report, so it carries no kit meta, report masthead, '
+      + 'summary with KPIs and findings, sources appendix, methodology or report footer, and its '
+      + 'top bar links to the sample report.',
+  },
 ];
 
 export const exemptFor = name => EXEMPT
-  .filter(x => x.page === name)
-  .map(({ selector, checks }) => ({ selector, checks }));
+  .filter(x => x.page === name && !x.whole)
+  .map(({ selector, outside, checks }) => ({ selector, outside, checks }));
+
+// Checks a page skips entirely.
+export const skippedFor = name => EXEMPT
+  .filter(x => x.page === name && x.whole)
+  .flatMap(x => x.checks);

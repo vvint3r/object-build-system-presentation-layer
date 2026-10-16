@@ -30,7 +30,9 @@ export function install(cfg) {
   H.where = (el, pseudo) => H.path(el) + (pseudo || '');
 
   // Exempt regions apply to the checks they name, or to every check with '*' (checks/exempt.mjs).
-  H.exempt = (el, check) => cfg.exempt.some(x => (x.checks.includes('*') || x.checks.includes(check)) && el.closest(x.selector));
+  // A region with `outside` covers only what is not inside that selector.
+  H.exempt = (el, check) => cfg.exempt.some(x => x.selector && (x.checks.includes('*') || x.checks.includes(check))
+    && el.closest(x.selector) && !(x.outside && el.closest(x.outside)));
 
   // Chart internals are drawn by the chart library, not authored; the container itself is checked.
   H.inChart = el => !!(el.parentElement && el.parentElement.closest('.cm-chart, [data-spark]'));

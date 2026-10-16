@@ -140,22 +140,30 @@ export default [
   },
 
   {
-    // Callouts come from the closed set with the variant's name as the label; at most two per
-    // section and two in a row, and at most one "important" per section.
-    name: 'callouts', level: 'warn', source: 'SPEC §7; §8.4', once: true,
+    // Callouts come from the closed set with the variant's name as the label.
+    name: 'callout-variants', level: 'warn', source: 'SPEC §8.4', once: true,
     inPage: ({ check }) => {
-      const H = window.__cm, d = H.source(), out = [];
+      const H = window.__cm, out = [];
       const SET = ['note', 'tip', 'important', 'warning', 'example', 'requirement', 'limitation', 'correction'];
-      for (const c of d.querySelectorAll('.cm-callout')) {
+      for (const c of H.source().querySelectorAll('.cm-callout')) {
         if (H.exempt(c, check)) continue;
         const v = [...c.classList].map(x => x.match(/^cm-callout--(.+)$/)).filter(Boolean).map(x => x[1]);
         const label = c.querySelector('.cm-callout__label');
         if (v.length !== 1 || !SET.includes(v[0])) out.push({ where: H.path(c), value: `variant ${v.join(', ') || 'none'} (one of ${SET.join(', ')})` });
         else if (!label || H.text(label).toLowerCase() !== v[0]) out.push({ where: H.path(c), value: `label "${label ? H.text(label) : ''}" on the ${v[0]} variant` });
       }
+      return out;
+    },
+  },
+
+  {
+    // At most two callouts per section and two in a row, and at most one "important" per section.
+    name: 'callouts', level: 'warn', source: 'SPEC §7; §8.4', once: true,
+    inPage: ({ check }) => {
+      const H = window.__cm, d = H.source(), out = [];
       for (const s of d.querySelectorAll('section.cm-section')) {
         if (H.exempt(s, check) || s.parentElement.closest('section')) continue;
-        const cs = [...s.querySelectorAll('.cm-callout')];
+        const cs = [...s.querySelectorAll('.cm-callout')].filter(c => !H.exempt(c, check));
         if (cs.length > 2) out.push({ where: H.path(s), value: `${cs.length} callouts in the section (at most 2)` });
         const imp = cs.filter(c => c.classList.contains('cm-callout--important')).length;
         if (imp > 1) out.push({ where: H.path(s), value: `${imp} important callouts (at most 1)` });

@@ -95,14 +95,15 @@ npm run check -- "kit/Sample Report - Q3 Support Review.html" "kit/Report Kit - 
 
 Asserts the hard rules and the pre-publish checklist of `SPEC.md` on each page, in light, dark and
 print. Prints one line per page, mode and check: `ok`, `FAIL` with the selector and computed value of
-each finding, or `warn` for a check that needs judgment. Exits 1 on any failure; warnings never fail
-the run. `--all` lists every finding instead of grouping them.
+each finding, `warn` for a check that needs judgment, or `skip` for a check the page is exempt from.
+Exits 1 on any failure; warnings never fail the run. `--all` lists every finding instead of grouping them.
 
 - Run the checks on every page a change touches, before committing.
 - When a check fails on a kit page, add an item to `docs/open-items.md` with both values and their
   sources. Do not fix the page or loosen the check.
-- A page exempts a region from named checks only through `checks/exempt.mjs`, with the reason. A rule
-  is never weakened to pass a page.
+- A page exempts a region, or the whole page, from named checks only through `checks/exempt.mjs`,
+  with the reason. A rule is never weakened to pass a page. The gallery is a catalogue: its helper
+  layer and report anatomy are exempt, its demos are not.
 - A new component or adopted feature comes with the checks its rules need.
 
 ## Reporting to the owner

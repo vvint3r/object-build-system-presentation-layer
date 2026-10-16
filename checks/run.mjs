@@ -7,6 +7,7 @@
 //   ok    the check passed
 //   FAIL  a rule is broken; the indented lines give where (a CSS path) and the computed value
 //   warn  a check that needs judgment; it never changes the exit code
+//   skip  the page is exempt from this check (checks/exempt.mjs)
 // Checks on the page as written run once and report the mode as "all". Findings that share a
 // value and an element kind are listed once with a count; at most 10 are listed per check, and
 // --all lists every finding in full. Regions a page exempts from named checks are listed in
@@ -18,7 +19,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { load, MODES } from '../tools/load.mjs';
 import { install } from './page.mjs';
-import { exemptFor } from './exempt.mjs';
+import { exemptFor, skippedFor } from './exempt.mjs';
 import markup from './markup.mjs';
 import colour from './colour.mjs';
 import type from './type.mjs';
@@ -98,11 +99,16 @@ let failed = false;
 for (const file of pages) {
   const name = path.basename(file);
   const cfg = { exempt: exemptFor(name), classes, kit, src: read(file) };
+  const skipped = skippedFor(name);
   for (const [i, mode] of MODES.entries()) {
     const { page, errors, requests } = await load(browser, file, mode);
     await page.evaluate(install, cfg);
     for (const check of CHECKS) {
       if (check.once && i > 0) continue;
+      if (skipped.includes(check.name)) {
+        console.log(`skip  ${name}  ${(check.once ? 'all' : mode).padEnd(5)}  ${check.name}  (${check.source})`);
+        continue;
+      }
       let found;
       try {
         found = check.inPage

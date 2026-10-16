@@ -15,16 +15,6 @@ Inconsistencies inside the original library are tracked separately in
 
 The first five items were answered on 13 Oct 2026; see decision record 055.
 
-## 1. Table head type
-
-- **Spec (before record 056):** `SPEC.md` section 4 listed table heads in the Label tier: 11–12px,
-  weight 800, uppercase, +0.08em tracking.
-- **Code:** `cm-report.css`, `.cm-table th`: 15px, weight 900, no uppercase, no tracking.
-- **Now:** record 056 set the Label tier to 10px and removed table heads from it, so the spec states
-  no table-head size. The code still renders 15 / 900.
-- **Question:** should table heads stay as the code renders them (15 / 900, sentence case), or
-  become labels (10 / 800 / caps / +0.08em)?
-
 ## 2. Gallery held to report rules
 
 - **Spec:** `SPEC.md` describes a report: the required head with the `cm-kit` meta (section 2), only
@@ -70,17 +60,6 @@ The first five items were answered on 13 Oct 2026; see decision record 055.
 - **Question:** are syntax colours an exception to black or white text (the spec then says so), or
   should code tokens be ranked by weight only?
 
-## 5. Weight 600
-
-- **Spec:** the weight scale is 300, 400, 700, 800 and 900 (`SPEC.md` line 25). The type table sets
-  code in JetBrains Mono 600 (line 86).
-- **Code:** `cm-report.css`: `code` 600 (line 75), `.cm-code__file` 600 (line 411), callable spans
-  `.f` 600 (line 417). `cm-report.js`: chart axis labels 600 (line 62).
-- **Now:** the font weight check fails on inline code, file names, callables and every chart axis
-  label, in all three modes.
-- **Question:** is 600 a code weight (the scale then lists it), and should chart axis labels move to
-  a weight on the scale?
-
 ## 6. 2px corners
 
 - **Spec:** "No corners outside the radius set: 4 chip/tag, 6 code chip, 8 input/slot, 12
@@ -100,25 +79,6 @@ The first five items were answered on 13 Oct 2026; see decision record 055.
 - **Now:** the gradient check fails on each planned item, in all three modes.
 - **Question:** is a gradient that draws a dashed line allowed (the rule then names it), or should the
   rail be drawn another way?
-
-## 8. Numbers at 12px
-
-- **Spec:** Nunito is never below 13px for running text; the 10px floor covers labels, chips, tags,
-  deltas, role tags and table sort arrows (`SPEC.md` line 88). Record 056 lists the label classes.
-- **Code:** `cm-report.css`: contents rail numbers `.cm-toc a .n` at 12px, weight 800 (line 119);
-  process step numbers `.cm-step__n` at 12px, weight 800 (line 371).
-- **Now:** the type size check fails on both (the rail is hidden in print).
-- **Question:** are these numbers labels (10px, 800, caps, +0.08em), or running text (13px)?
-
-## 9. Breadcrumb weights
-
-- **Spec:** record 056 puts `.cm-crumbs` in the label tier: 10px, weight 800, caps, +0.08em
-  (`SPEC.md` line 84).
-- **Code:** `cm-report.css`: crumb links at weight 700 (line 125), the current page at 900 (line 126),
-  the separator at 300 (line 127). Size, case and tracking match the tier.
-- **Now:** the label type check fails on each link, separator and current page, in all three modes.
-- **Question:** should the breadcrumb keep three weights (the label tier then notes it), or use 800
-  throughout?
 
 ## 10. Verdict chip text in dark mode
 

@@ -68,14 +68,3 @@ The first five items were answered on 13 Oct 2026; see decision record 055.
   back link (line 491). Notes 1 and 2 link both ways (lines 205, 489 and 490).
 - **Now:** the footnote check fails on reference 3 and note 3.
 - **Question:** should the sample gain the missing id and back link?
-
-## 13. Figure 5 point label
-
-- **Spec:** text is black or white with no lowered opacity (`SPEC.md` line 25); chart text colours
-  are applied automatically (line 403).
-- **Page and code:** Figure 5 in the gallery labels one scatter point "Billing" through a per-point
-  `label` (line 711). `cm-report.js` themes series labels only (line 114), so this label renders in
-  the ECharts default: fill #333333 at opacity 0.8, in all three modes.
-- **Now:** the text colour check fails on that label.
-- **Question:** should `cm-report.js` theme per-point labels too, or should the figure label the
-  point another way?

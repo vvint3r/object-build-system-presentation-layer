@@ -444,7 +444,7 @@ The only `cm-featured` in the report, inside the Recommendations section. 1–5 
 - Target or threshold: `"markLine": {"data": [{"yAxis": 95, "label": {"formatter": "Target 95%", "position": "insideStartTop"}}]}` (use `xAxis` for vertical lines and horizontal bars, `position: "end"`).
 - Event: vertical markLine on the category (`{"xAxis": "Wk 7"}`) with a 1–3 word label.
 - Period band: `"markArea": {"data": [[{"xAxis": "Wk 6"}, {"xAxis": "Wk 8"}]]}`.
-- Direct labels: `"endLabel": {"show": true, "formatter": "Q3"}` on lines (add `"grid": {"right": 64}`); `"label": {"show": true, "position": "right", "formatter": "{c}%"}` on bars.
+- Direct labels: `"endLabel": {"show": true, "formatter": "Q3"}` on lines (add `"grid": {"right": 64}`); `"label": {"show": true, "position": "right", "formatter": "{c}%"}` on bars. The kit sets every value label, on a series or on a single point, in ink on the surface colour, and draws a series above its reference lines, so a line never runs through a number.
 
 **Formatting:** axis label formatters as template strings only (`"{value}%"`). Category labels short (`Wk 1`, `Jul`, `Mon`). Thin crowded axes with `"axisLabel": {"interval": 2}`.
 

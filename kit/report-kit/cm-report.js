@@ -111,8 +111,13 @@
         s.labelLine = merge({ length: 10, length2: 12, lineStyle: { color: t.ink, width: 1 } }, s.labelLine || {});
         if (s.avoidLabelOverlap == null) s.avoidLabelOverlap = true;
       }
-      if (s.label && s.label.show) s.label = merge({ color: t.ink, fontFamily: t.font, fontSize: 12, fontWeight: 700, backgroundColor: s.type === 'pie' ? 'transparent' : t.surface, padding: [1, 4], borderRadius: 2 }, s.label);
+      // value labels, on the series and on single points, sit on the surface colour; a series with a
+      // reference line draws above it (markLine z is 5), so the line passes behind marks and numbers
+      var label = { color: t.ink, opacity: 1, fontFamily: t.font, fontSize: 12, fontWeight: 700, backgroundColor: s.type === 'pie' ? 'transparent' : t.surface, padding: [3, 4], borderRadius: 2 };
+      if (s.label && s.label.show) s.label = merge(label, s.label);
+      list(s.data).forEach(function (d, j, all) { if (d && d.label && d.label.show) all[j] = merge(d, { label: merge(label, d.label) }); });
       if (s.endLabel && s.endLabel.show) s.endLabel = merge({ color: t.ink, fontFamily: t.font, fontSize: 12, fontWeight: 800, distance: 8 }, s.endLabel);
+      if (s.markLine && s.z == null) s.z = 6;
       if (s.markLine) s.markLine = merge({ symbol: 'none', silent: true, animation: false, lineStyle: { color: t.ink, width: 1.5, type: [4, 4] },
         label: { color: t.ink, fontFamily: t.font, fontSize: 12, fontWeight: 700, backgroundColor: t.surface, padding: [2, 6] } }, s.markLine);
       if (s.markArea) s.markArea = merge({ silent: true, itemStyle: { color: t['accent-wash'] }, label: { color: t.ink, fontFamily: t.font, fontSize: 12, fontWeight: 700 } }, s.markArea);

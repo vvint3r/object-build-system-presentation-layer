@@ -71,3 +71,4 @@ Rounds 40e and 40f exist only in `CONTINUATION.md` and are taken from there.
 | [058-type-sizes-and-weights.md](058-type-sizes-and-weights.md) | Type sizes and weights | 2026-10-16 | owner, in session |
 | [059-colour-and-gradient-exceptions.md](059-colour-and-gradient-exceptions.md) | Colour and gradient exceptions | 2026-10-16 | owner, in session |
 | [060-rounded-shapes.md](060-rounded-shapes.md) | Rounded shapes | 2026-10-16 | owner, in session |
+| [061-chart-value-labels.md](061-chart-value-labels.md) | Chart value labels | 2026-10-16 | owner, in session |

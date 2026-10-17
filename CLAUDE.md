@@ -102,8 +102,9 @@ each finding, `warn` for a check that needs judgment, or `skip` for a check the 
 Exits 1 on any failure; warnings never fail the run. `--all` lists every finding instead of grouping them.
 
 - Run the checks on every page a change touches, before committing.
-- When a check fails on a kit page, add an item to `docs/open-items.md` with both values and their
-  sources. Do not fix the page or loosen the check.
+- When a check fails on a kit page as it stands in `main`, add an item to `docs/open-items.md` with
+  both values and their sources. Do not fix the page or loosen the check. A failure the change itself
+  introduces is fixed in the change.
 - A warning on a kit page is resolved on the page: the gallery and the sample carry none, so a new
   warning on either is a new finding. A check changes only where it misreads the spec, and the spec
   only by a ruling.

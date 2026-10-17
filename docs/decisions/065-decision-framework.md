@@ -15,22 +15,28 @@ alone, what it decides and reports, and what waits for the owner.
 
 ## Grounds
 
-The principles and levels come from the rulings in force:
+The principles and levels come from the rulings in force and the owner's standing working
+preferences: routine design and plan calls are the session's, recorded and reported; scope, audience
+and anything irreversible or outward-facing are the owner's; the first finished example of a rebuild
+is reviewed by the owner before the rest is built; an instruction that reads two ways is asked about
+before work starts.
 
 | Part of the framework | Grounds |
 | --- | --- |
 | Authority order | `SPEC.md` introduction; `CLAUDE.md`; records 054 and 064 |
 | Principles | `CLAUDE.md` introduction; `SPEC.md` rules 4 to 12, sections 6 and 13; records 056 and 058 to 064 |
-| Session decides and reports | The decisions taken without a ruling on 16 Oct 2026, which the owner accepted on 17 Oct; records 057 (readings) and 062 |
-| Owner rules | `CLAUDE.md`; records 057 to 060 and 063 |
-| Checks and the levels | Records 057 and 064 |
-| Two readings of an instruction | Records 055 and 056 |
+| Session level | Record 064; `CLAUDE.md` checks section |
+| Reported level | The decisions taken without a ruling on 16 Oct 2026, which the owner accepted on 17 Oct; records 057 (readings) and 062; `CLAUDE.md` on adopting features; the standing preferences |
+| Owner level | `CLAUDE.md`; records 057 to 060 and 063; the standing preferences |
+| Checks | Records 057 and 064 |
+| Unclear cases | Records 055 and 056; the standing preferences |
 
 ## Changed
 
 `CLAUDE.md`: the framework is listed under "Read before working", and the rule that every decision is
 the owner's becomes a pointer to the framework's levels. Questions about the kit still go to
-`docs/open-items.md`.
+`docs/open-items.md`. A failing check goes there when the page as it stands in `main` fails; a
+failure a change introduces is fixed in the change.
 
 ## Version
 

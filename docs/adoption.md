@@ -51,8 +51,9 @@ cover page and revision history. All but maps and the cover page appear in the t
 The owner sets the order. A starting proposal, from the library's product context (a deep knowledge
 index where provenance and freshness carry weight) and the work already under way:
 
-1. **Diagrams and their build logic.** The offshoot kit already exists, and the report kit's largest
-   gap is diagrams.
+1. **Diagrams, charts and visualizations.** Not adopted from the library: they get a build of their
+   own in migration step 7 (`docs/plan.md`), from the owner's reference set. The Diagrams, Charts and
+   Diagram build logic rows above are references for it.
 2. **Provenance.** Core to a knowledge index, and partly covered.
 3. **Change and status.** Revision history is a named kit gap.
 4. **Wayfinding and multi-page navigation.** Needed once there is more than one document.

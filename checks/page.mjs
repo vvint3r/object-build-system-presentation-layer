@@ -30,7 +30,9 @@ export function install(cfg) {
   H.where = (el, pseudo) => H.path(el) + (pseudo || '');
 
   // Exempt regions apply to the checks they name, or to every check with '*' (checks/exempt.mjs).
-  H.exempt = (el, check) => cfg.exempt.some(x => (x.checks.includes('*') || x.checks.includes(check)) && el.closest(x.selector));
+  // A region with `outside` covers only what is not inside that selector.
+  H.exempt = (el, check) => cfg.exempt.some(x => x.selector && (x.checks.includes('*') || x.checks.includes(check))
+    && el.closest(x.selector) && !(x.outside && el.closest(x.outside)));
 
   // Chart internals are drawn by the chart library, not authored; the container itself is checked.
   H.inChart = el => !!(el.parentElement && el.parentElement.closest('.cm-chart, [data-spark]'));
@@ -75,14 +77,16 @@ export function install(cfg) {
     .filter(t => t.textContent.trim() && H.shown(t))
     .map(t => ({ el: t, cs: getComputedStyle(t), where: `${H.path(t.closest('.cm-chart, [data-spark]'))} text "${t.textContent.trim().slice(0, 24)}"` }));
 
-  // The label tier: 10px, weight 800, capitals, +0.08em. SPEC.md section 4 names most of it;
-  // record 056 adds the rest. The collapse toggle's "Open +" is a label drawn by ::after.
+  // The label tier: 10px, weight 800, capitals, +0.08em; chips are the same at 9px. SPEC.md
+  // section 4 names most of it; records 056 and 058 add the rest. The collapse toggle's "Open +" is
+  // a label drawn by ::after.
   H.LABEL = '.cm-label, .cm-crumbs, .cm-mast__meta dt, .cm-byline dt, .cm-kpi__label, .cm-callout__label, '
-    + '.cm-def__label, .cm-qa__label, .cm-props dt, .cm-props sup, .cm-quote footer b, .cm-figure__kind, '
-    + '.cm-slot b, .cm-data>summary, .cm-table-title__kind, .cm-chip, .cm-tag, .cm-delta';
+    + '.cm-def__label, .cm-qa__label, .cm-props dt, .cm-quote footer b, .cm-figure__kind, .cm-slot b, '
+    + '.cm-data>summary, .cm-table-title__kind, .cm-table th, .cm-toc a .n, .cm-step__n, .cm-chip, .cm-tag, .cm-delta';
   // A property-sheet key's sub-label (<dt>Rule<small>(per ticket)</small></dt>, SPEC.md section 8.7)
-  // is plain running text inside the label, not part of it.
-  H.isLabel = (el, pseudo) => (!!el.closest(H.LABEL) && !el.closest('.cm-props dt small'))
+  // is plain running text inside the label, not part of it. A table head's sort arrow is a glyph.
+  H.isLabel = (el, pseudo) => (!!el.closest(H.LABEL) && !el.closest('.cm-props dt small')
+      && !(pseudo && el.matches('.cm-table th button')))
     || (pseudo === '::after' && el.matches('.cm-collapse>summary'));
 
   // Any CSS colour to one canonical form (#rrggbb, or rgba(...) when not opaque).

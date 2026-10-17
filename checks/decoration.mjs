@@ -21,10 +21,13 @@ export default [
   },
 
   {
-    name: 'gradients', level: 'fail', source: 'SPEC §1 rule 11',
+    name: 'gradients', level: 'fail', source: 'SPEC §1 rule 11; record 059',
     inPage: ({ check }) => {
       const H = window.__cm, out = [];
       const grad = cs => [cs.backgroundImage, cs.borderImageSource].find(v => v && /gradient\(/.test(v));
+      // A gradient that carries meaning: the dashed rail of a planned timeline item. A chart's
+      // colour-scale legend is drawn by the chart library and is not read here.
+      const meaning = (el, p) => p === '::before' && el.matches('.cm-timeline>li.is-planned');
       for (const el of H.elements()) {
         if (!H.shown(el) || H.exempt(el, check)) continue;
         const g = grad(getComputedStyle(el));
@@ -32,7 +35,7 @@ export default [
         for (const p of ['::before', '::after']) {
           if (!H.pseudoDrawn(el, p)) continue;
           const pg = grad(getComputedStyle(el, p));
-          if (pg) out.push({ where: H.where(el, p), value: pg.slice(0, 70) });
+          if (pg && !meaning(el, p)) out.push({ where: H.where(el, p), value: pg.slice(0, 70) });
         }
       }
       return out;

@@ -68,3 +68,10 @@ Rounds 40e and 40f exist only in `CONTINUATION.md` and are taken from there.
 | [055-kit-spec-and-code-brought-into-line.md](055-kit-spec-and-code-brought-into-line.md) | Kit spec and code brought into line | 2026-10-13 | owner, in session |
 | [056-every-label-at-10px.md](056-every-label-at-10px.md) | Every label at 10px | 2026-10-13 | owner, in session |
 | [057-automated-checks.md](057-automated-checks.md) | Automated checks | 2026-10-14 | owner, in session |
+| [058-type-sizes-and-weights.md](058-type-sizes-and-weights.md) | Type sizes and weights | 2026-10-16 | owner, in session |
+| [059-colour-and-gradient-exceptions.md](059-colour-and-gradient-exceptions.md) | Colour and gradient exceptions | 2026-10-16 | owner, in session |
+| [060-rounded-shapes.md](060-rounded-shapes.md) | Rounded shapes | 2026-10-16 | owner, in session |
+| [061-chart-value-labels.md](061-chart-value-labels.md) | Chart value labels | 2026-10-16 | owner, in session |
+| [062-named-classes-sort-values-and-footnote-3.md](062-named-classes-sort-values-and-footnote-3.md) | Named classes, sort values and footnote 3 | 2026-10-16 | owner, in session |
+| [063-gallery-as-a-catalogue.md](063-gallery-as-a-catalogue.md) | Gallery as a catalogue | 2026-10-16 | owner, in session |
+| [064-judgment-warnings.md](064-judgment-warnings.md) | Judgment warnings | 2026-10-17 | owner, in session |

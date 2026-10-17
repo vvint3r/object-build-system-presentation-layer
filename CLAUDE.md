@@ -61,15 +61,18 @@ commit as the spec.
 2. No added stylesheets, `<style>` blocks, custom classes or inline styles, except the custom properties
    the spec allows (`--h`, `--v`, `--t`, `--steps`).
 3. No hex, rgb or named colours in markup. Chart JSON uses `$token` strings.
-4. Text is black or white. No grey text and no lowered opacity; rank with weight.
+4. Text is black or white. No grey text and no lowered opacity; rank with weight. Exceptions: code syntax
+   colours, and the verdict chip's paper-coloured text on its ink fill.
 5. Nunito for all text, labels, tables, chips and charts. JetBrains Mono only for code.
 6. The accent is never text.
 7. One `cm-featured` per report, at most one verdict chip per table or figure, one summary per report.
 8. Colour never fills a label. Status colour is a chip offset, a label underline, a row flag or a chart
    mark.
 9. Meaning never rests on colour alone.
-10. Radii only from the set: 4, 6, 8, 12, 14, 999.
-11. No decoration: no emoji, stock imagery, gradients, coloured left borders or drop caps.
+10. Radii only from the set: 2, 4, 6, 8, 12, 14, 999. Shapes are rounded; only lines, masked icons and the top bar
+    are square.
+11. No decoration: no emoji, stock imagery, coloured left borders or drop caps, and no gradients except where
+    one carries meaning (a planned timeline item's dashed rail, a chart's colour-scale legend).
 12. No filler. Every number shown is sourced.
 
 ## Preview
@@ -92,14 +95,18 @@ npm run check -- "kit/Sample Report - Q3 Support Review.html" "kit/Report Kit - 
 
 Asserts the hard rules and the pre-publish checklist of `SPEC.md` on each page, in light, dark and
 print. Prints one line per page, mode and check: `ok`, `FAIL` with the selector and computed value of
-each finding, or `warn` for a check that needs judgment. Exits 1 on any failure; warnings never fail
-the run. `--all` lists every finding instead of grouping them.
+each finding, `warn` for a check that needs judgment, or `skip` for a check the page is exempt from.
+Exits 1 on any failure; warnings never fail the run. `--all` lists every finding instead of grouping them.
 
 - Run the checks on every page a change touches, before committing.
 - When a check fails on a kit page, add an item to `docs/open-items.md` with both values and their
   sources. Do not fix the page or loosen the check.
-- A page exempts a region from named checks only through `checks/exempt.mjs`, with the reason. A rule
-  is never weakened to pass a page.
+- A warning on a kit page is resolved on the page: the gallery and the sample carry none, so a new
+  warning on either is a new finding. A check changes only where it misreads the spec, and the spec
+  only by a ruling.
+- A page exempts a region, or the whole page, from named checks only through `checks/exempt.mjs`,
+  with the reason. A rule is never weakened to pass a page. The gallery is a catalogue: its helper
+  layer and report anatomy are exempt, its demos are not.
 - A new component or adopted feature comes with the checks its rules need.
 
 ## Reporting to the owner

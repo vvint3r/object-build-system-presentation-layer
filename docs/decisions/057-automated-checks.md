@@ -31,6 +31,8 @@ sources. The page is not fixed and the check is not loosened.
 
 ## Gallery exemptions
 
+Superseded by record 063, which exempts the gallery's helper layer and report anatomy as well.
+
 The gallery shows deliberate wrong examples and lists the markup of each demo. A page exempts a region
 from named checks, or from every check, through a selector list kept in `checks/exempt.mjs`, with the
 reason beside each entry. A rule is never weakened for a page, and a report has none of these regions.

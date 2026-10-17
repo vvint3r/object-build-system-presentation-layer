@@ -20,6 +20,9 @@
 .g-comp>header p{font-size:15px;line-height:1.85;max-width:70ch;margin-top:4px}
 .g-src .cm-code{margin-top:14px}
 .g-src pre{max-height:420px;font-size:12px;line-height:1.9}
+/* spacing between specimens inside two demos, kept out of their copyable markup */
+[data-demo]>.cm-stack:has(>.cm-callout){gap:40px}
+[data-demo]>.cm-stack:has(>.cm-chips){gap:24px}
 .g-sw{display:flex;flex-direction:column;gap:12px;min-width:0}
 .g-sw>i{display:block;height:64px;border-radius:12px}
 .g-sw>span{display:flex;flex-direction:column;gap:6px;align-items:flex-start}
@@ -79,7 +82,7 @@
           <div class="cm-tile"><code>cm-report.css</code><p class="cm-small" style="margin-top:16px">Tokens for light, dark and print, plus every component class.</p></div>
           <div class="cm-tile"><code>cm-report.js</code><p class="cm-small" style="margin-top:16px">Theme toggle, chart theme and draw-in, sortable tables, contents scroll-spy, print prep.</p></div>
           <div class="cm-tile"><code>template.html</code><p class="cm-small" style="margin-top:16px">The starter every report copies. Placeholders in <code>{{ }}</code>.</p></div>
-          <div class="cm-tile"><code>SPEC.md</code><p class="cm-small" style="margin-top:16px">The same rules in the form agents read: hard rules, budgets, canonical markup.</p></div>
+          <div class="cm-tile"><code>SPEC.md</code><p class="cm-small" style="margin-top:16px">The same rules written for agents, as hard rules, budgets and canonical markup.</p></div>
         </div>
         <div class="cm-grid cm-grid--2 cm-bleed">
           <div class="cm-card">
@@ -111,7 +114,7 @@
         <div>
           <div class="cm-table-title" id="tbl-changes" data-comment-anchor="5698915585-span"><span class="cm-table-title__kind">Table 2.1</span>What the kit adds or changes</div>
           <div class="cm-table-wrap cm-bleed">
-            <table class="cm-table" aria-labelledby="tbl-changes">
+            <table class="cm-table" data-sortable aria-labelledby="tbl-changes">
               <thead><tr><th data-comment-anchor="b1c22cfddf-th">Area</th><th>In Foundations</th><th>Report kit</th><th>Type</th></tr></thead>
               <tbody>
                 <tr><td class="strong">Type</td><td class="wrap">Nunito text, JetBrains Mono labels</td><td class="wrap">Nunito for all text, labels, tables and charts. JetBrains Mono for code only</td><td><span class="cm-chip">Changed</span></td></tr>
@@ -131,6 +134,7 @@
               </tbody>
             </table>
           </div>
+          <span class="cm-caption"><b>Source:</b> the Foundations library and <code>SPEC.md</code>, Report Kit 1.1.</span>
         </div>
         <aside class="cm-callout cm-callout--limitation" data-comment-anchor="dbb76ce24d-aside">
           <span class="cm-callout__label">Limitation</span>
@@ -183,7 +187,7 @@
           <h3 class="cm-h3">Spacing</h3>
           <div class="cm-props">
             <dl>
-              <dt>Scale</dt><dd>Between blocks: 16 · 20 · 24 · 28 · 32 · 36 · 40 · 44 · 48 · 56 · 64 · 80 · 96 · 120 · 128 · 160 px. Inside components: 2 · 3 · 4 · 6 · 7 · 8 · 10 · 12 · 14 · 16 · 18 · 20 · 22 px</dd>
+              <dt>Scale</dt><dd><b>Between blocks:</b> 16 · 20 · 24 · 28 · 32 · 36 · 40 · 44 · 48 · 56 · 64 · 80 · 96 · 120 · 128 · 160 px. <b>Inside components:</b> 2 · 3 · 4 · 6 · 7 · 8 · 10 · 12 · 14 · 16 · 18 · 20 · 22 px</dd>
               <dt>Between sections</dt><dd>128px above every section header; 160px above the first appendix</dd>
               <dt>Between blocks</dt><dd>64px between blocks in a section body, set by the kit</dd>
             </dl>
@@ -205,6 +209,7 @@
               <div class="cm-body">Body on the page · 16 / 400 / 1.9</div>
               <div class="cm-small">Body in a container · 15 / 400 / 1.8</div>
               <div class="cm-label">Label · 10 / 800 / caps / +0.08em</div>
+              <div><span class="cm-chip">Chip · 9 / 800 / caps / +0.08em</span></div>
               <div class="cm-meta">Meta · 13 / 400 · refreshed 2026-10-05</div>
               <div><code>Code · JetBrains Mono 600</code></div>
             </div>
@@ -231,21 +236,22 @@
         <div>
           <div class="cm-table-title" id="tbl-anat"><span class="cm-table-title__kind">Table 4.1</span>Block order</div>
           <div class="cm-table-wrap cm-bleed">
-            <table class="cm-table" aria-labelledby="tbl-anat">
-              <thead><tr><th>#</th><th>Block</th><th>Contains</th><th>Level</th></tr></thead>
+            <table class="cm-table" data-sortable aria-labelledby="tbl-anat">
+              <thead><tr><th class="num" aria-sort="ascending">#</th><th>Block</th><th>Contains</th><th>Level</th></tr></thead>
               <tbody>
-                <tr><td>01</td><td class="strong">Top bar</td><td class="wrap">Publisher wordmark, series chip, theme and print buttons</td><td><span class="cm-chip">Required</span></td></tr>
-                <tr><td>02</td><td class="strong">Contents rail</td><td class="wrap">One link per section; omit for reports under 4 sections and use <code>cm-shell--norail</code></td><td><span class="cm-chip cm-chip--dashed">Recommended</span></td></tr>
-                <tr><td>03</td><td class="strong">Masthead</td><td class="wrap">Breadcrumb, accent bar, title, dek, labelled metadata (status, period, published, reading time, version), byline</td><td><span class="cm-chip">Required</span></td></tr>
-                <tr><td>04</td><td class="strong">Part 01 · Executive summary</td><td class="wrap">2–4 sentence lede, KPI strip, summary box with 3–5 key findings</td><td><span class="cm-chip">Required</span></td></tr>
-                <tr><td>05</td><td class="strong">Part 02 … N · body</td><td class="wrap">Each: TL;DR or lede that states the finding → figure or table → callout if needed</td><td><span class="cm-chip">Required</span></td></tr>
-                <tr><td>06</td><td class="strong">Recommendations</td><td class="wrap">The single L2 featured card; owner, due date and expected impact per action</td><td><span class="cm-chip cm-chip--dashed">Recommended</span></td></tr>
-                <tr><td>07</td><td class="strong">Appendix A · Methodology</td><td class="wrap">Definitions, data sources and coverage, queries</td><td><span class="cm-chip">Required with data</span></td></tr>
-                <tr><td>08</td><td class="strong">Appendix B · Notes &amp; sources</td><td class="wrap">Footnotes, then sources list</td><td><span class="cm-chip">Required</span></td></tr>
-                <tr><td>09</td><td class="strong">Footer</td><td class="wrap">Title, version, published date, owner, kit version</td><td><span class="cm-chip">Required</span></td></tr>
+                <tr><td class="num">01</td><td class="strong">Top bar</td><td class="wrap">Publisher wordmark, series chip, theme and print buttons</td><td><span class="cm-chip">Required</span></td></tr>
+                <tr><td class="num">02</td><td class="strong">Contents rail</td><td class="wrap">One link per section; omit for reports under 4 sections and use <code>cm-shell--norail</code></td><td><span class="cm-chip cm-chip--dashed">Recommended</span></td></tr>
+                <tr><td class="num">03</td><td class="strong">Masthead</td><td class="wrap">Breadcrumb, accent bar, title, dek, labelled metadata (status, period, published, reading time, version), byline</td><td><span class="cm-chip">Required</span></td></tr>
+                <tr><td class="num">04</td><td class="strong">Part 01 · Executive summary</td><td class="wrap">2–4 sentence lede, KPI strip, summary box with 3–5 key findings</td><td><span class="cm-chip">Required</span></td></tr>
+                <tr><td class="num">05</td><td class="strong">Part 02 … N · body</td><td class="wrap">In each part, a TL;DR or lede that states the finding → figure or table → callout if needed</td><td><span class="cm-chip">Required</span></td></tr>
+                <tr><td class="num">06</td><td class="strong">Recommendations</td><td class="wrap">The single L2 featured card; owner, due date and expected impact per action</td><td><span class="cm-chip cm-chip--dashed">Recommended</span></td></tr>
+                <tr><td class="num">07</td><td class="strong">Appendix A · Methodology</td><td class="wrap">Definitions, data sources and coverage, queries</td><td><span class="cm-chip">Required with data</span></td></tr>
+                <tr><td class="num">08</td><td class="strong">Appendix B · Notes &amp; sources</td><td class="wrap">Footnotes, then sources list</td><td><span class="cm-chip">Required</span></td></tr>
+                <tr><td class="num">09</td><td class="strong">Footer</td><td class="wrap">Title, version, published date, owner, kit version</td><td><span class="cm-chip">Required</span></td></tr>
               </tbody>
             </table>
           </div>
+          <span class="cm-caption"><b>Source:</b> <code>SPEC.md</code>, section 7.</span>
         </div>
       </div>
     </section>
@@ -303,6 +309,7 @@
   <ol class="cm-findings">
     <li><strong>Chat intent routing cut first response time by 27%.</strong> Median first response fell from 3h 05m to 2h 14m after routing went live on 8 July.</li>
     <li><strong>The backlog fell 39% despite higher volume.</strong> Open tickets dropped from 1,940 to 1,186.</li>
+    <li><strong>Billing drove more than half of all escalations.</strong> Billing took 52% of escalations after the Billing v4 launch in week 7.</li>
   </ol>
 </div>
           </div>
@@ -311,7 +318,7 @@
         <div class="g-comp" data-comment-anchor="b32e7ccf36-div">
           <header><span class="cm-label">5.4</span><h3 class="cm-h3">Callouts</h3><p>Icon and label on one row, the body directly under the label. No fill: the label’s underline carries the semantic color and the icon tells the types apart. The label set is closed at eight. At most two callouts in a row; more becomes a list.</p></header>
           <div data-demo>
-<div class="cm-stack" style="gap:40px">
+<div class="cm-stack">
   <aside class="cm-callout cm-callout--note"><span class="cm-callout__label">Note</span><div class="cm-callout__body">Context the reader needs to read the figure correctly.</div></aside>
   <aside class="cm-callout cm-callout--tip"><span class="cm-callout__label">Tip</span><div class="cm-callout__body">A practical shortcut or better method.</div></aside>
   <aside class="cm-callout cm-callout--important"><span class="cm-callout__label">Important</span><div class="cm-callout__body"><strong>The one thing not to miss.</strong> Use once per section at most.</div></aside>
@@ -351,7 +358,7 @@
         </div>
 
         <div class="g-comp">
-          <header><span class="cm-label">5.7</span><h3 class="cm-h3">Property sheet</h3><p>Key and value rows for the facts about one thing: a metric, a dataset, a system. Keys are bold caps, with an optional plain sub-label in <code>&lt;small&gt;</code>. Each <code>&lt;dl&gt;</code> is a group; groups are split by a short ink bar under the keys and a dotted hairline under the values. Role tags go in <code>&lt;sup&gt;</code>.</p></header>
+          <header><span class="cm-label">5.7</span><h3 class="cm-h3">Property sheet</h3><p>Key and value rows for the facts about one thing, such as a metric, a dataset or a system. Keys are bold caps, with an optional plain sub-label in <code>&lt;small&gt;</code>. Each <code>&lt;dl&gt;</code> is a group; groups are split by a short ink bar under the keys and a dotted hairline under the values. Role tags go in <code>&lt;sup&gt;</code>.</p></header>
           <div data-demo>
 <div class="cm-props">
   <dl>
@@ -372,14 +379,14 @@
         </div>
 
         <div class="g-comp">
-          <header><span class="cm-label">5.8</span><h3 class="cm-h3">Inline emphasis</h3><p>A light semantic wash behind a phrase, at the same size and weight as the text around it. Five roles plus the concept underline for a term’s first use. Bold marks a phrase, never a sentence.</p></header>
+          <header><span class="cm-label">5.8</span><h3 class="cm-h3">Inline emphasis</h3><p>A light semantic wash behind a phrase, 1px smaller than the text around it and at the same weight. Five roles plus the concept underline for a term’s first use. Bold marks a phrase, never a sentence.</p></header>
           <div data-demo>
 <p class="cm-prose">Trend alerts produced a <span class="cm-hl cm-hl--validated">+1.8 pp recovery</span>, confirmed by the <span class="cm-hl cm-hl--reference" data-comment-anchor="0e0fc2c404-span">geo-holdout re-run</span>. The <span class="cm-hl cm-hl--failing">legacy collector</span> still under-reports, so cuts stay <span class="cm-hl cm-hl--caveat">directional only</span>. Hold the <span class="cm-hl cm-hl--attention">98% target</span> against the new <span class="cm-concept">freshness SLO</span>.</p>
           </div>
         </div>
 
         <div class="g-comp">
-          <header><span class="cm-label">5.9</span><h3 class="cm-h3">Pull quote</h3><p>For verbatim voices: a customer, an interviewee, a stakeholder. One per section at most. Bold the decisive phrase; attribution is always present.</p></header>
+          <header><span class="cm-label">5.9</span><h3 class="cm-h3">Pull quote</h3><p>For the verbatim words of a customer, an interviewee or a stakeholder. One per section at most. Bold the decisive phrase; attribution is always present.</p></header>
           <div data-demo data-comment-anchor="98bdb60f29-div">
 <blockquote class="cm-quote">
   <p>Chat had my invoice corrected <strong>before I finished my coffee.</strong> The same fix over email took two days.</p>
@@ -397,9 +404,9 @@
     <table class="cm-table" data-sortable aria-labelledby="tbl-demo">
       <thead><tr><th>Team</th><th class="num">Tickets</th><th class="num">Share</th><th class="num">Within SLA</th><th data-nosort>Status</th></tr></thead>
       <tbody>
-        <tr data-flag="ok"><td class="strong">Tier 1 · AMER</td><td class="num" data-value="17940">17,940</td><td class="num" data-value="37.2"><div class="cm-cellbar"><span>37.2%</span><span class="cm-cellbar__track"><span style="--v:100%"></span></span></div></td><td class="num strong">94.6%</td><td>On track</td></tr>
-        <tr data-flag="warn"><td class="strong">Tier 1 · APAC</td><td class="num" data-value="8330">8,330</td><td class="num" data-value="17.3"><div class="cm-cellbar"><span>17.3%</span><span class="cm-cellbar__track"><span style="--v:46%"></span></span></div></td><td class="num strong">87.4%</td><td>At risk</td></tr>
-        <tr data-flag="crit"><td class="strong">Billing</td><td class="num" data-value="5480">5,480</td><td class="num" data-value="11.4"><div class="cm-cellbar"><span>11.4%</span><span class="cm-cellbar__track"><span style="--v:31%"></span></span></div></td><td class="num strong">82.6%</td><td>Breach</td></tr>
+        <tr data-flag="ok"><td class="strong">Tier 1 · AMER</td><td class="num" data-value="17940">17,940</td><td class="num" data-value="37.2"><div class="cm-cellbar"><span>37.2%</span><span class="cm-cellbar__track"><span style="--v:100%"></span></span></div></td><td class="num strong" data-value="94.6">94.6%</td><td>On track</td></tr>
+        <tr data-flag="warn"><td class="strong">Tier 1 · APAC</td><td class="num" data-value="8330">8,330</td><td class="num" data-value="17.3"><div class="cm-cellbar"><span>17.3%</span><span class="cm-cellbar__track"><span style="--v:46%"></span></span></div></td><td class="num strong" data-value="87.4">87.4%</td><td>At risk</td></tr>
+        <tr data-flag="crit"><td class="strong">Billing</td><td class="num" data-value="5480">5,480</td><td class="num" data-value="11.4"><div class="cm-cellbar"><span>11.4%</span><span class="cm-cellbar__track"><span style="--v:31%"></span></span></div></td><td class="num strong" data-value="82.6">82.6%</td><td>Breach</td></tr>
       </tbody>
       <tfoot><tr><td>All teams</td><td class="num">31,750</td><td class="num">65.9%</td><td class="num">90.8%</td><td></td></tr></tfoot>
     </table>
@@ -420,7 +427,7 @@
       </tbody>
     </table>
   </div>
-  <span class="cm-caption"><b>★ Recommended:</b> the 4px header rule and the teal bar along the column repeat the star for sighted readers.</span>
+  <span class="cm-caption"><b>Source:</b> alerting runbook review · Q3 2026. <b>★ Recommended:</b> the 4px header rule and the teal bar beside each cell repeat the star for sighted readers.</span>
 </div>
           </div>
         </div>
@@ -485,7 +492,7 @@
 <div class="cm-bleed">
   <details class="cm-collapse" open>
     <summary><div><span class="cm-label">A.1</span><h3>Definitions</h3></div></summary>
-    <div class="cm-collapse__body"><p class="cm-small">Body content: a definition block, a property sheet, a list, a code block or prose.</p></div>
+    <div class="cm-collapse__body"><p class="cm-small">Body content can be a definition block, a property sheet, a list, a code block or prose.</p></div>
   </details>
   <details class="cm-collapse">
     <summary><div><span class="cm-label">A.2</span><h3>Data sources and coverage</h3></div></summary>
@@ -512,7 +519,7 @@
         <div class="g-comp">
           <header><span class="cm-label">5.17</span><h3 class="cm-h3">Chips, tags, buttons</h3><p>Chips are outlined pills for status and metadata. Status color is a 2px offset to the right and bottom, never a fill; the word carries the meaning. The verdict chip is solid ink, once per table. Tags are 4px labels for types and languages. Buttons only appear in the top bar and in interactive reports.</p></header>
           <div data-demo>
-<div class="cm-stack" style="gap:24px" data-comment-anchor="9ac2e7e6f6-div">
+<div class="cm-stack" data-comment-anchor="9ac2e7e6f6-div">
   <div class="cm-chips"><span class="cm-chip">Draft</span><span class="cm-chip cm-chip--warn">In review</span><span class="cm-chip cm-chip--ok">Final</span><span class="cm-chip cm-chip--accent">Recommended</span><span class="cm-chip cm-chip--verdict is-ok">Pass</span></div>
   <div class="cm-chips"><span class="cm-tag">Int</span><span class="cm-tag">SQL</span><span class="cm-tag cm-tag--dashed">Spec specimen</span></div>
   <div class="cm-chips"><a class="cm-btn" href="#top">Primary</a><a class="cm-btn cm-btn--secondary" href="#top">Secondary</a><a class="cm-btn cm-btn--quiet" href="#top">Quiet</a></div>
@@ -563,7 +570,7 @@
             <li><strong>Legend for two or more series:</strong> added automatically, top left, in series order. End labels and value labels may be added; they never replace the legend.</li>
             <li><strong>Axis titles carry units:</strong> name the value axis (“Tickets per week”) unless every tick already shows the unit (“90%”).</li>
             <li><strong>Bars and areas start at zero:</strong> lines may zoom.</li>
-            <li><strong>No 3D, gradients or dual y-axes:</strong> pie or donut only for part-to-whole with four slices or fewer.</li>
+            <li><strong>No 3D, gradient fills or dual y-axes:</strong> pie or donut only for part-to-whole with four slices or fewer.</li>
             <li data-comment-anchor="ea32da12e3-li"><strong>Text alternative:</strong> every chart has an <code>aria-label</code> stating the type and the finding, and a source line.</li>
           </ul>
         </div>
@@ -573,7 +580,7 @@
           <div>
             <div class="cm-table-title" id="tbl-anatomy"><span class="cm-table-title__kind">Table 6.1</span>Parts of a chart</div>
             <div class="cm-table-wrap cm-bleed">
-              <table class="cm-table" aria-labelledby="tbl-anatomy">
+              <table class="cm-table" data-sortable aria-labelledby="tbl-anatomy">
                 <thead><tr><th>Part</th><th>Where</th><th>Rule</th><th>When</th></tr></thead>
                 <tbody>
                   <tr><td class="strong">Kind and number</td><td><code>.cm-figure__kind</code></td><td class="wrap">“Figure 3”, numbered in order across the report</td><td>Always</td></tr>
@@ -589,6 +596,7 @@
                 </tbody>
               </table>
             </div>
+            <span class="cm-caption"><b>Source:</b> <code>SPEC.md</code>, section 9.</span>
           </div>
         </div>
 
@@ -625,7 +633,7 @@
   <span class="cm-figure__kind">Figure 2</span>
   <h3 class="cm-figure__title cm-figure__title--sm">SLA attainment by channel</h3>
   <p class="cm-figure__desc">Share of resolved tickets closed inside the SLA window, Q3 2026.</p>
-  <div class="cm-chart" style="--h:260px" data-chart role="img" aria-label="Bar chart. Only chat, at 96.1%, clears the 95% target.">
+  <div class="cm-chart" style="--h:280px" data-chart role="img" aria-label="Bar chart. Only chat, at 96.1%, clears the 95% target.">
     <script type="application/json">
     {
       "grid": {"top": 28, "right": 48},
@@ -815,7 +823,7 @@
           <ol class="cm-olist">
             <li>Started from <code>template.html</code>; no class, color or font outside the kit.</li>
             <li>No inline style except <code>--h</code>, <code>--v</code>, <code>--t</code> and <code>--steps</code>.</li>
-            <li>Masthead complete: title, dek, status, period, published date, reading time, version, byline.</li>
+            <li>Masthead complete with title, dek, status, period, published date, reading time, version and byline.</li>
             <li>Executive summary has a lede, 2–4 KPIs with stated comparisons, and 3–5 findings.</li>
             <li>Every number in the summary appears again, with its source, in the body.</li>
             <li>Every figure has a kind, title, description, legend when there are 2+ series, axis titles with units, <code>aria-label</code> and source line.</li>

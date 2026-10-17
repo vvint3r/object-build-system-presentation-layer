@@ -22,14 +22,14 @@ Human-readable version with live examples and copy-paste markup: `Report Kit - S
 1. **MUST** start from `template.html` and compose only from classes in `cm-report.css`.
 2. **MUST NOT** add stylesheets, `<style>` blocks, classes of your own, or inline `style` attributes. Allowed inline custom properties only: `--h` (chart height), `--v` (bar/meter fill), `--t` (meter target), `--steps` (process step count), plus `style="align-items:center"` or `style="align-items:start"` on a grid.
 3. **MUST NOT** write hex, rgb or named colors anywhere in markup. In chart JSON use token strings (`"$accent"`, see §9).
-4. **Text is black or white.** **MUST NOT** use grey text or lowered opacity for de-emphasis. Rank text with weight: 300 (de-emphasised, kickers), 400 (body), 700 (bold phrase, row keys), 800 (labels, block titles, terms), 900 (page/section title).
+4. **Text is black or white.** **MUST NOT** use grey text or lowered opacity for de-emphasis. Rank text with weight: 300 (de-emphasised, kickers), 400 (body), 600 (code, chart axis labels), 700 (bold phrase, row keys, role tags), 800 (labels, block titles, terms), 900 (page/section title). These are the weights the kit loads; use no other. Two exceptions to black or white, both applied by the CSS: keywords, strings and numbers in code take the syntax colours (§8.17), and the verdict chip's text takes the paper colour on its ink fill.
 5. **One family for text, one for code.** Nunito for all text, labels, tables, chips and charts. JetBrains Mono **only** for code: `<code>`, `.cm-code`, file names. **MUST NOT** use mono for labels, numbers, dates or IDs.
 6. **Accent is never text.** Teal appears only as bars, underlines, borders, chips, chart marks and the reserved shadow.
 7. **One emphasis per view.** Exactly one `cm-featured` (L2, teal offset) per report, on the recommendations. At most one solid verdict chip (`cm-chip--verdict`) per table or figure. One `cm-summary` per report.
 8. **Color never fills a label.** Status color appears as a chip's 2px offset, a callout label's underline, a table row flag, or a chart mark. **MUST NOT** put a colored background behind a chip, tag or label.
 9. **Meaning never rests on color alone.** Every status chip and flagged row carries a word; every highlight is backed by the sentence; every recommended column carries ★.
-10. **No corners outside the radius set:** 4 chip/tag, 6 code chip, 8 input/slot, 12 table/tile, 14 card, 999 pill. The CSS applies them; never override.
-11. **No decoration.** No emoji, no stock imagery, no icons beyond the glyphs the CSS supplies, no gradients, no colored left borders on cards or callouts, no drop caps.
+10. **No corners outside the radius set:** 2 thin bar, 4 chip/tag, 6 code chip, 8 input/slot, 12 table/tile, 14 card, 999 pill. Every drawn shape is rounded; square corners belong only to lines (rules, dotted connectors, the timeline rail), masked icons and the full-width top bar. The CSS applies them; never override.
+11. **No decoration.** No emoji, no stock imagery, no icons beyond the glyphs the CSS supplies, no gradients except where one carries meaning (the dashed rail of a planned timeline item, a chart's colour-scale legend), no colored left borders on cards or callouts, no drop caps.
 12. **No filler.** Omit an optional block rather than pad it. Every number shown is sourced.
 
 ## 2. Packaging
@@ -81,11 +81,13 @@ Semantic meaning is fixed: ok = healthy/validated, warn = attention/at risk, cri
 | T5 | `.cm-t5`, `.cm-timeline__title`, `.cm-step__title`, terms | 16–18 / 700–800 | none |
 | Body | default | 16 / 400 / 1.9 | Reading column, max 70ch |
 | Small | `.cm-small`, text inside surfaces | 15 / 400 / 1.8 | — |
-| Label | `.cm-label`, kinds, metadata keys, callout, definition and question labels; `.cm-chip`, `.cm-tag`, `.cm-delta`, property-sheet role tags | 10 / 800 / caps, +0.08em | — |
+| Label | `.cm-label`, kinds, metadata keys, callout, definition and question labels, table heads, contents rail and process step numbers; `.cm-tag`, `.cm-delta` | 10 / 800 / caps, +0.08em | — |
+| Chip | `.cm-chip`, text centred in the 20px pill | 9 / 800 / caps, +0.08em, line height 10px | — |
+| Role tag | property-sheet `<sup>` | 10 / 700, sentence case | — |
 | Meta | `.cm-meta` | 13 / 400 | Dates, sizes, provenance |
 | Code | `<code>`, `.cm-code` | JetBrains Mono 600, 0.8em / 13px | — |
 
-The rule thickness follows the heading level; the CSS applies it. Headings never skip a level (h1 → h2 → h3 → h4). Nunito never below 10px (labels, chips, tags, deltas, role tags and table sort arrows) or 13px (running text). `<strong>` marks a phrase, never a whole paragraph. `.cm-aside` (300 italic) de-emphasises a phrase.
+The rule thickness follows the heading level; the CSS applies it. Headings never skip a level (h1 → h2 → h3 → h4). Nunito never below 9px (chips), 10px (labels, tags, deltas, role tags and table sort arrows) or 13px (running text). The breadcrumb is a label with three weights: links 700, the current page 900, separators 300. `<strong>` marks a phrase, never a whole paragraph. `.cm-aside` (300 italic) de-emphasises a phrase.
 
 ## 5. Layout and spacing
 
@@ -115,7 +117,7 @@ Order is fixed. Required blocks are never omitted.
 
 1. **Top bar** (required) — `.cm-topbar`: wordmark (publisher, lowercase-hyphenated), one series chip, theme toggle, print button.
 2. **Contents rail** (recommended; required at ≥ 4 sections) — one link per section id. Numbers `01…`, appendices `A`, `B`.
-3. **Masthead** (required) — breadcrumb, `.cm-bar`, title (4–10 words, ≤ 22ch per line), dek (one sentence), then `dl.cm-mast__meta` with one `<div><dt>Label</dt><dd>Value</dd></div>` per field: Status (type chip: Analysis | Report | Brief | Guide; status chip: Draft `cm-chip`, In review `cm-chip--warn`, Final `cm-chip--ok`; optional `cm-chip--note` “Sample data” / “Preliminary”), Period `YYYY-MM-DD → YYYY-MM-DD`, Published `YYYY-MM-DD`, Reading time `N min` (words ÷ 220, rounded up), Version `X.Y`. Then `dl.cm-byline`: Prepared by, optional Reviewed by, Distribution. Labels name the value; never leave a value unlabelled.
+3. **Masthead** (required) — breadcrumb, `.cm-bar`, title (4–10 words, ≤ 22ch per line), dek (one sentence), then `dl.cm-mast__meta` with one `<div><dt>Label</dt><dd>Value</dd></div>` per field: Status (type chip: Analysis | Report | Brief | Guide; status chip: Draft `cm-chip`, In review `cm-chip--warn`, Final `cm-chip--ok`; optional `cm-chip--note` “Sample data” / “Preliminary”), Period `YYYY-MM-DD → YYYY-MM-DD`, Published `YYYY-MM-DD`, Reading time `N min` (the words in `<main>` ÷ 220, rounded up; scripts, chart data tables and screen-reader-only text do not count, and a word is any run of characters between spaces that holds a letter or digit), Version `X.Y`. Then `dl.cm-byline`: Prepared by, optional Reviewed by, Distribution. Labels name the value; never leave a value unlabelled.
 4. **Part 01 · Executive summary** (required) — 2–4 sentence lede; KPI strip of 2–4; `.cm-summary` with 3–5 key findings.
 5. **Part 02 … N** (required) — one topic per section. Inside: TL;DR or lede stating the finding → figure(s) or table → at most two callouts → optional questions block.
 6. **Recommendations** (recommended) — its own section after the body and before the appendices, holding the single `.cm-featured` card; each action has owner, due date and expected impact chips.
@@ -238,7 +240,7 @@ Facts about one thing: a metric, dataset, system or document. Keys are 1–3 wor
 <span class="cm-hl cm-hl--validated">+1.8 pp recovery</span>
 ```
 
-Light wash at the surrounding text's size and weight. `--attention` (thresholds, deadlines), `--validated` (confirmed gains), `--reference` (named methods, sources), `--failing` (deprecated, broken), `--caveat` (tempering context). `<span class="cm-concept">term</span>` underlines a key term at first use. ≤ 3 highlights per paragraph; never a whole sentence.
+Light wash, 1px smaller than the surrounding text, at its weight. `--attention` (thresholds, deadlines), `--validated` (confirmed gains), `--reference` (named methods, sources), `--failing` (deprecated, broken), `--caveat` (tempering context). `<span class="cm-concept">term</span>` underlines a key term at first use. ≤ 3 highlights per paragraph; never a whole sentence.
 
 ### 8.9 Pull quote
 
@@ -301,7 +303,7 @@ Verbatim only. ≤ 1 per section. Pair with a figure in `.cm-grid.cm-grid--wide.
 - `.strong` for the row key and the column the reader should compare; `.soft` for n/a values; `.wrap` for prose cells.
 - **Row flags:** `data-flag="ok|warn|crit|info|note|accent"` on a `<tr>` draws a 4px status bar in the left gutter. Use it instead of colored chips in status columns; keep the status word in the row and explain the colors in the caption.
 - `data-sortable` when the table has ≥ 5 rows. `data-value` holds the raw number whenever the cell text is formatted. Mark the initial sort with `aria-sort`. Status columns get `data-nosort`.
-- Recommended column in a comparison: `class="is-rec"` on its `th` and `td`s, and ★ in the header text. The header gets a 4px rule; body cells get a light wash. Never highlight the header cell.
+- Recommended column in a comparison: `class="is-rec"` on its `th` and `td`s, and ★ in the header text. The header gets a 4px rule; each body cell gets bold text and a teal bar in the left gutter, centred on its row, so one highlighted cell reads the same as a whole column. Never highlight the header cell.
 - No zebra striping, no outer border, no colored header.
 
 ### 8.12 Timeline
@@ -373,7 +375,7 @@ Appendices only. First item `open`. Never hide findings or anything the summary 
 </div>
 ```
 
-Token spans: `k` keyword, `s` string, `n` number, `f` callable, `c` comment. Escape `<` as `&lt;`. Inline identifiers, file names and token names use `<code>`.
+Token spans: `k` keyword, `s` string, `n` number, `f` callable, `c` comment. Keywords, strings and numbers take the syntax colours the CSS sets; it is the only coloured text in the kit. Escape `<` as `&lt;`. Inline identifiers, file names and token names use `<code>`.
 
 ### 8.18 Chips, tags, buttons
 
@@ -436,13 +438,13 @@ The only `cm-featured` in the report, inside the Recommendations section. 1–5 
 | Two categories × magnitude | `heatmap` | `visualMap` with min/max and `text` end labels; `"yAxis": {"inverse": true}` |
 | Part of a whole | `pie` with `"radius": ["44%","66%"]` | ≤ 4 slices, labels with name and value, only when the total matters |
 
-**MUST NOT:** 3D, gradients, dual y-axes, radar, gauge, word clouds, more than one chart per figure, bars or areas that do not start at zero, a `barWidth` above 16.
+**MUST NOT:** 3D, gradient fills, dual y-axes, radar, gauge, word clouds, more than one chart per figure, bars or areas that do not start at zero, a `barWidth` above 16.
 
 **Annotations:**
 - Target or threshold: `"markLine": {"data": [{"yAxis": 95, "label": {"formatter": "Target 95%", "position": "insideStartTop"}}]}` (use `xAxis` for vertical lines and horizontal bars, `position: "end"`).
 - Event: vertical markLine on the category (`{"xAxis": "Wk 7"}`) with a 1–3 word label.
 - Period band: `"markArea": {"data": [[{"xAxis": "Wk 6"}, {"xAxis": "Wk 8"}]]}`.
-- Direct labels: `"endLabel": {"show": true, "formatter": "Q3"}` on lines (add `"grid": {"right": 64}`); `"label": {"show": true, "position": "right", "formatter": "{c}%"}` on bars.
+- Direct labels: `"endLabel": {"show": true, "formatter": "Q3"}` on lines (add `"grid": {"right": 64}`); `"label": {"show": true, "position": "right", "formatter": "{c}%"}` on bars. The kit sets every value label, on a series or on a single point, in ink on the surface colour, and draws a series above its reference lines, so a line never runs through a number.
 
 **Formatting:** axis label formatters as template strings only (`"{value}%"`). Category labels short (`Wk 1`, `Jul`, `Mon`). Thin crowded axes with `"axisLabel": {"interval": 2}`.
 

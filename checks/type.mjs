@@ -27,7 +27,7 @@ export default [
     name: 'font-weight', level: 'fail', source: 'SPEC §1 rule 4',
     inPage: ({ check }) => {
       const H = window.__cm, out = [];
-      const OK = ['300', '400', '700', '800', '900'];
+      const OK = ['300', '400', '600', '700', '800', '900'];
       for (const { el, pseudo, cs } of H.textItems()) {
         if (!H.exempt(el, check) && !OK.includes(cs.fontWeight)) out.push({ where: H.where(el, pseudo), value: `font-weight ${cs.fontWeight}` });
       }
@@ -39,21 +39,23 @@ export default [
   },
 
   {
-    // Nunito never below 10px anywhere, and never below 13px except where small text is ruled: the
-    // label tier and table sort arrows (section 4) and the elements record 056 kept at their own sizes
-    // (buttons, timeline dates, footnote markers, printed source URLs, chart text). Mono has the 10px
-    // floor only.
-    name: 'type-size', level: 'fail', source: 'SPEC §4; record 056',
+    // Nunito never below 9px for chips and 10px anywhere else, and never below 13px except where
+    // small text is ruled: the label tier, role tags and table sort arrows (section 4) and the
+    // elements record 056 kept at their own sizes (buttons, timeline dates, footnote markers, printed
+    // source URLs, chart text). Mono has the 10px floor only.
+    name: 'type-size', level: 'fail', source: 'SPEC §4; records 056, 058',
     inPage: ({ check, mode }) => {
       const H = window.__cm, out = [];
       const small = (el, pseudo) => H.isLabel(el, pseudo)
         || (pseudo && el.matches('.cm-table th button'))
+        || !!el.closest('.cm-props sup')
         || !!el.closest('.cm-btn, .cm-timeline__date, .cm-fn')
         || (mode === 'print' && pseudo === '::after' && el.matches('.cm-sources a'));
       for (const { el, pseudo, cs } of H.textItems()) {
         if (H.exempt(el, check)) continue;
         const px = H.px(cs.fontSize), mono = H.family(cs) === 'JetBrains Mono';
-        if (px < 10) out.push({ where: H.where(el, pseudo), value: `font-size ${px}px (floor 10px)` });
+        const floor = el.closest('.cm-chip') ? 9 : 10;
+        if (px < floor) out.push({ where: H.where(el, pseudo), value: `font-size ${px}px (floor ${floor}px)` });
         else if (px < 13 && !mono && !small(el, pseudo)) out.push({ where: H.where(el, pseudo), value: `font-size ${px}px (running text floor 13px)` });
       }
       for (const { el, cs, where } of H.chartText()) {
@@ -65,20 +67,25 @@ export default [
   },
 
   {
-    // Text in the label tier renders at exactly 10px, weight 800, capitals, +0.08em.
-    name: 'label-type', level: 'fail', source: 'SPEC §4; record 056',
+    // Text in the label tier renders at exactly 10px (chips 9px), weight 800, capitals, +0.08em. The
+    // breadcrumb keeps three weights: links 700, the current page 900, separators 300. Text with no
+    // lower-case letters (rail and step numbers, appendix letters) needs no transform.
+    name: 'label-type', level: 'fail', source: 'SPEC §4; records 056, 058',
     inPage: ({ check }) => {
       const H = window.__cm, out = [];
+      const weight = el => !el.closest('.cm-crumbs') ? '800'
+        : el.closest('[aria-current]') ? '900' : el.closest('.sep') ? '300' : '700';
       for (const { el, pseudo, cs } of H.textItems()) {
         if (!H.isLabel(el, pseudo) || H.exempt(el, check)) continue;
-        const px = H.px(cs.fontSize);
+        const px = H.px(cs.fontSize), size = el.closest('.cm-chip') ? 9 : 10, w = weight(el);
+        const text = pseudo ? H.pseudoText(el, pseudo) : H.ownText(el);
         const ls = cs.letterSpacing === 'normal' ? 0 : H.px(cs.letterSpacing);
         const bad = [];
-        if (px !== 10) bad.push(`font-size ${px}px`);
-        if (cs.fontWeight !== '800') bad.push(`font-weight ${cs.fontWeight}`);
-        if (cs.textTransform !== 'uppercase') bad.push(`text-transform ${cs.textTransform}`);
+        if (px !== size) bad.push(`font-size ${px}px`);
+        if (cs.fontWeight !== w) bad.push(`font-weight ${cs.fontWeight}`);
+        if (/[a-z]/.test(text) && cs.textTransform !== 'uppercase') bad.push(`text-transform ${cs.textTransform}`);
         if (Math.abs(ls - 0.08 * px) > 0.05) bad.push(`letter-spacing ${cs.letterSpacing}`);
-        if (bad.length) out.push({ where: H.where(el, pseudo), value: `${bad.join(', ')} (label tier is 10px, 800, uppercase, 0.08em)` });
+        if (bad.length) out.push({ where: H.where(el, pseudo), value: `${bad.join(', ')} (expected ${size}px, ${w}, uppercase, 0.08em)` });
       }
       return out;
     },

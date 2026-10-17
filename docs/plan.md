@@ -62,6 +62,7 @@ kit/
   Report Kit - Spec & Gallery.html                                         (live examples)
   Sample Report - Q3 Support Review.html                                   (reference output)
 docs/
+  decision-framework.md   who decides what, and the principles to decide by
   open-items.md    questions about the kit
   adoption.md      library features still to adopt
   plan.md          this file

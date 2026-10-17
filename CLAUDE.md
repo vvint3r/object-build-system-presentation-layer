@@ -9,6 +9,8 @@ not edited there. See `docs/plan.md`.
 
 - `kit/report-kit/SPEC.md`: **the rules in force.** Follow it exactly; it wins over taste and over
   anything in `docs/reference/`.
+- `docs/decision-framework.md`: which decisions a session takes alone, which it takes and reports,
+  and which wait for the owner; the principles to decide by.
 - `docs/open-items.md`: questions about the kit awaiting the owner. Never resolve one on your own.
 - `docs/adoption.md`: library features still to adopt into the kit, and how to adopt one.
 - `docs/plan.md`: operating model, migration steps and their state.
@@ -24,7 +26,7 @@ not edited there. See `docs/plan.md`.
 | `kit/report-kit/` | `SPEC.md`, `cm-report.css`, `cm-report.js`, `template.html`: the kit itself |
 | `kit/Report Kit - Spec & Gallery.html` | Live examples of every component, with copy-paste markup |
 | `kit/Sample Report - Q3 Support Review.html` | Reference output: a complete report built on the kit |
-| `docs/` | Plan, open items, adoption backlog, decisions, library reference |
+| `docs/` | Plan, decision framework, open items, adoption backlog, decisions, library reference |
 | `checks/` | Automated checks on rendered pages: the spec's hard rules and pre-publish checklist |
 | `tools/load.mjs` | Opens a kit page in light, dark or print; shared by the checks and the preview |
 | `tools/preview.mjs` | Renders kit pages with the chart library served locally |
@@ -41,9 +43,10 @@ not edited there. See `docs/plan.md`.
   live example in the gallery page, and the sample report if it uses the component.
 - **Record rulings.** A change to a rule gets a new file in `docs/decisions/`, named `NNN-short-slug.md`
   with the next number, and a row in that folder's index.
-- **Decisions are the owner's.** When the spec and the code disagree, or a library feature needs a
-  value the kit lacks, add an item to `docs/open-items.md` with both values and their sources. Do not
-  pick one.
+- **Decide at the right level.** `docs/decision-framework.md` sets which decisions a session takes
+  alone, which it takes and reports, and which wait for the owner. When the spec and the code disagree,
+  or a library feature needs a value the kit lacks, add an item to `docs/open-items.md` with both
+  values and their sources. Do not pick one.
 - **Adopt, don't copy.** A library feature is rebuilt in kit classes and tokens. The library's
   inline-style markup is never copied into the kit.
 - **A check asserts the rendered result.** Verify computed styles in a real browser, not the authored

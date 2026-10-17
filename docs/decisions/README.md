@@ -76,3 +76,4 @@ Rounds 40e and 40f exist only in `CONTINUATION.md` and are taken from there.
 | [063-gallery-as-a-catalogue.md](063-gallery-as-a-catalogue.md) | Gallery as a catalogue | 2026-10-16 | owner, in session |
 | [064-judgment-warnings.md](064-judgment-warnings.md) | Judgment warnings | 2026-10-17 | owner, in session |
 | [065-decision-framework.md](065-decision-framework.md) | Decision framework | 2026-10-17 | owner, in session |
+| [066-diagrams-charts-and-visualizations.md](066-diagrams-charts-and-visualizations.md) | Diagrams, charts and visualizations | 2026-10-17 | owner, in session |

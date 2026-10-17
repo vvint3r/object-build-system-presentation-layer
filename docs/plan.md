@@ -24,9 +24,11 @@ the kit · rules · adoption         hand-edited                       compose, 
 - **The kit was built in** the Claude Design project "Objective (Artifact) Development System"
   (project id `82dab4fa-185a-43b6-8a2c-88a8c38ccba3`). Changes made there after 13 Oct 2026 must be
   re-imported before they are lost.
-- **The visualization kit is adopted into the report kit.** It brings the build logic for diagrams:
-  layout, routing and label placement. Styling comes from the report kit's tokens. A later kit for
-  complex diagram authoring, in the manner of Eraser, builds on it.
+- **Diagrams, charts and visualizations get a build of their own,** structured from a reference set
+  the owner supplies. The library's diagram and chart pages and the visualization kit (its Obsidian
+  charts and diagrams) are references for it, not sources adopted as they are. Styling comes from the
+  report kit's tokens. How far the build replaces the kit's current chart method is settled when it
+  starts. A later kit for complex diagram authoring, in the manner of Eraser, builds on it.
 - **Content rules become data.** Writing rules (word limits, register, per-heading constraints) extend
   section 13 of the kit's spec and become checks, not prose in `CLAUDE.md`.
 
@@ -40,10 +42,10 @@ the kit · rules · adoption         hand-edited                       compose, 
 | 4 | Answer the kit's open items and bring spec and code into line | Done |
 | 5 | Turn the spec's hard rules and its pre-publish checklist into automated checks on rendered pages | Done |
 | 6 | Adopt library features into the kit in the order in `docs/adoption.md` | |
-| 7 | Adopt the visualization kit: node kit, connectors, the lane-flow router with its fixtures | |
+| 7 | Build diagrams, charts and visualizations from the owner's reference set, with the library's diagram and chart pages and the visualization kit as references | Next; waits for the reference set |
 | 8 | Build the design bundle from the kit and sync it to Claude Design | |
 
-Steps 6 and 7 run in parallel once step 5 exists, so every adopted feature is checked.
+Every feature steps 6 and 7 add comes with the checks its rules need.
 
 ## Kit to-do
 
@@ -79,5 +81,5 @@ tools/
 import/            the three original exports, read-only
 ```
 
-Planned: `viz/` for the visualization build logic (step 7), `bundle/` for the generated design bundle
-(step 8). Each is created when its step starts.
+Planned: a folder for step 7's build, and `bundle/` for the generated design bundle (step 8). Each is
+created when its step starts.

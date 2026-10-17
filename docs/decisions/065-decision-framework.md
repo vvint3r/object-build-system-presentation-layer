@@ -31,6 +31,16 @@ before work starts.
 | Checks | Records 057 and 064 |
 | Unclear cases | Records 055 and 056; the standing preferences |
 
+## Decisions taken without a ruling
+
+- A new component's classes, markup, rules and checks are a reported call inside a step the owner has
+  approved, built from the kit's existing values.
+- The first finished example of a new component or family goes to the owner before the rest is built.
+- A failure a change introduces is fixed in that change, not logged as an open item.
+- Applying one owner ruling in several commits in one session is a reported departure from the
+  one-change-per-session rule.
+- The kit's version is the owner's call.
+
 ## Changed
 
 `CLAUDE.md`: the framework is listed under "Read before working", and the rule that every decision is

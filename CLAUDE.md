@@ -101,6 +101,9 @@ Exits 1 on any failure; warnings never fail the run. `--all` lists every finding
 - Run the checks on every page a change touches, before committing.
 - When a check fails on a kit page, add an item to `docs/open-items.md` with both values and their
   sources. Do not fix the page or loosen the check.
+- A warning on a kit page is resolved on the page: the gallery and the sample carry none, so a new
+  warning on either is a new finding. A check changes only where it misreads the spec, and the spec
+  only by a ruling.
 - A page exempts a region, or the whole page, from named checks only through `checks/exempt.mjs`,
   with the reason. A rule is never weakened to pass a page. The gallery is a catalogue: its helper
   layer and report anatomy are exempt, its demos are not.

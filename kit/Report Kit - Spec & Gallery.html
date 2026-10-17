@@ -82,7 +82,7 @@
           <div class="cm-tile"><code>cm-report.css</code><p class="cm-small" style="margin-top:16px">Tokens for light, dark and print, plus every component class.</p></div>
           <div class="cm-tile"><code>cm-report.js</code><p class="cm-small" style="margin-top:16px">Theme toggle, chart theme and draw-in, sortable tables, contents scroll-spy, print prep.</p></div>
           <div class="cm-tile"><code>template.html</code><p class="cm-small" style="margin-top:16px">The starter every report copies. Placeholders in <code>{{ }}</code>.</p></div>
-          <div class="cm-tile"><code>SPEC.md</code><p class="cm-small" style="margin-top:16px">The same rules in the form agents read: hard rules, budgets, canonical markup.</p></div>
+          <div class="cm-tile"><code>SPEC.md</code><p class="cm-small" style="margin-top:16px">The same rules written for agents, as hard rules, budgets and canonical markup.</p></div>
         </div>
         <div class="cm-grid cm-grid--2 cm-bleed">
           <div class="cm-card">
@@ -187,7 +187,7 @@
           <h3 class="cm-h3">Spacing</h3>
           <div class="cm-props">
             <dl>
-              <dt>Scale</dt><dd>Between blocks: 16 · 20 · 24 · 28 · 32 · 36 · 40 · 44 · 48 · 56 · 64 · 80 · 96 · 120 · 128 · 160 px. Inside components: 2 · 3 · 4 · 6 · 7 · 8 · 10 · 12 · 14 · 16 · 18 · 20 · 22 px</dd>
+              <dt>Scale</dt><dd><b>Between blocks:</b> 16 · 20 · 24 · 28 · 32 · 36 · 40 · 44 · 48 · 56 · 64 · 80 · 96 · 120 · 128 · 160 px. <b>Inside components:</b> 2 · 3 · 4 · 6 · 7 · 8 · 10 · 12 · 14 · 16 · 18 · 20 · 22 px</dd>
               <dt>Between sections</dt><dd>128px above every section header; 160px above the first appendix</dd>
               <dt>Between blocks</dt><dd>64px between blocks in a section body, set by the kit</dd>
             </dl>
@@ -243,7 +243,7 @@
                 <tr><td class="num">02</td><td class="strong">Contents rail</td><td class="wrap">One link per section; omit for reports under 4 sections and use <code>cm-shell--norail</code></td><td><span class="cm-chip cm-chip--dashed">Recommended</span></td></tr>
                 <tr><td class="num">03</td><td class="strong">Masthead</td><td class="wrap">Breadcrumb, accent bar, title, dek, labelled metadata (status, period, published, reading time, version), byline</td><td><span class="cm-chip">Required</span></td></tr>
                 <tr><td class="num">04</td><td class="strong">Part 01 · Executive summary</td><td class="wrap">2–4 sentence lede, KPI strip, summary box with 3–5 key findings</td><td><span class="cm-chip">Required</span></td></tr>
-                <tr><td class="num">05</td><td class="strong">Part 02 … N · body</td><td class="wrap">Each: TL;DR or lede that states the finding → figure or table → callout if needed</td><td><span class="cm-chip">Required</span></td></tr>
+                <tr><td class="num">05</td><td class="strong">Part 02 … N · body</td><td class="wrap">In each part, a TL;DR or lede that states the finding → figure or table → callout if needed</td><td><span class="cm-chip">Required</span></td></tr>
                 <tr><td class="num">06</td><td class="strong">Recommendations</td><td class="wrap">The single L2 featured card; owner, due date and expected impact per action</td><td><span class="cm-chip cm-chip--dashed">Recommended</span></td></tr>
                 <tr><td class="num">07</td><td class="strong">Appendix A · Methodology</td><td class="wrap">Definitions, data sources and coverage, queries</td><td><span class="cm-chip">Required with data</span></td></tr>
                 <tr><td class="num">08</td><td class="strong">Appendix B · Notes &amp; sources</td><td class="wrap">Footnotes, then sources list</td><td><span class="cm-chip">Required</span></td></tr>
@@ -358,7 +358,7 @@
         </div>
 
         <div class="g-comp">
-          <header><span class="cm-label">5.7</span><h3 class="cm-h3">Property sheet</h3><p>Key and value rows for the facts about one thing: a metric, a dataset, a system. Keys are bold caps, with an optional plain sub-label in <code>&lt;small&gt;</code>. Each <code>&lt;dl&gt;</code> is a group; groups are split by a short ink bar under the keys and a dotted hairline under the values. Role tags go in <code>&lt;sup&gt;</code>.</p></header>
+          <header><span class="cm-label">5.7</span><h3 class="cm-h3">Property sheet</h3><p>Key and value rows for the facts about one thing, such as a metric, a dataset or a system. Keys are bold caps, with an optional plain sub-label in <code>&lt;small&gt;</code>. Each <code>&lt;dl&gt;</code> is a group; groups are split by a short ink bar under the keys and a dotted hairline under the values. Role tags go in <code>&lt;sup&gt;</code>.</p></header>
           <div data-demo>
 <div class="cm-props">
   <dl>
@@ -386,7 +386,7 @@
         </div>
 
         <div class="g-comp">
-          <header><span class="cm-label">5.9</span><h3 class="cm-h3">Pull quote</h3><p>For verbatim voices: a customer, an interviewee, a stakeholder. One per section at most. Bold the decisive phrase; attribution is always present.</p></header>
+          <header><span class="cm-label">5.9</span><h3 class="cm-h3">Pull quote</h3><p>For the verbatim words of a customer, an interviewee or a stakeholder. One per section at most. Bold the decisive phrase; attribution is always present.</p></header>
           <div data-demo data-comment-anchor="98bdb60f29-div">
 <blockquote class="cm-quote">
   <p>Chat had my invoice corrected <strong>before I finished my coffee.</strong> The same fix over email took two days.</p>
@@ -492,7 +492,7 @@
 <div class="cm-bleed">
   <details class="cm-collapse" open>
     <summary><div><span class="cm-label">A.1</span><h3>Definitions</h3></div></summary>
-    <div class="cm-collapse__body"><p class="cm-small">Body content: a definition block, a property sheet, a list, a code block or prose.</p></div>
+    <div class="cm-collapse__body"><p class="cm-small">Body content can be a definition block, a property sheet, a list, a code block or prose.</p></div>
   </details>
   <details class="cm-collapse">
     <summary><div><span class="cm-label">A.2</span><h3>Data sources and coverage</h3></div></summary>
@@ -823,7 +823,7 @@
           <ol class="cm-olist">
             <li>Started from <code>template.html</code>; no class, color or font outside the kit.</li>
             <li>No inline style except <code>--h</code>, <code>--v</code>, <code>--t</code> and <code>--steps</code>.</li>
-            <li>Masthead complete: title, dek, status, period, published date, reading time, version, byline.</li>
+            <li>Masthead complete with title, dek, status, period, published date, reading time, version and byline.</li>
             <li>Executive summary has a lede, 2–4 KPIs with stated comparisons, and 3–5 findings.</li>
             <li>Every number in the summary appears again, with its source, in the body.</li>
             <li>Every figure has a kind, title, description, legend when there are 2+ series, axis titles with units, <code>aria-label</code> and source line.</li>

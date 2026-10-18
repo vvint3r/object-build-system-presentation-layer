@@ -151,7 +151,7 @@ Content maps onto existing components:
 | Numbers over time or across categories | Figure with a chart | 8.10, 9 |
 | Code, queries, file contents | Code block, `cm-code` | 8.17 |
 
-## Not covered by the kit
+## Kit gaps
 
 Maps, network and hierarchy diagrams, interactive filters, a PDF cover page and revision history. A
 document that needs one uses a figure holding a `cm-slot` placeholder and names the gap in an HTML

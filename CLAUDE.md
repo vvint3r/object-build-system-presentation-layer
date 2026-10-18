@@ -26,6 +26,7 @@ not edited there. See `docs/plan.md`.
 | `kit/report-kit/` | `SPEC.md`, `cm-report.css`, `cm-report.js`, `template.html`: the kit itself |
 | `kit/Report Kit - Spec & Gallery.html` | Live examples of every component, with copy-paste markup |
 | `kit/Sample Report - Q3 Support Review.html` | Reference output: a complete report built on the kit |
+| `kit/agent-brief.md` | Instructions for agents outside this repository that build documents on the kit |
 | `docs/` | Plan, decision framework, open items, adoption backlog, decisions, library reference |
 | `checks/` | Automated checks on rendered pages: the spec's hard rules and pre-publish checklist |
 | `tools/load.mjs` | Opens a kit page in light, dark or print; shared by the checks and the preview |
@@ -41,6 +42,9 @@ not edited there. See `docs/plan.md`.
 - **Keep the kit in step.** A change to the kit touches every file it affects in the same commit:
   canonical markup and rules in `SPEC.md`, classes in `cm-report.css`, behaviour in `cm-report.js`, a
   live example in the gallery page, and the sample report if it uses the component.
+- **Keep the agent brief in step.** `kit/agent-brief.md` links to the kit at one commit. When a kit
+  change merges, its links move to the merge commit, and its summary of the rules changes with the
+  spec.
 - **Record rulings.** A change to a rule gets a new file in `docs/decisions/`, named `NNN-short-slug.md`
   with the next number, and a row in that folder's index.
 - **Decide at the right level.** `docs/decision-framework.md` sets which decisions a session takes
@@ -57,8 +61,8 @@ not edited there. See `docs/plan.md`.
 
 ## Non-negotiables
 
-A summary of section 1 of `kit/report-kit/SPEC.md`. The spec governs; change this list in the same
-commit as the spec.
+A summary of section 1 of `kit/report-kit/SPEC.md`. The spec governs; change this list, and the one
+in `kit/agent-brief.md`, in the same commit as the spec.
 
 1. Documents start from `template.html` and compose only from classes in `cm-report.css`.
 2. No added stylesheets, `<style>` blocks, custom classes or inline styles, except the custom properties

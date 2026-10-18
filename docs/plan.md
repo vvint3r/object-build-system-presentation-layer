@@ -63,6 +63,7 @@ kit/
   report-kit/      SPEC.md · cm-report.css · cm-report.js · template.html   (the baseline)
   Report Kit - Spec & Gallery.html                                         (live examples)
   Sample Report - Q3 Support Review.html                                   (reference output)
+  agent-brief.md                                                           (for agents elsewhere)
 docs/
   decision-framework.md   who decides what, and the principles to decide by
   open-items.md    questions about the kit

@@ -11,6 +11,7 @@ The system is authored here, not there.
 | --- | --- |
 | [`kit/report-kit/SPEC.md`](kit/report-kit/SPEC.md) | The rules in force |
 | [`kit/`](kit/) | The kit, the spec-and-gallery page, and a sample report |
+| [`kit/agent-brief.md`](kit/agent-brief.md) | Instructions for agents in other environments that build documents on the kit |
 | [`docs/open-items.md`](docs/open-items.md) | Questions about the kit that need a ruling |
 | [`docs/adoption.md`](docs/adoption.md) | Features from the original library still to adopt |
 | [`docs/plan.md`](docs/plan.md) | Operating model and migration order |

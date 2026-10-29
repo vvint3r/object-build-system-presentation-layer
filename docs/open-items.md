@@ -29,7 +29,7 @@ The first five items were answered on 13 Oct 2026 (decision record 055), the res
 
 ## Contents strip on narrow screens
 
-- **Spec:** the same offsets clear the top bar (`SPEC.md` line 96).
+- **Spec:** "scroll offsets of 58 and 80px clear the sticky top bar" (`SPEC.md` line 96).
 - **Code:** at 1150px wide and below, the contents rail becomes a wrapping strip of links above the
   first section (`cm-report.css` lines 427 to 435). The link to the section in view turns bold
   (line 120), which widens it.

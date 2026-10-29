@@ -13,8 +13,8 @@ Inconsistencies inside the original library are tracked separately in
 
 ---
 
-The first five items were answered on 13 Oct 2026 (decision record 055), the rest on 16 Oct 2026
-(records 058 to 063).
+Items answered on 13 Oct 2026 (decision record 055) and 16 Oct 2026 (records 058 to 063) are no
+longer listed.
 
 ## Jump targets under the top bar
 

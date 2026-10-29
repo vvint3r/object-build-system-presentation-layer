@@ -16,29 +16,31 @@ Inconsistencies inside the original library are tracked separately in
 The first five items were answered on 13 Oct 2026 (decision record 055), the rest on 16 Oct 2026
 (records 058 to 063).
 
-## Top bar height on narrow screens
+## Jump targets under the top bar
 
 - **Spec:** "scroll offsets of 58 and 80px clear the sticky top bar" (`SPEC.md` line 96).
-- **Code:** the top bar is sticky (`cm-report.css` line 106). A followed footnote link stops the note
-  80px below the top of the window (line 389), a section link stops the section 58px below (line 136).
-- **Now:** at 570px wide and below, the top bar wraps onto more rows and is 94 to 124px tall. On the
-  sample report at 390px, all three footnotes stop at 80px under a bar that ends at 94.4px, so the
-  first line of each is hidden. Section headings stay clear, below the section's 128px top padding.
-- **Question:** should the jump offsets follow the top bar's height on narrow screens, or should the
-  top bar keep to one row at every width?
+- **Code:** the top bar is sticky (`cm-report.css` line 106). Sections get the 58px offset (line 136)
+  and notes the 80px one (line 389). Footnote markers in the text (`a.cm-fn`), table titles, figures
+  and disclosures get none.
+- **Now:** on the sample report, every footnote's back link puts its marker under the top bar, at
+  1440px and at 390px. At 570px wide and below the bar wraps to 94 to 124px, so notes stopping at
+  80px are hidden too. The kit pages link no table, figure or disclosure.
+- **Question:** should every linked target clear the top bar by an offset that follows the bar's
+  height, or should the bar keep to one row at every width, with the fixed offsets extended to the
+  targets that lack one?
 
 ## Contents strip on narrow screens
 
 - **Spec:** "scroll offsets of 58 and 80px clear the sticky top bar" (`SPEC.md` line 96).
 - **Code:** at 1150px wide and below, the contents rail becomes a wrapping strip of links above the
-  first section (`cm-report.css` lines 427 to 435). The link to the section in view turns bold
-  (line 120), which widens it.
-- **Now:** on the sample report, the strip's height depends on which link is bold at 4 of 84 widths
-  tested (320 to 1150px, every 10px): 370, 460, 480 and 820px, by 34px. A jump that changes
-  the section in view adds or removes a row, and the page below the strip moves. At 480px, footnotes
-  1 and 2 stop at 45.3px instead of 80px.
-- **Question:** should the link to the section in view keep normal weight in the narrow strip, shown
-  by its background alone, or keep the bold and reserve each link's bold width?
+  first section (`cm-report.css` lines 427 to 435). The current section's link turns bold (line
+  120), which widens it.
+- **Now:** on the sample report, the strip's height depends on the bold link at 370, 460, 480 and
+  820px (4 of 84 widths, 320 to 1150px), by 34px. A jump that changes the current section
+  moves the page below the strip: at 480px, footnotes 1 and 2 stop at 45.3px, not 80px. The current
+  link's background is 1.13:1 against the page in light, 1.28:1 in dark.
+- **Question:** should the current link keep normal weight in the narrow strip and gain a cue that
+  leaves its width unchanged, or keep the bold and reserve each link's bold width?
 
 ## Category axis titles
 
@@ -76,3 +78,67 @@ The first five items were answered on 13 Oct 2026 (decision record 055), the res
 - **Now:** no check counts highlights per paragraph, so the page passes.
 - **Question:** should the demo spread its five tones over two paragraphs, with a check for the limit
   added, or should the demo be exempt from the limit?
+
+## Concept terms and links
+
+- **Spec:** `cm-concept` "underlines a key term at first use" (`SPEC.md` line 243).
+- **Code:** a link is underlined in accent, 1.5px thick and 3px below the text, at the weight around
+  it (`cm-report.css` line 70). A concept is bold and underlined in accent, 2px thick and 4px below
+  (line 275).
+- **Now:** a concept reads as a bold link. A link inside bold text differs from a concept by half a
+  pixel of underline thickness and 1px of offset.
+- **Question:** should concepts take a treatment that links never use, or should both stay as they
+  are?
+
+## Context marks
+
+- **Spec:** `$context` is for comparison and background series (`SPEC.md` line 67) and greys the
+  series beyond the fourth (line 426).
+- **Code:** `$context` is #d9d9d9 in light and #4a4a4a in dark. Against the figure surface that is
+  1.41:1 in light and 2.02:1 in dark.
+- **Now:** a context mark without a value label is hard to read. WCAG 2.2 success criterion 1.4.11
+  asks 3:1 for the parts of a graphic a reader needs. No rule requires a label on a context mark.
+- **Question:** should a context mark the reader has to read carry a direct value label, or should
+  `$context` darken to reach 3:1?
+
+## Disclosures with more than one block
+
+- **Spec:** "nothing sits closer than 24px to a distinct neighbouring block" (`SPEC.md` line 97). The
+  collapsible's markup shows one `cm-collapse__body` (lines 359 to 364) and no rule for several blocks
+  in it.
+- **Code:** the body gives its children no spacing, and margins are reset (`cm-report.css` lines 65
+  and 407). The block-gap check measures section bodies, stacks and grids, not disclosure bodies
+  (`checks/judgment.mjs` line 205).
+- **Now:** two blocks in a plain disclosure body render 0px apart, and no check warns. Every
+  disclosure on the kit pages holds one block. A body that is also a `cm-stack` spaces its blocks
+  32px apart and is checked.
+- **Question:** should the spec name `cm-collapse__body cm-stack` for a body with several blocks, or
+  should the body space its own children, as a section body does?
+
+## Chart text starting with a dollar sign
+
+- **Spec:** "any string value beginning with `$` is replaced with the current theme's token"
+  (`SPEC.md` line 421).
+- **Code:** `cm-report.js` line 45 replaces such a string only when the rest names a token or a
+  `--cm-` variable. Any other string, such as the label "$50", stays as written.
+- **Now:** currency labels in chart settings render because of that fallback, which the spec does not
+  state. A label that matches a variable name, such as "$s1", renders the variable's value instead.
+- **Question:** should the spec say that a `$` string is a token only when the rest names a token,
+  and is text otherwise, or should currency in chart settings be written another way?
+
+## Print button
+
+- **Spec:** the top bar requires a print button (`SPEC.md` line 118).
+- **Code:** `cm-report.js` opens the print dialog from any `[data-cm-print]` element and runs without
+  one (line 280). The `topbar` check fails a page that has none (`checks/structure.mjs` line 165).
+  Browser printing works either way (section 12 of the spec).
+- **Question:** should the print button stay required, or appear only when a document calls for it?
+
+## Focus on one mark
+
+- **Spec:** one series takes the default `$c1`, which is the accent (`SPEC.md` lines 66 and 424). The
+  accent also marks a focal series (line 63), and `$context` greys comparison series (line 67).
+- **Now:** in a one-series chart the accent means both "the only series" and "the one to look at".
+  The spec has no rule for picking out one mark within a series.
+- **Question:** should the spec say that a picked-out mark keeps the default colour while the rest of
+  its series take `$context`, or should focus have a colour of its own?

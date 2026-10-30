@@ -73,3 +73,18 @@ longer listed.
   The spec has no rule for picking out one mark within a series.
 - **Question:** should the spec say that a picked-out mark keeps the default colour while the rest of
   its series take `$context`, or should focus have a colour of its own?
+
+## Page opened at a fragment address
+
+- **Spec:** a link within the page stops its target 24px below the sticky top bar (`SPEC.md` §5).
+- **Code:** scrolling is smooth (`cm-report.css` line 63). A page opened at an address that ends in
+  a fragment, such as `#teams`, scrolls smoothly to its target, and the scroll's end point is fixed
+  when it starts.
+- **Now:** on the sample report from 390 to 820px wide, Nunito arrives during that scroll and the
+  page grows shorter, so the scroll ends past its target. Opened at `#teams`, the section's top
+  ends 437.5px above the bar's bottom edge at 390px and 91.2px above it at 820px. At 1440px, and at
+  every width under reduced motion, where the scroll is instant, targets stop 24px below the bar.
+  Links followed within the page are not affected.
+- **Question:** should the script return to the fragment's target once the fonts have loaded, when
+  the reader has not scrolled, or should smooth scrolling start only after the page has loaded, so
+  that a page opened at a fragment jumps at once?

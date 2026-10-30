@@ -36,7 +36,7 @@ Decision record numbers refer to `docs/decisions/`.
 | Interaction | Interaction | Sortable tables, collapsible appendix | Partial | Filtering, overview and detail, definitions in place, recently viewed | 028 |
 | Learning | Learning | Nothing | Not in kit | Objectives, knowledge checks, comprehension summary, learning cycle, model | 028 |
 | Questions | Questions | Questions block | Partial | FAQ list ordered by frequency, said-and-actual corrections, confusion table | 038 |
-| Change and status | Change | Correction and limitation callouts, document status chips | Partial | Change log, per-node diff, limitation register, revision history | 039 |
+| Change and status | Change | Correction and limitation callouts, document status chips | Partial | Change log, per-node diff, limitation register, revision history, the dated status block that section 13 of the spec calls for | 039 |
 | Diagrams | Diagrams, Diagrams at Scale, Diagrams II, III, IV | Process diagram only | Partial | The diagram families (sequence, entity relationship, state, deployment, layered architecture, journey, service blueprint, Sankey, mind map, sets, cause and effect, process notation, data flow, decision tree and others), the level model and capacity ceilings | 010–014 |
 | Diagram build logic | Visualization kit (`import/kx-visualizations-index/`) | Nothing | Not in kit | Node kit, connectors, terminators, the lane-flow router and its invariants | n/a; see `scraps/4c-brief.md` |
 | Page types | Templates, T1 to T11 | One document type, the report | Partial | Topic, framework, process, guide, module, metric, comparison, roadmap, reference, glossary, case study | 037, 040 |

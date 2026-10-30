@@ -430,7 +430,7 @@ const NAMES = JSON.parse((kit.js.match(/var NAMES = (\[[^\]]*\])/) || [])[1].rep
 const section = n => `## ${n}. ${S[n].title}\n\n${S[n].body}`;
 const componentIndex = `## 8. Components\n\n${S['8'].body.split(/\n### /)[0].trim()}\n\n| Component | Section | Summary |\n| --- | --- | --- |\n`
   + components.map(c => `| [${c.name}](components/${c.name}/README.md) | §${c.num} ${c.specTitle} | ${(c.lead || md(c.demo.desc)).split(/(?<=\.)\s/)[0].replace(/\|/g, '\\|')} |`).join('\n');
-const readme = `Content Morphia publishes reports, documents and analyses as single HTML files: one stylesheet, one script and a template, with light, dark and print built in. Report Kit ${KIT_VERSION} is the kit; the rules below are its specification and bind every document.
+const readme = `Content Morphia publishes reports, documents and analyses as single HTML files: one stylesheet, one script and a template, with light, dark and print built in. The kit is Report Kit ${KIT_VERSION}, and every document follows its specification, sections 1 to 14 here.
 
 ## Files
 

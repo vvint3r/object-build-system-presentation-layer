@@ -108,7 +108,20 @@ and never writes chart JavaScript.
 
 ## Writing rules
 
-Section 13 of `SPEC.md` applies, with four further rules from the owner:
+Section 13 of `SPEC.md` holds every writing rule; the spec governs. Prose is the running text of
+`<main>`: paragraphs, list items, definitions, questions and answers, callout bodies, captions and
+process-step bodies. Code, tables and chart data are not prose.
+
+| Item | Limit |
+| --- | --- |
+| Paragraph | 3 sentences and 60 words at most |
+| Sentence | 25 words as the target and 30 at most; 18 words or fewer on average |
+| List item | 2 sentences and 40 words at most |
+| Prose between headings | 150 words at most |
+| Section lede | 45 words at most, with its key phrase in bold |
+| Caption | 30 words at most |
+
+Components keep their own limits as well, such as a TL;DR of 40 words and a figure title of 10.
 
 - A document is neutral and third person, written for any reader. No "you", "your", "we" or "our"
   in the body; it is never a message to the owner.
@@ -117,6 +130,15 @@ Section 13 of `SPEC.md` applies, with four further rules from the owner:
 - Numbers that will change never sit inside definitions of steps or rules. They go in one dated
   status block.
 - No em dashes or en dashes in prose.
+- Plain, factual sentences with the number, the comparison and the period; plain words. Each section
+  leads with its finding. No signposting, hype, rhetorical questions or history of how the document
+  was made.
+- Bold marks the phrase that carries a sentence, one or two per paragraph, never a whole sentence
+  except the claim that opens a key finding or a recommended action. Text before a leading colon is
+  bold.
+- A heading is the plainest noun phrase that names what sits under it, in sentence case: no
+  articles, questions, framing words or arguing adjectives, and no verbs unless the section is a
+  procedure. Headings never skip a level.
 
 ## Documents without measured numbers
 

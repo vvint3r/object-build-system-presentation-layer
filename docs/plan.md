@@ -108,9 +108,12 @@ tools/
   preview.mjs      render kit pages with ECharts served from npm (npm run preview -- <page>)
   offline.mjs      the parts of the offline mode: font faces from @fontsource, ECharts from npm
   pack.mjs         write a page's offline form (npm run pack -- <page>)
+  bundle.mjs       write the design bundle (npm run bundle); bundle-cover.mjs draws its cover
+  bundle-check.mjs check the bundle and render its previews (npm run bundle:check)
+  ds-frame.mjs     how the Design System page compiles tokens.css and frames a preview
 offline/           offline forms written by pack.mjs; generated, git-ignored
+bundle/            the design bundle written by bundle.mjs; generated, git-ignored
 import/            the three original exports, read-only
 ```
 
-Planned: a folder for step 6's build and `bundle/` for the generated design bundle (step 9), each
-created when its step starts.
+Planned: a folder for step 6's build, created when its step starts.

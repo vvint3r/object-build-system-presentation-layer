@@ -256,6 +256,23 @@ export default [
   },
 
   {
+    // Every key finding and every recommended action opens with exactly one claim line: the claim
+    // sentence on a line of its own (.cm-findings__claim), with the evidence or reason after it.
+    name: 'claim-lines', level: 'fail', source: 'SPEC §8.3; §8.19', once: true,
+    inPage: ({ check }) => {
+      const H = window.__cm, out = [];
+      for (const li of H.source().querySelectorAll('ol.cm-findings > li')) {
+        if (H.exempt(li, check)) continue;
+        const claims = li.querySelectorAll('.cm-findings__claim');
+        if (claims.length !== 1) out.push({ where: H.path(li), value: `${claims.length} claim lines (exactly 1)` });
+        else if (!H.text(claims[0])) out.push({ where: H.path(claims[0]), value: 'empty claim line' });
+        else if (!H.text(li).startsWith(H.text(claims[0]))) out.push({ where: H.path(claims[0]), value: 'the claim line does not open the item' });
+      }
+      return out;
+    },
+  },
+
+  {
     // Notes and sources close the report, notes first, and the footer follows.
     name: 'report-anatomy', level: 'fail', source: 'SPEC §7', once: true,
     inPage: ({ check }) => {

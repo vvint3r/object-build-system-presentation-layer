@@ -26,7 +26,7 @@ function prepare() {
   const NOT_PROSE = 'a.cm-fn, a.cm-back, .cm-chip, .cm-chips, .cm-tag, .cm-id, .cm-label, .cm-delta, .cm-meta, '
     + 'sup, .cm-table-title__kind, .cm-figure__kind';
   const BLOCK = 'address, article, aside, blockquote, br, dd, details, div, dl, dt, figcaption, figure, footer, '
-    + 'header, li, ol, p, section, summary, ul';
+    + 'header, li, ol, p, section, summary, ul, .cm-findings__claim';
   const PLACEHOLDER = /\{\{[\s\S]*?\}\}/g;
   const isOut = el => !!el.closest(OUT);
 
@@ -72,7 +72,6 @@ function prepare() {
       bolds: bolds(el),
       quote: !!el.closest('.cm-quote'),
       question: el.matches('.cm-qa dt'),
-      finding: el.matches('.cm-findings > li'),
     };
   }).filter(u => u.words);
 
@@ -212,8 +211,9 @@ export default [
 
   inWriting('bold-phrases', 'fail', '§13.2', ({ check }) => {
     // Bold marks the phrase that carries a sentence: at most two per paragraph or item, never a whole
-    // sentence. A bold label before a colon is a label, not emphasis. The claim that opens a finding
-    // or a recommended action is a bold sentence by the canonical markup (SPEC sections 8.3, 8.19).
+    // sentence. A bold label before a colon is a label, not emphasis. The claim of a finding or a
+    // recommended action is a line of its own, not bold (SPEC sections 8.3, 8.19), so no sentence in
+    // bold is excepted.
     const W = window.__cmw, out = [];
     const norm = s => s.replace(/\s+/g, ' ').trim();
     for (const u of W.units) {
@@ -222,7 +222,7 @@ export default [
       if (phrases.length > 2) out.push({ where: W.H.path(u.el), value: `${phrases.length} bold phrases (at most 2): ${W.snip(u.text)}` });
       for (const b of phrases) {
         const i = u.sentences.findIndex(s => norm(s) === norm(b.text));
-        if (i < 0 || (u.finding && i === 0)) continue;
+        if (i < 0) continue;
         out.push({ where: W.H.path(b.el), value: `a whole sentence in bold: ${W.snip(b.text)}` });
       }
     }

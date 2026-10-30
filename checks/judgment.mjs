@@ -46,7 +46,7 @@ export default [
   },
 
   {
-    // 3 to 5 findings, each opening with its claim in bold.
+    // The summary holds 3 to 5 findings. Each opens with its claim line, which claim-lines asserts.
     name: 'findings', level: 'warn', source: 'SPEC §8.3; §14 item 3', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, out = [];
@@ -54,10 +54,6 @@ export default [
         if (H.exempt(ol, check)) continue;
         const items = [...ol.children].filter(c => c.localName === 'li');
         if (items.length < 3 || items.length > 5) out.push({ where: H.path(ol), value: `${items.length} findings (3 to 5)` });
-        for (const li of items) {
-          const s = li.querySelector('strong, b');
-          if (!s || !H.text(li).startsWith(H.text(s))) out.push({ where: H.path(li), value: 'finding does not open with its claim in <strong>' });
-        }
       }
       return out;
     },

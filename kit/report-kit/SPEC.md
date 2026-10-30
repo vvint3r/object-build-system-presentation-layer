@@ -78,7 +78,7 @@ Semantic meaning is fixed: ok = healthy/validated, warn = attention/at risk, cri
 | T2 | `.cm-section__title` (h2) | 38 / 900 | 4px ink, full column width, closing the section header |
 | T3 | `.cm-h3`, `.cm-card__title`, `.cm-figure__title` (h3) | 24 / 800 (`--sm` 20) | 2.5px ink, fit to the text |
 | T4 | `.cm-h4` (h4) | 18 / 700 | 1.5px ink, fit to the text |
-| T5 | `.cm-t5`, `.cm-timeline__title`, `.cm-step__title`, terms | 16–18 / 700–800 | none |
+| T5 | `.cm-t5`, `.cm-timeline__title`, `.cm-step__title`, `.cm-findings__claim`, terms | 16–18 / 700–800 | none |
 | Body | default | 16 / 400 / 1.9 | Reading column, max 70ch |
 | Small | `.cm-small`, text inside surfaces | 15 / 400 / 1.8 | — |
 | Label | `.cm-label`, kinds, metadata keys, callout, definition and question labels, table heads, contents rail and process step numbers; `.cm-tag`, `.cm-delta` | 10 / 800 / caps, +0.08em | — |
@@ -191,12 +191,12 @@ Number with two digits: `Part 01`. Appendices: `class="cm-section cm-section--pa
   <span class="cm-chip cm-chip--accent">Summary</span>
   <h3 class="cm-card__title">Key findings</h3>
   <ol class="cm-findings">
-    <li><strong>Claim in one sentence.</strong> Evidence with the number and comparison.</li>
+    <li><span class="cm-findings__claim">Claim in one sentence.</span> Evidence with the number and comparison.</li>
   </ol>
 </div>
 ```
 
-3–5 findings, ordered by importance. Each claim is a full sentence that would survive on its own.
+3–5 findings, ordered by importance. Each claim is a full sentence that would survive on its own. It sits on a line of its own in `.cm-findings__claim`, at 800, with the evidence on the next line. A finding has exactly one claim line, and it opens the item.
 
 ### 8.4 Callouts
 
@@ -408,12 +408,12 @@ Token spans: `k` keyword, `s` string, `n` number, `f` callable, `c` comment. Key
   <div class="cm-card__kicker"><span class="cm-chip cm-chip--accent">Recommended</span></div>
   <h3 class="cm-card__title">Three actions for Q4</h3>
   <ol class="cm-findings">
-    <li><strong>Imperative action in one sentence.</strong> One sentence of reason.<div class="cm-chips"><span class="cm-chip">Owner · Team</span><span class="cm-chip">Due YYYY-MM-DD</span><span class="cm-chip cm-chip--accent">Expected impact</span></div></li>
+    <li><span class="cm-findings__claim">Imperative action in one sentence.</span> One sentence of reason.<div class="cm-chips"><span class="cm-chip">Owner · Team</span><span class="cm-chip">Due YYYY-MM-DD</span><span class="cm-chip cm-chip--accent">Expected impact</span></div></li>
   </ol>
 </div>
 ```
 
-The only `cm-featured` in the report, inside the Recommendations section. 1–5 actions. The card width follows the reading measure.
+The only `cm-featured` in the report, inside the Recommendations section. 1–5 actions. Each action opens with one claim line, the action as an imperative sentence, then one sentence of reason and its chips. The card width follows the reading measure.
 
 ## 9. Charts
 
@@ -512,7 +512,7 @@ Components set limits of their own. Where a component limit and a limit above bo
 | Dek | One sentence | §7 |
 | Executive summary lede | 2 to 4 sentences | §7 |
 | TL;DR | One or two sentences, 40 words at most | §8.1 |
-| Key finding | A claim in one full sentence, then its evidence | §8.3 |
+| Key finding | A claim line of one full sentence, then its evidence | §8.3 |
 | Definition | 15 to 60 words | §8.5 |
 | Answer | 1 to 3 sentences | §8.6 |
 | Property key | 1 to 3 words | §8.7 |
@@ -532,7 +532,7 @@ Components set limits of their own. Where a component limit and a limit above bo
 - No signposting, such as “this section describes”, “note that” or “as shown below”.
 - No hype, no rhetorical questions, no “this isn't X, it's Y”.
 - No em dashes or en dashes in prose.
-- Bold marks the phrase that carries a sentence's meaning: one or two per paragraph, never a whole sentence. The claim that opens a key finding or a recommended action is the one bold sentence (§8.3, §8.19).
+- Bold marks the phrase that carries a sentence's meaning: one or two per paragraph, never a whole sentence. The claim of a key finding or a recommended action is a line of its own, not bold running text (§8.3, §8.19).
 - **Text before a colon is bold** when it leads a sentence, list item, caption or callout body: `<strong>Not yet covered:</strong> maps, …`, `<b>Source:</b> …`. Such a label is not one of the paragraph's bold phrases.
 - Dates ISO in metadata (`2026-10-12`), readable in prose (`12 August`). Durations as `2h 14m`. Percentage-point changes as `pp`.
 

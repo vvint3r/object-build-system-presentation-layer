@@ -29,14 +29,3 @@ Items answered on 13 Oct 2026 (decision record 055), 16 Oct 2026 (records 058 to
   definitions and callouts lead with bold labels.
 - **Question:** should a label before a colon stay bold, or should run-in bold labels go, with
   captions recast as a title and one sentence and labelled terms set as headings or table rows?
-
-## Bold claim sentences
-
-- **Spec:** a key finding opens with its claim, a full sentence, in `<strong>` (`SPEC.md` section 8.3),
-  and a recommended action opens with an imperative sentence in `<strong>` (section 8.19).
-- **Writing rules brief:** bold is "never a whole sentence" (`docs/subprojects/writing-rules.md`,
-  "Register and headings").
-- **Now:** the `bold-phrases` check fails a whole sentence in bold anywhere except the claim that
-  opens a key finding or a recommended action, which section 13.2 names as the one bold sentence.
-- **Question:** should findings and actions keep a bold claim sentence, or bold only the key phrase
-  inside it?

@@ -223,6 +223,8 @@ pre code{all:unset}
 .cm-findings>li:first-child{border-top:0;padding-top:0}
 .cm-findings>li:last-child{padding-bottom:0}
 .cm-findings>li::before{content:counter(cmf,decimal-leading-zero);position:absolute;left:0;font-weight:800;font-variant-numeric:tabular-nums}
+/* the claim: its own line at 800, 6px above the evidence, as a definition's term sits above its explanation */
+.cm-findings__claim{display:block;font-weight:800;margin-bottom:6px}
 .cm-findings strong{font-weight:800}
 .cm-findings .cm-chips{margin-top:16px}
 

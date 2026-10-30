@@ -133,9 +133,9 @@ Components keep their own limits as well, such as a TL;DR of 40 words and a figu
 - Plain, factual sentences with the number, the comparison and the period; plain words. Each section
   leads with its finding. No signposting, hype, rhetorical questions or history of how the document
   was made.
-- Bold marks the phrase that carries a sentence, one or two per paragraph, never a whole sentence
-  except the claim that opens a key finding or a recommended action. Text before a leading colon is
-  bold.
+- Bold marks the phrase that carries a sentence, one or two per paragraph, never a whole sentence.
+  The claim of a key finding or a recommended action is a line of its own, not bold running text.
+  Text before a leading colon is bold.
 - A heading is the plainest noun phrase that names what sits under it, in sentence case: no
   articles, questions, framing words or arguing adjectives, and no verbs unless the section is a
   procedure. Headings never skip a level.

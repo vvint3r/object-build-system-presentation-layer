@@ -301,7 +301,7 @@ export default [
       const f = d.querySelector('.cm-footer');
       if (!f || H.exempt(f, check)) return [];
       const t = H.text(f);
-      if (!t.includes('Content Morphia Report Kit 1.1')) out.push({ where: H.path(f), value: 'does not name "Content Morphia Report Kit 1.1"' });
+      if (!t.includes('Content Morphia Report Kit 1.2')) out.push({ where: H.path(f), value: 'does not name "Content Morphia Report Kit 1.2"' });
       const field = k => { const dt = [...d.querySelectorAll('.cm-mast__meta dt')].find(x => H.text(x) === k); return dt && dt.nextElementSibling ? H.text(dt.nextElementSibling) : ''; };
       const v = field('Version'), p = field('Published');
       if (v && !t.includes('v' + v)) out.push({ where: H.path(f), value: `no version "v${v}" (masthead Version ${v})` });

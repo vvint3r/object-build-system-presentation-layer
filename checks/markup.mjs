@@ -26,7 +26,7 @@ export default [
         noPeriod
           ? ['<title>{title}</title>', el => el.matches('title') && el.textContent.trim() !== '']
           : ['<title>{title} · {period}</title>, or the period left out with cm-omit title-period', el => el.matches('title') && / · \S/.test(el.textContent)],
-        ['<meta name="cm-kit" content="1.1">', el => el.matches('meta[name="cm-kit"]') && attr(el, 'content') === '1.1'],
+        ['<meta name="cm-kit" content="1.2">', el => el.matches('meta[name="cm-kit"]') && attr(el, 'content') === '1.2'],
         ['theme pre-paint script', el => el.matches('script:not([src])') && same(el.textContent, kit.prepaint)],
         ['preconnect to fonts.googleapis.com', el => el.matches('link[rel="preconnect"]') && attr(el, 'href') === 'https://fonts.googleapis.com'],
         ['preconnect to fonts.gstatic.com, crossorigin', el => el.matches('link[rel="preconnect"][crossorigin]') && attr(el, 'href') === 'https://fonts.gstatic.com'],

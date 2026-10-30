@@ -61,6 +61,10 @@ The five items left in `docs/open-items.md` on 30 Oct 2026 take these answers.
   splits its scale into two rows with sub-labels.
 - **Agent brief.** Its summary of the writing rules and its kit version follow the spec. Its commit
   pins stay, and move after the merge.
+- **Changed in 1.2.** Section 15 of the spec gives each change one line. Focus on one mark takes a
+  single line for records 069 and 075 together, since both set one rule.
+- **Reference files.** The two files in `docs/reference/` name the Report Kit without a version, so
+  they hold across releases.
 - **One session.** The five answers and the 1.2 release run as one change in one session, one commit
   per group, as the orchestrating session's brief set.
 
@@ -69,10 +73,11 @@ The five items left in `docs/open-items.md` on 30 Oct 2026 take these answers.
 | File | Change |
 | --- | --- |
 | `kit/report-kit/SPEC.md` | Section 4: claim lines join the T5 tier. Section 8.1: the TL;DR label. Section 8.3 and 8.19: the claim line. Section 8.5: an example is a sentence of its own. Sections 8.10 and 8.11: caption lines. Section 8.14: no item opens with a bold label. Section 9: caption lines in the anatomy, and the scope of focus on one mark. Section 13.1: the TL;DR stands in for the lede. Section 13.2: the bold rules. Section 14: items 5 and 9. Section 15: changed in 1.2 |
-| `kit/report-kit/cm-report.css` | `cm-section__tldr` label, `cm-findings__claim`, `cm-caption__line`; the caption and TL;DR bold weights removed |
-| `kit/Report Kit - Spec & Gallery.html` | TL;DR, findings, recommendations, callouts, definitions, lists, captions, chart rules, property sheet, the "Kept from Foundations" box, the checklist and descriptions follow the rules |
-| `kit/Sample Report - Q3 Support Review.html` | TL;DRs, findings, recommendations, captions and two section ledes follow the rules |
-| `kit/report-kit/template.html` | TL;DR, findings and captions follow the rules |
+| `kit/report-kit/cm-report.css` | `cm-section__tldr` label, `cm-findings__claim`, `cm-caption__line`; the caption and TL;DR bold weights removed; version 1.2 in the header |
+| `kit/report-kit/cm-report.js` | Version 1.2 in the header |
+| `kit/Report Kit - Spec & Gallery.html` | TL;DR, findings, recommendations, callouts, definitions, lists, captions, chart rules, property sheet, the "Kept from Foundations" box, the checklist and descriptions follow the rules; version 1.2, last updated 2026-10-30 |
+| `kit/Sample Report - Q3 Support Review.html` | TL;DRs, findings, recommendations, captions and two section ledes follow the rules; version 1.2 |
+| `kit/report-kit/template.html` | TL;DR, findings and captions follow the rules; version 1.2 |
 | `kit/agent-brief.md` | Writing rules and kit version |
 | `checks/writing.mjs` | `bold-labels` added; `bold-phrases` and `section-lede` count every bold phrase, and `bold-phrases` keeps no exception for claims |
 | `checks/judgment.mjs` | `bold-colon` removed; `findings` counts findings only; `tldr-length` reads the label and warns on bold |
@@ -82,6 +87,8 @@ The five items left in `docs/open-items.md` on 30 Oct 2026 take these answers.
 | `docs/decision-framework.md` | The owner level states the delegation |
 | `docs/open-items.md` | The five items deleted; no item is open |
 | `docs/plan.md`, `README.md`, `CLAUDE.md`, `docs/adoption.md` | Kit 1.2 released; step 6's direction set by the orchestrating session |
+| `docs/subprojects/writing-rules.md` | Its state notes the questions answered |
+| `docs/reference/library-open-items.md`, `docs/reference/library-rules.md` | The kit named without a version |
 
 ## Version
 

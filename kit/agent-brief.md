@@ -2,7 +2,7 @@
 
 Instructions for an agent in any environment (Claude, Codex or another) that produces a document,
 report or reference page as an HTML artifact for the owner of content-morphia. **Content Morphia
-Report Kit 1.1** is the design system for every such artifact.
+Report Kit 1.2** is the design system for every such artifact.
 
 This brief lives at
 <https://github.com/vvint3r/object-build-system-presentation-layer/blob/main/kit/agent-brief.md>.

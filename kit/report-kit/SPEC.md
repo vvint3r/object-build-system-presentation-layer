@@ -1,4 +1,4 @@
-# Content Morphia · Report Kit 1.1 — Agent Specification
+# Content Morphia · Report Kit 1.2 — Agent Specification
 
 This file tells an agent how to produce a report, document or analysis as a single HTML artifact in the Content Morphia style. Follow it exactly. When this file and your own taste disagree, this file wins.
 
@@ -46,7 +46,7 @@ Two modes. Both use the same markup.
 
 **Self-contained** (for email or attachments): replace the CSS link with `<style>` + the full contents of `cm-report.css`, and the kit script with `<script>` + the full contents of `cm-report.js`, placed as the last element in `<body>`. Keep the font and ECharts CDN links. Do not edit the pasted code.
 
-Required `<head>` (copy from `template.html`, in this order): charset, viewport, `<title>{Report title} · {Period}</title>` (`<title>{Report title}</title>` when the document covers no period, §7), `<meta name="cm-kit" content="1.1">`, the inline theme pre-paint script, font preconnects + Google Fonts link (Nunito 300–900 + italic 300/400, JetBrains Mono 400/600/700), kit CSS, ECharts 5.5.1, kit JS. `<html lang>` **MUST** be set.
+Required `<head>` (copy from `template.html`, in this order): charset, viewport, `<title>{Report title} · {Period}</title>` (`<title>{Report title}</title>` when the document covers no period, §7), `<meta name="cm-kit" content="1.2">`, the inline theme pre-paint script, font preconnects + Google Fonts link (Nunito 300–900 + italic 300/400, JetBrains Mono 400/600/700), kit CSS, ECharts 5.5.1, kit JS. `<html lang>` **MUST** be set.
 
 ## 3. Tokens
 
@@ -125,7 +125,7 @@ Order is fixed. Required blocks are never omitted, except as **Blocks left out**
 6. **Recommendations** (recommended) — its own section after the body and before the appendices, holding the single `.cm-featured` card; each action has owner, due date and expected impact chips.
 7. **Appendix A · Methodology** (required when numbers are computed) — `.cm-section--part`; collapsibles: A.1 Terms (a `.cm-def` block, open), A.2 Data sources and coverage, A.3 Queries.
 8. **Appendix B · Notes & sources** (required) — `.cm-notes` then `.cm-sources`.
-9. **Footer** (required) — title, version + published date, owner, `Content Morphia Report Kit 1.1`.
+9. **Footer** (required) — title, version + published date, owner, `Content Morphia Report Kit 1.2`.
 
 **Blocks left out.** A document without measured numbers (a briefing, a guide, interview preparation) can lack the content of some blocks the kit otherwise requires. It leaves such a block out, invents nothing to fill it, and puts an omission comment where the block would be. The comment starts `cm-omit`, names the block, and says why after a colon:
 
@@ -578,6 +578,27 @@ Headings are `h1` to `h6` and table titles.
 Kept unchanged: the three rules, color law, five semantics, radii, soft and hard elevation families, callout set, highlight set, link and focus treatment.
 
 Changed in 1.1: labels, tables, chips and charts moved from JetBrains Mono to Nunito (mono is code only); section headers use a “Part 01 /” kicker, optional TL;DR and a 4px closing rule, and H3/H4 carry fit-to-text rules; chips are outlined with color offsets; callouts stack the body under an underlined label; tables have column gutters, dotted totals rules and row flags; the timeline runs on one continuous rail; chart colors c3 and c4 are deeper; charts get automatic legends and axis titles; spacing scale enlarged with a 24px floor.
+
+Changed in 1.2:
+
+- Section 13 holds the writing rules: limits, register and headings. The checks enforce them.
+- Headings are in sentence case, and a check warns on a title-case heading (§13.3).
+- A TL;DR sits under its own label line and stands in for the section lede: 40 words, no bold phrase (§8.1, §13.1).
+- The claim of a key finding or a recommended action is a line of its own at 800, above its evidence (§8.3, §8.19).
+- No bold label runs into its text, and no bold phrase opens a paragraph, list item or callout body (§13.2).
+- A caption's source, note and flags lines are lines of their own, not bold (§8.10, §8.11).
+- Focus on one mark greys the rest of a bar, line or area series; point marks keep their series colour (§9).
+- A `$context` mark the reader needs to read carries a direct value label (§9).
+- A category axis title gets the same room as a value axis title (§9).
+- The chart script works out plot padding; none is set by hand (§9).
+- Only token names resolve as colours in chart JSON; other text starting with `$` stays text (§9).
+- A link target stops 24px below the top bar, whatever the bar's height (§5).
+- In the contents strip, the current link keeps its weight and takes an underline, so no link changes width (§5).
+- A paragraph carries three highlights at most, and a check enforces it (§8.8).
+- A key term takes a dotted accent underline, which links never use (§8.8).
+- A disclosure body spaces its own blocks (§8.16).
+- The print button is optional, added only when the document asks for one (§7).
+- A document without measured numbers leaves out a required block it has nothing for, with an omission comment (§7).
 
 Added for reports: ECharts chart method and theme; categorical and sequential palettes; dark token set; print rules; report masthead and contents rail; KPI strip; key findings; native tables with sorting and in-cell bars; pull quote; timeline; process diagram; definition, questions and property-sheet blocks; footnotes; collapsible appendix; chart draw-in motion; packaging modes.
 

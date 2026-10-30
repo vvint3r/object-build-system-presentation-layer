@@ -1,7 +1,7 @@
 # content-morphia library rules (reference)
 
 > **Reference, not the rules in force.** The rules in force are `kit/report-kit/SPEC.md`, the Report
-> Kit 1.1 specification. This file records the rules of the original 35-page content-morphia library
+> Kit specification. This file records the rules of the original 35-page content-morphia library
 > as of its 28 Sep 2026 export. Use it when adopting a library feature into the kit
 > (`docs/adoption.md`). Where this file and the kit disagree, the kit wins.
 

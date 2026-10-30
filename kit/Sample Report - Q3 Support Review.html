@@ -165,7 +165,7 @@
           <div class="cm-chart" style="--h:360px" data-chart role="img" aria-label="Heatmap. Volume peaks on weekday mornings, highest Monday 10:00 to 12:00 at 120 tickets per block. Weekends run under half the weekday level.">
             <script type="application/json">
             {
-              "grid": {"top": 8, "left": 4, "right": 4, "bottom": 52},
+              "grid": {"left": 4, "right": 4},
               "tooltip": {"trigger": "item"},
               "xAxis": {"type": "category", "axisLine": {"show": false}, "data": ["06–08","08–10","10–12","12–14","14–16","16–18","18–20","20–22"]},
               "yAxis": {"type": "category", "inverse": true, "axisLine": {"show": false}, "data": ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]},
@@ -213,7 +213,7 @@
             <div class="cm-chart" style="--h:300px" data-chart role="img" aria-label="Horizontal bar chart. Chat 96.1%, phone 94.8%, social 90.4%, email 88.3%, web form 86.9%. Only chat clears the 95% target.">
               <script type="application/json">
               {
-                "grid": {"top": 28, "right": 48},
+                "grid": {"right": 48},
                 "tooltip": {"axisPointer": {"type": "shadow"}},
                 "xAxis": {"type": "value", "min": 0, "max": 100, "interval": 25, "axisLabel": {"formatter": "{value}%"}},
                 "yAxis": {"type": "category", "data": ["Web form","Email","Social","Phone","Chat"]},
@@ -341,7 +341,7 @@
             <div class="cm-chart" style="--h:280px" data-chart role="img" aria-label="Line chart. CSAT holds near 86% in July, dips to 85.6% in week 7, and rises to 89.5% by week 13, crossing the 88% target in week 10.">
               <script type="application/json">
               {
-                "grid": {"top": 28, "right": 64},
+                "grid": {"right": 64},
                 "xAxis": {"type": "category", "boundaryGap": false, "data": ["Wk 1","Wk 2","Wk 3","Wk 4","Wk 5","Wk 6","Wk 7","Wk 8","Wk 9","Wk 10","Wk 11","Wk 12","Wk 13"], "axisLabel": {"interval": 2}},
                 "yAxis": {"type": "value", "min": 84, "max": 91, "interval": 1, "axisLabel": {"formatter": "{value}%"}},
                 "series": [{"name": "CSAT", "type": "line", "data": [85.9,86.4,86.1,86.6,86.0,86.8,85.6,87.4,87.8,88.4,88.9,89.2,89.5],

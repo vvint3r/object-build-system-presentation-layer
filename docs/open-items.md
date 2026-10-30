@@ -44,9 +44,12 @@ longer listed.
 
 ## Focus on one mark
 
-- **Spec:** one series takes the default `$c1`, which is the accent (`SPEC.md` lines 66 and 424). The
-  accent also marks a focal series (line 63), and `$context` greys comparison series (line 67).
-- **Now:** in a one-series chart the accent means both "the only series" and "the one to look at".
-  The spec has no rule for picking out one mark within a series.
-- **Question:** should the spec say that a picked-out mark keeps the default colour while the rest of
-  its series take `$context`, or should focus have a colour of its own?
+- **Ruling:** a picked-out mark keeps the default colour, and the rest of its series takes
+  `$context` (record 069).
+- **Gallery:** the scatter demo (6.5) picks out one point in `$c1` and keeps the other four in `$c2`,
+  black. Its description says "the rest stay `$c2`".
+- **Now:** under the ruling, the four points turn grey. `$context` measures 1.41:1 in light and 2.02:1
+  in dark against the figure surface, and the context-mark rule would then ask for a value label on
+  each of them.
+- **Question:** does the ruling apply to the scatter, so its other points turn grey, or does it cover
+  bars and lines only, so the scatter keeps its black points?

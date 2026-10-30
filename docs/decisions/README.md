@@ -80,5 +80,6 @@ Rounds 40e and 40f exist only in `CONTINUATION.md` and are taken from there.
 | [067-claude-design-closure.md](067-claude-design-closure.md) | Claude Design closure | 2026-10-26 | owner, in session |
 | [068-sub-projects.md](068-sub-projects.md) | Sub-projects | 2026-10-29 | owner, in session |
 | [069-roadmap.md](069-roadmap.md) | Roadmap | 2026-10-30 | owner, in session |
+| [071-chart-padding-axis-titles-and-emphasis.md](071-chart-padding-axis-titles-and-emphasis.md) | Chart padding, axis titles and emphasis | 2026-10-30 | owner, record 069 |
 | [072-emphasis-key-terms-and-disclosures.md](072-emphasis-key-terms-and-disclosures.md) | Emphasis, key terms and disclosures | 2026-10-30 | owner, in session |
 | [073-print-button-and-omitted-blocks.md](073-print-button-and-omitted-blocks.md) | Print button and omitted blocks | 2026-10-30 | owner, record 069 |

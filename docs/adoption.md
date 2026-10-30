@@ -46,10 +46,10 @@ Decision record numbers refer to `docs/decisions/`.
 The kit's own spec lists its gaps as maps, network and hierarchy diagrams, interactive filters, a PDF
 cover page and revision history. All but maps and the cover page appear in the table above.
 
-## Suggested order
+## Order
 
-The owner sets the order. A starting proposal, from the library's product context (a deep knowledge
-index where provenance and freshness carry weight) and the work already under way:
+Set by the owner on 30 Oct 2026 (record 069), from the library's product context: a deep knowledge
+index where provenance and freshness carry weight. Items 2 to 5 are step 8 of `docs/plan.md`.
 
 1. **Diagrams, charts and visualizations.** Not adopted from the library: they get a build of their
    own in migration step 6 (`docs/plan.md`), from the owner's reference set. The Diagrams, Charts and
@@ -59,4 +59,5 @@ index where provenance and freshness carry weight) and the work already under wa
 4. **Wayfinding and multi-page navigation.** Needed once there is more than one document.
 5. **Structured components, then page types.** Each page type is a composition of the components
    above, so they come after.
-6. **Learning, inputs and icons** as the content calls for them.
+6. **Learning, inputs and icons**, and the rows not named above, as the content calls for them,
+   outside the plan.

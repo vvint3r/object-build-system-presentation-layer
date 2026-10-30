@@ -79,3 +79,4 @@ Rounds 40e and 40f exist only in `CONTINUATION.md` and are taken from there.
 | [066-diagrams-charts-and-visualizations.md](066-diagrams-charts-and-visualizations.md) | Diagrams, charts and visualizations | 2026-10-17 | owner, in session |
 | [067-claude-design-closure.md](067-claude-design-closure.md) | Claude Design closure | 2026-10-26 | owner, in session |
 | [068-sub-projects.md](068-sub-projects.md) | Sub-projects | 2026-10-29 | owner, in session |
+| [069-roadmap.md](069-roadmap.md) | Roadmap | 2026-10-30 | owner, in session |

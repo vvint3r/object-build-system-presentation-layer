@@ -38,6 +38,8 @@ before 14 Dec 2026. It does not wait for the hand-off's turn in the order.
 - The offline mode adds a packaging mode to section 2 of the spec; its rules come to the owner when
   step 8 reaches it.
 
+The first was answered on 30 Oct 2026: steps 7 to 9 do not wait for step 6. See record 069.
+
 ## Version
 
 The kit stays at 1.1.

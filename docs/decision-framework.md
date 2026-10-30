@@ -97,6 +97,7 @@ overturn it.
   order and the adoption order as they are.
 - **A departure from a working rule in `CLAUDE.md`**, such as applying one owner ruling in several
   commits in one session, with the reason.
+- **Merging a pull request to `main`** once the orchestrating session has reviewed it.
 
 The call goes in the decision record of the change it belongs to, and the report names it. A change
 with no record gets one when the call sets a standing reading of the spec; otherwise the commit
@@ -118,7 +119,7 @@ depends on the answer.
 - Scope: what a change includes and leaves out, which migration step runs next, the adoption order,
   and who a document is for.
 - The kit's version.
-- Merging to `main`, syncing to Claude Design, and anything published.
+- Syncing to Claude Design, and anything published.
 
 These change what the reader sees, what the rules allow, or what leaves the repository. Questions
 about the kit go in `docs/open-items.md`; questions about the work are asked in session.

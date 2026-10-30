@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>First response time</title>
+<meta name="cm-kit" content="1.2">
+<meta name="cm-kind" content="reference">
+<script>(function(){var t;try{t=localStorage.getItem('cm-theme')}catch(e){}document.documentElement.dataset.theme=t||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')})()</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,300;1,400&family=JetBrains+Mono:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="report-kit/cm-report.css">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js" defer></script>
+<script src="report-kit/cm-report.js" defer></script>
+</head>
+<body>
+
+<header class="cm-topbar">
+  <div class="cm-topbar__in">
+    <a class="cm-wordmark" href="#top">support-operations</a>
+    <span class="cm-chip">Metric reference</span>
+    <div class="cm-topbar__actions">
+      <button class="cm-btn cm-btn--quiet cm-btn--sm" type="button" data-cm-theme-toggle>Dark mode</button>
+    </div>
+  </div>
+</header>
+
+<div class="cm-shell">
+  <nav class="cm-rail" aria-label="Contents">
+    <div class="cm-toc">
+      <span class="cm-label">Contents</span>
+      <ol>
+        <li><a href="#definition"><span class="n">01</span>Definition</a></li>
+        <li><a href="#measurement"><span class="n">02</span>Measurement</a></li>
+        <li><a href="#properties"><span class="n">03</span>Properties</a></li>
+        <li><a href="#relationships"><span class="n">04</span>Relationships</a></li>
+        <li><a href="#examples"><span class="n">05</span>Examples</a></li>
+        <li><a href="#sources"><span class="n">A</span>Notes &amp; sources</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main class="cm-main" id="top">
+
+    <!-- MASTHEAD -->
+    <header class="cm-mast">
+      <nav class="cm-crumbs" aria-label="Breadcrumb">
+        <a href="#top">Reference</a><span class="sep" aria-hidden="true">/</span>
+        <a href="#top">Metrics</a><span class="sep" aria-hidden="true">/</span>
+        <span aria-current="page">First response time</span>
+      </nav>
+      <div class="cm-bar" aria-hidden="true"></div>
+      <h1 class="cm-mast__title">First response time</h1>
+      <p class="cm-mast__dek">The wait from a ticket's creation to its first human reply, as Support Operations measures, targets and reports it.</p>
+      <dl class="cm-mast__meta">
+        <div><dt>Status</dt><dd><span class="cm-chip">Reference</span><span class="cm-chip cm-chip--ok">Final</span><span class="cm-chip cm-chip--note">Sample data</span></dd></div>
+        <div><dt>Published</dt><dd>2026-10-14</dd></div>
+        <div><dt>Reading time</dt><dd>4 min</dd></div>
+        <div><dt>Version</dt><dd>1.0</dd></div>
+      </dl>
+      <dl class="cm-byline">
+        <div><dt>Prepared by</dt><dd>Support Operations Analytics</dd></div>
+        <div><dt>Distribution</dt><dd>Internal · all staff</dd></div>
+      </dl>
+    </header>
+
+    <!-- 01 DEFINITION -->
+    <section class="cm-section" id="definition" aria-labelledby="definition-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 01</span>
+        <h2 class="cm-section__title" id="definition-t">Definition</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>First response time is <strong>the elapsed time from a ticket's creation to the first reply a person sends</strong>. Automatic acknowledgements do not count. The clock runs through nights and weekends, so it measures the wait a customer sees.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 MEASUREMENT -->
+    <section class="cm-section" id="measurement" aria-labelledby="measurement-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 02</span>
+        <h2 class="cm-section__title" id="measurement-t">Measurement</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>Each ticket gets its own time, and a period is reported as <strong>the median across its tickets</strong>. A few very long waits move the median far less than they move the mean.</p>
+        </div>
+        <aside class="cm-def">
+          <span class="cm-def__label">Definitions</span>
+          <dl>
+            <div><dt>Clock start</dt><dd>The ticket's creation time, <code>created_at</code>, in UTC. A merged ticket keeps the creation time of the ticket that survives the merge.</dd></div>
+            <div><dt>Clock stop</dt><dd>The first public reply from an agent, <code>first_human_reply_at</code>. Replies sent with a macro count; automatic acknowledgements and internal notes do not.<a class="cm-fn" href="#fn-1" id="fnref-1">1</a></dd></div>
+            <div><dt>Excluded tickets</dt><dd>Tickets created by internal staff, tickets marked as spam, and merged duplicates. None of them has a customer waiting for a reply.</dd></div>
+            <div><dt>Reported value</dt><dd>The median across tickets created in the period, in hours and minutes. A quarter's value comes from the first warehouse refresh after the quarter closes.</dd></div>
+          </dl>
+        </aside>
+        <div class="cm-code cm-bleed">
+          <div class="cm-code__bar"><span class="cm-code__file">frt_median.sql</span><span class="cm-tag">SQL</span></div>
+<pre><code><span class="c">-- median first response time, in minutes, for tickets created in Q3 2026</span>
+<span class="k">select</span>
+  <span class="f">percentile_cont</span>(<span class="n">0.5</span>) <span class="k">within group</span> (
+    <span class="k">order by</span> <span class="f">datediff</span>(<span class="s">'minute'</span>, created_at, first_human_reply_at)
+  ) <span class="k">as</span> frt_median_min
+<span class="k">from</span> support.tickets_fact
+<span class="k">where</span> created_at &gt;= <span class="s">'2026-07-01'</span> <span class="k">and</span> created_at &lt; <span class="s">'2026-10-01'</span>
+  <span class="k">and</span> is_spam = <span class="k">false</span>
+  <span class="k">and</span> is_merged_duplicate = <span class="k">false</span>
+  <span class="k">and</span> created_by_staff = <span class="k">false</span>
+  <span class="k">and</span> first_human_reply_at <span class="k">is not null</span></code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 PROPERTIES -->
+    <section class="cm-section" id="properties" aria-labelledby="properties-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 03</span>
+        <h2 class="cm-section__title" id="properties-t">Properties</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>The metric has <strong>one owner and one source system</strong>, and its target applies to each quarter.</p>
+        </div>
+        <div class="cm-props">
+          <dl>
+            <dt>Metric</dt><dd>First response time</dd>
+            <dt>Abbreviation</dt><dd>FRT</dd>
+            <dt>Unit</dt><dd>Hours and minutes</dd>
+            <dt>Statistic</dt><dd>Median</dd>
+          </dl>
+          <dl>
+            <dt>Owner</dt><dd>Support Operations Analytics</dd>
+            <dt>Source system</dt><dd>Helpdesk warehouse, <code>support.tickets_fact</code><a class="cm-cite" href="#src-1" id="cite-1">S1</a></dd>
+            <dt>Lineage</dt><dd>Helpdesk API → <b>tickets_fact</b><sup>Source</sup> → frt_daily<sup>Derived</sup></dd>
+            <dt>Update frequency</dt><dd>Daily, after the 06:00 UTC warehouse refresh<a class="cm-cite" href="#src-2" id="cite-2">S2</a></dd>
+          </dl>
+          <dl>
+            <dt>Target</dt><dd>Median of 2h 30m or less each quarter<a class="cm-cite" href="#src-3" id="cite-3">S3</a></dd>
+            <dt>Breakdowns</dt><dd>Channel, team and region</dd>
+            <dt>Reported in</dt><dd><a href="Sample%20Report%20-%20Q3%20Support%20Review.html#service">Customer support operations review</a>, each quarter</dd>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 RELATIONSHIPS -->
+    <section class="cm-section" id="relationships" aria-labelledby="relationships-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 04</span>
+        <h2 class="cm-section__title" id="relationships-t">Relationships</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>First response time connects to <strong>three metrics in the quarterly review</strong>, and the billing escalation guide sets the reply that stops it.</p>
+        </div>
+        <ul class="cm-related">
+          <li><span class="cm-tag">Metric</span><a href="Sample%20Report%20-%20Q3%20Support%20Review.html#service">Resolved within SLA</a><p>Measures the whole ticket against its due time, so a fast first reply alone does not meet it.</p></li>
+          <li><span class="cm-tag">Metric</span><a href="Sample%20Report%20-%20Q3%20Support%20Review.html#initiatives">Specialist queue wait</a><p>Starts when a ticket is escalated, often after the first reply has stopped this clock.</p></li>
+          <li><span class="cm-tag">Metric</span><a href="Sample%20Report%20-%20Q3%20Support%20Review.html#sentiment">Customer satisfaction</a><p>Rates the whole ticket, from a survey sent 24 hours after it closes.<a class="cm-cite" href="#src-4" id="cite-4">S4</a></p></li>
+          <li><span class="cm-tag">Guide</span><a href="Guide%20-%20Billing%20Escalation.html#steps">Billing ticket escalation to specialists</a><p>Step 6 sends the reply that stops the clock on an escalated billing ticket.</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 05 EXAMPLES -->
+    <section class="cm-section" id="examples" aria-labelledby="examples-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 05</span>
+        <h2 class="cm-section__title" id="examples-t">Examples</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>Each example applies <strong>the clock rules</strong> to concrete tickets. The tickets and their times are illustrative; the APAC medians come from the Q3 review.</p>
+          <h3>Chat with an automatic acknowledgement</h3>
+          <p>A customer opens a chat at 10:02 and gets an automatic acknowledgement at once. An agent sends the first reply at 10:09. First response time is 7m, since the acknowledgement does not stop the clock.</p>
+          <h3>Email over a weekend</h3>
+          <p>An email arrives at 14:00 on a Saturday, and an agent replies at 09:30 on Monday. First response time is 43h 30m, because the clock runs through the weekend.</p>
+          <p>The same rule shapes APAC's Q3 result. Its median was 3h 20m with unstaffed weekends counted, and 2h 31m on weekdays only.<a class="cm-cite" href="#src-4" id="cite-5">S4</a></p>
+          <h3>Escalated billing ticket</h3>
+          <p>A billing email arrives at 11:20 on a Tuesday, and a Tier 1 agent replies at 12:05 while escalating it. First response time is 45m. The wait for a billing specialist after that reply counts as specialist queue wait.</p>
+          <h3>Median of five tickets</h3>
+          <p>Five tickets have first response times of 7m, 45m, 1h 50m, 3h 40m and 43h 30m. The median is 1h 50m, the middle value; the mean is 9h 58m, pulled up by the weekend ticket. A sixth ticket, created by a staff member, is left out.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- A NOTES & SOURCES -->
+    <section class="cm-section cm-section--part" id="sources" aria-labelledby="sources-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Appendix A</span>
+        <h2 class="cm-section__title" id="sources-t">Notes &amp; sources</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-stack">
+          <h3 class="cm-h4">Notes</h3>
+          <ol class="cm-notes">
+            <li id="fn-1">A ticket with no reply from a person has no first response time yet, so the query leaves it out until that reply is sent. <a class="cm-back" href="#fnref-1" aria-label="Back to text">↩</a></li>
+          </ol>
+        </div>
+        <div class="cm-stack">
+          <h3 class="cm-h4">Sources</h3>
+          <ol class="cm-sources">
+            <li id="src-1"><span class="cm-id">S1</span><span><b>Helpdesk warehouse, ticket facts</b><br><span class="cm-tag">Dataset</span> Support Operations Analytics · <code>support.tickets_fact</code> <a class="cm-back" href="#cite-1" aria-label="Back to text">↩</a></span><span class="cm-meta">refreshed <time datetime="2026-10-05">2026-10-05</time></span></li>
+            <li id="src-2"><span class="cm-id">S2</span><span><b>Data warehouse run book, refresh schedule</b><br><span class="cm-tag">Document</span> Data Platform · <code>runbooks/warehouse-refresh.md</code> <a class="cm-back" href="#cite-2" aria-label="Back to text">↩</a></span><span class="cm-meta">published <time datetime="2026-09-01">2026-09-01</time></span></li>
+            <li id="src-3"><span class="cm-id">S3</span><span><b>Support service targets 2026</b><br><span class="cm-tag">Document</span> Support Operations · <code>support/service-targets-2026.pdf</code> <a class="cm-back" href="#cite-3" aria-label="Back to text">↩</a></span><span class="cm-meta">published <time datetime="2026-01-01">2026-01-01</time></span></li>
+            <li id="src-4"><span class="cm-id">S4</span><span><b>Customer support operations review, Q3 2026</b><br><span class="cm-tag">Report</span> Support Operations Analytics · <a href="Sample%20Report%20-%20Q3%20Support%20Review.html">Sample Report - Q3 Support Review.html</a> <a class="cm-back" href="#cite-4" aria-label="Back to text">↩</a></span><span class="cm-meta">published <time datetime="2026-10-12">2026-10-12</time></span></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <footer class="cm-footer">
+      <span><b>First response time</b></span>
+      <span>v1.0 · published 2026-10-14</span>
+      <span>Support Operations Analytics</span>
+      <span>Content Morphia Report Kit 1.2</span>
+    </footer>
+  </main>
+</div>
+</body>
+</html>

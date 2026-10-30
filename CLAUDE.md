@@ -24,9 +24,11 @@ it is not edited there. See `docs/plan.md`.
 
 | Path | Contents |
 | --- | --- |
-| `kit/report-kit/` | `SPEC.md`, `cm-report.css`, `cm-report.js`, `template.html`: the kit itself |
+| `kit/report-kit/` | `SPEC.md`, `cm-report.css`, `cm-report.js` and the templates `template.html`, `template-guide.html`, `template-reference.html`: the kit itself |
 | `kit/Report Kit - Spec & Gallery.html` | Live examples of every component, with copy-paste markup |
 | `kit/Sample Report - Q3 Support Review.html` | Reference output: a complete report built on the kit |
+| `kit/Guide - Billing Escalation.html` | Reference output: a complete guide built on the kit |
+| `kit/Reference - First Response Time.html` | Reference output: a complete reference built on the kit |
 | `kit/agent-brief.md` | Instructions for agents outside this repository that build documents on the kit |
 | `docs/` | Plan, decision framework, open items, adoption backlog, decisions, library reference |
 | `checks/` | Automated checks on rendered pages: the spec's hard rules and pre-publish checklist |
@@ -67,7 +69,8 @@ it is not edited there. See `docs/plan.md`.
 A summary of section 1 of `kit/report-kit/SPEC.md`. The spec governs; change this list, and the one
 in `kit/agent-brief.md`, in the same commit as the spec.
 
-1. Documents start from `template.html` and compose only from classes in `cm-report.css`.
+1. Documents start from the template for their kind (report, guide or reference) and compose only from
+   classes in `cm-report.css`.
 2. No added stylesheets, `<style>` blocks, custom classes or inline styles, except the custom properties
    the spec allows (`--h`, `--v`, `--t`, `--steps`).
 3. No hex, rgb or named colours in markup. Chart JSON uses `$token` strings.
@@ -75,8 +78,9 @@ in `kit/agent-brief.md`, in the same commit as the spec.
    colours, and the verdict chip's paper-coloured text on its ink fill.
 5. Nunito for all text, labels, tables, chips and charts. JetBrains Mono only for code.
 6. The accent is never text.
-7. One `cm-featured` per report (none when a document with no actions leaves Recommendations out), at
-   most one verdict chip per table or figure, one summary per report.
+7. One `cm-featured` per report (none when a report with no actions leaves Recommendations out), at
+   most one verdict chip per table or figure, one summary per report. A guide or a reference carries
+   no `cm-featured` and no summary.
 8. Colour never fills a label. Status colour is a chip offset, a label underline, a row flag or a chart
    mark.
 9. Meaning never rests on colour alone.

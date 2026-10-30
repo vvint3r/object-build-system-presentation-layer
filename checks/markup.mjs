@@ -11,17 +11,27 @@ export default [
   },
 
   {
-    // The required head, in order. Other elements may sit between the required ones. A title
-    // without its period carries the omission comment in the head (SPEC §7). In the offline mode
-    // the kit's font faces take the place of the font links, ECharts sits inline, and the kit CSS
-    // and JS are pasted as in the self-contained mode (SPEC §2).
+    // The required head, in order. Other elements may sit between the required ones. The kind tag,
+    // when present, follows the kit tag and names one of the three kinds. A report's title carries
+    // its period, or the omission comment in the head; a guide's or a reference's title is the
+    // title alone (SPEC §2; §7). In the offline mode the kit's font faces take the place of the font
+    // links, ECharts sits inline, and the kit CSS and JS are pasted as in the self-contained mode.
     name: 'head-order', level: 'fail', source: 'SPEC §2; §7', once: true,
     inPage: () => {
       const H = window.__cm, d = H.source(), kit = H.cfg.kit, off = kit.offline;
       const same = (a, b) => a.replace(/\r\n/g, '\n').trim() === b.replace(/\r\n/g, '\n').trim();
       const attr = (el, a) => el.getAttribute(a) || '';
       const ECHARTS = 'https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js';
-      const noPeriod = H.omitted(d.head, 'title-period');
+      const out = [];
+      const metas = H.kindMeta();
+      if (metas.length > 1) out.push({ where: 'head', value: `${metas.length} cm-kind tags (at most 1)` });
+      for (const m of metas) {
+        const v = attr(m, 'content').trim();
+        if (!H.KINDS.includes(v)) out.push({ where: H.path(m), value: `cm-kind "${v}" (report, guide or reference)` });
+        if (m.parentElement !== d.head) out.push({ where: H.path(m), value: 'cm-kind tag outside <head>' });
+      }
+      const report = H.kind() === 'report';
+      const noPeriod = !report || H.omitted(d.head, 'title-period');
       const fonts = off
         ? [['kit font faces (<style> of @font-face rules, written by tools/pack.mjs)', el => el.matches('style') && same(el.textContent, off.fonts)]]
         : [
@@ -36,6 +46,7 @@ export default [
           ? ['<title>{title}</title>', el => el.matches('title') && el.textContent.trim() !== '']
           : ['<title>{title} · {period}</title>, or the period left out with cm-omit title-period', el => el.matches('title') && / · \S/.test(el.textContent)],
         ['<meta name="cm-kit" content="1.2">', el => el.matches('meta[name="cm-kit"]') && attr(el, 'content') === '1.2'],
+        ...(metas.length ? [['<meta name="cm-kind">, after cm-kit', el => el.matches('meta[name="cm-kind"]')]] : []),
         ['theme pre-paint script', el => el.matches('script:not([src])') && same(el.textContent, kit.prepaint)],
         ...fonts,
         off
@@ -46,7 +57,6 @@ export default [
           : ['ECharts 5.5.1', el => el.matches('script') && attr(el, 'src') === ECHARTS],
       ];
       const kids = [...d.head.children];
-      const out = [];
       let last = -1, lastName = '';
       for (const [name, test] of want) {
         const at = kids.findIndex(test);

@@ -16,19 +16,6 @@ Inconsistencies inside the original library are tracked separately in
 Items answered on 13 Oct 2026 (decision record 055) and 16 Oct 2026 (records 058 to 063) are no
 longer listed.
 
-## Jump targets under the top bar
-
-- **Spec:** "scroll offsets of 58 and 80px clear the sticky top bar" (`SPEC.md` line 96).
-- **Code:** the top bar is sticky (`cm-report.css` line 106). Sections get the 58px offset (line 136)
-  and notes the 80px one (line 389). Footnote markers in the text (`a.cm-fn`), table titles, figures
-  and disclosures get none.
-- **Now:** on the sample report, every footnote's back link puts its marker under the top bar, at
-  1440px and at 390px. At 570px wide and below the bar wraps to 94 to 124px, so notes stopping at
-  80px are hidden too. The kit pages link no table, figure or disclosure.
-- **Question:** should every linked target clear the top bar by an offset that follows the bar's
-  height, or should the bar keep to one row at every width, with the fixed offsets extended to the
-  targets that lack one?
-
 ## Category axis titles
 
 - **Spec:** axis-title placement and plot top and bottom padding are applied automatically and never

@@ -6,6 +6,7 @@
    [data-spark]            sparkline from data-values="1,2,3"
    table[data-sortable]    click-to-sort headers (th.num sorts numerically; td[data-value] overrides text)
    .cm-toc a[href^="#"]    scroll-spy sets aria-current on the visible section
+   .cm-topbar              its height, measured at load and on every change, sets --cm-topbar-h, the offset that keeps link targets clear of it
    html[data-cm-static]    draws every chart at load with no animation (headless / PDF pipelines); CM.drawAll() does the same on demand */
 (function () {
   'use strict';
@@ -236,6 +237,17 @@
     });
   }
 
+  /* ---------- top bar offset ---------- */
+  // The stylesheet stops every link target 24px below the top bar, using the height measured here.
+  // The bar wraps to more rows on narrow screens and when its fonts arrive, so it is measured again
+  // on every change.
+  function initTopbar() {
+    var bar = document.querySelector('.cm-topbar');
+    var set = function () { doc.style.setProperty('--cm-topbar-h', (bar ? bar.getBoundingClientRect().height : 0) + 'px'); };
+    set();
+    if (bar && 'ResizeObserver' in window) new ResizeObserver(set).observe(bar);
+  }
+
   /* ---------- table of contents scroll-spy ---------- */
   function initToc() {
     var links = Array.prototype.slice.call(document.querySelectorAll('.cm-toc a[href^="#"]'));
@@ -279,7 +291,7 @@
       if (t) setTheme(doc.dataset.theme === 'dark' ? 'light' : 'dark');
       if (e.target.closest('[data-cm-print]')) window.print();
     });
-    initTables(); initToc(); initCharts();
+    initTopbar(); initTables(); initToc(); initCharts();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
   window.CM = { draw: draw, drawAll: drawAll, redraw: redrawAll, setTheme: setTheme, tokens: tokens, beforePrint: beforePrint, afterPrint: afterPrint };

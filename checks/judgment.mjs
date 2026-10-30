@@ -78,7 +78,9 @@ export default [
       }
       const parts = [...section.querySelectorAll('.cm-prose, .cm-kpi__value, .cm-findings > li')];
       const missing = new Set();
-      for (const p of parts) for (const n of nums(H.text(p))) if (!body.has(n)) missing.add(`${n} (${p.matches('.cm-kpi__value') ? 'KPI' : p.matches('li') ? 'finding' : 'lede'})`);
+      // Footnote and citation markers are references, not numbers the summary states.
+      const said = p => { const c = p.cloneNode(true); c.querySelectorAll('a.cm-fn, a.cm-cite').forEach(a => a.remove()); return H.text(c); };
+      for (const p of parts) for (const n of nums(said(p))) if (!body.has(n)) missing.add(`${n} (${p.matches('.cm-kpi__value') ? 'KPI' : p.matches('li') ? 'finding' : 'lede'})`);
       for (const m of missing) out.push({ where: H.path(section), value: `${m} does not reappear in the body` });
       return out;
     },

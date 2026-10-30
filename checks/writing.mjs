@@ -8,8 +8,8 @@
 //             as one word. Text in a closed <details> counts: it is part of the document.
 //   prose     paragraphs, list items, definitions, questions and their answers, callout bodies,
 //             captions, process-step bodies, quotes, and any other block whose own text ends a
-//             sentence. Labels, chips, tags, footnote markers, metadata and property sheets are text,
-//             not prose.
+//             sentence. Labels, chips, tags, footnote and citation markers, metadata and property
+//             sheets are text, not prose.
 //   headings  h1 to h6, and table titles without their kind label.
 // A word is a run of characters between spaces that holds a letter or digit (SPEC section 7). A
 // sentence ends at . ! or ? followed by a space and a capital, a digit or an opening quote.
@@ -23,7 +23,7 @@ function prepare() {
   const main = document.querySelector('main') || document.body;
   const OUT = 'script, style, template, noscript, svg, pre, .cm-code, table, .cm-table-wrap, .cm-data, '
     + '.cm-chart, [data-spark], .cm-sr, [aria-hidden="true"], [hidden]';
-  const NOT_PROSE = 'a.cm-fn, a.cm-back, .cm-chip, .cm-chips, .cm-tag, .cm-id, .cm-label, .cm-delta, .cm-meta, '
+  const NOT_PROSE = 'a.cm-fn, a.cm-cite, a.cm-back, .cm-chip, .cm-chips, .cm-tag, .cm-id, .cm-label, .cm-delta, .cm-meta, '
     + 'sup, .cm-table-title__kind, .cm-figure__kind';
   const BLOCK = 'address, article, aside, blockquote, br, dd, details, div, dl, dt, figcaption, figure, footer, '
     + 'header, li, ol, p, section, summary, ul, .cm-findings__claim, .cm-caption__line';
@@ -89,7 +89,7 @@ function prepare() {
 
   const headings = [...main.querySelectorAll('h1, h2, h3, h4, h5, h6, .cm-table-title')]
     .filter(h => !isOut(h))
-    .map(h => ({ el: h, text: read(h, '.cm-table-title__kind, a.cm-fn, .cm-chip') }))
+    .map(h => ({ el: h, text: read(h, '.cm-table-title__kind, a.cm-fn, a.cm-cite, .cm-chip') }))
     .filter(h => /[\p{L}\p{N}]/u.test(h.text));
 
   // Every text node a reader reads, with placeholders removed: for rules on single words and short

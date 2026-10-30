@@ -9,7 +9,7 @@ Kit files (all in `report-kit/`):
 | File | Role |
 | --- | --- |
 | `cm-report.css` | Tokens (light, dark, print) and every component class. The only stylesheet. |
-| `cm-report.js` | Theme toggle, ECharts theme + draw-in, sortable tables, contents scroll-spy, link targets clear of the top bar, print prep. |
+| `cm-report.js` | Theme toggle, ECharts theme + draw-in, sortable tables, contents scroll-spy, link targets clear of the top bar, citation back links, print prep. |
 | `template.html` | Starter. Copy it for every report. |
 | `SPEC.md` | This file. |
 
@@ -81,7 +81,7 @@ Semantic meaning is fixed: ok = healthy/validated, warn = attention/at risk, cri
 | T5 | `.cm-t5`, `.cm-timeline__title`, `.cm-step__title`, `.cm-findings__claim`, terms | 16–18 / 700–800 | none |
 | Body | default | 16 / 400 / 1.9 | Reading column, max 70ch |
 | Small | `.cm-small`, text inside surfaces | 15 / 400 / 1.8 | — |
-| Label | `.cm-label`, kinds, metadata keys, callout, definition and question labels, table heads, contents rail and process step numbers; `.cm-tag`, `.cm-delta` | 10 / 800 / caps, +0.08em | — |
+| Label | `.cm-label`, kinds, metadata and status keys, callout, definition and question labels, table heads, contents rail and process step numbers; `.cm-tag`, `.cm-delta` | 10 / 800 / caps, +0.08em | — |
 | Chip | `.cm-chip`, text centred in the 20px pill | 9 / 800 / caps, +0.08em, line height 10px | — |
 | Role tag | property-sheet `<sup>` | 10 / 700, sentence case | — |
 | Meta | `.cm-meta` | 13 / 400 | Dates, sizes, provenance |
@@ -106,7 +106,7 @@ The rule thickness follows the heading level; the CSS applies it. Headings never
 | Level | Class | Where | Budget |
 | --- | --- | --- | --- |
 | S1 | `.cm-tile` | Nested inside a surface | Unlimited |
-| S2 | `.cm-card`, `.cm-figure`, `.cm-kpi`, `.cm-table-wrap`, `.cm-collapse` | Top-level surfaces | Unlimited |
+| S2 | `.cm-card`, `.cm-figure`, `.cm-kpi`, `.cm-table-wrap`, `.cm-collapse`, `.cm-status` | Top-level surfaces | Unlimited; one `.cm-status` per document |
 | S3 | `.cm-summary`, `.cm-code` | Summary box, code | 1 summary per report |
 | L1e | `.cm-emph` | A bottleneck step, a must-read card | ≤ 1 per section |
 | L2 | `.cm-featured` | Recommendations card | Exactly 1 per report; none when Recommendations is left out (§7) |
@@ -123,8 +123,8 @@ Order is fixed. Required blocks are never omitted, except as **Blocks left out**
 4. **Part 01 · Executive summary** (required) — 2–4 sentence lede; KPI strip of 2–4; `.cm-summary` with 3–5 key findings.
 5. **Part 02 … N** (required) — one topic per section. Inside: TL;DR or lede stating the finding → figure(s) or table → at most two callouts → optional questions block.
 6. **Recommendations** (recommended) — its own section after the body and before the appendices, holding the single `.cm-featured` card; each action has owner, due date and expected impact chips.
-7. **Appendix A · Methodology** (required when numbers are computed) — `.cm-section--part`; collapsibles: A.1 Terms (a `.cm-def` block, open), A.2 Data sources and coverage, A.3 Queries.
-8. **Appendix B · Notes & sources** (required) — `.cm-notes` then `.cm-sources`.
+7. **Appendix A · Methodology** (required when numbers are computed): `.cm-section--part`; collapsibles: A.1 Terms (a `.cm-def` block, open), A.2 Data sources and coverage (holding the limitation register when the document has three or more limits, §8.22), A.3 Queries.
+8. **Appendix B · Notes & sources** (required): `.cm-notes`, then the source register `.cm-sources` (§8.21); then the revision history and the change log, when the document has them (§8.22).
 9. **Footer** (required) — title, version + published date, owner, `Content Morphia Report Kit 1.2`.
 
 **Blocks left out.** A document without measured numbers (a briefing, a guide, interview preparation) can lack the content of some blocks the kit otherwise requires. It leaves such a block out, invents nothing to fill it, and puts an omission comment where the block would be. The comment starts `cm-omit`, names the block, and says why after a colon:
@@ -366,18 +366,15 @@ States: `is-done` (hollow ink marker), `is-current` (filled accent, ≤ 1), `is-
 
 ### 8.15 Footnotes and sources
 
-In text, after punctuation: `<a class="cm-fn" href="#fn-1" id="fnref-1">1</a>` (brackets are added by CSS). In Appendix B:
+In text, after punctuation: `<a class="cm-fn" href="#fn-1" id="fnref-1">1</a>` (brackets are added by CSS). In Appendix B, the notes come first, then the source register (§8.21):
 
 ```html
 <ol class="cm-notes">
   <li id="fn-1">Note text. <a class="cm-back" href="#fnref-1" aria-label="Back to text">↩</a></li>
 </ol>
-<ol class="cm-sources">
-  <li><span class="cm-tag">Int</span><span>Dataset or document · <code>schema.table</code></span><span class="cm-meta">refreshed YYYY-MM-DD</span></li>
-</ol>
 ```
 
-Source tags: `Int`, `Ext`, `PDF`, `Web`, `API`. External sources link their URL (printed automatically).
+A note explains a point in the text. A source is cited with `a.cm-cite` and listed in `ol.cm-sources`, as §8.21 sets out.
 
 ### 8.16 Collapsible
 
@@ -423,6 +420,110 @@ Token spans: `k` keyword, `s` string, `n` number, `f` callable, `c` comment. Key
 ```
 
 The only `cm-featured` in the report, inside the Recommendations section. 1–5 actions. Each action opens with one claim line, the action as an imperative sentence, then one sentence of reason and its chips. The card width follows the reading measure.
+
+### 8.21 Sources and citations
+
+The source register lists every source a document rests on, and closes Appendix B after the notes. A citation ties a claim to its sources; an evidence date says how current a claim is.
+
+```html
+<p>Median first response fell to 2h 14m.<a class="cm-cite" href="#src-1" id="cite-1">S1</a></p>
+
+<ol class="cm-sources">
+  <li id="src-1">
+    <span class="cm-id">S1</span>
+    <span><b>Helpdesk warehouse, ticket facts</b><br><span class="cm-tag">Dataset</span> Support Operations Analytics · <code>support.tickets_fact</code> <a class="cm-back" href="#cite-1" aria-label="Back to text">↩</a></span>
+    <span class="cm-meta">refreshed <time datetime="2026-10-05">2026-10-05</time></span>
+  </li>
+</ol>
+```
+
+- Each entry carries a key, a title, its author or publisher, a type, a locator and a date.
+- The key is `S` and a number, in `.cm-id`. The entry's id is `src-` and the same number: `S4` is `src-4`. A source keeps its key in every version, and a new source takes the next unused number. Entries run in key order.
+- The type is a tag from a closed set: `Dataset`, `Report`, `Interview`, `Document`, `System export`.
+- The locator says where to find the source: its URL as a link, or the system and path in `<code>`. Printing adds each URL after its link.
+- The date is the one the source carries, as an ISO date in `<time datetime>`. A word before it says what it dates: published, refreshed, exported, recorded or accessed.
+- A citation is `a.cm-cite` after punctuation, like a footnote reference. Its text is the source's key; its id is unique, `cite-1`, `cite-2` in order of appearance. A claim with several sources carries one citation for each, side by side.
+- A cited entry ends with one back link, `a.cm-back`, to its first citation. Following any citation lands on the entry, and the kit's script points the back link at that citation. An entry no claim cites is listed with no back link.
+- A source count never stands in for confidence. The kit has no confidence chip or score; what several sources agree on is stated as a claim, with its citations.
+
+An evidence date says how current a figure, table or claim is: "as of" and a `<time datetime>`. In prose the date is readable (`as of <time datetime="2026-09-30">30 September</time>`); in a caption it is ISO. Every `<time>` carries an ISO `datetime`.
+
+When two sources give different values for one quantity, a disagreement block states both, each with its citation, and the reason they differ.
+
+```html
+<div class="cm-disagree">
+  <span class="cm-label">Disagreement</span>
+  <p class="cm-t5">Tickets handled in Q2 2026</p>
+  <dl>
+    <div><dt>44,870</dt><dd>Helpdesk warehouse, re-run 2026-10-05<a class="cm-cite" href="#src-1" id="cite-4">S1</a></dd></div>
+    <div><dt>45,310</dt><dd>Q2 review, published 2026-07-13<a class="cm-cite" href="#src-4" id="cite-5">S4</a></dd></div>
+  </dl>
+  <p>The re-run drops 440 merged duplicates that the Q2 review counted. This report uses the re-run.</p>
+</div>
+```
+
+- The label reads Disagreement. The line under it names the quantity, with its period.
+- Two values, or three when three sources differ, each as its source gives it, with the source named and cited.
+- The closing paragraph gives the reason the values differ and says which value the document uses.
+- It sits after the figure, table or paragraph that uses the quantity.
+
+### 8.22 Status and change
+
+Four blocks say what a document knows about itself. The status block holds the numbers that will change; the change log and the revision history record what changed; the limitation register lists what the document cannot show.
+
+The status block:
+
+```html
+<div class="cm-status cm-bleed">
+  <div class="cm-status__head"><span class="cm-label">Status</span><span class="cm-meta">as of <time datetime="2026-10-30">2026-10-30</time></span></div>
+  <dl>
+    <div><dt>Shifts staffed</dt><dd>14 of 16</dd></div>
+    <div><dt>Monday first response</dt><dd>2h 35m</dd></div>
+  </dl>
+</div>
+```
+
+- It is the one place for the numbers in a document that will change (§13.2). A document has one at most, after the lede of the section whose work it tracks.
+- Its head carries the date its numbers were true, as an ISO date in `<time datetime>`.
+- Steps, rules and definitions elsewhere name a quantity and leave its value to the block.
+- Keys are 1 to 3 words. Values carry their unit, and a count against a total reads `14 of 16`.
+
+The change log:
+
+```html
+<ol class="cm-changes">
+  <li><span class="cm-tag">Correction</span><span>APAC weekday first response corrected from 2h 41m to 2h 31m. <a href="#teams">Part 04</a></span><span class="cm-meta"><time datetime="2026-10-20">2026-10-20</time></span></li>
+</ol>
+```
+
+- One entry for each change in meaning. Rewording, reordering and restyling are not changes.
+- The kind is a tag from a closed set: `Added`, `Revised`, `Removed`, `Correction`. A correction also stands where the error was, as a correction callout (§8.4).
+- Each entry says what changed in one sentence and links the section, figure or table it changed.
+- Newest first, since a returning reader looks for the latest change. A timeline runs oldest first because it tells a sequence (§8.12).
+
+The revision history:
+
+```html
+<ol class="cm-versions">
+  <li><span class="cm-id">v1.1</span><span>APAC weekday first response corrected; limitation register added.<br><span class="cm-meta">Support Operations Analytics</span></span><span class="cm-meta"><time datetime="2026-10-20">2026-10-20</time></span></li>
+</ol>
+```
+
+- One entry for each published version: the version, a summary of what changed, the owner who published it, and the date.
+- Newest first. The newest entry carries the masthead's Version and Published date.
+- A document carries a revision history from its second version. The revision history, then the change log, close Appendix B after the sources.
+
+The limitation register:
+
+```html
+<ul class="cm-limits">
+  <li><span><b>Unstaffed APAC weekends</b><br>APAC first response counts weekend hours, so its median reads 3h 20m against 2h 31m on weekdays.</span><span class="cm-chips"><span class="cm-chip cm-chip--warn">Open</span></span></li>
+</ul>
+```
+
+- Each limit has a name of a few words, its effect on what the document shows in one sentence, and a status.
+- The status is a chip from a closed set: `Open` (`cm-chip--warn`), `By design` (`cm-chip--note`), `Resolved` (`cm-chip--ok`). The word carries the meaning; colour is only the chip's offset. An open limit with a planned fix adds a plain chip with its date: `Fix due 2026-12-14`.
+- One or two limits are limitation callouts, where a reader would look for the missing answer (§8.4). Three or more go in the register instead, in Appendix A under A.2.
 
 ## 9. Charts
 
@@ -537,7 +638,7 @@ Components set limits of their own. Where a component limit and a limit above bo
 - Neutral third person, written for any reader. No “you”, “your”, “we” or “our” in the body; a document is never a message to the person who asked for it. A pull quote is verbatim (§8.9) and keeps its speaker's words.
 - No chat-style labels such as “Done so far”, “Your part” or “Next up”. A person's action appears as a role-named item (“Owner approval of the shortlist”) with what it does and what it unblocks.
 - A document describes its subject as it stands. It carries no history of how it was made and no notes about the work.
-- Numbers that will change never sit inside definitions of steps or rules. They go in one dated status block.
+- Numbers that will change never sit inside definitions of steps or rules. They go in one dated status block (§8.22).
 - No signposting, such as “this section describes”, “note that” or “as shown below”.
 - No hype, no rhetorical questions, no “this isn't X, it's Y”.
 - No em dashes or en dashes in prose.
@@ -568,10 +669,11 @@ Headings are `h1` to `h6` and table titles.
 8. Mono only inside code; no colored fills behind labels or chips.
 9. No bold label or opening bold phrase runs into its text. Nothing closer than 24px to the next block.
 10. Chart JSON parses; colors only via `$tokens`; bars/areas start at zero.
-11. Footnotes link both ways; sources list every dataset.
+11. Footnotes and citations link both ways; every source has a key, type, locator and date, and the sources list every dataset (§8.21).
 12. Contents rail links match section ids; every section has `aria-labelledby`.
 13. Opened in light, dark and print preview with no console errors.
 14. Writing within §13: prose inside the limits, in plain words and neutral third person, with no em or en dashes; each section leads with its finding; headings are plain noun phrases in sentence case.
+15. Changing numbers sit in one dated status block; change log and revision history run newest first with dated entries; each limitation status is a word from its set (§8.22).
 
 ## 15. Changes from Content Morphia Foundations
 
@@ -602,4 +704,4 @@ Changed in 1.2:
 
 Added for reports: ECharts chart method and theme; categorical and sequential palettes; dark token set; print rules; report masthead and contents rail; KPI strip; key findings; native tables with sorting and in-cell bars; pull quote; timeline; process diagram; definition, questions and property-sheet blocks; footnotes; collapsible appendix; chart draw-in motion; packaging modes.
 
-Not yet covered: maps, network/hierarchy diagrams, interactive filters, a PDF cover page, revision history. Use a figure with `cm-slot` and flag the gap in an HTML comment until these exist.
+Not yet covered: maps, network/hierarchy diagrams, interactive filters, a PDF cover page. Use a figure with `cm-slot` and flag the gap in an HTML comment until these exist.

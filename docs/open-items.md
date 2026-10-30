@@ -69,16 +69,6 @@ longer listed.
 - **Question:** should the spec allow plot padding set by hand, and say when, or should the pages drop
   it and the chart script compute what those charts need?
 
-## Emphasis demo
-
-- **Spec:** "≤ 3 highlights per paragraph" (`SPEC.md` line 243). Inside a gallery demo, every rule
-  holds (`docs/decision-framework.md`, "The kit's own pages follow the kit").
-- **Page:** the inline emphasis demo puts all five highlight tones in one paragraph (gallery
-  line 384).
-- **Now:** no check counts highlights per paragraph, so the page passes.
-- **Question:** should the demo spread its five tones over two paragraphs, with a check for the limit
-  added, or should the demo be exempt from the limit?
-
 ## Concept terms and links
 
 - **Spec:** `cm-concept` "underlines a key term at first use" (`SPEC.md` line 243).

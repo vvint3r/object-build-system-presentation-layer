@@ -16,18 +16,6 @@ Inconsistencies inside the original library are tracked separately in
 Items answered on 13 Oct 2026 (decision record 055), 16 Oct 2026 (records 058 to 063) and 30 Oct
 2026 (records 070 to 073) are no longer listed.
 
-## Focus on one mark
-
-- **Ruling:** a picked-out mark keeps the default colour, and the rest of its series takes
-  `$context` (record 069).
-- **Gallery:** the scatter demo (6.5) picks out one point in `$c1` and keeps the other four in `$c2`,
-  black. Its description says "the rest stay `$c2`".
-- **Now:** under the ruling, the four points turn grey. `$context` measures 1.41:1 in light and 2.02:1
-  in dark against the figure surface, and the context-mark rule would then ask for a value label on
-  each of them.
-- **Question:** does the ruling apply to the scatter, so its other points turn grey, or does it cover
-  bars and lines only, so the scatter keeps its black points?
-
 ## Bold labels before a colon
 
 - **Spec:** "Text before a colon is bold when it leads a sentence, list item, caption or callout body"
@@ -41,18 +29,6 @@ Items answered on 13 Oct 2026 (decision record 055), 16 Oct 2026 (records 058 to
   definitions and callouts lead with bold labels.
 - **Question:** should a label before a colon stay bold, or should run-in bold labels go, with
   captions recast as a title and one sentence and labelled terms set as headings or table rows?
-
-## Heading case
-
-- **Spec:** "Sentence case for all headings and labels; CSS uppercases labels" (`SPEC.md` section
-  13.3).
-- **Owner's heading examples:** "Primary Pillars" and "Type Register", in title case
-  (`docs/subprojects/writing-rules.md`, "Owner-level calls").
-- **Now:** the `sentence-case` check warns on a heading in title case. Every heading on the kit pages
-  is in sentence case, including the sample report's title, "Customer support operations review, Q3
-  2026".
-- **Question:** should headings stay in sentence case, or take title case, and if title case, at
-  which tiers?
 
 ## TL;DR and the section lede
 

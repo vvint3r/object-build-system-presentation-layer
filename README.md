@@ -4,8 +4,8 @@ Source of truth for **content-morphia**, the design system for a structured know
 baseline is **Report Kit 1.1**: one stylesheet, one script, a template and an agent specification for
 publishing reports, documents and analyses as single HTML files, with light, dark and print built in.
 
-Claude Design consumes the system through `/design-sync` into the project **Content Morphia View Layer**.
-The system is authored here, not there.
+Claude Design, which now lives inside Claude, consumes the system. The system is authored here, not
+there.
 
 | Start here | For |
 | --- | --- |
@@ -19,8 +19,9 @@ The system is authored here, not there.
 
 ## Status
 
-Migration steps 1 to 4 of 8 are done. The three exports are imported, the original library's
-specification is split into dated decisions and reference rules, Report Kit 1.1 is the baseline, and
-its specification and code agree. Next is step 5: automated checks on rendered pages.
+As of 26 Oct 2026, migration steps 1 to 5 of 8 are done. The three exports are imported, the original
+library's specification is split into dated decisions and reference rules, Report Kit 1.1 is the
+baseline, its specification and code agree, and automated checks assert its rules on rendered pages.
+Next is step 7: diagrams, charts and visualizations, built from the owner's reference set.
 
 To preview the kit: `npm install`, then `npm run preview -- "kit/Sample Report - Q3 Support Review.html"`.

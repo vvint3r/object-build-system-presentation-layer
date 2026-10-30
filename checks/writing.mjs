@@ -11,7 +11,7 @@
 //             sentence. Labels, chips, tags, footnote and citation markers, metadata and property
 //             sheets are text, not prose.
 //   headings  h1 to h6, and table titles without their kind label.
-// A word is a run of characters between spaces that holds a letter or digit (SPEC section 7). A
+// A word is a run of characters between spaces that holds a letter or digit (SPEC section 7.1). A
 // sentence ends at . ! or ? followed by a space and a capital, a digit or an opening quote.
 //
 // Measured limits are failures; rules that need a reader's judgment are warnings. Pull quotes are
@@ -76,7 +76,7 @@ function prepare() {
   }).filter(u => u.words);
 
   // The lede: the first paragraph of a section body, when nothing else comes before it. A section
-  // whose header carries a TL;DR has the TL;DR in that place (SPEC section 7), under its own limit.
+  // whose header carries a TL;DR has the TL;DR in that place (SPEC section 8.1), under its own limit.
   const ledes = new Set();
   for (const s of main.querySelectorAll('section.cm-section')) {
     if (s.parentElement.closest('section') || s.querySelector(':scope > .cm-section__head > .cm-section__tldr')) continue;

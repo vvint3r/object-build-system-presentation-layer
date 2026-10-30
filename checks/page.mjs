@@ -114,9 +114,20 @@ export function install(cfg) {
   let source;
   H.source = () => source || (source = new DOMParser().parseFromString(cfg.src, 'text/html'));
 
+  // The document's kind, from <meta name="cm-kind"> in the page as written (SPEC.md section 7): report,
+  // guide or reference. A page without the tag is a report; head-order fails a value outside the three,
+  // and the other checks then read the page as a report.
+  H.KINDS = ['report', 'guide', 'reference'];
+  H.kindMeta = () => [...H.source().querySelectorAll('meta[name="cm-kind"]')];
+  H.kind = () => {
+    const m = H.kindMeta()[0];
+    const v = m ? (m.getAttribute('content') || '').trim() : 'report';
+    return H.KINDS.includes(v) ? v : 'report';
+  };
+
   // An omission comment inside root: <!-- cm-omit {name}: {reason} -->, with a reason after the
-  // colon. A document without measured numbers marks a required block it leaves out this way
-  // (SPEC.md section 7); the checks for that block accept the comment in place of the block.
+  // colon. A document marks a required block of its kind that it has no content for this way
+  // (SPEC.md section 7.5); the checks for that block accept the comment in place of the block.
   H.omitted = (root, name) => {
     if (!root) return false;
     const re = new RegExp(`^\\s*cm-omit ${name}:\\s*\\S`);

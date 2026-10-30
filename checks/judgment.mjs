@@ -4,14 +4,16 @@
 
 export default [
   {
-    // The report title runs 4 to 10 words; a figure title at most 10.
-    name: 'title-length', level: 'warn', source: 'SPEC §7; §9; §14 item 2', once: true,
+    // A report's or a guide's title runs 4 to 10 words; a reference's title is the name of the thing
+    // it describes, 1 to 10 words. A figure title runs at most 10.
+    name: 'title-length', level: 'warn', source: 'SPEC §7.1; §9; §14 item 2', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, out = [];
       const words = el => H.text(el).split(' ').filter(w => /[\p{L}\p{N}]/u.test(w)).length;
+      const min = H.kind() === 'reference' ? 1 : 4;
       for (const h of H.source().querySelectorAll('h1.cm-mast__title')) {
         const n = words(h);
-        if (!H.exempt(h, check) && (n < 4 || n > 10)) out.push({ where: H.path(h), value: `${n} words (4 to 10)` });
+        if (!H.exempt(h, check) && (n < min || n > 10)) out.push({ where: H.path(h), value: `${n} words (${min} to 10)` });
       }
       for (const t of H.source().querySelectorAll('.cm-figure__title')) {
         const n = words(t);
@@ -24,7 +26,7 @@ export default [
   {
     // The summary strip holds 2 to 4 KPIs. A strip of fewer than four carries cm-kpis--3 or --2,
     // and every KPI states its comparison in a delta or a foot.
-    name: 'kpis', level: 'warn', source: 'SPEC §7; §8.2; §14 item 3', once: true,
+    name: 'kpis', level: 'warn', source: 'SPEC §7.2; §8.2; §14 item 3', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, out = [];
       for (const strip of H.source().querySelectorAll('.cm-kpis')) {
@@ -111,7 +113,7 @@ export default [
 
   {
     // The executive summary opens with a lede of 2 to 4 sentences.
-    name: 'lede-length', level: 'warn', source: 'SPEC §7', once: true,
+    name: 'lede-length', level: 'warn', source: 'SPEC §7.2', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, d = H.source();
       const sum = d.querySelector('.cm-summary');
@@ -141,7 +143,7 @@ export default [
 
   {
     // At most two callouts per section and two in a row, and at most one "important" per section.
-    name: 'callouts', level: 'warn', source: 'SPEC §7; §8.4', once: true,
+    name: 'callouts', level: 'warn', source: 'SPEC §7.2; §8.4', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, d = H.source(), out = [];
       for (const s of d.querySelectorAll('section.cm-section')) {
@@ -164,7 +166,7 @@ export default [
   {
     // Reading time is the word count of the report body divided by 220, rounded up. Text the
     // reader does not see as prose (chart data, data fallbacks, hidden text) is not counted.
-    name: 'reading-time', level: 'warn', source: 'SPEC §7', once: true,
+    name: 'reading-time', level: 'warn', source: 'SPEC §7.1', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, d = H.source();
       const main = d.querySelector('main');
@@ -241,14 +243,39 @@ export default [
   },
 
   {
-    // A report with computed numbers (KPIs, charts or tables) carries a methodology appendix.
-    name: 'methodology', level: 'warn', source: 'SPEC §7', once: true,
+    // A report with computed numbers (KPIs, charts or tables) carries a methodology appendix. The
+    // appendix is part of the report's anatomy; a guide and a reference state their rules and
+    // measurement in their own parts (SPEC §7.3, §7.4).
+    name: 'methodology', level: 'warn', source: 'SPEC §7.2', once: true, kinds: ['report'],
     inPage: ({ check }) => {
       const H = window.__cm, d = H.source();
       const numbers = [...d.querySelectorAll('.cm-kpi, .cm-chart, table.cm-table')].filter(e => !H.exempt(e, check) && !e.closest('.cm-data'));
       if (!numbers.length) return [];
       const has = [...d.querySelectorAll('section.cm-section .cm-section__title')].some(h => /methodology/i.test(H.text(h)));
       return has ? [] : [{ where: 'body', value: `${numbers.length} KPIs, charts or tables and no methodology appendix` }];
+    },
+  },
+
+  {
+    // A procedure holds 3 to 9 steps; a step title is an imperative phrase of at most 8 words, and
+    // the outcome is one sentence (SPEC §8.23).
+    name: 'procedure-length', level: 'warn', source: 'SPEC §8.23', once: true,
+    inPage: ({ check }) => {
+      const H = window.__cm, out = [];
+      const words = s => s.split(' ').filter(w => /[\p{L}\p{N}]/u.test(w)).length;
+      for (const ol of H.source().querySelectorAll('ol.cm-procedure')) {
+        if (H.exempt(ol, check)) continue;
+        const steps = [...ol.children].filter(c => c.localName === 'li');
+        if (steps.length < 3 || steps.length > 9) out.push({ where: H.path(ol), value: `${steps.length} steps (3 to 9)` });
+        for (const li of steps) {
+          const t = li.querySelector(':scope > .cm-procedure__title');
+          if (t && words(H.text(t)) > 8) out.push({ where: H.path(t), value: `${words(H.text(t))} words (at most 8)` });
+          const o = li.querySelector(':scope > .cm-procedure__outcome > p');
+          const n = o ? H.text(o).split(/(?<=[.!?])\s+(?=[\p{Lu}\p{N}“"])/u).filter(Boolean).length : 0;
+          if (n > 1) out.push({ where: H.path(o), value: `${n} sentences in the outcome (1)` });
+        }
+      }
+      return out;
     },
   },
 

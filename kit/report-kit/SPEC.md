@@ -10,22 +10,24 @@ Kit files (all in `report-kit/`):
 | --- | --- |
 | `cm-report.css` | Tokens (light, dark, print) and every component class. The only stylesheet. |
 | `cm-report.js` | Theme toggle, ECharts theme + draw-in, sortable tables, contents scroll-spy, link targets clear of the top bar, citation back links, print prep. |
-| `template.html` | Starter. Copy it for every report. |
+| `template.html` | Report starter. Copy it for every report. |
+| `template-guide.html` | Guide starter. Copy it for every guide. |
+| `template-reference.html` | Reference starter. Copy it for every reference. |
 | `SPEC.md` | This file. |
 
-Human-readable version with live examples and copy-paste markup: `Report Kit - Spec & Gallery.html`. Reference output: `Sample Report - Q3 Support Review.html`.
+Human-readable version with live examples and copy-paste markup: `Report Kit - Spec & Gallery.html`. Reference output, one document per kind (§7): `Sample Report - Q3 Support Review.html`, `Guide - Billing Escalation.html` and `Reference - First Response Time.html`.
 
 ---
 
 ## 1. Non-negotiable rules
 
-1. **MUST** start from `template.html` and compose only from classes in `cm-report.css`.
+1. **MUST** start from the template for the document's kind (§7): `template.html` for a report, `template-guide.html` for a guide, `template-reference.html` for a reference. Compose only from classes in `cm-report.css`.
 2. **MUST NOT** add stylesheets, `<style>` blocks, classes of your own, or inline `style` attributes. Allowed inline custom properties only: `--h` (chart height), `--v` (bar/meter fill), `--t` (meter target), `--steps` (process step count), plus `style="align-items:center"` or `style="align-items:start"` on a grid.
 3. **MUST NOT** write hex, rgb or named colors anywhere in markup. In chart JSON use token strings (`"$accent"`, see §9).
 4. **Text is black or white.** **MUST NOT** use grey text or lowered opacity for de-emphasis. Rank text with weight: 300 (de-emphasised, kickers), 400 (body), 600 (code, chart axis labels), 700 (bold phrase, row keys, role tags), 800 (labels, block titles, terms), 900 (page/section title). These are the weights the kit loads; use no other. Two exceptions to black or white, both applied by the CSS: keywords, strings and numbers in code take the syntax colours (§8.17), and the verdict chip's text takes the paper colour on its ink fill.
 5. **One family for text, one for code.** Nunito for all text, labels, tables, chips and charts. JetBrains Mono **only** for code: `<code>`, `.cm-code`, file names. **MUST NOT** use mono for labels, numbers, dates or IDs.
 6. **Accent is never text.** Teal appears only as bars, underlines, borders, chips, chart marks and the reserved shadow.
-7. **One emphasis per view.** Exactly one `cm-featured` (L2, teal offset) per report, on the recommendations; none when a document with no actions leaves the Recommendations section out (§7). At most one solid verdict chip (`cm-chip--verdict`) per table or figure. One `cm-summary` per report.
+7. **One emphasis per view.** Exactly one `cm-featured` (L2, teal offset) per report, on the recommendations; none when a report with no actions leaves the Recommendations section out (§7.5). At most one solid verdict chip (`cm-chip--verdict`) per table or figure. One `cm-summary` per report. A guide or a reference carries no `cm-featured` and no `cm-summary`.
 8. **Color never fills a label.** Status color appears as a chip's 2px offset, a callout label's underline, a table row flag, or a chart mark. **MUST NOT** put a colored background behind a chip, tag or label.
 9. **Meaning never rests on color alone.** Every status chip and flagged row carries a word; every highlight is backed by the sentence; every recommended column carries ★.
 10. **No corners outside the radius set:** 2 thin bar, 4 chip/tag, 6 code chip, 8 input/slot, 12 table/tile, 14 card, 999 pill. Every drawn shape is rounded; square corners belong only to lines (rules, dotted connectors, the timeline rail), masked icons and the full-width top bar. The CSS applies them; never override.
@@ -46,7 +48,7 @@ Two modes. Both use the same markup.
 
 **Self-contained** (for email or attachments): replace the CSS link with `<style>` + the full contents of `cm-report.css`, and the kit script with `<script>` + the full contents of `cm-report.js`, placed as the last element in `<body>`. Keep the font and ECharts CDN links. Do not edit the pasted code.
 
-Required `<head>` (copy from `template.html`, in this order): charset, viewport, `<title>{Report title} · {Period}</title>` (`<title>{Report title}</title>` when the document covers no period, §7), `<meta name="cm-kit" content="1.2">`, the inline theme pre-paint script, font preconnects + Google Fonts link (Nunito 300–900 + italic 300/400, JetBrains Mono 400/600/700), kit CSS, ECharts 5.5.1, kit JS. `<html lang>` **MUST** be set.
+Required `<head>` (copy from the kind's template, in this order): charset, viewport, `<title>{Report title} · {Period}</title>` (`<title>{Title}</title>` for a guide, a reference, or a report that covers no period, §7), `<meta name="cm-kit" content="1.2">`, `<meta name="cm-kind" content="{kind}">` naming the kind (`report`, `guide` or `reference`; a page without it is a report, §7), the inline theme pre-paint script, font preconnects + Google Fonts link (Nunito 300 to 900 + italic 300/400, JetBrains Mono 400/600/700), kit CSS, ECharts 5.5.1, kit JS. `<html lang>` **MUST** be set.
 
 ## 3. Tokens
 
@@ -107,48 +109,111 @@ The rule thickness follows the heading level; the CSS applies it. Headings never
 | --- | --- | --- | --- |
 | S1 | `.cm-tile` | Nested inside a surface | Unlimited |
 | S2 | `.cm-card`, `.cm-figure`, `.cm-kpi`, `.cm-table-wrap`, `.cm-collapse`, `.cm-status` | Top-level surfaces | Unlimited; one `.cm-status` per document |
-| S3 | `.cm-summary`, `.cm-code` | Summary box, code | 1 summary per report |
+| S3 | `.cm-summary`, `.cm-code` | Summary box, code | 1 summary per report; none in a guide or a reference |
 | L1e | `.cm-emph` | A bottleneck step, a must-read card | ≤ 1 per section |
-| L2 | `.cm-featured` | Recommendations card | Exactly 1 per report; none when Recommendations is left out (§7) |
+| L2 | `.cm-featured` | Recommendations card | Exactly 1 per report; none when Recommendations is left out (§7.5), and none in a guide or a reference |
 
 Never stack a shadow with a border except where the class does it. Never nest a card inside a card; use `.cm-tile` or `.cm-sub` (inset hairline sub-section) inside a card.
 
-## 7. Report anatomy
+## 7. Document anatomy
 
-Order is fixed. Required blocks are never omitted, except as **Blocks left out** below allows.
+The kit builds three kinds of document. A **report** sets out what the numbers show and what to do about them. A **guide** takes a reader through one task, step by step. A **reference** describes one thing, such as a metric, a dataset or a system, for a reader to look up.
+
+A `<meta name="cm-kind">` tag in `<head>`, straight after `cm-kit`, names the kind: `report`, `guide` or `reference`. A page without the tag is a report. Each kind starts from its own template (§1 rule 1).
+
+```html
+<meta name="cm-kit" content="1.2">
+<meta name="cm-kind" content="guide">
+```
+
+| Kind | Type chip | Required parts, in order | Never carries |
+| --- | --- | --- | --- |
+| Report | Analysis, Report or Brief | Executive summary; body parts; Recommendations (recommended); Methodology (when numbers are computed); Notes & sources | |
+| Guide | Guide | Purpose; Prerequisites; Steps; Exceptions and recovery; Related documents; Notes & sources | Executive summary, KPI strip, summary card, recommendations card, Period |
+| Reference | Reference | Definition; Properties; Relationships; Examples; Notes & sources | Executive summary, KPI strip, summary card, recommendations card, Period |
+
+Every kind shares the top bar, contents rail, masthead, Notes & sources and footer (§7.1). Order is fixed. Required blocks are never omitted, except as §7.5 allows.
+
+### 7.1 Shared blocks
 
 1. **Top bar** (required): `.cm-topbar` with the wordmark (publisher, lowercase-hyphenated), one series chip and the theme toggle. A print button after the toggle is optional, added only when the document is asked to carry one: `<button class="cm-btn cm-btn--secondary cm-btn--sm" type="button" data-cm-print>Print / PDF</button>`. Browser printing works without it (§12).
-2. **Contents rail** (recommended; required at ≥ 4 sections) — one link per section id. Numbers `01…`, appendices `A`, `B`.
-3. **Masthead** (required) — breadcrumb, `.cm-bar`, title (4–10 words, ≤ 22ch per line), dek (one sentence), then `dl.cm-mast__meta` with one `<div><dt>Label</dt><dd>Value</dd></div>` per field: Status (type chip: Analysis | Report | Brief | Guide; status chip: Draft `cm-chip`, In review `cm-chip--warn`, Final `cm-chip--ok`; optional `cm-chip--note` “Sample data” / “Preliminary”), Period `YYYY-MM-DD → YYYY-MM-DD`, Published `YYYY-MM-DD`, Reading time `N min` (the words in `<main>` ÷ 220, rounded up; scripts, chart data tables and screen-reader-only text do not count, and a word is any run of characters between spaces that holds a letter or digit), Version `X.Y`. Then `dl.cm-byline`: Prepared by, optional Reviewed by, Distribution. Labels name the value; never leave a value unlabelled.
-4. **Part 01 · Executive summary** (required) — 2–4 sentence lede; KPI strip of 2–4; `.cm-summary` with 3–5 key findings.
-5. **Part 02 … N** (required) — one topic per section. Inside: TL;DR or lede stating the finding → figure(s) or table → at most two callouts → optional questions block.
-6. **Recommendations** (recommended) — its own section after the body and before the appendices, holding the single `.cm-featured` card; each action has owner, due date and expected impact chips.
-7. **Appendix A · Methodology** (required when numbers are computed): `.cm-section--part`; collapsibles: A.1 Terms (a `.cm-def` block, open), A.2 Data sources and coverage (holding the limitation register when the document has three or more limits, §8.22), A.3 Queries.
-8. **Appendix B · Notes & sources** (required): `.cm-notes`, then the source register `.cm-sources` (§8.21); then the revision history and the change log, when the document has them (§8.22).
-9. **Footer** (required) — title, version + published date, owner, `Content Morphia Report Kit 1.2`.
+2. **Contents rail** (recommended; required at ≥ 4 sections): one link per section id. Numbers `01…`, appendices `A`, `B`.
+3. **Masthead** (required): breadcrumb, `.cm-bar`, title, dek (one sentence), then `dl.cm-mast__meta` with one `<div><dt>Label</dt><dd>Value</dd></div>` per field, then `dl.cm-byline`. Labels name the value; never leave a value unlabelled.
+   - Title: 4 to 10 words, 22 characters a line at most. A reference's title is the name of the thing it describes, 1 to 10 words.
+   - Status: the type chip for the kind (table above); a status chip, Draft `cm-chip`, In review `cm-chip--warn` or Final `cm-chip--ok`; an optional `cm-chip--note` “Sample data” or “Preliminary”.
+   - Period `YYYY-MM-DD → YYYY-MM-DD`: reports only. A guide or a reference has no Period field.
+   - Published `YYYY-MM-DD`.
+   - Reading time `N min`: the words in `<main>` ÷ 220, rounded up. Scripts, chart data tables and screen-reader-only text do not count. A word is any run of characters between spaces that holds a letter or digit.
+   - Version `X.Y`.
+   - Byline: Prepared by, optional Reviewed by, Distribution.
+4. **The kind's parts** (required): §7.2 for a report, §7.3 for a guide, §7.4 for a reference.
+5. **Notes & sources** (required): the last section, an appendix with the id `sources`. It holds `.cm-notes`, then the source register `.cm-sources` (§8.15, §8.21), then the revision history and the change log when the document has them (§8.22).
+6. **Footer** (required): title, version + published date, owner, `Content Morphia Report Kit 1.2`.
 
-**Blocks left out.** A document without measured numbers (a briefing, a guide, interview preparation) can lack the content of some blocks the kit otherwise requires. It leaves such a block out, invents nothing to fill it, and puts an omission comment where the block would be. The comment starts `cm-omit`, names the block, and says why after a colon:
+Section ids are short, lowercase and stable (`summary`, `demand`, `methodology`, `sources`). Every `<section>` has `aria-labelledby` pointing at its h2.
+
+### 7.2 Report
+
+1. **Part 01 · Executive summary** (required): a lede of 2 to 4 sentences; a KPI strip of 2 to 4; `.cm-summary` with 3 to 5 key findings.
+2. **Part 02 … N** (required): one topic per section. Inside: TL;DR or lede stating the finding → figure(s) or table → at most two callouts → optional questions block.
+3. **Recommendations** (recommended): its own section after the body and before the appendices, holding the single `.cm-featured` card; each action has owner, due date and expected impact chips.
+4. **Appendix A · Methodology** (required when numbers are computed): `.cm-section--part`; collapsibles: A.1 Terms (a `.cm-def` block, open), A.2 Data sources and coverage (holding the limitation register when the document has three or more limits, §8.22), A.3 Queries.
+5. **Appendix B · Notes & sources** (required, §7.1).
+
+A report's `<title>` carries its period: `{Report title} · {Period}`.
+
+### 7.3 Guide
+
+A guide takes one reader through one task, from the event that starts it to the state that ends it. Its parts follow the order of the work. Each required part is a section with a fixed id.
+
+1. **Part 01 · Purpose** (required, `purpose`): one paragraph that opens the document. It names the task, who carries it out and what it achieves, with its key phrase in bold.
+2. **Prerequisites** (required, `prerequisites`): a `ul.cm-list` of what must be in place before the first step: access, tools, information.
+3. **Steps** (required, `steps`): a lede, then a procedure (§8.23) of 3 to 9 steps, each closing with its outcome. A longer task splits into several procedures, each under an h3 that names its stage.
+4. **Exceptions and recovery** (required, `exceptions`): one h3 per case, named for the condition, then what to do instead. A case that changes a step names that step.
+5. **Related documents** (required, `related`): a related list (§8.24) of the documents a reader needs alongside this one.
+6. **Appendix A · Notes & sources** (required, §7.1).
+
+A guide may add sections of its own between these parts. Limits, due times and other rules inside a step carry their source. Figures that change over time stay out of the steps and go in the status block (§8.22).
+
+### 7.4 Reference
+
+A reference describes one thing for a reader who looks it up: what it is, its facts, what it connects to and how it applies. Each required part is a section with a fixed id.
+
+1. **Part 01 · Definition** (required, `definition`): one paragraph that opens the document and says what the thing is, with its key phrase in bold.
+2. **Properties** (required, `properties`): a property sheet (§8.7) of the facts a reader looks up, such as unit, owner, source system, update frequency and target.
+3. **Relationships** (required, `relationships`): what the thing feeds, depends on or is reported with, as a related list (§8.24).
+4. **Examples** (required, `examples`): worked cases, one h3 each, that apply the thing to concrete inputs.
+5. **Appendix A · Notes & sources** (required, §7.1).
+
+A reference may add sections of its own between these parts, such as one on how the thing is measured.
+
+### 7.5 Blocks left out
+
+A document can lack the content of a block its kind requires: a briefing without measured numbers, a guide for a task with nothing to set up. It leaves such a block out, invents nothing to fill it, and puts an omission comment where the block would be. The comment starts `cm-omit`, names the block, and says why after a colon:
 
 ```html
 <!-- cm-omit kpi-strip: The briefing reports no measured numbers. -->
 ```
 
-| Block | Left out when | Name | Where the comment sits |
-| --- | --- | --- | --- |
-| KPI strip | The document reports no measured numbers | `kpi-strip` | In the executive summary section, where the strip would be |
-| Masthead Period field | The document covers no period | `period` | In `dl.cm-mast__meta`, where the field would be |
-| Period in the title | The document covers no period | `title-period` | In `<head>`, after `<title>` |
-| Recommendations section, with its `cm-featured` card | The document has no actions | `recommendations` | In `<main>`, after the body sections, where the section would be |
+| Block | Kind | Left out when | Name | Where the comment sits |
+| --- | --- | --- | --- | --- |
+| KPI strip | Report | The document reports no measured numbers | `kpi-strip` | In the executive summary section, where the strip would be |
+| Masthead Period field | Report | The document covers no period | `period` | In `dl.cm-mast__meta`, where the field would be |
+| Period in the title | Report | The document covers no period | `title-period` | In `<head>`, after `<title>` |
+| Recommendations section, with its `cm-featured` card | Report | The document has no actions | `recommendations` | In `<main>`, after the body sections, where the section would be |
+| Prerequisites section | Guide | Nothing needs to be in place before the first step | `prerequisites` | In `<main>`, where the section would be |
+| Exceptions and recovery section | Guide | No case departs from the steps | `exceptions` | In `<main>`, where the section would be |
+| Related documents section | Guide | No other document bears on the task | `related` | In `<main>`, where the section would be |
+| Relationships section | Reference | The thing connects to nothing else that is documented | `relationships` | In `<main>`, where the section would be |
+| Examples section | Reference | The thing has no case to work through | `examples` | In `<main>`, where the section would be |
 
 No other block is left out this way. A required block missing without its omission comment fails the checks.
-
-Section ids are short, lowercase and stable (`summary`, `demand`, `methodology`, `sources`). Every `<section>` has `aria-labelledby` pointing at its h2.
 
 ## 8. Components
 
 Markup below is canonical. Copy structure and classes exactly; change only text, data and the allowed custom properties.
 
-Sections 8.23 to 8.28 are the structured components: workflow, framework, model, method, requirement, evaluation and metric detail. They are the building blocks of reference pages such as a framework, process, guide, metric or comparison page. Each is text first: it reads in order, prints whole and reflows on a phone. They share one anatomy:
+Sections 8.25 to 8.30 are the structured components: workflow, framework, model, method, requirement, evaluation and metric detail. They are the building blocks of reference pages such as a framework, process, guide, metric or comparison page. Each is text first: it reads in order, prints whole and reflows on a phone. They share one anatomy:
 
 - A card, `div.cm-card.cm-{kind}.cm-bleed`, opens with its kind label (`span.cm-label.cm-card__kicker`) and a T3 title (`h3.cm-card__title`) that names the thing as a noun phrase. The kind label is the component's name: Workflow, Framework, Model, Method, Requirement, Evaluation or Metric.
 - Its parts follow 24px apart, in the small text size of text inside a surface. A labelled part is a `.cm-sub`: an inset hairline, then its `.cm-label` on a line of its own.
@@ -259,7 +324,7 @@ Use where a term first matters, or as the A.1 glossary. Each definition says wha
 </div>
 ```
 
-Facts about one thing: a metric, dataset, system or document. Keys are 1–3 words. Group related keys; 2–4 groups. Role tags in `<sup>` (one word).
+Facts about one thing: a metric, dataset, system or document. Keys are 1 to 3 words. Group related keys; 2 to 4 groups. Role tags in `<sup>` (one word). A reference's Properties section holds one (§7.4).
 
 ### 8.8 Inline emphasis
 
@@ -368,7 +433,7 @@ States: `is-done` (hollow ink marker), `is-current` (filled accent, ≤ 1), `is-
 </ol>
 ```
 
-3–6 steps; `--steps` equals the count; titles ≤ 3 words; ≤ 1 `cm-emph` step with a chip naming why.
+3 to 6 steps; `--steps` equals the count; titles ≤ 3 words; ≤ 1 `cm-emph` step with a chip naming why. A process diagram shows how work flows; the steps a reader carries out go in a procedure (§8.23).
 
 ### 8.14 Lists
 
@@ -376,7 +441,7 @@ States: `is-done` (hollow ink marker), `is-current` (filled accent, ≤ 1), `is-
 
 ### 8.15 Footnotes and sources
 
-In text, after punctuation: `<a class="cm-fn" href="#fn-1" id="fnref-1">1</a>` (brackets are added by CSS). In Appendix B, the notes come first, then the source register (§8.21):
+In text, after punctuation: `<a class="cm-fn" href="#fn-1" id="fnref-1">1</a>` (brackets are added by CSS). In the Notes & sources appendix (§7.1), the notes come first, then the source register (§8.21):
 
 ```html
 <ol class="cm-notes">
@@ -433,7 +498,7 @@ The only `cm-featured` in the report, inside the Recommendations section. 1–5 
 
 ### 8.21 Sources and citations
 
-The source register lists every source a document rests on, and closes Appendix B after the notes. A citation ties a claim to its sources; an evidence date says how current a claim is.
+The source register lists every source a document rests on, and closes the Notes & sources appendix after the notes. A citation ties a claim to its sources; an evidence date says how current a claim is.
 
 ```html
 <p>Median first response fell to 2h 14m.<a class="cm-cite" href="#src-1" id="cite-1">S1</a></p>
@@ -521,7 +586,7 @@ The revision history:
 
 - One entry for each published version: the version, a summary of what changed, the owner who published it, and the date.
 - Newest first. The newest entry carries the masthead's Version and Published date.
-- A document carries a revision history from its second version. The revision history, then the change log, close Appendix B after the sources.
+- A document carries a revision history from its second version. The revision history, then the change log, close the Notes & sources appendix after the sources.
 
 The limitation register:
 
@@ -535,7 +600,31 @@ The limitation register:
 - The status is a chip from a closed set: `Open` (`cm-chip--warn`), `By design` (`cm-chip--note`), `Resolved` (`cm-chip--ok`). The word carries the meaning; colour is only the chip's offset. An open limit with a planned fix adds a plain chip with its date: `Fix due 2026-12-14`.
 - One or two limits are limitation callouts, where a reader would look for the missing answer (§8.4). Three or more go in the register instead, in Appendix A under A.2.
 
-### 8.23 Workflow
+### 8.23 Procedure
+
+```html
+<ol class="cm-procedure">
+  <li>
+    <h3 class="cm-procedure__title">Record the account and the charge</h3>
+    <p>What to do, in one to three sentences.</p>
+    <div class="cm-procedure__outcome"><span class="cm-label">Outcome</span><p>The state the step leaves, in one sentence.</p></div>
+  </li>
+</ol>
+```
+
+The steps a reader carries out, in order: a guide's Steps section (§7.3). The CSS numbers the steps 01, 02 in the left gutter. Each step opens with its title, an imperative of 8 words at most, as a heading one level below the section's. Paragraphs and `ul.cm-list` lists say what to do. The step closes with `.cm-procedure__outcome`: the label “Outcome” on a line of its own, then one sentence on the state the step leaves. 3 to 9 steps; a longer task splits into several procedures under h3 stage headings, with the step titles at h4. A procedure never sits inside another.
+
+### 8.24 Related list
+
+```html
+<ul class="cm-related">
+  <li><span class="cm-tag">Reference</span><a href="Reference%20-%20First%20Response%20Time.html">First response time</a><p>One sentence on how it relates.</p></li>
+</ul>
+```
+
+Links to other documents, or to places in them, with how each relates. The tag names what the item is, from a closed set: `Report`, `Guide`, `Reference`, `Metric`, `Dataset`, `System`. The link text is the item's title. The sentence says what the reader finds there that bears on this document. Guides close with one in Related documents (§7.3); a reference's Relationships section holds one (§7.4). Below 640px the tag stacks above the link.
+
+### 8.25 Workflow
 
 A workflow sets out stages of work in order: the role that does each stage, what the stage takes in and produces, and the condition that hands the work on. A reader works through it, or looks up one stage.
 
@@ -566,9 +655,9 @@ A workflow sets out stages of work in order: the role that does each stage, what
 - Optional: an `Exceptions` part with 1 to 3 items, each a condition and where the work goes instead.
 - The process diagram (§8.13) sets three to six steps across the page, a line each, with no actors or conditions. It is the overview at a glance; a workflow is the reference a reader works from. A document can carry both, the diagram first, with the same stage names in the same order.
 - The flow diagram (§8.20) is the picture of a flow, with lanes, branches and loops drawn as nodes and edges. A workflow is text: it reads in order, prints whole and reflows on a phone with no sideways scroll. Draw the flow when the branches or the hand-offs between lanes are the point; write the workflow when the reader acts on each stage. Shown together, both use the same stage names.
-- A method (§8.26) is one role's technique, ending in a decision; a workflow passes work between roles. A timeline (§8.12) holds dated events; a workflow has no dates.
+- A method (§8.28) is one role's technique, ending in a decision; a workflow passes work between roles. A timeline (§8.12) holds dated events; a workflow has no dates.
 
-### 8.24 Framework
+### 8.26 Framework
 
 A framework names the parts that together cover a subject, such as the pillars of a quality review or the layers of a platform, and says what each part covers.
 
@@ -590,10 +679,10 @@ A framework names the parts that together cover a subject, such as the pillars o
 - Required: the kind label, the title, a lede of one sentence saying what the framework covers and how its parts relate, and `cm-parts` with 3 to 6 parts. Parts with an order, such as layers, go in `ol.cm-parts`, top first, and the lede says what the order means.
 - Optional: the scope, `Use when` and `Not for`.
 - When every part carries the same attributes and the reader compares the parts across them, such as a goal, a signal and a metric for each, the parts are rows of a table (§8.11). The framework names the parts and what each covers; a table compares them. A page can carry both, the framework first.
-- Parts that happen one after another are a process (§8.13) or a workflow (§8.23), not a framework.
-- A model (§8.25) claims how its parts relate and states when the claim breaks. A framework organises a subject and claims nothing to test.
+- Parts that happen one after another are a process (§8.13) or a workflow (§8.25), not a framework.
+- A model (§8.27) claims how its parts relate and states when the claim breaks. A framework organises a subject and claims nothing to test.
 
-### 8.25 Model
+### 8.27 Model
 
 A model is a named abstraction a reader carries away and applies: a claim about how its parts relate, the parts, and the conditions under which the claim holds and breaks. The breaking condition is what separates a model from a diagram with a name on it.
 
@@ -618,9 +707,9 @@ A model is a named abstraction a reader carries away and applies: a claim about 
 - Required: the kind label, the title, the claim, `ul.cm-parts` with 2 to 5 parts, and the scope with both `Holds when` and `Breaks when`. The claim is one sentence of 30 words at most, on a line of its own in `p.cm-t5`, as a key finding's claim (§8.3).
 - Optional: one paragraph after the claim, of 2 sentences at most; a caption source line when the model rests on data.
 - Optional schematic: a model that sorts things by two factors adds `ol.cm-parts.cm-parts--matrix`, exactly four cells in reading order (top left, top right, bottom left, bottom right). Each cell opens with a position label naming its place on both factors, so the grid reads the same stacked on a phone. The model's parts name the two factors. Any other schematic is a figure after the block (§8.10, §8.20).
-- A framework (§8.24) organises a subject; a model makes a claim and says when it breaks. A definition (§8.5) explains one term; a model explains how several relate.
+- A framework (§8.26) organises a subject; a model makes a claim and says when it breaks. A definition (§8.5) explains one term; a model explains how several relate.
 
-### 8.26 Method
+### 8.28 Method
 
 A method is a repeatable technique: what it achieves, when to use it, its steps and the decision it ends in.
 
@@ -643,9 +732,9 @@ A method is a repeatable technique: what it achieves, when to use it, its steps 
 - Steps: 3 to 7, each one instruction in one sentence of 20 words at most, in `ol.cm-olist`.
 - Decision: one paragraph of 1 or 2 sentences that states the criterion as a condition, never a question, and what follows each outcome.
 - Optional: `Not for` in the scope; facts such as who runs it, what it needs and how often.
-- A workflow (§8.23) passes work between roles; a method is one role's technique. A list of steps with no decision at the end is an ordered list (§8.14). An action taken once, with an owner and a date, is a recommendation (§8.19).
+- A workflow (§8.25) passes work between roles; a method is one role's technique. A list of steps with no decision at the end is an ordered list (§8.14). An action taken once, with an owner and a date, is a recommendation (§8.19).
 
-### 8.27 Requirement and evaluation
+### 8.29 Requirement and evaluation
 
 Two blocks that end in a verdict: a requirement on a rule, an evaluation on a choice.
 
@@ -700,7 +789,7 @@ An evaluation scores one subject against weighted criteria and ends in a verdict
 - No confidence chip or score (§8.21).
 - A comparison table (§8.11) sets several options across the same dimensions, the recommended column marked ★. An evaluation scores one subject. Several options scored on weighted criteria go in a table: a column for each option, weighted totals in `<tfoot>`, ★ on the recommended.
 
-### 8.28 Metric detail
+### 8.30 Metric detail
 
 A metric detail is the reference entry for one measure: what it counts, its formula, unit and direction, its target and thresholds, its source and its owner.
 
@@ -810,7 +899,7 @@ Automatic from tokens; agents write nothing extra. The pre-paint script in `<hea
 
 ## 13. Writing rules
 
-Prose is the running text of `<main>`: paragraphs, list items, definitions, questions and answers, callout bodies, captions and process-step bodies. Code, tables, chart data and screen-reader-only text are not prose. Words are counted as in §7; inline code counts as one word, and a template placeholder (`{{ … }}`) as none.
+Prose is the running text of `<main>`: paragraphs, list items, definitions, questions and answers, callout bodies, captions and process-step bodies. Code, tables, chart data and screen-reader-only text are not prose. Words are counted as in §7.1; inline code counts as one word, and a template placeholder (`{{ … }}`) as none.
 
 ### 13.1 Limits
 
@@ -831,28 +920,33 @@ Components set limits of their own. Where a component limit and a limit above bo
 
 | Element | Limit | Section |
 | --- | --- | --- |
-| Report title | 4 to 10 words, 22 characters a line at most | §7 |
-| Dek | One sentence | §7 |
-| Executive summary lede | 2 to 4 sentences | §7 |
+| Title | 4 to 10 words (a reference: 1 to 10), 22 characters a line at most | §7.1 |
+| Dek | One sentence | §7.1 |
+| Executive summary lede | 2 to 4 sentences | §7.2 |
+| Guide purpose, reference definition | One paragraph | §7.3, §7.4 |
 | TL;DR | One or two sentences, 40 words at most | §8.1 |
 | Key finding | A claim line of one full sentence, then its evidence | §8.3 |
 | Definition | 15 to 60 words | §8.5 |
 | Answer | 1 to 3 sentences | §8.6 |
 | Property key | 1 to 3 words | §8.7 |
 | Process step title | 3 words at most | §8.13 |
+| Procedure | 3 to 9 steps | §8.23 |
+| Procedure step title | 8 words at most | §8.23 |
+| Procedure outcome | One sentence | §8.23 |
+| Related list item | One sentence after the link | §8.24 |
 | Figure title | 10 words at most | §9 |
 | Chart annotation | 1 to 3 words | §9 |
-| Structured component lede | One sentence, 30 words at most | §8.23 to §8.27 |
+| Structured component lede | One sentence, 30 words at most | §8.25 to §8.29 |
 | Fact key; fact value | 1 to 3 words; a phrase of 12 words at most | §8 |
 | Part name; part description | 3 words at most; one sentence of 25 words at most | §8 |
 | Scope item | One sentence | §8 |
-| Workflow stage title; stage body | 4 words at most; one sentence of 20 words at most | §8.23 |
-| Model claim; requirement statement | One sentence, 30 words at most | §8.25, §8.27 |
-| Method step; method decision | One sentence of 20 words at most; 1 or 2 sentences | §8.26 |
-| Acceptance criterion; requirement rationale | One sentence; 1 or 2 sentences | §8.27 |
-| Evaluation criterion | A name of 4 words at most, then one sentence of evidence | §8.27 |
-| Metric definition | 15 to 60 words | §8.28 |
-| Threshold response | One sentence | §8.28 |
+| Workflow stage title; stage body | 4 words at most; one sentence of 20 words at most | §8.25 |
+| Model claim; requirement statement | One sentence, 30 words at most | §8.27, §8.29 |
+| Method step; method decision | One sentence of 20 words at most; 1 or 2 sentences | §8.28 |
+| Acceptance criterion; requirement rationale | One sentence; 1 or 2 sentences | §8.29 |
+| Evaluation criterion | A name of 4 words at most, then one sentence of evidence | §8.29 |
+| Metric definition | 15 to 60 words | §8.30 |
+| Threshold response | One sentence | §8.30 |
 
 ### 13.2 Register
 
@@ -883,13 +977,13 @@ Headings are `h1` to `h6` and table titles.
 
 ## 14. Pre-publish checklist
 
-1. Started from `template.html`; no class, color, font or inline style outside §1 rule 2.
-2. Top bar with the wordmark, one series chip and the theme toggle; a print button only when the document is asked to carry one. Masthead complete with labelled metadata; title ≤ 10 words. A period left out of the masthead or the title carries its omission comment (§7).
-3. Summary: lede, 2–4 KPIs with stated comparisons (or the KPI strip's omission comment, §7), 3–5 findings.
+1. Started from the template for the document's kind; no class, color, font or inline style outside §1 rule 2.
+2. Top bar with the wordmark, one series chip and the theme toggle; a print button only when the document is asked to carry one. Masthead complete with labelled metadata and the type chip for the kind; title ≤ 10 words. A report's period left out of the masthead or the title carries its omission comment (§7.5); a guide or a reference has no period.
+3. Report summary: lede, 2 to 4 KPIs with stated comparisons (or the KPI strip's omission comment, §7.5), 3 to 5 findings.
 4. Every summary number reappears in the body with its source.
 5. Every figure: kind, title, description, legend for 2+ series, value-axis title with unit, `role="img"`, `aria-label`, caption with a source line. Figure numbers sequential.
 6. Every table: kind and title, `.num` on numeric columns, `data-value` on formatted cells, source caption; row flags explained.
-7. Budgets: 1 `cm-featured` (none with the Recommendations omission comment, §7), 1 `cm-summary`, ≤ 1 verdict chip per table, ≤ 1 `cm-emph` per section, ≤ 4 colored chart series.
+7. Budgets: in a report, 1 `cm-featured` (none with the Recommendations omission comment, §7.5) and 1 `cm-summary`; in a guide or a reference, neither. ≤ 1 verdict chip per table, ≤ 1 `cm-emph` per section, ≤ 4 colored chart series.
 8. Mono only inside code; no colored fills behind labels or chips.
 9. No bold label or opening bold phrase runs into its text. Nothing closer than 24px to the next block.
 10. Chart JSON parses; colors only via `$tokens`; bars/areas start at zero.
@@ -898,7 +992,8 @@ Headings are `h1` to `h6` and table titles.
 13. Opened in light, dark and print preview with no console errors.
 14. Writing within §13: prose inside the limits, in plain words and neutral third person, with no em or en dashes; each section leads with its finding; headings are plain noun phrases in sentence case.
 15. Changing numbers sit in one dated status block; change log and revision history run newest first with dated entries; each limitation status is a word from its set (§8.22).
-16. Each structured component opens with its kind label and title and holds its required parts within its counts and limits (§8.23 to §8.28).
+16. `cm-kind` names the kind, or is absent for a report. A guide or a reference has its required parts in order, each with its id, or their omission comments (§7.3 to §7.5). Every procedure step closes with its outcome; every related item has a tag, a link and a sentence.
+17. Each structured component opens with its kind label and title and holds its required parts within its counts and limits (§8.25 to §8.30).
 
 ## 15. Changes from Content Morphia Foundations
 
@@ -926,6 +1021,8 @@ Changed in 1.2:
 - A disclosure body spaces its own blocks (§8.16).
 - The print button is optional, added only when the document asks for one (§7).
 - A document without measured numbers leaves out a required block it has nothing for, with an omission comment (§7).
+
+Added for guides and references: document kinds (§7), procedure (§8.23), related list (§8.24).
 
 Added for reports: ECharts chart method and theme; categorical and sequential palettes; dark token set; print rules; report masthead and contents rail; KPI strip; key findings; native tables with sorting and in-cell bars; pull quote; timeline; process diagram; definition, questions and property-sheet blocks; footnotes; collapsible appendix; chart draw-in motion; packaging modes.
 

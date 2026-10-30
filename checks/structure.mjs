@@ -57,7 +57,7 @@ export default [
   {
     // The contents rail links every section and nothing else; four or more sections need a rail,
     // and a page without a rail uses the no-rail shell.
-    name: 'rail', level: 'fail', source: 'SPEC §5; §7; §14 item 12', once: true,
+    name: 'rail', level: 'fail', source: 'SPEC §5; §7.1; §14 item 12', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, d = H.source(), out = [];
       const sections = [...d.querySelectorAll('main section.cm-section')].filter(s => !H.exempt(s, check) && !s.parentElement.closest('section'));
@@ -82,7 +82,7 @@ export default [
 
   {
     // Every section names its h2 in aria-labelledby; section ids are lowercase.
-    name: 'sections', level: 'fail', source: 'SPEC §7; §14 item 12', once: true,
+    name: 'sections', level: 'fail', source: 'SPEC §7.1; §14 item 12', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, d = H.source(), out = [];
       for (const s of d.querySelectorAll('section')) {
@@ -99,7 +99,7 @@ export default [
 
   {
     // Two-digit part numbers in order (Part 01, Part 02), then appendices by letter.
-    name: 'section-numbers', level: 'fail', source: 'SPEC §7; §8.1', once: true,
+    name: 'section-numbers', level: 'fail', source: 'SPEC §7.1; §8.1', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, out = [];
       let part = 1, appendix = 0;
@@ -135,7 +135,7 @@ export default [
   },
 
   {
-    name: 'ids', level: 'fail', source: 'SPEC §7', once: true,
+    name: 'ids', level: 'fail', source: 'SPEC §7.1', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, seen = new Map(), out = [];
       for (const el of H.source().querySelectorAll('[id]')) {
@@ -149,8 +149,8 @@ export default [
 
   {
     // Top bar: the publisher wordmark (lowercase, hyphenated), one series chip, the theme toggle,
-    // at most one print button (optional, SPEC §7), and nothing else.
-    name: 'topbar', level: 'fail', source: 'SPEC §7', once: true,
+    // at most one print button (optional, SPEC §7.1), and nothing else.
+    name: 'topbar', level: 'fail', source: 'SPEC §7.1', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, d = H.source(), out = [];
       const bars = d.querySelectorAll('.cm-topbar');
@@ -175,12 +175,13 @@ export default [
   },
 
   {
-    // Breadcrumb, bar, title, dek, the five labelled metadata fields in their formats, and the
-    // byline with Prepared by and Distribution. A Period field left out carries its omission
-    // comment in the metadata list (SPEC §7).
-    name: 'masthead', level: 'fail', source: 'SPEC §7; §14 item 2', once: true,
+    // Breadcrumb, bar, title, dek, the labelled metadata fields in their formats, and the byline
+    // with Prepared by and Distribution. The type chip names the document's kind. A report carries
+    // a Period field, or its omission comment in the metadata list; a guide and a reference carry
+    // none (SPEC §7.1).
+    name: 'masthead', level: 'fail', source: 'SPEC §7.1; §14 item 2', once: true,
     inPage: ({ check }) => {
-      const H = window.__cm, d = H.source(), out = [];
+      const H = window.__cm, d = H.source(), out = [], kind = H.kind();
       const m = d.querySelector('.cm-mast');
       if (!m) return [{ where: 'body', value: 'no masthead (.cm-mast)' }];
       if (H.exempt(m, check)) return [];
@@ -210,6 +211,10 @@ export default [
       };
       if (!meta.has('Status')) out.push({ where: at, value: 'no Status field' });
       for (const [k, [re, form]] of Object.entries(FORMAT)) {
+        if (k === 'Period' && kind !== 'report') {
+          if (meta.has(k)) out.push({ where: H.path(meta.get(k)), value: `a Period field in a ${kind} (reports only)` });
+          continue;
+        }
         if (!meta.has(k)) {
           if (k !== 'Period') out.push({ where: at, value: `no ${k} field` });
           else if (!noPeriod) out.push({ where: at, value: 'no Period field, and no omission comment (cm-omit period)' });
@@ -219,9 +224,9 @@ export default [
       const status = meta.get('Status');
       if (status) {
         const chips = [...status.querySelectorAll('.cm-chip')];
-        const TYPES = ['Analysis', 'Report', 'Brief', 'Guide'];
+        const TYPES = { report: ['Analysis', 'Report', 'Brief'], guide: ['Guide'], reference: ['Reference'] }[kind];
         const STATES = { Draft: [], 'In review': ['cm-chip--warn'], Final: ['cm-chip--ok'] };
-        if (!chips.some(c => TYPES.includes(H.text(c)))) out.push({ where: H.path(status), value: 'no type chip (Analysis, Report, Brief or Guide)' });
+        if (!chips.some(c => TYPES.includes(H.text(c)))) out.push({ where: H.path(status), value: `no type chip for a ${kind} (${TYPES.join(', ')})` });
         const state = chips.find(c => H.text(c) in STATES);
         if (!state) out.push({ where: H.path(status), value: 'no status chip (Draft, In review or Final)' });
         else {
@@ -237,9 +242,10 @@ export default [
   },
 
   {
-    // The first section is the executive summary: a lede, a KPI strip and the summary card with its
-    // numbered findings. A KPI strip left out carries its omission comment in the section (SPEC §7).
-    name: 'summary-anatomy', level: 'fail', source: 'SPEC §7; §14 item 3', once: true,
+    // A report's first section is the executive summary: a lede, a KPI strip and the summary card
+    // with its numbered findings. A KPI strip left out carries its omission comment in the section
+    // (SPEC §7.2). Guides and references open with their own parts (checks/kinds.mjs).
+    name: 'summary-anatomy', level: 'fail', source: 'SPEC §7.2; §14 item 3', once: true, kinds: ['report'],
     inPage: ({ check }) => {
       const H = window.__cm, d = H.source(), out = [];
       const sum = [...d.querySelectorAll('.cm-summary')].find(s => !H.exempt(s, check));
@@ -273,8 +279,9 @@ export default [
   },
 
   {
-    // Notes and sources close the report, notes first, and the footer follows.
-    name: 'report-anatomy', level: 'fail', source: 'SPEC §7', once: true,
+    // Notes and sources close the document, notes first, and the footer follows. Every kind closes
+    // this way (SPEC §7.1).
+    name: 'report-anatomy', level: 'fail', source: 'SPEC §7.1', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, d = H.source(), out = [];
       const sections = [...d.querySelectorAll('main section.cm-section')].filter(s => !H.exempt(s, check) && !s.parentElement.closest('section'));
@@ -295,7 +302,7 @@ export default [
 
   {
     // The footer names the kit, and repeats the masthead's version and published date.
-    name: 'footer', level: 'fail', source: 'SPEC §7', once: true,
+    name: 'footer', level: 'fail', source: 'SPEC §7.1', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, d = H.source(), out = [];
       const f = d.querySelector('.cm-footer');

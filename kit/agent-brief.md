@@ -50,7 +50,7 @@ template are never rebuilt from memory, from a description, or from another desi
 
 The masthead and top bar name a publisher (the wordmark, lowercase and hyphenated), a series, an
 author or team, and an audience. When the request does not give them, the agent asks before building
-rather than inventing them.
+rather than inventing them. The top bar carries a print button only when the request asks for one.
 
 ## Packaging
 

@@ -115,7 +115,7 @@ Never stack a shadow with a border except where the class does it. Never nest a 
 
 Order is fixed. Required blocks are never omitted.
 
-1. **Top bar** (required) — `.cm-topbar`: wordmark (publisher, lowercase-hyphenated), one series chip, theme toggle, print button.
+1. **Top bar** (required): `.cm-topbar` with the wordmark (publisher, lowercase-hyphenated), one series chip and the theme toggle. A print button after the toggle is optional, added only when the document is asked to carry one: `<button class="cm-btn cm-btn--secondary cm-btn--sm" type="button" data-cm-print>Print / PDF</button>`. Browser printing works without it (§12).
 2. **Contents rail** (recommended; required at ≥ 4 sections) — one link per section id. Numbers `01…`, appendices `A`, `B`.
 3. **Masthead** (required) — breadcrumb, `.cm-bar`, title (4–10 words, ≤ 22ch per line), dek (one sentence), then `dl.cm-mast__meta` with one `<div><dt>Label</dt><dd>Value</dd></div>` per field: Status (type chip: Analysis | Report | Brief | Guide; status chip: Draft `cm-chip`, In review `cm-chip--warn`, Final `cm-chip--ok`; optional `cm-chip--note` “Sample data” / “Preliminary”), Period `YYYY-MM-DD → YYYY-MM-DD`, Published `YYYY-MM-DD`, Reading time `N min` (the words in `<main>` ÷ 220, rounded up; scripts, chart data tables and screen-reader-only text do not count, and a word is any run of characters between spaces that holds a letter or digit), Version `X.Y`. Then `dl.cm-byline`: Prepared by, optional Reviewed by, Distribution. Labels name the value; never leave a value unlabelled.
 4. **Part 01 · Executive summary** (required) — 2–4 sentence lede; KPI strip of 2–4; `.cm-summary` with 3–5 key findings.
@@ -460,7 +460,7 @@ Automatic from tokens; agents write nothing extra. The pre-paint script in `<hea
 
 ## 12. Print and PDF
 
-- Browser print: always light; chrome hidden; 16 × 14mm margins; shadows become 1px borders; the L2 card keeps its offset; appendices open; charts redraw static at print width; figures, KPIs, callouts, definitions and table rows never split.
+- Browser print (the browser's own command, or the optional print button): always light; chrome hidden; 16 × 14mm margins; shadows become 1px borders; the L2 card keeps its offset; appendices open; charts redraw static at print width; figures, KPIs, callouts, definitions and table rows never split.
 - Mark side-by-side figure grids `cm-print-stack` so they print full width.
 - Use `cm-section--break` to start a section on a new page (typically the first appendix in long reports).
 - **Headless pipelines** (Puppeteer, Playwright, wkhtmltopdf): set `<html data-cm-static>` or call `CM.drawAll()` after load, then `CM.beforePrint()` before generating the PDF. Wait for `document.fonts.ready`.
@@ -478,7 +478,7 @@ Automatic from tokens; agents write nothing extra. The pre-paint script in `<hea
 ## 14. Pre-publish checklist
 
 1. Started from `template.html`; no class, color, font or inline style outside §1 rule 2.
-2. Masthead complete with labelled metadata; title ≤ 10 words.
+2. Top bar with the wordmark, one series chip and the theme toggle; a print button only when the document is asked to carry one. Masthead complete with labelled metadata; title ≤ 10 words.
 3. Summary: lede, 2–4 KPIs with stated comparisons, 3–5 findings.
 4. Every summary number reappears in the body with its source.
 5. Every figure: kind, title, description, legend for 2+ series, value-axis title with unit, `role="img"`, `aria-label`, caption with **Source:**. Figure numbers sequential.

@@ -148,8 +148,8 @@ export default [
   },
 
   {
-    // Top bar: the publisher wordmark (lowercase, hyphenated), one series chip, the theme toggle and
-    // the print button, and nothing else.
+    // Top bar: the publisher wordmark (lowercase, hyphenated), one series chip, the theme toggle,
+    // at most one print button (optional, SPEC §7), and nothing else.
     name: 'topbar', level: 'fail', source: 'SPEC §7', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, d = H.source(), out = [];
@@ -162,10 +162,10 @@ export default [
       else if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(H.text(mark[0]))) out.push({ where: H.path(mark[0]), value: `wordmark "${H.text(mark[0])}" (lowercase, hyphenated)` });
       const chips = bar.querySelectorAll('.cm-chip').length;
       if (chips !== 1) out.push({ where: H.path(bar), value: `${chips} series chips (exactly 1)` });
-      for (const [sel, what] of [['[data-cm-theme-toggle]', 'theme toggle'], ['[data-cm-print]', 'print button']]) {
-        const n = bar.querySelectorAll(sel).length;
-        if (n !== 1) out.push({ where: H.path(bar), value: `${n} ${what}s (exactly 1)` });
-      }
+      const toggles = bar.querySelectorAll('[data-cm-theme-toggle]').length;
+      if (toggles !== 1) out.push({ where: H.path(bar), value: `${toggles} theme toggles (exactly 1)` });
+      const prints = bar.querySelectorAll('[data-cm-print]').length;
+      if (prints > 1) out.push({ where: H.path(bar), value: `${prints} print buttons (at most 1)` });
       for (const el of bar.querySelectorAll('a, button')) {
         if (el.matches('.cm-wordmark, [data-cm-theme-toggle], [data-cm-print]')) continue;
         out.push({ where: H.path(el), value: `extra control "${H.text(el)}"` });

@@ -126,14 +126,6 @@ longer listed.
 - **Question:** should the spec say that a `$` string is a token only when the rest names a token,
   and is text otherwise, or should currency in chart settings be written another way?
 
-## Print button
-
-- **Spec:** the top bar requires a print button (`SPEC.md` line 118).
-- **Code:** `cm-report.js` opens the print dialog from any `[data-cm-print]` element and runs without
-  one (line 280). The `topbar` check fails a page that has none (`checks/structure.mjs` line 165).
-  Browser printing works either way (section 12 of the spec).
-- **Question:** should the print button stay required, or appear only when a document calls for it?
-
 ## Focus on one mark
 
 - **Spec:** one series takes the default `$c1`, which is the accent (`SPEC.md` lines 66 and 424). The

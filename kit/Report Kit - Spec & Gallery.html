@@ -232,14 +232,14 @@
     <section class="cm-section" id="anatomy" aria-labelledby="anatomy-t">
       <header class="cm-section__head"><span class="cm-section__num">Part 04</span><h2 class="cm-section__title" id="anatomy-t">Report anatomy</h2></header>
       <div class="cm-section__body">
-        <div class="cm-prose"><p>Blocks appear in this order. Required blocks are never omitted; optional blocks are left out rather than filled with placeholder content.</p></div>
+        <div class="cm-prose"><p>Blocks appear in this order. Optional blocks are left out rather than filled with placeholder content. Required blocks are never omitted, with one exception: a document without measured numbers leaves out a KPI strip, a period or a Recommendations section it has no content for, and an omission comment at its place says why (<code>SPEC.md</code>, section 7).</p></div>
         <div>
           <div class="cm-table-title" id="tbl-anat"><span class="cm-table-title__kind">Table 4.1</span>Block order</div>
           <div class="cm-table-wrap cm-bleed">
             <table class="cm-table" data-sortable aria-labelledby="tbl-anat">
               <thead><tr><th class="num" aria-sort="ascending">#</th><th>Block</th><th>Contains</th><th>Level</th></tr></thead>
               <tbody>
-                <tr><td class="num">01</td><td class="strong">Top bar</td><td class="wrap">Publisher wordmark, series chip, theme and print buttons</td><td><span class="cm-chip">Required</span></td></tr>
+                <tr><td class="num">01</td><td class="strong">Top bar</td><td class="wrap">Publisher wordmark, series chip, theme toggle; a print button only when the document is asked to carry one</td><td><span class="cm-chip">Required</span></td></tr>
                 <tr><td class="num">02</td><td class="strong">Contents rail</td><td class="wrap">One link per section; omit for reports under 4 sections and use <code>cm-shell--norail</code></td><td><span class="cm-chip cm-chip--dashed">Recommended</span></td></tr>
                 <tr><td class="num">03</td><td class="strong">Masthead</td><td class="wrap">Breadcrumb, accent bar, title, dek, labelled metadata (status, period, published, reading time, version), byline</td><td><span class="cm-chip">Required</span></td></tr>
                 <tr><td class="num">04</td><td class="strong">Part 01 · Executive summary</td><td class="wrap">2–4 sentence lede, KPI strip, summary box with 3–5 key findings</td><td><span class="cm-chip">Required</span></td></tr>
@@ -823,12 +823,12 @@
           <ol class="cm-olist">
             <li>Started from <code>template.html</code>; no class, color or font outside the kit.</li>
             <li>No inline style except <code>--h</code>, <code>--v</code>, <code>--t</code> and <code>--steps</code>.</li>
-            <li>Masthead complete with title, dek, status, period, published date, reading time, version and byline.</li>
-            <li>Executive summary has a lede, 2–4 KPIs with stated comparisons, and 3–5 findings.</li>
+            <li>Masthead complete with title, dek, status, period, published date, reading time, version and byline; a period with no content is left out with its omission comment.</li>
+            <li>Executive summary has a lede, 2–4 KPIs with stated comparisons, and 3–5 findings; a document without measured numbers leaves the KPI strip out with its omission comment.</li>
             <li>Every number in the summary appears again, with its source, in the body.</li>
             <li>Every figure has a kind, title, description, legend when there are 2+ series, axis titles with units, <code>aria-label</code> and source line.</li>
             <li>Every table has a kind and title, <code>.num</code> on numeric columns, and a source caption.</li>
-            <li>One recommendations card, at most one solid verdict chip per table, one summary box.</li>
+            <li>One recommendations card (none, with its omission comment, when there are no actions), at most one solid verdict chip per table, one summary box.</li>
             <li>Accent never used as text color; no grey text; mono only for code.</li>
             <li>Text before a colon that leads a sentence, list item or caption is bold.</li>
             <li>Nothing closer than 24px to the block next to it.</li>

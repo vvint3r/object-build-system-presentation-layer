@@ -6,6 +6,7 @@ spec and enforced by the checks.
 | Date | State |
 | --- | --- |
 | 2026-10-30 | In progress |
+| 2026-10-30 | In review |
 
 ## Scope
 

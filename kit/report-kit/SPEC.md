@@ -9,7 +9,7 @@ Kit files (all in `report-kit/`):
 | File | Role |
 | --- | --- |
 | `cm-report.css` | Tokens (light, dark, print) and every component class. The only stylesheet. |
-| `cm-report.js` | Theme toggle, ECharts theme + draw-in, sortable tables, contents scroll-spy, print prep. |
+| `cm-report.js` | Theme toggle, ECharts theme + draw-in, sortable tables, contents scroll-spy, link targets clear of the top bar, print prep. |
 | `template.html` | Starter. Copy it for every report. |
 | `SPEC.md` | This file. |
 
@@ -93,11 +93,13 @@ The rule thickness follows the heading level; the CSS applies it. Headings never
 
 - Page: `.cm-shell` (rail + main). Reports with fewer than four sections use `.cm-shell.cm-shell--norail` and drop the `<nav class="cm-rail">`.
 - Main column caps at 1060px; prose blocks (`.cm-prose`) cap at 70ch.
-- **Spacing scale.** Between blocks: 16 · 20 · 24 · 28 · 32 · 36 · 40 · 44 · 48 · 56 · 64 · 80 · 96 · 120 · 128 · 160 px. Inside components (chips, rails, list gaps, markers): 2 · 3 · 4 · 6 · 7 · 8 · 10 · 12 · 14 · 16 · 18 · 20 · 22 px. Half-pixel paddings on outlined chips and buttons offset a thicker border so outer sizes match; small negative margins align glyphs; scroll offsets of 58 and 80px clear the sticky top bar. The kit applies all of these; never add your own. Sections start 128px apart (160px before the first appendix). Direct children of `.cm-section__body` are 64px apart automatically, and direct children of `.cm-collapse__body` 32px apart.
+- **Spacing scale.** Between blocks: 16 · 20 · 24 · 28 · 32 · 36 · 40 · 44 · 48 · 56 · 64 · 80 · 96 · 120 · 128 · 160 px. Inside components (chips, rails, list gaps, markers): 2 · 3 · 4 · 6 · 7 · 8 · 10 · 12 · 14 · 16 · 18 · 20 · 22 px. Half-pixel paddings on outlined chips and buttons offset a thicker border so outer sizes match; small negative margins align glyphs. The kit applies all of these; never add your own. Sections start 128px apart (160px before the first appendix). Direct children of `.cm-section__body` are 64px apart automatically, and direct children of `.cm-collapse__body` 32px apart.
+- **Link targets.** A link within the page stops its target (a section, a note, a footnote marker, a table title, a figure, a disclosure: any element with an `id`) 24px below the sticky top bar, at whatever height the bar wraps to. A page opened at an address with a fragment jumps straight to its target; links within the page scroll smoothly once the page and its fonts have loaded, and instantly under reduced motion. `cm-report.js` measures the bar into `--cm-topbar-h` and marks the loaded page with `data-cm-loaded` on `<html>`; neither is set by hand.
 - **Floor (MUST):** nothing sits closer than 24px to a distinct neighbouring block, and no label sits closer than 8px to the content it names. The kit's spacing already meets this; never add negative margins or tighter wrappers.
 - **Bleed rule:** every top-level surface in a section (figure, card, summary, KPI strip, table wrap, code, collapsible group) carries `.cm-bleed`, so its inner text aligns with the body text. Surfaces nested inside a grid do not; put `.cm-bleed` on the grid instead.
 - Grids: `.cm-grid` + `--2`, `--3`, `--4`, or `--wide` (1.5 : 1). Add `.cm-grid--cols` for 40px text-column gaps. Grids collapse at 800px and 640px automatically.
 - Responsive behaviour is built in: rail becomes a top strip below 1150px, process diagrams stack below 800px, everything single-column below 640px.
+- **Current section.** The rail marks the current section's link bold on the track fill. In the strip the link keeps its normal weight and takes a 2px ink underline on the track fill, so no link changes width and the strip keeps its height whichever section is current.
 
 ## 6. Elevation and emphasis budget
 

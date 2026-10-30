@@ -60,7 +60,11 @@
 
 /* ---------- 3. Base ---------- */
 *,*::before,*::after{box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+html{-webkit-text-size-adjust:100%}
+/* links within the page scroll smoothly once cm-report.js marks the page and its fonts loaded; a page opened at an address with a fragment jumps straight to it, and the browser holds it there while the fonts arrive */
+@media (prefers-reduced-motion:no-preference){html[data-cm-loaded]{scroll-behavior:smooth}}
+/* every element a link can jump to stops 24px below the sticky top bar: cm-report.js measures the bar into --cm-topbar-h; 54px is its one-row height until the script runs */
+[id]{scroll-margin-top:calc(var(--cm-topbar-h,54px) + 24px)}
 body{margin:0;background:var(--cm-paper);color:var(--cm-ink);font-family:var(--cm-font);font-size:16px;font-weight:400;line-height:1.9;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;font-variant-numeric:lining-nums}
 h1,h2,h3,h4,h5,h6,p,figure,blockquote,ol,ul,dl,dd,pre{margin:0}
 h1,h2,h3,h4,h5,h6{letter-spacing:-.01em;text-wrap:balance}
@@ -133,7 +137,7 @@ pre code{all:unset}
 .cm-mast__meta dt,.cm-byline dt{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;line-height:1.4}
 .cm-mast__meta dd,.cm-byline dd{font-size:15px;line-height:1.5;min-height:24px;display:flex;align-items:center;flex-wrap:wrap;gap:8px}
 .cm-byline{margin-top:32px;padding-top:28px;border-top:1px solid var(--cm-hairline)}
-.cm-section{padding-top:128px;scroll-margin-top:58px}
+.cm-section{padding-top:128px}
 .cm-section--part{padding-top:160px}
 .cm-section__head{margin-bottom:56px;padding-bottom:32px;border-bottom:4px solid var(--cm-ink)}
 .cm-section__num{display:block;font-size:26px;font-weight:300;line-height:1.2;letter-spacing:.03em;text-transform:uppercase;margin-bottom:16px}
@@ -386,7 +390,7 @@ pre code{all:unset}
 .cm-fn{font-size:11px;font-weight:800;vertical-align:super;line-height:0;text-decoration:none;padding:0 2px;border-radius:var(--cm-r-chip)}
 .cm-fn::before{content:"["}.cm-fn::after{content:"]"}
 .cm-notes{list-style:none;padding:0;display:flex;flex-direction:column;gap:14px;counter-reset:cmn;font-size:15px;line-height:1.8}
-.cm-notes>li{position:relative;padding-left:40px;counter-increment:cmn;scroll-margin-top:80px;border-radius:var(--cm-r-input)}
+.cm-notes>li{position:relative;padding-left:40px;counter-increment:cmn;border-radius:var(--cm-r-input)}
 .cm-notes>li::before{content:"[" counter(cmn) "]";position:absolute;left:0;top:0;font-weight:800;font-variant-numeric:tabular-nums}
 .cm-notes>li:target{background:var(--cm-accent-wash)}
 .cm-notes .cm-back{font-weight:800;margin-left:6px}
@@ -432,6 +436,8 @@ pre code{all:unset}
   .cm-toc .cm-label{margin:0}
   .cm-toc ol{flex-direction:row;flex-wrap:wrap;gap:4px}
   .cm-toc a{display:inline-flex;gap:6px;padding:4px 10px}
+  /* in the wrapping strip the current link keeps its weight, so its width and the strip's height stay put */
+  .cm-toc a[aria-current="true"]{font-weight:400;text-decoration:underline;text-decoration-color:var(--cm-ink);text-decoration-thickness:2px;text-underline-offset:4px}
 }
 @media (max-width:1000px){
   .cm-kpis{--n:2}

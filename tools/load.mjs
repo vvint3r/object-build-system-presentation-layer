@@ -20,6 +20,9 @@ const ECHARTS_LOCAL = require.resolve('echarts/dist/echarts.min.js');
 
 export const MODES = ['light', 'dark', 'print'];
 
+// Answer the page's ECharts CDN request with the local copy of the same version.
+export const serveCharts = page => page.route(ECHARTS_URL, r => r.fulfill({ path: ECHARTS_LOCAL, contentType: 'application/javascript' }));
+
 export async function load(browser, file, mode) {
   if (!MODES.includes(mode)) throw new Error(`unknown mode: ${mode}`);
   const page = await browser.newPage({
@@ -28,7 +31,7 @@ export async function load(browser, file, mode) {
   });
   const errors = [];
   const requests = [];
-  await page.route(ECHARTS_URL, r => r.fulfill({ path: ECHARTS_LOCAL, contentType: 'application/javascript' }));
+  await serveCharts(page);
   page.on('pageerror', e => errors.push(e.message));
   page.on('console', m => { if (m.type() === 'error' && !m.text().startsWith('Failed to load resource')) errors.push(m.text()); });
   page.on('requestfailed', r => requests.push(new URL(r.url()).host));

@@ -1,23 +1,26 @@
-// How many of each emphasised component a report or a section may hold, counted on the page as
+// How many of each emphasised component a document or a section may hold, counted on the page as
 // written. Each in-page function is self-contained, so helpers are repeated inside it.
 
 export default [
   {
-    // Exactly one featured card, or none when the Recommendations section is left out with its
-    // omission comment in <main> (SPEC §7).
+    // A report holds exactly one featured card, or none when the Recommendations section is left
+    // out with its omission comment in <main>. A guide and a reference hold none (SPEC §7).
     name: 'featured', level: 'fail', source: 'SPEC §1 rule 7; §6; §7', once: true,
     inPage: ({ check }) => {
-      const H = window.__cm, d = H.source();
+      const H = window.__cm, d = H.source(), kind = H.kind();
       const n = [...d.querySelectorAll('.cm-featured')].filter(el => !H.exempt(el, check));
+      if (kind !== 'report') return n.length ? [{ where: H.path(n[0]), value: `${n.length} .cm-featured in a ${kind} (none)` }] : [];
       if (n.length === 1 || (n.length === 0 && H.omitted(d.querySelector('main') || d.body, 'recommendations'))) return [];
       return [{ where: 'body', value: `${n.length} .cm-featured (exactly 1, or none with cm-omit recommendations)` }];
     },
   },
   {
-    name: 'summary', level: 'fail', source: 'SPEC §1 rule 7; §6', once: true,
+    // A report holds exactly one summary; a guide and a reference hold none (SPEC §7).
+    name: 'summary', level: 'fail', source: 'SPEC §1 rule 7; §6; §7', once: true,
     inPage: ({ check }) => {
-      const H = window.__cm;
+      const H = window.__cm, kind = H.kind();
       const n = [...H.source().querySelectorAll('.cm-summary')].filter(el => !H.exempt(el, check));
+      if (kind !== 'report') return n.length ? [{ where: H.path(n[0]), value: `${n.length} .cm-summary in a ${kind} (none)` }] : [];
       return n.length === 1 ? [] : [{ where: 'body', value: `${n.length} .cm-summary (exactly 1)` }];
     },
   },

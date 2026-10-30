@@ -26,10 +26,14 @@ All links point at one commit of the kit, so every document built from this brie
 | File | Role | Link |
 | --- | --- | --- |
 | `SPEC.md` | The rules in force. Read in full before writing. | [SPEC.md](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/6f3ecb4a496b123b826c9b18d0f879b25c71af8f/kit/report-kit/SPEC.md) |
-| `template.html` | The starting file for every document | [template.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/6f3ecb4a496b123b826c9b18d0f879b25c71af8f/kit/report-kit/template.html) |
+| `template.html` | The starting file for every report | [template.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/6f3ecb4a496b123b826c9b18d0f879b25c71af8f/kit/report-kit/template.html) |
+| `template-guide.html` | The starting file for every guide | [template-guide.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/6f3ecb4a496b123b826c9b18d0f879b25c71af8f/kit/report-kit/template-guide.html) |
+| `template-reference.html` | The starting file for every reference | [template-reference.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/6f3ecb4a496b123b826c9b18d0f879b25c71af8f/kit/report-kit/template-reference.html) |
 | `cm-report.css` | Tokens and every component class; the only stylesheet | [cm-report.css](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/6f3ecb4a496b123b826c9b18d0f879b25c71af8f/kit/report-kit/cm-report.css) |
 | `cm-report.js` | Theme toggle, chart theme and drawing, sortable tables, contents rail, print | [cm-report.js](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/6f3ecb4a496b123b826c9b18d0f879b25c71af8f/kit/report-kit/cm-report.js) |
-| Sample report | A finished document built on the kit: the reference output | [Sample Report - Q3 Support Review.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/6f3ecb4a496b123b826c9b18d0f879b25c71af8f/kit/Sample%20Report%20-%20Q3%20Support%20Review.html) |
+| Sample report | A finished report built on the kit: the reference output for reports | [Sample Report - Q3 Support Review.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/6f3ecb4a496b123b826c9b18d0f879b25c71af8f/kit/Sample%20Report%20-%20Q3%20Support%20Review.html) |
+| Sample guide | A finished guide: the reference output for guides | [Guide - Billing Escalation.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/6f3ecb4a496b123b826c9b18d0f879b25c71af8f/kit/Guide%20-%20Billing%20Escalation.html) |
+| Sample reference | A finished reference: the reference output for references | [Reference - First Response Time.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/6f3ecb4a496b123b826c9b18d0f879b25c71af8f/kit/Reference%20-%20First%20Response%20Time.html) |
 | Spec and gallery | Every component as a live example, with its markup | [Report Kit - Spec & Gallery.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/6f3ecb4a496b123b826c9b18d0f879b25c71af8f/kit/Report%20Kit%20-%20Spec%20%26%20Gallery.html) |
 
 An agent with git can clone the whole kit instead:
@@ -42,9 +46,10 @@ template are never rebuilt from memory, from a description, or from another desi
 
 1. This brief.
 2. `SPEC.md`, in full.
-3. The sample report, for what a finished document looks like.
+3. The sample of the document's kind (report, guide or reference), for what a finished document
+   looks like.
 4. The gallery, for the markup of each component the document needs.
-5. `template.html`, which becomes the document.
+5. The template for the kind, which becomes the document.
 
 ## Inputs from the owner
 
@@ -57,7 +62,7 @@ rather than inventing them. The top bar carries a print button only when the req
 **Self-contained, the default.** One HTML file that opens anywhere, including hosted artifact
 environments that refuse external stylesheets:
 
-1. Start from `template.html`.
+1. Start from the template for the document's kind.
 2. Replace `<link rel="stylesheet" href="cm-report.css">` with a `<style>` element holding the full
    contents of `cm-report.css`.
 3. Delete `<script src="cm-report.js" defer></script>` from the head, and place a `<script>` element
@@ -87,15 +92,17 @@ another version, and TLS verification is never disabled to reach a blocked host.
 
 A summary of section 1 of `SPEC.md`. The spec governs.
 
-1. Documents start from `template.html` and compose only from classes in `cm-report.css`.
+1. Documents start from the template for their kind (`template.html`, `template-guide.html` or
+   `template-reference.html`) and compose only from classes in `cm-report.css`.
 2. No added stylesheets, `<style>` blocks (other than the pasted kit stylesheet), custom classes or
    inline styles, except the custom properties the spec allows (`--h`, `--v`, `--t`, `--steps`).
 3. No hex, rgb or named colours in markup. Chart JSON uses `$token` strings.
 4. Text is black or white. No grey text and no lowered opacity; rank with weight.
 5. Nunito for all text, labels, tables, chips and charts. JetBrains Mono only for code.
 6. The accent is never text.
-7. One `cm-featured` per document (none when a document with no actions leaves Recommendations
-   out), at most one verdict chip per table or figure, one summary per document.
+7. One `cm-featured` and one summary per report (no featured card when a report with no actions
+   leaves Recommendations out); none of either in a guide or a reference. At most one verdict chip
+   per table or figure.
 8. Colour never fills a label.
 9. Meaning never rests on colour alone.
 10. Radii only from the kit's set; the CSS applies them.
@@ -143,34 +150,55 @@ the section lede, under its own limit of 40 words and with no bold phrase.
   articles, questions, framing words or arguing adjectives, and no verbs unless the section is a
   procedure. Headings never skip a level.
 
-## Documents without measured numbers
+## Document kinds
 
-The kit's anatomy is written for data reports. A document without measured numbers (a briefing, a
-guide, interview preparation, a reference page) follows the same anatomy and order, with these
-readings:
+The kit builds three kinds of document, each with its own required parts (section 7 of `SPEC.md`).
+A `cm-kind` tag in the head, straight after `cm-kit`, names the kind; a page without it is a report.
 
-- **Type chip:** Brief or Guide.
-- **Blocks without content:** a required block whose content does not exist for the document is left
-  out, with an omission comment where it would be. Nothing is invented to fill a block.
-- **Executive summary:** the lede and three to five key points in `.cm-summary`, each a full sentence
-  that stands on its own.
-- **Kept as written:** Methodology appears when numbers are computed; Notes and sources are always
-  present.
+```html
+<meta name="cm-kit" content="1.2">
+<meta name="cm-kind" content="guide">
+```
 
-An omission comment starts `cm-omit`, names the block, and gives the reason after a colon:
+| Kind | Use for | Type chip | Required parts, in order |
+| --- | --- | --- | --- |
+| Report | What the numbers show and what to do: a review, an analysis, a briefing | Analysis, Report or Brief | Executive summary; body parts; Recommendations (recommended); Methodology (when numbers are computed); Notes & sources |
+| Guide | One task carried out step by step: a procedure, a runbook, a how-to | Guide | Purpose; Prerequisites; Steps; Exceptions and recovery; Related documents; Notes & sources |
+| Reference | One thing looked up: a metric, a dataset, a system, a term | Reference | Definition; Properties; Relationships; Examples; Notes & sources |
+
+- Every kind has the top bar, contents rail, masthead, Notes & sources and footer.
+- Guides and references carry no executive summary, KPI strip, summary card, recommendations
+  card or Period. Each required part is a section with a fixed id: `purpose`, `prerequisites`,
+  `steps`, `exceptions`, `related`; `definition`, `properties`, `relationships`, `examples`. Sections
+  of the document's own may sit between them.
+- A guide's steps go in a procedure (`cm-procedure`): 3 to 9 steps, each with an imperative title,
+  what to do, and its outcome.
+- A guide's related documents and a reference's relationships go in a related list (`cm-related`): a tag, a link and one
+  sentence per item.
+- A briefing without measured numbers is a report with the type chip Brief. Its executive summary
+  holds the lede and three to five key points, each a full sentence that stands on its own.
+
+A required block a document has no content for is left out, with an omission comment where it would
+be. Nothing is invented to fill a block. The comment starts `cm-omit`, names the block, and gives the
+reason after a colon:
 
 ```html
 <!-- cm-omit kpi-strip: The briefing reports no measured numbers. -->
 ```
 
-These blocks, and no others, are left out this way (section 7 of `SPEC.md`):
+These blocks, and no others, are left out this way (section 7.5 of `SPEC.md`):
 
-| Block | Left out when | Name | Where the comment sits |
-| --- | --- | --- | --- |
-| KPI strip | The document reports no measured numbers | `kpi-strip` | In the executive summary section |
-| Masthead Period field | The document covers no period | `period` | In `dl.cm-mast__meta` |
-| Period in the title | The document covers no period | `title-period` | In `<head>`, after `<title>` |
-| Recommendations section, with its featured card | The document has no actions | `recommendations` | In `<main>`, after the body sections |
+| Block | Kind | Left out when | Name | Where the comment sits |
+| --- | --- | --- | --- | --- |
+| KPI strip | Report | The document reports no measured numbers | `kpi-strip` | In the executive summary section |
+| Masthead Period field | Report | The document covers no period | `period` | In `dl.cm-mast__meta` |
+| Period in the title | Report | The document covers no period | `title-period` | In `<head>`, after `<title>` |
+| Recommendations section, with its featured card | Report | The document has no actions | `recommendations` | In `<main>`, after the body sections |
+| Prerequisites section | Guide | Nothing needs to be in place before the first step | `prerequisites` | In `<main>`, where the section would be |
+| Exceptions and recovery section | Guide | No case departs from the steps | `exceptions` | In `<main>`, where the section would be |
+| Related documents section | Guide | No other document bears on the task | `related` | In `<main>`, where the section would be |
+| Relationships section | Reference | The thing connects to nothing else that is documented | `relationships` | In `<main>`, where the section would be |
+| Examples section | Reference | The thing has no case to work through | `examples` | In `<main>`, where the section would be |
 
 Content maps onto existing components:
 
@@ -180,10 +208,12 @@ Content maps onto existing components:
 | Questions a reader would ask, with answers | Questions block, `cm-qa` | 8.6 |
 | Facts about one thing: a company, a role, a system | Property sheet, `cm-props` | 8.7 |
 | Dated events in order | Timeline, `cm-timeline` | 8.12 |
-| Stages in sequence | Process diagram, `cm-process` | 8.13 |
+| Stages in sequence, seen at a glance | Process diagram, `cm-process` | 8.13 |
+| Steps a reader carries out, each with its outcome | Procedure, `cm-procedure` | 8.20 |
+| Other documents, or places in them, and how each relates | Related list, `cm-related` | 8.23 |
 | Options compared on the same attributes | Table, with the recommended column marked | 8.11 |
 | A point that must not be missed, a caveat, a worked example | Callout, from its closed set | 8.4 |
-| Items or steps | Lists, `cm-list` and `cm-olist` | 8.14 |
+| Items | Lists, `cm-list` and `cm-olist` | 8.14 |
 | Verbatim words from a person or source | Pull quote, `cm-quote` | 8.9 |
 | Numbers over time or across categories | Figure with a chart | 8.10, 9 |
 | Code, queries, file contents | Code block, `cm-code` | 8.17 |

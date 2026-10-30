@@ -72,7 +72,8 @@ in `kit/agent-brief.md`, in the same commit as the spec.
    colours, and the verdict chip's paper-coloured text on its ink fill.
 5. Nunito for all text, labels, tables, chips and charts. JetBrains Mono only for code.
 6. The accent is never text.
-7. One `cm-featured` per report, at most one verdict chip per table or figure, one summary per report.
+7. One `cm-featured` per report (none when a document with no actions leaves Recommendations out), at
+   most one verdict chip per table or figure, one summary per report.
 8. Colour never fills a label. Status colour is a chip offset, a label underline, a row flag or a chart
    mark.
 9. Meaning never rests on colour alone.

@@ -42,49 +42,6 @@ longer listed.
 - **Question:** should the current link keep normal weight in the narrow strip and gain a cue that
   leaves its width unchanged, or keep the bold and reserve each link's bold width?
 
-## Emphasis demo
-
-- **Spec:** "≤ 3 highlights per paragraph" (`SPEC.md` line 243). Inside a gallery demo, every rule
-  holds (`docs/decision-framework.md`, "The kit's own pages follow the kit").
-- **Page:** the inline emphasis demo puts all five highlight tones in one paragraph (gallery
-  line 384).
-- **Now:** no check counts highlights per paragraph, so the page passes.
-- **Question:** should the demo spread its five tones over two paragraphs, with a check for the limit
-  added, or should the demo be exempt from the limit?
-
-## Concept terms and links
-
-- **Spec:** `cm-concept` "underlines a key term at first use" (`SPEC.md` line 243).
-- **Code:** a link is underlined in accent, 1.5px thick and 3px below the text, at the weight around
-  it (`cm-report.css` line 70). A concept is bold and underlined in accent, 2px thick and 4px below
-  (line 275).
-- **Now:** a concept reads as a bold link. A link inside bold text differs from a concept by half a
-  pixel of underline thickness and 1px of offset.
-- **Question:** should concepts take a treatment that links never use, or should both stay as they
-  are?
-
-## Disclosures with more than one block
-
-- **Spec:** "nothing sits closer than 24px to a distinct neighbouring block" (`SPEC.md` line 97). The
-  collapsible's markup shows one `cm-collapse__body` (lines 359 to 364) and no rule for several blocks
-  in it.
-- **Code:** the body gives its children no spacing, and margins are reset (`cm-report.css` lines 65
-  and 407). The block-gap check measures section bodies, stacks and grids, not disclosure bodies
-  (`checks/judgment.mjs` line 205).
-- **Now:** two blocks in a plain disclosure body render 0px apart, and no check warns. Every
-  disclosure on the kit pages holds one block. A body that is also a `cm-stack` spaces its blocks
-  32px apart and is checked.
-- **Question:** should the spec name `cm-collapse__body cm-stack` for a body with several blocks, or
-  should the body space its own children, as a section body does?
-
-## Print button
-
-- **Spec:** the top bar requires a print button (`SPEC.md` line 118).
-- **Code:** `cm-report.js` opens the print dialog from any `[data-cm-print]` element and runs without
-  one (line 280). The `topbar` check fails a page that has none (`checks/structure.mjs` line 165).
-  Browser printing works either way (section 12 of the spec).
-- **Question:** should the print button stay required, or appear only when a document calls for it?
-
 ## Focus on one mark
 
 - **Spec:** one series takes the default `$c1`, which is the accent (`SPEC.md` lines 66 and 424). The
@@ -93,17 +50,3 @@ longer listed.
   The spec has no rule for picking out one mark within a series.
 - **Question:** should the spec say that a picked-out mark keeps the default colour while the rest of
   its series take `$context`, or should focus have a colour of its own?
-
-## Documents without measured numbers
-
-- **Spec:** section 7 makes the KPI strip, the masthead's Period field and the period in the title
-  required, says required blocks are never omitted, and makes the Recommendations section
-  recommended; section 1 rule 7 requires exactly one `cm-featured`. Section 1 rule 12 forbids filler
-  and requires every number shown to be sourced.
-- **Checks:** `summary-anatomy` fails a page with no KPI strip, `masthead` one with no Period field,
-  `head-order` one whose title has no period, and `featured` one with no featured card.
-- **Agent brief:** `kit/agent-brief.md` tells agents building a document without measured numbers (a
-  briefing, a guide, interview preparation) to leave out a required block whose content does not
-  exist, state the omission in an HTML comment, and treat those four failures as expected.
-- **Question:** confirm the brief's reading, so that section 7 of the spec states it and the four
-  checks accept a commented omission; or rule otherwise.

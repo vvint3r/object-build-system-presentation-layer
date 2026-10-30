@@ -114,6 +114,17 @@ export function install(cfg) {
   let source;
   H.source = () => source || (source = new DOMParser().parseFromString(cfg.src, 'text/html'));
 
+  // An omission comment inside root: <!-- cm-omit {name}: {reason} -->, with a reason after the
+  // colon. A document without measured numbers marks a required block it leaves out this way
+  // (SPEC.md section 7); the checks for that block accept the comment in place of the block.
+  H.omitted = (root, name) => {
+    if (!root) return false;
+    const re = new RegExp(`^\\s*cm-omit ${name}:\\s*\\S`);
+    const walk = root.ownerDocument.createTreeWalker(root, NodeFilter.SHOW_COMMENT);
+    for (let n = walk.nextNode(); n; n = walk.nextNode()) if (re.test(n.nodeValue)) return true;
+    return false;
+  };
+
   H.tokens = () => (window.CM && window.CM.tokens ? window.CM.tokens() : {});
 
   // Every chart as written, paired with the live container it became (same order in both).

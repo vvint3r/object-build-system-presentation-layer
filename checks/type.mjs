@@ -42,14 +42,15 @@ export default [
     // Nunito never below 9px for chips and 10px anywhere else, and never below 13px except where
     // small text is ruled: the label tier, role tags and table sort arrows (section 4) and the
     // elements record 056 kept at their own sizes (buttons, timeline dates, footnote markers, printed
-    // source URLs, chart text). Mono has the 10px floor only.
+    // source URLs, chart text). A citation is set as a footnote marker (section 8.21). Mono has the
+    // 10px floor only.
     name: 'type-size', level: 'fail', source: 'SPEC §4; records 056, 058',
     inPage: ({ check, mode }) => {
       const H = window.__cm, out = [];
       const small = (el, pseudo) => H.isLabel(el, pseudo)
         || (pseudo && el.matches('.cm-table th button'))
         || !!el.closest('.cm-props sup')
-        || !!el.closest('.cm-btn, .cm-timeline__date, .cm-fn')
+        || !!el.closest('.cm-btn, .cm-timeline__date, .cm-fn, .cm-cite')
         || (mode === 'print' && pseudo === '::after' && el.matches('.cm-sources a'));
       for (const { el, pseudo, cs } of H.textItems()) {
         if (H.exempt(el, check)) continue;

@@ -77,17 +77,6 @@ longer listed.
 - **Question:** should the spec name `cm-collapse__body cm-stack` for a body with several blocks, or
   should the body space its own children, as a section body does?
 
-## Chart text starting with a dollar sign
-
-- **Spec:** "any string value beginning with `$` is replaced with the current theme's token"
-  (`SPEC.md` line 421).
-- **Code:** `cm-report.js` line 45 replaces such a string only when the rest names a token or a
-  `--cm-` variable. Any other string, such as the label "$50", stays as written.
-- **Now:** currency labels in chart settings render because of that fallback, which the spec does not
-  state. A label that matches a variable name, such as "$s1", renders the variable's value instead.
-- **Question:** should the spec say that a `$` string is a token only when the rest names a token,
-  and is text otherwise, or should currency in chart settings be written another way?
-
 ## Print button
 
 - **Spec:** the top bar requires a print button (`SPEC.md` line 118).

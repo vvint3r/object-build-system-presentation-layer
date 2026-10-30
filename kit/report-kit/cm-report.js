@@ -40,9 +40,11 @@
     t.font = "'Nunito', system-ui, sans-serif";
     return t;
   }
-  // "$accent" → current token value; "$seq" → sequential ramp array
+  // the token names chart JSON uses as "$name" (SPEC section 3): "$accent" → current token value,
+  // "$seq" → sequential ramp array. Any other text starting with "$", such as "$50", stays as written.
+  var NAMES = ['ink', 'paper', 'surface', 'track', 'hairline', 'field', 'accent', 'ok', 'warn', 'crit', 'info', 'note', 'c1', 'c2', 'c3', 'c4', 'context', 'seq'];
   function resolve(v, t) {
-    if (typeof v === 'string' && v.charAt(0) === '$') { var k = v.slice(1); return k in t ? t[k] : (cssVar(k) || v); }
+    if (typeof v === 'string' && v.charAt(0) === '$') { var k = v.slice(1); return NAMES.indexOf(k) > -1 ? t[k] : v; }
     if (Array.isArray(v)) return v.map(function (x) { return resolve(x, t); });
     if (v && typeof v === 'object') { var o = {}; for (var p in v) o[p] = resolve(v[p], t); return o; }
     return v;
@@ -296,5 +298,5 @@
     initTables(); initToc(); initCharts();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
-  window.CM = { draw: draw, drawAll: drawAll, redraw: redrawAll, setTheme: setTheme, tokens: tokens, beforePrint: beforePrint, afterPrint: afterPrint };
+  window.CM = { draw: draw, drawAll: drawAll, redraw: redrawAll, setTheme: setTheme, tokens: tokens, tokenNames: NAMES.slice(), beforePrint: beforePrint, afterPrint: afterPrint };
 })();

@@ -418,7 +418,7 @@ The only `cm-featured` in the report, inside the Recommendations section. 1–5 
 | Source and notes | `.cm-caption` | `<b>Source:</b>` always; `<b>Note:</b>` for exclusions |
 | Text alternative | `aria-label`, `.cm-data` | Chart type + finding with key values |
 
-**Token strings:** any string value beginning with `$` is replaced with the current theme's token (`"$accent"`, `"$ink"`, `"$context"`, `"$surface"`, `"$c3"`, `"$crit"`…; `"$seq"` gives the ramp array). This is the only way to set a color.
+**Token strings:** a string that is `$` followed by a token name from section 3 is replaced with the current theme's token (`"$accent"`, `"$ink"`, `"$context"`, `"$surface"`, `"$c3"`, `"$crit"`…; `"$seq"` gives the ramp array). This is the only way to set a color. Only token names resolve: any other text starting with `$`, such as a `"$50"` label, stays as written.
 
 **Color by role:**
 - One series: default (`$c1`).

@@ -46,13 +46,13 @@ export default [
 
   {
     // Colours in chart JSON are token strings: no hex or colour function anywhere, and every value
-    // under a colour key names a token the kit defines.
+    // under a colour key is "$" and a token name the chart script resolves (SPEC section 3). Other
+    // text starting with "$" stays text, so under a colour key it is not a colour.
     name: 'chart-colours', level: 'fail', source: 'SPEC §1 rule 3; §9', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, out = [];
-      const t = H.tokens();
-      const root = getComputedStyle(document.documentElement);
-      const known = k => (k in t && k !== 'mono' && k !== 'font') || !!root.getPropertyValue('--cm-' + k).trim();
+      const names = (window.CM && window.CM.tokenNames) || [];
+      const known = k => names.includes(k);
       const LITERAL = /#[0-9a-f]{3,8}\b|\b(?:rgba?|hsla?|hwb|lab|lch|oklab|oklch|color)\(/i;
       const KEY = /colou?r|fill|stroke|background/i;
       const NOT_COLOUR = ['transparent', 'none', 'inherit', 'auto'];

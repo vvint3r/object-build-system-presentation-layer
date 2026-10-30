@@ -30,7 +30,7 @@ Decision record numbers refer to `docs/decisions/`.
 | Non-visual equivalents | Equivalents | Chart `aria-label` and data-table fallback | Partial | Equivalents for diagrams and other non-chart visuals | 031, 032 |
 | Structured components | Structured | Process diagram, timeline, KPI strip, recommended table column | Partial | Workflow, framework, model, method, requirement and evaluation, metric detail | 000, 047 |
 | Prose primitives | Prose | Highlights, key-term underline, pull quote, lists | Partial | The remaining prose primitives | 034 |
-| Wayfinding | Wayfinding | Contents rail | Partial | Search, faceted browse, ranked entry, version selector with diff | 027 |
+| Wayfinding | Wayfinding | Contents rail | Partial | Breadcrumbs, a related-documents block and a generated index. Search, faceted browse, ranked entry and a version selector with diff need a server and stay out of the kit (record 076) | 027, 076 |
 | Provenance | Provenance | Footnotes, sources list, caption source line | Partial | Aggregation header, agreement and spread, confidence qualifier, citation markers that open a source panel | 027 |
 | Charts | Charts | ECharts method, seven chart types, light and dark | Covered | The library's empty-state conditions for charts | 028 |
 | Interaction | Interaction | Sortable tables, collapsible appendix | Partial | Filtering, overview and detail, definitions in place, recently viewed | 028 |
@@ -39,7 +39,7 @@ Decision record numbers refer to `docs/decisions/`.
 | Change and status | Change | Correction and limitation callouts, document status chips | Partial | Change log, per-node diff, limitation register, revision history, the dated status block that section 13 of the spec calls for | 039 |
 | Diagrams | Diagrams, Diagrams at Scale, Diagrams II, III, IV | Process diagram only | Partial | The diagram families (sequence, entity relationship, state, deployment, layered architecture, journey, service blueprint, Sankey, mind map, sets, cause and effect, process notation, data flow, decision tree and others), the level model and capacity ceilings | 010–014 |
 | Diagram build logic | Visualization kit (`import/kx-visualizations-index/`) | Nothing | Not in kit | Node kit, connectors, terminators, the lane-flow router and its invariants | n/a; see `scraps/4c-brief.md` |
-| Page types | Templates, T1 to T11 | One document type, the report | Partial | Topic, framework, process, guide, module, metric, comparison, roadmap, reference, glossary, case study | 037, 040 |
+| Page types | Templates, T1 to T11 | One document type, the report | Partial | Three document kinds (report, guide, reference), then topic, framework, process, guide, module, metric, comparison, roadmap, reference, glossary and case study as templates on them | 037, 040, 076 |
 | Composition rules | Composition, Anatomy, Selection, Implementing, Exemplar | Report anatomy and the pre-publish checklist | Partial | Layout primitives, the component anatomy register and field contract, the selection matrix, implementer guidance, a reference build | 023–026, 028 |
 | Multi-page navigation | Every page (menu bar) | Top bar and contents rail for one document | Not in kit | Navigation across many documents, for the knowledge index | 046 |
 

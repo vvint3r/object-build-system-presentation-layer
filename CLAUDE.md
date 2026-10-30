@@ -11,7 +11,8 @@ it is not edited there. See `docs/plan.md`.
   anything in `docs/reference/`.
 - `docs/decision-framework.md`: which decisions a session takes alone, which it takes and reports,
   and which wait for the owner; the principles to decide by.
-- `docs/open-items.md`: questions about the kit awaiting the owner. Never resolve one on your own.
+- `docs/open-items.md`: questions about the kit awaiting a ruling. A working session never resolves
+  one; the orchestrating session decides it under the owner's delegation (record 075).
 - `docs/adoption.md`: library features still to adopt into the kit, and how to adopt one.
 - `docs/plan.md`: operating model, migration steps and their state.
 - `docs/reference/`: the original library's rules and open items. Read only when adopting a library

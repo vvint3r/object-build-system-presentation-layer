@@ -412,7 +412,7 @@ The only `cm-featured` in the report, inside the Recommendations section. 1–5 
 | Title | `.cm-figure__title` | What is shown, ≤ 10 words |
 | Description | `.cm-figure__desc` | Measure, unit, scope and period |
 | Legend | automatic | Shown for 2+ series, top left, series order. `"legend": false` only to suppress it on a single series. End labels or value labels may be added; they never replace the legend |
-| Axis titles | `xAxis.name`, `yAxis.name` | Quantity and unit (“Tickets per week”). Required on the value axis unless every tick shows the unit (“90%”). Scatter names both axes |
+| Axis titles | `xAxis.name`, `yAxis.name` | Quantity and unit (“Tickets per week”). Required on the value axis unless every tick shows the unit (“90%”). Scatter names both axes. The kit places a y-axis title above the plot and an x-axis title under it, on a value or a category axis, and makes room for each |
 | Data labels | `label`, `endLabel` | Values the reader should quote; every bar when there are ≤ 12 |
 | Annotations | `markLine`, `markArea` | Target, event or period, labelled in 1–3 words |
 | Source and notes | `.cm-caption` | `<b>Source:</b>` always; `<b>Note:</b>` for exclusions |

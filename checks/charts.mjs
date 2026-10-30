@@ -138,6 +138,38 @@ export default [
   },
 
   {
+    // Every axis title the chart library drew sits inside the chart's drawing area, on a value or a
+    // category axis. Measured on the laid-out title (its box, moved by its transform) against the
+    // chart's width and height in this mode, so a title cut off at an edge is reported.
+    name: 'chart-axis-title-fit', level: 'fail', source: 'SPEC §9',
+    inPage: ({ check }) => {
+      const H = window.__cm, out = [];
+      for (const el of document.querySelectorAll('.cm-chart')) {
+        if (!H.shown(el) || H.exempt(el, check)) continue;
+        const inst = window.echarts && window.echarts.getInstanceByDom(el);
+        if (!inst) continue; // chart-drawn reports it
+        const W = inst.getWidth(), Ht = inst.getHeight();
+        for (const dim of ['xAxis', 'yAxis']) {
+          inst.getModel().eachComponent(dim, model => {
+            const name = model.get('name');
+            if (!name || model.get('show') === false) return;
+            const view = inst.getViewOfComponentModel(model);
+            let title = null;
+            if (view && view.group) view.group.traverse(n => { if (n.anid === 'name' && n.style && !title) title = n; });
+            if (!title) { out.push({ where: H.path(el), value: `${dim}[${model.componentIndex}] title "${name}" not drawn` }); return; }
+            const r = title.getBoundingRect().clone();
+            r.applyTransform(title.getComputedTransform());
+            const past = [['top', -r.y], ['left', -r.x], ['bottom', r.y + r.height - Ht], ['right', r.x + r.width - W]]
+              .filter(([, v]) => v > 0.5).map(([side, v]) => `${v.toFixed(1)}px past the ${side}`);
+            if (past.length) out.push({ where: H.path(el), value: `${dim}[${model.componentIndex}] title "${name}" ${past.join(', ')}` });
+          });
+        }
+      }
+      return out;
+    },
+  },
+
+  {
     // Bars and areas start at zero: in the JSON (no min above zero, no scale) and on the axis the
     // chart library actually drew.
     name: 'chart-baseline', level: 'fail', source: 'SPEC §9; §14 item 10', once: true,

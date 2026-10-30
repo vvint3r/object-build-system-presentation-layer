@@ -92,9 +92,10 @@
     if (o.legend === false) o.legend = { show: false };
     else if (!o.legend && axisChart && series.length > 1) o.legend = {};
     var hasLegend = list(o.legend).some(function (l) { return l && l.show !== false; });
-    // axis titles: y name sits above the axis, left-aligned; x name centred under the labels
+    // axis titles: y name sits above the plot, left-aligned, on a value or a category axis (an inverse
+    // axis starts at the top, so its name goes at the start); x name centred under the labels
     var yNamed = false, xNamed = false;
-    list(o.yAxis).forEach(function (a) { if (a && a.name && a.type !== 'category' && !a.nameLocation) { yNamed = true; a.nameLocation = 'end'; if (a.nameGap == null) a.nameGap = 14; a.nameTextStyle = merge({ align: 'left' }, a.nameTextStyle || {}); } });
+    list(o.yAxis).forEach(function (a) { if (a && a.name && !a.nameLocation) { yNamed = true; a.nameLocation = a.inverse ? 'start' : 'end'; if (a.nameGap == null) a.nameGap = 14; a.nameTextStyle = merge({ align: 'left' }, a.nameTextStyle || {}); } });
     list(o.xAxis).forEach(function (a) { if (a && a.name && !a.nameLocation) { xNamed = true; a.nameLocation = 'middle'; if (a.nameGap == null) a.nameGap = 34; } });
     if (axisChart && !Array.isArray(o.grid)) {
       o.grid = o.grid || {};

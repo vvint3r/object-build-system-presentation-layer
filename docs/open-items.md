@@ -42,20 +42,6 @@ longer listed.
 - **Question:** should the current link keep normal weight in the narrow strip and gain a cue that
   leaves its width unchanged, or keep the bold and reserve each link's bold width?
 
-## Category axis titles
-
-- **Spec:** axis-title placement and plot top and bottom padding are applied automatically and never
-  set by hand (`SPEC.md` line 405). A title is required on the value axis (line 415); the spec says
-  nothing either way about a title on a category axis.
-- **Code:** `cm-report.js` places a y-axis title above the plot, and reserves 26px for it, only when
-  the axis is a value axis (lines 97 and 101). A category y-axis title keeps the ECharts default
-  position.
-- **Now:** a horizontal bar chart with `"yAxis": {"type": "category", "name": "Channel"}` draws the
-  word 5.6px above the top of the chart, so its top is cut off. No kit page names a category axis,
-  so no check fails.
-- **Question:** should the chart script place and make room for a category y-axis title as it does
-  for a value axis, or should the spec say that only value axes carry titles?
-
 ## Plot padding set by hand
 
 - **Spec:** plot top and bottom padding are applied automatically: "do not set these" (`SPEC.md`

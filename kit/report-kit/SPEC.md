@@ -485,13 +485,63 @@ Automatic from tokens; agents write nothing extra. The pre-paint script in `<hea
 
 ## 13. Writing rules
 
+Prose is the running text of `<main>`: paragraphs, list items, definitions, questions and answers, callout bodies, captions and process-step bodies. Code, tables, chart data and screen-reader-only text are not prose. Words are counted as in §7; inline code counts as one word, and a template placeholder (`{{ … }}`) as none.
+
+### 13.1 Limits
+
+Each limit **MUST** hold. The 25-word sentence is a target (**SHOULD**).
+
+| Item | Limit |
+| --- | --- |
+| Paragraph | 3 sentences and 60 words at most |
+| Sentence | 25 words as the target and 30 at most; 18 words or fewer on average across the document |
+| List item | 2 sentences and 40 words at most |
+| Prose between headings | 150 words at most |
+| Section lede | 45 words at most, with its key phrase in bold |
+| Caption (`.cm-caption`) | 30 words at most |
+
+A section's lede is the paragraph that opens its body. In a section with a TL;DR, the TL;DR stands in that place, under its own limit (§8.1). A definition, a question and an answer are each measured as a paragraph.
+
+Components set limits of their own. Where a component limit and a limit above both apply, both hold.
+
+| Element | Limit | Section |
+| --- | --- | --- |
+| Report title | 4 to 10 words, 22 characters a line at most | §7 |
+| Dek | One sentence | §7 |
+| Executive summary lede | 2 to 4 sentences | §7 |
+| TL;DR | One or two sentences, 40 words at most | §8.1 |
+| Key finding | A claim in one full sentence, then its evidence | §8.3 |
+| Definition | 15 to 60 words | §8.5 |
+| Answer | 1 to 3 sentences | §8.6 |
+| Property key | 1 to 3 words | §8.7 |
+| Process step title | 3 words at most | §8.13 |
+| Figure title | 10 words at most | §9 |
+| Chart annotation | 1 to 3 words | §9 |
+
+### 13.2 Register
+
 - Plain, factual sentences. State the number, the comparison and the period: “rose 2.3 points to 87.4% against Q2”, not “improved significantly”.
+- Plain words: “use”, not “utilize”; “so”, not “in order to”. No emoji.
 - Lead every section with the finding, then the evidence.
-- **Text before a colon is bold** when it leads a sentence, list item, caption or callout body: `<strong>Not yet covered:</strong> maps, …`, `<b>Source:</b> …`.
-- Figure titles describe what is shown; the finding lives in the prose, the TL;DR and `aria-label`.
+- Neutral third person, written for any reader. No “you”, “your”, “we” or “our” in the body; a document is never a message to the person who asked for it. A pull quote is verbatim (§8.9) and keeps its speaker's words.
+- No chat-style labels such as “Done so far”, “Your part” or “Next up”. A person's action appears as a role-named item (“Owner approval of the shortlist”) with what it does and what it unblocks.
+- A document describes its subject as it stands. It carries no history of how it was made and no notes about the work.
+- Numbers that will change never sit inside definitions of steps or rules. They go in one dated status block.
+- No signposting, such as “this section describes”, “note that” or “as shown below”.
+- No hype, no rhetorical questions, no “this isn't X, it's Y”.
+- No em dashes or en dashes in prose.
+- Bold marks the phrase that carries a sentence's meaning: one or two per paragraph, never a whole sentence. The claim that opens a key finding or a recommended action is the one bold sentence (§8.3, §8.19).
+- **Text before a colon is bold** when it leads a sentence, list item, caption or callout body: `<strong>Not yet covered:</strong> maps, …`, `<b>Source:</b> …`. Such a label is not one of the paragraph's bold phrases.
 - Dates ISO in metadata (`2026-10-12`), readable in prose (`12 August`). Durations as `2h 14m`. Percentage-point changes as `pp`.
+
+### 13.3 Headings
+
+Headings are `h1` to `h6` and table titles.
+
+- A heading is the plainest noun phrase that names what sits under it. No articles or framing words, no questions, no verbs unless the section is a procedure, and no adjectives that argue, such as proposed, honest, current, revised or improved.
 - Sentence case for all headings and labels; CSS uppercases labels.
-- No hype, no rhetorical questions, no “this isn't X, it's Y”, no em-dash chains.
+- Figure titles describe what is shown; the finding lives in the prose, the TL;DR and `aria-label`.
+- Headings never skip a level (§4).
 
 ## 14. Pre-publish checklist
 
@@ -508,6 +558,7 @@ Automatic from tokens; agents write nothing extra. The pre-paint script in `<hea
 11. Footnotes link both ways; sources list every dataset.
 12. Contents rail links match section ids; every section has `aria-labelledby`.
 13. Opened in light, dark and print preview with no console errors.
+14. Writing within §13: prose inside the limits, in plain words and neutral third person, with no em or en dashes; each section leads with its finding; headings are plain noun phrases in sentence case.
 
 ## 15. Changes from Content Morphia Foundations
 

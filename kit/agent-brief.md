@@ -121,7 +121,8 @@ process-step bodies. Code, tables and chart data are not prose.
 | Section lede | 45 words at most, with its key phrase in bold |
 | Caption | 30 words at most |
 
-Components keep their own limits as well, such as a TL;DR of 40 words and a figure title of 10.
+Components keep their own limits as well, such as a figure title of 10 words. A TL;DR stands in for
+the section lede, under its own limit of 40 words and with no bold phrase.
 
 - A document is neutral and third person, written for any reader. No "you", "your", "we" or "our"
   in the body; it is never a message to the owner.
@@ -135,7 +136,9 @@ Components keep their own limits as well, such as a TL;DR of 40 words and a figu
   was made.
 - Bold marks the phrase that carries a sentence, one or two per paragraph, never a whole sentence.
   The claim of a key finding or a recommended action is a line of its own, not bold running text.
-  Text before a leading colon is bold.
+- No bold label runs into the text that follows it, and no bold phrase opens a paragraph, list item
+  or callout body. A label takes its own line, a heading, a table row or a definition-list term. A
+  caption's source and note lines are lines of their own, not bold.
 - A heading is the plainest noun phrase that names what sits under it, in sentence case: no
   articles, questions, framing words or arguing adjectives, and no verbs unless the section is a
   procedure. Headings never skip a level.

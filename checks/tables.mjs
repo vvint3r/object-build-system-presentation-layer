@@ -6,7 +6,7 @@
 export default [
   {
     // A header row, a title (kind label "Table N" plus title text) that aria-labelledby points at,
-    // and a caption with "Source:" after the table.
+    // and a caption after the table with a source line: a .cm-caption__line that opens "Source:".
     name: 'table-anatomy', level: 'fail', source: 'SPEC §8.11; §14 item 6', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, d = H.source(), out = [];
@@ -26,7 +26,7 @@ export default [
         const group = (t.closest('.cm-table-wrap') || t).parentElement;
         const cap = group && [...group.children].find(c => c.matches('.cm-caption'));
         if (!cap) out.push({ where: H.path(t), value: 'no .cm-caption after the table' });
-        else if (![...cap.querySelectorAll('b, strong')].some(b => H.text(b) === 'Source:')) out.push({ where: H.path(cap), value: 'caption has no <b>Source:</b>' });
+        else if (![...cap.querySelectorAll('.cm-caption__line')].some(l => /^Source:\s/.test(H.text(l)))) out.push({ where: H.path(cap), value: 'caption has no source line (a .cm-caption__line opening "Source:")' });
       }
       return out;
     },

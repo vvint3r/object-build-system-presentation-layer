@@ -26,7 +26,7 @@ function prepare() {
   const NOT_PROSE = 'a.cm-fn, a.cm-back, .cm-chip, .cm-chips, .cm-tag, .cm-id, .cm-label, .cm-delta, .cm-meta, '
     + 'sup, .cm-table-title__kind, .cm-figure__kind';
   const BLOCK = 'address, article, aside, blockquote, br, dd, details, div, dl, dt, figcaption, figure, footer, '
-    + 'header, li, ol, p, section, summary, ul, .cm-findings__claim';
+    + 'header, li, ol, p, section, summary, ul, .cm-findings__claim, .cm-caption__line';
   const PLACEHOLDER = /\{\{[\s\S]*?\}\}/g;
   const isOut = el => !!el.closest(OUT);
 
@@ -104,7 +104,7 @@ function prepare() {
   }
 
   const snip = s => `"${s.length > 48 ? s.slice(0, 48) + '…' : s}"`;
-  window.__cmw = { H, main, units, ledes, headings, nodes, words, sentences, read, snip, isOut };
+  window.__cmw = { H, main, units, ledes, headings, nodes, words, sentences, read, snip, isOut, NOT_PROSE };
 }
 
 // A check that runs in the page with the shared reading above.
@@ -188,13 +188,13 @@ export default [
   }),
 
   inWriting('section-lede', 'fail', '§13.1', ({ check }) => {
-    // A section's lede: 45 words at most, with its key phrase in bold. A bold label before a colon
-    // is not the key phrase.
+    // A section's lede: 45 words at most, with its key phrase in bold. A TL;DR stands in for the
+    // lede under its own limit (tldr-length), so a section with one has no lede here.
     const W = window.__cmw, out = [];
     for (const u of W.ledes) {
       if (W.H.exempt(u.el, check)) continue;
       if (u.words > 45) out.push({ where: W.H.path(u.el), value: `${u.words} words (at most 45): ${W.snip(u.text)}` });
-      if (!u.bolds.some(b => !/:$/.test(b.text))) out.push({ where: W.H.path(u.el), value: `no key phrase in bold: ${W.snip(u.text)}` });
+      if (!u.bolds.length) out.push({ where: W.H.path(u.el), value: `no key phrase in bold: ${W.snip(u.text)}` });
     }
     return out;
   }),
@@ -211,19 +211,84 @@ export default [
 
   inWriting('bold-phrases', 'fail', '§13.2', ({ check }) => {
     // Bold marks the phrase that carries a sentence: at most two per paragraph or item, never a whole
-    // sentence. A bold label before a colon is a label, not emphasis. The claim of a finding or a
-    // recommended action is a line of its own, not bold (SPEC sections 8.3, 8.19), so no sentence in
-    // bold is excepted.
+    // sentence. The claim of a finding or a recommended action is a line of its own, not bold (SPEC
+    // sections 8.3, 8.19), so no sentence in bold is excepted.
     const W = window.__cmw, out = [];
     const norm = s => s.replace(/\s+/g, ' ').trim();
     for (const u of W.units) {
       if (W.H.exempt(u.el, check)) continue;
-      const phrases = u.bolds.filter(b => !/:$/.test(b.text));
+      const phrases = u.bolds;
       if (phrases.length > 2) out.push({ where: W.H.path(u.el), value: `${phrases.length} bold phrases (at most 2): ${W.snip(u.text)}` });
       for (const b of phrases) {
         const i = u.sentences.findIndex(s => norm(s) === norm(b.text));
         if (i < 0) continue;
         out.push({ where: W.H.path(b.el), value: `a whole sentence in bold: ${W.snip(b.text)}` });
+      }
+    }
+    return out;
+  }),
+
+  inWriting('bold-labels', 'fail', '§13.2; §14 item 9', ({ check }) => {
+    // No bold label runs into the text that follows it. A run-in label is bold text ending in a
+    // colon, anywhere in <main> (tables included), or a bold phrase that opens a unit of prose: a
+    // paragraph, list item, definition, answer, callout body or caption. Either fails only when more
+    // text follows it on the same line. A label on a line of its own passes, and a claim line is not
+    // bold (SPEC sections 8.3, 8.19).
+    const W = window.__cmw, out = [];
+    // Text a reader sees: tables and data fallbacks count here, unlike in the prose scope.
+    const HIDDEN = 'script, style, template, noscript, svg, pre, code, .cm-code, .cm-chart, [data-spark], .cm-sr, '
+      + '[aria-hidden="true"], [hidden]';
+    const hidden = el => !el || !!el.closest(HIDDEN);
+    const later = (a, n) => !!(a.compareDocumentPosition(n) & Node.DOCUMENT_POSITION_FOLLOWING);
+    const inline = el => getComputedStyle(el).display.startsWith('inline');
+    // The box that lays a node out: its nearest ancestor that is not inline.
+    const block = n => { let p = n.parentElement; while (p && p !== W.main && inline(p)) p = p.parentElement; return p || W.main; };
+    // Prose text in root before el: labels, chips and markers are not prose.
+    const opens = (root, el) => {
+      const walk = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+      for (let n = walk.nextNode(); n; n = walk.nextNode()) {
+        if (el.contains(n) || later(el, n)) return true;
+        const p = n.parentElement;
+        if (hidden(p) || p.closest(W.NOT_PROSE)) continue;
+        if (/[\p{L}\p{N}]/u.test(n.nodeValue)) return false;
+      }
+      return true;
+    };
+    // The first visible character after el inside root, as a range.
+    const next = (root, el) => {
+      const walk = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+      for (let n = walk.nextNode(); n; n = walk.nextNode()) {
+        if (el.contains(n) || !later(el, n) || hidden(n.parentElement)) continue;
+        const i = n.nodeValue.search(/\S/);
+        if (i < 0) continue;
+        const r = document.createRange();
+        r.setStart(n, i);
+        r.setEnd(n, i + 1);
+        return r;
+      }
+      return null;
+    };
+    // Same line: the boxes share a row as drawn, or the text flows on from b in the same block with
+    // no line break between, whatever the wrap.
+    const sameLine = (el, r) => {
+      const a = [...el.getClientRects()].pop(), c = r.getClientRects()[0];
+      if (a && c && Math.min(a.bottom, c.bottom) - Math.max(a.top, c.top) > Math.min(a.height, c.height) / 2) return true;
+      if (!inline(el) || block(r.startContainer) !== block(el)) return false;
+      const gap = document.createRange();
+      gap.setStartAfter(el);
+      gap.setEnd(r.startContainer, r.startOffset);
+      return !gap.cloneContents().querySelector('br');
+    };
+    for (const b of W.main.querySelectorAll('strong, b')) {
+      if (hidden(b) || W.H.exempt(b, check)) continue;
+      const text = W.read(b);
+      if (!W.words(text)) continue;
+      const unit = W.units.find(u => u.el.contains(b));
+      const colon = /:$/.test(text);
+      if (!colon && !(unit && opens(unit.el, b))) continue;
+      const r = next(block(b), b);
+      if (r && sameLine(b, r)) {
+        out.push({ where: W.H.path(b), value: `${colon ? 'bold label' : 'bold phrase opening the text'} "${text}" runs into the text after it` });
       }
     }
     return out;

@@ -215,12 +215,12 @@ Icon and label share a row; the body sits under the label. Closed set: `note` (c
 <aside class="cm-def">
   <span class="cm-def__label">Definition</span>       <!-- "Definitions" for more than one term -->
   <dl>
-    <div><dt>Backlog</dt><dd>Tickets in open or pending state at the snapshot time. <strong>Example:</strong> 1,186 at Sunday close.</dd></div>
+    <div><dt>Backlog</dt><dd>Tickets in open or pending state at the snapshot time. At Sunday close, 1,186 tickets were open.</dd></div>
   </dl>
 </aside>
 ```
 
-Use where a term first matters, or as the A.1 glossary. Each definition says what the term counts and how; add an example when the definition is abstract. 15–60 words per definition.
+Use where a term first matters, or as the A.1 glossary. Each definition says what the term counts and how; add an example, as a sentence of its own, when the definition is abstract. 15–60 words per definition.
 
 ### 8.6 Questions
 
@@ -281,11 +281,16 @@ Verbatim only. ≤ 1 per section. Pair with a figure in `.cm-grid.cm-grid--wide.
        aria-label="Chart type. The finding in one sentence, with key values.">
     <script type="application/json">{ …ECharts option… }</script>
   </div>
-  <figcaption class="cm-caption"><b>Source:</b> dataset · scope · refresh date. <b>Note:</b> exclusions.</figcaption>
+  <figcaption class="cm-caption">
+    <span class="cm-caption__line">Source: dataset · scope · refresh date.</span>
+    <span class="cm-caption__line">Note: exclusions.</span>             <!-- optional -->
+  </figcaption>
 </figure>
 ```
 
 - Figures are numbered in order of appearance across the whole report. The kind label carries the number; the caption does not repeat it.
+- A figure is captioned by its title and one sentence, its description, above the chart. Under it, `.cm-caption` holds the source line, then any note line.
+- Each caption line is a `.cm-caption__line` of its own, in the caption's regular weight. "Source:" and "Note:" open their lines; nothing in a caption is bold.
 - Height: 280–360px full width; 260–300px in a 2-column grid; heatmaps by row count (~40px per row + 80).
 - Image: replace the chart div with `<img src alt>`; alt describes the content. Missing material: `<div class="cm-slot"><b>Drop figure · 16:9</b><i>What belongs here</i></div>`.
 - Optional data fallback under the caption: `<details class="cm-data"><summary>View data</summary><table class="cm-table">…</table></details>`. **SHOULD** be included for any chart whose values are not all stated in the prose.
@@ -310,15 +315,19 @@ Verbatim only. ≤ 1 per section. Pair with a figure in `.cm-grid.cm-grid--wide.
       <tfoot><tr><td>All teams</td><td class="num">48,210</td><td class="num">100%</td><td></td></tr></tfoot>
     </table>
   </div>
-  <span class="cm-caption"><b>Source:</b> … · scope · date. <b>Flags:</b> what each color means.</span>
+  <span class="cm-caption">
+    <span class="cm-caption__line">Source: … · scope · date.</span>
+    <span class="cm-caption__line">Flags: what each color means.</span>
+  </span>
 </div>
 ```
 
 - Real `<table>` with `<thead>`; `<tfoot>` for a totals or calculated row (the kit adds space and a dotted rule above it).
+- The title sits above the table; the caption under it holds the source line, then any flags or note line, as for a figure (§8.10).
 - Columns are separated by 16px gutters automatically; never add borders.
 - Numeric columns: `.num` on `th` and `td`; consistent decimals; thousands separators; `−` (U+2212) for negatives; `—` for not applicable.
 - `.strong` for the row key and the column the reader should compare; `.soft` for n/a values; `.wrap` for prose cells.
-- **Row flags:** `data-flag="ok|warn|crit|info|note|accent"` on a `<tr>` draws a 4px status bar in the left gutter. Use it instead of colored chips in status columns; keep the status word in the row and explain the colors in the caption.
+- **Row flags:** `data-flag="ok|warn|crit|info|note|accent"` on a `<tr>` draws a 4px status bar in the left gutter. Use it instead of colored chips in status columns; keep the status word in the row and explain the colors in a caption line that opens "Flags:".
 - `data-sortable` when the table has ≥ 5 rows. `data-value` holds the raw number whenever the cell text is formatted. Mark the initial sort with `aria-sort`. Status columns get `data-nosort`.
 - Recommended column in a comparison: `class="is-rec"` on its `th` and `td`s, and ★ in the header text. The header gets a 4px rule; each body cell gets bold text and a teal bar in the left gutter, centred on its row, so one highlighted cell reads the same as a whole column. Never highlight the header cell.
 - No zebra striping, no outer border, no colored header.
@@ -353,7 +362,7 @@ States: `is-done` (hollow ink marker), `is-current` (filled accent, ≤ 1), `is-
 
 ### 8.14 Lists
 
-`ul.cm-list` (grey dots) and `ol.cm-olist` (01, 02). Add `.cm-small` inside surfaces. Items may contain inline code, links and bold. An item that leads with a term and a colon bolds the term: `<li><strong>Target:</strong> one per tier.</li>`.
+`ul.cm-list` (grey dots) and `ol.cm-olist` (01, 02). Add `.cm-small` inside surfaces. Items may contain inline code, links and bold, but no item opens with a bold label or phrase run into its text (§13.2). A term with its explanation goes in a definition block (§8.5), a property sheet (§8.7) or a table (§8.11).
 
 ### 8.15 Footnotes and sources
 
@@ -432,7 +441,7 @@ The only `cm-featured` in the report, inside the Recommendations section. 1–5 
 | Axis titles | `xAxis.name`, `yAxis.name` | Quantity and unit (“Tickets per week”). Required on the value axis unless every tick shows the unit (“90%”). Scatter names both axes. The kit places a y-axis title above the plot and an x-axis title under it, on a value or a category axis, and makes room for each |
 | Data labels | `label`, `endLabel` | Values the reader should quote; every bar when there are ≤ 12 |
 | Annotations | `markLine`, `markArea` | Target, event or period, labelled in 1–3 words |
-| Source and notes | `.cm-caption` | `<b>Source:</b>` always; `<b>Note:</b>` for exclusions |
+| Source and notes | `.cm-caption` | A source line always; a note line for exclusions. Each is a `.cm-caption__line`, not bold |
 | Text alternative | `aria-label`, `.cm-data` | Chart type + finding with key values |
 
 **Token strings:** a string that is `$` followed by a token name from section 3 is replaced with the current theme's token (`"$accent"`, `"$ink"`, `"$context"`, `"$surface"`, `"$c3"`, `"$crit"`…; `"$seq"` gives the ramp array). This is the only way to set a color. Only token names resolve: any other text starting with `$`, such as a `"$50"` label, stays as written.
@@ -533,7 +542,9 @@ Components set limits of their own. Where a component limit and a limit above bo
 - No hype, no rhetorical questions, no “this isn't X, it's Y”.
 - No em dashes or en dashes in prose.
 - Bold marks the phrase that carries a sentence's meaning: one or two per paragraph, never a whole sentence. The claim of a key finding or a recommended action is a line of its own, not bold running text (§8.3, §8.19).
-- **Text before a colon is bold** when it leads a sentence, list item, caption or callout body: `<strong>Not yet covered:</strong> maps, …`, `<b>Source:</b> …`. Such a label is not one of the paragraph's bold phrases.
+- No bold label runs into the text that follows it, anywhere. A label that must stay takes its own line (a card or callout title line), a heading, a table row or a definition-list term.
+- A bold phrase never opens a paragraph, list item or callout body with more text on the same line; it would read as a label.
+- A caption's source and note lines are lines of their own, in the caption's regular weight (§8.10).
 - Dates ISO in metadata (`2026-10-12`), readable in prose (`12 August`). Durations as `2h 14m`. Percentage-point changes as `pp`.
 
 ### 13.3 Headings
@@ -551,11 +562,11 @@ Headings are `h1` to `h6` and table titles.
 2. Top bar with the wordmark, one series chip and the theme toggle; a print button only when the document is asked to carry one. Masthead complete with labelled metadata; title ≤ 10 words. A period left out of the masthead or the title carries its omission comment (§7).
 3. Summary: lede, 2–4 KPIs with stated comparisons (or the KPI strip's omission comment, §7), 3–5 findings.
 4. Every summary number reappears in the body with its source.
-5. Every figure: kind, title, description, legend for 2+ series, value-axis title with unit, `role="img"`, `aria-label`, caption with **Source:**. Figure numbers sequential.
+5. Every figure: kind, title, description, legend for 2+ series, value-axis title with unit, `role="img"`, `aria-label`, caption with a source line. Figure numbers sequential.
 6. Every table: kind and title, `.num` on numeric columns, `data-value` on formatted cells, source caption; row flags explained.
 7. Budgets: 1 `cm-featured` (none with the Recommendations omission comment, §7), 1 `cm-summary`, ≤ 1 verdict chip per table, ≤ 1 `cm-emph` per section, ≤ 4 colored chart series.
 8. Mono only inside code; no colored fills behind labels or chips.
-9. Text before a leading colon is bold. Nothing closer than 24px to the next block.
+9. No bold label or opening bold phrase runs into its text. Nothing closer than 24px to the next block.
 10. Chart JSON parses; colors only via `$tokens`; bars/areas start at zero.
 11. Footnotes link both ways; sources list every dataset.
 12. Contents rail links match section ids; every section has `aria-labelledby`.

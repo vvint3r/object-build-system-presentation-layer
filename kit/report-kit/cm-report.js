@@ -7,6 +7,7 @@
    .cm-diagram[data-diagram="flow"]  diagram JSON as <script type="application/json"> child; draws nodes, edges and labels, and writes the text version after the caption
    table[data-sortable]    click-to-sort headers (th.num sorts numerically; td[data-value] overrides text)
    .cm-toc a[href^="#"]    scroll-spy sets aria-current on the visible section
+   a.cm-cite[id]           following a citation points its source entry's back link (a.cm-back) at that citation
    .cm-topbar              its height, measured at load and on every change, sets --cm-topbar-h, the offset that keeps link targets clear of it
    html[data-cm-loaded]    set once the page and its fonts have loaded; turns on smooth scrolling for links within the page
    html[data-cm-static]    draws every chart at load with no animation (headless / PDF pipelines); CM.drawAll() does the same on demand */
@@ -944,6 +945,18 @@
     map.forEach(function (a, s) { spy.observe(s); });
   }
 
+  /* ---------- citations ---------- */
+  // A source can be cited from several places, and its entry has one back link. As written, the link
+  // returns to the first citation; following any citation points it at that citation instead, so the
+  // way back leads to where the reader left the text.
+  function followCite(e) {
+    var a = e.target.closest && e.target.closest('a.cm-cite[id]');
+    if (!a || a.hash.length < 2) return;
+    var entry = document.getElementById(decodeURIComponent(a.hash.slice(1)));
+    var back = entry && entry.querySelector('a.cm-back');
+    if (back) back.setAttribute('href', '#' + a.id);
+  }
+
   /* ---------- print ---------- */
   function beforePrint() {
     if (printing) return;
@@ -970,6 +983,7 @@
       var t = e.target.closest('[data-cm-theme-toggle]');
       if (t) setTheme(doc.dataset.theme === 'dark' ? 'light' : 'dark');
       if (e.target.closest('[data-cm-print]')) window.print();
+      followCite(e);
     });
     initTopbar(); initSmooth(); initTables(); initToc(); initDiagrams(); initCharts();
   }

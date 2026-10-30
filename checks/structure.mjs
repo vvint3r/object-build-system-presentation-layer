@@ -33,9 +33,9 @@ export default [
   },
 
   {
-    // A sources list with entries; each entry is tagged Int, Ext, PDF, Web or API, and external
-    // sources link their URL.
-    name: 'sources', level: 'fail', source: 'SPEC §8.15; §14 item 11', once: true,
+    // A sources list with entries, each tagged with its type from the closed set. The fields of
+    // each entry, its locator among them, are checked by source-entries (checks/provenance.mjs).
+    name: 'sources', level: 'fail', source: 'SPEC §8.21; §14 item 11', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, out = [];
       const lists = [...H.source().querySelectorAll('.cm-sources')].filter(l => !H.exempt(l, check));
@@ -43,11 +43,11 @@ export default [
       for (const l of lists) {
         const items = [...l.children].filter(c => c.localName === 'li');
         if (!items.length) out.push({ where: H.path(l), value: 'sources list is empty' });
+        const TYPES = ['Dataset', 'Report', 'Interview', 'Document', 'System export'];
         for (const li of items) {
           const tag = li.querySelector('.cm-tag');
           const t = tag ? H.text(tag) : '';
-          if (!['Int', 'Ext', 'PDF', 'Web', 'API'].includes(t)) out.push({ where: H.path(li), value: `source tag "${t}" (Int, Ext, PDF, Web or API)` });
-          if (['Ext', 'Web'].includes(t) && !li.querySelector('a[href^="http"]')) out.push({ where: H.path(li), value: `${t} source without a link to its URL` });
+          if (!TYPES.includes(t)) out.push({ where: H.path(li), value: `source type "${t}" (${TYPES.join(', ')})` });
         }
       }
       return out;

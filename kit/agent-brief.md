@@ -129,7 +129,7 @@ the section lede, under its own limit of 40 words and with no bold phrase.
 - No chat-style labels such as "Done so far", "Your part" or "Next up". A person's action appears as
   a role-named item ("Owner approval of the shortlist") with what it does and what it unblocks.
 - Numbers that will change never sit inside definitions of steps or rules. They go in one dated
-  status block.
+  status block, `cm-status` (section 8.22 of `SPEC.md`).
 - No em dashes or en dashes in prose.
 - Plain, factual sentences with the number, the comparison and the period; plain words. Each section
   leads with its finding. No signposting, hype, rhetorical questions or history of how the document
@@ -187,11 +187,16 @@ Content maps onto existing components:
 | Verbatim words from a person or source | Pull quote, `cm-quote` | 8.9 |
 | Numbers over time or across categories | Figure with a chart | 8.10, 9 |
 | Code, queries, file contents | Code block, `cm-code` | 8.17 |
+| The sources a claim rests on | Citation and source register, `cm-cite` and `cm-sources` | 8.21 |
+| Two sources giving different values for one quantity | Disagreement block, `cm-disagree` | 8.21 |
+| Numbers that will change | Status block, `cm-status` | 8.22 |
+| Changes since an earlier version | Change log and revision history, `cm-changes` and `cm-versions` | 8.22 |
+| Three or more limits of the document | Limitation register, `cm-limits` | 8.22 |
 
 ## Kit gaps
 
-Maps, network and hierarchy diagrams, interactive filters, a PDF cover page and revision history. A
-document that needs one uses a figure holding a `cm-slot` placeholder and names the gap in an HTML
+Maps, network and hierarchy diagrams, interactive filters and a PDF cover page. A document that
+needs one uses a figure holding a `cm-slot` placeholder and names the gap in an HTML
 comment. The agent does not draw its own diagram, icon or layout to fill the gap.
 
 ## Checks

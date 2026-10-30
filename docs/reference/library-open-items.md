@@ -1,7 +1,7 @@
 # Library open items (reference)
 
-> **Reference.** These are inconsistencies inside the original content-morphia library. Report Kit 1.1
-> is now the baseline and defines its own values, so none of these block work. An item matters again
+> **Reference.** These are inconsistencies inside the original content-morphia library. The Report
+> Kit defines its own values, so none of these block work. An item matters again
 > only when the library feature it touches is adopted into the kit; resolve it then. Open items for the
 > kit itself are in `docs/open-items.md`.
 

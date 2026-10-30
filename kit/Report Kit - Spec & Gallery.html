@@ -33,7 +33,7 @@
 <header class="cm-topbar">
   <div class="cm-topbar__in">
     <a class="cm-wordmark" href="#top">content-morphia</a>
-    <span class="cm-chip">Report kit 1.1</span>
+    <span class="cm-chip">Report kit 1.2</span>
     <div class="cm-topbar__actions">
       <a class="cm-btn cm-btn--quiet cm-btn--sm" href="Sample%20Report%20-%20Q3%20Support%20Review.html">Sample report</a>
       <button class="cm-btn cm-btn--quiet cm-btn--sm" type="button" data-cm-theme-toggle>Dark mode</button>
@@ -67,8 +67,8 @@
       <p class="cm-mast__dek">How agents assemble reports, documents and analyses as HTML artifacts on Content Morphia: rules, tokens, every block with copy-paste markup, and the chart method.</p>
       <dl class="cm-mast__meta">
         <div><dt>Status</dt><dd><span class="cm-chip">Spec</span><span class="cm-chip cm-chip--warn" data-comment-anchor="3543f5ded7-span">In review</span></dd></div>
-        <div><dt>Version</dt><dd>1.1</dd></div>
-        <div data-comment-anchor="e4dd137118-span"><dt>Last updated</dt><dd>2026-10-12</dd></div>
+        <div><dt>Version</dt><dd>1.2</dd></div>
+        <div data-comment-anchor="e4dd137118-span"><dt>Last updated</dt><dd>2026-10-30</dd></div>
         <div><dt>Agent-readable spec</dt><dd><code>report-kit/SPEC.md</code></dd></div>
       </dl>
     </header>
@@ -98,9 +98,9 @@
           <span class="cm-chip cm-chip--accent">Kept from Foundations</span>
           <h3 class="cm-card__title">Three rules for text, accent and emphasis</h3>
           <div class="cm-grid cm-grid--3 cm-grid--cols cm-small">
-            <div><strong style="font-weight:800">Text is black or white:</strong> focus is carried by weight 300 → 900, never by grey.</div>
-            <div><strong style="font-weight:800">Accent is never text:</strong> teal appears only as bars, underlines, borders, chips, chart marks and the reserved shadow.</div>
-            <div><strong style="font-weight:800">One emphasis per view:</strong> the teal offset shadow marks one element per report, the recommendations.</div>
+            <div><div class="cm-t5">Text is black or white</div><p style="margin-top:6px">Weight from 300 to 900 carries focus, never grey.</p></div>
+            <div><div class="cm-t5">Accent is never text</div><p style="margin-top:6px">Teal appears only as bars, underlines, borders, chips, chart marks and the reserved shadow.</p></div>
+            <div><div class="cm-t5">One emphasis per view</div><p style="margin-top:6px">The teal offset shadow marks one element per report, the recommendations.</p></div>
           </div>
         </div>
       </div>
@@ -134,11 +134,11 @@
               </tbody>
             </table>
           </div>
-          <span class="cm-caption"><b>Source:</b> the Foundations library and <code>SPEC.md</code>, Report Kit 1.1.</span>
+          <span class="cm-caption"><span class="cm-caption__line">Source: the Foundations library and <code>SPEC.md</code>, Report Kit 1.2.</span></span>
         </div>
         <aside class="cm-callout cm-callout--limitation" data-comment-anchor="dbb76ce24d-aside">
           <span class="cm-callout__label">Limitation</span>
-          <div class="cm-callout__body"><strong>Not yet covered:</strong> maps, network and hierarchy diagrams, interactive filters, a cover page for long PDFs, and revision history. Foundations’ own Charts, Print and Diagram pages were not supplied; reconcile once they are.</div>
+          <div class="cm-callout__body">The kit does not yet cover maps, network and hierarchy diagrams, interactive filters, a cover page for long PDFs or revision history. Foundations’ own Charts, Print and Diagram pages were not supplied; reconcile once they are.</div>
         </aside>
       </div>
     </section>
@@ -187,7 +187,8 @@
           <h3 class="cm-h3">Spacing</h3>
           <div class="cm-props">
             <dl>
-              <dt>Scale</dt><dd><b>Between blocks:</b> 16 · 20 · 24 · 28 · 32 · 36 · 40 · 44 · 48 · 56 · 64 · 80 · 96 · 120 · 128 · 160 px. <b>Inside components:</b> 2 · 3 · 4 · 6 · 7 · 8 · 10 · 12 · 14 · 16 · 18 · 20 · 22 px</dd>
+              <dt>Scale<small>(between blocks)</small></dt><dd>16 · 20 · 24 · 28 · 32 · 36 · 40 · 44 · 48 · 56 · 64 · 80 · 96 · 120 · 128 · 160 px</dd>
+              <dt>Scale<small>(inside components)</small></dt><dd>2 · 3 · 4 · 6 · 7 · 8 · 10 · 12 · 14 · 16 · 18 · 20 · 22 px</dd>
               <dt>Between sections</dt><dd>128px above every section header; 160px above the first appendix</dd>
               <dt>Between blocks</dt><dd>64px between blocks in a section body, set by the kit</dd>
             </dl>
@@ -251,7 +252,7 @@
               </tbody>
             </table>
           </div>
-          <span class="cm-caption"><b>Source:</b> <code>SPEC.md</code>, section 7.</span>
+          <span class="cm-caption"><span class="cm-caption__line">Source: <code>SPEC.md</code>, section 7.</span></span>
         </div>
       </div>
     </section>
@@ -263,12 +264,12 @@
         <div class="cm-prose"><p>Each block shows its rule, a live example, and <strong>the exact markup to copy</strong>. Text in the markup is sample copy; structure and class names are fixed.</p></div>
 
         <div class="g-comp" data-comment-anchor="e2af2191e3-div">
-          <header><span class="cm-label">5.1</span><h3 class="cm-h3">Section header</h3><p>A “Part 01” kicker in weight 300, the T2 title, and an optional TL;DR that states the section’s finding. The kit adds the slash, and a 4px rule closes the header across the full column. Appendices use “Appendix A”.</p></header>
+          <header><span class="cm-label">5.1</span><h3 class="cm-h3">Section header</h3><p>A “Part 01” kicker in weight 300, the T2 title, and an optional TL;DR that states the section’s finding under its own label. The kit adds the slash, and a 4px rule closes the header across the full column. Appendices use “Appendix A”.</p></header>
           <div data-demo>
 <header class="cm-section__head">
   <span class="cm-section__num">Part 03</span>
   <h2 class="cm-section__title" id="service-t">Speed &amp; service levels</h2>
-  <p class="cm-section__tldr"><strong>TL;DR:</strong> median first response fell 27% to 2h 14m. SLA attainment rose to 91.2%, still 3.8 points under target.</p>
+  <p class="cm-section__tldr"><span class="cm-label">TL;DR</span> Median first response fell 27% to 2h 14m. SLA attainment rose to 91.2%, still 3.8 points under target.</p>
 </header>
           </div>
         </div>
@@ -301,15 +302,15 @@
         </div>
 
         <div class="g-comp">
-          <header><span class="cm-label">5.3</span><h3 class="cm-h3">Summary and key findings</h3><p>The only boxed summary, once per report, in Part 01. Each finding is a bold claim sentence followed by its evidence.</p></header>
+          <header><span class="cm-label">5.3</span><h3 class="cm-h3">Summary and key findings</h3><p>The only boxed summary, once per report, in Part 01. Each finding is a claim sentence on a line of its own, then its evidence.</p></header>
           <div data-demo>
 <div class="cm-summary cm-bleed">
   <span class="cm-chip cm-chip--accent">Summary</span>
   <h3 class="cm-card__title">Key findings</h3>
   <ol class="cm-findings">
-    <li><strong>Chat intent routing cut first response time by 27%.</strong> Median first response fell from 3h 05m to 2h 14m after routing went live on 8 July.</li>
-    <li><strong>The backlog fell 39% despite higher volume.</strong> Open tickets dropped from 1,940 to 1,186.</li>
-    <li><strong>Billing drove more than half of all escalations.</strong> Billing took 52% of escalations after the Billing v4 launch in week 7.</li>
+    <li><span class="cm-findings__claim">Chat intent routing cut first response time by 27%.</span> Median first response fell from 3h 05m to 2h 14m after routing went live on 8 July.</li>
+    <li><span class="cm-findings__claim">The backlog fell 39% despite higher volume.</span> Open tickets dropped from 1,940 to 1,186.</li>
+    <li><span class="cm-findings__claim">Billing drove more than half of all escalations.</span> Billing took 52% of escalations after the Billing v4 launch in week 7.</li>
   </ol>
 </div>
           </div>
@@ -323,21 +324,21 @@
   <aside class="cm-callout cm-callout--tip"><span class="cm-callout__label">Tip</span><div class="cm-callout__body">A practical shortcut or better method.</div></aside>
   <aside class="cm-callout cm-callout--important"><span class="cm-callout__label">Important</span><div class="cm-callout__body">The one thing <strong>not to miss</strong>. Use once per section at most.</div></aside>
   <aside class="cm-callout cm-callout--warning"><span class="cm-callout__label">Warning</span><div class="cm-callout__body">A condition that will produce an incorrect result if it is not accounted for.</div></aside>
-  <aside class="cm-callout cm-callout--example"><span class="cm-callout__label">Example</span><div class="cm-callout__body"><strong>Worked instance:</strong> 412 of 437 runs on time → 94.3%.</div></aside>
+  <aside class="cm-callout cm-callout--example"><span class="cm-callout__label">Example</span><div class="cm-callout__body">412 of 437 runs finished on time, an on-time rate of 94.3%.</div></aside>
   <aside class="cm-callout cm-callout--requirement"><span class="cm-callout__label">Requirement</span><div class="cm-callout__body">A rule the reader must follow. <span class="cm-id">REQ-04</span></div></aside>
   <aside class="cm-callout cm-callout--limitation"><span class="cm-callout__label">Limitation</span><div class="cm-callout__body">What the data cannot show.</div></aside>
-  <aside class="cm-callout cm-callout--correction"><span class="cm-callout__label">Correction</span><div class="cm-callout__body"><strong>Previously 91.8%, now 91.2%:</strong> state the old and new values and the cause.</div></aside>
+  <aside class="cm-callout cm-callout--correction"><span class="cm-callout__label">Correction</span><div class="cm-callout__body">Q3 SLA attainment is 91.2%, not the 91.8% first published, which counted merged duplicates.</div></aside>
 </div>
           </div>
         </div>
 
         <div class="g-comp">
-          <header><span class="cm-label">5.5</span><h3 class="cm-h3">Definition</h3><p>Explains a term the reader needs before the numbers make sense, placed where it first matters or in Appendix A.1 with the full set. The term is in 800 above its explanation; a dotted rule separates the icon from the block. Label “Definition” for one term, “Definitions” for several; add an example when the definition alone is abstract.</p></header>
+          <header><span class="cm-label">5.5</span><h3 class="cm-h3">Definition</h3><p>Explains a term the reader needs before the numbers make sense, placed where it first matters or in Appendix A.1 with the full set. The term is in 800 above its explanation; a dotted rule separates the icon from the block. Label “Definition” for one term, “Definitions” for several; add an example sentence when the definition alone is abstract.</p></header>
           <div data-demo>
 <aside class="cm-def" data-comment-anchor="805c49772b-dl">
   <span class="cm-def__label">Definitions</span>
   <dl>
-    <div><dt>Backlog</dt><dd>Tickets in open or pending state at the snapshot time. Tickets waiting on the customer count as pending. <strong>Example:</strong> 1,186 tickets open at Sunday 23:59 UTC.</dd></div>
+    <div><dt>Backlog</dt><dd>Tickets in open or pending state at the snapshot time. Tickets waiting on the customer count as pending. At Sunday 23:59 UTC, 1,186 tickets were open.</dd></div>
     <div><dt>CSAT</dt><dd>Share of survey responses scoring 4 or 5 on a 5-point scale, weighted by response count.</dd></div>
   </dl>
 </aside>
@@ -414,7 +415,10 @@
       <tfoot><tr><td>All teams</td><td class="num">31,750</td><td class="num">65.9%</td><td class="num">90.8%</td><td></td></tr></tfoot>
     </table>
   </div>
-  <span class="cm-caption"><b>Source:</b> helpdesk warehouse · Q3 2026. <b>Flags:</b> green on track, yellow at risk, red breach.</span>
+  <span class="cm-caption">
+    <span class="cm-caption__line">Source: helpdesk warehouse · Q3 2026.</span>
+    <span class="cm-caption__line">Flags: green on track, yellow at risk, red breach.</span>
+  </span>
 </div>
           </div>
           <div data-demo>
@@ -430,7 +434,10 @@
       </tbody>
     </table>
   </div>
-  <span class="cm-caption"><b>Source:</b> alerting runbook review · Q3 2026. <b>★ Recommended:</b> the 4px header rule and the teal bar beside each cell repeat the star for sighted readers.</span>
+  <span class="cm-caption">
+    <span class="cm-caption__line">Source: alerting runbook review · Q3 2026.</span>
+    <span class="cm-caption__line">Note: ★ marks the recommended column; the 4px header rule and the teal bar beside each cell repeat it for sighted readers.</span>
+  </span>
 </div>
           </div>
         </div>
@@ -464,10 +471,10 @@
         </div>
 
         <div class="g-comp">
-          <header><span class="cm-label">5.13</span><h3 class="cm-h3">Lists</h3><p>Grey dot bullets (the accent bar belongs to titles) and two-digit ordered lists. Items hold inline code, links and bold like any paragraph. When an item leads with a term followed by a colon, the term is bold.</p></header>
+          <header><span class="cm-label">5.13</span><h3 class="cm-h3">Lists</h3><p>Grey dot bullets (the accent bar belongs to titles) and two-digit ordered lists. Items hold inline code, links and bold like any paragraph, but no item opens with a bold label or phrase. A term with its explanation goes in a definition block or a table.</p></header>
           <div data-demo>
 <div class="cm-grid cm-grid--2 cm-grid--cols">
-  <ul class="cm-list cm-small"><li><strong>Define:</strong> build the metric from raw counts in <code>tickets_fact</code>.</li><li><strong>Target:</strong> set one per tier.</li></ul>
+  <ul class="cm-list cm-small"><li>Build the metric from raw counts in <code>tickets_fact</code>.</li><li>Set <strong>one target</strong> per tier.</li></ul>
   <ol class="cm-olist cm-small"><li>Register the pipeline</li><li>Backfill 90 days</li></ol>
 </div>
           </div>
@@ -531,14 +538,14 @@
         </div>
 
         <div class="g-comp">
-          <header><span class="cm-label">5.18</span><h3 class="cm-h3">Recommendations card</h3><p>Holds the actions the report asks the reader to take. It is the only block in the Recommendations section, which follows the body sections and precedes the appendices. Each action is a bold instruction, one sentence of reason, then owner, due date and expected impact.</p><p>It never opens a report; the executive summary does. It carries the reserved L2 treatment, black border plus teal offset, exactly once per report. It fits its content, between 520px and the reading measure, so short actions give a narrow card.</p></header>
+          <header><span class="cm-label">5.18</span><h3 class="cm-h3">Recommendations card</h3><p>Holds the actions the report asks the reader to take. It is the only block in the Recommendations section, which follows the body sections and precedes the appendices. Each action is an instruction on a line of its own, then one sentence of reason, then owner, due date and expected impact.</p><p>It never opens a report; the executive summary does. It carries the reserved L2 treatment, black border plus teal offset, exactly once per report. It fits its content, between 520px and the reading measure, so short actions give a narrow card.</p></header>
           <div data-demo>
 <div class="cm-card cm-featured cm-bleed" data-comment-anchor="cec5db1244-div">
   <div class="cm-card__kicker"><span class="cm-chip cm-chip--accent">Recommended</span></div>
   <h3 class="cm-card__title">Three actions for Q4</h3>
   <ol class="cm-findings">
-    <li><strong>Hire six billing specialists before renewals.</strong> Billing is the lowest-performing queue.<div class="cm-chips"><span class="cm-chip">Owner · Support Ops</span><span class="cm-chip">Due 2026-11-02</span><span class="cm-chip cm-chip--accent">+2.1 pp SLA, est.</span></div></li>
-    <li><strong>Make APAC weekend coverage permanent.</strong> The pilot removed the Monday queue spike.<div class="cm-chips"><span class="cm-chip">Owner · APAC lead</span><span class="cm-chip">Decide by 2026-10-31</span></div></li>
+    <li><span class="cm-findings__claim">Hire six billing specialists before renewals.</span> Billing is the lowest-performing queue.<div class="cm-chips"><span class="cm-chip">Owner · Support Ops</span><span class="cm-chip">Due 2026-11-02</span><span class="cm-chip cm-chip--accent">+2.1 pp SLA, est.</span></div></li>
+    <li><span class="cm-findings__claim">Make APAC weekend coverage permanent.</span> The pilot removed the Monday queue spike.<div class="cm-chips"><span class="cm-chip">Owner · APAC lead</span><span class="cm-chip">Decide by 2026-10-31</span></div></li>
   </ol>
 </div>
           </div>
@@ -552,7 +559,7 @@
   <h3 class="cm-figure__title cm-figure__title--sm">Escalation form, before and after</h3>
   <p class="cm-figure__desc">Screenshots of the agent-side form.</p>
   <div class="cm-slot"><b>Drop figure · 16:9</b><i>Screenshot or diagram export</i></div>
-  <figcaption class="cm-caption"><b>Source:</b> support tooling · captured 2026-09-20</figcaption>
+  <figcaption class="cm-caption"><span class="cm-caption__line">Source: support tooling · captured 2026-09-20</span></figcaption>
 </figure>
           </div>
         </div>
@@ -570,13 +577,13 @@
           <div class="cm-stack">
             <h3 class="cm-h3">Chart rules</h3>
             <ul class="cm-list" style="max-width:var(--cm-read)">
-              <li data-comment-anchor="2eb9697b06-li"><strong>One message per chart:</strong> the figure title states what it shows; the prose above states the finding.</li>
-              <li data-comment-anchor="e607be6d95-li"><strong>Color by role:</strong> the focal series takes <code>$c1</code>, the comparison <code>$c2</code> or <code>$context</code>. More than four series becomes small multiples or a table.</li>
-              <li><strong>Legend for two or more series:</strong> added automatically, top left, in series order. End labels and value labels may be added; they never replace the legend.</li>
-              <li><strong>Axis titles carry units:</strong> name the value axis (“Tickets per week”) unless every tick already shows the unit (“90%”).</li>
-              <li><strong>Bars and areas start at zero:</strong> lines may zoom.</li>
-              <li><strong>No 3D, gradient fills or dual y-axes:</strong> pie or donut only for part-to-whole with four slices or fewer.</li>
-              <li data-comment-anchor="ea32da12e3-li"><strong>Text alternative:</strong> every chart has an <code>aria-label</code> stating the type and the finding, and a source line.</li>
+              <li data-comment-anchor="2eb9697b06-li">Each chart carries one message: the figure title states what it shows, and the prose above states the finding.</li>
+              <li data-comment-anchor="e607be6d95-li">Color follows role: the focal series takes <code>$c1</code>, the comparison <code>$c2</code> or <code>$context</code>. More than four series become small multiples or a table.</li>
+              <li>Two or more series get a legend, added automatically at the top left in series order. End labels and value labels never replace it.</li>
+              <li>Axis titles carry units: the value axis is named (“Tickets per week”) unless every tick already shows the unit (“90%”).</li>
+              <li>Bars and areas start at zero; lines may zoom.</li>
+              <li>No chart uses 3D, gradient fills or dual y-axes. A pie or donut shows only a part of a whole, in four slices or fewer.</li>
+              <li data-comment-anchor="ea32da12e3-li">Every chart has an <code>aria-label</code> stating its type and finding, and a source line.</li>
             </ul>
           </div>
         </div>
@@ -597,12 +604,12 @@
                   <tr><td class="strong">Tick labels, gridlines</td><td>Automatic</td><td class="wrap">Short labels; hairline gridlines on the value axis only; 1.5px ink baseline</td><td>Always</td></tr>
                   <tr><td class="strong">Data labels</td><td><code>label</code>, <code>endLabel</code></td><td class="wrap">Values the reader should quote; every bar when there are 12 or fewer</td><td>Key values</td></tr>
                   <tr><td class="strong">Annotations</td><td><code>markLine</code>, <code>markArea</code></td><td class="wrap">Target, event or period, labelled in 1–3 words</td><td>When relevant</td></tr>
-                  <tr><td class="strong">Source and notes</td><td><code>.cm-caption</code></td><td class="wrap"><b>Source:</b> dataset · scope · refresh date. <b>Note:</b> exclusions or definitions</td><td>Always</td></tr>
+                  <tr><td class="strong">Source and notes</td><td><code>.cm-caption</code></td><td class="wrap">A source line (dataset · scope · refresh date), then a note line for exclusions or definitions, each on its own line</td><td>Always</td></tr>
                   <tr><td class="strong">Text alternative</td><td><code>aria-label</code>, <code>.cm-data</code></td><td class="wrap">Chart type and finding; data table for values not in the prose</td><td>Always</td></tr>
                 </tbody>
               </table>
             </div>
-            <span class="cm-caption"><b>Source:</b> <code>SPEC.md</code>, section 9.</span>
+            <span class="cm-caption"><span class="cm-caption__line">Source: <code>SPEC.md</code>, section 9.</span></span>
           </div>
         </div>
 
@@ -627,7 +634,7 @@
     }
     </script>
   </div>
-  <figcaption class="cm-caption"><b>Source:</b> helpdesk warehouse, <code>support.tickets_fact</code> · refreshed 2026-10-05</figcaption>
+  <figcaption class="cm-caption"><span class="cm-caption__line">Source: helpdesk warehouse, <code>support.tickets_fact</code> · refreshed 2026-10-05</span></figcaption>
 </figure>
           </div>
         </div>
@@ -652,7 +659,7 @@
     }
     </script>
   </div>
-  <figcaption class="cm-caption"><b>Source:</b> helpdesk warehouse · resolved tickets, Q3 2026</figcaption>
+  <figcaption class="cm-caption"><span class="cm-caption__line">Source: helpdesk warehouse · resolved tickets, Q3 2026</span></figcaption>
 </figure>
           </div>
         </div>
@@ -679,7 +686,7 @@
     }
     </script>
   </div>
-  <figcaption class="cm-caption"><b>Source:</b> helpdesk warehouse</figcaption>
+  <figcaption class="cm-caption"><span class="cm-caption__line">Source: helpdesk warehouse</span></figcaption>
 </figure>
             </div>
           </div>
@@ -700,7 +707,7 @@
     }
     </script>
   </div>
-  <figcaption class="cm-caption"><b>Source:</b> weekly snapshot, Sunday 23:59 UTC</figcaption>
+  <figcaption class="cm-caption"><span class="cm-caption__line">Source: weekly snapshot, Sunday 23:59 UTC</span></figcaption>
 </figure>
             </div>
           </div>
@@ -726,7 +733,7 @@
     }
     </script>
   </div>
-  <figcaption class="cm-caption"><b>Source:</b> helpdesk warehouse and CSAT export, Q3</figcaption>
+  <figcaption class="cm-caption"><span class="cm-caption__line">Source: helpdesk warehouse and CSAT export, Q3</span></figcaption>
 </figure>
             </div>
           </div>
@@ -746,7 +753,7 @@
     }
     </script>
   </div>
-  <figcaption class="cm-caption"><b>Source:</b> escalations, Q3</figcaption>
+  <figcaption class="cm-caption"><span class="cm-caption__line">Source: escalations, Q3</span></figcaption>
 </figure>
             </div>
           </div>
@@ -771,7 +778,10 @@
     }
     </script>
   </div>
-  <figcaption class="cm-caption"><b>Source:</b> helpdesk warehouse. <b>Note:</b> 00:00 to 06:00 omitted (6% of volume).</figcaption>
+  <figcaption class="cm-caption">
+    <span class="cm-caption__line">Source: helpdesk warehouse.</span>
+    <span class="cm-caption__line">Note: 00:00 to 06:00 omitted (6% of volume).</span>
+  </figcaption>
 </figure>
           </div>
         </div>
@@ -841,7 +851,7 @@
           <h3 class="cm-card__title">Style, links and writing</h3>
           <ol class="cm-olist">
             <li>Accent never used as text color; no grey text; mono only for code.</li>
-            <li>Text before a colon that leads a sentence, list item or caption is bold.</li>
+            <li>No bold label or opening bold phrase runs into its text; a caption’s source and note lines are lines of their own.</li>
             <li>Nothing closer than 24px to the block next to it.</li>
             <li>Footnote links resolve both ways; sources list every dataset used.</li>
             <li>Contents rail links match section ids. Checked in light, dark and print preview.</li>
@@ -853,7 +863,7 @@
 
     <footer class="cm-footer">
       <span><b>Content Morphia Report Kit</b></span>
-      <span>v1.1 · 2026-10-12</span>
+      <span>v1.2 · 2026-10-30</span>
       <span>Derived from Content Morphia Foundations</span>
     </footer>
   </main>

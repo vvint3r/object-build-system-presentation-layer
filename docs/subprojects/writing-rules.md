@@ -7,6 +7,7 @@ spec and enforced by the checks.
 | --- | --- |
 | 2026-10-30 | In progress |
 | 2026-10-30 | Done: rules in section 13, checks in `checks/writing.mjs` (record 074); questions in `docs/open-items.md` |
+| 2026-10-30 | Questions answered (record 075); the rules are part of kit 1.2 |
 
 ## Scope
 

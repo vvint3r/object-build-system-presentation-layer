@@ -46,7 +46,7 @@ export default [
   },
 
   {
-    // 3 to 5 findings, each opening with its claim in bold.
+    // The summary holds 3 to 5 findings. Each opens with its claim line, which claim-lines asserts.
     name: 'findings', level: 'warn', source: 'SPEC §8.3; §14 item 3', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, out = [];
@@ -54,10 +54,6 @@ export default [
         if (H.exempt(ol, check)) continue;
         const items = [...ol.children].filter(c => c.localName === 'li');
         if (items.length < 3 || items.length > 5) out.push({ where: H.path(ol), value: `${items.length} findings (3 to 5)` });
-        for (const li of items) {
-          const s = li.querySelector('strong, b');
-          if (!s || !H.text(li).startsWith(H.text(s))) out.push({ where: H.path(li), value: 'finding does not open with its claim in <strong>' });
-        }
       }
       return out;
     },
@@ -89,38 +85,23 @@ export default [
   },
 
   {
-    // Text before a leading colon is bold: "Source: …" opens with <b>Source:</b>.
-    name: 'bold-colon', level: 'warn', source: 'SPEC §14 item 9', once: true,
-    inPage: ({ check }) => {
-      const H = window.__cm, out = [];
-      for (const el of H.source().body.querySelectorAll('p, li, dd, td, figcaption, .cm-caption')) {
-        if (el.closest('pre, code, .cm-code, script') || H.exempt(el, check)) continue;
-        // A colon inside code (a JSON key, a selector) is not a leading colon.
-        const prose = el.cloneNode(true);
-        prose.querySelectorAll('code').forEach(c => c.replaceWith('\u2026'));
-        const m = H.text(prose).match(/^([^:.!?]{1,60}):\s/);
-        if (!m) continue;
-        const first = [...el.childNodes].find(n => n.nodeType !== 3 || n.nodeValue.trim());
-        if (first && first.nodeType === 1 && !['b', 'strong'].includes(first.localName) && !['span', 'a', 'small', 'em', 'i'].includes(first.localName)) continue;
-        const lead = first && first.nodeType === 1 ? first.closest('b, strong') || first.querySelector('b, strong') : null;
-        if (!lead || !m[1].startsWith(H.text(lead).replace(/:$/, '').trim())) out.push({ where: H.path(el), value: `"${m[1]}:" is not bold` });
-      }
-      return out;
-    },
-  },
-
-  {
-    // A TL;DR is one or two sentences and 40 words at most.
-    name: 'tldr-length', level: 'warn', source: 'SPEC §8.1', once: true,
+    // A TL;DR is one or two sentences and 40 words at most, after its label, and carries no bold
+    // phrase: the label marks it. It stands in for the section lede (SPEC section 13.1).
+    name: 'tldr-length', level: 'warn', source: 'SPEC §8.1; §13.1', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, out = [];
       for (const p of H.source().querySelectorAll('.cm-section__tldr')) {
         if (H.exempt(p, check)) continue;
-        const t = H.text(p).replace(/^TL;DR:\s*/i, '');
+        const body = p.cloneNode(true);
+        body.querySelectorAll('.cm-label').forEach(l => l.remove());
+        const t = H.text(body).replace(/^TL;DR:?\s*/i, '');
         const words = t.split(' ').filter(w => /[\p{L}\p{N}]/u.test(w)).length;
         const sentences = t.split(/(?<=[.!?])\s+(?=[A-Z0-9“"])/).filter(Boolean).length;
         if (words > 40) out.push({ where: H.path(p), value: `${words} words (at most 40)` });
         if (sentences > 2) out.push({ where: H.path(p), value: `${sentences} sentences (1 or 2)` });
+        for (const b of body.querySelectorAll('strong, b')) {
+          if (H.text(b)) out.push({ where: H.path(p), value: `bold "${H.text(b)}" (a TL;DR carries no bold phrase)` });
+        }
       }
       return out;
     },

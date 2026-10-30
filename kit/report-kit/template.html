@@ -1,6 +1,6 @@
 <!doctype html>
 <!--
-  Content Morphia · Report Kit 1.1 · STARTER TEMPLATE
+  Content Morphia · Report Kit 1.2 · STARTER TEMPLATE
   Copy this file for every new report. Replace every {{ … }} placeholder.
   Delete blocks you do not need; never add new chrome. Rules: report-kit/SPEC.md
   A document without measured numbers leaves out a required block it has no content for and marks its place with an omission comment (SPEC.md §7).
@@ -12,7 +12,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{{ Report title }} · {{ Period }}</title>
-<meta name="cm-kit" content="1.1">
+<meta name="cm-kit" content="1.2">
 <script>(function(){var t;try{t=localStorage.getItem('cm-theme')}catch(e){}document.documentElement.dataset.theme=t||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')})()</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -96,12 +96,12 @@
           </div>
         </div>
 
-        <!-- KEY FINDINGS (required): 3–5 items, each = bold claim sentence + one evidence sentence -->
+        <!-- KEY FINDINGS (required): 3–5 items, each = a claim line of one sentence + one evidence sentence -->
         <div class="cm-summary cm-bleed">
           <span class="cm-chip cm-chip--accent">Summary</span>
           <h3 class="cm-card__title">Key findings</h3>
           <ol class="cm-findings">
-            <li><div><strong>{{ Claim, one sentence. }}</strong> {{ Evidence with the number. }}</div></li>
+            <li><div><span class="cm-findings__claim">{{ Claim, one sentence. }}</span> {{ Evidence with the number. }}</div></li>
           </ol>
         </div>
       </div>
@@ -112,8 +112,8 @@
       <header class="cm-section__head">
         <span class="cm-section__num">Part 02</span>
         <h2 class="cm-section__title" id="s2-t">{{ Section title }}</h2>
-        <!-- TL;DR (optional): one or two sentences with the section's finding and its number -->
-        <p class="cm-section__tldr"><strong>TL;DR:</strong> {{ The finding, with the key number. }}</p>
+        <!-- TL;DR (optional): one or two sentences with the section's finding and its number, under its label. It stands in for the section lede and carries no bold phrase. -->
+        <p class="cm-section__tldr"><span class="cm-label">TL;DR</span> {{ The finding, with the key number. }}</p>
       </header>
       <div class="cm-section__body">
         <div class="cm-prose">
@@ -135,7 +135,7 @@
             }
             </script>
           </div>
-          <figcaption class="cm-caption"><b>Source:</b> {{ dataset · scope · refresh date }}</figcaption>
+          <figcaption class="cm-caption"><span class="cm-caption__line">Source: {{ dataset · scope · refresh date }}</span></figcaption>
         </figure>
 
         <!-- TABLE -->
@@ -150,7 +150,7 @@
               </tbody>
             </table>
           </div>
-          <span class="cm-caption"><b>Source:</b> {{ source · scope }}</span>
+          <span class="cm-caption"><span class="cm-caption__line">Source: {{ source · scope }}</span></span>
         </div>
 
         <!-- CALLOUT: note | tip | important | warning | example | requirement | limitation | correction -->
@@ -210,7 +210,7 @@
       <span><b>{{ Report title }}</b></span>
       <span>v{{ 1.0 }} · published {{ YYYY-MM-DD }}</span>
       <span>{{ Team }}</span>
-      <span>Content Morphia Report Kit 1.1</span>
+      <span>Content Morphia Report Kit 1.2</span>
     </footer>
   </main>
 </div>

@@ -25,12 +25,12 @@ All links point at one commit of the kit, so every document built from this brie
 
 | File | Role | Link |
 | --- | --- | --- |
-| `SPEC.md` | The rules in force. Read in full before writing. | [SPEC.md](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/f69e2a5770bf284f67b80d953180474e93df917a/kit/report-kit/SPEC.md) |
-| `template.html` | The starting file for every document | [template.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/f69e2a5770bf284f67b80d953180474e93df917a/kit/report-kit/template.html) |
-| `cm-report.css` | Tokens and every component class; the only stylesheet | [cm-report.css](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/f69e2a5770bf284f67b80d953180474e93df917a/kit/report-kit/cm-report.css) |
-| `cm-report.js` | Theme toggle, chart theme and drawing, sortable tables, contents rail, print | [cm-report.js](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/f69e2a5770bf284f67b80d953180474e93df917a/kit/report-kit/cm-report.js) |
-| Sample report | A finished document built on the kit: the reference output | [Sample Report - Q3 Support Review.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/f69e2a5770bf284f67b80d953180474e93df917a/kit/Sample%20Report%20-%20Q3%20Support%20Review.html) |
-| Spec and gallery | Every component as a live example, with its markup | [Report Kit - Spec & Gallery.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/f69e2a5770bf284f67b80d953180474e93df917a/kit/Report%20Kit%20-%20Spec%20%26%20Gallery.html) |
+| `SPEC.md` | The rules in force. Read in full before writing. | [SPEC.md](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/6f3ecb4a496b123b826c9b18d0f879b25c71af8f/kit/report-kit/SPEC.md) |
+| `template.html` | The starting file for every document | [template.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/6f3ecb4a496b123b826c9b18d0f879b25c71af8f/kit/report-kit/template.html) |
+| `cm-report.css` | Tokens and every component class; the only stylesheet | [cm-report.css](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/6f3ecb4a496b123b826c9b18d0f879b25c71af8f/kit/report-kit/cm-report.css) |
+| `cm-report.js` | Theme toggle, chart theme and drawing, sortable tables, contents rail, print | [cm-report.js](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/6f3ecb4a496b123b826c9b18d0f879b25c71af8f/kit/report-kit/cm-report.js) |
+| Sample report | A finished document built on the kit: the reference output | [Sample Report - Q3 Support Review.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/6f3ecb4a496b123b826c9b18d0f879b25c71af8f/kit/Sample%20Report%20-%20Q3%20Support%20Review.html) |
+| Spec and gallery | Every component as a live example, with its markup | [Report Kit - Spec & Gallery.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/6f3ecb4a496b123b826c9b18d0f879b25c71af8f/kit/Report%20Kit%20-%20Spec%20%26%20Gallery.html) |
 
 An agent with git can clone the whole kit instead:
 `git clone https://github.com/vvint3r/object-build-system-presentation-layer`.
@@ -71,9 +71,9 @@ The pasted kit code is never edited, shortened or reformatted.
 at jsDelivr, pinned to the same commit:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vvint3r/object-build-system-presentation-layer@f69e2a5770bf284f67b80d953180474e93df917a/kit/report-kit/cm-report.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vvint3r/object-build-system-presentation-layer@6f3ecb4a496b123b826c9b18d0f879b25c71af8f/kit/report-kit/cm-report.css">
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js" defer></script>
-<script src="https://cdn.jsdelivr.net/gh/vvint3r/object-build-system-presentation-layer@f69e2a5770bf284f67b80d953180474e93df917a/kit/report-kit/cm-report.js" defer></script>
+<script src="https://cdn.jsdelivr.net/gh/vvint3r/object-build-system-presentation-layer@6f3ecb4a496b123b826c9b18d0f879b25c71af8f/kit/report-kit/cm-report.js" defer></script>
 ```
 
 Links to `raw.githubusercontent.com` do not work in a page: that host serves the files as plain

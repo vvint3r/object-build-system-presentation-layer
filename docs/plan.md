@@ -37,9 +37,9 @@ the kit · rules · adoption         hand-edited               compose, review, 
 
 ## Migration
 
-After the baseline, the work runs as **four sub-projects**. Steps 7 to 9 run in that order without
-waiting for step 6, which starts on a direction the orchestrating session sets (record 075). **The
-plan is done when step 9 is done.**
+After the baseline, the work runs as **four sub-projects**. Record 076 sets the direction for steps 6,
+8 and 9 and runs them in five rounds of parallel sessions; kit 2.0 at the end of round 5 is the first
+complete output, the version the owner reviews. **The plan is done when step 9 is done.**
 
 An orchestrating session splits each sub-project into changes and starts each change in its own
 working session, on its own branch. Each change returns as a pull request, which the orchestrating
@@ -69,10 +69,10 @@ item is open. Section 15 of the spec lists what changed in 1.2.
 
 | Step | Sub-project | Work | Done when | State |
 | --- | --- | --- | --- | --- |
-| 6 | Visualization build | Build diagrams, charts and visualizations from the owner's reference set, with the library's diagram and chart pages and the visualization kit as references | The families its direction names are in the kit, each with rules, checks and a gallery example | Next: direction set by the orchestrating session (record 075) |
+| 6 | Visualization build | A diagram renderer with six drawing modes and nine families on them, and chart recipes with four new chart types (`docs/subprojects/visualization-build.md`) | The nine families of record 076 and the chart additions are in the kit, each with rules, checks and a gallery example | Rounds 2 and 3 |
 | 7 | Writing rules | Extend section 13 of the spec with the writing rules (word limits, register, per-heading constraints) and turn them into checks | Section 13 holds the rules, the checks enforce them, and every kit page passes | Done (records 074 and 075) |
-| 8 | Kit features | Adopt provenance; change and status; wayfinding and multi-document navigation; structured components, then page types; in that order. Add a third packaging mode that bundles Nunito, JetBrains Mono and ECharts into the report, so it renders offline or behind a restrictive network | The Provenance, Change and status, Wayfinding, Multi-page navigation, Structured components and Page types rows of `docs/adoption.md` read Covered, and a report in the offline mode passes the checks | Next |
-| 9 | Claude Design hand-off | Build the design bundle from the kit and sync it to Claude Design inside Claude | A document composed in Claude Design from the synced bundle passes the kit's checks | Waits for step 8; target, sync method and bundle form settled when the step starts |
+| 8 | Kit features | Document kinds and offline packaging; provenance; change and status; navigation across documents; structured components; then page types as templates on the document kinds (`docs/subprojects/kit-features.md`) | The Provenance, Change and status, Wayfinding, Multi-page navigation, Structured components and Page types rows of `docs/adoption.md` read Covered, and a report in the offline mode passes the checks | Rounds 2 to 4 |
+| 9 | Claude Design hand-off | Build the design bundle from the kit and publish it as a Design System artifact in Claude, the form Claude Design takes inside Claude | A document composed in Claude from the design system, by an agent given only the bundle, passes the kit's checks | A first round trip in round 2; the full hand-off in round 5 |
 
 The other rows of `docs/adoption.md`, learning, inputs and icons among them, are adopted when content
 calls for them, outside this plan.

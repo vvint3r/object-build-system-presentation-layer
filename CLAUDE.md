@@ -2,8 +2,8 @@
 
 This repository is the source of truth for **content-morphia**, a design system for a knowledge index:
 reports, documents and analyses published as single HTML files, built for reference density and
-long-form reading comfort. The baseline is **Report Kit 1.1**. Claude Design consumes the system; it is
-not edited there. See `docs/plan.md`.
+long-form reading comfort. The kit in force is **Report Kit 1.2**. Claude Design consumes the system;
+it is not edited there. See `docs/plan.md`.
 
 ## Read before working
 

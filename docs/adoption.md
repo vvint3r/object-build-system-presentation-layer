@@ -1,6 +1,6 @@
 # Adoption backlog
 
-Report Kit 1.1 is the baseline. The original 35-page content-morphia library is the reference: it
+Report Kit 1.2 is the kit in force. The original 35-page content-morphia library is the reference: it
 holds more components, page types and diagram families than the kit, and they are adopted into the kit
 over time. This file maps the library against the kit and records what is left to adopt.
 

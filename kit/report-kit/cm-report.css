@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Content Morphia · Report Kit v1.1
+   Content Morphia · Report Kit v1.2
    One stylesheet for agent-published reports, documents and analyses.
    Derived from Content Morphia Foundations. Rules live in SPEC.md.
    Type: Nunito for everything; JetBrains Mono for code only.
@@ -144,7 +144,7 @@ pre code{all:unset}
 .cm-section__num::after{content:" /"}
 .cm-section__title{font-size:38px;font-weight:900;line-height:1.15;letter-spacing:-.01em}
 .cm-section__tldr{margin-top:28px;max-width:var(--cm-read);font-size:17px;line-height:1.85}
-.cm-section__tldr>strong:first-child{font-weight:800}
+.cm-section__tldr>.cm-label{display:block;margin-bottom:12px}
 .cm-section__body{display:flex;flex-direction:column;gap:64px}
 
 /* ---------- 7. Surfaces & elevation ---------- */
@@ -223,6 +223,8 @@ pre code{all:unset}
 .cm-findings>li:first-child{border-top:0;padding-top:0}
 .cm-findings>li:last-child{padding-bottom:0}
 .cm-findings>li::before{content:counter(cmf,decimal-leading-zero);position:absolute;left:0;font-weight:800;font-variant-numeric:tabular-nums}
+/* the claim: its own line at 800, 6px above the evidence, as a definition's term sits above its explanation */
+.cm-findings__claim{display:block;font-weight:800;margin-bottom:6px}
 .cm-findings strong{font-weight:800}
 .cm-findings .cm-chips{margin-top:16px}
 
@@ -296,7 +298,9 @@ pre code{all:unset}
 .cm-chart{position:relative;height:var(--h,320px);margin-top:32px;min-width:0}
 .cm-chart>script{display:none}
 .cm-caption{display:block;font-size:13px;line-height:1.7;margin-top:20px;max-width:var(--cm-read)}
-.cm-caption b,.cm-caption strong{font-weight:800}
+/* each caption line (source, note, flags) on its own line, 4px apart, never bold */
+.cm-caption__line{display:block}
+.cm-caption__line+.cm-caption__line{margin-top:4px}
 .cm-slot{aspect-ratio:16/9;background:var(--cm-track);border-radius:var(--cm-r-input);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:16px;margin-top:32px;font-size:14px}
 .cm-slot b{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
 .cm-slot i{font-style:italic}

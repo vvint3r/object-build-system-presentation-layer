@@ -256,6 +256,23 @@ export default [
   },
 
   {
+    // Every key finding and every recommended action opens with exactly one claim line: the claim
+    // sentence on a line of its own (.cm-findings__claim), with the evidence or reason after it.
+    name: 'claim-lines', level: 'fail', source: 'SPEC §8.3; §8.19', once: true,
+    inPage: ({ check }) => {
+      const H = window.__cm, out = [];
+      for (const li of H.source().querySelectorAll('ol.cm-findings > li')) {
+        if (H.exempt(li, check)) continue;
+        const claims = li.querySelectorAll('.cm-findings__claim');
+        if (claims.length !== 1) out.push({ where: H.path(li), value: `${claims.length} claim lines (exactly 1)` });
+        else if (!H.text(claims[0])) out.push({ where: H.path(claims[0]), value: 'empty claim line' });
+        else if (!H.text(li).startsWith(H.text(claims[0]))) out.push({ where: H.path(claims[0]), value: 'the claim line does not open the item' });
+      }
+      return out;
+    },
+  },
+
+  {
     // Notes and sources close the report, notes first, and the footer follows.
     name: 'report-anatomy', level: 'fail', source: 'SPEC §7', once: true,
     inPage: ({ check }) => {
@@ -284,7 +301,7 @@ export default [
       const f = d.querySelector('.cm-footer');
       if (!f || H.exempt(f, check)) return [];
       const t = H.text(f);
-      if (!t.includes('Content Morphia Report Kit 1.1')) out.push({ where: H.path(f), value: 'does not name "Content Morphia Report Kit 1.1"' });
+      if (!t.includes('Content Morphia Report Kit 1.2')) out.push({ where: H.path(f), value: 'does not name "Content Morphia Report Kit 1.2"' });
       const field = k => { const dt = [...d.querySelectorAll('.cm-mast__meta dt')].find(x => H.text(x) === k); return dt && dt.nextElementSibling ? H.text(dt.nextElementSibling) : ''; };
       const v = field('Version'), p = field('Published');
       if (v && !t.includes('v' + v)) out.push({ where: H.path(f), value: `no version "v${v}" (masthead Version ${v})` });

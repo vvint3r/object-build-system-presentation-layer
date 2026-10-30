@@ -85,3 +85,4 @@ Rounds 40e and 40f exist only in `CONTINUATION.md` and are taken from there.
 | [072-emphasis-key-terms-and-disclosures.md](072-emphasis-key-terms-and-disclosures.md) | Emphasis, key terms and disclosures | 2026-10-30 | owner, record 069 |
 | [073-print-button-and-omitted-blocks.md](073-print-button-and-omitted-blocks.md) | Print button and omitted blocks | 2026-10-30 | owner, record 069 |
 | [074-writing-rules.md](074-writing-rules.md) | Writing rules | 2026-10-30 | owner, record 069 |
+| [075-delegated-decisions.md](075-delegated-decisions.md) | Delegated decisions | 2026-10-30 | owner, in session |

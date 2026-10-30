@@ -1,4 +1,4 @@
-# Content Morphia · Report Kit 1.1 — Agent Specification
+# Content Morphia · Report Kit 1.2 — Agent Specification
 
 This file tells an agent how to produce a report, document or analysis as a single HTML artifact in the Content Morphia style. Follow it exactly. When this file and your own taste disagree, this file wins.
 
@@ -46,7 +46,7 @@ Two modes. Both use the same markup.
 
 **Self-contained** (for email or attachments): replace the CSS link with `<style>` + the full contents of `cm-report.css`, and the kit script with `<script>` + the full contents of `cm-report.js`, placed as the last element in `<body>`. Keep the font and ECharts CDN links. Do not edit the pasted code.
 
-Required `<head>` (copy from `template.html`, in this order): charset, viewport, `<title>{Report title} · {Period}</title>` (`<title>{Report title}</title>` when the document covers no period, §7), `<meta name="cm-kit" content="1.1">`, the inline theme pre-paint script, font preconnects + Google Fonts link (Nunito 300–900 + italic 300/400, JetBrains Mono 400/600/700), kit CSS, ECharts 5.5.1, kit JS. `<html lang>` **MUST** be set.
+Required `<head>` (copy from `template.html`, in this order): charset, viewport, `<title>{Report title} · {Period}</title>` (`<title>{Report title}</title>` when the document covers no period, §7), `<meta name="cm-kit" content="1.2">`, the inline theme pre-paint script, font preconnects + Google Fonts link (Nunito 300–900 + italic 300/400, JetBrains Mono 400/600/700), kit CSS, ECharts 5.5.1, kit JS. `<html lang>` **MUST** be set.
 
 ## 3. Tokens
 
@@ -78,7 +78,7 @@ Semantic meaning is fixed: ok = healthy/validated, warn = attention/at risk, cri
 | T2 | `.cm-section__title` (h2) | 38 / 900 | 4px ink, full column width, closing the section header |
 | T3 | `.cm-h3`, `.cm-card__title`, `.cm-figure__title` (h3) | 24 / 800 (`--sm` 20) | 2.5px ink, fit to the text |
 | T4 | `.cm-h4` (h4) | 18 / 700 | 1.5px ink, fit to the text |
-| T5 | `.cm-t5`, `.cm-timeline__title`, `.cm-step__title`, terms | 16–18 / 700–800 | none |
+| T5 | `.cm-t5`, `.cm-timeline__title`, `.cm-step__title`, `.cm-findings__claim`, terms | 16–18 / 700–800 | none |
 | Body | default | 16 / 400 / 1.9 | Reading column, max 70ch |
 | Small | `.cm-small`, text inside surfaces | 15 / 400 / 1.8 | — |
 | Label | `.cm-label`, kinds, metadata keys, callout, definition and question labels, table heads, contents rail and process step numbers; `.cm-tag`, `.cm-delta` | 10 / 800 / caps, +0.08em | — |
@@ -125,7 +125,7 @@ Order is fixed. Required blocks are never omitted, except as **Blocks left out**
 6. **Recommendations** (recommended) — its own section after the body and before the appendices, holding the single `.cm-featured` card; each action has owner, due date and expected impact chips.
 7. **Appendix A · Methodology** (required when numbers are computed) — `.cm-section--part`; collapsibles: A.1 Terms (a `.cm-def` block, open), A.2 Data sources and coverage, A.3 Queries.
 8. **Appendix B · Notes & sources** (required) — `.cm-notes` then `.cm-sources`.
-9. **Footer** (required) — title, version + published date, owner, `Content Morphia Report Kit 1.1`.
+9. **Footer** (required) — title, version + published date, owner, `Content Morphia Report Kit 1.2`.
 
 **Blocks left out.** A document without measured numbers (a briefing, a guide, interview preparation) can lack the content of some blocks the kit otherwise requires. It leaves such a block out, invents nothing to fill it, and puts an omission comment where the block would be. The comment starts `cm-omit`, names the block, and says why after a colon:
 
@@ -155,7 +155,7 @@ Markup below is canonical. Copy structure and classes exactly; change only text,
   <header class="cm-section__head">
     <span class="cm-section__num">Part 02</span>            <!-- CSS adds the " /" -->
     <h2 class="cm-section__title" id="demand-t">Demand</h2>
-    <p class="cm-section__tldr"><strong>TL;DR:</strong> The finding, with its number.</p>  <!-- optional -->
+    <p class="cm-section__tldr"><span class="cm-label">TL;DR</span> The finding, with its number.</p>  <!-- optional -->
   </header>
   <div class="cm-section__body">
     <div class="cm-prose"><p>…</p></div>
@@ -163,7 +163,7 @@ Markup below is canonical. Copy structure and classes exactly; change only text,
 </section>
 ```
 
-Number with two digits: `Part 01`. Appendices: `class="cm-section cm-section--part"` on the first appendix, kicker `Appendix A`. TL;DR is one or two sentences, 40 words at most. Force a print page break with `cm-section--break`.
+Number with two digits: `Part 01`. Appendices: `class="cm-section cm-section--part"` on the first appendix, kicker `Appendix A`. A TL;DR is one or two sentences, 40 words at most, under its label on a line of its own. It stands in for the section lede (§13.1) and carries no bold phrase. Force a print page break with `cm-section--break`.
 
 ### 8.2 KPI strip
 
@@ -191,12 +191,12 @@ Number with two digits: `Part 01`. Appendices: `class="cm-section cm-section--pa
   <span class="cm-chip cm-chip--accent">Summary</span>
   <h3 class="cm-card__title">Key findings</h3>
   <ol class="cm-findings">
-    <li><strong>Claim in one sentence.</strong> Evidence with the number and comparison.</li>
+    <li><span class="cm-findings__claim">Claim in one sentence.</span> Evidence with the number and comparison.</li>
   </ol>
 </div>
 ```
 
-3–5 findings, ordered by importance. Each claim is a full sentence that would survive on its own.
+3–5 findings, ordered by importance. Each claim is a full sentence that would survive on its own. It sits on a line of its own in `.cm-findings__claim`, at 800, with the evidence on the next line. A finding has exactly one claim line, and it opens the item.
 
 ### 8.4 Callouts
 
@@ -215,12 +215,12 @@ Icon and label share a row; the body sits under the label. Closed set: `note` (c
 <aside class="cm-def">
   <span class="cm-def__label">Definition</span>       <!-- "Definitions" for more than one term -->
   <dl>
-    <div><dt>Backlog</dt><dd>Tickets in open or pending state at the snapshot time. <strong>Example:</strong> 1,186 at Sunday close.</dd></div>
+    <div><dt>Backlog</dt><dd>Tickets in open or pending state at the snapshot time. At Sunday close, 1,186 tickets were open.</dd></div>
   </dl>
 </aside>
 ```
 
-Use where a term first matters, or as the A.1 glossary. Each definition says what the term counts and how; add an example when the definition is abstract. 15–60 words per definition.
+Use where a term first matters, or as the A.1 glossary. Each definition says what the term counts and how; add an example, as a sentence of its own, when the definition is abstract. 15–60 words per definition.
 
 ### 8.6 Questions
 
@@ -281,11 +281,16 @@ Verbatim only. ≤ 1 per section. Pair with a figure in `.cm-grid.cm-grid--wide.
        aria-label="Chart type. The finding in one sentence, with key values.">
     <script type="application/json">{ …ECharts option… }</script>
   </div>
-  <figcaption class="cm-caption"><b>Source:</b> dataset · scope · refresh date. <b>Note:</b> exclusions.</figcaption>
+  <figcaption class="cm-caption">
+    <span class="cm-caption__line">Source: dataset · scope · refresh date.</span>
+    <span class="cm-caption__line">Note: exclusions.</span>             <!-- optional -->
+  </figcaption>
 </figure>
 ```
 
 - Figures are numbered in order of appearance across the whole report. The kind label carries the number; the caption does not repeat it.
+- A figure is captioned by its title and one sentence, its description, above the chart. Under it, `.cm-caption` holds the source line, then any note line.
+- Each caption line is a `.cm-caption__line` of its own, in the caption's regular weight. "Source:" and "Note:" open their lines; nothing in a caption is bold.
 - Height: 280–360px full width; 260–300px in a 2-column grid; heatmaps by row count (~40px per row + 80).
 - Image: replace the chart div with `<img src alt>`; alt describes the content. Missing material: `<div class="cm-slot"><b>Drop figure · 16:9</b><i>What belongs here</i></div>`.
 - Optional data fallback under the caption: `<details class="cm-data"><summary>View data</summary><table class="cm-table">…</table></details>`. **SHOULD** be included for any chart whose values are not all stated in the prose.
@@ -310,15 +315,19 @@ Verbatim only. ≤ 1 per section. Pair with a figure in `.cm-grid.cm-grid--wide.
       <tfoot><tr><td>All teams</td><td class="num">48,210</td><td class="num">100%</td><td></td></tr></tfoot>
     </table>
   </div>
-  <span class="cm-caption"><b>Source:</b> … · scope · date. <b>Flags:</b> what each color means.</span>
+  <span class="cm-caption">
+    <span class="cm-caption__line">Source: … · scope · date.</span>
+    <span class="cm-caption__line">Flags: what each color means.</span>
+  </span>
 </div>
 ```
 
 - Real `<table>` with `<thead>`; `<tfoot>` for a totals or calculated row (the kit adds space and a dotted rule above it).
+- The title sits above the table; the caption under it holds the source line, then any flags or note line, as for a figure (§8.10).
 - Columns are separated by 16px gutters automatically; never add borders.
 - Numeric columns: `.num` on `th` and `td`; consistent decimals; thousands separators; `−` (U+2212) for negatives; `—` for not applicable.
 - `.strong` for the row key and the column the reader should compare; `.soft` for n/a values; `.wrap` for prose cells.
-- **Row flags:** `data-flag="ok|warn|crit|info|note|accent"` on a `<tr>` draws a 4px status bar in the left gutter. Use it instead of colored chips in status columns; keep the status word in the row and explain the colors in the caption.
+- **Row flags:** `data-flag="ok|warn|crit|info|note|accent"` on a `<tr>` draws a 4px status bar in the left gutter. Use it instead of colored chips in status columns; keep the status word in the row and explain the colors in a caption line that opens "Flags:".
 - `data-sortable` when the table has ≥ 5 rows. `data-value` holds the raw number whenever the cell text is formatted. Mark the initial sort with `aria-sort`. Status columns get `data-nosort`.
 - Recommended column in a comparison: `class="is-rec"` on its `th` and `td`s, and ★ in the header text. The header gets a 4px rule; each body cell gets bold text and a teal bar in the left gutter, centred on its row, so one highlighted cell reads the same as a whole column. Never highlight the header cell.
 - No zebra striping, no outer border, no colored header.
@@ -353,7 +362,7 @@ States: `is-done` (hollow ink marker), `is-current` (filled accent, ≤ 1), `is-
 
 ### 8.14 Lists
 
-`ul.cm-list` (grey dots) and `ol.cm-olist` (01, 02). Add `.cm-small` inside surfaces. Items may contain inline code, links and bold. An item that leads with a term and a colon bolds the term: `<li><strong>Target:</strong> one per tier.</li>`.
+`ul.cm-list` (grey dots) and `ol.cm-olist` (01, 02). Add `.cm-small` inside surfaces. Items may contain inline code, links and bold, but no item opens with a bold label or phrase run into its text (§13.2). A term with its explanation goes in a definition block (§8.5), a property sheet (§8.7) or a table (§8.11).
 
 ### 8.15 Footnotes and sources
 
@@ -408,12 +417,12 @@ Token spans: `k` keyword, `s` string, `n` number, `f` callable, `c` comment. Key
   <div class="cm-card__kicker"><span class="cm-chip cm-chip--accent">Recommended</span></div>
   <h3 class="cm-card__title">Three actions for Q4</h3>
   <ol class="cm-findings">
-    <li><strong>Imperative action in one sentence.</strong> One sentence of reason.<div class="cm-chips"><span class="cm-chip">Owner · Team</span><span class="cm-chip">Due YYYY-MM-DD</span><span class="cm-chip cm-chip--accent">Expected impact</span></div></li>
+    <li><span class="cm-findings__claim">Imperative action in one sentence.</span> One sentence of reason.<div class="cm-chips"><span class="cm-chip">Owner · Team</span><span class="cm-chip">Due YYYY-MM-DD</span><span class="cm-chip cm-chip--accent">Expected impact</span></div></li>
   </ol>
 </div>
 ```
 
-The only `cm-featured` in the report, inside the Recommendations section. 1–5 actions. The card width follows the reading measure.
+The only `cm-featured` in the report, inside the Recommendations section. 1–5 actions. Each action opens with one claim line, the action as an imperative sentence, then one sentence of reason and its chips. The card width follows the reading measure.
 
 ## 9. Charts
 
@@ -432,7 +441,7 @@ The only `cm-featured` in the report, inside the Recommendations section. 1–5 
 | Axis titles | `xAxis.name`, `yAxis.name` | Quantity and unit (“Tickets per week”). Required on the value axis unless every tick shows the unit (“90%”). Scatter names both axes. The kit places a y-axis title above the plot and an x-axis title under it, on a value or a category axis, and makes room for each |
 | Data labels | `label`, `endLabel` | Values the reader should quote; every bar when there are ≤ 12 |
 | Annotations | `markLine`, `markArea` | Target, event or period, labelled in 1–3 words |
-| Source and notes | `.cm-caption` | `<b>Source:</b>` always; `<b>Note:</b>` for exclusions |
+| Source and notes | `.cm-caption` | A source line always; a note line for exclusions. Each is a `.cm-caption__line`, not bold |
 | Text alternative | `aria-label`, `.cm-data` | Chart type + finding with key values |
 
 **Token strings:** a string that is `$` followed by a token name from section 3 is replaced with the current theme's token (`"$accent"`, `"$ink"`, `"$context"`, `"$surface"`, `"$c3"`, `"$crit"`…; `"$seq"` gives the ramp array). This is the only way to set a color. Only token names resolve: any other text starting with `$`, such as a `"$50"` label, stays as written.
@@ -442,6 +451,8 @@ The only `cm-featured` in the report, inside the Recommendations section. 1–5 
 - Current vs. prior: current default, prior `"lineStyle"/"itemStyle": {"color": "$context"}`.
 - Categories: `$c1`, `$c2`, `$c3`, `$c4` in order of importance. **MUST NOT** exceed four colored series; use small multiples or a table, or grey the rest with `$context`.
 - A `$context` mark the reader needs to read carries a direct value label (`label`, or `endLabel` on a line): the grey sits below 3:1 against the figure surface, so the label carries the value.
+- Focus on one mark: in a bar, line or area series, the picked-out mark keeps the default colour and the rest of the series takes `$context`.
+- Scatter points and other point marks keep their series colour, and the picked-out point takes `$c1` and a label. Grey points would sit below 3:1, each needing a value label.
 - Semantic solids (`$ok`, `$warn`, `$crit`) only when the series *is* a status, with words in the legend.
 
 **Chart choice:**
@@ -500,7 +511,7 @@ Each limit **MUST** hold. The 25-word sentence is a target (**SHOULD**).
 | Section lede | 45 words at most, with its key phrase in bold |
 | Caption (`.cm-caption`) | 30 words at most |
 
-A section's lede is the paragraph that opens its body. In a section with a TL;DR, the TL;DR stands in that place, under its own limit (§8.1). A definition, a question and an answer are each measured as a paragraph.
+A section's lede is the paragraph that opens its body. In a section with a TL;DR, the TL;DR stands in for the lede. It keeps its own limit of 40 words (§8.1) and carries no bold phrase; its label marks it. A definition, a question and an answer are each measured as a paragraph.
 
 Components set limits of their own. Where a component limit and a limit above both apply, both hold.
 
@@ -510,7 +521,7 @@ Components set limits of their own. Where a component limit and a limit above bo
 | Dek | One sentence | §7 |
 | Executive summary lede | 2 to 4 sentences | §7 |
 | TL;DR | One or two sentences, 40 words at most | §8.1 |
-| Key finding | A claim in one full sentence, then its evidence | §8.3 |
+| Key finding | A claim line of one full sentence, then its evidence | §8.3 |
 | Definition | 15 to 60 words | §8.5 |
 | Answer | 1 to 3 sentences | §8.6 |
 | Property key | 1 to 3 words | §8.7 |
@@ -530,8 +541,10 @@ Components set limits of their own. Where a component limit and a limit above bo
 - No signposting, such as “this section describes”, “note that” or “as shown below”.
 - No hype, no rhetorical questions, no “this isn't X, it's Y”.
 - No em dashes or en dashes in prose.
-- Bold marks the phrase that carries a sentence's meaning: one or two per paragraph, never a whole sentence. The claim that opens a key finding or a recommended action is the one bold sentence (§8.3, §8.19).
-- **Text before a colon is bold** when it leads a sentence, list item, caption or callout body: `<strong>Not yet covered:</strong> maps, …`, `<b>Source:</b> …`. Such a label is not one of the paragraph's bold phrases.
+- Bold marks the phrase that carries a sentence's meaning: one or two per paragraph, never a whole sentence. The claim of a key finding or a recommended action is a line of its own, not bold running text (§8.3, §8.19).
+- No bold label runs into the text that follows it, anywhere. A label that must stay takes its own line (a card or callout title line), a heading, a table row or a definition-list term.
+- A bold phrase never opens a paragraph, list item or callout body with more text on the same line; it would read as a label.
+- A caption's source and note lines are lines of their own, in the caption's regular weight (§8.10).
 - Dates ISO in metadata (`2026-10-12`), readable in prose (`12 August`). Durations as `2h 14m`. Percentage-point changes as `pp`.
 
 ### 13.3 Headings
@@ -549,11 +562,11 @@ Headings are `h1` to `h6` and table titles.
 2. Top bar with the wordmark, one series chip and the theme toggle; a print button only when the document is asked to carry one. Masthead complete with labelled metadata; title ≤ 10 words. A period left out of the masthead or the title carries its omission comment (§7).
 3. Summary: lede, 2–4 KPIs with stated comparisons (or the KPI strip's omission comment, §7), 3–5 findings.
 4. Every summary number reappears in the body with its source.
-5. Every figure: kind, title, description, legend for 2+ series, value-axis title with unit, `role="img"`, `aria-label`, caption with **Source:**. Figure numbers sequential.
+5. Every figure: kind, title, description, legend for 2+ series, value-axis title with unit, `role="img"`, `aria-label`, caption with a source line. Figure numbers sequential.
 6. Every table: kind and title, `.num` on numeric columns, `data-value` on formatted cells, source caption; row flags explained.
 7. Budgets: 1 `cm-featured` (none with the Recommendations omission comment, §7), 1 `cm-summary`, ≤ 1 verdict chip per table, ≤ 1 `cm-emph` per section, ≤ 4 colored chart series.
 8. Mono only inside code; no colored fills behind labels or chips.
-9. Text before a leading colon is bold. Nothing closer than 24px to the next block.
+9. No bold label or opening bold phrase runs into its text. Nothing closer than 24px to the next block.
 10. Chart JSON parses; colors only via `$tokens`; bars/areas start at zero.
 11. Footnotes link both ways; sources list every dataset.
 12. Contents rail links match section ids; every section has `aria-labelledby`.
@@ -565,6 +578,27 @@ Headings are `h1` to `h6` and table titles.
 Kept unchanged: the three rules, color law, five semantics, radii, soft and hard elevation families, callout set, highlight set, link and focus treatment.
 
 Changed in 1.1: labels, tables, chips and charts moved from JetBrains Mono to Nunito (mono is code only); section headers use a “Part 01 /” kicker, optional TL;DR and a 4px closing rule, and H3/H4 carry fit-to-text rules; chips are outlined with color offsets; callouts stack the body under an underlined label; tables have column gutters, dotted totals rules and row flags; the timeline runs on one continuous rail; chart colors c3 and c4 are deeper; charts get automatic legends and axis titles; spacing scale enlarged with a 24px floor.
+
+Changed in 1.2:
+
+- Section 13 holds the writing rules: limits, register and headings. The checks enforce them.
+- Headings are in sentence case, and a check warns on a title-case heading (§13.3).
+- A TL;DR sits under its own label line and stands in for the section lede: 40 words, no bold phrase (§8.1, §13.1).
+- The claim of a key finding or a recommended action is a line of its own at 800, above its evidence (§8.3, §8.19).
+- No bold label runs into its text, and no bold phrase opens a paragraph, list item or callout body (§13.2).
+- A caption's source, note and flags lines are lines of their own, not bold (§8.10, §8.11).
+- Focus on one mark greys the rest of a bar, line or area series; point marks keep their series colour (§9).
+- A `$context` mark the reader needs to read carries a direct value label (§9).
+- A category axis title gets the same room as a value axis title (§9).
+- The chart script works out plot padding; none is set by hand (§9).
+- Only token names resolve as colours in chart JSON; other text starting with `$` stays text (§9).
+- A link target stops 24px below the top bar, whatever the bar's height (§5).
+- In the contents strip, the current link keeps its weight and takes an underline, so no link changes width (§5).
+- A paragraph carries three highlights at most, and a check enforces it (§8.8).
+- A key term takes a dotted accent underline, which links never use (§8.8).
+- A disclosure body spaces its own blocks (§8.16).
+- The print button is optional, added only when the document asks for one (§7).
+- A document without measured numbers leaves out a required block it has nothing for, with an omission comment (§7).
 
 Added for reports: ECharts chart method and theme; categorical and sequential palettes; dark token set; print rules; report masthead and contents rail; KPI strip; key findings; native tables with sorting and in-cell bars; pull quote; timeline; process diagram; definition, questions and property-sheet blocks; footnotes; collapsible appendix; chart draw-in motion; packaging modes.
 

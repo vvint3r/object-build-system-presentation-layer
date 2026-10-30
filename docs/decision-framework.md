@@ -1,8 +1,8 @@
 # Decision framework
 
 How decisions about content-morphia are made: the order in which sources settle a question, the
-principles behind the kit's rules, which decisions a working session takes and which wait for the
-owner, and how to choose between options. `kit/report-kit/SPEC.md` states the rules; this file holds
+principles behind the kit's rules, which decisions a working session takes and which sit at the
+owner level, and how to choose between options. `kit/report-kit/SPEC.md` states the rules; this file holds
 the reasons and the decision rights.
 
 ## Authority order
@@ -18,8 +18,9 @@ When written sources disagree, the higher one wins.
    where the kit has no value of its own.
 5. **Taste**, last.
 
-The owner is outside this order: an owner ruling changes the spec and adds a record. Applying a rule
-is not a decision.
+The owner is outside this order: an owner ruling changes the spec and adds a record. An owner-level
+decision the orchestrating session takes does the same, and stands until the owner reverses it.
+Applying a rule is not a decision.
 
 ## Principles
 
@@ -40,7 +41,7 @@ of its own.
 **Small closed sets.** The kit uses a few values and uses them everywhere: one family for text and one
 for code, the weights it loads, one label tier with chips and role tags as its named variants, seven
 radii, the classes its stylesheet defines. A new need is met from these sets first, and a value
-outside them is the owner's call. The class set grows only through a new component built from the
+outside them is an owner-level call. The class set grows only through a new component built from the
 kit's existing values. Nothing goes into the kit that no page or rule uses.
 
 **Like things look alike.** An element looks the same wherever it appears and however many there are:
@@ -92,7 +93,7 @@ overturn it.
   defined in the stylesheet rather than listed in a second allowed list.
 - **What a new component needs**, inside a step the owner has approved: its classes, markup, spec
   rules and checks, built from the kit's existing tokens, weights, radii and budgets. A value or an
-  exception the component cannot do without is the owner's.
+  exception the component cannot do without is an owner-level call.
 - **Routine design and plan calls** inside a change that leave what the change includes, the step
   order and the adoption order as they are.
 - **A departure from a working rule in `CLAUDE.md`**, such as applying one owner ruling in several
@@ -105,8 +106,8 @@ message carries it.
 
 ### Owner level
 
-The session stops, states the question with the values and their sources, and builds nothing that
-depends on the answer.
+A working session stops, states the question with the values and their sources, and builds nothing
+that depends on the answer.
 
 - A value outside a closed set: a colour, size, weight, radius, typeface, icon or glyph the kit does
   not have.
@@ -122,13 +123,20 @@ depends on the answer.
 - Syncing to Claude Design, and anything published.
 
 These change what the reader sees, what the rules allow, or what leaves the repository. Questions
-about the kit go in `docs/open-items.md`; questions about the work are asked in session.
+about the kit go in `docs/open-items.md`; questions about the work go to the orchestrating session.
+
+**Delegation.** The owner has delegated these decisions to the orchestrating session (record 075).
+It takes each one, records it in a decision record and lists it in its report. The owner reverses any
+of them on review.
+
+Only what a tool or platform gates on the owner stays with the owner: a `/design-sync` to Claude
+Design, which the owner starts, and anything made public, such as GitHub Pages.
 
 ## Checks
 
 A warning marks a judgment call: on a kit page it is the session's to resolve, on the page. A failure
 on a page as it stands in `main` means the page and a hard rule disagree, and which one gives way is
-the owner's call.
+an owner-level call.
 
 ## Unclear cases
 

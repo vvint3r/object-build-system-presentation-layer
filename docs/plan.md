@@ -10,7 +10,7 @@ source of truth                    generated, never          inside Claude
 the kit · rules · adoption         hand-edited               compose, review, export
 ```
 
-- **Report Kit 1.1 is the baseline.** `kit/report-kit/` holds the stylesheet, script, template and
+- **Report Kit 1.2 is the kit in force.** `kit/report-kit/` holds the stylesheet, script, template and
   specification that every document is built from. Tokens are CSS custom properties; documents compose
   from kit classes and never carry inline styles or raw colours.
 - **The original library is the reference.** Its 35 pages, diagram families and page types are adopted
@@ -38,15 +38,16 @@ the kit · rules · adoption         hand-edited               compose, review, 
 ## Migration
 
 After the baseline, the work runs as **four sub-projects**. Steps 7 to 9 run in that order without
-waiting for step 6, which starts on the owner's direction for it. **The plan is done when step 9 is
-done.**
+waiting for step 6, which starts on a direction the orchestrating session sets (record 075). **The
+plan is done when step 9 is done.**
 
 An orchestrating session splits each sub-project into changes and starts each change in its own
 working session, on its own branch. Each change returns as a pull request, which the orchestrating
 session reviews and merges.
 
-Owner-level calls stay with the owner, as `docs/decision-framework.md` sets them. The re-import of the
-original Claude Design project sits outside the sub-projects and keeps its own date.
+The orchestrating session takes owner-level calls the owner has not made (record 075). A call a tool
+or platform gates on the owner stays with the owner, as `docs/decision-framework.md` sets it. The
+re-import of the original Claude Design project sits outside the sub-projects and keeps its own date.
 
 ### Baseline
 
@@ -60,16 +61,16 @@ original Claude Design project sits outside the sub-projects and keeps its own d
 
 ### Kit 1.2
 
-The twelve items open in `docs/open-items.md` on 30 Oct 2026 take the answers in record 069. When
-every one is fixed and every kit page passes the checks, the kit becomes 1.2. Every fix is in the
-kit except focus on one mark, which waits for the owner (`docs/open-items.md`).
+Kit 1.2 is released (30 Oct 2026). It holds the answers to the twelve items in record 069, the
+writing rules of record 074 and the answers in record 075. Every kit page passes the checks, and no
+item is open. Section 15 of the spec lists what changed in 1.2.
 
 ### Sub-projects
 
 | Step | Sub-project | Work | Done when | State |
 | --- | --- | --- | --- | --- |
-| 6 | Visualization build | Build diagrams, charts and visualizations from the owner's reference set, with the library's diagram and chart pages and the visualization kit as references | The families the owner's direction names are in the kit, each with rules, checks and a gallery example | Waits for the owner's direction |
-| 7 | Writing rules | Extend section 13 of the spec with the writing rules (word limits, register, per-heading constraints) and turn them into checks | Section 13 holds the rules, the checks enforce them, and every kit page passes | Done; its questions are in `docs/open-items.md` |
+| 6 | Visualization build | Build diagrams, charts and visualizations from the owner's reference set, with the library's diagram and chart pages and the visualization kit as references | The families its direction names are in the kit, each with rules, checks and a gallery example | Next: direction set by the orchestrating session (record 075) |
+| 7 | Writing rules | Extend section 13 of the spec with the writing rules (word limits, register, per-heading constraints) and turn them into checks | Section 13 holds the rules, the checks enforce them, and every kit page passes | Done (records 074 and 075) |
 | 8 | Kit features | Adopt provenance; change and status; wayfinding and multi-document navigation; structured components, then page types; in that order. Add a third packaging mode that bundles Nunito, JetBrains Mono and ECharts into the report, so it renders offline or behind a restrictive network | The Provenance, Change and status, Wayfinding, Multi-page navigation, Structured components and Page types rows of `docs/adoption.md` read Covered, and a report in the offline mode passes the checks | Next |
 | 9 | Claude Design hand-off | Build the design bundle from the kit and sync it to Claude Design inside Claude | A document composed in Claude Design from the synced bundle passes the kit's checks | Waits for step 8; target, sync method and bundle form settled when the step starts |
 

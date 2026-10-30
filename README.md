@@ -1,8 +1,9 @@
 # content-morphia presentation layer
 
 Source of truth for **content-morphia**, the design system for a structured knowledge index. The
-baseline is **Report Kit 1.1**: one stylesheet, one script, a template and an agent specification for
-publishing reports, documents and analyses as single HTML files, with light, dark and print built in.
+kit in force is **Report Kit 1.2**: one stylesheet, one script, a template and an agent specification
+for publishing reports, documents and analyses as single HTML files, with light, dark and print built
+in.
 
 Claude Design, which now lives inside Claude, consumes the system. The system is authored here, not
 there.
@@ -20,12 +21,12 @@ there.
 
 ## Status
 
-As of 30 Oct 2026, migration steps 1 to 5 and 7 of 9 are done. The three exports are imported, the original
-library's specification is split into dated decisions and reference rules, Report Kit 1.1 is the
-baseline, its specification and code agree, and automated checks assert its rules on rendered pages.
+As of 30 Oct 2026, migration steps 1 to 5 and 7 of 9 are done, and Report Kit 1.2 is released. The
+three exports are imported, and the original library's specification is split into dated decisions
+and reference rules. The kit's specification and code agree, and automated checks assert its rules on
+rendered pages.
 
-The writing rules (step 7) are in the spec and the checks. The kit fixes are in, except one that
-waits for the owner; the kit then becomes 1.2. Step 8 is next, and step 6 waits for the owner's
-direction ([`docs/plan.md`](docs/plan.md)).
+Report Kit 1.2 carries the writing rules (step 7) and the answers to every open item; no item is
+open. Steps 6 and 8 are next ([`docs/plan.md`](docs/plan.md)).
 
 To preview the kit: `npm install`, then `npm run preview -- "kit/Sample Report - Q3 Support Review.html"`.

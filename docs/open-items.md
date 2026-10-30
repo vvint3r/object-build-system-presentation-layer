@@ -80,20 +80,6 @@ longer listed.
 - **Question:** should a context mark the reader has to read carry a direct value label, or should
   `$context` darken to reach 3:1?
 
-## Disclosures with more than one block
-
-- **Spec:** "nothing sits closer than 24px to a distinct neighbouring block" (`SPEC.md` line 97). The
-  collapsible's markup shows one `cm-collapse__body` (lines 359 to 364) and no rule for several blocks
-  in it.
-- **Code:** the body gives its children no spacing, and margins are reset (`cm-report.css` lines 65
-  and 407). The block-gap check measures section bodies, stacks and grids, not disclosure bodies
-  (`checks/judgment.mjs` line 205).
-- **Now:** two blocks in a plain disclosure body render 0px apart, and no check warns. Every
-  disclosure on the kit pages holds one block. A body that is also a `cm-stack` spaces its blocks
-  32px apart and is checked.
-- **Question:** should the spec name `cm-collapse__body cm-stack` for a body with several blocks, or
-  should the body space its own children, as a section body does?
-
 ## Chart text starting with a dollar sign
 
 - **Spec:** "any string value beginning with `$` is replaced with the current theme's token"

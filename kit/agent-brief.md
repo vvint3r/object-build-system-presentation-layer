@@ -50,7 +50,7 @@ template are never rebuilt from memory, from a description, or from another desi
 
 The masthead and top bar name a publisher (the wordmark, lowercase and hyphenated), a series, an
 author or team, and an audience. When the request does not give them, the agent asks before building
-rather than inventing them.
+rather than inventing them. The top bar carries a print button only when the request asks for one.
 
 ## Packaging
 
@@ -94,8 +94,8 @@ A summary of section 1 of `SPEC.md`. The spec governs.
 4. Text is black or white. No grey text and no lowered opacity; rank with weight.
 5. Nunito for all text, labels, tables, chips and charts. JetBrains Mono only for code.
 6. The accent is never text.
-7. One `cm-featured` per document, at most one verdict chip per table or figure, one summary per
-   document.
+7. One `cm-featured` per document (none when a document with no actions leaves Recommendations
+   out), at most one verdict chip per table or figure, one summary per document.
 8. Colour never fills a label.
 9. Meaning never rests on colour alone.
 10. Radii only from the kit's set; the CSS applies them.
@@ -126,14 +126,26 @@ readings:
 
 - **Type chip:** Brief or Guide.
 - **Blocks without content:** a required block whose content does not exist for the document is left
-  out, and an HTML comment at its place says why. This covers the KPI strip when the document reports
-  no measured numbers; the masthead's Period field, and the period in the title, when it covers no
-  period; and the Recommendations section with its featured card when there are no actions. Nothing
-  is invented to fill a block.
+  out, with an omission comment where it would be. Nothing is invented to fill a block.
 - **Executive summary:** the lede and three to five key points in `.cm-summary`, each a full sentence
   that stands on its own.
 - **Kept as written:** Methodology appears when numbers are computed; Notes and sources are always
   present.
+
+An omission comment starts `cm-omit`, names the block, and gives the reason after a colon:
+
+```html
+<!-- cm-omit kpi-strip: The briefing reports no measured numbers. -->
+```
+
+These blocks, and no others, are left out this way (section 7 of `SPEC.md`):
+
+| Block | Left out when | Name | Where the comment sits |
+| --- | --- | --- | --- |
+| KPI strip | The document reports no measured numbers | `kpi-strip` | In the executive summary section |
+| Masthead Period field | The document covers no period | `period` | In `dl.cm-mast__meta` |
+| Period in the title | The document covers no period | `title-period` | In `<head>`, after `<title>` |
+| Recommendations section, with its featured card | The document has no actions | `recommendations` | In `<main>`, after the body sections |
 
 Content maps onto existing components:
 
@@ -175,12 +187,5 @@ npm run check -- /absolute/path/to/document.html
 
 The run prints one line per check and mode (`ok`, `FAIL` with the element and computed value,
 `warn`, `skip`) and exits 1 on any failure. Failures are fixed in the document, never in the kit or
-the checks. The one exception is a document with blocks left out as described above: these failures
-are expected there, each only for a block an HTML comment states as omitted.
-
-| Check | Finding |
-| --- | --- |
-| `summary-anatomy` | No KPI strip |
-| `masthead` | No Period field |
-| `head-order` | A title without a period |
-| `featured` | No featured card |
+the checks. A block left out with its omission comment passes; a required block missing without one
+fails.

@@ -25,7 +25,7 @@ Human-readable version with live examples and copy-paste markup: `Report Kit - S
 4. **Text is black or white.** **MUST NOT** use grey text or lowered opacity for de-emphasis. Rank text with weight: 300 (de-emphasised, kickers), 400 (body), 600 (code, chart axis labels), 700 (bold phrase, row keys, role tags), 800 (labels, block titles, terms), 900 (page/section title). These are the weights the kit loads; use no other. Two exceptions to black or white, both applied by the CSS: keywords, strings and numbers in code take the syntax colours (§8.17), and the verdict chip's text takes the paper colour on its ink fill.
 5. **One family for text, one for code.** Nunito for all text, labels, tables, chips and charts. JetBrains Mono **only** for code: `<code>`, `.cm-code`, file names. **MUST NOT** use mono for labels, numbers, dates or IDs.
 6. **Accent is never text.** Teal appears only as bars, underlines, borders, chips, chart marks and the reserved shadow.
-7. **One emphasis per view.** Exactly one `cm-featured` (L2, teal offset) per report, on the recommendations. At most one solid verdict chip (`cm-chip--verdict`) per table or figure. One `cm-summary` per report.
+7. **One emphasis per view.** Exactly one `cm-featured` (L2, teal offset) per report, on the recommendations; none when a document with no actions leaves the Recommendations section out (§7). At most one solid verdict chip (`cm-chip--verdict`) per table or figure. One `cm-summary` per report.
 8. **Color never fills a label.** Status color appears as a chip's 2px offset, a callout label's underline, a table row flag, or a chart mark. **MUST NOT** put a colored background behind a chip, tag or label.
 9. **Meaning never rests on color alone.** Every status chip and flagged row carries a word; every highlight is backed by the sentence; every recommended column carries ★.
 10. **No corners outside the radius set:** 2 thin bar, 4 chip/tag, 6 code chip, 8 input/slot, 12 table/tile, 14 card, 999 pill. Every drawn shape is rounded; square corners belong only to lines (rules, dotted connectors, the timeline rail), masked icons and the full-width top bar. The CSS applies them; never override.
@@ -46,7 +46,7 @@ Two modes. Both use the same markup.
 
 **Self-contained** (for email or attachments): replace the CSS link with `<style>` + the full contents of `cm-report.css`, and the kit script with `<script>` + the full contents of `cm-report.js`, placed as the last element in `<body>`. Keep the font and ECharts CDN links. Do not edit the pasted code.
 
-Required `<head>` (copy from `template.html`, in this order): charset, viewport, `<title>{Report title} · {Period}</title>`, `<meta name="cm-kit" content="1.1">`, the inline theme pre-paint script, font preconnects + Google Fonts link (Nunito 300–900 + italic 300/400, JetBrains Mono 400/600/700), kit CSS, ECharts 5.5.1, kit JS. `<html lang>` **MUST** be set.
+Required `<head>` (copy from `template.html`, in this order): charset, viewport, `<title>{Report title} · {Period}</title>` (`<title>{Report title}</title>` when the document covers no period, §7), `<meta name="cm-kit" content="1.1">`, the inline theme pre-paint script, font preconnects + Google Fonts link (Nunito 300–900 + italic 300/400, JetBrains Mono 400/600/700), kit CSS, ECharts 5.5.1, kit JS. `<html lang>` **MUST** be set.
 
 ## 3. Tokens
 
@@ -93,7 +93,7 @@ The rule thickness follows the heading level; the CSS applies it. Headings never
 
 - Page: `.cm-shell` (rail + main). Reports with fewer than four sections use `.cm-shell.cm-shell--norail` and drop the `<nav class="cm-rail">`.
 - Main column caps at 1060px; prose blocks (`.cm-prose`) cap at 70ch.
-- **Spacing scale.** Between blocks: 16 · 20 · 24 · 28 · 32 · 36 · 40 · 44 · 48 · 56 · 64 · 80 · 96 · 120 · 128 · 160 px. Inside components (chips, rails, list gaps, markers): 2 · 3 · 4 · 6 · 7 · 8 · 10 · 12 · 14 · 16 · 18 · 20 · 22 px. Half-pixel paddings on outlined chips and buttons offset a thicker border so outer sizes match; small negative margins align glyphs. The kit applies all of these; never add your own. Sections start 128px apart (160px before the first appendix). Direct children of `.cm-section__body` are 64px apart automatically.
+- **Spacing scale.** Between blocks: 16 · 20 · 24 · 28 · 32 · 36 · 40 · 44 · 48 · 56 · 64 · 80 · 96 · 120 · 128 · 160 px. Inside components (chips, rails, list gaps, markers): 2 · 3 · 4 · 6 · 7 · 8 · 10 · 12 · 14 · 16 · 18 · 20 · 22 px. Half-pixel paddings on outlined chips and buttons offset a thicker border so outer sizes match; small negative margins align glyphs. The kit applies all of these; never add your own. Sections start 128px apart (160px before the first appendix). Direct children of `.cm-section__body` are 64px apart automatically, and direct children of `.cm-collapse__body` 32px apart.
 - **Link targets.** A link within the page stops its target (a section, a note, a footnote marker, a table title, a figure, a disclosure: any element with an `id`) 24px below the sticky top bar, at whatever height the bar wraps to. `cm-report.js` measures the bar into `--cm-topbar-h`, which is never set by hand.
 - **Floor (MUST):** nothing sits closer than 24px to a distinct neighbouring block, and no label sits closer than 8px to the content it names. The kit's spacing already meets this; never add negative margins or tighter wrappers.
 - **Bleed rule:** every top-level surface in a section (figure, card, summary, KPI strip, table wrap, code, collapsible group) carries `.cm-bleed`, so its inner text aligns with the body text. Surfaces nested inside a grid do not; put `.cm-bleed` on the grid instead.
@@ -109,15 +109,15 @@ The rule thickness follows the heading level; the CSS applies it. Headings never
 | S2 | `.cm-card`, `.cm-figure`, `.cm-kpi`, `.cm-table-wrap`, `.cm-collapse` | Top-level surfaces | Unlimited |
 | S3 | `.cm-summary`, `.cm-code` | Summary box, code | 1 summary per report |
 | L1e | `.cm-emph` | A bottleneck step, a must-read card | ≤ 1 per section |
-| L2 | `.cm-featured` | Recommendations card | Exactly 1 per report |
+| L2 | `.cm-featured` | Recommendations card | Exactly 1 per report; none when Recommendations is left out (§7) |
 
 Never stack a shadow with a border except where the class does it. Never nest a card inside a card; use `.cm-tile` or `.cm-sub` (inset hairline sub-section) inside a card.
 
 ## 7. Report anatomy
 
-Order is fixed. Required blocks are never omitted.
+Order is fixed. Required blocks are never omitted, except as **Blocks left out** below allows.
 
-1. **Top bar** (required) — `.cm-topbar`: wordmark (publisher, lowercase-hyphenated), one series chip, theme toggle, print button.
+1. **Top bar** (required): `.cm-topbar` with the wordmark (publisher, lowercase-hyphenated), one series chip and the theme toggle. A print button after the toggle is optional, added only when the document is asked to carry one: `<button class="cm-btn cm-btn--secondary cm-btn--sm" type="button" data-cm-print>Print / PDF</button>`. Browser printing works without it (§12).
 2. **Contents rail** (recommended; required at ≥ 4 sections) — one link per section id. Numbers `01…`, appendices `A`, `B`.
 3. **Masthead** (required) — breadcrumb, `.cm-bar`, title (4–10 words, ≤ 22ch per line), dek (one sentence), then `dl.cm-mast__meta` with one `<div><dt>Label</dt><dd>Value</dd></div>` per field: Status (type chip: Analysis | Report | Brief | Guide; status chip: Draft `cm-chip`, In review `cm-chip--warn`, Final `cm-chip--ok`; optional `cm-chip--note` “Sample data” / “Preliminary”), Period `YYYY-MM-DD → YYYY-MM-DD`, Published `YYYY-MM-DD`, Reading time `N min` (the words in `<main>` ÷ 220, rounded up; scripts, chart data tables and screen-reader-only text do not count, and a word is any run of characters between spaces that holds a letter or digit), Version `X.Y`. Then `dl.cm-byline`: Prepared by, optional Reviewed by, Distribution. Labels name the value; never leave a value unlabelled.
 4. **Part 01 · Executive summary** (required) — 2–4 sentence lede; KPI strip of 2–4; `.cm-summary` with 3–5 key findings.
@@ -126,6 +126,21 @@ Order is fixed. Required blocks are never omitted.
 7. **Appendix A · Methodology** (required when numbers are computed) — `.cm-section--part`; collapsibles: A.1 Terms (a `.cm-def` block, open), A.2 Data sources and coverage, A.3 Queries.
 8. **Appendix B · Notes & sources** (required) — `.cm-notes` then `.cm-sources`.
 9. **Footer** (required) — title, version + published date, owner, `Content Morphia Report Kit 1.1`.
+
+**Blocks left out.** A document without measured numbers (a briefing, a guide, interview preparation) can lack the content of some blocks the kit otherwise requires. It leaves such a block out, invents nothing to fill it, and puts an omission comment where the block would be. The comment starts `cm-omit`, names the block, and says why after a colon:
+
+```html
+<!-- cm-omit kpi-strip: The briefing reports no measured numbers. -->
+```
+
+| Block | Left out when | Name | Where the comment sits |
+| --- | --- | --- | --- |
+| KPI strip | The document reports no measured numbers | `kpi-strip` | In the executive summary section, where the strip would be |
+| Masthead Period field | The document covers no period | `period` | In `dl.cm-mast__meta`, where the field would be |
+| Period in the title | The document covers no period | `title-period` | In `<head>`, after `<title>` |
+| Recommendations section, with its `cm-featured` card | The document has no actions | `recommendations` | In `<main>`, after the body sections, where the section would be |
+
+No other block is left out this way. A required block missing without its omission comment fails the checks.
 
 Section ids are short, lowercase and stable (`summary`, `demand`, `methodology`, `sources`). Every `<section>` has `aria-labelledby` pointing at its h2.
 
@@ -242,7 +257,7 @@ Facts about one thing: a metric, dataset, system or document. Keys are 1–3 wor
 <span class="cm-hl cm-hl--validated">+1.8 pp recovery</span>
 ```
 
-Light wash, 1px smaller than the surrounding text, at its weight. `--attention` (thresholds, deadlines), `--validated` (confirmed gains), `--reference` (named methods, sources), `--failing` (deprecated, broken), `--caveat` (tempering context). `<span class="cm-concept">term</span>` underlines a key term at first use. ≤ 3 highlights per paragraph; never a whole sentence.
+Light wash, 1px smaller than the surrounding text, at its weight. `--attention` (thresholds, deadlines), `--validated` (confirmed gains), `--reference` (named methods, sources), `--failing` (deprecated, broken), `--caveat` (tempering context). `<span class="cm-concept">term</span>` marks a key term at first use: bold, with a dotted accent underline. Links keep a solid underline, so a key term never reads as a link. ≤ 3 highlights per paragraph; never a whole sentence.
 
 ### 8.9 Pull quote
 
@@ -366,7 +381,7 @@ Source tags: `Int`, `Ext`, `PDF`, `Web`, `API`. External sources link their URL 
 </div>
 ```
 
-Appendices only. First item `open`. Never hide findings or anything the summary depends on.
+Appendices only. First item `open`. Never hide findings or anything the summary depends on. The body spaces its own blocks, so several blocks go straight into it.
 
 ### 8.17 Code
 
@@ -462,7 +477,7 @@ Automatic from tokens; agents write nothing extra. The pre-paint script in `<hea
 
 ## 12. Print and PDF
 
-- Browser print: always light; chrome hidden; 16 × 14mm margins; shadows become 1px borders; the L2 card keeps its offset; appendices open; charts redraw static at print width; figures, KPIs, callouts, definitions and table rows never split.
+- Browser print (the browser's own command, or the optional print button): always light; chrome hidden; 16 × 14mm margins; shadows become 1px borders; the L2 card keeps its offset; appendices open; charts redraw static at print width; figures, KPIs, callouts, definitions and table rows never split.
 - Mark side-by-side figure grids `cm-print-stack` so they print full width.
 - Use `cm-section--break` to start a section on a new page (typically the first appendix in long reports).
 - **Headless pipelines** (Puppeteer, Playwright, wkhtmltopdf): set `<html data-cm-static>` or call `CM.drawAll()` after load, then `CM.beforePrint()` before generating the PDF. Wait for `document.fonts.ready`.
@@ -480,12 +495,12 @@ Automatic from tokens; agents write nothing extra. The pre-paint script in `<hea
 ## 14. Pre-publish checklist
 
 1. Started from `template.html`; no class, color, font or inline style outside §1 rule 2.
-2. Masthead complete with labelled metadata; title ≤ 10 words.
-3. Summary: lede, 2–4 KPIs with stated comparisons, 3–5 findings.
+2. Top bar with the wordmark, one series chip and the theme toggle; a print button only when the document is asked to carry one. Masthead complete with labelled metadata; title ≤ 10 words. A period left out of the masthead or the title carries its omission comment (§7).
+3. Summary: lede, 2–4 KPIs with stated comparisons (or the KPI strip's omission comment, §7), 3–5 findings.
 4. Every summary number reappears in the body with its source.
 5. Every figure: kind, title, description, legend for 2+ series, value-axis title with unit, `role="img"`, `aria-label`, caption with **Source:**. Figure numbers sequential.
 6. Every table: kind and title, `.num` on numeric columns, `data-value` on formatted cells, source caption; row flags explained.
-7. Budgets: 1 `cm-featured`, 1 `cm-summary`, ≤ 1 verdict chip per table, ≤ 1 `cm-emph` per section, ≤ 4 colored chart series.
+7. Budgets: 1 `cm-featured` (none with the Recommendations omission comment, §7), 1 `cm-summary`, ≤ 1 verdict chip per table, ≤ 1 `cm-emph` per section, ≤ 4 colored chart series.
 8. Mono only inside code; no colored fills behind labels or chips.
 9. Text before a leading colon is bold. Nothing closer than 24px to the next block.
 10. Chart JSON parses; colors only via `$tokens`; bars/areas start at zero.

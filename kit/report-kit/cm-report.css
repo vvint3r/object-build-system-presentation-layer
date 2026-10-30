@@ -144,7 +144,7 @@ pre code{all:unset}
 .cm-section__num::after{content:" /"}
 .cm-section__title{font-size:38px;font-weight:900;line-height:1.15;letter-spacing:-.01em}
 .cm-section__tldr{margin-top:28px;max-width:var(--cm-read);font-size:17px;line-height:1.85}
-.cm-section__tldr>strong:first-child{font-weight:800}
+.cm-section__tldr>.cm-label{display:block;margin-bottom:12px}
 .cm-section__body{display:flex;flex-direction:column;gap:64px}
 
 /* ---------- 7. Surfaces & elevation ---------- */

@@ -110,17 +110,23 @@ export default [
   },
 
   {
-    // A TL;DR is one or two sentences and 40 words at most.
-    name: 'tldr-length', level: 'warn', source: 'SPEC §8.1', once: true,
+    // A TL;DR is one or two sentences and 40 words at most, after its label, and carries no bold
+    // phrase: the label marks it. It stands in for the section lede (SPEC section 13.1).
+    name: 'tldr-length', level: 'warn', source: 'SPEC §8.1; §13.1', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, out = [];
       for (const p of H.source().querySelectorAll('.cm-section__tldr')) {
         if (H.exempt(p, check)) continue;
-        const t = H.text(p).replace(/^TL;DR:\s*/i, '');
+        const body = p.cloneNode(true);
+        body.querySelectorAll('.cm-label').forEach(l => l.remove());
+        const t = H.text(body).replace(/^TL;DR:?\s*/i, '');
         const words = t.split(' ').filter(w => /[\p{L}\p{N}]/u.test(w)).length;
         const sentences = t.split(/(?<=[.!?])\s+(?=[A-Z0-9“"])/).filter(Boolean).length;
         if (words > 40) out.push({ where: H.path(p), value: `${words} words (at most 40)` });
         if (sentences > 2) out.push({ where: H.path(p), value: `${sentences} sentences (1 or 2)` });
+        for (const b of body.querySelectorAll('strong, b')) {
+          if (H.text(b)) out.push({ where: H.path(p), value: `bold "${H.text(b)}" (a TL;DR carries no bold phrase)` });
+        }
       }
       return out;
     },

@@ -30,18 +30,6 @@ Items answered on 13 Oct 2026 (decision record 055), 16 Oct 2026 (records 058 to
 - **Question:** should a label before a colon stay bold, or should run-in bold labels go, with
   captions recast as a title and one sentence and labelled terms set as headings or table rows?
 
-## TL;DR and the section lede
-
-- **Spec:** a section opens with a "TL;DR or lede stating the finding" (`SPEC.md` section 7), and a
-  TL;DR is "one or two sentences, 40 words at most" (section 8.1).
-- **Writing rules brief:** a section lede is "45 words at most, with its key phrase in bold"
-  (`docs/subprojects/writing-rules.md`, "Limits").
-- **Now:** the `section-lede` check holds the paragraph that opens a section body to 45 words with a
-  bold key phrase. In a section with a TL;DR, the TL;DR stands in the lede's place under its own 40
-  words (`tldr-length`), with no bold key phrase beyond its "TL;DR:" label.
-- **Question:** does a TL;DR count as the section's lede, taking 45 words and a bold key phrase, or
-  keep its own limit?
-
 ## Bold claim sentences
 
 - **Spec:** a key finding opens with its claim, a full sentence, in `<strong>` (`SPEC.md` section 8.3),

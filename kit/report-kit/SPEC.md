@@ -155,7 +155,7 @@ Markup below is canonical. Copy structure and classes exactly; change only text,
   <header class="cm-section__head">
     <span class="cm-section__num">Part 02</span>            <!-- CSS adds the " /" -->
     <h2 class="cm-section__title" id="demand-t">Demand</h2>
-    <p class="cm-section__tldr"><strong>TL;DR:</strong> The finding, with its number.</p>  <!-- optional -->
+    <p class="cm-section__tldr"><span class="cm-label">TL;DR</span> The finding, with its number.</p>  <!-- optional -->
   </header>
   <div class="cm-section__body">
     <div class="cm-prose"><p>…</p></div>
@@ -163,7 +163,7 @@ Markup below is canonical. Copy structure and classes exactly; change only text,
 </section>
 ```
 
-Number with two digits: `Part 01`. Appendices: `class="cm-section cm-section--part"` on the first appendix, kicker `Appendix A`. TL;DR is one or two sentences, 40 words at most. Force a print page break with `cm-section--break`.
+Number with two digits: `Part 01`. Appendices: `class="cm-section cm-section--part"` on the first appendix, kicker `Appendix A`. A TL;DR is one or two sentences, 40 words at most, under its label on a line of its own. It stands in for the section lede (§13.1) and carries no bold phrase. Force a print page break with `cm-section--break`.
 
 ### 8.2 KPI strip
 
@@ -502,7 +502,7 @@ Each limit **MUST** hold. The 25-word sentence is a target (**SHOULD**).
 | Section lede | 45 words at most, with its key phrase in bold |
 | Caption (`.cm-caption`) | 30 words at most |
 
-A section's lede is the paragraph that opens its body. In a section with a TL;DR, the TL;DR stands in that place, under its own limit (§8.1). A definition, a question and an answer are each measured as a paragraph.
+A section's lede is the paragraph that opens its body. In a section with a TL;DR, the TL;DR stands in for the lede. It keeps its own limit of 40 words (§8.1) and carries no bold phrase; its label marks it. A definition, a question and an answer are each measured as a paragraph.
 
 Components set limits of their own. Where a component limit and a limit above both apply, both hold.
 

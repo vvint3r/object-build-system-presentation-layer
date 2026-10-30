@@ -11,17 +11,21 @@ export default [
   },
 
   {
-    // The required head, in order. Other elements may sit between the required ones.
-    name: 'head-order', level: 'fail', source: 'SPEC §2', once: true,
+    // The required head, in order. Other elements may sit between the required ones. A title
+    // without its period carries the omission comment in the head (SPEC §7).
+    name: 'head-order', level: 'fail', source: 'SPEC §2; §7', once: true,
     inPage: () => {
       const H = window.__cm, d = H.source(), kit = H.cfg.kit;
       const same = (a, b) => a.replace(/\r\n/g, '\n').trim() === b.replace(/\r\n/g, '\n').trim();
       const attr = (el, a) => el.getAttribute(a) || '';
       const ECHARTS = 'https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js';
+      const noPeriod = H.omitted(d.head, 'title-period');
       const want = [
         ['<meta charset="utf-8">', el => el.matches('meta[charset]') && /^utf-8$/i.test(attr(el, 'charset'))],
         ['<meta name="viewport">', el => el.matches('meta[name="viewport"]') && attr(el, 'content').replace(/\s/g, '') === 'width=device-width,initial-scale=1'],
-        ['<title>{title} · {period}</title>', el => el.matches('title') && / · \S/.test(el.textContent)],
+        noPeriod
+          ? ['<title>{title}</title>', el => el.matches('title') && el.textContent.trim() !== '']
+          : ['<title>{title} · {period}</title>, or the period left out with cm-omit title-period', el => el.matches('title') && / · \S/.test(el.textContent)],
         ['<meta name="cm-kit" content="1.1">', el => el.matches('meta[name="cm-kit"]') && attr(el, 'content') === '1.1'],
         ['theme pre-paint script', el => el.matches('script:not([src])') && same(el.textContent, kit.prepaint)],
         ['preconnect to fonts.googleapis.com', el => el.matches('link[rel="preconnect"]') && attr(el, 'href') === 'https://fonts.googleapis.com'],

@@ -148,8 +148,8 @@ export default [
   },
 
   {
-    // Top bar: the publisher wordmark (lowercase, hyphenated), one series chip, the theme toggle and
-    // the print button, and nothing else.
+    // Top bar: the publisher wordmark (lowercase, hyphenated), one series chip, the theme toggle,
+    // at most one print button (optional, SPEC §7), and nothing else.
     name: 'topbar', level: 'fail', source: 'SPEC §7', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, d = H.source(), out = [];
@@ -162,10 +162,10 @@ export default [
       else if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(H.text(mark[0]))) out.push({ where: H.path(mark[0]), value: `wordmark "${H.text(mark[0])}" (lowercase, hyphenated)` });
       const chips = bar.querySelectorAll('.cm-chip').length;
       if (chips !== 1) out.push({ where: H.path(bar), value: `${chips} series chips (exactly 1)` });
-      for (const [sel, what] of [['[data-cm-theme-toggle]', 'theme toggle'], ['[data-cm-print]', 'print button']]) {
-        const n = bar.querySelectorAll(sel).length;
-        if (n !== 1) out.push({ where: H.path(bar), value: `${n} ${what}s (exactly 1)` });
-      }
+      const toggles = bar.querySelectorAll('[data-cm-theme-toggle]').length;
+      if (toggles !== 1) out.push({ where: H.path(bar), value: `${toggles} theme toggles (exactly 1)` });
+      const prints = bar.querySelectorAll('[data-cm-print]').length;
+      if (prints > 1) out.push({ where: H.path(bar), value: `${prints} print buttons (at most 1)` });
       for (const el of bar.querySelectorAll('a, button')) {
         if (el.matches('.cm-wordmark, [data-cm-theme-toggle], [data-cm-print]')) continue;
         out.push({ where: H.path(el), value: `extra control "${H.text(el)}"` });
@@ -176,7 +176,8 @@ export default [
 
   {
     // Breadcrumb, bar, title, dek, the five labelled metadata fields in their formats, and the
-    // byline with Prepared by and Distribution.
+    // byline with Prepared by and Distribution. A Period field left out carries its omission
+    // comment in the metadata list (SPEC §7).
     name: 'masthead', level: 'fail', source: 'SPEC §7; §14 item 2', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, d = H.source(), out = [];
@@ -198,7 +199,9 @@ export default [
         }
         return f;
       };
-      const meta = fields(m.querySelector('dl.cm-mast__meta'));
+      const metaList = m.querySelector('dl.cm-mast__meta');
+      const meta = fields(metaList);
+      const noPeriod = H.omitted(metaList, 'period');
       const FORMAT = {
         Period: [/^\d{4}-\d{2}-\d{2} → \d{4}-\d{2}-\d{2}$/, 'YYYY-MM-DD → YYYY-MM-DD'],
         Published: [/^\d{4}-\d{2}-\d{2}$/, 'YYYY-MM-DD'],
@@ -207,7 +210,10 @@ export default [
       };
       if (!meta.has('Status')) out.push({ where: at, value: 'no Status field' });
       for (const [k, [re, form]] of Object.entries(FORMAT)) {
-        if (!meta.has(k)) out.push({ where: at, value: `no ${k} field` });
+        if (!meta.has(k)) {
+          if (k !== 'Period') out.push({ where: at, value: `no ${k} field` });
+          else if (!noPeriod) out.push({ where: at, value: 'no Period field, and no omission comment (cm-omit period)' });
+        }
         else if (!re.test(H.text(meta.get(k)))) out.push({ where: H.path(meta.get(k)), value: `${k} "${H.text(meta.get(k))}" (${form})` });
       }
       const status = meta.get('Status');
@@ -232,7 +238,7 @@ export default [
 
   {
     // The first section is the executive summary: a lede, a KPI strip and the summary card with its
-    // numbered findings.
+    // numbered findings. A KPI strip left out carries its omission comment in the section (SPEC §7).
     name: 'summary-anatomy', level: 'fail', source: 'SPEC §7; §14 item 3', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, d = H.source(), out = [];
@@ -243,7 +249,7 @@ export default [
       if (!section) return [{ where: H.path(sum), value: 'summary is not inside a section' }];
       if (section !== first) out.push({ where: H.path(section), value: 'the summary section is not the first section' });
       if (!section.querySelector('.cm-prose')) out.push({ where: H.path(section), value: 'no lede (.cm-prose)' });
-      if (!section.querySelector('.cm-kpis .cm-kpi')) out.push({ where: H.path(section), value: 'no KPI strip (.cm-kpis with .cm-kpi)' });
+      if (!section.querySelector('.cm-kpis .cm-kpi') && !H.omitted(section, 'kpi-strip')) out.push({ where: H.path(section), value: 'no KPI strip (.cm-kpis with .cm-kpi), and no omission comment (cm-omit kpi-strip)' });
       if (!sum.querySelector('ol.cm-findings > li')) out.push({ where: H.path(sum), value: 'no findings (ol.cm-findings)' });
       return out;
     },

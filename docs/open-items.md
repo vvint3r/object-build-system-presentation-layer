@@ -91,14 +91,6 @@ longer listed.
 - **Question:** should the spec say that a `$` string is a token only when the rest names a token,
   and is text otherwise, or should currency in chart settings be written another way?
 
-## Print button
-
-- **Spec:** the top bar requires a print button (`SPEC.md` line 118).
-- **Code:** `cm-report.js` opens the print dialog from any `[data-cm-print]` element and runs without
-  one (line 280). The `topbar` check fails a page that has none (`checks/structure.mjs` line 165).
-  Browser printing works either way (section 12 of the spec).
-- **Question:** should the print button stay required, or appear only when a document calls for it?
-
 ## Focus on one mark
 
 - **Spec:** one series takes the default `$c1`, which is the accent (`SPEC.md` lines 66 and 424). The
@@ -107,17 +99,3 @@ longer listed.
   The spec has no rule for picking out one mark within a series.
 - **Question:** should the spec say that a picked-out mark keeps the default colour while the rest of
   its series take `$context`, or should focus have a colour of its own?
-
-## Documents without measured numbers
-
-- **Spec:** section 7 makes the KPI strip, the masthead's Period field and the period in the title
-  required, says required blocks are never omitted, and makes the Recommendations section
-  recommended; section 1 rule 7 requires exactly one `cm-featured`. Section 1 rule 12 forbids filler
-  and requires every number shown to be sourced.
-- **Checks:** `summary-anatomy` fails a page with no KPI strip, `masthead` one with no Period field,
-  `head-order` one whose title has no period, and `featured` one with no featured card.
-- **Agent brief:** `kit/agent-brief.md` tells agents building a document without measured numbers (a
-  briefing, a guide, interview preparation) to leave out a required block whose content does not
-  exist, state the omission in an HTML comment, and treat those four failures as expected.
-- **Question:** confirm the brief's reading, so that section 7 of the spec states it and the four
-  checks accept a commented omission; or rule otherwise.

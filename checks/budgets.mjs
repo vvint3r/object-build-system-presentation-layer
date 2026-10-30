@@ -3,11 +3,14 @@
 
 export default [
   {
-    name: 'featured', level: 'fail', source: 'SPEC §1 rule 7; §6', once: true,
+    // Exactly one featured card, or none when the Recommendations section is left out with its
+    // omission comment in <main> (SPEC §7).
+    name: 'featured', level: 'fail', source: 'SPEC §1 rule 7; §6; §7', once: true,
     inPage: ({ check }) => {
-      const H = window.__cm;
-      const n = [...H.source().querySelectorAll('.cm-featured')].filter(el => !H.exempt(el, check));
-      return n.length === 1 ? [] : [{ where: 'body', value: `${n.length} .cm-featured (exactly 1)` }];
+      const H = window.__cm, d = H.source();
+      const n = [...d.querySelectorAll('.cm-featured')].filter(el => !H.exempt(el, check));
+      if (n.length === 1 || (n.length === 0 && H.omitted(d.querySelector('main') || d.body, 'recommendations'))) return [];
+      return [{ where: 'body', value: `${n.length} .cm-featured (exactly 1, or none with cm-omit recommendations)` }];
     },
   },
   {

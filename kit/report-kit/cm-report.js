@@ -7,6 +7,7 @@
    table[data-sortable]    click-to-sort headers (th.num sorts numerically; td[data-value] overrides text)
    .cm-toc a[href^="#"]    scroll-spy sets aria-current on the visible section
    .cm-topbar              its height, measured at load and on every change, sets --cm-topbar-h, the offset that keeps link targets clear of it
+   html[data-cm-loaded]    set once the page and its fonts have loaded; turns on smooth scrolling for links within the page
    html[data-cm-static]    draws every chart at load with no animation (headless / PDF pipelines); CM.drawAll() does the same on demand */
 (function () {
   'use strict';
@@ -264,6 +265,17 @@
     if (bar && 'ResizeObserver' in window) new ResizeObserver(set).observe(bar);
   }
 
+  /* ---------- smooth scrolling ---------- */
+  // A page opened at an address with a fragment jumps straight to its target. Smooth scrolling waits
+  // for the page and its fonts: a smooth scroll fixes its end point when it starts, and fonts that
+  // arrive during it reflow the page under that end point.
+  function initSmooth() {
+    var loaded = new Promise(function (res) { if (document.readyState === 'complete') res(); else addEventListener('load', res); });
+    loaded.then(function () { return document.fonts && document.fonts.ready; }).then(function () {
+      requestAnimationFrame(function () { doc.setAttribute('data-cm-loaded', ''); });
+    });
+  }
+
   /* ---------- table of contents scroll-spy ---------- */
   function initToc() {
     var links = Array.prototype.slice.call(document.querySelectorAll('.cm-toc a[href^="#"]'));
@@ -307,7 +319,7 @@
       if (t) setTheme(doc.dataset.theme === 'dark' ? 'light' : 'dark');
       if (e.target.closest('[data-cm-print]')) window.print();
     });
-    initTopbar(); initTables(); initToc(); initCharts();
+    initTopbar(); initSmooth(); initTables(); initToc(); initCharts();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
   window.CM = { draw: draw, drawAll: drawAll, redraw: redrawAll, setTheme: setTheme, tokens: tokens, tokenNames: NAMES.slice(), beforePrint: beforePrint, afterPrint: afterPrint };

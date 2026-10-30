@@ -1,7 +1,11 @@
-// Navigation: the contents strip on narrow screens, and where in-page links stop. Measured in a
-// real viewport at several widths, in light and dark; print hides the top bar and the rail, so print
-// has nothing to measure. Each check sets the viewport back to the loader's size, scrolls to the top
-// and parks the pointer before it returns, so it leaves the page as it found it.
+// Navigation: the contents strip on narrow screens, and where in-page links and fragment addresses
+// stop. Measured in a real viewport at several widths; print hides the top bar and the rail, so print
+// has nothing to measure. The strip and jump checks run in light and dark, then set the viewport back
+// to the loader's size, scroll to the top and park the pointer, so they leave the page as they found
+// it. The fragment check opens pages of its own.
+
+import path from 'node:path';
+import { serveCharts } from '../tools/load.mjs';
 
 const LOADER = { width: 1440, height: 900 };
 
@@ -88,6 +92,48 @@ export default [
       await page.emulateMedia({ reducedMotion: null });
       await restore(page);
       return out;
+    },
+  },
+
+  {
+    // A page opened at an address with a fragment stops its target 24px below the top bar too, with
+    // Nunito arriving late, as it does over a slow connection: the font files are held back 300ms.
+    // Two targets, at 390 and 820px: the first footnote marker and the contents rail's middle
+    // section. Each opening is a fresh page, given 2.5s after its fonts load to settle.
+    name: 'fragment-open', level: 'fail', source: 'SPEC §5', once: true,
+    run: async ({ page, file }) => {
+      const ids = await page.evaluate(() => {
+        const H = window.__cm;
+        const toc = [...H.source().querySelectorAll('.cm-toc a[href^="#"]')].map(a => a.getAttribute('href').slice(1));
+        const fn = H.source().querySelector('a.cm-fn[id]');
+        return [...new Set([fn && fn.id, toc[Math.floor(toc.length / 2)]].filter(id => id && document.getElementById(id)))];
+      });
+      const url = 'file://' + path.resolve(file);
+      const browser = page.context().browser();
+      const jobs = [390, 820].flatMap(width => ids.map(id => ({ width, id })));
+      const out = await Promise.all(jobs.map(async ({ width, id }) => {
+        const p = await browser.newPage({ viewport: { width, height: LOADER.height }, colorScheme: 'light' });
+        try {
+          await serveCharts(p);
+          await p.route('https://fonts.gstatic.com/**', async r => { await new Promise(res => setTimeout(res, 300)); await r.continue().catch(() => {}); });
+          await p.goto(url + '#' + encodeURIComponent(id), { waitUntil: 'load', timeout: 60000 });
+          await p.evaluate(() => document.fonts.ready.then(() => true));
+          await p.waitForTimeout(2500);
+          return await p.evaluate(({ id, width }) => {
+            const target = document.getElementById(id), bar = document.querySelector('.cm-topbar');
+            const top = target.getBoundingClientRect().top;
+            const under = bar && getComputedStyle(bar).display !== 'none' ? bar.getBoundingClientRect().bottom : 0;
+            const where = `#${id} opened at ${width}px`;
+            if (top < under - 0.5) return { where, value: `stops ${(under - top).toFixed(1)}px under the top bar` };
+            if (top >= window.innerHeight) return { where, value: 'stops below the window' };
+            if (window.scrollY > 0 && top < under + 23) return { where, value: `stops ${(top - under).toFixed(1)}px below the top bar (24px)` };
+            return null;
+          }, { id, width });
+        } finally {
+          await p.close();
+        }
+      }));
+      return out.filter(Boolean);
     },
   },
 ];

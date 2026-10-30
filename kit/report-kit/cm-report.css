@@ -60,7 +60,9 @@
 
 /* ---------- 3. Base ---------- */
 *,*::before,*::after{box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+html{-webkit-text-size-adjust:100%}
+/* links within the page scroll smoothly once cm-report.js marks the page and its fonts loaded; a page opened at an address with a fragment jumps straight to it, and the browser holds it there while the fonts arrive */
+@media (prefers-reduced-motion:no-preference){html[data-cm-loaded]{scroll-behavior:smooth}}
 /* every element a link can jump to stops 24px below the sticky top bar: cm-report.js measures the bar into --cm-topbar-h; 54px is its one-row height until the script runs */
 [id]{scroll-margin-top:calc(var(--cm-topbar-h,54px) + 24px)}
 body{margin:0;background:var(--cm-paper);color:var(--cm-ink);font-family:var(--cm-font);font-size:16px;font-weight:400;line-height:1.9;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;font-variant-numeric:lining-nums}

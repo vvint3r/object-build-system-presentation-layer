@@ -34,6 +34,7 @@ import structure from './structure.mjs';
 import judgment from './judgment.mjs';
 import navigation from './navigation.mjs';
 import writing from './writing.mjs';
+import provenance from './provenance.mjs';
 import offline from './offline.mjs';
 import { fontCss, echarts, faces } from '../tools/offline.mjs';
 
@@ -41,7 +42,7 @@ import { fontCss, echarts, faces } from '../tools/offline.mjs';
 // inPage runs in the page with window.__cm (checks/page.mjs); run gets the Playwright page and
 // what the loader collected. Both return findings: [{ where, value }]. A check marked offline runs
 // only on a page in the offline packaging mode.
-const CHECKS = [markup, colour, type, radius, budgets, decoration, meaning, charts, figures, tables, structure, judgment, navigation, writing, offline].flat();
+const CHECKS = [markup, colour, type, radius, budgets, decoration, meaning, charts, figures, tables, structure, judgment, navigation, writing, provenance, offline].flat();
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const KIT = path.join(ROOT, 'kit', 'report-kit');

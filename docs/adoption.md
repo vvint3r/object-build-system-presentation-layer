@@ -52,7 +52,7 @@ The owner sets the order. A starting proposal, from the library's product contex
 index where provenance and freshness carry weight) and the work already under way:
 
 1. **Diagrams, charts and visualizations.** Not adopted from the library: they get a build of their
-   own in migration step 7 (`docs/plan.md`), from the owner's reference set. The Diagrams, Charts and
+   own in migration step 6 (`docs/plan.md`), from the owner's reference set. The Diagrams, Charts and
    Diagram build logic rows above are references for it.
 2. **Provenance.** Core to a knowledge index, and partly covered.
 3. **Change and status.** Revision history is a named kit gap.

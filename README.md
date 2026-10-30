@@ -4,13 +4,14 @@ Source of truth for **content-morphia**, the design system for a structured know
 baseline is **Report Kit 1.1**: one stylesheet, one script, a template and an agent specification for
 publishing reports, documents and analyses as single HTML files, with light, dark and print built in.
 
-Claude Design consumes the system through `/design-sync` into the project **Content Morphia View Layer**.
-The system is authored here, not there.
+Claude Design, which now lives inside Claude, consumes the system. The system is authored here, not
+there.
 
 | Start here | For |
 | --- | --- |
 | [`kit/report-kit/SPEC.md`](kit/report-kit/SPEC.md) | The rules in force |
 | [`kit/`](kit/) | The kit, the spec-and-gallery page, and a sample report |
+| [`kit/agent-brief.md`](kit/agent-brief.md) | Instructions for agents in other environments that build documents on the kit |
 | [`docs/open-items.md`](docs/open-items.md) | Questions about the kit that need a ruling |
 | [`docs/adoption.md`](docs/adoption.md) | Features from the original library still to adopt |
 | [`docs/plan.md`](docs/plan.md) | Operating model and migration order |
@@ -19,8 +20,12 @@ The system is authored here, not there.
 
 ## Status
 
-Migration steps 1 to 4 of 8 are done. The three exports are imported, the original library's
-specification is split into dated decisions and reference rules, Report Kit 1.1 is the baseline, and
-its specification and code agree. Next is step 5: automated checks on rendered pages.
+As of 29 Oct 2026, migration steps 1 to 5 of 9 are done. The three exports are imported, the original
+library's specification is split into dated decisions and reference rules, Report Kit 1.1 is the
+baseline, its specification and code agree, and automated checks assert its rules on rendered pages.
+
+Steps 6 to 9 run as sub-projects, each change in its own session and pull request
+([`docs/plan.md`](docs/plan.md)). Next is step 6, the visualization build, which waits for the owner's
+reference set.
 
 To preview the kit: `npm install`, then `npm run preview -- "kit/Sample Report - Q3 Support Review.html"`.

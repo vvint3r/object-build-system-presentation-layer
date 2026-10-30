@@ -170,6 +170,22 @@ export default [
   },
 
   {
+    // Plot top and bottom padding are the kit's: the chart script works them out from the legend,
+    // axis titles, reference-line labels and scale bar, so chart JSON never sets them on its grid.
+    name: 'chart-padding', level: 'fail', source: 'SPEC §9', once: true,
+    inPage: ({ check }) => {
+      const H = window.__cm, out = [];
+      for (const c of H.charts()) {
+        if (!c.json || H.exempt(c.src, check)) continue;
+        const g = c.json.grid;
+        if (!g || typeof g !== 'object' || Array.isArray(g)) continue;
+        for (const k of ['top', 'bottom']) if (g[k] != null) out.push({ where: c.where, value: `grid.${k}: ${JSON.stringify(g[k])} (the kit sets plot padding)` });
+      }
+      return out;
+    },
+  },
+
+  {
     // Bars and areas start at zero: in the JSON (no min above zero, no scale) and on the axis the
     // chart library actually drew.
     name: 'chart-baseline', level: 'fail', source: 'SPEC §9; §14 item 10', once: true,

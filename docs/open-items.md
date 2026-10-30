@@ -42,19 +42,6 @@ longer listed.
 - **Question:** should the current link keep normal weight in the narrow strip and gain a cue that
   leaves its width unchanged, or keep the bold and reserve each link's bold width?
 
-## Plot padding set by hand
-
-- **Spec:** plot top and bottom padding are applied automatically: "do not set these" (`SPEC.md`
-  line 405).
-- **Pages:** the sample report sets `grid.top` on three charts (lines 169, 217 and 345) and
-  `grid.bottom` on one (line 169). The gallery sets `grid.top` on two (lines 639 and 759) and
-  `grid.bottom` on one (line 759).
-- **Code:** `cm-report.js` sets the top padding only when the page has not (line 101), so a value set
-  by hand also drops the room the script reserves for a legend and a y-axis title.
-- **Now:** no check reads chart padding, so both pages pass.
-- **Question:** should the spec allow plot padding set by hand, and say when, or should the pages drop
-  it and the chart script compute what those charts need?
-
 ## Emphasis demo
 
 - **Spec:** "≤ 3 highlights per paragraph" (`SPEC.md` line 243). Inside a gallery demo, every rule

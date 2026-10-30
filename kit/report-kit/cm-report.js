@@ -97,10 +97,23 @@
     var yNamed = false, xNamed = false;
     list(o.yAxis).forEach(function (a) { if (a && a.name && !a.nameLocation) { yNamed = true; a.nameLocation = a.inverse ? 'start' : 'end'; if (a.nameGap == null) a.nameGap = 14; a.nameTextStyle = merge({ align: 'left' }, a.nameTextStyle || {}); } });
     list(o.xAxis).forEach(function (a) { if (a && a.name && !a.nameLocation) { xNamed = true; a.nameLocation = 'middle'; if (a.nameGap == null) a.nameGap = 34; } });
+    // plot padding, worked out from what sits above and below the plot (sparks set their own).
+    // Above: 20px, plus 36 for a legend and 26 for a y-axis title. A label at the top end of a
+    // vertical reference line rises about 19px above the plot, so with one the top is at least 28.
+    // Below: 4px, plus 32 for an x-axis title and 48 for a horizontal scale bar (visualMap) at the
+    // bottom: its row and the gap above it.
+    var markAbove = series.some(function (s) {
+      var ml = s && s.markLine, base = (ml && ml.label) || {};
+      return !!ml && list(ml.data).some(function (d) {
+        var l = merge(base, (d && d.label) || {});
+        return d && !Array.isArray(d) && d.xAxis != null && l.show !== false && (l.position || 'end') === 'end';
+      });
+    });
+    var scaleBelow = list(o.visualMap).some(function (v) { return v && v.show !== false && v.orient === 'horizontal' && v.top == null; });
     if (axisChart && !Array.isArray(o.grid)) {
       o.grid = o.grid || {};
-      if (o.grid.top == null) o.grid.top = 20 + (hasLegend ? 36 : 0) + (yNamed ? 26 : 0);
-      if (o.grid.bottom == null && xNamed) o.grid.bottom = 36;
+      if (o.grid.top == null) o.grid.top = Math.max(20 + (hasLegend ? 36 : 0) + (yNamed ? 26 : 0), markAbove ? 28 : 0);
+      if (o.grid.bottom == null) o.grid.bottom = 4 + (xNamed ? 32 : 0) + (scaleBelow ? 48 : 0);
     }
     var yCat = list(o.yAxis).some(function (a) { return a && a.type === 'category'; });
     series.forEach(function (s, i) {

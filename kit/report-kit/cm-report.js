@@ -229,12 +229,14 @@
   // measures it, sizes every column and row to its content, routes each edge at right angles
   // through the gaps between them, and sets each edge label beside its line. The geometry never
   // depends on the container: a diagram wider than its figure scrolls sideways in its own box. Print
-  // narrows the gaps and scales the diagram to the printed column, never below 80%.
+  // narrows the gaps and the nodes, then scales the diagram to fit the printed column and a page,
+  // never below 80%.
   var SVGNS = 'http://www.w3.org/2000/svg', diagrams = [];
   // stand: gap between a node and the end of its edge; head: arrowhead length; r: elbow radius;
   // clear: air around a label; track: spacing of parallel edges in one gap; outer: an outside gap
-  // that carries an edge; reach: distance from a node to the first line in a gap.
-  var DG = { stand: 8, head: 8, r: 12, clear: 8, track: 16, outer: 40, reach: 20, printW: 632, minScale: 0.8 };
+  // that carries an edge; reach: distance from a node to the first line in a gap. printW: the printed
+  // column; printH: an A4 page body (1001px) less a figure's title, description and caption.
+  var DG = { stand: 8, head: 8, r: 12, clear: 8, track: 16, outer: 40, reach: 20, printW: 632, printH: 720, minScale: 0.8 };
   var DG_GAP = { screen: { col: 64, row: 48, lane: 72, pad: 8 }, print: { col: 40, row: 32, lane: 64, pad: 8 } };
   var DG_TYPES = ['terminal', 'step', 'decision', 'store', 'external'], DG_KINDS = ['flow', 'data', 'optional'];
   var DG_DIR = { top: [0, -1], right: [1, 0], bottom: [0, 1], left: [-1, 0] }, DG_SIDES = ['right', 'bottom', 'left', 'top'];
@@ -506,6 +508,11 @@
           else cost += 4;
         });
       });
+      // a line into one side and another out of the opposite side, across the reading direction,
+      // reads as one line through the node, as confusing as a crossing
+      var across = m.dir === 'down' ? ['left', 'right'] : ['top', 'bottom'];
+      var through = function (x, y) { return x !== y && across.indexOf(x) >= 0 && across.indexOf(y) >= 0; };
+      if ((o.e.to === e.from && through(o.plan.b, plan.a)) || (o.e.from === e.to && through(o.plan.a, plan.b))) cost += 60;
       var os = dgSegs(o.p);
       segs.forEach(function (s, i) {
         os.forEach(function (t, k) {
@@ -667,6 +674,7 @@
     var el = d.el, m = d.model, P = printing ? DG_GAP.print : DG_GAP.screen, cv = d.canvas;
     if (!printing && !el.clientWidth) { d.pending = true; return; }
     d.pending = false;
+    el.classList.toggle('cm-diagram--print', printing);
     cv.style.transform = ''; cv.style.marginRight = ''; cv.style.marginBottom = ''; cv.style.width = '4000px'; cv.style.height = '1px';
     dgMeasure(d);
     // Pass 1 routes on a grid with room outside every track; later passes keep the routes, size each
@@ -684,6 +692,11 @@
       dgBounds(d, g);
       if (pass === 0) {
         order.forEach(function (e) { var b = dgRoute(d, g, e, routes); if (b) routes.push({ e: e, plan: b.plan, p: b.p }); });
+        // a second sweep routes each edge again against all the others, so early edges see later ones
+        routes.forEach(function (r) {
+          var b = dgRoute(d, g, r.e, routes.filter(function (o) { return o !== r; }));
+          if (b) { r.plan = b.plan; r.p = b.p; }
+        });
       } else {
         var kept = [];
         routes.forEach(function (r) {
@@ -746,7 +759,7 @@
   function dgDraw(d, g, routes) {
     var el = d.el, m = d.model, cv = d.canvas, svg = d.svg;
     // centred in its box on screen and in print; lanes run the full width from the left
-    var scale = printing ? Math.max(DG.minScale, Math.min(1, DG.printW / g.W)) : 1;
+    var scale = printing ? Math.max(DG.minScale, Math.min(1, DG.printW / g.W, DG.printH / g.H)) : 1;
     var room = Math.floor((printing ? DG.printW : el.clientWidth) / scale);
     var ox = m.lanes.length ? 0 : Math.max(0, Math.floor((room - g.W) / 2)), W = Math.max(g.W, room), H = g.H;
     var X = function (x) { return Math.round(x + ox); }, Y = function (y) { return Math.round(y); };

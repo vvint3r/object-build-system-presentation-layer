@@ -125,9 +125,9 @@ export default [
   },
 
   {
-    // The flow mode's capacity: 24 nodes, 6 columns, 5 lanes, 2 boundaries and 12 edge labels in
-    // one diagram, and one emphasised node. A diagram past a ceiling splits into an overview and
-    // details.
+    // The flow mode's capacity: 24 nodes, 5 columns, 6 rows, 5 lanes, 2 boundaries and 12 edge
+    // labels in one diagram, and one emphasised node. A diagram past a ceiling splits into an
+    // overview and details.
     name: 'diagram-capacity', level: 'fail', source: 'SPEC §8.20', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, out = [];
@@ -138,8 +138,9 @@ export default [
         const where = H.path(el), nodes = (Array.isArray(d.nodes) ? d.nodes : []).filter(Boolean);
         const edges = (Array.isArray(d.edges) ? d.edges : []).filter(Boolean), groups = (Array.isArray(d.groups) ? d.groups : []).filter(Boolean);
         const cols = Math.max(0, ...nodes.map(n => n.col || 0), ...groups.filter(g => g.type === 'boundary').map(g => (g.col || 1) + (g.cols || 1) - 1));
+        const rows = Math.max(0, ...nodes.map(n => n.row || 0), ...groups.map(g => (g.row || 1) + (g.rows || 1) - 1));
         const counts = [
-          ['nodes', nodes.length, 24], ['columns', cols, 6],
+          ['nodes', nodes.length, 24], ['columns', cols, 5], ['rows', rows, 6],
           ['lanes', groups.filter(g => g.type === 'lane').length, 5], ['boundaries', groups.filter(g => g.type === 'boundary').length, 2],
           ['edge labels', edges.filter(e => typeof e.label === 'string' && e.label.trim()).length, 12],
           ['emphasised nodes', nodes.filter(n => n.emphasis).length, 1],
@@ -204,7 +205,7 @@ export default [
 
   {
     // Every node and edge was drawn in this mode, and the drawn lines cross three times at most.
-    name: 'diagram-drawn', level: 'fail', source: 'SPEC §8.20; §14 item 13',
+    name: 'diagram-drawn', level: 'fail', source: 'SPEC §8.20; §14 item 16',
     inPage: ({ check }) => {
       const H = window.__cm, out = [];
       for (const el of document.querySelectorAll('.cm-diagram')) {
@@ -233,7 +234,7 @@ export default [
     // As drawn in this mode: no node overlaps another; no line passes within 8px of a node it does
     // not join; every edge, lane and boundary label stands 8px clear of every node, line and other
     // label (a boundary label sits on its own line); nothing lies outside the canvas; and in print
-    // the diagram fits the printed column (632px) at 80% or more.
+    // the diagram fits the printed column (632px) and a page (720px tall) at 80% or more.
     name: 'diagram-layout', level: 'fail', source: 'SPEC §8.20; §12',
     inPage: ({ check, mode }) => {
       const H = window.__cm, out = [], CLEAR = 7.5;
@@ -284,6 +285,7 @@ export default [
         if (mode === 'print') {
           if (k < 0.8 - 1e-6) bad(`printed at ${Math.round(k * 100)}% (at least 80%)`);
           if (c.width > 632.5) bad(`${Math.round(c.width)}px wide in print (the printed column is 632px)`);
+          if (c.height > 720.5) bad(`${Math.round(c.height)}px tall in print (720px fits a page with the figure's title and caption)`);
         }
       }
       return out;

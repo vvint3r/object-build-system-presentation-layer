@@ -104,13 +104,15 @@ A summary of section 1 of `SPEC.md`. The spec governs.
 12. No filler. Every number shown is sourced.
 
 Charts are ECharts option JSON inside the kit's figure markup. The agent never calls `echarts.init`
-and never writes chart JavaScript.
+and never writes chart JavaScript. Flow diagrams are JSON too: nodes placed by column and row, and
+edges between them (section 8.20 of `SPEC.md`). The kit draws them; the agent writes no coordinates,
+SVG or styles.
 
 ## Writing rules
 
 Section 13 of `SPEC.md` holds every writing rule; the spec governs. Prose is the running text of
 `<main>`: paragraphs, list items, definitions, questions and answers, callout bodies, captions and
-process-step bodies. Code, tables and chart data are not prose.
+process-step bodies. Code, tables, and chart and diagram data are not prose.
 
 | Item | Limit |
 | --- | --- |
@@ -181,6 +183,7 @@ Content maps onto existing components:
 | Facts about one thing: a company, a role, a system | Property sheet, `cm-props` | 8.7 |
 | Dated events in order | Timeline, `cm-timeline` | 8.12 |
 | Stages in sequence | Process diagram, `cm-process` | 8.13 |
+| A process with branches, loops or hand-offs between roles | Figure with a flow diagram, `cm-diagram` | 8.20 |
 | Options compared on the same attributes | Table, with the recommended column marked | 8.11 |
 | A point that must not be missed, a caveat, a worked example | Callout, from its closed set | 8.4 |
 | Items or steps | Lists, `cm-list` and `cm-olist` | 8.14 |
@@ -195,7 +198,8 @@ Content maps onto existing components:
 
 ## Kit gaps
 
-Maps, network and hierarchy diagrams, interactive filters and a PDF cover page. A document that
+Maps, diagrams other than flow diagrams (sequence, state, layer stack, hierarchy, entity
+relationship, network), interactive filters and a PDF cover page. A document that
 needs one uses a figure holding a `cm-slot` placeholder and names the gap in an HTML
 comment. The agent does not draw its own diagram, icon or layout to fill the gap.
 

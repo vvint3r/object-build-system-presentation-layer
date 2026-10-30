@@ -27,7 +27,7 @@ Decision record numbers refer to `docs/decisions/`.
 | Inputs and fields | Foundations | Buttons only | Not in kit | Text, select and search fields, filter chips, error and disabled states | 006 |
 | Icons | Icons | Glyphs drawn in CSS for callouts, definitions and questions | Partial | The 24px icon family and its closed register. The kit forbids icons beyond its own glyphs, so this needs a ruling first | 041, 042 |
 | Print | Print | Print and PDF rules | Covered | Print states for each visualization type | 030 |
-| Non-visual equivalents | Equivalents | Chart `aria-label` and data-table fallback | Partial | Equivalents for diagrams and other non-chart visuals | 031, 032 |
+| Non-visual equivalents | Equivalents | Chart `aria-label` and data-table fallback; flow diagram summary and text version, written from the diagram's data | Partial | Equivalents for the other diagram modes and other non-chart visuals | 031, 032, 077 |
 | Structured components | Structured | Process diagram, timeline, KPI strip, recommended table column | Partial | Workflow, framework, model, method, requirement and evaluation, metric detail | 000, 047 |
 | Prose primitives | Prose | Highlights, key-term underline, pull quote, lists | Partial | The remaining prose primitives | 034 |
 | Wayfinding | Wayfinding | Contents rail | Partial | Breadcrumbs, a related-documents block and a generated index. Search, faceted browse, ranked entry and a version selector with diff need a server and stay out of the kit (record 076) | 027, 076 |
@@ -37,14 +37,14 @@ Decision record numbers refer to `docs/decisions/`.
 | Learning | Learning | Nothing | Not in kit | Objectives, knowledge checks, comprehension summary, learning cycle, model | 028 |
 | Questions | Questions | Questions block | Partial | FAQ list ordered by frequency, said-and-actual corrections, confusion table | 038 |
 | Change and status | Change | Dated status block, change log, revision history, limitation register, correction and limitation callouts, document status chips | Covered | The six node states and the notice each one obliges, outside round 2's scope. The per-node diff stays out with the version selector (record 076) | 039, 079 |
-| Diagrams | Diagrams, Diagrams at Scale, Diagrams II, III, IV | Process diagram only | Partial | The diagram families (sequence, entity relationship, state, deployment, layered architecture, journey, service blueprint, Sankey, mind map, sets, cause and effect, process notation, data flow, decision tree and others), the level model and capacity ceilings | 010–014 |
-| Diagram build logic | Visualization kit (`import/kx-visualizations-index/`) | Nothing | Not in kit | Node kit, connectors, terminators, the lane-flow router and its invariants | n/a; see `scraps/4c-brief.md` |
+| Diagrams | Diagrams, Diagrams at Scale, Diagrams II, III, IV | Process diagram; flow diagram for process and decision flows and swimlanes, with its capacity ceilings | Partial | Journey map and system and data flow in the flow mode, then the other families (sequence, entity relationship, state, deployment, layered architecture, service blueprint, Sankey, mind map, sets, cause and effect, process notation, decision tree and others), their capacity ceilings and the level model | 010–014, 077 |
+| Diagram build logic | Visualization kit (`import/kx-visualizations-index/`) | Flow mode: grid placement, five node types, three edge kinds, right-angle routing with rounded elbows, labels 8px clear, lanes and boundaries | Partial | The node types, connectors and routing of the other diagram modes | 077; see `scraps/4c-brief.md` |
 | Page types | Templates, T1 to T11 | One document type, the report | Partial | Three document kinds (report, guide, reference), then topic, framework, process, guide, module, metric, comparison, roadmap, reference, glossary and case study as templates on them | 037, 040, 076 |
 | Composition rules | Composition, Anatomy, Selection, Implementing, Exemplar | Report anatomy and the pre-publish checklist | Partial | Layout primitives, the component anatomy register and field contract, the selection matrix, implementer guidance, a reference build | 023–026, 028 |
 | Multi-page navigation | Every page (menu bar) | Top bar and contents rail for one document | Not in kit | Navigation across many documents, for the knowledge index | 046 |
 
-The kit's own spec lists its gaps as maps, network and hierarchy diagrams, interactive filters and a
-PDF cover page. All but maps and the cover page appear in the table above.
+The kit's own spec lists its gaps as maps, diagram modes other than flow, network diagrams,
+interactive filters and a PDF cover page. All but maps and the cover page appear in the table above.
 
 ## Order
 
@@ -53,7 +53,7 @@ index where provenance and freshness carry weight. Items 2 to 5 are step 8 of `d
 
 1. **Diagrams, charts and visualizations.** Not adopted from the library: they get a build of their
    own in migration step 6 (`docs/plan.md`), from the owner's reference set. The Diagrams, Charts and
-   Diagram build logic rows above are references for it.
+   Diagram build logic rows above are references for it. The flow mode is built (record 077).
 2. **Provenance.** Core to a knowledge index. Covered (record 079).
 3. **Change and status.** Covered (record 079); the node states remain.
 4. **Wayfinding and multi-page navigation.** Needed once there is more than one document.

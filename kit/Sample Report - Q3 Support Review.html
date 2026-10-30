@@ -264,6 +264,37 @@
           </figure>
         </div>
 
+        <div class="cm-prose">
+          <p>Chat and email reach agents by different paths. Since 8 July a classifier sends each chat to a billing, technical or account queue. Email and web-form tickets still land in one shared queue.</p>
+        </div>
+
+        <figure class="cm-figure cm-bleed">
+          <span class="cm-figure__kind">Figure 5</span>
+          <h3 class="cm-figure__title">Ticket routing by channel</h3>
+          <p class="cm-figure__desc">The path a chat, email or web-form ticket takes from arrival to an agent.</p>
+          <div class="cm-diagram" data-diagram="flow" role="img" aria-label="Flow diagram. A classifier sends each chat to a billing, technical or account queue; email and web-form tickets wait in one shared queue until an agent picks them up.">
+            <script type="application/json">
+            {
+              "nodes": [
+                {"id": "arrive", "type": "terminal", "label": "Ticket arrives", "col": 1, "row": 1},
+                {"id": "channel", "type": "decision", "label": "Which channel?", "col": 2, "row": 1},
+                {"id": "classify", "type": "step", "label": "Intent classifier", "detail": "Billing, technical or account queue", "col": 3, "row": 1},
+                {"id": "shared", "type": "step", "label": "Shared queue", "detail": "One queue for every topic", "col": 3, "row": 2},
+                {"id": "agent", "type": "terminal", "label": "Agent picks it up", "col": 4, "row": 1}
+              ],
+              "edges": [
+                {"from": "arrive", "to": "channel"},
+                {"from": "channel", "to": "classify", "label": "Chat"},
+                {"from": "channel", "to": "shared", "label": "Email, web form"},
+                {"from": "classify", "to": "agent"},
+                {"from": "shared", "to": "agent"}
+              ]
+            }
+            </script>
+          </div>
+          <figcaption class="cm-caption"><span class="cm-caption__line">Source: helpdesk routing rules, as of <time datetime="2026-09-30">2026-09-30</time>.<a class="cm-cite" href="#src-5" id="cite-5">S5</a></span></figcaption>
+        </figure>
+
         <aside class="cm-callout cm-callout--warning">
           <span class="cm-callout__label">Warning</span>
           <div class="cm-callout__body">Email and the web form carry 55% of volume. Even if every other channel resolved 100% of tickets within SLA, overall attainment would reach only 93.3% until those two improve.</div>
@@ -344,7 +375,7 @@
         </div>
         <div class="cm-grid cm-grid--wide cm-grid--cols cm-bleed cm-print-stack" style="align-items:center">
           <figure class="cm-figure">
-            <span class="cm-figure__kind">Figure 5</span>
+            <span class="cm-figure__kind">Figure 6</span>
             <h3 class="cm-figure__title cm-figure__title--sm">Weekly CSAT</h3>
             <p class="cm-figure__desc">Share of survey responses rating 4 or 5 out of 5.</p>
             <div class="cm-chart" style="--h:280px" data-chart role="img" aria-label="Line chart. CSAT holds near 86% in July, dips to 85.6% in week 7, and rises to 89.5% by week 13, crossing the 88% target in week 10.">
@@ -506,6 +537,7 @@
             <li id="src-2"><span class="cm-id">S2</span><span><b>CSAT survey export, Q3 2026</b><br><span class="cm-tag">System export</span> Customer Experience · 10,317 rows · <code>csat/exports/2026-q3.csv</code> <a class="cm-back" href="#cite-4" aria-label="Back to text">↩</a></span><span class="cm-meta">exported <time datetime="2026-10-05">2026-10-05</time></span></li>
             <li id="src-3"><span class="cm-id">S3</span><span><b>Workforce schedule, APAC weekend pilot</b><br><span class="cm-tag">System export</span> Workforce Management · shifts 2026-09-16 → 09-30 · <code>wfm.schedule_shifts</code></span><span class="cm-meta">exported <time datetime="2026-10-05">2026-10-05</time></span></li>
             <li id="src-4"><span class="cm-id">S4</span><span><b>Customer support operations review, Q2 2026</b><br><span class="cm-tag">Report</span> Support Operations Analytics · PDF, 1.8 MB · <code>reports/support/2026-q2-review.pdf</code></span><span class="cm-meta">published <time datetime="2026-07-13">2026-07-13</time></span></li>
+            <li id="src-5"><span class="cm-id">S5</span><span><b>Helpdesk routing rules</b><br><span class="cm-tag">System export</span> Support Operations · <code>helpdesk/config/routing-rules.json</code> <a class="cm-back" href="#cite-5" aria-label="Back to text">↩</a></span><span class="cm-meta">exported <time datetime="2026-10-05">2026-10-05</time></span></li>
           </ol>
         </div>
       </div>

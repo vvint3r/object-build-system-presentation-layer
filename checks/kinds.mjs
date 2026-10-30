@@ -1,6 +1,6 @@
 // Document kinds: the required parts of a guide and of a reference (SPEC.md sections 7.3 to 7.5), and
-// the two components those kinds add, the procedure (section 8.20) and the related list (section
-// 8.23). Read on the page as written. Each in-page function is self-contained, so helpers are
+// the two components those kinds add, the procedure (section 8.23) and the related list (section
+// 8.24). Read on the page as written. Each in-page function is self-contained, so helpers are
 // repeated inside it. A report's anatomy is checked in checks/structure.mjs.
 
 export default [
@@ -66,7 +66,7 @@ export default [
     // A procedure is an ordered list of steps. Each step opens with its title, a heading, carries
     // what to do, and closes with its outcome: the label "Outcome" on a line of its own, then the
     // outcome sentence. A procedure never sits inside another.
-    name: 'procedure', level: 'fail', source: 'SPEC §8.20', once: true,
+    name: 'procedure', level: 'fail', source: 'SPEC §8.23', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, out = [];
       for (const ol of H.source().querySelectorAll('.cm-procedure')) {
@@ -100,7 +100,7 @@ export default [
     // Every item of a related list carries a tag from the closed set that names what the item is, a
     // link to it, and one sentence on how it relates. A link to a place in the page points at an
     // element that exists.
-    name: 'related', level: 'fail', source: 'SPEC §8.23', once: true,
+    name: 'related', level: 'fail', source: 'SPEC §8.24', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, d = H.source(), out = [];
       const TAGS = ['Report', 'Guide', 'Reference', 'Metric', 'Dataset', 'System'];

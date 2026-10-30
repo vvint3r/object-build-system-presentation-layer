@@ -209,8 +209,8 @@ Content maps onto existing components:
 | Facts about one thing: a company, a role, a system | Property sheet, `cm-props` | 8.7 |
 | Dated events in order | Timeline, `cm-timeline` | 8.12 |
 | Stages in sequence, seen at a glance | Process diagram, `cm-process` | 8.13 |
-| Steps a reader carries out, each with its outcome | Procedure, `cm-procedure` | 8.20 |
-| Other documents, or places in them, and how each relates | Related list, `cm-related` | 8.23 |
+| Steps a reader carries out, each with its outcome | Procedure, `cm-procedure` | 8.23 |
+| Other documents, or places in them, and how each relates | Related list, `cm-related` | 8.24 |
 | Options compared on the same attributes | Table, with the recommended column marked | 8.11 |
 | A point that must not be missed, a caveat, a worked example | Callout, from its closed set | 8.4 |
 | Items | Lists, `cm-list` and `cm-olist` | 8.14 |

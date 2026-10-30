@@ -26,9 +26,9 @@ each kind, and 7.5 the blocks a document may leave out with an omission comment.
 | A guide's Steps hold a procedure; its Prerequisites a list; its Related documents a related list. A reference's Properties hold a property sheet | §7.3, §7.4 | `kind-anatomy`, failure |
 | A guide or a reference carries no summary card, featured card or KPI strip | §1 rule 7, §6, §7 | `summary`, `featured`, `kind-anatomy`, failure |
 | Prerequisites, Exceptions and recovery, Related documents, Relationships and Examples may be left out with an omission comment | §7.5 | `kind-anatomy`, failure |
-| A procedure is an `ol`; each step opens with its title as a heading and closes with its outcome: the label "Outcome" on its own line, then a sentence | §8.20 | `procedure`, failure |
-| A procedure has 3 to 9 steps, step titles of 8 words at most, and one-sentence outcomes | §8.20, §13.1 | `procedure-length`, warning |
-| A related list item has a tag from a closed set, a link with its title, and one sentence on how it relates | §8.23 | `related`, failure |
+| A procedure is an `ol`; each step opens with its title as a heading and closes with its outcome: the label "Outcome" on its own line, then a sentence | §8.23 | `procedure`, failure |
+| A procedure has 3 to 9 steps, step titles of 8 words at most, and one-sentence outcomes | §8.23, §13.1 | `procedure-length`, warning |
+| A related list item has a tag from a closed set, a link with its title, and one sentence on how it relates | §8.24 | `related`, failure |
 | A reference's title is the name of its subject, 1 to 10 words | §7.1, §13.1 | `title-length`, warning |
 
 A check may name the kinds it applies to. The runner prints `skip` for that check on a page of
@@ -67,7 +67,7 @@ and the related list.
 | The brief's new rows link at the brief's current commit pin | Pins move only when a kit change merges; the rows resolve at the next pin move |
 | The acceptance documents cite internal policies and the Q3 review for every limit and figure, through the source register and citations; their footnotes only explain | The sample report's sources and dates stay the single account of the support organisation, and every number traces to a dated entry |
 | The rules for the source register and the change blocks name the Notes & sources appendix, not Appendix B | Notes & sources is Appendix A in a guide or a reference; one wording holds for every kind |
-| The procedure is §8.20 and the related list §8.23 | Sources and citations hold §8.21 and Status and change §8.22; §8.20 was free and §8.23 is next, so no existing section number moves |
+| The procedure is §8.23 and the related list §8.24 | §8.20 is reserved for the diagram, and Sources and citations hold §8.21 and Status and change §8.22, so these take the next free numbers and no existing section moves |
 | The reference's worked examples use illustrative tickets, said so in the section's lede | Examples show the clock rules; the only measured figures in them come from the Q3 review |
 | The Wayfinding row of `docs/adoption.md` lists the related list | It is the related-documents block that row names |
 

@@ -168,9 +168,9 @@ A guide takes one reader through one task, from the event that starts it to the 
 
 1. **Part 01 · Purpose** (required, `purpose`): one paragraph that opens the document. It names the task, who carries it out and what it achieves, with its key phrase in bold.
 2. **Prerequisites** (required, `prerequisites`): a `ul.cm-list` of what must be in place before the first step: access, tools, information.
-3. **Steps** (required, `steps`): a lede, then a procedure (§8.20) of 3 to 9 steps, each closing with its outcome. A longer task splits into several procedures, each under an h3 that names its stage.
+3. **Steps** (required, `steps`): a lede, then a procedure (§8.23) of 3 to 9 steps, each closing with its outcome. A longer task splits into several procedures, each under an h3 that names its stage.
 4. **Exceptions and recovery** (required, `exceptions`): one h3 per case, named for the condition, then what to do instead. A case that changes a step names that step.
-5. **Related documents** (required, `related`): a related list (§8.23) of the documents a reader needs alongside this one.
+5. **Related documents** (required, `related`): a related list (§8.24) of the documents a reader needs alongside this one.
 6. **Appendix A · Notes & sources** (required, §7.1).
 
 A guide may add sections of its own between these parts. Limits, due times and other rules inside a step carry their source. Figures that change over time stay out of the steps and go in the status block (§8.22).
@@ -181,7 +181,7 @@ A reference describes one thing for a reader who looks it up: what it is, its fa
 
 1. **Part 01 · Definition** (required, `definition`): one paragraph that opens the document and says what the thing is, with its key phrase in bold.
 2. **Properties** (required, `properties`): a property sheet (§8.7) of the facts a reader looks up, such as unit, owner, source system, update frequency and target.
-3. **Relationships** (required, `relationships`): what the thing feeds, depends on or is reported with, as a related list (§8.23).
+3. **Relationships** (required, `relationships`): what the thing feeds, depends on or is reported with, as a related list (§8.24).
 4. **Examples** (required, `examples`): worked cases, one h3 each, that apply the thing to concrete inputs.
 5. **Appendix A · Notes & sources** (required, §7.1).
 
@@ -423,7 +423,7 @@ States: `is-done` (hollow ink marker), `is-current` (filled accent, ≤ 1), `is-
 </ol>
 ```
 
-3 to 6 steps; `--steps` equals the count; titles ≤ 3 words; ≤ 1 `cm-emph` step with a chip naming why. A process diagram shows how work flows; the steps a reader carries out go in a procedure (§8.20).
+3 to 6 steps; `--steps` equals the count; titles ≤ 3 words; ≤ 1 `cm-emph` step with a chip naming why. A process diagram shows how work flows; the steps a reader carries out go in a procedure (§8.23).
 
 ### 8.14 Lists
 
@@ -485,20 +485,6 @@ Token spans: `k` keyword, `s` string, `n` number, `f` callable, `c` comment. Key
 ```
 
 The only `cm-featured` in the report, inside the Recommendations section. 1–5 actions. Each action opens with one claim line, the action as an imperative sentence, then one sentence of reason and its chips. The card width follows the reading measure.
-
-### 8.20 Procedure
-
-```html
-<ol class="cm-procedure">
-  <li>
-    <h3 class="cm-procedure__title">Record the account and the charge</h3>
-    <p>What to do, in one to three sentences.</p>
-    <div class="cm-procedure__outcome"><span class="cm-label">Outcome</span><p>The state the step leaves, in one sentence.</p></div>
-  </li>
-</ol>
-```
-
-The steps a reader carries out, in order: a guide's Steps section (§7.3). The CSS numbers the steps 01, 02 in the left gutter. Each step opens with its title, an imperative of 8 words at most, as a heading one level below the section's. Paragraphs and `ul.cm-list` lists say what to do. The step closes with `.cm-procedure__outcome`: the label “Outcome” on a line of its own, then one sentence on the state the step leaves. 3 to 9 steps; a longer task splits into several procedures under h3 stage headings, with the step titles at h4. A procedure never sits inside another.
 
 ### 8.21 Sources and citations
 
@@ -604,7 +590,21 @@ The limitation register:
 - The status is a chip from a closed set: `Open` (`cm-chip--warn`), `By design` (`cm-chip--note`), `Resolved` (`cm-chip--ok`). The word carries the meaning; colour is only the chip's offset. An open limit with a planned fix adds a plain chip with its date: `Fix due 2026-12-14`.
 - One or two limits are limitation callouts, where a reader would look for the missing answer (§8.4). Three or more go in the register instead, in Appendix A under A.2.
 
-### 8.23 Related list
+### 8.23 Procedure
+
+```html
+<ol class="cm-procedure">
+  <li>
+    <h3 class="cm-procedure__title">Record the account and the charge</h3>
+    <p>What to do, in one to three sentences.</p>
+    <div class="cm-procedure__outcome"><span class="cm-label">Outcome</span><p>The state the step leaves, in one sentence.</p></div>
+  </li>
+</ol>
+```
+
+The steps a reader carries out, in order: a guide's Steps section (§7.3). The CSS numbers the steps 01, 02 in the left gutter. Each step opens with its title, an imperative of 8 words at most, as a heading one level below the section's. Paragraphs and `ul.cm-list` lists say what to do. The step closes with `.cm-procedure__outcome`: the label “Outcome” on a line of its own, then one sentence on the state the step leaves. 3 to 9 steps; a longer task splits into several procedures under h3 stage headings, with the step titles at h4. A procedure never sits inside another.
+
+### 8.24 Related list
 
 ```html
 <ul class="cm-related">
@@ -717,10 +717,10 @@ Components set limits of their own. Where a component limit and a limit above bo
 | Answer | 1 to 3 sentences | §8.6 |
 | Property key | 1 to 3 words | §8.7 |
 | Process step title | 3 words at most | §8.13 |
-| Procedure | 3 to 9 steps | §8.20 |
-| Procedure step title | 8 words at most | §8.20 |
-| Procedure outcome | One sentence | §8.20 |
-| Related list item | One sentence after the link | §8.23 |
+| Procedure | 3 to 9 steps | §8.23 |
+| Procedure step title | 8 words at most | §8.23 |
+| Procedure outcome | One sentence | §8.23 |
+| Related list item | One sentence after the link | §8.24 |
 | Figure title | 10 words at most | §9 |
 | Chart annotation | 1 to 3 words | §9 |
 
@@ -797,7 +797,7 @@ Changed in 1.2:
 - The print button is optional, added only when the document asks for one (§7).
 - A document without measured numbers leaves out a required block it has nothing for, with an omission comment (§7).
 
-Added for guides and references: document kinds (§7), procedure (§8.20), related list (§8.23).
+Added for guides and references: document kinds (§7), procedure (§8.23), related list (§8.24).
 
 Added for reports: ECharts chart method and theme; categorical and sequential palettes; dark token set; print rules; report masthead and contents rail; KPI strip; key findings; native tables with sorting and in-cell bars; pull quote; timeline; process diagram; definition, questions and property-sheet blocks; footnotes; collapsible appendix; chart draw-in motion; packaging modes.
 

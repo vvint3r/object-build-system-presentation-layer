@@ -258,8 +258,8 @@ export default [
 
   {
     // A procedure holds 3 to 9 steps; a step title is an imperative phrase of at most 8 words, and
-    // the outcome is one sentence (SPEC §8.20).
-    name: 'procedure-length', level: 'warn', source: 'SPEC §8.20', once: true,
+    // the outcome is one sentence (SPEC §8.23).
+    name: 'procedure-length', level: 'warn', source: 'SPEC §8.23', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, out = [];
       const words = s => s.split(' ').filter(w => /[\p{L}\p{N}]/u.test(w)).length;

@@ -475,6 +475,22 @@ pre code{all:unset}
 .cm-changes>li>.cm-tag{justify-self:start}
 .cm-versions .cm-meta{display:inline-block;margin-top:2px}
 .cm-limits>li{grid-template-columns:minmax(0,1fr) auto}
+/* Procedure: a guide's numbered steps. The number sits in the left gutter at the title's size; each step closes with its outcome under an "Outcome" label. */
+.cm-procedure{list-style:none;padding:0;counter-reset:cmp;max-width:calc(var(--cm-read) + 56px)}
+.cm-procedure>li{position:relative;display:flex;flex-direction:column;gap:12px;padding:32px 0 32px 56px;border-top:1px solid var(--cm-hairline);counter-increment:cmp}
+.cm-procedure>li:first-child{border-top:0;padding-top:0}
+.cm-procedure>li:last-child{padding-bottom:0}
+.cm-procedure>li::before{content:counter(cmp,decimal-leading-zero);position:absolute;left:0;top:32px;font-size:18px;font-weight:800;line-height:1.4;font-variant-numeric:tabular-nums}
+.cm-procedure>li:first-child::before{top:0}
+.cm-procedure__title{font-size:18px;font-weight:800;line-height:1.4;letter-spacing:0}
+.cm-procedure__outcome{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+/* Related list: links to other documents or to places in them. The tag names what the item is; the link and one sentence sit beside it. */
+.cm-related{list-style:none;padding:0;display:flex;flex-direction:column;max-width:calc(var(--cm-read) + 116px);font-size:15px;line-height:1.6}
+.cm-related>li{display:grid;grid-template-columns:96px minmax(0,1fr);column-gap:20px;row-gap:4px;align-items:start;padding:18px 0;border-top:1px solid var(--cm-hairline)}
+.cm-related>li:first-child{border-top:0;padding-top:0}
+.cm-related>li>.cm-tag{grid-row:1 / span 2;justify-self:start;margin-top:3px}
+.cm-related>li>a{grid-column:2;justify-self:start;font-weight:700}
+.cm-related>li>p{grid-column:2}
 
 /* ---------- 20. Collapsible (appendix) ---------- */
 .cm-collapse{background:var(--cm-surface);border-radius:var(--cm-r-card);box-shadow:var(--cm-s2);padding:0 32px}
@@ -555,6 +571,10 @@ pre code{all:unset}
   .cm-changes>li{grid-template-columns:minmax(0,1fr)}
   .cm-limits>li{grid-template-columns:minmax(0,1fr)}
   .cm-sources>li,.cm-changes>li,.cm-versions>li,.cm-limits>li{row-gap:12px}
+  .cm-procedure>li{padding-left:44px}
+  .cm-related>li{grid-template-columns:minmax(0,1fr);row-gap:8px}
+  .cm-related>li>.cm-tag{grid-row:auto;margin-top:0}
+  .cm-related>li>a,.cm-related>li>p{grid-column:1}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 
@@ -582,7 +602,9 @@ pre code{all:unset}
   .cm-table-wrap{padding:4px 8px 12px;overflow:visible}
   .cm-collapse{padding:0 24px}
   .cm-grid--2.cm-print-stack,.cm-grid--wide.cm-print-stack{grid-template-columns:minmax(0,1fr)}
-  .cm-figure,.cm-kpi,.cm-callout,.cm-def,.cm-qa,.cm-props>dl,.cm-step,.cm-quote,.cm-summary,.cm-code,.cm-timeline>li,.cm-table tr,.cm-status,.cm-disagree,.cm-sources>li,.cm-changes>li,.cm-versions>li,.cm-limits>li{break-inside:avoid}
+  .cm-figure,.cm-kpi,.cm-callout,.cm-def,.cm-qa,.cm-props>dl,.cm-step,.cm-quote,.cm-summary,.cm-code,.cm-timeline>li,.cm-table tr,.cm-status,.cm-disagree,.cm-sources>li,.cm-changes>li,.cm-versions>li,.cm-limits>li,.cm-procedure>li,.cm-related>li{break-inside:avoid}
+  .cm-procedure>li{padding-top:20px;padding-bottom:20px}
+  .cm-procedure>li::before{top:20px}
   .cm-figure__title,.cm-section__head,.cm-h3,.cm-h4,.cm-table-title{break-after:avoid}
   .cm-chart svg{width:100%!important;height:auto!important}
   .cm-chart{height:auto!important;min-height:0}

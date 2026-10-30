@@ -50,7 +50,7 @@
         <li><a href="#use"><span class="n">01</span>Kit usage</a></li>
         <li><a href="#changes"><span class="n">02</span>Updates to Foundations</a></li>
         <li><a href="#tokens"><span class="n">03</span>Tokens</a></li>
-        <li><a href="#anatomy"><span class="n">04</span>Report anatomy</a></li>
+        <li><a href="#anatomy"><span class="n">04</span>Document anatomy</a></li>
         <li><a href="#components"><span class="n">05</span>Components</a></li>
         <li><a href="#charts"><span class="n">06</span>Charts</a></li>
         <li><a href="#diagrams"><span class="n">07</span>Diagrams</a></li>
@@ -78,11 +78,11 @@
     <section class="cm-section" id="use" aria-labelledby="use-t">
       <header class="cm-section__head"><span class="cm-section__num" data-comment-anchor="e0a636d494-span">Part 01</span><h2 class="cm-section__title" id="use-t" data-comment-anchor="948a4f9c08-h2">Kit usage</h2></header>
       <div class="cm-section__body">
-        <div class="cm-prose"><p data-comment-anchor="9b20b67d19-p">Every report is <strong>one HTML file</strong> built from the classes in <code data-comment-anchor="6fb816c3d0-code">cm-report.css</code>, with behaviour from <code>cm-report.js</code> and charts drawn by ECharts. Agents compose; they never style. An agent that needs a block this gallery lacks uses the nearest one and flags the gap.</p></div>
+        <div class="cm-prose"><p data-comment-anchor="9b20b67d19-p">Every document is <strong>one HTML file</strong> built from the classes in <code data-comment-anchor="6fb816c3d0-code">cm-report.css</code>, with behaviour from <code>cm-report.js</code> and charts drawn by ECharts. Agents compose; they never style. An agent that needs a block this gallery lacks uses the nearest one and flags the gap.</p></div>
         <div class="cm-grid cm-grid--4 cm-bleed">
           <div class="cm-tile"><code>cm-report.css</code><p class="cm-small" style="margin-top:16px">Tokens for light, dark and print, plus every component class.</p></div>
           <div class="cm-tile"><code>cm-report.js</code><p class="cm-small" style="margin-top:16px">Theme toggle, chart theme and draw-in, sortable tables, contents scroll-spy, link targets clear of the top bar, print prep.</p></div>
-          <div class="cm-tile"><code>template.html</code><p class="cm-small" style="margin-top:16px">The starter every report copies. Placeholders in <code>{{ }}</code>.</p></div>
+          <div class="cm-tile"><code>template.html</code><p class="cm-small" style="margin-top:16px">The starter every report copies; guides and references copy <code>template-guide.html</code> and <code>template-reference.html</code>. Placeholders in <code>{{ }}</code>.</p></div>
           <div class="cm-tile"><code>SPEC.md</code><p class="cm-small" style="margin-top:16px">The same rules written for agents, as hard rules, budgets and canonical markup.</p></div>
         </div>
         <div class="cm-grid cm-grid--2 cm-bleed">
@@ -122,6 +122,7 @@
                 <tr><td class="strong">Headings</td><td class="wrap">Number chip, ring marker</td><td class="wrap">“Part 01 /” kicker in 300, T2 title, optional TL;DR, 4px rule closing the header. H3 and H4 underlined to fit at 2.5px and 1.5px</td><td><span class="cm-chip">Changed</span></td></tr>
                 <tr><td class="strong">Chips</td><td class="wrap">Tinted fills</td><td class="wrap">Outlined. Status color is a 2px offset to the right and bottom; one solid ink verdict per table</td><td><span class="cm-chip">Changed</span></td></tr>
                 <tr><td class="strong">Callouts</td><td class="wrap">Icon, tinted label chip, text in one row</td><td class="wrap">Icon and label on one row, body below on the label’s edge. Label underlined in the semantic color; no fill</td><td><span class="cm-chip">Changed</span></td></tr>
+                <tr><td class="strong">Document kinds</td><td class="wrap">One page type</td><td class="wrap">Report, guide and reference, each with its own required parts, named by a <code>cm-kind</code> tag; procedure and related list for guides and references</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
                 <tr><td class="strong">Reference blocks</td><td class="wrap">—</td><td class="wrap">Definition, questions and property sheet</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
                 <tr><td class="strong">Charts</td><td class="wrap">Referenced, not specified</td><td class="wrap">ECharts as the single method; theme generated from tokens; palette c1–c4 + context grey; sequential ramp; automatic legend for 2+ series; axis titles with units; annotations</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
                 <tr><td class="strong">Dark mode</td><td class="wrap">Deferred</td><td class="wrap">Full dark token set. Surfaces separate by lightness plus a 1px light ring because soft shadows vanish on dark</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
@@ -233,11 +234,32 @@
 
     <!-- 04 -->
     <section class="cm-section" id="anatomy" aria-labelledby="anatomy-t">
-      <header class="cm-section__head"><span class="cm-section__num">Part 04</span><h2 class="cm-section__title" id="anatomy-t">Report anatomy</h2></header>
+      <header class="cm-section__head"><span class="cm-section__num">Part 04</span><h2 class="cm-section__title" id="anatomy-t">Document anatomy</h2></header>
       <div class="cm-section__body">
-        <div class="cm-prose"><p>Blocks appear <strong>in this order</strong>; optional blocks are left out, not filled with placeholders. Required blocks always appear, except in a document without measured numbers. It may leave out a KPI strip, period or Recommendations section, with an omission comment saying why (<code>SPEC.md</code>, section 7).</p></div>
+        <div class="cm-prose"><p>The kit builds three kinds of document, each with <strong>its own required parts</strong> in a fixed order. All three share the top bar, contents rail, masthead, Notes &amp; sources and footer.</p></div>
+        <div class="cm-prose"><p>A <code>cm-kind</code> tag in the head, after <code>cm-kit</code>, names the kind: <code>report</code>, <code>guide</code> or <code>reference</code>. A page without one is a report.</p></div>
+        <div class="cm-code cm-bleed">
+          <div class="cm-code__bar"><span class="cm-code__file">head</span><span class="cm-tag">HTML</span></div>
+<pre><code>&lt;meta name="cm-kit" content="1.2"&gt;
+&lt;meta name="cm-kind" content="guide"&gt;</code></pre>
+        </div>
         <div>
-          <div class="cm-table-title" id="tbl-anat"><span class="cm-table-title__kind">Table 4.1</span>Block order</div>
+          <div class="cm-table-title" id="tbl-kinds"><span class="cm-table-title__kind">Table 4.1</span>Required parts by kind</div>
+          <div class="cm-table-wrap cm-bleed">
+            <table class="cm-table" aria-labelledby="tbl-kinds">
+              <thead><tr><th>Kind</th><th>Answers</th><th>Required parts, in order</th><th>Never carries</th><th>Example</th></tr></thead>
+              <tbody>
+                <tr><td class="strong">Report</td><td class="wrap">What the numbers show, and what to do</td><td class="wrap">Executive summary, body parts, Recommendations (recommended), Methodology (with computed numbers), Notes &amp; sources</td><td class="wrap">Nothing</td><td class="wrap"><a href="Sample%20Report%20-%20Q3%20Support%20Review.html">Q3 support review</a></td></tr>
+                <tr><td class="strong">Guide</td><td class="wrap">How to carry out one task</td><td class="wrap">Purpose, Prerequisites, Steps, Exceptions and recovery, Related documents, Notes &amp; sources</td><td class="wrap">Executive summary, KPI strip, summary and recommendations cards, Period</td><td class="wrap"><a href="Guide%20-%20Billing%20Escalation.html">Billing escalation</a></td></tr>
+                <tr><td class="strong">Reference</td><td class="wrap">What one thing is, for lookup</td><td class="wrap">Definition, Properties, Relationships, Examples, Notes &amp; sources</td><td class="wrap">Executive summary, KPI strip, summary and recommendations cards, Period</td><td class="wrap"><a href="Reference%20-%20First%20Response%20Time.html">First response time</a></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <span class="cm-caption"><span class="cm-caption__line">Source: <code>SPEC.md</code>, sections 7.2 to 7.4.</span></span>
+        </div>
+        <div class="cm-prose"><p>Optional blocks are left out, not filled with placeholders. A required block a document cannot fill is left out only with an omission comment saying why (<code>SPEC.md</code>, section 7.5).</p></div>
+        <div>
+          <div class="cm-table-title" id="tbl-anat"><span class="cm-table-title__kind">Table 4.2</span>Report block order</div>
           <div class="cm-table-wrap cm-bleed">
             <table class="cm-table" data-sortable aria-labelledby="tbl-anat">
               <thead><tr><th class="num" aria-sort="ascending">#</th><th>Block</th><th>Contains</th><th>Level</th></tr></thead>
@@ -254,7 +276,7 @@
               </tbody>
             </table>
           </div>
-          <span class="cm-caption"><span class="cm-caption__line">Source: <code>SPEC.md</code>, section 7.</span></span>
+          <span class="cm-caption"><span class="cm-caption__line">Source: <code>SPEC.md</code>, sections 7.1 and 7.2.</span></span>
         </div>
       </div>
     </section>
@@ -563,7 +585,7 @@
         </div>
 
         <div class="g-comp">
-          <header><span class="cm-label">5.20</span><h3 class="cm-h3">Sources and citations</h3><p>One register lists every source a document rests on and closes Appendix B. Each entry has a key, a title, a publisher, a type tag, a locator and a date.</p><p>A citation reads the key and lands on the entry, whose back link returns to the citation followed. An entry no claim cites has no back link. No chip or score stands for confidence.</p></header>
+          <header><span class="cm-label">5.20</span><h3 class="cm-h3">Sources and citations</h3><p>One register lists every source a document rests on and closes the Notes &amp; sources appendix. Each entry has a key, a title, a publisher, a type tag, a locator and a date.</p><p>A citation reads the key and lands on the entry, whose back link returns to the citation followed. An entry no claim cites has no back link. No chip or score stands for confidence.</p></header>
           <div data-demo>
 <div class="cm-stack">
   <p class="cm-prose">Median first response fell to 2h 14m as of <time datetime="2026-09-30">30 September</time>.<a class="cm-cite" href="#src-1" id="cite-1">S1</a> Satisfaction closed the quarter at 87.4%.<a class="cm-cite" href="#src-2" id="cite-2">S2</a></p>
@@ -634,6 +656,40 @@
   <li><span><b>Unstaffed APAC weekends</b><br>APAC first response counts weekend hours, so its median reads 3h 20m against 2h 31m on weekdays.</span><span class="cm-chips"><span class="cm-chip cm-chip--warn">Open</span><span class="cm-chip">Fix due 2026-11-15</span></span></li>
   <li><span><b>Survey response</b><br>CSAT reflects only the customers who answered the survey, so it can overstate satisfaction.</span><span class="cm-chips"><span class="cm-chip cm-chip--note">By design</span></span></li>
   <li><span><b>Merged duplicate tickets</b><br>The Q2 review counted 440 merged duplicates; the re-run removes them, so Q2 and Q3 totals compare like for like.</span><span class="cm-chips"><span class="cm-chip cm-chip--ok">Resolved</span></span></li>
+</ul>
+          </div>
+        </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">5.26</span><h3 class="cm-h3">Procedure</h3><p>The steps a reader carries out, numbered in the left gutter. Each step opens with an imperative title, says what to do, and closes with its outcome under an Outcome label. Three to nine steps; the Steps section of a guide holds one.</p></header>
+          <div data-demo>
+<ol class="cm-procedure">
+  <li>
+    <h4 class="cm-procedure__title">Record the account and the charge</h4>
+    <p>Fill in the account ID, invoice number, charge amount and charge date on the ticket.</p>
+    <div class="cm-procedure__outcome"><span class="cm-label">Outcome</span><p>The ticket carries everything a specialist needs to act on the charge.</p></div>
+  </li>
+  <li>
+    <h4 class="cm-procedure__title">Escalate with the macro</h4>
+    <p>Apply the Escalate to billing macro and pick the reason code that matches the request.</p>
+    <div class="cm-procedure__outcome"><span class="cm-label">Outcome</span><p>The ticket waits in the billing specialist queue under its reason code.</p></div>
+  </li>
+  <li>
+    <h4 class="cm-procedure__title">Reply to the customer</h4>
+    <p>Say that a billing specialist has the ticket, and give the SLA due time as the latest answer time.</p>
+    <div class="cm-procedure__outcome"><span class="cm-label">Outcome</span><p>The customer knows who has the ticket and when the next answer is due.</p></div>
+  </li>
+</ol>
+          </div>
+        </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">5.27</span><h3 class="cm-h3">Related list</h3><p>Links to other documents, or to places in them. A tag from a closed set names what each item is, and one sentence says what the reader finds there. A guide's Related documents and a reference's Relationships each hold one.</p></header>
+          <div data-demo>
+<ul class="cm-related">
+  <li><span class="cm-tag">Guide</span><a href="Guide%20-%20Billing%20Escalation.html">Billing ticket escalation to specialists</a><p>The steps a Tier 1 agent follows to hand a billing ticket to the specialists.</p></li>
+  <li><span class="cm-tag">Reference</span><a href="Reference%20-%20First%20Response%20Time.html">First response time</a><p>How the metric is measured, its target, and four worked examples.</p></li>
+  <li><span class="cm-tag">Report</span><a href="Sample%20Report%20-%20Q3%20Support%20Review.html">Customer support operations review, Q3 2026</a><p>The quarter's volume, service levels and satisfaction, with three actions for Q4.</p></li>
 </ul>
           </div>
         </div>
@@ -1030,18 +1086,19 @@
     <section class="cm-section" id="checklist" aria-labelledby="checklist-t">
       <header class="cm-section__head"><span class="cm-section__num">Part 09</span><h2 class="cm-section__title" id="checklist-t">Agent checklist</h2></header>
       <div class="cm-section__body">
-        <div class="cm-prose"><p>An agent checks each item before publishing. A report that fails <strong>any item</strong> is not published.</p></div>
+        <div class="cm-prose"><p>An agent checks each item before publishing. A document that fails <strong>any item</strong> is not published.</p></div>
         <div class="cm-card cm-bleed" data-comment-anchor="330c8a61b6-div">
           <h3 class="cm-card__title">Structure and evidence</h3>
           <ol class="cm-olist">
-            <li>Started from <code>template.html</code>; no class, color or font outside the kit.</li>
+            <li>Started from the template for its kind; no class, color or font outside the kit.</li>
             <li>No inline style except <code>--h</code>, <code>--v</code>, <code>--t</code> and <code>--steps</code>.</li>
-            <li>Masthead complete with title, dek, status, period, published date, reading time, version and byline; an empty period is left out with its omission comment.</li>
-            <li>Executive summary has a lede, 2 to 4 KPIs with stated comparisons, and 3 to 5 findings. Without measured numbers, the KPI strip is left out with its omission comment.</li>
+            <li>Masthead complete with title, dek, type and status chips, published date, reading time, version and byline. A report adds its period.</li>
+            <li>A report's summary has a lede, 2 to 4 KPIs with comparisons and 3 to 5 findings. Other kinds hold their parts in order.</li>
+            <li>A required block left out carries its omission comment.</li>
             <li>Every number in the summary appears again, with its source, in the body.</li>
             <li>Every figure has a kind, title, description, legend when there are 2+ series, axis titles with units, <code>aria-label</code> and source line.</li>
             <li>Every table has a kind and title, <code>.num</code> on numeric columns, and a source caption.</li>
-            <li>One recommendations card (none, with its omission comment, when there are no actions), at most one solid verdict chip per table, one summary box.</li>
+            <li>A report has one summary box and one recommendations card; guides and references have neither. At most one solid verdict chip per table.</li>
           </ol>
         </div>
         <div class="cm-card cm-bleed">

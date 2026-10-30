@@ -88,4 +88,5 @@ Rounds 40e and 40f exist only in `CONTINUATION.md` and are taken from there.
 | [075-delegated-decisions.md](075-delegated-decisions.md) | Delegated decisions | 2026-10-30 | owner, in session |
 | [076-build-direction.md](076-build-direction.md) | Build direction | 2026-10-30 | orchestrating session, record 075 |
 | [077-flow-diagrams.md](077-flow-diagrams.md) | Flow diagrams | 2026-10-30 | orchestrating session, record 075 |
+| [078-document-kinds.md](078-document-kinds.md) | Document kinds | 2026-10-30 | orchestrating session, record 075 |
 | [079-provenance-and-status.md](079-provenance-and-status.md) | Provenance and status | 2026-10-30 | orchestrating session, record 075 |

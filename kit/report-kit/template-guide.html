@@ -1,0 +1,197 @@
+<!doctype html>
+<!--
+  Content Morphia · Report Kit 1.2 · GUIDE TEMPLATE
+  Copy this file for every new guide: one task, from the event that starts it to the state that ends it.
+  Replace every {{ … }} placeholder. Parts and their order are fixed (SPEC.md §7.3); a guide may add sections between them.
+  A guide has no executive summary, KPI strip, summary card, recommendations card or Period.
+  A required part the task has no content for is left out with an omission comment in its place (SPEC.md §7.5), for example:
+  <!- - cm-omit prerequisites: Nothing needs to be in place before the first step. - ->
+  Paths below assume the guide sits inside report-kit/. Elsewhere, point the two kit paths at report-kit/cm-report.css and report-kit/cm-report.js.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{ Guide title }}</title>
+<meta name="cm-kit" content="1.2">
+<meta name="cm-kind" content="guide">
+<script>(function(){var t;try{t=localStorage.getItem('cm-theme')}catch(e){}document.documentElement.dataset.theme=t||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')})()</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,300;1,400&family=JetBrains+Mono:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="cm-report.css">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js" defer></script>
+<script src="cm-report.js" defer></script>
+</head>
+<body>
+
+<header class="cm-topbar">
+  <div class="cm-topbar__in">
+    <a class="cm-wordmark" href="#top">{{ publisher-name }}</a>
+    <span class="cm-chip">{{ Guide series }}</span>
+    <div class="cm-topbar__actions">
+      <button class="cm-btn cm-btn--quiet cm-btn--sm" type="button" data-cm-theme-toggle>Dark mode</button>
+    </div>
+  </div>
+</header>
+
+<div class="cm-shell">
+  <!-- CONTENTS RAIL: one link per <section id>. Two-digit numbers; the appendix uses a letter. -->
+  <nav class="cm-rail" aria-label="Contents">
+    <div class="cm-toc">
+      <span class="cm-label">Contents</span>
+      <ol>
+        <li><a href="#purpose"><span class="n">01</span>Purpose</a></li>
+        <li><a href="#prerequisites"><span class="n">02</span>Prerequisites</a></li>
+        <li><a href="#steps"><span class="n">03</span>Steps</a></li>
+        <li><a href="#exceptions"><span class="n">04</span>Exceptions and recovery</a></li>
+        <li><a href="#related"><span class="n">05</span>Related documents</a></li>
+        <li><a href="#sources"><span class="n">A</span>Notes &amp; sources</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main class="cm-main" id="top">
+
+    <!-- MASTHEAD (required). No Period field in a guide. -->
+    <header class="cm-mast">
+      <nav class="cm-crumbs" aria-label="Breadcrumb">
+        <a href="#top">Guides</a><span class="sep" aria-hidden="true">/</span>
+        <span aria-current="page">{{ Area }}</span>
+      </nav>
+      <div class="cm-bar" aria-hidden="true"></div>
+      <h1 class="cm-mast__title">{{ Guide title, 4 to 10 words }}</h1>
+      <p class="cm-mast__dek">{{ One sentence: the task, who carries it out, and where it ends. }}</p>
+      <!-- METADATA: Status chips: Draft = cm-chip, In review = cm-chip--warn, Final = cm-chip--ok -->
+      <dl class="cm-mast__meta">
+        <div><dt>Status</dt><dd><span class="cm-chip">Guide</span><span class="cm-chip cm-chip--ok">{{ Final }}</span></dd></div>
+        <div><dt>Published</dt><dd>{{ YYYY-MM-DD }}</dd></div>
+        <div><dt>Reading time</dt><dd>{{ N }} min</dd></div>
+        <div><dt>Version</dt><dd>{{ 1.0 }}</dd></div>
+      </dl>
+      <dl class="cm-byline">
+        <div><dt>Prepared by</dt><dd>{{ Team or author }}</dd></div>
+        <div><dt>Distribution</dt><dd>{{ Audience }}</dd></div>
+      </dl>
+    </header>
+
+    <!-- 01 PURPOSE (required): one paragraph that opens the document, with its key phrase in bold -->
+    <section class="cm-section" id="purpose" aria-labelledby="purpose-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 01</span>
+        <h2 class="cm-section__title" id="purpose-t">Purpose</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>{{ The task, who carries it out and what it achieves, }} <strong>{{ key phrase }}</strong> {{ in two or three sentences. }}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 PREREQUISITES (required): what must be in place before the first step -->
+    <section class="cm-section" id="prerequisites" aria-labelledby="prerequisites-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 02</span>
+        <h2 class="cm-section__title" id="prerequisites-t">Prerequisites</h2>
+      </header>
+      <div class="cm-section__body">
+        <ul class="cm-list">
+          <li>{{ Access, tool or information needed before step 1. }}</li>
+          <li>{{ Another prerequisite. }}</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 03 STEPS (required): a lede, then a procedure of 3 to 9 steps. Each step: a title (an imperative, 8 words at most), what to do, then its outcome. -->
+    <section class="cm-section" id="steps" aria-labelledby="steps-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 03</span>
+        <h2 class="cm-section__title" id="steps-t">Steps</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>{{ The number of steps, where they start and where they end, }} <strong>{{ key phrase }}</strong>{{ . }}</p>
+        </div>
+        <ol class="cm-procedure">
+          <li>
+            <h3 class="cm-procedure__title">{{ Step title }}</h3>
+            <p>{{ What to do, in one to three sentences. }}<a class="cm-fn" href="#fn-1" id="fnref-1">1</a></p>
+            <div class="cm-procedure__outcome"><span class="cm-label">Outcome</span><p>{{ The state the step leaves, in one sentence. }}</p></div>
+          </li>
+          <li>
+            <h3 class="cm-procedure__title">{{ Step title }}</h3>
+            <p>{{ What to do. }}</p>
+            <div class="cm-procedure__outcome"><span class="cm-label">Outcome</span><p>{{ The state the step leaves. }}</p></div>
+          </li>
+          <li>
+            <h3 class="cm-procedure__title">{{ Step title }}</h3>
+            <p>{{ What to do. }}</p>
+            <div class="cm-procedure__outcome"><span class="cm-label">Outcome</span><p>{{ The state the step leaves. }}</p></div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 04 EXCEPTIONS AND RECOVERY (required): one h3 per case, named for the condition, then what to do instead -->
+    <section class="cm-section" id="exceptions" aria-labelledby="exceptions-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 04</span>
+        <h2 class="cm-section__title" id="exceptions-t">Exceptions and recovery</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>{{ How many cases depart from the steps, }} <strong>{{ key phrase }}</strong>{{ . }}</p>
+          <h3>{{ Condition }}</h3>
+          <p>{{ What to do instead, and which step it changes. }}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 RELATED DOCUMENTS (required). Tag: Report | Guide | Reference | Metric | Dataset | System -->
+    <section class="cm-section" id="related" aria-labelledby="related-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 05</span>
+        <h2 class="cm-section__title" id="related-t">Related documents</h2>
+      </header>
+      <div class="cm-section__body">
+        <ul class="cm-related">
+          <li><span class="cm-tag">Reference</span><a href="{{ file.html }}">{{ Document title }}</a><p>{{ One sentence on what the reader finds there. }}</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- APPENDIX A: NOTES & SOURCES (required) -->
+    <section class="cm-section cm-section--part" id="sources" aria-labelledby="sources-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Appendix A</span>
+        <h2 class="cm-section__title" id="sources-t">Notes &amp; sources</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-stack">
+          <h3 class="cm-h4">Notes</h3>
+          <ol class="cm-notes">
+            <li id="fn-1">{{ Footnote text. }} <a class="cm-back" href="#fnref-1" aria-label="Back to text">↩</a></li>
+          </ol>
+        </div>
+        <div class="cm-stack">
+          <h3 class="cm-h4">Sources</h3>
+          <!-- SOURCE REGISTER: key S1, S2… kept across versions; id src-N. Type: Dataset | Report | Interview | Document | System export.
+               Locator: a link, or the system and path in <code>. Cite after punctuation: <a class="cm-cite" href="#src-1" id="cite-1">S1</a>;
+               a cited source ends with <a class="cm-back" href="#cite-1" aria-label="Back to text">↩</a> to its first citation. -->
+          <ol class="cm-sources">
+            <li id="src-1"><span class="cm-id">S1</span><span><b>{{ Source title }}</b><br><span class="cm-tag">Document</span> {{ Publisher }} · <code>{{ system.path }}</code></span><span class="cm-meta">{{ published }} <time datetime="{{ YYYY-MM-DD }}">{{ YYYY-MM-DD }}</time></span></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <footer class="cm-footer">
+      <span><b>{{ Guide title }}</b></span>
+      <span>v{{ 1.0 }} · published {{ YYYY-MM-DD }}</span>
+      <span>{{ Team }}</span>
+      <span>Content Morphia Report Kit 1.2</span>
+    </footer>
+  </main>
+</div>
+</body>
+</html>

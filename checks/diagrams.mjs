@@ -206,7 +206,7 @@ export default [
 
   {
     // Every node and edge was drawn in this mode, and the drawn lines cross three times at most.
-    name: 'diagram-drawn', level: 'fail', source: 'SPEC §8.20; §14 item 16',
+    name: 'diagram-drawn', level: 'fail', source: 'SPEC §8.20; §14 item 17',
     inPage: ({ check }) => {
       const H = window.__cm, out = [];
       for (const el of document.querySelectorAll('.cm-diagram')) {

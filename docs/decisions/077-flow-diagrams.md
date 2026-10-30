@@ -9,7 +9,7 @@
 
 ## Rules
 
-Section 8.20 of `SPEC.md` holds the rules; section 8.13 points to it, and section 14 gains item 16.
+Section 8.20 of `SPEC.md` holds the rules; section 8.13 points to it, and section 14 gains item 17.
 The kit's script draws the diagram and writes its text equivalent. Every new check is a failure, in
 `checks/diagrams.mjs`.
 

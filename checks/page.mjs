@@ -81,7 +81,7 @@ export function install(cfg) {
   // section 4 names most of it; records 056 and 058 add the rest. The collapse toggle's "Open +" is
   // a label drawn by ::after.
   H.LABEL = '.cm-label, .cm-crumbs, .cm-mast__meta dt, .cm-byline dt, .cm-kpi__label, .cm-callout__label, '
-    + '.cm-def__label, .cm-qa__label, .cm-props dt, .cm-status dt, .cm-quote footer b, .cm-figure__kind, .cm-slot b, '
+    + '.cm-def__label, .cm-qa__label, .cm-props dt, .cm-status dt, .cm-facts dt, .cm-quote footer b, .cm-figure__kind, .cm-slot b, '
     + '.cm-data>summary, .cm-table-title__kind, .cm-table th, .cm-toc a .n, .cm-step__n, .cm-chip, .cm-tag, .cm-delta';
   // A property-sheet key's sub-label (<dt>Rule<small>(per ticket)</small></dt>, SPEC.md section 8.7)
   // is plain running text inside the label, not part of it. A table head's sort arrow is a glyph.

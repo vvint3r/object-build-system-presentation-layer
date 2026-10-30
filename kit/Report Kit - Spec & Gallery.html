@@ -130,6 +130,7 @@
                 <tr><td class="strong">Tables</td><td class="wrap">Grid of divs</td><td class="wrap">Native table. 16px column gutters, right-aligned numbers, dotted totals rule, row flags in the left gutter, in-cell bars, sorting</td><td><span class="cm-chip">Changed</span></td></tr>
                 <tr><td class="strong">Timeline, process</td><td class="wrap">Process as inline text</td><td class="wrap">Vertical timeline on one continuous rail; step diagram on S2 tiles with one L1e bottleneck</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
                 <tr><td class="strong">Appendix</td><td class="wrap">Collapsible section header</td><td class="wrap">Native details element; opens automatically for print</td><td><span class="cm-chip">Changed</span></td></tr>
+                <tr><td class="strong">Structured components</td><td class="wrap">Structured page: stage cards, swimlane, framework variants, method, metric, requirement and evaluation cards</td><td class="wrap">Workflow, framework, model, method, requirement, evaluation and metric detail as text-first cards, with parts as tiles, facts rows and a criteria register</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
                 <tr><td class="strong">Sources and status</td><td class="wrap">—</td><td class="wrap">Source register with citations that link both ways, evidence dates, disagreement block, dated status block, change log, revision history, limitation register</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
                 <tr><td class="strong">Motion</td><td class="wrap">Hover lift only</td><td class="wrap">Charts draw in once on first view, 900ms ease-out; off under reduced motion and print</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
               </tbody>
@@ -634,6 +635,237 @@
   <li><span><b>Survey response</b><br>CSAT reflects only the customers who answered the survey, so it can overstate satisfaction.</span><span class="cm-chips"><span class="cm-chip cm-chip--note">By design</span></span></li>
   <li><span><b>Merged duplicate tickets</b><br>The Q2 review counted 440 merged duplicates; the re-run removes them, so Q2 and Q3 totals compare like for like.</span><span class="cm-chips"><span class="cm-chip cm-chip--ok">Resolved</span></span></li>
 </ul>
+          </div>
+        </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">5.26</span><h3 class="cm-h3">Workflow</h3><p>Stages of work in order, each with the role that does it and the condition that hands the work on. It reads in order, prints whole and reflows on a phone.</p><p>The process diagram (5.12) gives the same stages at a glance. A flow diagram draws the branches and lanes; the workflow is the reference a reader works from.</p></header>
+          <div data-demo>
+<div class="cm-card cm-workflow cm-bleed">
+  <span class="cm-label cm-card__kicker">Workflow</span>
+  <h3 class="cm-card__title">Ticket escalation</h3>
+  <p>A ticket enters at triage and leaves when its owner closes it; each stage names who acts and what hands the ticket on.</p>
+  <ol class="cm-stages">
+    <li>
+      <p class="cm-t5">Intent triage</p>
+      <p>The routing classifier tags each chat as billing, technical or account before pickup.</p>
+      <dl class="cm-facts">
+        <div><dt>Actor</dt><dd>Routing classifier</dd></div>
+        <div><dt>Hands on when</dt><dd>The intent is tagged</dd></div>
+      </dl>
+    </li>
+    <li>
+      <p class="cm-t5">Tier 1 resolve</p>
+      <p>An agent answers from macros and the help centre.</p>
+      <dl class="cm-facts">
+        <div><dt>Actor</dt><dd>Tier 1 agent</dd></div>
+        <div><dt>Hands on when</dt><dd>The fix needs account access or a product change</dd></div>
+      </dl>
+    </li>
+    <li>
+      <p class="cm-t5">Specialist queue</p>
+      <p>A billing or technical specialist reproduces the issue and fixes what configuration allows.</p>
+      <dl class="cm-facts">
+        <div><dt>Actor</dt><dd>Billing or technical specialist</dd></div>
+        <div><dt>Takes in</dt><dd>Ticket with reproduction steps</dd></div>
+        <div><dt>Hands on when</dt><dd>The fix needs a code change</dd></div>
+      </dl>
+    </li>
+    <li>
+      <p class="cm-t5">Engineering fix</p>
+      <p>Engineering repairs the data or ships the change, then returns the ticket to its owner.</p>
+      <dl class="cm-facts">
+        <div><dt>Actor</dt><dd>Product engineering</dd></div>
+        <div><dt>Produces</dt><dd>Fix note on the ticket</dd></div>
+        <div><dt>Hands on when</dt><dd>The fix is deployed</dd></div>
+      </dl>
+    </li>
+    <li>
+      <p class="cm-t5">Close and survey</p>
+      <p>The ticket owner confirms the fix with the customer and closes the ticket.</p>
+      <dl class="cm-facts">
+        <div><dt>Actor</dt><dd>Ticket owner</dd></div>
+        <div><dt>Produces</dt><dd>Closed ticket and a survey request</dd></div>
+      </dl>
+    </li>
+  </ol>
+  <div class="cm-sub">
+    <span class="cm-label">Exceptions</span>
+    <ul class="cm-list">
+      <li>A security or data-loss report skips Tier 1 and goes to the on-call engineer.</li>
+      <li>A reply after close reopens the ticket at Tier 1 resolve.</li>
+    </ul>
+  </div>
+</div>
+          </div>
+        </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">5.27</span><h3 class="cm-h3">Framework</h3><p>Names the parts that together cover a subject, each with what it covers. Peers sit two or three across; layers go in an ordered list, which stacks them top first.</p><p>When every part carries the same attributes and the reader compares across them, the parts belong in a table (5.10).</p></header>
+          <div data-demo>
+<div class="cm-card cm-framework cm-bleed">
+  <span class="cm-label cm-card__kicker">Framework</span>
+  <h3 class="cm-card__title">Support quality pillars</h3>
+  <p>Four pillars that every team review covers, so no review reports speed alone.</p>
+  <ul class="cm-parts">
+    <li class="cm-tile"><p class="cm-t5">Speed</p><p>First response and resolution time against the SLA for each channel.</p></li>
+    <li class="cm-tile"><p class="cm-t5">Accuracy</p><p>Tickets fixed on the first contact, read from the reopen rate.</p></li>
+    <li class="cm-tile"><p class="cm-t5">Effort</p><p>Contacts a customer makes for one issue, across every channel.</p></li>
+    <li class="cm-tile"><p class="cm-t5">Sentiment</p><p>Survey scores and verbatim comments after close.</p></li>
+  </ul>
+  <div class="cm-scope">
+    <div><span class="cm-label">Use when</span><ul class="cm-list"><li>Choosing the measures for a quarterly team review.</li><li>Auditing a dashboard that reports volume only.</li></ul></div>
+    <div><span class="cm-label">Not for</span><ul class="cm-list"><li>Rating one agent, which coaching reviews cover.</li><li>Forecasting staff, which the workforce plan covers.</li></ul></div>
+  </div>
+</div>
+          </div>
+        </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">5.28</span><h3 class="cm-h3">Model</h3><p>A named abstraction a reader carries away and applies: its claim, its parts, and the conditions under which it holds and breaks. Without the breaking condition it is a diagram with a name.</p><p>A model that sorts things by two factors adds a two by two grid. Each cell names its position, so the grid reads the same stacked on a phone.</p></header>
+          <div data-demo>
+<div class="cm-card cm-model cm-bleed">
+  <span class="cm-label cm-card__kicker">Model</span>
+  <h3 class="cm-card__title">Ticket placement model</h3>
+  <p class="cm-t5">The queue that resolves a ticket is set by two needs: product depth and account access.</p>
+  <ul class="cm-parts">
+    <li class="cm-tile"><p class="cm-t5">Product depth</p><p>How far into the product a fix reaches, from a help-centre answer to a code change.</p></li>
+    <li class="cm-tile"><p class="cm-t5">Account access</p><p>Whether the fix edits billing or account records, which only specialists may change.</p></li>
+  </ul>
+  <ol class="cm-parts cm-parts--matrix">
+    <li class="cm-tile"><span class="cm-label">Shallow · no access</span><p class="cm-t5">Tier 1</p><p>Answered from macros and the help centre.</p></li>
+    <li class="cm-tile"><span class="cm-label">Shallow · access</span><p class="cm-t5">Billing specialists</p><p>Refunds, proration and invoice corrections.</p></li>
+    <li class="cm-tile"><span class="cm-label">Deep · no access</span><p class="cm-t5">Technical escalations</p><p>Reproduced and fixed through configuration.</p></li>
+    <li class="cm-tile"><span class="cm-label">Deep · access</span><p class="cm-t5">Engineering</p><p>Data repairs that need a code change.</p></li>
+  </ol>
+  <div class="cm-scope">
+    <div><span class="cm-label">Holds when</span><ul class="cm-list"><li>Triage can tell the intent before an agent picks the ticket up.</li></ul></div>
+    <div><span class="cm-label">Breaks when</span><ul class="cm-list"><li>One ticket holds a billing and a technical question, so it is split before placement.</li></ul></div>
+  </div>
+</div>
+          </div>
+        </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">5.29</span><h3 class="cm-h3">Method</h3><p>A repeatable technique: what it achieves, when it applies, its steps and the decision it ends in. The decision is a condition, never a question.</p><p>Work passed between roles is a workflow (5.26); an action taken once, with an owner and a date, is a recommendation (5.18).</p></header>
+          <div data-demo>
+<div class="cm-card cm-method cm-bleed">
+  <span class="cm-label cm-card__kicker">Method</span>
+  <h3 class="cm-card__title">SLA breach review</h3>
+  <p>The review finds the causes behind a week's SLA breaches and gives each large cause an owner.</p>
+  <dl class="cm-facts">
+    <div><dt>Run by</dt><dd>Team lead</dd></div>
+    <div><dt>Needs</dt><dd>Breached-ticket export and the cause list</dd></div>
+    <div><dt>Cadence</dt><dd>Weekly, on Monday</dd></div>
+  </dl>
+  <div class="cm-scope">
+    <div><span class="cm-label">Use when</span><ul class="cm-list"><li>A team's weekly SLA attainment falls below its target.</li></ul></div>
+    <div><span class="cm-label">Not for</span><ul class="cm-list"><li>A single escalation, which the incident review covers.</li></ul></div>
+  </div>
+  <div class="cm-sub">
+    <span class="cm-label">Steps</span>
+    <ol class="cm-olist">
+      <li>Export the week's breached tickets with their queue and intent.</li>
+      <li>Tag each ticket with one cause from the cause list.</li>
+      <li>Count tickets by cause and sort the causes largest first.</li>
+      <li>Check the largest causes against the change log for a release that week.</li>
+      <li>Record each large cause with its owner and a fix date in the review note.</li>
+    </ol>
+  </div>
+  <div class="cm-sub">
+    <span class="cm-label">Decision</span>
+    <p>A cause behind a fifth or more of the breaches gets an owner and a fix date. Smaller causes are logged and counted again next week.</p>
+  </div>
+</div>
+          </div>
+        </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">5.30</span><h3 class="cm-h3">Requirement</h3><p>A rule's record: its statement, why it exists, its level, status and owner, and the criteria a reviewer checks. The kind label carries its key, and the card's id is the key in lower case.</p><p>A requirement callout (5.4) states the rule in passing and ends with the same key. Criteria carry no met or unmet marks; results change, so they go in a status block or an evaluation.</p></header>
+          <div data-demo>
+<div class="cm-card cm-req cm-bleed" id="req-04">
+  <span class="cm-label cm-card__kicker">Requirement REQ-04</span>
+  <h3 class="cm-card__title">Owned macros</h3>
+  <p class="cm-t5">Every customer-facing macro names an owning team and a review date.</p>
+  <p>Macros without an owner fall out of date after a release and send customers wrong answers.</p>
+  <dl class="cm-facts">
+    <div><dt>Level</dt><dd><span class="cm-chip">Required</span></dd></div>
+    <div><dt>Status</dt><dd><span class="cm-chip cm-chip--ok">Final</span></dd></div>
+    <div><dt>Owner</dt><dd>Support Tooling</dd></div>
+    <div><dt>Applies to</dt><dd>Customer-facing macros</dd></div>
+  </dl>
+  <div class="cm-sub">
+    <span class="cm-label">Acceptance criteria</span>
+    <ol class="cm-olist">
+      <li>The owner field names a team, not a person.</li>
+      <li>The review date falls within the next two quarters.</li>
+      <li>A macro edited for a release names that release in its change note.</li>
+    </ol>
+  </div>
+</div>
+          </div>
+        </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">5.31</span><h3 class="cm-h3">Evaluation</h3><p>Scores one subject against weighted criteria and ends in a verdict. The weighted score is each score times its weight, over the sum of the weights, on the criteria's scale.</p><p>The verdict is a status chip: Adopt, Hold or Reject. Several options scored side by side go in a comparison table (5.10).</p></header>
+          <div data-demo>
+<div class="cm-card cm-eval cm-bleed">
+  <span class="cm-label cm-card__kicker">Evaluation</span>
+  <h3 class="cm-card__title">APAC weekend coverage pilot</h3>
+  <p>The pilot is scored against weekday-only coverage on four weighted criteria, each from 1 to 5.</p>
+  <ol class="cm-criteria">
+    <li><span class="cm-criteria__score">5 of 5</span><span><b>Monday first response</b><br>APAC first response on Mondays fell 45 minutes during the pilot.</span><span class="cm-meta">weight 3</span></li>
+    <li><span class="cm-criteria__score">4 of 5</span><span><b>Monday queue</b><br>Tickets waiting at Monday open fell from 212 to 96 during the pilot.</span><span class="cm-meta">weight 2</span></li>
+    <li><span class="cm-criteria__score">2 of 5</span><span><b>Cost</b><br>Two agents per weekend shift add paid hours outside the current budget.</span><span class="cm-meta">weight 2</span></li>
+    <li><span class="cm-criteria__score">4 of 5</span><span><b>Rota cover</b><br>Volunteers filled every weekend shift without overtime.</span><span class="cm-meta">weight 1</span></li>
+  </ol>
+  <div class="cm-eval__result">
+    <span class="cm-label">Weighted score</span>
+    <span class="cm-figure-s">3.9 of 5</span>
+    <span class="cm-chip cm-chip--ok">Adopt</span>
+  </div>
+  <p>APAC weekend coverage becomes permanent, with its cost reviewed in the Q1 budget.</p>
+  <span class="cm-caption"><span class="cm-caption__line">Source: APAC pilot review, Support Operations · scores agreed 2026-10-24.</span></span>
+</div>
+          </div>
+        </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">5.32</span><h3 class="cm-h3">Metric detail</h3><p>The reference entry for one measure: its definition, a property sheet with formula, unit, direction, source and owner, its thresholds and its related metrics.</p><p>It carries no current value, since a definition holds no number that will change. The value goes in the KPI strip (5.2) or the status block (5.22), under the same name.</p></header>
+          <div data-demo>
+<div class="cm-card cm-metric cm-bleed" id="metric-sla">
+  <span class="cm-label cm-card__kicker">Metric</span>
+  <h3 class="cm-card__title">Resolved within SLA</h3>
+  <p>Share of resolved tickets closed before their SLA due time, counted once per ticket over the period. Due times follow the SLA policy for each channel.</p>
+  <div class="cm-props">
+    <dl>
+      <dt>Formula</dt><dd><code>100 × resolved_in_sla / resolved_total</code></dd>
+      <dt>Unit</dt><dd>Percent of resolved tickets</dd>
+      <dt>Direction</dt><dd>Higher is better</dd>
+      <dt>Target</dt><dd>95%</dd>
+    </dl>
+    <dl>
+      <dt>Source</dt><dd>Helpdesk warehouse, ticket facts<a class="cm-cite" href="#src-1" id="cite-5">S1</a></dd>
+      <dt>Cadence</dt><dd>Daily, after the 05:00 UTC load</dd>
+      <dt>Owner</dt><dd>Support Operations Analytics</dd>
+    </dl>
+  </div>
+  <div class="cm-sub">
+    <span class="cm-label">Thresholds</span>
+    <ul class="cm-bands">
+      <li><span><b>95% or more</b><br>Weekly review only.</span><span class="cm-chips"><span class="cm-chip cm-chip--ok">On track</span></span></li>
+      <li><span><b>90% to 94.9%</b><br>Team leads review breached tickets each day.</span><span class="cm-chips"><span class="cm-chip cm-chip--warn">At risk</span></span></li>
+      <li><span><b>Below 90%</b><br>The support operations lead opens an incident review.</span><span class="cm-chips"><span class="cm-chip cm-chip--crit">Breach</span></span></li>
+    </ul>
+  </div>
+  <div class="cm-sub">
+    <span class="cm-label">Related metrics</span>
+    <ul class="cm-list">
+      <li>Median first response, which times the first reply rather than the resolution.</li>
+      <li>Open backlog, which counts the tickets still waiting at the end of each week.</li>
+    </ul>
+  </div>
+</div>
           </div>
         </div>
       </div>

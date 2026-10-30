@@ -7,7 +7,8 @@
 //   ok    the check passed
 //   FAIL  a rule is broken; the indented lines give where (a CSS path) and the computed value
 //   warn  a check that needs judgment; it never changes the exit code
-//   skip  the page is exempt from this check (checks/exempt.mjs)
+//   skip  the page is exempt from this check (checks/exempt.mjs), or the check belongs to another
+//         document kind (a check's `kinds`; SPEC.md section 7)
 // Checks on the page as written run once and report the mode as "all". Findings that share a
 // value and an element kind are listed once with a count; at most 10 are listed per check, and
 // --all lists every finding in full. Regions a page exempts from named checks are listed in
@@ -34,12 +35,14 @@ import structure from './structure.mjs';
 import judgment from './judgment.mjs';
 import navigation from './navigation.mjs';
 import writing from './writing.mjs';
+import kinds from './kinds.mjs';
 import provenance from './provenance.mjs';
 
-// Each module exports checks: { name, level: 'fail' | 'warn', source, once?, inPage | run }.
+// Each module exports checks: { name, level: 'fail' | 'warn', source, once?, kinds?, inPage | run }.
 // inPage runs in the page with window.__cm (checks/page.mjs); run gets the Playwright page and
-// what the loader collected. Both return findings: [{ where, value }].
-const CHECKS = [markup, colour, type, radius, budgets, decoration, meaning, charts, figures, tables, structure, judgment, navigation, writing, provenance].flat();
+// what the loader collected. Both return findings: [{ where, value }]. A check with `kinds` runs
+// only on documents of those kinds (report, guide, reference) and is skipped on the others.
+const CHECKS = [markup, colour, type, radius, budgets, decoration, meaning, charts, figures, tables, structure, kinds, judgment, navigation, writing, provenance].flat();
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const KIT = path.join(ROOT, 'kit', 'report-kit');
@@ -106,9 +109,10 @@ for (const file of pages) {
   for (const [i, mode] of MODES.entries()) {
     const { page, errors, requests } = await load(browser, file, mode);
     await page.evaluate(install, cfg);
+    const docKind = await page.evaluate(() => window.__cm.kind());
     for (const check of CHECKS) {
       if (check.once && i > 0) continue;
-      if (skipped.includes(check.name)) {
+      if (skipped.includes(check.name) || (check.kinds && !check.kinds.includes(docKind))) {
         console.log(`skip  ${name}  ${(check.once ? 'all' : mode).padEnd(5)}  ${check.name}  (${check.source})`);
         continue;
       }

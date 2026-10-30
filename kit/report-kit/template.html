@@ -2,8 +2,9 @@
 <!--
   Content Morphia · Report Kit 1.2 · STARTER TEMPLATE
   Copy this file for every new report. Replace every {{ … }} placeholder.
+  A guide starts from template-guide.html and a reference from template-reference.html (SPEC.md §7).
   Delete blocks you do not need; never add new chrome. Rules: report-kit/SPEC.md
-  A document without measured numbers leaves out a required block it has no content for and marks its place with an omission comment (SPEC.md §7).
+  A report without measured numbers leaves out a required block it has no content for and marks its place with an omission comment (SPEC.md §7.5).
   Paths below assume the report sits inside report-kit/. Elsewhere, point the two kit paths at report-kit/cm-report.css and report-kit/cm-report.js.
   For a single self-contained file, paste cm-report.css into <style> and cm-report.js into <script> (see SPEC.md §2).
 -->
@@ -13,6 +14,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{{ Report title }} · {{ Period }}</title>
 <meta name="cm-kit" content="1.2">
+<meta name="cm-kind" content="report">
 <script>(function(){var t;try{t=localStorage.getItem('cm-theme')}catch(e){}document.documentElement.dataset.theme=t||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')})()</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -62,7 +64,7 @@
       <p class="cm-mast__dek">{{ One sentence: what the report covers and for which period. }}</p>
       <!-- METADATA: label on top, value below. Status chips: Draft = cm-chip, In review = cm-chip--warn, Final = cm-chip--ok -->
       <dl class="cm-mast__meta">
-        <div><dt>Status</dt><dd><span class="cm-chip">{{ Analysis | Report | Brief | Guide }}</span><span class="cm-chip cm-chip--ok">{{ Final }}</span></dd></div>
+        <div><dt>Status</dt><dd><span class="cm-chip">{{ Analysis | Report | Brief }}</span><span class="cm-chip cm-chip--ok">{{ Final }}</span></dd></div>
         <div><dt>Period</dt><dd>{{ YYYY-MM-DD → YYYY-MM-DD }}</dd></div>
         <div><dt>Published</dt><dd>{{ YYYY-MM-DD }}</dd></div>
         <div><dt>Reading time</dt><dd>{{ N }} min</dd></div>

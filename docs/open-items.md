@@ -13,8 +13,8 @@ Inconsistencies inside the original library are tracked separately in
 
 ---
 
-Items answered on 13 Oct 2026 (decision record 055) and 16 Oct 2026 (records 058 to 063) are no
-longer listed.
+Items answered on 13 Oct 2026 (decision record 055), 16 Oct 2026 (records 058 to 063) and 30 Oct
+2026 (records 070 to 073) are no longer listed.
 
 ## Focus on one mark
 

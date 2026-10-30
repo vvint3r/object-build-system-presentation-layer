@@ -417,7 +417,7 @@ The only `cm-featured` in the report, inside the Recommendations section. 1–5 
 
 **Method:** ECharts 5.5.1, SVG renderer, option JSON inside `<script type="application/json">` within `.cm-chart[data-chart]`. Agents **MUST NOT** call `echarts.init` or write chart JavaScript. The JSON **MUST** be valid JSON (double quotes, no comments, no functions, no trailing commas).
 
-**Applied automatically — do not set these:** fonts, text colors, axis lines, gridlines, tick removal, legend look and placement, axis-title placement, plot top/bottom padding, tooltip look, series palette, bar width (≤ 16px) and rounding, stacked-segment gaps, line width 2.5, hidden symbols, area opacity 0.18, markLine/markArea styling, label styling, heatmap ramp, animation timing, renderer.
+**Applied automatically — do not set these:** fonts, text colors, axis lines, gridlines, tick removal, legend look and placement, axis-title placement, plot top/bottom padding (worked out from the legend, axis titles, reference-line labels and a heatmap's scale bar), tooltip look, series palette, bar width (≤ 16px) and rounding, stacked-segment gaps, line width 2.5, hidden symbols, area opacity 0.18, markLine/markArea styling, label styling, heatmap ramp, animation timing, renderer.
 
 **Anatomy (MUST, in this order):**
 
@@ -427,18 +427,19 @@ The only `cm-featured` in the report, inside the Recommendations section. 1–5 
 | Title | `.cm-figure__title` | What is shown, ≤ 10 words |
 | Description | `.cm-figure__desc` | Measure, unit, scope and period |
 | Legend | automatic | Shown for 2+ series, top left, series order. `"legend": false` only to suppress it on a single series. End labels or value labels may be added; they never replace the legend |
-| Axis titles | `xAxis.name`, `yAxis.name` | Quantity and unit (“Tickets per week”). Required on the value axis unless every tick shows the unit (“90%”). Scatter names both axes |
+| Axis titles | `xAxis.name`, `yAxis.name` | Quantity and unit (“Tickets per week”). Required on the value axis unless every tick shows the unit (“90%”). Scatter names both axes. The kit places a y-axis title above the plot and an x-axis title under it, on a value or a category axis, and makes room for each |
 | Data labels | `label`, `endLabel` | Values the reader should quote; every bar when there are ≤ 12 |
 | Annotations | `markLine`, `markArea` | Target, event or period, labelled in 1–3 words |
 | Source and notes | `.cm-caption` | `<b>Source:</b>` always; `<b>Note:</b>` for exclusions |
 | Text alternative | `aria-label`, `.cm-data` | Chart type + finding with key values |
 
-**Token strings:** any string value beginning with `$` is replaced with the current theme's token (`"$accent"`, `"$ink"`, `"$context"`, `"$surface"`, `"$c3"`, `"$crit"`…; `"$seq"` gives the ramp array). This is the only way to set a color.
+**Token strings:** a string that is `$` followed by a token name from section 3 is replaced with the current theme's token (`"$accent"`, `"$ink"`, `"$context"`, `"$surface"`, `"$c3"`, `"$crit"`…; `"$seq"` gives the ramp array). This is the only way to set a color. Only token names resolve: any other text starting with `$`, such as a `"$50"` label, stays as written.
 
 **Color by role:**
 - One series: default (`$c1`).
 - Current vs. prior: current default, prior `"lineStyle"/"itemStyle": {"color": "$context"}`.
 - Categories: `$c1`, `$c2`, `$c3`, `$c4` in order of importance. **MUST NOT** exceed four colored series; use small multiples or a table, or grey the rest with `$context`.
+- A `$context` mark the reader needs to read carries a direct value label (`label`, or `endLabel` on a line): the grey sits below 3:1 against the figure surface, so the label carries the value.
 - Semantic solids (`$ok`, `$warn`, `$crit`) only when the series *is* a status, with words in the legend.
 
 **Chart choice:**

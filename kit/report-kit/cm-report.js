@@ -40,9 +40,11 @@
     t.font = "'Nunito', system-ui, sans-serif";
     return t;
   }
-  // "$accent" → current token value; "$seq" → sequential ramp array
+  // the token names chart JSON uses as "$name" (SPEC section 3): "$accent" → current token value,
+  // "$seq" → sequential ramp array. Any other text starting with "$", such as "$50", stays as written.
+  var NAMES = ['ink', 'paper', 'surface', 'track', 'hairline', 'field', 'accent', 'ok', 'warn', 'crit', 'info', 'note', 'c1', 'c2', 'c3', 'c4', 'context', 'seq'];
   function resolve(v, t) {
-    if (typeof v === 'string' && v.charAt(0) === '$') { var k = v.slice(1); return k in t ? t[k] : (cssVar(k) || v); }
+    if (typeof v === 'string' && v.charAt(0) === '$') { var k = v.slice(1); return NAMES.indexOf(k) > -1 ? t[k] : v; }
     if (Array.isArray(v)) return v.map(function (x) { return resolve(x, t); });
     if (v && typeof v === 'object') { var o = {}; for (var p in v) o[p] = resolve(v[p], t); return o; }
     return v;
@@ -92,14 +94,28 @@
     if (o.legend === false) o.legend = { show: false };
     else if (!o.legend && axisChart && series.length > 1) o.legend = {};
     var hasLegend = list(o.legend).some(function (l) { return l && l.show !== false; });
-    // axis titles: y name sits above the axis, left-aligned; x name centred under the labels
+    // axis titles: y name sits above the plot, left-aligned, on a value or a category axis (an inverse
+    // axis starts at the top, so its name goes at the start); x name centred under the labels
     var yNamed = false, xNamed = false;
-    list(o.yAxis).forEach(function (a) { if (a && a.name && a.type !== 'category' && !a.nameLocation) { yNamed = true; a.nameLocation = 'end'; if (a.nameGap == null) a.nameGap = 14; a.nameTextStyle = merge({ align: 'left' }, a.nameTextStyle || {}); } });
+    list(o.yAxis).forEach(function (a) { if (a && a.name && !a.nameLocation) { yNamed = true; a.nameLocation = a.inverse ? 'start' : 'end'; if (a.nameGap == null) a.nameGap = 14; a.nameTextStyle = merge({ align: 'left' }, a.nameTextStyle || {}); } });
     list(o.xAxis).forEach(function (a) { if (a && a.name && !a.nameLocation) { xNamed = true; a.nameLocation = 'middle'; if (a.nameGap == null) a.nameGap = 34; } });
+    // plot padding, worked out from what sits above and below the plot (sparks set their own).
+    // Above: 20px, plus 36 for a legend and 26 for a y-axis title. A label at the top end of a
+    // vertical reference line rises about 19px above the plot, so with one the top is at least 28.
+    // Below: 4px, plus 32 for an x-axis title and 48 for a horizontal scale bar (visualMap) at the
+    // bottom: its row and the gap above it.
+    var markAbove = series.some(function (s) {
+      var ml = s && s.markLine, base = (ml && ml.label) || {};
+      return !!ml && list(ml.data).some(function (d) {
+        var l = merge(base, (d && d.label) || {});
+        return d && !Array.isArray(d) && d.xAxis != null && l.show !== false && (l.position || 'end') === 'end';
+      });
+    });
+    var scaleBelow = list(o.visualMap).some(function (v) { return v && v.show !== false && v.orient === 'horizontal' && v.top == null; });
     if (axisChart && !Array.isArray(o.grid)) {
       o.grid = o.grid || {};
-      if (o.grid.top == null) o.grid.top = 20 + (hasLegend ? 36 : 0) + (yNamed ? 26 : 0);
-      if (o.grid.bottom == null && xNamed) o.grid.bottom = 36;
+      if (o.grid.top == null) o.grid.top = Math.max(20 + (hasLegend ? 36 : 0) + (yNamed ? 26 : 0), markAbove ? 28 : 0);
+      if (o.grid.bottom == null) o.grid.bottom = 4 + (xNamed ? 32 : 0) + (scaleBelow ? 48 : 0);
     }
     var yCat = list(o.yAxis).some(function (a) { return a && a.type === 'category'; });
     series.forEach(function (s, i) {
@@ -282,5 +298,5 @@
     initTables(); initToc(); initCharts();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
-  window.CM = { draw: draw, drawAll: drawAll, redraw: redrawAll, setTheme: setTheme, tokens: tokens, beforePrint: beforePrint, afterPrint: afterPrint };
+  window.CM = { draw: draw, drawAll: drawAll, redraw: redrawAll, setTheme: setTheme, tokens: tokens, tokenNames: NAMES.slice(), beforePrint: beforePrint, afterPrint: afterPrint };
 })();

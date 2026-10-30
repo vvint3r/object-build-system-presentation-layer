@@ -32,11 +32,12 @@ import figures from './figures.mjs';
 import tables from './tables.mjs';
 import structure from './structure.mjs';
 import judgment from './judgment.mjs';
+import navigation from './navigation.mjs';
 
 // Each module exports checks: { name, level: 'fail' | 'warn', source, once?, inPage | run }.
 // inPage runs in the page with window.__cm (checks/page.mjs); run gets the Playwright page and
 // what the loader collected. Both return findings: [{ where, value }].
-const CHECKS = [markup, colour, type, radius, budgets, decoration, meaning, charts, figures, tables, structure, judgment].flat();
+const CHECKS = [markup, colour, type, radius, budgets, decoration, meaning, charts, figures, tables, structure, judgment, navigation].flat();
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const KIT = path.join(ROOT, 'kit', 'report-kit');

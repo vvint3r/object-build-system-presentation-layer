@@ -432,6 +432,8 @@ pre code{all:unset}
   .cm-toc .cm-label{margin:0}
   .cm-toc ol{flex-direction:row;flex-wrap:wrap;gap:4px}
   .cm-toc a{display:inline-flex;gap:6px;padding:4px 10px}
+  /* in the wrapping strip the current link keeps its weight, so its width and the strip's height stay put */
+  .cm-toc a[aria-current="true"]{font-weight:400;text-decoration:underline;text-decoration-color:var(--cm-ink);text-decoration-thickness:2px;text-underline-offset:4px}
 }
 @media (max-width:1000px){
   .cm-kpis{--n:2}

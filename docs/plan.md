@@ -19,7 +19,7 @@ the kit · rules · adoption         hand-edited               compose, review, 
   commit. Nothing about the kit is edited in Claude Design.
 - **Claude Design is a consumer.** A build emits a design bundle and syncs it to Claude Design, which
   now lives inside Claude. Documents are composed there; a finding made there comes back as a task and
-  is fixed here. The target project, the sync method and the bundle's form are settled when step 8
+  is fixed here. The target project, the sync method and the bundle's form are settled when step 9
   starts.
 - **Standalone Claude Design (claude.ai/design) closes by 14 Dec 2026.** The design-system project
   set up there as the sync target, **Content Morphia View Layer** (project id
@@ -37,6 +37,15 @@ the kit · rules · adoption         hand-edited               compose, review, 
 
 ## Migration
 
+After the baseline, the work runs as **four sub-projects, in order**. An orchestrating session splits
+each sub-project into changes and starts each change in its own working session, on its own branch.
+Each change returns as a draft pull request, which the orchestrating session reviews.
+
+Owner-level calls stay with the owner, as `docs/decision-framework.md` sets them. The re-import of the
+original Claude Design project sits outside the sub-projects and keeps its own date.
+
+### Baseline
+
 | Step | Work | State |
 | --- | --- | --- |
 | 1 | Land the library and the visualization kit unchanged under `import/` | Done |
@@ -44,20 +53,19 @@ the kit · rules · adoption         hand-edited               compose, review, 
 | 3 | Adopt Report Kit 1.1 as the baseline; library becomes reference | Done |
 | 4 | Answer the kit's open items and bring spec and code into line | Done |
 | 5 | Turn the spec's hard rules and its pre-publish checklist into automated checks on rendered pages | Done |
-| 6 | Adopt library features into the kit in the order in `docs/adoption.md` | |
-| 7 | Build diagrams, charts and visualizations from the owner's reference set, with the library's diagram and chart pages and the visualization kit as references | Next; waits for the reference set |
-| 8 | Build the design bundle from the kit and sync it to Claude Design inside Claude | Target, sync method and bundle form settled when the step starts |
 
-Every feature steps 6 and 7 add comes with the checks its rules need.
+### Sub-projects
 
-## Kit to-do
+| Step | Sub-project | Work | State |
+| --- | --- | --- | --- |
+| 6 | Visualization build | Build diagrams, charts and visualizations from the owner's reference set, with the library's diagram and chart pages and the visualization kit as references | Next; waits for the reference set |
+| 7 | Writing rules | Extend section 13 of the spec with the writing rules (word limits, register, per-heading constraints) and turn them into checks | Waits for step 6 |
+| 8 | Kit features | Adopt library features, page types among them, in the order in `docs/adoption.md`, and add a third packaging mode that bundles Nunito, JetBrains Mono and ECharts into the report, so it renders offline or behind a restrictive network | Waits for step 7 |
+| 9 | Claude Design hand-off | Build the design bundle from the kit and sync it to Claude Design inside Claude | Waits for step 8; target, sync method and bundle form settled when the step starts |
 
-Work the owner has asked for, not yet scheduled into a step.
-
-- **Offline mode.** A packaging mode with Nunito, JetBrains Mono and ECharts bundled into the report, so
-  a report opened offline or behind a restrictive network renders fully. Today both packaging modes
-  load fonts from Google Fonts and ECharts from jsDelivr. Until then, `tools/preview.mjs` serves
-  ECharts locally for previews.
+Each sub-project gets a brief in `docs/subprojects/` before its first session starts, with its scope,
+inputs, owner-level calls and state, so any session can resume it. Every feature or rule steps 6 to 8
+add comes with the checks it needs.
 
 ## Layout
 
@@ -84,5 +92,5 @@ tools/
 import/            the three original exports, read-only
 ```
 
-Planned: a folder for step 7's build, and `bundle/` for the generated design bundle (step 8). Each is
-created when its step starts.
+Planned: `docs/subprojects/`, created with the first sub-project brief; a folder for step 6's build and
+`bundle/` for the generated design bundle (step 9), each created when its step starts.

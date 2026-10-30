@@ -46,13 +46,13 @@ export default [
 
   {
     // Colours in chart JSON are token strings: no hex or colour function anywhere, and every value
-    // under a colour key names a token the kit defines.
+    // under a colour key is "$" and a token name the chart script resolves (SPEC section 3). Other
+    // text starting with "$" stays text, so under a colour key it is not a colour.
     name: 'chart-colours', level: 'fail', source: 'SPEC §1 rule 3; §9', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, out = [];
-      const t = H.tokens();
-      const root = getComputedStyle(document.documentElement);
-      const known = k => (k in t && k !== 'mono' && k !== 'font') || !!root.getPropertyValue('--cm-' + k).trim();
+      const names = (window.CM && window.CM.tokenNames) || [];
+      const known = k => names.includes(k);
       const LITERAL = /#[0-9a-f]{3,8}\b|\b(?:rgba?|hsla?|hwb|lab|lch|oklab|oklch|color)\(/i;
       const KEY = /colou?r|fill|stroke|background/i;
       const NOT_COLOUR = ['transparent', 'none', 'inherit', 'auto'];
@@ -132,6 +132,54 @@ export default [
             }
           });
         }
+      }
+      return out;
+    },
+  },
+
+  {
+    // Every axis title the chart library drew sits inside the chart's drawing area, on a value or a
+    // category axis. Measured on the laid-out title (its box, moved by its transform) against the
+    // chart's width and height in this mode, so a title cut off at an edge is reported.
+    name: 'chart-axis-title-fit', level: 'fail', source: 'SPEC §9',
+    inPage: ({ check }) => {
+      const H = window.__cm, out = [];
+      for (const el of document.querySelectorAll('.cm-chart')) {
+        if (!H.shown(el) || H.exempt(el, check)) continue;
+        const inst = window.echarts && window.echarts.getInstanceByDom(el);
+        if (!inst) continue; // chart-drawn reports it
+        const W = inst.getWidth(), Ht = inst.getHeight();
+        for (const dim of ['xAxis', 'yAxis']) {
+          inst.getModel().eachComponent(dim, model => {
+            const name = model.get('name');
+            if (!name || model.get('show') === false) return;
+            const view = inst.getViewOfComponentModel(model);
+            let title = null;
+            if (view && view.group) view.group.traverse(n => { if (n.anid === 'name' && n.style && !title) title = n; });
+            if (!title) { out.push({ where: H.path(el), value: `${dim}[${model.componentIndex}] title "${name}" not drawn` }); return; }
+            const r = title.getBoundingRect().clone();
+            r.applyTransform(title.getComputedTransform());
+            const past = [['top', -r.y], ['left', -r.x], ['bottom', r.y + r.height - Ht], ['right', r.x + r.width - W]]
+              .filter(([, v]) => v > 0.5).map(([side, v]) => `${v.toFixed(1)}px past the ${side}`);
+            if (past.length) out.push({ where: H.path(el), value: `${dim}[${model.componentIndex}] title "${name}" ${past.join(', ')}` });
+          });
+        }
+      }
+      return out;
+    },
+  },
+
+  {
+    // Plot top and bottom padding are the kit's: the chart script works them out from the legend,
+    // axis titles, reference-line labels and scale bar, so chart JSON never sets them on its grid.
+    name: 'chart-padding', level: 'fail', source: 'SPEC §9', once: true,
+    inPage: ({ check }) => {
+      const H = window.__cm, out = [];
+      for (const c of H.charts()) {
+        if (!c.json || H.exempt(c.src, check)) continue;
+        const g = c.json.grid;
+        if (!g || typeof g !== 'object' || Array.isArray(g)) continue;
+        for (const k of ['top', 'bottom']) if (g[k] != null) out.push({ where: c.where, value: `grid.${k}: ${JSON.stringify(g[k])} (the kit sets plot padding)` });
       }
       return out;
     },

@@ -82,6 +82,6 @@ Rounds 40e and 40f exist only in `CONTINUATION.md` and are taken from there.
 | [069-roadmap.md](069-roadmap.md) | Roadmap | 2026-10-30 | owner, in session |
 | [070-jump-targets-and-contents-strip.md](070-jump-targets-and-contents-strip.md) | Jump targets and contents strip | 2026-10-30 | owner, record 069 |
 | [071-chart-padding-axis-titles-and-emphasis.md](071-chart-padding-axis-titles-and-emphasis.md) | Chart padding, axis titles and emphasis | 2026-10-30 | owner, record 069 |
-| [072-emphasis-key-terms-and-disclosures.md](072-emphasis-key-terms-and-disclosures.md) | Emphasis, key terms and disclosures | 2026-10-30 | owner, in session |
+| [072-emphasis-key-terms-and-disclosures.md](072-emphasis-key-terms-and-disclosures.md) | Emphasis, key terms and disclosures | 2026-10-30 | owner, record 069 |
 | [073-print-button-and-omitted-blocks.md](073-print-button-and-omitted-blocks.md) | Print button and omitted blocks | 2026-10-30 | owner, record 069 |
 | [074-writing-rules.md](074-writing-rules.md) | Writing rules | 2026-10-30 | owner, record 069 |

@@ -61,16 +61,16 @@ original Claude Design project sits outside the sub-projects and keeps its own d
 ### Kit 1.2
 
 The twelve items open in `docs/open-items.md` on 30 Oct 2026 take the answers in record 069. When
-every one is fixed and every kit page passes the checks, the kit becomes 1.2. The fixes run
-alongside step 7.
+every one is fixed and every kit page passes the checks, the kit becomes 1.2. Every fix is in the
+kit except focus on one mark, which waits for the owner (`docs/open-items.md`).
 
 ### Sub-projects
 
 | Step | Sub-project | Work | Done when | State |
 | --- | --- | --- | --- | --- |
 | 6 | Visualization build | Build diagrams, charts and visualizations from the owner's reference set, with the library's diagram and chart pages and the visualization kit as references | The families the owner's direction names are in the kit, each with rules, checks and a gallery example | Waits for the owner's direction |
-| 7 | Writing rules | Extend section 13 of the spec with the writing rules (word limits, register, per-heading constraints) and turn them into checks | Section 13 holds the rules, the checks enforce them, and every kit page passes | In progress |
-| 8 | Kit features | Adopt provenance; change and status; wayfinding and multi-document navigation; structured components, then page types; in that order. Add a third packaging mode that bundles Nunito, JetBrains Mono and ECharts into the report, so it renders offline or behind a restrictive network | The Provenance, Change and status, Wayfinding, Multi-page navigation, Structured components and Page types rows of `docs/adoption.md` read Covered, and a report in the offline mode passes the checks | Waits for step 7 |
+| 7 | Writing rules | Extend section 13 of the spec with the writing rules (word limits, register, per-heading constraints) and turn them into checks | Section 13 holds the rules, the checks enforce them, and every kit page passes | Done; its questions are in `docs/open-items.md` |
+| 8 | Kit features | Adopt provenance; change and status; wayfinding and multi-document navigation; structured components, then page types; in that order. Add a third packaging mode that bundles Nunito, JetBrains Mono and ECharts into the report, so it renders offline or behind a restrictive network | The Provenance, Change and status, Wayfinding, Multi-page navigation, Structured components and Page types rows of `docs/adoption.md` read Covered, and a report in the offline mode passes the checks | Next |
 | 9 | Claude Design hand-off | Build the design bundle from the kit and sync it to Claude Design inside Claude | A document composed in Claude Design from the synced bundle passes the kit's checks | Waits for step 8; target, sync method and bundle form settled when the step starts |
 
 The other rows of `docs/adoption.md`, learning, inputs and icons among them, are adopted when content

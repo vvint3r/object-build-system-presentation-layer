@@ -20,12 +20,12 @@ there.
 
 ## Status
 
-As of 30 Oct 2026, migration steps 1 to 5 of 9 are done. The three exports are imported, the original
+As of 30 Oct 2026, migration steps 1 to 5 and 7 of 9 are done. The three exports are imported, the original
 library's specification is split into dated decisions and reference rules, Report Kit 1.1 is the
 baseline, its specification and code agree, and automated checks assert its rules on rendered pages.
 
-Twelve kit fixes are under way, after which the kit becomes 1.2. Step 7, the writing rules, is in
-progress; step 6, the visualization build, waits for the owner's direction. Steps 6 to 9 run as
-sub-projects, each change in its own session and pull request ([`docs/plan.md`](docs/plan.md)).
+The writing rules (step 7) are in the spec and the checks. The kit fixes are in, except one that
+waits for the owner; the kit then becomes 1.2. Step 8 is next, and step 6 waits for the owner's
+direction ([`docs/plan.md`](docs/plan.md)).
 
 To preview the kit: `npm install`, then `npm run preview -- "kit/Sample Report - Q3 Support Review.html"`.

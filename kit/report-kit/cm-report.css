@@ -441,7 +441,7 @@ pre code{all:unset}
 .cm-diagram__boundary{position:absolute;border:1.5px solid var(--cm-field);border-radius:var(--cm-r-card)}
 .cm-diagram__boundary-label{padding:0 6px;white-space:nowrap;background:var(--cm-bg);border-radius:2px}
 /* print: cm-report.js sets the modifier while it lays a diagram out for the printed column */
-.cm-diagram--print .cm-diagram__node{max-width:136px}
+.cm-diagram--print .cm-diagram__node{max-width:120px}
 .cm-diagram--print .cm-diagram__node--terminal{max-width:192px;padding:10px 16px}
 .cm-diagram--print .cm-diagram__node--decision{max-width:none;padding:0}
 .cm-data>.cm-olist{margin-top:16px}

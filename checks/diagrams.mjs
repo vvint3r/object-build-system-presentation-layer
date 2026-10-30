@@ -125,9 +125,9 @@ export default [
   },
 
   {
-    // The flow mode's capacity: 24 nodes, 5 columns, 6 rows, 5 lanes, 2 boundaries and 12 edge
-    // labels in one diagram, and one emphasised node. A diagram past a ceiling splits into an
-    // overview and details.
+    // The flow mode's capacity: 24 nodes, 5 columns (4 with lanes, whose names take a column's
+    // width), 5 rows, 5 lanes, 2 boundaries and 12 edge labels in one diagram, and one emphasised
+    // node. A diagram past a ceiling splits into an overview and details.
     name: 'diagram-capacity', level: 'fail', source: 'SPEC §8.20', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, out = [];
@@ -139,9 +139,10 @@ export default [
         const edges = (Array.isArray(d.edges) ? d.edges : []).filter(Boolean), groups = (Array.isArray(d.groups) ? d.groups : []).filter(Boolean);
         const cols = Math.max(0, ...nodes.map(n => n.col || 0), ...groups.filter(g => g.type === 'boundary').map(g => (g.col || 1) + (g.cols || 1) - 1));
         const rows = Math.max(0, ...nodes.map(n => n.row || 0), ...groups.map(g => (g.row || 1) + (g.rows || 1) - 1));
+        const lanes = groups.filter(g => g.type === 'lane').length;
         const counts = [
-          ['nodes', nodes.length, 24], ['columns', cols, 5], ['rows', rows, 6],
-          ['lanes', groups.filter(g => g.type === 'lane').length, 5], ['boundaries', groups.filter(g => g.type === 'boundary').length, 2],
+          ['nodes', nodes.length, 24], [lanes ? 'columns with lanes' : 'columns', cols, lanes ? 4 : 5], ['rows', rows, 5],
+          ['lanes', lanes, 5], ['boundaries', groups.filter(g => g.type === 'boundary').length, 2],
           ['edge labels', edges.filter(e => typeof e.label === 'string' && e.label.trim()).length, 12],
           ['emphasised nodes', nodes.filter(n => n.emphasis).length, 1],
         ];

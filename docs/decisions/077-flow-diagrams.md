@@ -17,7 +17,7 @@ The kit's script draws the diagram and writes its text equivalent. Every new che
 | --- | --- | --- |
 | The JSON holds `nodes`, `edges`, `groups` and `direction` only, with the values each field allows | Record 076, diagrams are data | `diagram-json` |
 | Edges join existing nodes; every decision has two or more branches, each labelled, no two alike; lanes cover every row once | Record 076; §8.20 | `diagram-edges` |
-| At most 24 nodes, 5 columns, 6 rows, 5 lanes, 2 boundaries, 12 edge labels and 1 emphasised node | Library records 010 and 012; print measurements | `diagram-capacity` |
+| At most 24 nodes, 5 columns (4 with lanes), 5 rows, 5 lanes, 2 boundaries, 12 edge labels and 1 emphasised node | Library records 010 and 012; print measurements | `diagram-capacity` |
 | Node label 24 characters, detail 40, edge label 1 to 3 words, emphasis 1 or 2 words, lane or boundary label 24 characters | Library record 010; §9 | `diagram-labels` |
 | `role="img"`, a non-empty `aria-label`, and a text version with one item for each node | Record 076, the text equivalent | `diagram-text` |
 | Every edge drawn; 3 line crossings at most | Library record 010 | `diagram-drawn` |
@@ -60,13 +60,14 @@ measured as drawn, and the print scale is undone before comparing.
   full width. A filled band would compete with the nodes.
 - **Capacity.** Nodes, boundaries, edge labels and crossings take the library's panel tier and
   crossing budget (record 010); lanes take the library's widest lane diagram (record 012). Columns
-  and rows come from print: six columns of steps do not fit the printed column at 80%, and seven rows
-  of two-line steps do not fit a printed page.
+  and rows come from print, measured with steps carrying a detail line: six in a row do not fit the
+  printed column at 80%, nor five with lanes, and six rows do not fit a printed page. A diagram near
+  several ceilings at once can still fail the print check, which is final.
 - **Label limits.** Node labels stop at 24 characters, where the library cut node names (record 010).
   A detail line stops at 40 characters, two lines at print width. Edge labels follow chart
   annotations, 1 to 3 words.
-- **Print.** Gaps narrow to 40px between columns and 32px between rows, steps to 136px and terminals
-  to 192px. The drawing then scales to fit the 632px column and 720px of page height, an A4 page body
+- **Print.** Gaps narrow to 40px between columns and 32px between rows, steps to 120px and terminals
+  to 192px, so five steps fit in a row. The drawing then scales to fit the 632px column and 720px of page height, an A4 page body
   of 1001px less a figure's title, description and caption. The 80% floor keeps the 10px label style
   at 8px or more.
 - **Narrow screens.** The diagram keeps its geometry and scrolls sideways in its own box. The kit has

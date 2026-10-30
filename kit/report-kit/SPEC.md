@@ -476,7 +476,7 @@ Shape marks the node type and line style the edge kind. A key above the drawing 
 | `data` | Dotted line | Data or a message moves |
 | `optional` | Dashed line | An optional or planned path |
 
-- Columns read left to right, then rows top to bottom; `direction: "down"` reads rows first. A diagram with lanes flows right.
+- The flow reads left to right, or top to bottom with `"direction": "down"`. A diagram with lanes flows right.
 - Every branch out of a decision carries a label: "Yes" and "No", or the condition. No two branches of one decision share a label.
 - A lane is a row band named on the left, one role or system each. With lanes, every row sits in exactly one lane, so each hand-off crosses a lane line.
 - A boundary is a rounded frame around a block of cells, named on its top line.
@@ -487,13 +487,15 @@ Capacity. A flow past any ceiling splits into an overview and details: one diagr
 | Item | At most | Reason |
 | --- | --- | --- |
 | Nodes | 24 | The library's panel tier holds 8 to 24 nodes |
-| Columns | 5 | Six columns of steps do not fit the printed column at 80% |
-| Rows | 6 | Seven rows of two-line steps do not fit a printed page at 80% |
+| Columns | 5, or 4 with lanes | Six steps in a row do not fit the printed column at 80%; with lanes, five do not, since the lane names take a column's width |
+| Rows | 5 | Six rows of steps with a detail line do not fit a printed page at 80% |
 | Lanes | 5 | The library's journey map, its widest lane diagram, has 5 lanes |
 | Boundaries | 2 | The library's panel tier allows 2 groups |
 | Edge labels | 12 | The library labels edges only while a view has 12 or fewer |
 | Line crossings | 3 | The library's crossing budget for one view |
 | Emphasised nodes | 1 | §6 |
+
+Print is the final test. A diagram near several ceilings at once can still be too large to print at 80%; the check then fails it, and it splits or its text shortens.
 
 Diagram text is not prose (§13). It keeps its own limits:
 

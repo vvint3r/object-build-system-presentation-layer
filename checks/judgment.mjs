@@ -198,12 +198,14 @@ export default [
 
   {
     // Nothing sits closer than 24px to a neighbouring block: measured between the children of
-    // section bodies, stacks and grids as drawn in this mode.
+    // section bodies, disclosure bodies, stacks and grids as drawn in this mode. A disclosure body
+    // is measured while its disclosure is open; print opens every one.
     name: 'block-gap', level: 'warn', source: 'SPEC §5; §14 item 9',
     inPage: ({ check }) => {
       const H = window.__cm, out = [];
-      for (const box of document.querySelectorAll('.cm-section__body, .cm-stack, .cm-grid')) {
+      for (const box of document.querySelectorAll('.cm-section__body, .cm-collapse__body, .cm-stack, .cm-grid')) {
         if (H.ignored(box) || !H.shown(box) || H.exempt(box, check)) continue;
+        if (box.matches('.cm-collapse__body') && box.closest('details') && !box.closest('details').open) continue;
         const kids = [...box.children].filter(k => H.shown(k) && getComputedStyle(k).position !== 'absolute' && k.getBoundingClientRect().height > 0);
         for (let i = 0; i < kids.length; i++) {
           for (let j = i + 1; j < kids.length; j++) {

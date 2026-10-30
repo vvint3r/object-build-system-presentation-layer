@@ -69,27 +69,6 @@ longer listed.
 - **Question:** should the spec allow plot padding set by hand, and say when, or should the pages drop
   it and the chart script compute what those charts need?
 
-## Emphasis demo
-
-- **Spec:** "≤ 3 highlights per paragraph" (`SPEC.md` line 243). Inside a gallery demo, every rule
-  holds (`docs/decision-framework.md`, "The kit's own pages follow the kit").
-- **Page:** the inline emphasis demo puts all five highlight tones in one paragraph (gallery
-  line 384).
-- **Now:** no check counts highlights per paragraph, so the page passes.
-- **Question:** should the demo spread its five tones over two paragraphs, with a check for the limit
-  added, or should the demo be exempt from the limit?
-
-## Concept terms and links
-
-- **Spec:** `cm-concept` "underlines a key term at first use" (`SPEC.md` line 243).
-- **Code:** a link is underlined in accent, 1.5px thick and 3px below the text, at the weight around
-  it (`cm-report.css` line 70). A concept is bold and underlined in accent, 2px thick and 4px below
-  (line 275).
-- **Now:** a concept reads as a bold link. A link inside bold text differs from a concept by half a
-  pixel of underline thickness and 1px of offset.
-- **Question:** should concepts take a treatment that links never use, or should both stay as they
-  are?
-
 ## Context marks
 
 - **Spec:** `$context` is for comparison and background series (`SPEC.md` line 67) and greys the
@@ -100,20 +79,6 @@ longer listed.
   asks 3:1 for the parts of a graphic a reader needs. No rule requires a label on a context mark.
 - **Question:** should a context mark the reader has to read carry a direct value label, or should
   `$context` darken to reach 3:1?
-
-## Disclosures with more than one block
-
-- **Spec:** "nothing sits closer than 24px to a distinct neighbouring block" (`SPEC.md` line 97). The
-  collapsible's markup shows one `cm-collapse__body` (lines 359 to 364) and no rule for several blocks
-  in it.
-- **Code:** the body gives its children no spacing, and margins are reset (`cm-report.css` lines 65
-  and 407). The block-gap check measures section bodies, stacks and grids, not disclosure bodies
-  (`checks/judgment.mjs` line 205).
-- **Now:** two blocks in a plain disclosure body render 0px apart, and no check warns. Every
-  disclosure on the kit pages holds one block. A body that is also a `cm-stack` spaces its blocks
-  32px apart and is checked.
-- **Question:** should the spec name `cm-collapse__body cm-stack` for a body with several blocks, or
-  should the body space its own children, as a section body does?
 
 ## Chart text starting with a dollar sign
 

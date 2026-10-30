@@ -272,7 +272,7 @@ pre code{all:unset}
 .cm-hl--reference{background:var(--cm-info-wash)}
 .cm-hl--failing{background:var(--cm-crit-wash)}
 .cm-hl--caveat{background:var(--cm-note-wash)}
-.cm-concept{font-weight:700;text-decoration:underline;text-decoration-color:var(--cm-accent);text-decoration-thickness:2px;text-underline-offset:4px}
+.cm-concept{font-weight:700;text-decoration:underline dotted;text-decoration-color:var(--cm-accent);text-decoration-thickness:2px;text-underline-offset:4px}
 
 /* ---------- 14. Pull quote ---------- */
 .cm-quote{max-width:44ch}
@@ -404,7 +404,7 @@ pre code{all:unset}
 .cm-collapse>summary h3{font-size:22px;font-weight:800;line-height:1.3;letter-spacing:-.01em}
 .cm-collapse>summary::after{content:"Open +";font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
 .cm-collapse[open]>summary::after{content:"Close −"}
-.cm-collapse__body{padding:8px 0 36px}
+.cm-collapse__body{display:flex;flex-direction:column;gap:32px;padding:8px 0 36px}
 
 /* ---------- 21. Code ---------- */
 .cm-code{background:var(--cm-surface);border-radius:var(--cm-r-tile);box-shadow:var(--cm-s3);overflow:hidden}

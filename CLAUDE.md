@@ -32,6 +32,7 @@ it is not edited there. See `docs/plan.md`.
 | `checks/` | Automated checks on rendered pages: the spec's hard rules and pre-publish checklist |
 | `tools/load.mjs` | Opens a kit page in light, dark or print; shared by the checks and the preview |
 | `tools/preview.mjs` | Renders kit pages with the chart library served locally |
+| `tools/pack.mjs` | Writes a page's offline form to `offline/` (`npm run pack`); `tools/offline.mjs` holds its parts |
 | `import/report-kit-1.1/` | The kit as imported from Claude Design on 13 Oct 2026 |
 | `import/nodetrak-presentation-layer/` | The original content-morphia library |
 | `import/kx-visualizations-index/` | The diagram and chart build-logic offshoot |

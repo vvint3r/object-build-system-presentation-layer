@@ -8,8 +8,11 @@
 //   dark   the dark theme (data-theme="dark")
 //   print  print media emulated, then CM.beforePrint(), as a headless PDF pipeline does
 //
-// Returns the open page, the script and console errors it raised, and the hosts of any requests
-// that failed. The caller closes the page.
+// An offline page (SPEC section 2) loads with the network shut: every request that is not to a
+// file is aborted and listed in `blocked`, so the page shows what it draws with nothing but itself.
+//
+// Returns the open page, the script and console errors it raised, the hosts of any requests that
+// failed, and, for an offline page, every request it tried to make. The caller closes the page.
 
 import { createRequire } from 'node:module';
 import path from 'node:path';
@@ -23,7 +26,7 @@ export const MODES = ['light', 'dark', 'print'];
 // Answer the page's ECharts CDN request with the local copy of the same version.
 export const serveCharts = page => page.route(ECHARTS_URL, r => r.fulfill({ path: ECHARTS_LOCAL, contentType: 'application/javascript' }));
 
-export async function load(browser, file, mode) {
+export async function load(browser, file, mode, { offline = false } = {}) {
   if (!MODES.includes(mode)) throw new Error(`unknown mode: ${mode}`);
   const page = await browser.newPage({
     viewport: { width: 1440, height: 900 },
@@ -31,7 +34,17 @@ export async function load(browser, file, mode) {
   });
   const errors = [];
   const requests = [];
-  await serveCharts(page);
+  const blocked = [];
+  if (offline) {
+    await page.route(() => true, r => {
+      const url = r.request().url();
+      if (/^(file|data|blob):/.test(url)) return r.continue();
+      blocked.push(url.length > 120 ? url.slice(0, 120) + '…' : url);
+      return r.abort('internetdisconnected');
+    });
+  } else {
+    await serveCharts(page);
+  }
   page.on('pageerror', e => errors.push(e.message));
   page.on('console', m => { if (m.type() === 'error' && !m.text().startsWith('Failed to load resource')) errors.push(m.text()); });
   page.on('requestfailed', r => requests.push(new URL(r.url()).host));
@@ -45,5 +58,5 @@ export async function load(browser, file, mode) {
   // Park the pointer outside the viewport so no element is measured in its hover state.
   await page.mouse.move(-1, -1);
   await page.waitForTimeout(1200);
-  return { page, errors, requests };
+  return { page, errors, requests, blocked };
 }

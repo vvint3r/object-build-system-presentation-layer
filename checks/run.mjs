@@ -34,11 +34,14 @@ import structure from './structure.mjs';
 import judgment from './judgment.mjs';
 import navigation from './navigation.mjs';
 import writing from './writing.mjs';
+import offline from './offline.mjs';
+import { fontCss, echarts, faces } from '../tools/offline.mjs';
 
-// Each module exports checks: { name, level: 'fail' | 'warn', source, once?, inPage | run }.
+// Each module exports checks: { name, level: 'fail' | 'warn', source, once?, offline?, inPage | run }.
 // inPage runs in the page with window.__cm (checks/page.mjs); run gets the Playwright page and
-// what the loader collected. Both return findings: [{ where, value }].
-const CHECKS = [markup, colour, type, radius, budgets, decoration, meaning, charts, figures, tables, structure, judgment, navigation, writing].flat();
+// what the loader collected. Both return findings: [{ where, value }]. A check marked offline runs
+// only on a page in the offline packaging mode.
+const CHECKS = [markup, colour, type, radius, budgets, decoration, meaning, charts, figures, tables, structure, judgment, navigation, writing, offline].flat();
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const KIT = path.join(ROOT, 'kit', 'report-kit');
@@ -96,17 +99,30 @@ function report(name, mode, check, found) {
   return found.length > 0 && check.level === 'fail';
 }
 
+// A page in the offline mode carries its fonts as data (SPEC section 2). It is held to the offline
+// head, which the checks rebuild from the template and the pinned packages, and it loads with the
+// network shut.
+let offlineParts = null;
+const isOffline = src => /url\(data:font\/woff2;base64,/.test(src);
+
 const browser = await chromium.launch();
 let failed = false;
 for (const file of pages) {
   const name = path.basename(file);
-  const cfg = { exempt: exemptFor(name), classes, kit, src: read(file) };
+  const src = read(file);
+  const off = isOffline(src);
+  if (off && !offlineParts) offlineParts = {
+    fonts: fontCss(template), echarts: echarts(),
+    faces: faces(template).map(({ family, weight, style }) => ({ family, weight, style })),
+  };
+  const cfg = { exempt: exemptFor(name), classes, kit: off ? { ...kit, offline: offlineParts } : kit, src };
   const skipped = skippedFor(name);
   for (const [i, mode] of MODES.entries()) {
-    const { page, errors, requests } = await load(browser, file, mode);
+    const { page, errors, requests, blocked } = await load(browser, file, mode, { offline: off });
     await page.evaluate(install, cfg);
     for (const check of CHECKS) {
       if (check.once && i > 0) continue;
+      if (check.offline && !off) continue;
       if (skipped.includes(check.name)) {
         console.log(`skip  ${name}  ${(check.once ? 'all' : mode).padEnd(5)}  ${check.name}  (${check.source})`);
         continue;
@@ -115,7 +131,7 @@ for (const file of pages) {
       try {
         found = check.inPage
           ? await page.evaluate(check.inPage, { mode, check: check.name })
-          : await check.run({ page, errors, requests, mode, file, cfg });
+          : await check.run({ page, errors, requests, blocked, mode, file, cfg });
       } catch (e) {
         found = [{ where: '(check error)', value: String(e.message).split('\n')[0] }];
         failed = true;

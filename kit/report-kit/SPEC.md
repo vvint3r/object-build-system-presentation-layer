@@ -34,7 +34,7 @@ Human-readable version with live examples and copy-paste markup: `Report Kit - S
 
 ## 2. Packaging
 
-Two modes. Both use the same markup.
+Three modes. All use the same markup.
 
 **Linked** (default for sites and shared folders):
 
@@ -46,7 +46,20 @@ Two modes. Both use the same markup.
 
 **Self-contained** (for email or attachments): replace the CSS link with `<style>` + the full contents of `cm-report.css`, and the kit script with `<script>` + the full contents of `cm-report.js`, placed as the last element in `<body>`. Keep the font and ECharts CDN links. Do not edit the pasted code.
 
-Required `<head>` (copy from `template.html`, in this order): charset, viewport, `<title>{Report title} · {Period}</title>` (`<title>{Report title}</title>` when the document covers no period, §7), `<meta name="cm-kit" content="1.2">`, the inline theme pre-paint script, font preconnects + Google Fonts link (Nunito 300–900 + italic 300/400, JetBrains Mono 400/600/700), kit CSS, ECharts 5.5.1, kit JS. `<html lang>` **MUST** be set.
+**Offline** (for reading with no network at all):
+
+```
+npm run pack -- "<page>.html"
+```
+
+The pack tool (`tools/pack.mjs`) writes the offline form of a page in either other mode to `offline/<page file name>` and leaves the source page unchanged. An offline file is never written or edited by hand. It differs from the self-contained mode in two places:
+
+- One `<style>` of `@font-face` rules replaces the font preconnects and the Google Fonts link. It holds each face that link names as WOFF2 data, Latin subset, from the pinned `@fontsource/nunito` and `@fontsource/jetbrains-mono` packages.
+- `<script>` + the full text of ECharts 5.5.1, from the installed `echarts` package, replaces the ECharts CDN link.
+
+The file makes no network request. Characters outside the Latin subset fall back to a system face.
+
+Required `<head>` (copy from `template.html`, in this order): charset, viewport, `<title>{Report title} · {Period}</title>` (`<title>{Report title}</title>` when the document covers no period, §7), `<meta name="cm-kit" content="1.2">`, the inline theme pre-paint script, font preconnects + Google Fonts link (Nunito 300–900 + italic 300/400, JetBrains Mono 400/600/700; offline: the font `<style>` in their place), kit CSS, ECharts 5.5.1, kit JS. `<html lang>` **MUST** be set.
 
 ## 3. Tokens
 

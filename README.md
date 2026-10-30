@@ -29,4 +29,12 @@ rendered pages.
 Report Kit 1.2 carries the writing rules (step 7) and the answers to every open item; no item is
 open. Steps 6 and 8 are next ([`docs/plan.md`](docs/plan.md)).
 
-To preview the kit: `npm install`, then `npm run preview -- "kit/Sample Report - Q3 Support Review.html"`.
+## Commands
+
+Run `npm install` once first. Each command takes the page path in quotes.
+
+| Command | Result |
+| --- | --- |
+| `npm run preview -- "<page>"` | Screenshots of the page in light and dark, in `.preview/` |
+| `npm run check -- "<page>"` | The kit's checks on the page, in light, dark and print |
+| `npm run pack -- "<page>"` | The page's offline form in `offline/`: one file with the fonts and ECharts inside, for reading with no network |

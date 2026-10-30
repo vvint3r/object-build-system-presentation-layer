@@ -1,13 +1,16 @@
 {
   "name": "content-morphia-presentation-layer",
   "private": true,
-  "description": "Content Morphia Report Kit and tooling. The kit itself has no build step; these packages serve previews and checks.",
+  "description": "Content Morphia Report Kit and tooling. The kit itself has no build step; these packages serve previews, checks and the offline packaging mode.",
   "type": "module",
   "scripts": {
     "preview": "node tools/preview.mjs",
-    "check": "node checks/run.mjs"
+    "check": "node checks/run.mjs",
+    "pack": "node tools/pack.mjs"
   },
   "devDependencies": {
+    "@fontsource/jetbrains-mono": "5.3.0",
+    "@fontsource/nunito": "5.3.0",
     "echarts": "5.5.1",
     "playwright": "1.56.1"
   }

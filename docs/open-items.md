@@ -63,17 +63,6 @@ longer listed.
 - **Question:** should concepts take a treatment that links never use, or should both stay as they
   are?
 
-## Context marks
-
-- **Spec:** `$context` is for comparison and background series (`SPEC.md` line 67) and greys the
-  series beyond the fourth (line 426).
-- **Code:** `$context` is #d9d9d9 in light and #4a4a4a in dark. Against the figure surface that is
-  1.41:1 in light and 2.02:1 in dark.
-- **Now:** a context mark without a value label is hard to read. WCAG 2.2 success criterion 1.4.11
-  asks 3:1 for the parts of a graphic a reader needs. No rule requires a label on a context mark.
-- **Question:** should a context mark the reader has to read carry a direct value label, or should
-  `$context` darken to reach 3:1?
-
 ## Disclosures with more than one block
 
 - **Spec:** "nothing sits closer than 24px to a distinct neighbouring block" (`SPEC.md` line 97). The

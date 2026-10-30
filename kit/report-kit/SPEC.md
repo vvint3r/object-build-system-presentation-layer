@@ -424,6 +424,7 @@ The only `cm-featured` in the report, inside the Recommendations section. 1–5 
 - One series: default (`$c1`).
 - Current vs. prior: current default, prior `"lineStyle"/"itemStyle": {"color": "$context"}`.
 - Categories: `$c1`, `$c2`, `$c3`, `$c4` in order of importance. **MUST NOT** exceed four colored series; use small multiples or a table, or grey the rest with `$context`.
+- A `$context` mark the reader needs to read carries a direct value label (`label`, or `endLabel` on a line): the grey sits below 3:1 against the figure surface, so the label carries the value.
 - Semantic solids (`$ok`, `$warn`, `$crit`) only when the series *is* a status, with words in the legend.
 
 **Chart choice:**

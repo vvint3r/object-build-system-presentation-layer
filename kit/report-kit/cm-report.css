@@ -272,7 +272,7 @@ pre code{all:unset}
 .cm-hl--reference{background:var(--cm-info-wash)}
 .cm-hl--failing{background:var(--cm-crit-wash)}
 .cm-hl--caveat{background:var(--cm-note-wash)}
-.cm-concept{font-weight:700;text-decoration:underline;text-decoration-color:var(--cm-accent);text-decoration-thickness:2px;text-underline-offset:4px}
+.cm-concept{font-weight:700;text-decoration:underline dotted;text-decoration-color:var(--cm-accent);text-decoration-thickness:2px;text-underline-offset:4px}
 
 /* ---------- 14. Pull quote ---------- */
 .cm-quote{max-width:44ch}

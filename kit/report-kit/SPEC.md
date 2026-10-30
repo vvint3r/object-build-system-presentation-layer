@@ -240,7 +240,7 @@ Facts about one thing: a metric, dataset, system or document. Keys are 1–3 wor
 <span class="cm-hl cm-hl--validated">+1.8 pp recovery</span>
 ```
 
-Light wash, 1px smaller than the surrounding text, at its weight. `--attention` (thresholds, deadlines), `--validated` (confirmed gains), `--reference` (named methods, sources), `--failing` (deprecated, broken), `--caveat` (tempering context). `<span class="cm-concept">term</span>` underlines a key term at first use. ≤ 3 highlights per paragraph; never a whole sentence.
+Light wash, 1px smaller than the surrounding text, at its weight. `--attention` (thresholds, deadlines), `--validated` (confirmed gains), `--reference` (named methods, sources), `--failing` (deprecated, broken), `--caveat` (tempering context). `<span class="cm-concept">term</span>` marks a key term at first use: bold, with a dotted accent underline. Links keep a solid underline, so a key term never reads as a link. ≤ 3 highlights per paragraph; never a whole sentence.
 
 ### 8.9 Pull quote
 

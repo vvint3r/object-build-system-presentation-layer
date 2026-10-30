@@ -69,17 +69,6 @@ longer listed.
 - **Question:** should the spec allow plot padding set by hand, and say when, or should the pages drop
   it and the chart script compute what those charts need?
 
-## Concept terms and links
-
-- **Spec:** `cm-concept` "underlines a key term at first use" (`SPEC.md` line 243).
-- **Code:** a link is underlined in accent, 1.5px thick and 3px below the text, at the weight around
-  it (`cm-report.css` line 70). A concept is bold and underlined in accent, 2px thick and 4px below
-  (line 275).
-- **Now:** a concept reads as a bold link. A link inside bold text differs from a concept by half a
-  pixel of underline thickness and 1px of offset.
-- **Question:** should concepts take a treatment that links never use, or should both stay as they
-  are?
-
 ## Context marks
 
 - **Spec:** `$context` is for comparison and background series (`SPEC.md` line 67) and greys the

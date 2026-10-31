@@ -40,7 +40,8 @@ checks are failures, in `checks/recipes.mjs`; `checks/charts.mjs` reads the new 
 - **Bullet.** Horizontal only, with one unit and one value axis from zero. The target is a 2px ink
   mark, the meter's target treatment. Bands are 1 to 3 grey steps from existing tokens, darkest first
   (`$field`, `$hairline`, `$track`), each segment with a 1.5px surface gap so neighbouring greys
-  separate. Band names sit above the top row. Values sit in a column at the row's end.
+  separate. Band names sit above the top row. Values sit in a column at the row's end. On a narrow
+  chart the value axis takes only the ticks that fit beside that column.
 - **Slope.** Lines are ink; picked-out lines keep their colour and the rest take `$context`. The
   y-axis labels and gridlines are dropped, since the end labels carry every value. The axis spans the
   data. Labels on each side move apart when they would touch.
@@ -52,8 +53,9 @@ checks are failures, in `checks/recipes.mjs`; `checks/charts.mjs` reads the new 
 - **Count.** "n = N" sits under each category name, where the reader looks for the group, not in a
   caption a reader may skip.
 - **Uncertainty.** A band on a line takes the line's colour at the area opacity, 0.18. Error bars on
-  bars and points are ink, so they read against any series colour. The interval's name goes in the
-  legend with an icon of its mark.
+  bars and points are ink, so they read against any series colour. A bar's or point's value label
+  sits past the high end of its error bar, so neither covers the other. The interval's name goes in
+  the legend with an icon of its mark.
 - **Print.** Charts in print sat outside their box, which had no height, so printed PDFs showed none.
   The print rule draws the chart in the flow of its box, and `chart-drawn` checks that the drawing
   fits it.

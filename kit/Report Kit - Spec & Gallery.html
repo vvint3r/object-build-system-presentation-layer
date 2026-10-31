@@ -1129,7 +1129,7 @@
         </div>
 
         <div class="g-comp">
-          <header><span class="cm-label">6.14</span><h3 class="cm-h3">Error bars: estimates per category</h3><p>A <code>scatter</code> or <code>bar</code> series with <code>"cm": {"chart": "interval"}</code>. The kit draws an ink error bar on each point, names the interval in the legend and moves a bar's label past it. Points read better than bars when only the estimate matters.</p></header>
+          <header><span class="cm-label">6.14</span><h3 class="cm-h3">Error bars: estimates per category</h3><p>A <code>scatter</code> or <code>bar</code> series with <code>"cm": {"chart": "interval"}</code>. The kit draws an ink error bar on each point, names the interval in the legend and moves each value label past it. Points read better than bars when only the estimate matters.</p></header>
           <div data-demo>
 <figure class="cm-figure cm-bleed">
   <span class="cm-figure__kind">Figure 13</span>
@@ -1138,12 +1138,12 @@
   <div class="cm-chart" style="--h:300px" data-chart role="img" aria-label="Dot plot with error bars. Chat leads at 91.2%; the intervals for email and web form overlap, so the two do not differ clearly.">
     <script type="application/json">
     {
-      "xAxis": {"type": "category", "name": "Channel", "data": ["Chat","Phone","Social","Email","Web form"]},
-      "yAxis": {"type": "value", "name": "CSAT, %", "min": 78, "max": 94, "interval": 4},
-      "series": [{"name": "CSAT", "type": "scatter", "data": [91.2, 88.4, 86.9, 84.3, 82.7],
+      "xAxis": {"type": "value", "name": "CSAT, %", "min": 78, "max": 94, "interval": 4},
+      "yAxis": {"type": "category", "name": "Channel", "data": ["Web form","Email","Social","Phone","Chat"]},
+      "series": [{"name": "CSAT", "type": "scatter", "data": [82.7, 84.3, 86.9, 88.4, 91.2],
         "label": {"show": true, "position": "right", "formatter": "{c}%"},
         "cm": {"chart": "interval", "name": "95% confidence interval",
-               "low": [90.1, 86.0, 83.2, 82.9, 80.1], "high": [92.3, 90.8, 90.6, 85.1, 85.3]}}]
+               "low": [80.1, 82.9, 83.2, 86.0, 90.1], "high": [85.3, 85.1, 90.6, 90.8, 92.3]}}]
     }
     </script>
   </div>

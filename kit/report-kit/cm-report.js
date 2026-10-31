@@ -210,6 +210,13 @@
     o.grid = o.grid || {};
     o.grid.right = Math.max(o.grid.right || 0, w + 24);
     if (named) out.top = Math.max(out.top, 24);
+    // the value column narrows the plot: on a narrow chart the axis takes as many ticks as fit
+    if (vAxis.interval == null && vAxis.splitNumber == null) {
+      var cats = list(cAxis.data).map(function (d) { return measure(val(d)); });
+      var plot = inst.getWidth() - (o.grid.left || 4) - o.grid.right - Math.max.apply(null, cats.concat([0])) - GAP;
+      var top = typeof vAxis.max === 'number' ? vAxis.max : Math.max.apply(null, data.concat(targets));
+      vAxis.splitNumber = Math.max(2, Math.min(5, Math.floor(plot / (measure(tpl(axisTpl(vAxis), top)) + 2 * GAP))));
+    }
   }
 
   function distribution(o, s, i, c, t, col, yCat, out) {
@@ -290,12 +297,23 @@
       }
     });
     out.icons[c.name] = ERROR_ICON;
-    // a bar's value label moves past the top of its interval
-    if (s.type === 'bar' && s.label && s.label.show && !s.labelLayout) s.labelLayout = function (p) {
-      if (p.dataIndex == null || high[p.dataIndex] == null) return {};
-      var q = inst.convertToPixel({ seriesIndex: i }, yCat ? [high[p.dataIndex], base(p.dataIndex)] : [base(p.dataIndex), high[p.dataIndex]]);
-      return yCat ? { x: q[0] + GAP, align: 'left' } : { y: q[1] - GAP, verticalAlign: 'bottom' };
-    };
+    // a bar's or point's value label moves past the high end of its interval; on a horizontal
+    // chart the grid keeps room for it at the right
+    if (s.label && s.label.show && !s.labelLayout) {
+      s.labelLayout = function (p) {
+        if (p.dataIndex == null || high[p.dataIndex] == null) return {};
+        var q = inst.convertToPixel({ seriesIndex: i }, yCat ? [high[p.dataIndex], base(p.dataIndex)] : [base(p.dataIndex), high[p.dataIndex]]);
+        var lay = inst.getModel().getSeriesByIndex(i).getData().getItemLayout(p.dataIndex);
+        if (lay) { var mid = Array.isArray(lay) ? lay : [lay.x + lay.width / 2, lay.y + lay.height / 2]; if (yCat) q[1] = mid[1]; else q[0] = mid[0]; }
+        return yCat ? { x: q[0] + GAP, y: q[1], align: 'left', verticalAlign: 'middle' } : { x: q[0], y: q[1] - GAP, align: 'center', verticalAlign: 'bottom' };
+      };
+      if (yCat) {
+        var lf = typeof s.label.formatter === 'string' ? s.label.formatter : '{c}';
+        var lw = Math.max.apply(null, data.map(function (d) { var v = val(d); return measure(tpl(lf, Array.isArray(v) ? v[0] : v)); }).concat([0]));
+        o.grid = o.grid || {};
+        o.grid.right = Math.max(o.grid.right || 0, lw + GAP + 4);
+      }
+    }
   }
 
   function slope(o, series, t, inst, out) {

@@ -53,7 +53,7 @@
       </nav>
       <div class="cm-bar" aria-hidden="true"></div>
       <h1 class="cm-mast__title">Support operations glossary</h1>
-      <p class="cm-mast__dek">The terms the support documents use for clocks, targets, queues and the survey, each defined once.</p>
+      <p class="cm-mast__dek">What each clock, due time, queue and survey term means across the support documents.</p>
       <dl class="cm-mast__meta">
         <div><dt>Status</dt><dd><span class="cm-chip">Reference</span><span class="cm-chip cm-chip--ok">Final</span><span class="cm-chip cm-chip--note">Sample data</span></dd></div>
         <div><dt>Published</dt><dd>2026-10-28</dd></div>
@@ -120,9 +120,9 @@
             <dl>
               <div><dt>Backlog</dt><dd>Tickets open or waiting on the customer at 23:59 UTC each Sunday, when the weekly snapshot is taken.<a class="cm-cite" href="#src-2" id="cite-6">S2</a></dd></div>
               <div><dt>Escalation</dt><dd>Handing a ticket from Tier 1 to the billing or technical specialists, with an escalation macro, a reason code and an internal note. The escalating agent stays on as a follower.<a class="cm-cite" href="#src-3" id="cite-7">S3</a></dd></div>
-              <div><dt>Intent routing</dt><dd>A classifier that reads each new chat and sends it to the billing, technical or account queue. Email and web-form tickets wait in one shared queue.<a class="cm-cite" href="#src-4" id="cite-8">S4</a></dd></div>
-              <div><dt>Reason code</dt><dd>The code on an escalation that names the decision a specialist must make, such as Refund approval or Dispute. It decides which specialist desk takes the ticket.<a class="cm-cite" href="#src-3" id="cite-9">S3</a></dd></div>
-              <div><dt>Tier 1</dt><dd>The first line of agents, organised by region, who pick up every new ticket and either resolve it or escalate it.<a class="cm-cite" href="#src-4" id="cite-10">S4</a></dd></div>
+              <div><dt>Intent routing</dt><dd>A classifier that reads each new chat and sends it to the Tier 1 queue for billing, technical or account questions. Email and web-form tickets wait in one shared queue.<a class="cm-cite" href="#src-4" id="cite-8">S4</a></dd></div>
+              <div><dt>Reason code</dt><dd>The code on an escalation that names the decision a specialist must make, such as Refund approval or Dispute. It decides which specialist desk takes the ticket, such as the disputes desk for Dispute.<a class="cm-cite" href="#src-3" id="cite-9">S3</a></dd></div>
+              <div><dt>Tier 1</dt><dd>The first line of agents, in regional teams, who pick up every new ticket from the queues and either resolve it or escalate it.<a class="cm-cite" href="#src-4" id="cite-10">S4</a></dd></div>
             </dl>
           </aside>
         </div>
@@ -132,7 +132,7 @@
           <aside class="cm-def">
             <span class="cm-def__label">Definitions</span>
             <dl>
-              <div><dt>Customer satisfaction</dt><dd>The share of survey responses scoring 4 or 5 on a 5-point scale, with every response counted once. The survey goes out 24 hours after a ticket closes. Also called CSAT.<a class="cm-cite" href="#src-5" id="cite-11">S5</a></dd></div>
+              <div><dt>Customer satisfaction</dt><dd>The share of survey responses scoring 4 or 5 on a 5-point scale, with every response counted once. The survey goes out 24 hours after a ticket is resolved and closed. Also called CSAT.<a class="cm-cite" href="#src-5" id="cite-11">S5</a></dd></div>
               <div><dt>Response rate</dt><dd>The share of resolved tickets whose survey gets a response. The lower it is, the less a period's customer satisfaction speaks for every ticket.<a class="cm-cite" href="#src-5" id="cite-12">S5</a></dd></div>
             </dl>
           </aside>
@@ -148,11 +148,12 @@
       </header>
       <div class="cm-section__body">
         <div class="cm-prose">
-          <p>Each document below <strong>uses a group of these terms</strong> and adds detail the glossary leaves out.</p>
+          <p>Each document below <strong>uses a group of these terms</strong> in the same sense.</p>
         </div>
         <ul class="cm-related">
           <li><span class="cm-tag">Reference</span><a href="Reference%20-%20First%20Response%20Time.html#measurement">First response time</a><p>Adds the clock's edge cases and the query behind the reported median.</p></li>
           <li><span class="cm-tag">Report</span><a href="Sample%20Report%20-%20Q3%20Support%20Review.html#methodology">Customer support operations review, Q3 2026</a><p>Repeats four terms for the quarter's figures: first response time, within SLA, backlog and CSAT.</p></li>
+          <li><span class="cm-tag">Guide</span><a href="Guide%20-%20First%20Response%20Basics.html#steps">First response time for new agents</a><p>Teaches the clock terms to new agents, with exercises.</p></li>
           <li><span class="cm-tag">Guide</span><a href="Guide%20-%20Billing%20Escalation.html#steps">Billing ticket escalation to specialists</a><p>Applies escalation, reason codes and SLA due times to a billing ticket, step by step.</p></li>
           <li><span class="cm-tag">Reference</span><a href="Reference%20-%20Service%20Levels.html#subtopics">Service levels</a><p>Explains how the three waits and their targets fit together.</p></li>
         </ul>
@@ -167,7 +168,7 @@
       </header>
       <div class="cm-section__body">
         <div class="cm-prose">
-          <p>Both examples <strong>count two clocks side by side</strong>: first response time in every hour, the due time in business hours only. The tickets and times are illustrative.</p>
+          <p>Both examples <strong>set first response time beside the due time</strong>: one counts every hour, the other business hours only. The tickets and times are illustrative.</p>
           <h3>Disputed charge by email</h3>
           <p>A customer emails at 09:02 on a Wednesday about a disputed charge, and an automatic acknowledgement goes out at once. At 09:40 a Tier 1 agent replies and escalates with the reason code Dispute. First response time is 38m, since the acknowledgement does not stop the clock.</p>
           <p>The disputes desk picks the ticket up at 14:10, a specialist queue wait of 4h 30m. Counting 24 business hours from 09:02 on Wednesday puts the due time at 13:02 on Friday. Resolved at 16:00 on Thursday, the ticket counts as resolved within SLA.</p>

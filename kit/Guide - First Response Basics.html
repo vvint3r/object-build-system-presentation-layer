@@ -90,9 +90,6 @@
         <h2 class="cm-section__title" id="objectives-t">Objectives</h2>
       </header>
       <div class="cm-section__body">
-        <div class="cm-prose">
-          <p>Each objective links to <strong>the lesson that teaches it and the exercise that checks it</strong>.</p>
-        </div>
         <ol class="cm-olist">
           <li>Work out a ticket's first response time from its timestamps: <a href="#lesson-1">lesson 1</a>, <a href="#exercise-1">exercise 1</a>.</li>
           <li>Report a period's first response time as the median of its tickets: <a href="#lesson-2">lesson 2</a>, <a href="#exercise-2">exercise 2</a>.</li>
@@ -139,12 +136,12 @@
             <h3 class="cm-procedure__title">Take the median across the period</h3>
             <p>A period's first response time is the median of the tickets created in it, not the mean. Tickets created by staff, spam and merged duplicates are left out first.<a class="cm-cite" href="#src-1" id="cite-2">S1</a></p>
             <p>Five tickets of 7m, 45m, 1h 50m, 3h 40m and 43h 30m have a median of 1h 50m. Their mean is 9h 58m, pulled up by one weekend ticket.</p>
-            <div class="cm-procedure__outcome"><span class="cm-label">Outcome</span><p>The figure to compare with the quarterly target is the median, never the mean.</p></div>
+            <div class="cm-procedure__outcome"><span class="cm-label">Outcome</span><p>A list of ticket times reduces to one median, with the left-out tickets removed first.</p></div>
           </li>
           <li id="lesson-3">
             <h3 class="cm-procedure__title">Separate first response from the other measures</h3>
             <p>First response time stops at the first reply, even one sent with an escalation. Specialist queue wait runs from the escalation until a specialist picks the ticket up, and also counts every hour.</p>
-            <p>Resolution within SLA is a test, not a wait: the ticket passes when it is resolved before its due time. Chat and phone get 4 hours; email, web form and social get 24 business hours, counted 08:00 to 18:00 on weekdays.<a class="cm-cite" href="#src-2" id="cite-3">S2</a></p>
+            <p>Resolution within SLA is a test, not a wait: the ticket passes when it is resolved before its due time. Chat and phone get 4 hours; email, web form and social get 24 business hours, counted 08:00 to 18:00 on weekdays, local time.<a class="cm-cite" href="#src-2" id="cite-3">S2</a></p>
             <p>The measures can disagree: in Q3, support met its first response target and missed its resolution target.<a class="cm-cite" href="#src-3" id="cite-4">S3</a></p>
             <div class="cm-procedure__outcome"><span class="cm-label">Outcome</span><p>An escalated ticket gives three readings: a first response time, a specialist queue wait and a due time met or missed.</p></div>
           </li>
@@ -181,7 +178,7 @@
         <div class="cm-stack" id="exercise-2">
           <h3 class="cm-h3">Six tickets in one week</h3>
           <div class="cm-prose">
-            <p>A week's six tickets waited 5m, 12m, 35m, 1h 05m, 2h 20m and 26h for a first reply. A staff member created the 5m ticket. Work out the week's first response time.</p>
+            <p>Six tickets created in one week waited 5m, 12m, 35m, 1h 05m, 2h 20m and 26h for a first reply. A staff member created the 5m ticket. Work out the week's first response time.</p>
           </div>
           <div class="cm-bleed">
             <details class="cm-collapse">
@@ -218,7 +215,7 @@
       </header>
       <div class="cm-section__body">
         <div class="cm-prose">
-          <p>In two cases the measured time <strong>differs from the wait the customer saw</strong>.</p>
+          <p>Two cases make <strong>the measure understate the customer's wait</strong>.</p>
         </div>
         <div class="cm-stack">
           <h3 class="cm-h3">Merged ticket</h3>
@@ -229,7 +226,7 @@
         <div class="cm-stack">
           <h3 class="cm-h3">Ticket still waiting for a reply</h3>
           <div class="cm-prose">
-            <p>A ticket with no reply yet has no first response time, so a live median leaves out the longest waits. A quarter's figure is fixed at the first warehouse refresh after the quarter closes, once those replies have counted.<a class="cm-cite" href="#src-1" id="cite-7">S1</a></p>
+            <p>A ticket with no reply yet has no first response time, so a median leaves out the longest waits. A quarter's figure is fixed at the first warehouse refresh after it closes, and a ticket still waiting then stays out.<a class="cm-cite" href="#src-1" id="cite-7">S1</a> Quote a figure with the count of tickets still waiting beside it.</p>
           </div>
         </div>
       </div>

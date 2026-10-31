@@ -101,3 +101,4 @@ Rounds 40e and 40f exist only in `CONTINUATION.md` and are taken from there.
 | [088-framework-process-metric-comparison.md](088-framework-process-metric-comparison.md) | Framework, process, metric and comparison | 2026-10-30 | orchestrating session, record 075 |
 | [089-roadmap-and-case-study.md](089-roadmap-and-case-study.md) | Roadmap and case study | 2026-10-30 | orchestrating session, record 075 |
 | [090-handoff-repairs.md](090-handoff-repairs.md) | Hand-off repairs: gaps a writer cannot fill, value labels and the design bundle | 2026-10-30 | orchestrating session, record 075 |
+| [092-kit-2-0-contract-and-migration.md](092-kit-2-0-contract-and-migration.md) | Kit 2.0 contract and migration from 1.2 | 2026-10-31 | orchestrating session, record 075 |

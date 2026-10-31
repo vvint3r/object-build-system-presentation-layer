@@ -111,7 +111,9 @@ A summary of section 1 of `SPEC.md`. The spec governs.
 12. No filler. Every number shown is sourced.
 
 Charts are ECharts option JSON inside the kit's figure markup. The agent never calls `echarts.init`
-and never writes chart JavaScript. Flow diagrams are JSON too: nodes placed by column and row, and
+and never writes chart JavaScript. It picks the chart by the reader's question, from the recipes in
+section 9. A `"cm"` key declares a bullet, slope, strip, box or interval chart, and the kit draws it.
+End labels that name every line take the legend's place. Flow diagrams are JSON too: nodes placed by column and row, and
 edges between them (section 8.20 of `SPEC.md`). The kit draws them; the agent writes no coordinates,
 SVG or styles.
 
@@ -219,6 +221,7 @@ Content maps onto existing components:
 | Items | Lists, `cm-list` and `cm-olist` | 8.14 |
 | Verbatim words from a person or source | Pull quote, `cm-quote` | 8.9 |
 | Numbers over time or across categories | Figure with a chart | 8.10, 9 |
+| Measures against their targets, the spread of values, or an estimate with its uncertainty | Figure with a bullet, strip or box, or interval chart | 9 |
 | Code, queries, file contents | Code block, `cm-code` | 8.17 |
 | The sources a claim rests on | Citation and source register, `cm-cite` and `cm-sources` | 8.21 |
 | Two sources giving different values for one quantity | Disagreement block, `cm-disagree` | 8.21 |

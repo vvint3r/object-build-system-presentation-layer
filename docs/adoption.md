@@ -32,7 +32,7 @@ Decision record numbers refer to `docs/decisions/`.
 | Prose primitives | Prose | Highlights, key-term underline, pull quote, lists | Partial | The remaining prose primitives | 034 |
 | Wayfinding | Wayfinding | Contents rail; related list (`cm-related`) | Partial | Breadcrumbs across documents and a generated index. Search, faceted browse, ranked entry and a version selector with diff need a server and stay out of the kit (record 076) | 027, 076, 078 |
 | Provenance | Provenance | Footnotes, source register, citations that link both ways, evidence dates, disagreement block, caption source line | Covered | The aggregation header, agreement and spread, and the confidence qualifier, once an acceptance document uses them (record 079) | 027, 079 |
-| Charts | Charts | ECharts method, seven chart types, light and dark | Covered | The library's empty-state conditions for charts | 028 |
+| Charts | Charts | ECharts method and recipes by question; bar, line, area, stacked bar, donut, scatter and heatmap, plus bullet, slope, strip, box, interval band and error bars; light, dark and print | Covered | The library's empty-state conditions for charts | 028, 081 |
 | Interaction | Interaction | Sortable tables, collapsible appendix | Partial | Filtering, overview and detail, definitions in place, recently viewed | 028 |
 | Learning | Learning | Nothing | Not in kit | Objectives, knowledge checks, comprehension summary, learning cycle, model | 028 |
 | Questions | Questions | Questions block | Partial | FAQ list ordered by frequency, said-and-actual corrections, confusion table | 038 |

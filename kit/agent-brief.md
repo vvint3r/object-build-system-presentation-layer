@@ -55,7 +55,13 @@ template are never rebuilt from memory, from a description, or from another desi
 
 The masthead and top bar name a publisher (the wordmark, lowercase and hyphenated), a series, an
 author or team, and an audience. When the request does not give them, the agent asks before building
-rather than inventing them. The top bar carries a print button only when the request asks for one.
+rather than inventing them. An audience the owner does not name gives way to an omission comment in
+the byline (section 7.5 of `SPEC.md`). The top bar carries a print button only when the request asks
+for one.
+
+The same holds for the material a document draws on. A source whose publisher or path is not
+recorded leaves it out with an omission comment, and a number given without its source carries a
+note saying that no source is recorded (section 8.21). Nothing is guessed.
 
 ## Packaging
 
@@ -174,7 +180,7 @@ A `cm-id` tag follows it and names the document (see Document sets).
 
 | Kind | Use for | Type chip | Required parts, in order |
 | --- | --- | --- | --- |
-| Report | What the numbers show and what to do: a review, an analysis, a briefing | Analysis, Report or Brief | Executive summary; body parts; Recommendations (recommended); Methodology (when numbers are computed); Notes & sources |
+| Report | What the numbers show and what to do: a review, an analysis, a briefing | Analysis, Report or Brief | Executive summary; body parts; Recommendations (recommended); Methodology (with a KPI strip, a chart or a table); Notes & sources |
 | Guide | One task carried out step by step: a procedure, a runbook, a how-to | Guide | Purpose; Prerequisites; Steps; Exceptions and recovery; Related documents; Notes & sources |
 | Reference | One thing looked up: a metric, a dataset, a system, a term | Reference | Definition; Properties; Relationships; Examples; Notes & sources |
 
@@ -198,7 +204,7 @@ reason after a colon:
 <!-- cm-omit kpi-strip: The briefing reports no measured numbers. -->
 ```
 
-These blocks, and no others, are left out this way (section 7.5 of `SPEC.md`):
+These blocks and fields, and no others, are left out this way (section 7.5 of `SPEC.md`):
 
 | Block | Kind | Left out when | Name | Where the comment sits |
 | --- | --- | --- | --- | --- |
@@ -211,6 +217,9 @@ These blocks, and no others, are left out this way (section 7.5 of `SPEC.md`):
 | Related documents section | Guide | No other document bears on the task | `related` | In `<main>`, where the section would be |
 | Relationships section | Reference | The thing connects to nothing else that is documented | `relationships` | In `<main>`, where the section would be |
 | Examples section | Reference | The thing has no case to work through | `examples` | In `<main>`, where the section would be |
+| Byline Distribution field | Any | The readers the document is for are not known | `distribution` | In `dl.cm-byline` |
+| Source publisher | Any | The source's author or publisher is not recorded | `publisher` | In the source entry |
+| Source locator | Any | The source's path or address is not recorded | `locator` | In the source entry |
 
 Content maps onto existing components:
 

@@ -32,7 +32,7 @@ Human-readable version with live examples and copy-paste markup: `Report Kit - S
 9. **Meaning never rests on color alone.** Every status chip and flagged row carries a word; every highlight is backed by the sentence; every recommended column carries ★.
 10. **No corners outside the radius set:** 2 thin bar, 4 chip/tag, 6 code chip, 8 input/slot, 12 table/tile, 14 card, 999 pill. Every drawn shape is rounded; square corners belong only to lines (rules, dotted connectors, the timeline rail), masked icons and the full-width top bar. The CSS applies them; never override.
 11. **No decoration.** No emoji, no stock imagery, no icons beyond the glyphs the CSS supplies, no gradients except where one carries meaning (the dashed rail of a planned timeline item, a chart's colour-scale legend), no colored left borders on cards or callouts, no drop caps.
-12. **No filler.** Omit an optional block rather than pad it. Every number shown is sourced.
+12. **No filler.** Omit an optional block rather than pad it. Every number shown is sourced (§8.21).
 
 ## 2. Packaging
 
@@ -61,7 +61,7 @@ The pack tool (`tools/pack.mjs`) writes the offline form of a page in either oth
 
 The file makes no network request. Characters outside the Latin subset fall back to a system face.
 
-Required `<head>` (copy from the kind's template, in this order): charset, viewport, `<title>{Report title} · {Period}</title>` (`<title>{Title}</title>` for a guide, a reference, or a report that covers no period, §7), `<meta name="cm-kit" content="1.2">`, `<meta name="cm-kind" content="{kind}">` naming the kind (`report`, `guide` or `reference`; a page without it is a report, §7), `<meta name="cm-id" content="{id}">` naming the document (§8.31), the inline theme pre-paint script, font preconnects + Google Fonts link (Nunito 300 to 900 + italic 300/400, JetBrains Mono 400/600/700; offline: the font `<style>` in their place), kit CSS, ECharts 5.5.1, kit JS. `<html lang>` **MUST** be set.
+Required `<head>` (copy from the kind's template, in this order): charset, viewport, `<title>{Report title} · {Period}</title>` with the period named as in the title (§7.2), or `<title>{Title}</title>` for a guide, a reference, or a report that covers no period, `<meta name="cm-kit" content="1.2">`, `<meta name="cm-kind" content="{kind}">` naming the kind (`report`, `guide` or `reference`; a page without it is a report, §7), `<meta name="cm-id" content="{id}">` naming the document (§8.31), the inline theme pre-paint script, font preconnects + Google Fonts link (Nunito 300 to 900 + italic 300/400, JetBrains Mono 400/600/700; offline: the font `<style>` in their place), kit CSS, ECharts 5.5.1, kit JS. `<html lang>` **MUST** be set.
 
 ## 3. Tokens
 
@@ -143,7 +143,7 @@ A `<meta name="cm-kind">` tag in `<head>`, straight after `cm-kit`, names the ki
 
 | Kind | Type chip | Required parts, in order | Never carries |
 | --- | --- | --- | --- |
-| Report | Analysis, Report or Brief | Executive summary; body parts; Recommendations (recommended); Methodology (when numbers are computed); Notes & sources | |
+| Report | Analysis, Report or Brief | Executive summary; body parts; Recommendations (recommended); Methodology (with a KPI strip, a chart or a table); Notes & sources | |
 | Guide | Guide | Purpose; Prerequisites; Steps; Exceptions and recovery; Related documents; Notes & sources | Executive summary, KPI strip, summary card, recommendations card, Period |
 | Reference | Reference | Definition; Properties; Relationships; Examples; Notes & sources | Executive summary, KPI strip, summary card, recommendations card, Period |
 
@@ -160,7 +160,7 @@ Every kind shares the top bar, contents rail, masthead, Notes & sources and foot
    - Published `YYYY-MM-DD`.
    - Reading time `N min`: the words in `<main>` ÷ 220, rounded up. Scripts, chart data tables and screen-reader-only text do not count. A word is any run of characters between spaces that holds a letter or digit.
    - Version `X.Y`.
-   - Byline: Prepared by, optional Reviewed by, Distribution.
+   - Byline: Prepared by, optional Reviewed by, Distribution. Distribution names the readers the document is for, such as `Internal · all staff`. When they are not known, the field is left out with its omission comment (§7.5).
 4. **The kind's parts** (required): §7.2 for a report, §7.3 for a guide, §7.4 for a reference.
 5. **Notes & sources** (required): the last section, an appendix with the id `sources`. It holds `.cm-notes`, then the source register `.cm-sources` (§8.15, §8.21), then the revision history and the change log when the document has them (§8.22).
 6. **Footer** (required): title, version + published date, owner, `Content Morphia Report Kit 1.2`.
@@ -171,11 +171,13 @@ Section ids are short, lowercase and stable (`summary`, `demand`, `methodology`,
 
 1. **Part 01 · Executive summary** (required): a lede of 2 to 4 sentences; a KPI strip of 2 to 4; `.cm-summary` with 3 to 5 key findings.
 2. **Part 02 … N** (required): one topic per section. Inside: TL;DR or lede stating the finding → figure(s) or table → at most two callouts → optional questions block.
-3. **Recommendations** (recommended): its own section after the body and before the appendices, holding the single `.cm-featured` card; each action has owner, due date and expected impact chips.
-4. **Appendix A · Methodology** (required when numbers are computed): `.cm-section--part`; collapsibles: A.1 Terms (a `.cm-def` block, open), A.2 Data sources and coverage (holding the limitation register when the document has three or more limits, §8.22), A.3 Queries.
+3. **Recommendations** (recommended): its own section after the body and before the appendices. It holds the single `.cm-featured` card (§8.19), then at most one callout, such as the combined effect of several actions.
+4. **Appendix A · Methodology** (required when the report shows numbers in a KPI strip, a chart or a table): `.cm-section--part`, then collapsibles numbered A.1, A.2 in order. Terms comes first, a `.cm-def` block, open. Data sources and coverage, then Queries, follow when the document has them. Data sources and coverage holds the limitation register when the document has three or more limits (§8.22).
 5. **Appendix B · Notes & sources** (required, §7.1).
 
-A report's `<title>` carries its period: `{Report title} · {Period}`.
+The type chip names the report's form: `Report` for a review of a period, `Analysis` for an investigation of one question, `Brief` for a short briefing, such as one without measured numbers.
+
+A report that covers a period names it in its title, after a comma: `Customer support operations review, Q3 2026`. Its `<title>` gives the same words with ` · ` in place of the comma: `Customer support operations review · Q3 2026`. Both name the period as a reader would (`Q3 2026`, `September 2026`); the masthead's Period field gives its dates.
 
 ### 7.3 Guide
 
@@ -204,7 +206,7 @@ A reference may add sections of its own between these parts, such as one on how 
 
 ### 7.5 Blocks left out
 
-A document can lack the content of a block its kind requires: a briefing without measured numbers, a guide for a task with nothing to set up. It leaves such a block out, invents nothing to fill it, and puts an omission comment where the block would be. The comment starts `cm-omit`, names the block, and says why after a colon:
+A document can lack the content of a block or a field its kind requires: a briefing without measured numbers, a guide for a task with nothing to set up, a source whose path is not recorded. It leaves such a block out, invents nothing to fill it, and puts an omission comment where the block would be. The comment starts `cm-omit`, names the block, and says why after a colon:
 
 ```html
 <!-- cm-omit kpi-strip: The briefing reports no measured numbers. -->
@@ -221,8 +223,11 @@ A document can lack the content of a block its kind requires: a briefing without
 | Related documents section | Guide | No other document bears on the task | `related` | In `<main>`, where the section would be |
 | Relationships section | Reference | The thing connects to nothing else that is documented | `relationships` | In `<main>`, where the section would be |
 | Examples section | Reference | The thing has no case to work through | `examples` | In `<main>`, where the section would be |
+| Byline Distribution field | Any | The readers the document is for are not known | `distribution` | In `dl.cm-byline`, where the field would be |
+| Source publisher | Any | The source's author or publisher is not recorded | `publisher` | In the source entry (§8.21), where the publisher would be |
+| Source locator | Any | The source's path or address is not recorded | `locator` | In the source entry (§8.21), where the locator would be |
 
-No other block is left out this way. A required block missing without its omission comment fails the checks.
+No other block or field is left out this way. A required block missing without its omission comment fails the checks.
 
 ## 8. Components
 
@@ -273,6 +278,8 @@ Number with two digits: `Part 01`. Appendices: `class="cm-section cm-section--pa
 - Delta: `▲`/`▼` + signed change + comparison. `cm-delta` neutral, `cm-delta--good` favourable, `cm-delta--bad` unfavourable, judged by the reader's interest.
 - Spark: optional, ≥ 6 points, same period as the KPI. `data-color="ink"` for neutral metrics.
 - Progress against a target can replace the spark: `<div class="cm-meter" style="--v:91.2%;--t:95%"><span></span><i></i></div>`.
+- Foot: the reference the value is read against, a target (`Target 95%`) or the prior period's value (`Q2 44,870`). Against a target, a `<b>` after it gives the gap (`−3.8 pp`) or `Met`. With a prior value the foot holds that value alone, since the delta states the change.
+- The strip carries no sources. Its numbers reappear in the body with their citations (§8.21, §14 item 4).
 
 ### 8.3 Summary and key findings
 
@@ -510,6 +517,10 @@ Token spans: `k` keyword, `s` string, `n` number, `f` callable, `c` comment. Key
 ```
 
 The only `cm-featured` in the report, inside the Recommendations section. 1–5 actions. Each action opens with one claim line, the action as an imperative sentence, then one sentence of reason and its chips. The card width follows the reading measure.
+
+- Owner: `Owner · ` and the role or team that carries the action out.
+- Date: `Due YYYY-MM-DD` for work to finish, or `Decide by YYYY-MM-DD` for a decision.
+- Expected impact: `cm-chip--accent`, the estimated change with its unit, marked `est.` when it is an estimate. An action whose impact is not estimated carries no impact chip; no estimate is invented for it.
 
 ### 8.20 Diagram
 
@@ -786,14 +797,19 @@ The source register lists every source a document rests on, and closes the Notes
 </ol>
 ```
 
-- Each entry carries a key, a title, its author or publisher, a type, a locator and a date.
+- Each entry carries a key, a title, its author or publisher, a type, a locator and a date. A publisher or locator that is not recorded is left out with its omission comment in the entry (§7.5), never guessed.
 - The key is `S` and a number, in `.cm-id`. The entry's id is `src-` and the same number: `S4` is `src-4`. A source keeps its key in every version, and a new source takes the next unused number. Entries run in key order.
 - The type is a tag from a closed set: `Dataset`, `Report`, `Interview`, `Document`, `System export`.
 - The locator says where to find the source: its URL as a link, or the system and path in `<code>`. Printing adds each URL after its link.
-- The date is the one the source carries, as an ISO date in `<time datetime>`. A word before it says what it dates: published, refreshed, exported, recorded or accessed.
+- The date is the one the source carries, as an ISO date in `<time datetime>`. A word before it says what it dates, from a closed set:
+  - `published`, `refreshed`, `exported`, `recorded` or `accessed`, for what happened on that date;
+  - `as of`, for a snapshot whose content held on that date, such as rules in force;
+  - `covers`, for a source that carries only the period it covers, given as two dates as in the Period field: `covers <time datetime="2026-09-01">2026-09-01</time> → <time datetime="2026-09-30">2026-09-30</time>`.
 - A citation is `a.cm-cite` after punctuation, like a footnote reference. Its text is the source's key; its id is unique, `cite-1`, `cite-2` in order of appearance. A claim with several sources carries one citation for each, side by side.
 - A cited entry ends with one back link, `a.cm-back`, to its first citation. Following any citation lands on the entry, and the kit's script points the back link at that citation. An entry no claim cites is listed with no back link.
 - A source count never stands in for confidence. The kit has no confidence chip or score; what several sources agree on is stated as a claim, with its citations.
+
+A number is sourced (§1 rule 12) by a citation, or by the source line of the caption under its figure or table. A number the source material gives without its source carries a note (§8.15) saying that no source is recorded for it; no source is guessed. A KPI strip's numbers are sourced where they reappear in the body (§14 item 4).
 
 An evidence date says how current a figure, table or claim is: "as of" and a `<time datetime>`. In prose the date is readable (`as of <time datetime="2026-09-30">30 September</time>`); in a caption it is ISO. Every `<time>` carries an ISO `datetime`.
 

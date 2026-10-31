@@ -985,7 +985,7 @@ The breadcrumb runs from the set to the area to the document. Each step links to
 
 #### Index page
 
-`index.html` lists every document in the set, by area. A script writes it from the documents, and it is never edited by hand:
+The index page, `index.html`, lists every document in the set by area, with one index entry each. A script writes it from the documents, and it is never edited by hand:
 
 ```
 npm run index -- <folder>
@@ -1001,7 +1001,7 @@ npm run index -- <folder>
 - The page carries the kind `index`. Its masthead holds the set as its one breadcrumb step and its title, a dek, and three fields: Status (the type chip `Index`), Documents and Updated. Updated is the newest published date among the documents.
 - The index page has no byline and no Notes & sources: its entries are the documents themselves. Its footer holds the set's name, the document count and Updated date, the publisher and the kit.
 - Each area is a section, A to Z, numbered `Part 01` onwards, with the area name as its title and the area id as its id. It holds one related list (§8.24) and nothing else. The contents rail lists the areas.
-- Each entry is a related-list item: the kind as its tag, the title as its link, the dek as its sentence, and a meta line with the status and published date.
+- Each index entry is a related-list item: the kind as its tag, the title as its link, the dek as its sentence, and a meta line with the status and published date.
 - Within an area, reports come first, newest first; then guides, then references, each A to Z by title.
 - The index quotes each dek, so a set's deks keep the index page within §13.1: 150 words for an area, and 18 words a sentence on average. A dek of 18 words or fewer meets both. Past either limit, the script names the deks to shorten or the area to split.
 

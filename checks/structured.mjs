@@ -85,7 +85,7 @@ const inStructured = (name, source, fn) => ({
 });
 
 export default [
-  inStructured('structured-anatomy', '§8; §6; §14 item 17', ({ check }) => {
+  inStructured('structured-anatomy', '§8; §6; §14 item 18', ({ check }) => {
     // Every structured component is a card that opens with its kind label, then its title; it
     // carries no emphasis. Stages, criteria and bands live only in their own component; a step title
     // only in a procedure step or a workflow stage.

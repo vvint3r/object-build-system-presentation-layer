@@ -53,8 +53,9 @@
         <li><a href="#anatomy"><span class="n">04</span>Document anatomy</a></li>
         <li><a href="#components"><span class="n">05</span>Components</a></li>
         <li><a href="#charts"><span class="n">06</span>Charts</a></li>
-        <li><a href="#modes"><span class="n">07</span>Motion, dark, print</a></li>
-        <li><a href="#checklist"><span class="n">08</span>Agent checklist</a></li>
+        <li><a href="#diagrams"><span class="n">07</span>Diagrams</a></li>
+        <li><a href="#modes"><span class="n">08</span>Motion, dark, print</a></li>
+        <li><a href="#checklist"><span class="n">09</span>Agent checklist</a></li>
       </ol>
     </div>
   </nav>
@@ -483,7 +484,7 @@
         </div>
 
         <div class="g-comp">
-          <header><span class="cm-label">5.12</span><h3 class="cm-h3">Process diagram</h3><p>Three to six steps, left to right, stacking below 800px. Set <code>--steps</code> to the step count. Mark one step at most with <code>cm-emph</code> and a chip saying why.</p></header>
+          <header><span class="cm-label">5.12</span><h3 class="cm-h3">Process diagram</h3><p>Three to six steps, left to right, stacking below 800px, with <code>--steps</code> set to the step count. Mark one step at most with <code>cm-emph</code> and a chip saying why. A flow with branches, loops or lanes is a diagram (Part 07).</p></header>
           <div data-demo>
 <ol class="cm-process" style="--steps:4">
   <li class="cm-step"><span class="cm-step__n">01</span><span class="cm-step__title">Triage</span><span class="cm-step__body">Classified on arrival.</span></li>
@@ -695,7 +696,7 @@
         </div>
 
         <div class="g-comp">
-          <header><span class="cm-label">5.28</span><h3 class="cm-h3">Workflow</h3><p>How work moves between roles: stages in order, each with the role that does it and the condition that hands the work on. The stages share the numbered list of the procedure (5.26), which holds the steps one reader carries out.</p><p>The process diagram (5.12) gives the same stages at a glance. A flow diagram draws the branches and lanes; the workflow is the reference a reader works from.</p></header>
+          <header><span class="cm-label">5.28</span><h3 class="cm-h3">Workflow</h3><p>How work moves between roles: stages in order, each with the role that does it and the condition that hands the work on. The stages share the numbered list of the procedure (5.26), which holds the steps one reader carries out.</p><p>The process diagram (5.12) gives the same stages at a glance. A flow diagram (7.1, 7.2) draws the branches and lanes; the workflow is the reference a reader works from.</p></header>
           <div data-demo>
 <div class="cm-card cm-workflow cm-bleed">
   <span class="cm-label cm-card__kicker">Workflow</span>
@@ -1150,8 +1151,130 @@
     </section>
 
     <!-- 07 -->
+    <section class="cm-section" id="diagrams" aria-labelledby="diagrams-t">
+      <header class="cm-section__head"><span class="cm-section__num">Part 07</span><h2 class="cm-section__title" id="diagrams-t">Diagrams</h2></header>
+      <div class="cm-section__body" style="gap:112px">
+        <div class="cm-stack" style="gap:40px">
+          <div class="cm-prose">
+            <p>A diagram is <strong>data written as JSON</strong> inside a <code>.cm-diagram</code>, as a chart is. The author places each node on a column and a row and names the edges. The kit draws the shapes, the lines and their labels, and a text version.</p>
+          </div>
+          <div class="cm-stack">
+            <h3 class="cm-h3">Diagram rules</h3>
+            <ul class="cm-list" style="max-width:var(--cm-read)">
+              <li>A flow diagram shows branches, loops or lanes. Three to six steps in a line are a process diagram.</li>
+              <li>Shape marks the node type and line style the edge kind. A key names the rarer ones.</li>
+              <li>Every branch out of a decision carries a label: yes and no, or the condition.</li>
+              <li>At most 24 nodes, 5 columns (4 with lanes), 5 rows, 5 lanes and 12 edge labels. A larger flow splits into an overview and details.</li>
+              <li>One node at most is emphasised, with a chip naming why.</li>
+              <li>The kit writes a text version under the caption, and a summary when the <code>aria-label</code> is empty.</li>
+              <li>A diagram wider than its figure scrolls sideways in its own box. Print scales it to fit the column and a page.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">7.0</span><h3 class="cm-h3">Nodes and edges</h3><p>The values a flow diagram takes and how the kit draws each one.</p></header>
+          <div>
+            <div class="cm-table-title" id="tbl-diagram"><span class="cm-table-title__kind">Table 7.1</span>Parts of a flow diagram</div>
+            <div class="cm-table-wrap cm-bleed">
+              <table class="cm-table" data-sortable aria-labelledby="tbl-diagram">
+                <thead><tr><th>Part</th><th>JSON</th><th>Drawn as</th><th>Use</th></tr></thead>
+                <tbody>
+                  <tr><td class="strong">Terminal</td><td><code>"type": "terminal"</code></td><td class="wrap">Pill</td><td class="wrap">Where the flow starts and ends</td></tr>
+                  <tr><td class="strong">Step</td><td><code>"type": "step"</code></td><td class="wrap">Rectangle; <code>detail</code> adds a second line</td><td class="wrap">An action</td></tr>
+                  <tr><td class="strong">Decision</td><td><code>"type": "decision"</code></td><td class="wrap">Rotated square holding the question</td><td class="wrap">A choice; each branch is labelled</td></tr>
+                  <tr><td class="strong">Data store</td><td><code>"type": "store"</code></td><td class="wrap">Ruled above and below</td><td class="wrap">Where data rests</td></tr>
+                  <tr><td class="strong">External</td><td><code>"type": "external"</code></td><td class="wrap">Heavy border</td><td class="wrap">A person or system outside the process</td></tr>
+                  <tr><td class="strong">Flow</td><td><code>"kind": "flow"</code></td><td class="wrap">Solid line, the default</td><td class="wrap">Control passes on</td></tr>
+                  <tr><td class="strong">Data</td><td><code>"kind": "data"</code></td><td class="wrap">Dotted line</td><td class="wrap">Data or a message moves</td></tr>
+                  <tr><td class="strong">Optional</td><td><code>"kind": "optional"</code></td><td class="wrap">Dashed line</td><td class="wrap">An optional or planned path</td></tr>
+                  <tr><td class="strong">Lane</td><td><code>"type": "lane"</code> group</td><td class="wrap">Row band named on the left</td><td class="wrap">One role or system per lane</td></tr>
+                  <tr><td class="strong">Boundary</td><td><code>"type": "boundary"</code> group</td><td class="wrap">Rounded frame named on its top line</td><td class="wrap">A system or team around a block of cells</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <span class="cm-caption"><span class="cm-caption__line">Source: <code>SPEC.md</code>, section 8.20.</span></span>
+          </div>
+        </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">7.1</span><h3 class="cm-h3">Process and decision flow</h3><p>Steps in reading order, a decision with labelled branches, and a loop back for rework. The empty <code>aria-label</code> lets the kit write the summary.</p></header>
+          <div data-demo>
+<figure class="cm-figure cm-bleed">
+  <span class="cm-figure__kind">Figure 8</span>
+  <h3 class="cm-figure__title">Help-centre article review</h3>
+  <p class="cm-figure__desc">Steps from a finished draft to a live article, with the rework loop.</p>
+  <div class="cm-diagram" data-diagram="flow" role="img" aria-label="">
+    <script type="application/json">
+    {
+      "nodes": [
+        {"id": "draft", "type": "terminal", "label": "Draft ready", "col": 1, "row": 1},
+        {"id": "review", "type": "step", "label": "Editor review", "detail": "Checks facts and tone", "col": 2, "row": 1, "emphasis": "Bottleneck"},
+        {"id": "approved", "type": "decision", "label": "Approved?", "col": 3, "row": 1},
+        {"id": "publish", "type": "step", "label": "Publish", "detail": "Goes to the help centre", "col": 4, "row": 1},
+        {"id": "live", "type": "terminal", "label": "Live", "col": 5, "row": 1},
+        {"id": "revise", "type": "step", "label": "Author revises", "detail": "Answers the editor's notes", "col": 3, "row": 2}
+      ],
+      "edges": [
+        {"from": "draft", "to": "review"},
+        {"from": "review", "to": "approved"},
+        {"from": "approved", "to": "publish", "label": "Yes"},
+        {"from": "approved", "to": "revise", "label": "No"},
+        {"from": "revise", "to": "review"},
+        {"from": "publish", "to": "live"}
+      ]
+    }
+    </script>
+  </div>
+  <figcaption class="cm-caption"><span class="cm-caption__line">Source: help-centre style guide, version 3.</span></figcaption>
+</figure>
+          </div>
+        </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">7.2</span><h3 class="cm-h3">Swimlane</h3><p>One lane per role, each a row band named on the left. A step sits in the lane of the role that does it, so every hand-off crosses a lane line.</p></header>
+          <div data-demo>
+<figure class="cm-figure cm-bleed">
+  <span class="cm-figure__kind">Figure 9</span>
+  <h3 class="cm-figure__title">Billing question hand-offs</h3>
+  <p class="cm-figure__desc">Steps from a customer’s report to the answer, by the role that takes each one.</p>
+  <div class="cm-diagram" data-diagram="flow" role="img" aria-label="">
+    <script type="application/json">
+    {
+      "nodes": [
+        {"id": "report", "type": "terminal", "label": "Reports a problem", "col": 1, "row": 1},
+        {"id": "triage", "type": "step", "label": "Triage", "detail": "Reads and tags the ticket", "col": 1, "row": 2},
+        {"id": "billing", "type": "decision", "label": "Billing issue?", "col": 2, "row": 2},
+        {"id": "fix", "type": "step", "label": "Fix the account", "detail": "Corrects the charge", "col": 2, "row": 3},
+        {"id": "answer", "type": "step", "label": "Answer the customer", "col": 3, "row": 2},
+        {"id": "done", "type": "terminal", "label": "Gets an answer", "col": 3, "row": 1}
+      ],
+      "edges": [
+        {"from": "report", "to": "triage"},
+        {"from": "triage", "to": "billing"},
+        {"from": "billing", "to": "answer", "label": "No"},
+        {"from": "billing", "to": "fix", "label": "Yes"},
+        {"from": "fix", "to": "answer"},
+        {"from": "answer", "to": "done"}
+      ],
+      "groups": [
+        {"type": "lane", "label": "Customer", "row": 1},
+        {"type": "lane", "label": "Tier 1 agent", "row": 2},
+        {"type": "lane", "label": "Billing specialist", "row": 3}
+      ]
+    }
+    </script>
+  </div>
+  <figcaption class="cm-caption"><span class="cm-caption__line">Source: support playbook, billing chapter.</span></figcaption>
+</figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08 -->
     <section class="cm-section" id="modes" aria-labelledby="modes-t">
-      <header class="cm-section__head"><span class="cm-section__num">Part 07</span><h2 class="cm-section__title" id="modes-t">Motion, dark mode, print</h2></header>
+      <header class="cm-section__head"><span class="cm-section__num">Part 08</span><h2 class="cm-section__title" id="modes-t">Motion, dark mode, print</h2></header>
       <div class="cm-section__body">
         <div class="cm-grid cm-grid--3 cm-bleed">
           <div class="cm-card">
@@ -1184,15 +1307,16 @@
               <li>Side-by-side figures marked <code>cm-print-stack</code> stack full width.</li>
               <li>Figures, KPIs and callouts never split across pages.</li>
               <li><code>cm-section--break</code> forces a page break.</li>
+              <li>Diagrams scale to fit the column, never below 80%.</li>
             </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 08 -->
+    <!-- 09 -->
     <section class="cm-section" id="checklist" aria-labelledby="checklist-t">
-      <header class="cm-section__head"><span class="cm-section__num">Part 08</span><h2 class="cm-section__title" id="checklist-t">Agent checklist</h2></header>
+      <header class="cm-section__head"><span class="cm-section__num">Part 09</span><h2 class="cm-section__title" id="checklist-t">Agent checklist</h2></header>
       <div class="cm-section__body">
         <div class="cm-prose"><p>An agent checks each item before publishing. A document that fails <strong>any item</strong> is not published.</p></div>
         <div class="cm-card cm-bleed" data-comment-anchor="330c8a61b6-div">

@@ -33,6 +33,9 @@ import diagrams from './diagrams.mjs';
 import entityRelationship from './entity-relationship.mjs';
 import sequence from './sequence.mjs';
 import state from './state.mjs';
+import flowFamilies from './flow-families.mjs';
+import layerStack from './layer-stack.mjs';
+import hierarchy from './hierarchy.mjs';
 import figures from './figures.mjs';
 import tables from './tables.mjs';
 import structure from './structure.mjs';
@@ -52,7 +55,7 @@ import { fontCss, echarts, faces } from '../tools/offline.mjs';
 // what the loader collected. Both return findings: [{ where, value }]. A check with `kinds` runs
 // only on documents of those kinds (report, guide, reference) and is skipped on the others. A check
 // marked offline runs only on a page in the offline packaging mode.
-const CHECKS = [markup, colour, type, radius, budgets, decoration, meaning, charts, diagrams, sequence, state, entityRelationship, figures, tables, structure, kinds, judgment, navigation, writing, provenance, structured, offline, recipes, typesReport].flat();
+const CHECKS = [markup, colour, type, radius, budgets, decoration, meaning, charts, diagrams, sequence, state, entityRelationship, flowFamilies, layerStack, hierarchy, figures, tables, structure, kinds, judgment, navigation, writing, provenance, structured, offline, recipes, typesReport].flat();
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const KIT = path.join(ROOT, 'kit', 'report-kit');

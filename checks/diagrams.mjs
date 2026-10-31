@@ -1,7 +1,8 @@
 // Diagrams (SPEC section 8.20): the JSON as written against the flow mode's schema, its capacity
-// and label lengths, and what the kit drew from it in each mode: every node and edge drawn, nothing
-// overlapping or crossing more than the budget, labels clear of lines and nodes, nothing clipped,
-// and the text version in place. Each in-page function is self-contained, so small helpers are
+// and label lengths, and what the kit drew from it in each mode, for every drawing mode: every node
+// and edge drawn, nothing overlapping or crossing more than the budget, labels clear of lines and
+// nodes, nothing clipped, and the text version in place. The other modes check their own JSON in
+// their own modules. Each in-page function is self-contained, so small helpers are
 // repeated inside it.
 //
 // Rendered geometry comes from the page: nodes and labels are measured as drawn, and edge lines are
@@ -10,8 +11,9 @@
 
 export default [
   {
-    // The JSON parses and holds only the flow mode's fields, with the values each field allows.
-    // An author writes no coordinates, classes or styles: any other field fails.
+    // The drawing mode is one the kit has. A flow diagram's JSON parses and holds only the flow
+    // mode's fields, with the values each field allows. An author writes no coordinates, classes or
+    // styles: any other field fails.
     name: 'diagram-json', level: 'fail', source: 'SPEC §8.20', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, out = [];
@@ -22,12 +24,14 @@ export default [
       const BOUND = ['type', 'label', 'col', 'row', 'cols', 'rows'];
       const TYPES = ['terminal', 'step', 'decision', 'store', 'external'];
       const KINDS = ['flow', 'data', 'optional'];
+      const MODES = ['flow', 'sequence', 'state', 'entity-relationship'];
       const pos = v => Number.isInteger(v) && v >= 1;
       const str = v => typeof v === 'string' && v.trim() !== '';
       for (const el of H.source().querySelectorAll('.cm-diagram')) {
         if (H.exempt(el, check)) continue;
-        const where = H.path(el), bad = v => out.push({ where, value: v });
-        if (el.getAttribute('data-diagram') !== 'flow') { bad(`data-diagram="${el.getAttribute('data-diagram') || ''}" (flow)`); continue; }
+        const where = H.path(el), bad = v => out.push({ where, value: v }), mode = el.getAttribute('data-diagram');
+        if (!MODES.includes(mode)) { bad(`data-diagram="${mode || ''}" (${MODES.join(', ')})`); continue; }
+        if (mode !== 'flow') continue;
         const s = el.querySelector('script[type="application/json"]');
         if (!s) { bad('no diagram JSON'); continue; }
         let d;
@@ -183,7 +187,8 @@ export default [
 
   {
     // role="img" as written; in each mode a non-empty aria-label (the author's, or the summary the
-    // kit writes) and the text version: one list item for every node, none empty.
+    // kit writes) and the text version, with no empty item. A flow's text version has one item for
+    // every node; the other modes count theirs in their own modules.
     name: 'diagram-text', level: 'fail', source: 'SPEC §8.20',
     inPage: ({ check }) => {
       const H = window.__cm, out = [];
@@ -197,7 +202,7 @@ export default [
         const text = fig && fig.querySelector('details[data-cm-diagram-text]');
         if (!text) { out.push({ where, value: 'no text version' }); return; }
         const items = [...text.querySelectorAll('li')];
-        if (g && items.length !== g.nodes.length) out.push({ where, value: `text version lists ${items.length} of ${g.nodes.length} nodes` });
+        if (g && el.getAttribute('data-diagram') === 'flow' && items.length !== g.nodes.length) out.push({ where, value: `text version lists ${items.length} of ${g.nodes.length} nodes` });
         if (items.some(li => !H.text(li))) out.push({ where, value: 'text version has an empty item' });
       });
       return out;
@@ -233,8 +238,8 @@ export default [
 
   {
     // As drawn in this mode: no node overlaps another; no line passes within 8px of a node it does
-    // not join; every edge, lane and boundary label stands 8px clear of every node, line and other
-    // label (a boundary label sits on its own line); nothing lies outside the canvas; and in print
+    // not join; every edge, lane and boundary label stands 8px clear of every node, edge, divider,
+    // lifeline and activation bar, and of every other label (a boundary label sits on its own line); nothing lies outside the canvas; and in print
     // the diagram fits the printed column (632px) and a page (720px tall) at 80% or more.
     name: 'diagram-layout', level: 'fail', source: 'SPEC §8.20; §12',
     inPage: ({ check, mode }) => {
@@ -257,7 +262,7 @@ export default [
         });
         const lines = [];
         g.edges.forEach(e => e.points.slice(1).forEach((p, i) => lines.push({ e, s: [e.points[i], p] })));
-        g.lines.filter(l => l.kind === 'divider').forEach(l => lines.push({ e: null, s: l.points }));
+        g.lines.filter(l => l.points).forEach(l => lines.push({ e: null, kind: l.kind, s: l.points }));
         for (let i = 0; i < nodes.length; i++) for (let j = i + 1; j < nodes.length; j++) {
           if (meet(nodes[i].b, nodes[j].b)) bad(`node "${nodes[i].id}" overlaps node "${nodes[j].id}"`);
         }
@@ -272,7 +277,7 @@ export default [
         labels.forEach((L, i) => {
           const air = grow(L.b, CLEAR);
           for (const n of nodes) if (meet(air, n.b)) bad(`${L.name} is within 8px of node "${n.id}"`);
-          for (const { e, s } of lines) if (hits(s, air)) { bad(`${L.name} is within 8px of ${e ? `the edge ${e.from} to ${e.to}` : 'a lane divider'}`); break; }
+          for (const { e, kind, s } of lines) if (hits(s, air)) { bad(`${L.name} is within 8px of ${e ? `the edge ${e.from} to ${e.to}` : kind === 'divider' ? 'a lane divider' : `a ${kind}`}`); break; }
           for (let j = i + 1; j < labels.length; j++) if (meet(air, labels[j].b)) bad(`${L.name} is within 8px of ${labels[j].name}`);
         });
         // inside the canvas

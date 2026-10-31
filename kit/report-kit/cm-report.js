@@ -4,7 +4,8 @@
    [data-cm-print]         opens the print dialog
    [data-chart]            ECharts option as <script type="application/json"> child; draws in when scrolled into view
    [data-spark]            sparkline from data-values="1,2,3"
-   .cm-diagram[data-diagram="flow"]  diagram JSON as <script type="application/json"> child; draws nodes, edges and labels, and writes the text version after the caption
+   .cm-diagram[data-diagram]  diagram JSON as <script type="application/json"> child, in a drawing mode (flow, sequence,
+                           state, entity-relationship); draws nodes, edges and labels, and writes the text version after the caption
    table[data-sortable]    click-to-sort headers (th.num sorts numerically; td[data-value] overrides text)
    .cm-toc a[href^="#"]    scroll-spy sets aria-current on the visible section
    a.cm-cite[id]           following a citation points its source entry's back link (a.cm-back) at that citation
@@ -191,7 +192,7 @@
     }
   }
   function redrawAll(animate) { charts.forEach(function (el) { if (el._cmDrawn || printing) draw(el, animate); }); dgAll(); }
-  function drawAll() { charts.forEach(function (el) { if (!el._cmDrawn) draw(el, false); }); diagrams.forEach(function (d) { if (d.pending) dgLayout(d); }); }
+  function drawAll() { charts.forEach(function (el) { if (!el._cmDrawn) draw(el, false); }); diagrams.forEach(function (d) { if (d.pending) d.mode.layout(d); }); }
   function initCharts() {
     charts = Array.prototype.slice.call(document.querySelectorAll('[data-chart],[data-spark]'));
     charts.forEach(readSpec);
@@ -242,6 +243,9 @@
   var DG_DIR = { top: [0, -1], right: [1, 0], bottom: [0, 1], left: [-1, 0] }, DG_SIDES = ['right', 'bottom', 'left', 'top'];
   var DG_NAMES = { terminal: 'Start or end', step: 'Step', decision: 'Decision', store: 'Data store', external: 'External',
     flow: 'Flow', data: 'Data', optional: 'Optional path' };
+  // The drawing modes, by the value of data-diagram. Each mode turns its JSON into a model and writes
+  // its key and text version; a mode without its own build or layout is drawn on the flow grid.
+  var DG_MODES = {};
 
   function mk(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
   function int(v, d) { var n = Math.round(+v); return n >= 1 ? n : d; }
@@ -294,7 +298,7 @@
   function dgBuild(d) {
     var el = d.el, m = d.model;
     el.textContent = '';
-    var key = dgKey(m);
+    var key = d.mode.key(m);
     if (key) el.appendChild(key);
     var cv = d.canvas = mk('div', 'cm-diagram__canvas');
     var svg = d.svg = document.createElementNS(SVGNS, 'svg');
@@ -311,14 +315,19 @@
     m.nodes.forEach(function (n) {
       var e = n.el = mk('div', 'cm-diagram__node cm-diagram__node--' + n.type + (n.emphasis ? ' cm-emph' : ''));
       e.setAttribute('data-node', n.id);
-      n.nameEl = mk('span', 'cm-diagram__name', n.label);
-      e.appendChild(n.nameEl);
-      if (n.detail) e.appendChild(mk('span', 'cm-diagram__detail', n.detail));
-      if (n.emphasis) e.appendChild(mk('span', 'cm-chip', n.emphasis));
+      (d.mode.node || dgNode)(n, e);
       cv.appendChild(e);
     });
     m.edges.forEach(function (e) { if (e.label) { e.el = mk('span', 'cm-diagram__edge-label', e.label); cv.appendChild(e.el); } });
     el.appendChild(cv);
+  }
+
+  // A node's text: its name, the detail line, and the chip that names why it is emphasised.
+  function dgNode(n, e) {
+    n.nameEl = mk('span', 'cm-diagram__name', n.label);
+    e.appendChild(n.nameEl);
+    if (n.detail) e.appendChild(mk('span', 'cm-diagram__detail', n.detail));
+    if (n.emphasis) e.appendChild(mk('span', 'cm-chip', n.emphasis));
   }
 
   // Sizes as drawn. Steps, stores and external entities in one column share its widest width and in
@@ -756,19 +765,28 @@
     });
   }
 
-  function dgDraw(d, g, routes) {
-    var el = d.el, m = d.model, cv = d.canvas, svg = d.svg;
-    // centred in its box on screen and in print; lanes run the full width from the left
-    var scale = printing ? Math.max(DG.minScale, Math.min(1, DG.printW / g.W, DG.printH / g.H)) : 1;
+  // The canvas for a drawing gW by gH: scaled in print to fit the printed column and a page, never
+  // below 80%, and centred in its box unless it runs the full width from the left. Returns the scale,
+  // the offset that centres it and the canvas size, with the line layer emptied.
+  function dgFit(d, gW, gH, centre) {
+    var el = d.el, cv = d.canvas, svg = d.svg;
+    var scale = printing ? Math.max(DG.minScale, Math.min(1, DG.printW / gW, DG.printH / gH)) : 1;
     var room = Math.floor((printing ? DG.printW : el.clientWidth) / scale);
-    var ox = m.lanes.length ? 0 : Math.max(0, Math.floor((room - g.W) / 2)), W = Math.max(g.W, room), H = g.H;
-    var X = function (x) { return Math.round(x + ox); }, Y = function (y) { return Math.round(y); };
+    var ox = centre ? Math.max(0, Math.floor((room - gW) / 2)) : 0, W = Math.max(gW, room), H = gH;
     cv.style.width = W + 'px'; cv.style.height = H + 'px';
     cv.style.transform = scale < 1 ? 'scale(' + scale + ')' : '';
     cv.style.marginRight = scale < 1 ? -Math.ceil(W * (1 - scale)) + 'px' : '';
     cv.style.marginBottom = scale < 1 ? -Math.ceil(H * (1 - scale)) + 'px' : '';
     svg.setAttribute('width', W); svg.setAttribute('height', H); svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
     while (svg.firstChild) svg.removeChild(svg.firstChild);
+    return { scale: scale, ox: ox, W: W, H: H };
+  }
+
+  function dgDraw(d, g, routes) {
+    var el = d.el, m = d.model, cv = d.canvas, svg = d.svg;
+    // centred in its box on screen and in print; lanes run the full width from the left
+    var fit = dgFit(d, g.W, g.H, !m.lanes.length), scale = fit.scale, ox = fit.ox, W = fit.W, H = fit.H;
+    var X = function (x) { return Math.round(x + ox); }, Y = function (y) { return Math.round(y); };
     var geo = { scale: scale, ox: ox, W: W, H: H, nodes: [], edges: [], lines: [], lanes: [] };
     m.lanes.forEach(function (l, k) {
       var top = g.rowT[l.row], bot = g.rowT[l.last] + g.rowH[l.last];
@@ -864,16 +882,18 @@
     d.text = det;
   }
 
-  function dgAll() { diagrams.forEach(function (d) { if (d.model) dgLayout(d); }); }
+  DG_MODES.flow = { model: dgModel, key: dgKey, text: dgText, layout: dgLayout };
+
+  function dgAll() { diagrams.forEach(function (d) { if (d.model) d.mode.layout(d); }); }
   function initDiagrams() {
     document.querySelectorAll('.cm-diagram[data-diagram]').forEach(function (el) {
-      var s = el.querySelector('script[type="application/json"]'), spec = null;
-      if (el.getAttribute('data-diagram') !== 'flow') { console.warn('[cm] unknown diagram mode', el.getAttribute('data-diagram'), el); return; }
+      var s = el.querySelector('script[type="application/json"]'), spec = null, mode = DG_MODES[el.getAttribute('data-diagram')];
+      if (!mode) { console.warn('[cm] unknown diagram mode', el.getAttribute('data-diagram'), el); return; }
       if (s) { try { spec = JSON.parse(s.textContent); } catch (e) { console.error('[cm] invalid diagram JSON', el, e); } s.remove(); }
       if (!spec) return;
-      var d = { el: el, model: dgModel(spec), width: 0 };
+      var d = { el: el, mode: mode, model: mode.model(spec), width: 0 };
       diagrams.push(d);
-      dgBuild(d); dgText(d); dgLayout(d); d.width = el.clientWidth;
+      (mode.build || dgBuild)(d); mode.text(d); mode.layout(d); d.width = el.clientWidth;
     });
     if (!diagrams.length) return;
     // fonts that arrive late change every node's size; a box that changes width moves the centre
@@ -881,7 +901,7 @@
     if ('ResizeObserver' in window) {
       var ro = new ResizeObserver(function () {
         if (printing) return;
-        diagrams.forEach(function (d) { var w = d.el.clientWidth; if (d.pending || w !== d.width) { d.width = w; dgLayout(d); } });
+        diagrams.forEach(function (d) { var w = d.el.clientWidth; if (d.pending || w !== d.width) { d.width = w; d.mode.layout(d); } });
       });
       diagrams.forEach(function (d) { ro.observe(d.el); });
     }

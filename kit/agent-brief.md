@@ -130,7 +130,9 @@ at the most decimal places any value in the chart carries. Diagrams are JSON too
 diagram, a journey map or a system and data flow places its nodes by column and row; a sequence
 diagram lists its participants and messages in order. A layer stack lists layers from the top down,
 each dependency running down. A hierarchy names each node's parent. The kit draws them; the agent
-writes no coordinates, SVG or styles.
+writes no coordinates, SVG or styles. In a flow, `col` counts across and `row` down whichever way
+it reads, a branch that ends early ends at a terminal of its own, and a labelled gap counts as a
+column against the ceiling.
 
 ## Writing rules
 
@@ -354,7 +356,7 @@ draw its own diagram, icon or layout to fill the gap.
 ## Checks
 
 **Before handing over:** the pre-publish checklist in section 14 of `SPEC.md`, and the document
-opened in light, dark and print preview with no console errors.
+opened in light, dark and print preview, and at a 390px phone width, with no console errors.
 
 **Automated, for an agent with git and Node.js.** The kit's checks run on any HTML file, in any
 packaging:
@@ -367,8 +369,9 @@ npx playwright install chromium
 npm run check -- /absolute/path/to/document.html
 ```
 
-The run prints one line per check and mode (`ok`, `FAIL` with the element and computed value,
-`warn`, `skip`) and exits 1 on any failure. Failures are fixed in the document, never in the kit or
+The run prints one line per check and mode: `ok`, `FAIL` with the element and computed value,
+`warn` or `skip`. The modes are light, dark and print, and a 390px phone pass for the checks where
+width matters. The run exits 1 on any failure. Failures are fixed in the document, never in the kit or
 the checks. A block left out with its omission comment passes; a required block missing without one
 fails.
 

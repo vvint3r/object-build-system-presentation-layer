@@ -545,7 +545,7 @@
     }
   }
   function redrawAll(animate) { charts.forEach(function (el) { if (el._cmDrawn || printing) draw(el, animate); }); dgAll(); }
-  function drawAll() { charts.forEach(function (el) { if (!el._cmDrawn) draw(el, false); }); diagrams.forEach(function (d) { if (d.pending) d.mode.layout(d); }); }
+  function drawAll() { charts.forEach(function (el) { if (!el._cmDrawn) draw(el, false); }); diagrams.forEach(function (d) { if (d.pending) dgPlace(d); }); }
   function initCharts() {
     charts = Array.prototype.slice.call(document.querySelectorAll('[data-chart],[data-spark]'));
     charts.forEach(readSpec);
@@ -590,7 +590,7 @@
   // clear: air around a label; track: spacing of parallel edges in one gap; outer: an outside gap
   // that carries an edge; reach: distance from a node to the first line in a gap. printW: the printed
   // column; printH: an A4 page body (1001px) less a figure's title, description and caption.
-  var DG = { stand: 8, head: 8, r: 12, clear: 8, track: 16, outer: 40, reach: 20, printW: 632, printH: 720, minScale: 0.8 };
+  var DG = { stand: 8, head: 8, r: 12, clear: 8, track: 16, outer: 40, reach: 20, printW: 638, printH: 720, minScale: 0.8 };
   var DG_GAP = { screen: { col: 64, row: 48, lane: 72, pad: 8 }, print: { col: 40, row: 32, lane: 64, pad: 8 } };
   var DG_TYPES = ['terminal', 'step', 'decision', 'store', 'external'], DG_KINDS = ['flow', 'data', 'optional'];
   var DG_DIR = { top: [0, -1], right: [1, 0], bottom: [0, 1], left: [-1, 0] }, DG_SIDES = ['right', 'bottom', 'left', 'top'];
@@ -699,12 +699,13 @@
   // Sizes as drawn. Steps, stores, external entities and states in one column share its widest width
   // and in one row its tallest height, so the grid reads as a grid; entities share the width only. A decision is the smallest square
   // whose diamond holds its question: text w wide and h tall fits when w + h fits the diagonal.
+  function dgPx(el, prop) { return parseFloat(getComputedStyle(el)[prop]) || 0; }
   function dgMeasure(d) {
     var m = d.model, colW = {}, rowH = {};
     var boxy = function (n) { return n.type === 'step' || n.type === 'store' || n.type === 'external' || n.type === 'state'; };
     m.nodes.forEach(function (n) {
       var e = n.el;
-      e.style.left = '0px'; e.style.top = '0px'; e.style.width = ''; e.style.height = '';
+      e.style.left = '0px'; e.style.top = '0px'; e.style.width = ''; e.style.height = ''; e.style.maxWidth = '';
       if (n.type === 'decision') {
         var nm = n.nameEl, best = null;
         nm.style.width = '';
@@ -718,6 +719,9 @@
         n.w = n.h = even(Math.max(80, best.side));
       } else {
         n.w = even(e.offsetWidth); n.h = even(e.offsetHeight);
+        // an emphasis chip never wraps: a node narrower than its chip widens to hold it
+        var chip = e.querySelector('.cm-chip');
+        if (chip) n.w = Math.max(n.w, even(chip.offsetWidth + e.offsetWidth - e.clientWidth + dgPx(e, 'paddingLeft') + dgPx(e, 'paddingRight')));
       }
       if (boxy(n) || n.type === 'entity') colW[n.col] = Math.max(colW[n.col] || 0, n.w);
       if (boxy(n)) rowH[n.row] = Math.max(rowH[n.row] || 0, n.h);
@@ -1143,10 +1147,10 @@
   function svgEl(tag, attrs) { var e = document.createElementNS(SVGNS, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); return e; }
 
   function dgLayout(d) {
-    var el = d.el, m = d.model, P = (d.mode.gaps || DG_GAP)[printing ? 'print' : 'screen'], cv = d.canvas;
+    var el = d.el, m = d.model, P = (d.mode.gaps || DG_GAP)[d.narrow ? 'print' : 'screen'], cv = d.canvas;
     if (!printing && !el.clientWidth) { d.pending = true; return; }
     d.pending = false;
-    el.classList.toggle('cm-diagram--print', printing);
+    el.classList.toggle('cm-diagram--narrow', !!d.narrow);
     cv.style.transform = ''; cv.style.marginRight = ''; cv.style.marginBottom = ''; cv.style.width = '4000px'; cv.style.height = '1px';
     dgMeasure(d);
     // Pass 1 routes on a grid with room outside every track; later passes keep the routes, size each
@@ -1248,16 +1252,20 @@
 
   // The canvas for a drawing gW by gH: scaled in print to fit the printed column and a page, never
   // below 80%, and centred in its box unless it runs the full width from the left. Returns the scale,
-  // the offset that centres it and the canvas size, with the line layer emptied.
+  // the offset that centres it and the canvas size, with the line layer emptied; the scale and the
+  // drawing's own size stay on the diagram for dgPlace.
   function dgFit(d, gW, gH, centre) {
     var el = d.el, cv = d.canvas, svg = d.svg;
-    var scale = printing ? Math.max(DG.minScale, Math.min(1, DG.printW / gW, DG.printH / gH)) : 1;
-    var room = Math.floor((printing ? DG.printW : el.clientWidth) / scale);
+    // print fits the printed column and a page; a screen drawing too wide for its box fits its width
+    var boxW = printing ? DG.printW : el.clientWidth;
+    var scale = printing || d.squeeze ? Math.max(DG.minScale, Math.min(1, boxW / gW, printing ? DG.printH / gH : 1)) : 1;
+    d.fit = { scale: scale, gW: gW, gH: gH };
+    var room = Math.floor(boxW / scale);
     var ox = centre ? Math.max(0, Math.floor((room - gW) / 2)) : 0, W = Math.max(gW, room), H = gH;
     cv.style.width = W + 'px'; cv.style.height = H + 'px';
     cv.style.transform = scale < 1 ? 'scale(' + scale + ')' : '';
-    cv.style.marginRight = scale < 1 ? -Math.ceil(W * (1 - scale)) + 'px' : '';
-    cv.style.marginBottom = scale < 1 ? -Math.ceil(H * (1 - scale)) + 'px' : '';
+    cv.style.marginRight = scale < 1 ? -Math.floor(W * (1 - scale)) + 'px' : '';
+    cv.style.marginBottom = scale < 1 ? -Math.floor(H * (1 - scale)) + 'px' : '';
     svg.setAttribute('width', W); svg.setAttribute('height', H); svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
     while (svg.firstChild) svg.removeChild(svg.firstChild);
     return { scale: scale, ox: ox, W: W, H: H };
@@ -1289,7 +1297,7 @@
     });
     m.nodes.forEach(function (n) {
       var s = n.el.style;
-      s.left = X(n.x) + 'px'; s.top = Y(n.y) + 'px'; s.width = n.w + 'px'; s.height = n.h + 'px';
+      s.left = X(n.x) + 'px'; s.top = Y(n.y) + 'px'; s.width = n.w + 'px'; s.height = n.h + 'px'; s.maxWidth = 'none';
       geo.nodes.push({ id: n.id, type: n.type, el: n.el });
     });
     routes.forEach(function (r) {
@@ -1441,7 +1449,7 @@
   // Sizes the phase frames at the width of the columns they span (gaps at their least), and the
   // room the phases and the experience line take above and below the grid.
   function dgJourneyMeasure(d, colW) {
-    var m = d.model, P = printing ? DG_GAP.print : DG_GAP.screen, top = 0, word = 0;
+    var m = d.model, P = d.narrow ? DG_GAP.print : DG_GAP.screen, top = 0, word = 0;
     m.phases.forEach(function (p) {
       var w = 0;
       for (var c = p.col; c <= p.lastCol; c++) w += (colW[c] || 96) + (c > p.col ? P.col : 0);
@@ -1678,10 +1686,10 @@
   }
 
   function sqLayout(d) {
-    var el = d.el, m = d.model, P = printing ? SQ_GAP.print : SQ_GAP.screen, cv = d.canvas, svg = d.svg;
+    var el = d.el, m = d.model, P = d.narrow ? SQ_GAP.print : SQ_GAP.screen, cv = d.canvas, svg = d.svg;
     if (!printing && !el.clientWidth) { d.pending = true; return; }
     d.pending = false;
-    el.classList.toggle('cm-diagram--print', printing);
+    el.classList.toggle('cm-diagram--narrow', !!d.narrow);
     cv.style.transform = ''; cv.style.marginRight = ''; cv.style.marginBottom = ''; cv.style.width = '4000px'; cv.style.height = '1px';
     var N = m.nodes.length, hh = 0;
     m.nodes.forEach(function (n) {
@@ -2126,11 +2134,11 @@
     return true;
   }
   function dgTreeLayout(d) {
-    var el = d.el, m = d.model, P = printing ? DG_GAP.print : DG_GAP.screen, cv = d.canvas, svg = d.svg;
+    var el = d.el, m = d.model, P = d.narrow ? DG_GAP.print : DG_GAP.screen, cv = d.canvas, svg = d.svg;
     if (!printing && !el.clientWidth) { d.pending = true; return; }
     d.pending = false;
     if (!m.placed) return;
-    el.classList.toggle('cm-diagram--print', printing);
+    el.classList.toggle('cm-diagram--narrow', !!d.narrow);
     cv.style.transform = ''; cv.style.marginRight = ''; cv.style.marginBottom = ''; cv.style.width = '4000px'; cv.style.height = '1px';
     var colW = [], colL = [], h = 0, x = P.pad, bot = 0;
     m.nodes.forEach(function (n) {
@@ -2190,7 +2198,33 @@
   }
   DG_MODES.hierarchy = { model: dgTreeModel, key: function () { return null; }, text: dgTreeText, layout: dgTreeLayout };
 
-  function dgAll() { diagrams.forEach(function (d) { if (d.model) d.mode.layout(d); }); }
+  // Lay a diagram out for where it is shown. On screen it takes the screen gaps and nodes; a drawing
+  // wider than its box takes the narrow ones print uses, then scales to the box's width, and one
+  // still wider at the 80% floor scrolls in its box. In print it is narrow and scaled to fit the
+  // printed column and a page. Text that scale would take below its own size is set larger first
+  // (--cm-dg-k), and the drawing laid out again, until the text is drawn at its size or more; the
+  // 80% floor on the scale bounds the loop.
+  function dgPlace(d) {
+    var cv = d.canvas;
+    d.narrow = printing; d.squeeze = false; d.fit = null;
+    if (cv) cv.style.removeProperty('--cm-dg-k');
+    d.mode.layout(d);
+    if (d.pending || !d.fit) return;
+    if (!printing) {
+      if (d.fit.gW <= d.el.clientWidth) return;
+      d.narrow = true; d.mode.layout(d);
+      if (d.fit.gW <= d.el.clientWidth) return;
+      d.squeeze = true; d.mode.layout(d);
+    }
+    var k = 1, ok = function () { var t = d.fit.scale * k; return t >= 0.9999 && (t <= 1.02 || k === 1); };
+    for (var i = 0; i < 6 && !ok(); i++) {
+      k = Math.min(1 / DG.minScale, Math.max(1, 1 / (0.995 * d.fit.scale)));
+      cv.style.setProperty('--cm-dg-k', String(+k.toFixed(4)));
+      d.mode.layout(d);
+    }
+    if (d.fit.scale * k < 0.9999) { k = 1 / DG.minScale; cv.style.setProperty('--cm-dg-k', String(k)); d.mode.layout(d); }
+  }
+  function dgAll() { diagrams.forEach(function (d) { if (d.model) dgPlace(d); }); }
   function initDiagrams() {
     document.querySelectorAll('.cm-diagram[data-diagram]').forEach(function (el) {
       var s = el.querySelector('script[type="application/json"]'), spec = null, mode = DG_MODES[el.getAttribute('data-diagram')];
@@ -2199,7 +2233,7 @@
       if (!spec) return;
       var d = { el: el, mode: mode, model: mode.model(spec), width: 0 };
       diagrams.push(d);
-      (mode.build || dgBuild)(d); mode.text(d); mode.layout(d); d.width = el.clientWidth;
+      (mode.build || dgBuild)(d); mode.text(d); dgPlace(d); d.width = el.clientWidth;
     });
     if (!diagrams.length) return;
     // fonts that arrive late change every node's size; a box that changes width moves the centre
@@ -2207,7 +2241,7 @@
     if ('ResizeObserver' in window) {
       var ro = new ResizeObserver(function () {
         if (printing) return;
-        diagrams.forEach(function (d) { var w = d.el.clientWidth; if (d.pending || w !== d.width) { d.width = w; d.mode.layout(d); } });
+        diagrams.forEach(function (d) { var w = d.el.clientWidth; if (d.pending || w !== d.width) { d.width = w; dgPlace(d); } });
       });
       diagrams.forEach(function (d) { ro.observe(d.el); });
     }

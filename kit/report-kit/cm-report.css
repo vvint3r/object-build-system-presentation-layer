@@ -76,7 +76,7 @@ a:hover{background:var(--cm-accent-hover);border-radius:var(--cm-r-chip)}
 ::selection{background:rgba(27,189,148,.35)}
 :focus-visible{outline:2px solid var(--cm-ink);outline-offset:3px}
 button{font:inherit;color:inherit;background:none;border:0;padding:0;margin:0;text-align:left;cursor:pointer}
-code{font-family:var(--cm-mono);font-size:.8em;font-weight:600;line-height:1;background:var(--cm-surface);padding:.42em .62em;border-radius:var(--cm-r-code);box-shadow:var(--cm-s2);white-space:nowrap;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+code{font-family:var(--cm-mono);font-size:max(11px,.8em);font-weight:600;line-height:1;background:var(--cm-surface);padding:.42em .62em;border-radius:var(--cm-r-code);box-shadow:var(--cm-s2);white-space:nowrap;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 pre code{all:unset}
 .cm-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
@@ -91,7 +91,7 @@ pre code{all:unset}
 .cm-small{font-size:15px;line-height:1.8}
 .cm-soft{font-weight:300}
 .cm-aside{font-weight:300;font-style:italic}
-.cm-label{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;line-height:1.4}
+.cm-label{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;line-height:1.4}
 .cm-meta{font-size:13px;font-weight:400;line-height:1.5;font-variant-numeric:tabular-nums}
 .cm-id{font-size:13px;font-weight:800;letter-spacing:.04em;white-space:nowrap}
 .cm-figure-l{font-size:44px;font-weight:900;line-height:1.1;letter-spacing:-.01em}
@@ -120,13 +120,13 @@ pre code{all:unset}
 .cm-toc .cm-label{margin-bottom:16px;display:block}
 .cm-toc ol{list-style:none;padding:0;display:flex;flex-direction:column;gap:2px}
 .cm-toc a{display:grid;grid-template-columns:28px minmax(0,1fr);align-items:baseline;gap:6px;padding:7px 12px;border-radius:var(--cm-r-pill);text-decoration:none;font-size:14px;line-height:1.45}
-.cm-toc a .n{font-size:10px;font-weight:800;letter-spacing:.08em;line-height:1.7;font-variant-numeric:tabular-nums}
+.cm-toc a .n{font-size:11px;font-weight:800;letter-spacing:.06em;line-height:1.7;font-variant-numeric:tabular-nums}
 .cm-toc a[aria-current="true"]{background:var(--cm-track);font-weight:700}
 .cm-toc a:hover{background:var(--cm-accent-hover)}
 
 /* ---------- 6. Masthead & sections ---------- */
 .cm-mast{padding-top:64px}
-.cm-crumbs{display:flex;align-items:center;gap:12px;row-gap:8px;flex-wrap:wrap;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;margin-bottom:40px}
+.cm-crumbs{display:flex;align-items:center;gap:12px;row-gap:8px;flex-wrap:wrap;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;margin-bottom:40px}
 .cm-crumbs [aria-current]{font-weight:900}
 .cm-crumbs .sep{font-weight:300}
 .cm-bar{width:36px;height:4px;background:var(--cm-accent);border-radius:var(--cm-r-pill);margin-bottom:24px}
@@ -134,7 +134,7 @@ pre code{all:unset}
 .cm-mast__dek{font-size:17px;line-height:1.85;margin-top:48px;max-width:60ch}
 .cm-mast__meta,.cm-byline{display:flex;flex-wrap:wrap;gap:24px 56px;margin-top:48px}
 .cm-mast__meta>div,.cm-byline>div{display:flex;flex-direction:column;gap:12px;min-width:0}
-.cm-mast__meta dt,.cm-byline dt{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;line-height:1.4}
+.cm-mast__meta dt,.cm-byline dt{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;line-height:1.4}
 .cm-mast__meta dd,.cm-byline dd{font-size:15px;line-height:1.5;min-height:24px;display:flex;align-items:center;flex-wrap:wrap;gap:8px}
 .cm-byline{margin-top:32px;padding-top:28px;border-top:1px solid var(--cm-hairline)}
 .cm-section{padding-top:128px}
@@ -172,9 +172,8 @@ pre code{all:unset}
 
 /* ---------- 8. Chips, tags, buttons ---------- */
 /* Outline only. Status color sits in a 2px offset to the right and bottom; the word carries the meaning. */
-.cm-chip,.cm-tag,.cm-delta{--c:transparent;display:inline-flex;align-items:center;justify-content:center;gap:6px;height:20px;padding:0 8px;font-family:var(--cm-font);font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;line-height:1;white-space:nowrap;color:var(--cm-ink);border:1px solid var(--cm-ink);background:transparent;border-radius:var(--cm-r-pill);vertical-align:middle;font-variant-numeric:tabular-nums}
-.cm-chip{font-size:9px;line-height:10px}
-.cm-tag{height:18px;padding:0 6px;border-radius:var(--cm-r-chip)}
+.cm-chip,.cm-tag,.cm-delta{--c:transparent;display:inline-flex;align-items:center;justify-content:center;gap:6px;height:20px;padding:0 8px;font-family:var(--cm-font);font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;line-height:1;white-space:nowrap;color:var(--cm-ink);border:1px solid var(--cm-ink);background:transparent;border-radius:var(--cm-r-pill);vertical-align:middle;font-variant-numeric:tabular-nums}
+.cm-tag{height:20px;padding:0 6px;border-radius:var(--cm-r-chip)}
 /* A delta keeps the case it is written in, so units read as written: "−50s", "+2.1 pp". */
 .cm-delta{text-transform:none}
 .cm-tag--dashed,.cm-chip--dashed{border-style:dashed}
@@ -203,7 +202,7 @@ pre code{all:unset}
 .cm-kpis{--n:4;display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:24px}
 .cm-kpis--3{--n:3}.cm-kpis--2{--n:2}
 .cm-kpi{display:flex;flex-direction:column;background:var(--cm-surface);border-radius:var(--cm-r-card);padding:28px;box-shadow:var(--cm-s2);min-width:0}
-.cm-kpi__label{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;line-height:1.4}
+.cm-kpi__label{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;line-height:1.4}
 .cm-kpi__value{font-size:36px;font-weight:900;line-height:1;letter-spacing:-.01em;margin-top:20px;font-variant-numeric:tabular-nums}
 .cm-kpi__value small{font-size:20px;font-weight:800;margin-left:2px}
 .cm-kpi__delta{margin-top:18px}
@@ -234,7 +233,7 @@ pre code{all:unset}
 /* Icon and label share one row; the body sits under the label on the same edge. No fill. */
 .cm-callout{--c:var(--cm-info);--cm-icon:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M12 16v-4M12 8h.01'/%3E%3C/svg%3E");display:grid;grid-template-columns:18px minmax(0,1fr);column-gap:14px;row-gap:12px;max-width:74ch}
 .cm-callout::before{content:"";grid-column:1;grid-row:1;align-self:center;width:18px;height:18px;background:var(--cm-ink);-webkit-mask:var(--cm-icon) center/18px 18px no-repeat;mask:var(--cm-icon) center/18px 18px no-repeat}
-.cm-callout__label{grid-column:2;grid-row:1;align-self:center;justify-self:start;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;text-decoration:underline;text-decoration-color:var(--c);text-decoration-thickness:2px;text-underline-offset:4px}
+.cm-callout__label{grid-column:2;grid-row:1;align-self:center;justify-self:start;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;text-decoration:underline;text-decoration-color:var(--c);text-decoration-thickness:2px;text-underline-offset:4px}
 .cm-callout__body{grid-column:2;min-width:0;font-size:15.5px;line-height:1.85}
 .cm-callout__body strong{font-weight:800}
 .cm-callout--note{--c:var(--cm-info)}
@@ -253,7 +252,7 @@ pre code{all:unset}
 .cm-def::before,.cm-qa::before{content:"";grid-column:1;grid-row:1;width:18px;height:18px;margin-top:-1px;background:var(--cm-ink);-webkit-mask:var(--cm-icon) center/18px 18px no-repeat;mask:var(--cm-icon) center/18px 18px no-repeat}
 .cm-def::after,.cm-qa::after{content:"";position:absolute;left:36px;top:0;bottom:0;border-left:1.5px dotted var(--cm-ink)}
 .cm-def>*,.cm-qa>*{grid-column:2}
-.cm-def__label,.cm-qa__label{grid-row:1;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;line-height:16px}
+.cm-def__label,.cm-qa__label{grid-row:1;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;line-height:16px}
 .cm-def dl,.cm-qa dl{display:flex;flex-direction:column;gap:24px;margin-top:20px}
 .cm-def dt,.cm-qa dt{font-size:16px;font-weight:800;line-height:1.5}
 .cm-def dd,.cm-qa dd{margin-top:6px;font-size:15.5px;line-height:1.85}
@@ -267,18 +266,18 @@ pre code{all:unset}
 .cm-props>dl+dl{margin-top:32px;padding-top:32px}
 .cm-props>dl+dl::before{content:"";position:absolute;left:0;top:0;width:min(var(--k),132px);height:2px;background:var(--cm-ink);border-radius:2px}
 .cm-props>dl+dl::after{content:"";position:absolute;left:calc(var(--k) + 32px);right:0;top:0;border-top:1.5px dotted var(--cm-field)}
-.cm-props dt{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;line-height:1.5}
+.cm-props dt{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;line-height:1.5}
 .cm-props dt small{display:block;margin-top:2px;font-size:13px;font-weight:400;letter-spacing:0;text-transform:none}
 .cm-props dd{font-size:15.5px;line-height:1.7;min-width:0}
 .cm-props dd b{font-weight:800}
-.cm-props sup{font-size:10px;font-weight:700;margin-left:3px;vertical-align:.6em;line-height:0}
+.cm-props sup{font-size:11px;font-weight:700;margin-left:3px;vertical-align:.6em;line-height:0}
 
 /* Status block: the one place for the numbers that will change, with the date they were true. Label and date on one row, then key over value. */
 .cm-status{background:var(--cm-surface);border-radius:var(--cm-r-card);padding:28px 32px 32px;box-shadow:var(--cm-s2);min-width:0}
 .cm-status__head{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 16px}
 .cm-status dl{display:flex;flex-wrap:wrap;gap:24px 56px;margin-top:24px}
 .cm-status dl>div{display:flex;flex-direction:column;gap:8px;min-width:0}
-.cm-status dt{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;line-height:1.4}
+.cm-status dt{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;line-height:1.4}
 .cm-status dd{font-size:18px;font-weight:800;line-height:1.35;font-variant-numeric:tabular-nums}
 
 /* Disagreement: one quantity, two values side by side, each with its source, then the reason they differ. */
@@ -306,12 +305,12 @@ pre code{all:unset}
 .cm-quote p{font-size:28px;font-weight:300;line-height:1.4;letter-spacing:-.01em;text-wrap:pretty}
 .cm-quote p strong{font-weight:800}
 .cm-quote footer{display:flex;flex-direction:column;gap:8px;margin-top:24px;font-size:14px;line-height:1.5}
-.cm-quote footer b{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.cm-quote footer b{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
 
 /* ---------- 15. Figures & charts ---------- */
 /* Anatomy, top to bottom: kind · title · description (measure, unit, scope) · legend + chart (axis titles, labels, annotations) · caption (source, notes). */
 .cm-figure{background:var(--cm-surface);border-radius:var(--cm-r-card);padding:36px 32px 32px;box-shadow:var(--cm-s2);min-width:0}
-.cm-figure__kind{display:block;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;line-height:1.4}
+.cm-figure__kind{display:block;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;line-height:1.4}
 .cm-figure__title{margin-top:12px}
 .cm-figure__title--sm{font-size:20px}
 .cm-figure__desc{font-size:15px;line-height:1.8;margin-top:16px;max-width:var(--cm-read)}
@@ -322,11 +321,11 @@ pre code{all:unset}
 .cm-caption__line{display:block}
 .cm-caption__line+.cm-caption__line{margin-top:4px}
 .cm-slot{aspect-ratio:16/9;background:var(--cm-track);border-radius:var(--cm-r-input);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:16px;margin-top:32px;font-size:14px}
-.cm-slot b{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.cm-slot b{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
 .cm-slot i{font-style:italic}
 .cm-figure img{display:block;width:100%;height:auto;margin-top:32px;border-radius:var(--cm-r-input)}
 .cm-data{margin-top:20px}
-.cm-data>summary{display:inline-flex;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;list-style:none;text-decoration:underline;text-decoration-color:var(--cm-accent);text-decoration-thickness:1.5px;text-underline-offset:4px;padding:2px 0}
+.cm-data>summary{display:inline-flex;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;list-style:none;text-decoration:underline;text-decoration-color:var(--cm-accent);text-decoration-thickness:1.5px;text-underline-offset:4px;padding:2px 0}
 .cm-data>summary::-webkit-details-marker{display:none}
 .cm-data>summary::after{content:"\00a0+"}
 .cm-data[open]>summary::after{content:"\00a0−"}
@@ -335,10 +334,10 @@ pre code{all:unset}
 /* ---------- 16. Tables ---------- */
 /* Columns are separated by 16px gutters, so every rule breaks between columns. */
 .cm-table-title{display:flex;flex-direction:column;gap:12px;margin-bottom:20px;font-size:18px;font-weight:700;line-height:1.35}
-.cm-table-title__kind{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;line-height:1.4}
+.cm-table-title__kind{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;line-height:1.4}
 .cm-table-wrap{background:var(--cm-surface);border-radius:var(--cm-r-tile);box-shadow:var(--cm-s2);padding:8px 16px 16px;overflow-x:auto}
 .cm-table{width:100%;border-collapse:separate;border-spacing:16px 0;font-size:14.5px;line-height:1.5;font-variant-numeric:tabular-nums lining-nums}
-.cm-table th{text-align:left;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;padding:20px 0 12px;border-bottom:1.5px solid var(--cm-ink);white-space:nowrap;vertical-align:bottom}
+.cm-table th{text-align:left;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;padding:20px 0 12px;border-bottom:1.5px solid var(--cm-ink);white-space:nowrap;vertical-align:bottom}
 .cm-table td{position:relative;padding:16px 0;border-bottom:1px solid var(--cm-hairline);vertical-align:baseline;font-weight:400}
 .cm-table tbody tr:last-child td{border-bottom:0}
 .cm-table .num{text-align:right}
@@ -363,8 +362,8 @@ pre code{all:unset}
 .cm-table th button{font:inherit;letter-spacing:inherit;text-transform:inherit;display:inline-flex;align-items:center;gap:6px;border-radius:var(--cm-r-chip);padding:2px 4px;margin:-2px -4px}
 .cm-table th button:hover{background:var(--cm-accent-hover)}
 .cm-table th button::after{content:"↕";font-weight:400}
-.cm-table th[aria-sort="ascending"] button::after{content:"▲";font-size:10px}
-.cm-table th[aria-sort="descending"] button::after{content:"▼";font-size:10px}
+.cm-table th[aria-sort="ascending"] button::after{content:"▲";font-size:11px}
+.cm-table th[aria-sort="descending"] button::after{content:"▼";font-size:11px}
 .cm-table th.num button{flex-direction:row-reverse}
 .cm-cellbar{display:flex;align-items:center;gap:10px;justify-content:flex-end}
 .cm-cellbar__track{flex:1;min-width:56px;max-width:120px;height:6px;background:var(--cm-track);border-radius:var(--cm-r-pill);overflow:hidden}
@@ -397,7 +396,7 @@ pre code{all:unset}
 .cm-process{--steps:4;list-style:none;padding:0;display:grid;grid-template-columns:repeat(var(--steps),minmax(0,1fr));gap:32px}
 .cm-step{position:relative;display:flex;flex-direction:column;gap:12px;background:var(--cm-surface);border-radius:var(--cm-r-tile);padding:22px 20px;box-shadow:var(--cm-s2);min-width:0}
 .cm-step:not(:last-child)::after{content:"→";position:absolute;right:-24px;top:50%;transform:translateY(-50%);font-size:16px;font-weight:800;line-height:1}
-.cm-step__n{font-size:10px;font-weight:800;letter-spacing:.08em;font-variant-numeric:tabular-nums}
+.cm-step__n{font-size:11px;font-weight:800;letter-spacing:.06em;font-variant-numeric:tabular-nums}
 .cm-step__title{font-size:18px;font-weight:700;line-height:1.3}
 .cm-step__body{font-size:14.5px;line-height:1.7}
 .cm-step .cm-chip{align-self:flex-start;margin-top:6px}
@@ -434,8 +433,8 @@ pre code{all:unset}
 .cm-diagram__experience{fill:none;stroke:var(--cm-accent);stroke-width:2;stroke-linejoin:round}
 .cm-diagram__node{position:absolute;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-width:96px;max-width:168px;padding:12px 16px;text-align:center;background:var(--cm-surface);border:1px solid var(--cm-field);border-radius:var(--cm-r-tile)}
 .cm-diagram__name{font-size:15px;font-weight:700;line-height:1.35;text-wrap:balance}
-.cm-diagram__detail{font-size:13px;font-weight:400;line-height:1.45;text-wrap:balance}
-.cm-diagram__node .cm-chip{margin-top:8px}
+.cm-diagram__detail{font-size:max(13px,calc(11px * var(--cm-dg-k,1)));font-weight:400;line-height:1.45;text-wrap:balance}
+.cm-diagram__node .cm-chip{margin-top:8px;max-width:none;white-space:nowrap;font-size:calc(11px * var(--cm-dg-k,1));height:calc(20px * var(--cm-dg-k,1));padding:0 calc(8px * var(--cm-dg-k,1))}
 .cm-diagram__node--terminal{min-width:0;max-width:224px;padding:10px 22px;border-radius:var(--cm-r-pill)}
 .cm-diagram__node--store{border-width:2px 0;border-color:var(--cm-ink);border-radius:2px}
 .cm-diagram__node--external{border:2px solid var(--cm-ink);border-radius:var(--cm-r-chip)}
@@ -443,7 +442,7 @@ pre code{all:unset}
 .cm-diagram__node--decision::before{content:"";position:absolute;inset:14.645%;background:var(--cm-surface);border:1.5px solid var(--cm-ink);border-radius:var(--cm-r-input);transform:rotate(45deg)}
 .cm-diagram__node--decision .cm-diagram__name{position:relative}
 .cm-diagram__node.cm-emph{border:1.5px solid var(--cm-ink);box-shadow:var(--cm-l1e)}
-.cm-diagram__edge-label,.cm-diagram__lane,.cm-diagram__boundary-label,.cm-diagram__phase,.cm-diagram__level{position:absolute;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;line-height:1.4}
+.cm-diagram__edge-label,.cm-diagram__lane,.cm-diagram__boundary-label,.cm-diagram__phase,.cm-diagram__level{position:absolute;font-size:calc(11px * var(--cm-dg-k,1));font-weight:800;letter-spacing:.06em;text-transform:uppercase;line-height:1.4}
 .cm-diagram__edge-label{white-space:nowrap;background:var(--cm-bg);border-radius:2px}
 .cm-diagram__lane{max-width:112px}
 .cm-diagram__boundary{position:absolute;border:1.5px solid var(--cm-field);border-radius:var(--cm-r-card)}
@@ -451,10 +450,10 @@ pre code{all:unset}
 .cm-diagram__phase{padding:8px 12px;text-align:center;text-wrap:balance;background:var(--cm-track);border-radius:var(--cm-r-input)}
 .cm-diagram__level{white-space:nowrap}
 .cm-diagram__layer{position:absolute;background:var(--cm-track);border-radius:var(--cm-r-card)}
-/* print: cm-report.js sets the modifier while it lays a diagram out for the printed column */
-.cm-diagram--print .cm-diagram__node{max-width:120px}
-.cm-diagram--print .cm-diagram__node--terminal{max-width:192px;padding:10px 16px}
-.cm-diagram--print .cm-diagram__node--decision{max-width:none;padding:0}
+/* narrow: cm-report.js sets the modifier while it lays a diagram out for the printed column, or for a box too narrow for the screen layout */
+.cm-diagram--narrow .cm-diagram__node{max-width:120px}
+.cm-diagram--narrow .cm-diagram__node--terminal{max-width:192px;padding:10px 16px}
+.cm-diagram--narrow .cm-diagram__node--decision{max-width:none;padding:0}
 /* state diagram: the start is a filled dot and an end a ringed dot, each in a cell of its own */
 .cm-diagram__node--initial,.cm-diagram__node--final{min-width:0;padding:0;border-radius:var(--cm-r-pill)}
 .cm-diagram__node--initial{width:16px;height:16px;background:var(--cm-ink);border:0}
@@ -473,9 +472,9 @@ pre code{all:unset}
 .cm-diagram__node--entity{align-items:stretch;justify-content:flex-start;gap:0;max-width:none;padding:0;text-align:left;white-space:nowrap}
 .cm-diagram__node--entity>.cm-diagram__name{padding:10px 16px;border-bottom:1px solid var(--cm-field)}
 .cm-diagram__attrs{display:flex;flex-direction:column;padding:6px 0}
-.cm-diagram__attr{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:3px 16px;font-size:13px;line-height:1.45}
-.cm-diagram__attr .cm-tag{flex:none}
-.cm-diagram--print .cm-diagram__node--entity{max-width:none}
+.cm-diagram__attr{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:3px 16px;font-size:max(13px,calc(11px * var(--cm-dg-k,1)));line-height:1.45}
+.cm-diagram__attr .cm-tag{flex:none;font-size:calc(11px * var(--cm-dg-k,1));height:calc(20px * var(--cm-dg-k,1));padding:0 calc(6px * var(--cm-dg-k,1))}
+.cm-diagram--narrow .cm-diagram__node--entity{max-width:none}
 .cm-data>.cm-olist,.cm-data>.cm-list{margin-top:16px}
 
 /* ---------- 18b. Structured components ---------- */
@@ -486,7 +485,7 @@ pre code{all:unset}
 /* facts: one to five short facts about one item, key over value, as the status block sets them */
 .cm-facts{display:flex;flex-wrap:wrap;gap:24px 56px}
 .cm-facts>div{display:flex;flex-direction:column;gap:8px;min-width:0}
-.cm-facts dt{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;line-height:1.4}
+.cm-facts dt{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;line-height:1.4}
 .cm-facts dd{font-size:15px;line-height:1.6}
 /* workflow stages: the procedure's numbered list (section 19); the facts close each stage */
 .cm-stages>li>.cm-facts{margin-top:8px}
@@ -566,7 +565,7 @@ ol.cm-parts.cm-parts--matrix{--n:2}
 .cm-collapse>summary::-webkit-details-marker{display:none}
 .cm-collapse>summary .cm-label{display:block;margin-bottom:12px}
 .cm-collapse>summary h3{font-size:22px;font-weight:800;line-height:1.3;letter-spacing:-.01em}
-.cm-collapse>summary::after{content:"Open +";font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.cm-collapse>summary::after{content:"Open +";font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
 .cm-collapse[open]>summary::after{content:"Close −"}
 .cm-collapse__body{display:flex;flex-direction:column;gap:32px;padding:8px 0 36px}
 
@@ -614,6 +613,9 @@ ol.cm-parts.cm-parts--matrix{--n:2}
 }
 @media (max-width:640px){
   :root{--cm-bleed:20px}
+  /* a chip, tag or delta wider than its line wraps its words inside the outline */
+  .cm-chip,.cm-tag,.cm-delta{height:auto;min-height:20px;max-width:100%;white-space:normal;line-height:1.2;padding-block:1.5px;text-align:center}
+  .cm-tag{min-height:20px}
   .cm-shell{padding:0 0 80px}
   .cm-topbar__in{padding:12px 20px}
   .cm-bleed{margin-inline:0}
@@ -670,6 +672,9 @@ ol.cm-parts.cm-parts--matrix{--n:2}
   .cm-featured{box-shadow:5px 5px 0 var(--cm-accent)!important}
   .cm-card,.cm-figure,.cm-summary,.cm-status,.cm-code pre{padding:24px}
   .cm-table-wrap{padding:4px 8px 12px;overflow:visible}
+  /* nothing scrolls on paper: a table holds to the printed column with heads that wrap and 12px between columns */
+  .cm-table{border-spacing:12px 0}
+  .cm-table th{white-space:normal}
   .cm-collapse{padding:0 24px}
   .cm-grid--2.cm-print-stack,.cm-grid--wide.cm-print-stack{grid-template-columns:minmax(0,1fr)}
   .cm-figure,.cm-kpi,.cm-callout,.cm-def,.cm-qa,.cm-props>dl,.cm-step,.cm-quote,.cm-summary,.cm-code,.cm-timeline>li,.cm-table tr,.cm-status,.cm-disagree,.cm-sources>li,.cm-changes>li,.cm-versions>li,.cm-limits>li,.cm-procedure>li,.cm-related>li,.cm-stages>li,.cm-parts>li,.cm-scope,.cm-facts,.cm-criteria>li,.cm-bands>li,.cm-eval__result{break-inside:avoid}

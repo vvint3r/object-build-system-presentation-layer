@@ -77,8 +77,8 @@ export function install(cfg) {
     .filter(t => t.textContent.trim() && H.shown(t))
     .map(t => ({ el: t, cs: getComputedStyle(t), where: `${H.path(t.closest('.cm-chart, [data-spark]'))} text "${t.textContent.trim().slice(0, 24)}"` }));
 
-  // The label tier: 10px, weight 800, capitals, +0.08em; chips are the same at 9px. SPEC.md
-  // section 4 names most of it; records 056 and 058 add the rest. The collapse toggle's "Open +" is
+  // The label tier: 11px, weight 800, capitals, +0.06em; chips are labels in an outline. SPEC.md
+  // section 4 names most of it; records 056, 058 and 086 add the rest. The collapse toggle's "Open +" is
   // a label drawn by ::after.
   H.LABEL = '.cm-label, .cm-crumbs, .cm-mast__meta dt, .cm-byline dt, .cm-kpi__label, .cm-callout__label, '
     + '.cm-def__label, .cm-qa__label, .cm-props dt, .cm-status dt, .cm-facts dt, .cm-quote footer b, .cm-figure__kind, .cm-slot b, '
@@ -105,6 +105,20 @@ export function install(cfg) {
   H.chromatic = c => { const [r, g, b, a] = H.rgba(c); return a > 0 && Math.max(r, g, b) - Math.min(r, g, b) > 12; };
 
   H.family = cs => (cs.fontFamily.split(',')[0] || '').trim().replace(/^["']|["']$/g, '');
+
+  // How much the transforms on an element and its ancestors scale what it draws: a diagram scaled to
+  // fit the printed column draws its text smaller than its font size.
+  const scales = new Map();
+  H.scale = el => {
+    if (!el || el.nodeType !== 1) return 1;
+    if (scales.has(el)) return scales.get(el);
+    const t = getComputedStyle(el).transform;
+    let k = H.scale(el.parentElement);
+    if (t && t !== 'none') { const m = new DOMMatrix(t); k *= Math.hypot(m.a, m.b); }
+    scales.set(el, k);
+    return k;
+  };
+  H.rescale = () => scales.clear();
   H.px = v => parseFloat(v) || 0;
 
   // Inline declarations as [property, value] pairs.

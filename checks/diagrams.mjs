@@ -131,6 +131,59 @@ export default [
   },
 
   {
+    // Where a process flow ends (record 086). Every step and decision has an edge out, so no branch
+    // stops at an action or a question; a branch that ends before the last step ends at a terminal
+    // of its own, named for the outcome. A terminal starts a flow or ends one, so it has edges in or
+    // edges out, not both. A journey map, whose steps follow in column order, has no edges; a system
+    // and data flow may end at a data store or an external entity.
+    name: 'diagram-ends', level: 'fail', source: 'SPEC §8.20; record 086', once: true,
+    inPage: ({ check }) => {
+      const H = window.__cm, out = [];
+      for (const el of H.source().querySelectorAll('.cm-diagram[data-diagram="flow"]')) {
+        if (H.exempt(el, check)) continue;
+        let d;
+        try { d = JSON.parse(el.querySelector('script[type="application/json"]').textContent); } catch (e) { continue; }
+        if (Array.isArray(d.experience)) continue;
+        const where = H.path(el), nodes = (Array.isArray(d.nodes) ? d.nodes : []).filter(n => n && n.id != null);
+        const edges = (Array.isArray(d.edges) ? d.edges : []).filter(e => e && e.from !== e.to);
+        for (const n of nodes) {
+          const outs = edges.filter(e => e.from === n.id).length, ins = edges.filter(e => e.to === n.id).length;
+          if ((n.type === 'step' || n.type === 'decision') && !outs) out.push({ where, value: `${n.type} "${n.id}" has no edge out (a branch ends at a terminal)` });
+          if (n.type === 'terminal' && outs && ins) out.push({ where, value: `terminal "${n.id}" has edges in and out (a terminal starts or ends the flow)` });
+        }
+      }
+      return out;
+    },
+  },
+
+  {
+    // The reading direction (record 086): col counts across from the left and row down from the
+    // top, whatever the direction. A flow that reads right advances by columns, and one that reads
+    // down, by rows. Of the edges that move along the reading direction, more move forward than
+    // back: a flow with no forward edge has its columns and rows swapped, and a process that turns
+    // back as often as it advances is a state diagram.
+    name: 'diagram-direction', level: 'fail', source: 'SPEC §8.20; record 086', once: true,
+    inPage: ({ check }) => {
+      const H = window.__cm, out = [];
+      for (const el of H.source().querySelectorAll('.cm-diagram[data-diagram="flow"]')) {
+        if (H.exempt(el, check)) continue;
+        let d;
+        try { d = JSON.parse(el.querySelector('script[type="application/json"]').textContent); } catch (e) { continue; }
+        const nodes = new Map((Array.isArray(d.nodes) ? d.nodes : []).filter(n => n && n.id != null).map(n => [n.id, n]));
+        const edges = (Array.isArray(d.edges) ? d.edges : []).filter(e => e && nodes.has(e.from) && nodes.has(e.to) && e.from !== e.to);
+        const down = d.direction === 'down', along = down ? 'row' : 'col';
+        const step = e => (nodes.get(e.to)[along] || 1) - (nodes.get(e.from)[along] || 1);
+        const fwd = edges.filter(e => step(e) > 0).length, back = edges.filter(e => step(e) < 0).length;
+        if (edges.length && fwd <= back) {
+          const unit = down ? 'row' : 'column', way = down ? 'down' : 'right';
+          out.push({ where: H.path(el), value: `reads ${way}, but ${fwd} edge${fwd === 1 ? '' : 's'} move${fwd === 1 ? 's' : ''} forward a ${unit} and ${back} move${back === 1 ? 's' : ''} back (col counts across from the left and row down from the top; ${down ? 'a flow that reads right sets "direction": "right" or leaves it out' : 'a flow that reads down sets "direction": "down"'}; a process that turns back as often as it advances is a state diagram)` });
+        }
+      }
+      return out;
+    },
+  },
+
+  {
     // The flow mode's capacity: 24 nodes, 5 columns (4 with lanes, whose names take a column's
     // width), 5 rows, 5 lanes, 2 boundaries and 12 edge labels in one diagram, and one emphasised
     // node. A diagram past a ceiling splits into an overview and details.
@@ -242,9 +295,12 @@ export default [
     // As drawn in this mode: no node overlaps another; no line passes within 8px of a node it does
     // not join; every edge, lane and boundary label, and any other label a mode sets beside an edge,
     // stands 8px clear of every node, edge, divider, lifeline and activation bar, and of every other
-    // label (a boundary label sits on its own line); nothing lies outside the canvas; and in print
-    // the diagram fits the printed column (632px) and a page (720px tall) at 80% or more.
-    name: 'diagram-layout', level: 'fail', source: 'SPEC §8.20; §12',
+    // label (a boundary label sits on its own line); nothing lies outside the canvas; in print the
+    // diagram fits the printed column (638px) and a page (720px tall) at 80% or more; and at the
+    // desktop window it fits its box, narrowing as print does when the screen layout is too wide, so
+    // only a phone or a narrow window scrolls it (record 086). The phone pass checks the narrow
+    // layout a phone gets.
+    name: 'diagram-layout', level: 'fail', source: 'SPEC §8.20; §12; record 086', phone: true,
     inPage: ({ check, mode }) => {
       const H = window.__cm, out = [], CLEAR = 7.5;
       for (const el of document.querySelectorAll('.cm-diagram')) {
@@ -296,9 +352,10 @@ export default [
         // the box shows the whole height; sideways it scrolls on screen and fits the column in print
         const er = el.getBoundingClientRect();
         if (c.bottom > er.bottom + 0.5 && getComputedStyle(el).overflowY !== 'visible') bad(`clipped: ${Math.round(c.bottom - er.bottom)}px of the diagram below its box`);
+        if ((mode === 'light' || mode === 'dark') && el.scrollWidth > el.clientWidth + 1) bad(`${el.scrollWidth}px wide in a ${el.clientWidth}px box at the desktop window: it scrolls`);
         if (mode === 'print') {
           if (k < 0.8 - 1e-6) bad(`printed at ${Math.round(k * 100)}% (at least 80%)`);
-          if (c.width > 632.5) bad(`${Math.round(c.width)}px wide in print (the printed column is 632px)`);
+          if (c.width > 638.5) bad(`${Math.round(c.width)}px wide in print (the printed column is 638px)`);
           if (c.height > 720.5) bad(`${Math.round(c.height)}px tall in print (720px fits a page with the figure's title and caption)`);
         }
       }

@@ -148,9 +148,9 @@
               "yAxis": {"type": "value", "name": "Tickets per week", "min": 3000, "max": 4500, "interval": 500},
               "series": [
                 {"name": "Q2 2026", "type": "line", "data": [3320,3390,3410,3350,3470,3440,3510,3400,3460,3520,3480,3530,3590],
-                 "lineStyle": {"color": "$context"}, "itemStyle": {"color": "$context"}, "endLabel": {"show": true, "formatter": "Q2"}},
+                 "lineStyle": {"color": "$context"}, "itemStyle": {"color": "$context"}, "endLabel": {"show": true, "formatter": "{a}"}},
                 {"name": "Q3 2026", "type": "line", "data": [3410,3520,3480,3655,3590,3720,4310,4120,3790,3700,3640,3610,3665],
-                 "endLabel": {"show": true, "formatter": "Q3"},
+                 "endLabel": {"show": true, "formatter": "{a}"},
                  "markLine": {"data": [{"xAxis": "Wk 7", "label": {"formatter": "Billing v4 launch", "position": "end"}}]}}
               ]
             }
@@ -217,16 +217,15 @@
             <span class="cm-figure__kind">Figure 3</span>
             <h3 class="cm-figure__title cm-figure__title--sm">SLA attainment by channel</h3>
             <p class="cm-figure__desc">Share of tickets resolved inside the SLA window.</p>
-            <div class="cm-chart" style="--h:300px" data-chart role="img" aria-label="Horizontal bar chart. Chat 96.1%, phone 94.8%, social 90.4%, email 88.3%, web form 86.9%. Only chat clears the 95% target.">
+            <div class="cm-chart" style="--h:300px" data-chart role="img" aria-label="Bullet chart. Chat 96.1%, phone 94.8%, social 90.4%, email 88.3% and web form 86.9%, against a 95% target. Only chat clears it.">
               <script type="application/json">
               {
-                "grid": {"right": 48},
                 "tooltip": {"axisPointer": {"type": "shadow"}},
                 "xAxis": {"type": "value", "min": 0, "max": 100, "interval": 25, "axisLabel": {"formatter": "{value}%"}},
                 "yAxis": {"type": "category", "data": ["Web form","Email","Social","Phone","Chat"]},
                 "series": [{"name": "Within SLA", "type": "bar", "data": [86.9,88.3,90.4,94.8,96.1],
-                  "label": {"show": true, "position": "right", "formatter": "{c}%"},
-                  "markLine": {"data": [{"xAxis": 95, "label": {"formatter": "Target 95%", "position": "end"}}]}}]
+                  "label": {"formatter": "{c}%"},
+                  "cm": {"chart": "bullet", "target": 95}}]
               }
               </script>
             </div>

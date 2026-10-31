@@ -709,18 +709,17 @@
             <ul class="cm-list" style="max-width:var(--cm-read)">
               <li data-comment-anchor="2eb9697b06-li">Each chart carries one message: the figure title states what it shows, and the prose above states the finding.</li>
               <li data-comment-anchor="e607be6d95-li">Color follows role: the focal series takes <code>$c1</code>, the comparison <code>$c2</code> or <code>$context</code>. More than four series become small multiples or a table.</li>
-              <li>Two or more series get a legend, added automatically at the top left in series order. A line chart whose every line carries an end label naming it has none, and neither has a slope chart.</li>
+              <li>Two or more series get a legend, added at the top left in series order. A slope chart, or a line chart whose end labels name every line, has none.</li>
               <li>Axis titles carry units: the value axis is named (“Tickets per week”) unless every tick already shows the unit (“90%”).</li>
               <li>Bars and areas start at zero; lines may zoom.</li>
               <li>No chart uses 3D, gradient fills or dual y-axes. A pie or donut shows only a part of a whole, in four slices or fewer.</li>
               <li data-comment-anchor="ea32da12e3-li">Every chart has an <code>aria-label</code> stating its type and finding, and a source line.</li>
-              <li>Bullet, slope, strip, box and interval charts are declared with a <code>"cm"</code> key in the JSON; the kit draws them from the current tokens.</li>
             </ul>
           </div>
         </div>
 
         <div class="g-comp">
-          <header><span class="cm-label">6.0</span><h3 class="cm-h3">Recipes by question</h3><p>A chart answers the question a reader brings to it. Each table names the charts for one question: when each fits, the data it needs, the annotation it usually wants and the mistake to avoid. No question makes a forbidden form right: 3D, gradient fills, dual y-axes, radar, gauge, word clouds, two charts in one figure, or bars and areas that do not start at zero.</p></header>
+          <header><span class="cm-label">6.0</span><h3 class="cm-h3">Recipes by question</h3><p>A chart answers the question a reader brings to it. Each table names the charts for one question, with when each fits, its data, its annotation and the usual mistake. No question justifies 3D, gradient fills, dual y-axes, radar, gauge, word clouds, two charts in one figure, or bars and areas not starting at zero.</p></header>
           <div>
             <div class="cm-table-title" id="tbl-comparison"><span class="cm-table-title__kind">Table 6.1</span>Comparison of categories</div>
             <div class="cm-table-wrap cm-bleed">
@@ -1001,7 +1000,7 @@
         </div>
 
         <div class="g-comp">
-          <header><span class="cm-label">6.9</span><h3 class="cm-h3">Bullet: each measure against its target</h3><p>A horizontal <code>bar</code> series with <code>"cm": {"chart": "bullet"}</code>. The kit draws a grey track per bar, the bar on it, the target as an ink mark across it and each value at the end of its row. Optional bands grade the scale in up to three grey steps, named above the top row.</p></header>
+          <header><span class="cm-label">6.9</span><h3 class="cm-h3">Bullet: each measure against its target</h3><p>A horizontal <code>bar</code> series with <code>"cm": {"chart": "bullet"}</code>. The kit draws a grey track per bar, the target as an ink mark across it, and each value at the row's end. Optional bands grade the scale in up to three grey steps, named above the top row.</p></header>
           <div data-demo>
 <figure class="cm-figure cm-bleed">
   <span class="cm-figure__kind">Figure 8</span>
@@ -1130,7 +1129,7 @@
         </div>
 
         <div class="g-comp">
-          <header><span class="cm-label">6.14</span><h3 class="cm-h3">Error bars: estimates per category</h3><p>A <code>scatter</code> or <code>bar</code> series with <code>"cm": {"chart": "interval"}</code>. The kit draws an ink error bar on each point, names the interval in the legend, and moves a bar's value label past its error bar. Points read better than bars when only the estimate matters.</p></header>
+          <header><span class="cm-label">6.14</span><h3 class="cm-h3">Error bars: estimates per category</h3><p>A <code>scatter</code> or <code>bar</code> series with <code>"cm": {"chart": "interval"}</code>. The kit draws an ink error bar on each point, names the interval in the legend and moves a bar's label past it. Points read better than bars when only the estimate matters.</p></header>
           <div data-demo>
 <figure class="cm-figure cm-bleed">
   <span class="cm-figure__kind">Figure 13</span>
@@ -1140,8 +1139,8 @@
     <script type="application/json">
     {
       "xAxis": {"type": "category", "name": "Channel", "data": ["Chat","Phone","Social","Email","Web form"]},
-      "yAxis": {"type": "value", "name": "CSAT, %", "min": 78, "max": 94},
-      "series": [{"name": "CSAT", "type": "scatter", "data": [91.2, 88.4, 86.9, 84.0, 82.7],
+      "yAxis": {"type": "value", "name": "CSAT, %", "min": 78, "max": 94, "interval": 4},
+      "series": [{"name": "CSAT", "type": "scatter", "data": [91.2, 88.4, 86.9, 84.3, 82.7],
         "label": {"show": true, "position": "right", "formatter": "{c}%"},
         "cm": {"chart": "interval", "name": "95% confidence interval",
                "low": [90.1, 86.0, 83.2, 82.9, 80.1], "high": [92.3, 90.8, 90.6, 85.1, 85.3]}}]
@@ -1333,7 +1332,7 @@
             <li>A report's summary has a lede, 2 to 4 KPIs with comparisons and 3 to 5 findings. Other kinds hold their parts in order.</li>
             <li>A required block left out carries its omission comment.</li>
             <li>Every number in the summary appears again, with its source, in the body.</li>
-            <li>Every figure has a kind, title, description, legend when there are 2+ series (or end labels naming every line), axis titles with units, <code>aria-label</code> and source line.</li>
+            <li>Every figure has a kind, title, description, legend or end labels (2+ series), axis titles with units, <code>aria-label</code> and source line.</li>
             <li>Every table has a kind and title, <code>.num</code> on numeric columns, and a source caption.</li>
             <li>A report has one summary box and one recommendations card; guides and references have neither. At most one solid verdict chip per table.</li>
           </ol>

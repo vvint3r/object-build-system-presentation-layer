@@ -123,6 +123,45 @@ export default [
   },
 
   {
+    // A value label writes its number with thousands separators and the chart's precision: the most
+    // decimal places any value in the chart's series carries (94.0 beside 96.1 reads "94.0"). Read
+    // on the labels the chart drew in this mode: a series' own labels on bars and lines, both ends
+    // of a slope, and a bullet's values.
+    name: 'value-labels', level: 'fail', source: 'SPEC §9',
+    inPage: ({ check }) => {
+      const H = window.__cm, out = [];
+      const val = d => (d && typeof d === 'object' && !Array.isArray(d) ? d.value : d);
+      const isNum = v => typeof v === 'number' && Number.isFinite(v);
+      const places = v => { const m = String(v).match(/\.(\d+)$/); return m ? m[1].length : 0; };
+      const commas = x => x.replace(/^(\d+)/, i => i.replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+      for (const c of H.charts()) {
+        if (!c.json || !c.live || H.exempt(c.src, check)) continue;
+        const series = H.list(c.json.series).filter(Boolean);
+        let dp = 0;
+        for (const s of series) for (const d of H.list(s.data)) if (isNum(val(d))) dp = Math.max(dp, places(val(d)));
+        dp = Math.min(dp, 4);
+        const tokens = new Set([...c.live.querySelectorAll('svg text')].flatMap(t => t.textContent.match(/\d[\d,]*(\.\d+)?/g) || []));
+        const slope = c.json.cm && c.json.cm.chart === 'slope';
+        series.forEach((s, i) => {
+          const bullet = s.cm && s.cm.chart === 'bullet';
+          const shown = slope || bullet || (['bar', 'line'].includes(s.type) && s.label && s.label.show
+            && (s.label.formatter == null || (typeof s.label.formatter === 'string' && s.label.formatter.includes('{c}'))));
+          if (!shown) return;
+          H.list(s.data).forEach((d, j) => {
+            const v = val(d);
+            if (!isNum(v)) return;
+            const own = d && typeof d === 'object' && d.label;
+            if (!slope && !bullet && own && (own.show === false || (typeof own.formatter === 'string' && !own.formatter.includes('{c}')))) return;
+            const want = commas(Math.abs(v).toFixed(dp));
+            if (!tokens.has(want)) out.push({ where: c.where, value: `series[${i}] "${s.name || ''}" value ${v} has no label reading ${want}` });
+          });
+        });
+      }
+      return out;
+    },
+  },
+
+  {
     // A strip or box chart states its count: each category label, as drawn in this mode, carries
     // "n = " and the number of values in that category.
     name: 'distribution-count', level: 'fail', source: 'SPEC §9',

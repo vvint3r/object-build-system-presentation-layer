@@ -101,9 +101,9 @@ export default [
   },
 
   {
-    // A legend for two or more series: "legend": false only suppresses it on a single series. A
-    // line chart whose every line carries an end label naming it ("{a}" or the series name), and a
-    // slope, have none: their labels name the lines.
+    // A legend for two or more series; one series has none, so the JSON never needs to turn it off.
+    // A line chart whose every line carries an end label naming it ("{a}" or the series name), and a
+    // slope, have none: their labels name the lines. A legend turned off on 2+ other series fails.
     name: 'chart-legend', level: 'fail', source: 'SPEC §9; §14 item 5', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, out = [];

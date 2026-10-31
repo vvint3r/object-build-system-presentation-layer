@@ -96,7 +96,8 @@ Semantic meaning is fixed: ok = healthy/validated, warn = attention/at risk, cri
 | T5 | `.cm-t5`, `.cm-timeline__title`, `.cm-step__title`, `.cm-findings__claim`, terms | 16–18 / 700–800 | none |
 | Body | default | 16 / 400 / 1.9 | Reading column, max 70ch |
 | Small | `.cm-small`, text inside surfaces | 15 / 400 / 1.8 | — |
-| Label | `.cm-label`, kinds, metadata, status and fact keys, callout, definition and question labels, table heads, contents rail and process step numbers; `.cm-tag`, `.cm-delta` | 10 / 800 / caps, +0.08em | — |
+| Label | `.cm-label`, kinds, metadata, status and fact keys, callout, definition and question labels, table heads, contents rail and process step numbers; `.cm-tag` | 10 / 800 / caps, +0.08em | — |
+| Delta | `.cm-delta` | 10 / 800, +0.08em, in the case written, so units read as written (`−50s`, `+2.1 pp`) | — |
 | Chip | `.cm-chip`, text centred in the 20px pill | 9 / 800 / caps, +0.08em, line height 10px | — |
 | Role tag | property-sheet `<sup>` | 10 / 700, sentence case | — |
 | Meta | `.cm-meta` | 13 / 400 | Dates, sizes, provenance |
@@ -422,7 +423,8 @@ Verbatim only. ≤ 1 per section. Pair with a figure in `.cm-grid.cm-grid--wide.
 - Real `<table>` with `<thead>`; `<tfoot>` for a totals or calculated row (the kit adds space and a dotted rule above it).
 - The title sits above the table; the caption under it holds the source line, then any flags or note line, as for a figure (§8.10).
 - Columns are separated by 16px gutters automatically; never add borders.
-- Numeric columns: `.num` on `th` and `td`; consistent decimals; thousands separators; `−` (U+2212) for negatives; `—` for not applicable.
+- Numeric columns: `.num` on `th` and `td`; consistent decimals; thousands separators; `−` (U+2212) for negatives.
+- A cell whose value does not apply reads `n/a`, in `.soft`. A dash never stands for a value.
 - `.strong` for the row key and the column the reader should compare; `.soft` for n/a values; `.wrap` for prose cells.
 - **Row flags:** `data-flag="ok|warn|crit|info|note|accent"` on a `<tr>` draws a 4px status bar in the left gutter. Use it instead of colored chips in status columns; keep the status word in the row and explain the colors in a caption line that opens "Flags:".
 - `data-sortable` when the table has ≥ 5 rows. `data-value` holds the raw number whenever the cell text is formatted. Mark the initial sort with `aria-sort`. Status columns get `data-nosort`.
@@ -1214,7 +1216,7 @@ The kit has no search, faceted browse or version selector, since each needs a se
 | Kind and number | `.cm-figure__kind` | “Figure N”, sequential across the report |
 | Title | `.cm-figure__title` | What is shown, ≤ 10 words |
 | Description | `.cm-figure__desc` | Measure, unit, scope and period |
-| Legend | automatic | Shown for 2+ series, top left, series order. `"legend": false` only to suppress it on a single series. A line chart whose every line carries an end label naming it (`"formatter": "{a}"` or the series name) has no legend, and neither has a slope chart: the labels name the lines where they are. Value labels, and end labels that do not name their line, sit alongside the legend |
+| Legend | automatic | Shown for 2+ series, top left, series order; one series has none. A line chart whose every line carries an end label naming it (`"formatter": "{a}"` or the series name) has no legend, and neither has a slope chart: the labels name the lines where they are. Value labels, and end labels that do not name their line, sit alongside the legend. The JSON sets no `legend` |
 | Axis titles | `xAxis.name`, `yAxis.name` | Quantity and unit (“Tickets per week”). Required on the value axis unless every tick shows the unit (“90%”). Scatter names both axes. The kit places a y-axis title above the plot and an x-axis title under it, on a value or a category axis, and makes room for each |
 | Data labels | `label`, `endLabel` | Values the reader should quote; every bar when there are ≤ 12 |
 | Annotations | `markLine`, `markArea` | Target, event or period, labelled in 1–3 words |
@@ -1231,7 +1233,7 @@ The kit has no search, faceted browse or version selector, since each needs a se
 - Focus on one mark: in a bar, line or area series, the picked-out mark keeps the default colour and the rest of the series takes `$context`.
 - Scatter points and other point marks keep their series colour, and the picked-out point takes `$c1` and a label. Grey points would sit below 3:1, each needing a value label.
 - Semantic solids (`$ok`, `$warn`, `$crit`) only when the series *is* a status, with words in the legend.
-- Slope lines are ink. Lines picked out take `"color": "$c1"` (up to four, `$c1` to `$c4`), and the rest turn `$context`; the labels at both ends carry every value.
+- Slope lines are ink. Lines picked out take `"color": "$c1"` (up to four, `$c1` to `$c4`). The kit then draws every other line in `$context`, so no colour is set for them. The labels at both ends carry every value.
 - Bullet bands are grey steps, darkest first: `$field`, `$hairline`, `$track`. An interval band takes its line's colour at the area opacity, 0.18.
 
 **Recipes by question.** Pick the chart by the question the reader brings to it. Each recipe gives the chart, when it fits, the data it needs, the annotation it usually wants and the mistake to avoid. Types marked `cm` are kit declarations (below).
@@ -1250,7 +1252,7 @@ The kit has no search, faceted browse or version selector, since each needs a se
 | --- | --- | --- | --- | --- |
 | `line` | A measure over many periods | One value per period; category x-axis with `"boundaryGap": false`; y may start above zero | Events as vertical `markLine`; end labels naming each line | More than four coloured lines |
 | Area: `line` + `"areaStyle": {}` | One level over time, where the total matters | One series; y starts at zero | A threshold as `markLine` | Two series as areas, which hide each other |
-| Slope: `line` + `cm` | Two points in time per category, where the change matters more than the path | Two values per line; two categories on the x-axis | Labels at both ends, drawn by the kit; lines picked out in `$c1` | Three or more periods, which a line chart shows better |
+| Slope: `line` + `cm` | Two points in time per category, where the change matters more than the path | Two values per line, as numbers; two categories on the x-axis | Labels at both ends, drawn by the kit; lines picked out in `$c1`; a target as a `markLine` whose label gives its value, since a slope has no value axis labels | Three or more periods, which a line chart shows better |
 
 *Distribution: how values spread within each group.*
 
@@ -1288,6 +1290,7 @@ An interval band and a box mark a range, not a level, so the zero rule does not 
 - Event: vertical markLine on the category (`{"xAxis": "Wk 7"}`) with a 1–3 word label.
 - Period band: `"markArea": {"data": [[{"xAxis": "Wk 6"}, {"xAxis": "Wk 8"}]]}`.
 - Direct labels: `"endLabel": {"show": true, "formatter": "{a}"}` names a line at its end (add `"grid": {"right": 64}`, more for long names); when every line carries one, the legend is left out. `"label": {"show": true, "position": "right", "formatter": "{c}%"}` on bars. The kit sets every value label, on a series or on a single point, in ink on the surface colour, and draws a series above its reference lines, so a line never runs through a number. End labels that would touch move apart.
+- Value labels: the kit writes `{c}` with thousands separators and at the chart's precision, the most decimal places any value in its series carries. So `94.0` beside `96.1` reads `94.0`, and `13240` reads `13,240`. The ends of a slope and a bullet's values follow the same rule. Values stay numbers in the JSON, never strings.
 
 **Kit declarations.** Option JSON carries no functions, so four chart types are declared with a `"cm"` key and built by the kit's script at every draw, from the current tokens: theme, print and dark mode work as for any chart. The rest of the JSON stays ordinary ECharts, with its axes, series names, axis titles and annotations, and every rule above applies to it. `chart` names the type.
 

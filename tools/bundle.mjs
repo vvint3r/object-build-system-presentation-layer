@@ -220,7 +220,7 @@ const SAMPLE = path.join(ROOT, 'kit', 'Sample Report - Q3 Support Review.html');
 const TYPE_SELECTORS = {
   T1: '.cm-mast__title', Kicker: '.cm-section__num', T2: '.cm-section__title', T3: '.cm-h3:not(.cm-h3--sm)',
   'T3-sm': '.cm-figure__title--sm, .cm-h3--sm', T4: '.cm-h4', T5: '.cm-t5', Body: '.cm-prose p',
-  Small: '.cm-small', Label: '.cm-label', Chip: '.cm-chip', 'Role-tag': '.cm-props sup', Meta: '.cm-meta', Code: 'code:not(pre code)',
+  Small: '.cm-small', Label: '.cm-label', Delta: '.cm-delta', Chip: '.cm-chip', 'Role-tag': '.cm-props sup', Meta: '.cm-meta', Code: 'code:not(pre code)',
   'Code-block': '.cm-code pre',
 };
 const typeRows = rows(S['4'].body);

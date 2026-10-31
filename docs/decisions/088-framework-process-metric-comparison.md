@@ -13,7 +13,8 @@
 Sections 7.10 to 7.13 of `SPEC.md` hold the four recipes. All four are page types on the reference
 kind: a page declares one with `<meta name="cm-type">` after `cm-id`, keeps every part of §7.4, and
 adds its own parts between Properties and the first of Relationships, Examples and Notes & sources.
-Sections 2 (kit files), 13.1, 14 (item 21) and 15 point at them.
+Sections 2 (kit files), 7.6 (selection table), 13.1, 14 (item 22) and 15 point at them, and the
+agent brief's page types section summarises them.
 
 | Rule | Spec | Check |
 | --- | --- | --- |
@@ -77,7 +78,9 @@ Each check fails a broken copy of its worked example: 19 broken copies, every on
 | The process example names both end states "Ticket closes", with the lane naming the role | The printed diagram then fits the 632px column; the lane already says who closes |
 | New areas Ticket handling and Staffing hold the process and comparison examples | Neither fits Service performance, the only existing area besides Billing |
 | The recipes list parts in tables, with no bold label run into text | The kit's writing rule on run-in labels applies to the spec as to pages |
-| The agent brief, `CLAUDE.md` and the bundle's row text stay as they are | The shared contract gives §7.6 and the bundle's type-aware row text to the core session; the spec's kit-files table lists the four templates, as it lists the report types' |
+| The selection table's and the agent brief's rows for the four types take the recipes' questions and neighbours | The core session wrote the rows before the recipes existed; a reader choosing a type meets the same question in both places |
+| The agent brief summarises the four recipes beside the core types; `CLAUDE.md` and the bundle's row text stay as they are | The brief already lists every type's parts; `CLAUDE.md` names only the kind templates, and the core session owns the bundle text |
+| The Page types row of the adoption backlog reads Covered | All eleven types of the selection table now have a recipe, a template, a check and a worked example |
 
 ## Version
 

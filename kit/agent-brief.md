@@ -305,10 +305,10 @@ document of its kind.
 | Topic | `topic` | Reference | What is this subject, and which documents cover each part? | The index page, which lists a folder and explains nothing |
 | Glossary | `glossary` | Reference | What does each term mean in this set? | A definition block, when five or more terms are shared by several documents |
 | Module | `module` | Guide | How is this skill learnt, and how is the learning checked? | A guide, when the reader must apply a rule unaided |
-| Framework | `framework` | Reference | What parts make up this way of covering a subject? | The framework component, when the whole page is about one framework |
-| Process | `process` | Reference | How does this process run, stage by stage? | A guide, when the page describes how work runs rather than instructs |
-| Metric | `metric` | Reference | What does this measure count, and how is it judged? | The metric detail component, when the whole page is about one measure |
-| Comparison | `comparison` | Reference | How do these options differ on the same criteria? | A reference, when two or more things sit side by side |
+| Framework | `framework` | Reference | How does this framework divide its subject, and how is it applied? | The framework component, when the whole page is about one framework |
+| Process | `process` | Reference | How does this process run, and which role does each stage? | A guide, when the page describes how work runs rather than instructs |
+| Metric | `metric` | Reference | What does this measure count, where does it stand, and how is it worked out? | The metric detail component, when the whole page is about one measure |
+| Comparison | `comparison` | Reference | Which option fits, on stated criteria, and what would change the choice? | A reference, when two to four options sit side by side for a decision |
 | Roadmap | `roadmap` | Report | What has to happen, by whom and by when, to reach one goal? | A plain report, when the subject is planned work toward a dated goal |
 | Case study | `case-study` | Report | What changed after one intervention, and how far does the evidence support it? | A plain report, when one change is judged before and after |
 
@@ -321,6 +321,20 @@ document of its kind.
   Steps titled Lessons, each lesson with an id; an `exercises` section after the lessons, each
   answer in a closed collapsible labelled Answer. A module has no form controls, scores or progress
   tracking.
+- Framework: `rationale`, `parts`, `application` and `limits` after Properties. Parts holds one
+  framework card named as the page is, with both scope lists, Use when and Not for. Application is 3
+  to 7 numbered steps or a method; Limits is 1 to 4 cases, one h3 each.
+- Process: `flow` and `stages` after Properties. Flow holds a flow diagram with a lane for each
+  role; Stages holds one workflow named as the page is, each stage titled as a node of the diagram.
+  Stage measures sit in a status block, and the page carries no procedure.
+- Metric: Properties holds the metric detail, named as the page is, without related metrics. A
+  `status` section follows, with a status block giving the value under the metric's name; an
+  optional `measurement` section comes after it.
+- Comparison: `options`, `criteria`, `comparison`, `recommendation` and `conditions` after
+  Properties. Two to four options, one h3 each, named as the table's columns; criteria are definition
+  terms named as its rows. Every cell holds a measure, never `n/a`, and an estimate says `est.`. The
+  recommended column is `is-rec` with a star; the recommendation names that option in bold and says
+  where it is weaker. One to four change conditions each name the option they would favour.
 
 ## Document sets
 

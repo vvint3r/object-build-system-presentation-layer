@@ -52,7 +52,7 @@ export default [
   },
 
   {
-    // Capacity and labels: 4 levels and 12 leaves (nodes with no children), with the flow mode's
+    // Capacity and labels: 4 levels and 6 leaves (nodes with no children), with the flow mode's
     // label lengths: a label is 1 to 24 characters and a detail line 40 at most. A larger tree
     // splits into an overview and details; whether the drawn tree fits a printed page is checked
     // with every diagram.
@@ -71,7 +71,7 @@ export default [
         const levels = Math.max(0, ...nodes.map(depth));
         const leaves = nodes.filter(n => !nodes.some(m => m.parent === n.id)).length;
         if (levels > 4) bad(`${levels} levels (at most 4)`);
-        if (leaves > 12) bad(`${leaves} leaves (at most 12)`);
+        if (leaves > 6) bad(`${leaves} leaves (at most 6)`);
         nodes.forEach(n => {
           if (long(n.label, 24)) bad(`node "${n.id}" label "${n.label}" is ${n.label.trim().length} characters (at most 24)`);
           if (long(n.detail, 40)) bad(`node "${n.id}" detail is ${n.detail.trim().length} characters (at most 40)`);

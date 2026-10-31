@@ -1272,9 +1272,9 @@ A hierarchy shows how a whole divides into parts, read left to right: an organis
 | Item | At most | Reason |
 | --- | --- | --- |
 | Levels | 4 | Four levels of 24-character labels print at full size; five need 82% |
-| Leaves, nodes with no children | 12 | Twelve leaves in three groups print at 83%; in four groups they need less than 80% |
+| Leaves, nodes with no children | 6 | Six leaves of 24-character labels print at 87% or more in one, two or three groups; seven in three groups need less than 80% |
 
-Print is the final test here too: twelve leaves in many small groups fail the page check, and the tree splits. A larger tree splits into an overview of the upper levels and one hierarchy for each branch that needs it. A `label` stops at 24 characters and a `detail` at 40, as a flow node's.
+Print is the final test here too. Shorter labels fit more leaves on a page. A detail line on every leaf makes each box taller, and four such leaves in two groups run past a page. A larger tree splits into an overview of the upper levels and one hierarchy for each branch that needs it. A `label` stops at 24 characters and a `detail` at 40, as a flow node's.
 
 The text version is an indented list: every node once, under its parent. An empty `aria-label` takes a summary: the number of items, levels and leaves, and the parts the root divides into.
 
@@ -1680,6 +1680,19 @@ npm run index -- <folder>
 - Within an area, reports come first, newest first; then guides, then references, each A to Z by title.
 - The index quotes each dek, so a set's deks keep the index page within §13.1: 150 words for an area, and 18 words a sentence on average. A dek of 18 words or fewer meets both. Past either limit, the script names the deks to shorten or the area to split.
 
+#### Agreement
+
+A reader who opens any two documents in a set finds one value for each fact they share: a number, a name, a date, a rule.
+
+- A shared fact matches in every place it appears: prose, KPI, chart data, table, diagram and text equivalent. A changed number changes in all of them.
+- When two documents disagree, the less trusted side changes. Trust runs, highest first: the source the fact cites; the set's main report, when it has one (the sample report in the kit folder); the document published first.
+- A fact with no source in the set is removed, or marked as unsourced (§8.21), never made up to fill a gap.
+- A figure taken from another document names its population when it differs from the one the citing document defines, such as tickets resolved against tickets created in a period.
+- A before-and-after comparison states a change seen after an event, not an effect of it: "fell 27% after routing went live", not "routing cut it by 27%".
+- A related item or index entry describes its target truly, in what it holds and how much.
+- A document links only to documents published on or before its own date. The later document links back where the two relate.
+- The gallery's demonstrations reuse the facts of the kit's documents. A demonstration that needs a fact they lack states one that contradicts none of them.
+
 #### Link check
 
 ```
@@ -1739,7 +1752,7 @@ The kit has no search, faceted browse or version selector, since each needs a se
 | --- | --- | --- | --- | --- |
 | `bar` | A few to a dozen categories on one measure | One value per category. Horizontal (`yAxis.type: "category"`) when labels are long or ranked, largest at top (data listed smallest first) | Value labels on every bar up to 12; a target as a `markLine` | A value axis that does not start at zero |
 | Bullet: `bar` + `cm` | Each measure against its target, with optional bands that grade it | A value and a target per measure, all in one unit | Target mark, values and band names, all drawn by the kit | Measures in different units on one axis |
-| `heatmap` | A magnitude across two categories at once, such as weekday by hour | One value per cell; `visualMap` with min/max and `text` end labels; `"yAxis": {"inverse": true}` | The scale bar's end labels | More rows than fit at about 40px each |
+| `heatmap` | A magnitude across two categories at once, such as weekday by hour | One value per cell; `visualMap` with min/max and `text` end labels; `"yAxis": {"inverse": true}`; words for the scale that hold in both themes, such as how far a cell stands out from the page, never "darker" | The scale bar's end labels | More rows than fit at about 40px each |
 
 *Change: how a measure moves over time.*
 
@@ -1994,7 +2007,7 @@ Headings are `h1` to `h6` and table titles.
 16. `cm-kind` names the kind, or is absent for a report; `cm-type`, when present, names a type of that kind (§7.6). A guide or a reference has its required parts in order, each with its id, or their omission comments (§7.3 to §7.5). Every procedure step closes with its outcome; every related item has a tag, a link and a sentence.
 17. Every diagram: JSON within its mode's fields and capacity, a label on every decision branch and every named edge, a terminal at the end of every branch, `role="img"`, a caption with a source line, and nothing overlapping or clipped in light, dark and print (§8.20).
 18. Each structured component opens with its kind label and title and holds its required parts within its counts and limits (§8.25 to §8.30).
-19. `cm-id` names the document. The breadcrumb runs from set to area to document. In a set, every link names a file and a section id, the index page is rewritten, and `npm run links` passes on the folder (§8.31).
+19. `cm-id` names the document. The breadcrumb runs from set to area to document. In a set, every link names a file and a section id, the index page is rewritten, and `npm run links` passes on the folder. Facts shared with other documents agree with them, and no link reaches a document published later (§8.31).
 20. A roadmap or a case study has its recipe’s required parts in order, each with its id, and passes its type check (§7.14, §7.15).
 21. A topic, a glossary or a module has its recipe's required parts in order, each with its id, and passes its type check (§7.7 to §7.9). A module's answers are closed, and it carries no form controls.
 22. A framework, process, metric or comparison page has its recipe's required parts in order, each with its id, and passes its type check (§7.10 to §7.13).
@@ -2037,6 +2050,7 @@ Changed in 2.0:
 - Distribution, a source's publisher and a source's locator take an omission comment when not recorded (§7.5).
 - Every document carries a `cm-id` tag; a page without one fails the checks (§2, §7).
 - Documents in one folder form a set, with addresses, a breadcrumb, a generated index page and a link check (§8.31).
+- Documents in a set agree: a shared fact has one value everywhere, a trust order settles a disagreement, and a link reaches only a document published on or before its own (§8.31).
 - A document stands alone unless it sits beside its set's index page. Alone, its set and area steps are spans, and its wordmark links to `#top` (§7.1).
 - A report's type chip names its form: Report for a period, Analysis for one question, Brief for a short briefing (§7.2).
 - A report that covers a period names it in its title after a comma, and in `<title>` after ` · ` (§7.2).
@@ -2054,10 +2068,12 @@ Changed in 2.0:
 - Diagrams are drawn from JSON in six modes: flow, sequence, state, entity relationship, layer stack and hierarchy (§8.20).
 - The flow mode draws process and decision flows, swimlanes, journey maps, and system and data flows (§8.20).
 - Every diagram has a text version and capacity ceilings, and a screen diagram too wide for its box narrows, then scales (§8.20).
+- A hierarchy holds at most 4 levels and 6 leaves (§8.20).
 - A flow's branch that ends early ends at a terminal of its own, and `col` and `row` keep their meaning in a flow that reads down (§8.20).
 - A chart is chosen by the reader's question; bullet, slope, strip, box and interval charts are declared with a `cm` key (§9).
 - End labels that name every line take the place of a legend, and a chart's JSON sets no `legend` key (§9).
 - A slope chart's target is a `markLine` labelled with its value (§9).
+- A heatmap's scale is described in words true in both themes, never "darker" (§9).
 - Value labels carry thousands separators and the chart's precision (§9).
 - A delta keeps the case it is written in (§4). A table cell that does not apply reads `n/a` (§8.11).
 - No text is under 11px on screen or on paper: labels, chips, tags and deltas are 11px at +0.06em, and diagrams set their text larger as print scales them (§4, §8.20).

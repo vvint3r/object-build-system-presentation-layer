@@ -316,15 +316,15 @@
   <div class="cm-kpi">
     <span class="cm-kpi__label">Median first response</span>
     <span class="cm-kpi__value">2h 14<small>m</small></span>
-    <span class="cm-kpi__delta"><span class="cm-delta cm-delta--good">▼ −27% faster</span></span>
+    <span class="cm-kpi__delta"><span class="cm-delta cm-delta--good">▼ −27% vs before routing</span></span>
     <div class="cm-kpi__spark" data-spark data-values="3.0,2.9,2.7,2.6,2.4,2.3,2.8,2.5,2.1,2.0,1.9" aria-hidden="true"></div>
     <div class="cm-kpi__foot"><span>Target ≤ 2h 30m</span><b>Met</b></div>
   </div>
   <div class="cm-kpi">
-    <span class="cm-kpi__label">Escalation rate</span>
-    <span class="cm-kpi__value">6.8<small>%</small></span>
-    <span class="cm-kpi__delta"><span class="cm-delta cm-delta--bad">▲ +0.9 pp worse</span></span>
-    <div class="cm-kpi__foot"><span>Target ≤ 6%</span><b>+0.8 pp</b></div>
+    <span class="cm-kpi__label">APAC Wednesday first response</span>
+    <span class="cm-kpi__value">2h 51<small>m</small></span>
+    <span class="cm-kpi__delta"><span class="cm-delta cm-delta--bad">▲ +27m vs before pilot</span></span>
+    <div class="cm-kpi__foot"><span>Before 2h 24m</span><b>+19%</b></div>
   </div>
   <div class="cm-kpi">
     <span class="cm-kpi__label">Within SLA</span>
@@ -343,9 +343,9 @@
   <span class="cm-chip cm-chip--accent">Summary</span>
   <h3 class="cm-card__title">Key findings</h3>
   <ol class="cm-findings">
-    <li><span class="cm-findings__claim">Chat intent routing cut first response time by 27%.</span> Median first response fell from 3h 05m to 2h 14m after routing went live on 8 July.</li>
+    <li><span class="cm-findings__claim">Median first response fell 27% after chat intent routing went live.</span> It went from 3h 05m before 8 July to 2h 14m.</li>
     <li><span class="cm-findings__claim">The backlog fell 39% despite higher volume.</span> Open tickets dropped from 1,940 to 1,186.</li>
-    <li><span class="cm-findings__claim">Billing drove more than half of all escalations.</span> Billing took 52% of escalations after the Billing v4 launch in week 7.</li>
+    <li><span class="cm-findings__claim">SLA attainment is 3.8 points short of target.</span> Billing specialists resolved 82.6% of tickets within SLA, the lowest of any team.</li>
   </ol>
 </div>
           </div>
@@ -362,7 +362,7 @@
   <aside class="cm-callout cm-callout--example"><span class="cm-callout__label">Example</span><div class="cm-callout__body">412 of 437 runs finished on time, an on-time rate of 94.3%.</div></aside>
   <aside class="cm-callout cm-callout--requirement"><span class="cm-callout__label">Requirement</span><div class="cm-callout__body">A rule the reader must follow. <span class="cm-id">REQ-04</span></div></aside>
   <aside class="cm-callout cm-callout--limitation"><span class="cm-callout__label">Limitation</span><div class="cm-callout__body">What the data cannot show.</div></aside>
-  <aside class="cm-callout cm-callout--correction"><span class="cm-callout__label">Correction</span><div class="cm-callout__body">Q3 SLA attainment is 91.2%, not the 91.8% first published, which counted merged duplicates.</div></aside>
+  <aside class="cm-callout cm-callout--correction"><span class="cm-callout__label">Correction</span><div class="cm-callout__body">Q2 tickets handled are 44,870, not the 45,310 first published, which counted merged duplicates.</div></aside>
 </div>
           </div>
         </div>
@@ -387,7 +387,7 @@
   <span class="cm-qa__label">Questions</span>
   <dl>
     <div><dt>Why did the backlog rise in week 7?</dt><dd>Billing v4 launched on 12 August and billing contacts rose 31%. The backlog peaked at 1,710 that week and fell every week after.</dd></div>
-    <div><dt>Does SLA attainment include weekends?</dt><dd>For chat and phone, yes; both run around the clock. Email and web-form SLAs count business hours only.</dd></div>
+    <div><dt>Does SLA attainment include weekends?</dt><dd>For chat and phone, yes; both run around the clock. Email, web-form and social SLAs count business hours only.</dd></div>
   </dl>
 </div>
           </div>
@@ -428,7 +428,7 @@
           <header><span class="cm-label">5.9</span><h3 class="cm-h3">Pull quote</h3><p>For the verbatim words of a customer, an interviewee or a stakeholder. One per section at most. Bold the decisive phrase; attribution is always present.</p></header>
           <div data-demo data-comment-anchor="98bdb60f29-div">
 <blockquote class="cm-quote">
-  <p>Chat had my invoice corrected <strong>before I finished my coffee.</strong> The same fix over email took two days.</p>
+  <p>Chat had my invoice corrected <strong>before I finished my coffee.</strong> The same fix over email took two days last spring.</p>
   <footer><b>Customer, mid-market plan</b>CSAT verbatim · September 2026</footer>
 </blockquote>
           </div>
@@ -443,16 +443,18 @@
     <table class="cm-table" data-sortable aria-labelledby="tbl-demo">
       <thead><tr><th>Team</th><th class="num">Tickets</th><th class="num">Share</th><th class="num">Within SLA</th><th data-nosort>Status</th></tr></thead>
       <tbody>
-        <tr data-flag="ok"><td class="strong">Tier 1 · AMER</td><td class="num" data-value="17940">17,940</td><td class="num" data-value="37.2"><div class="cm-cellbar"><span>37.2%</span><span class="cm-cellbar__track"><span style="--v:100%"></span></span></div></td><td class="num strong" data-value="94.6">94.6%</td><td>On track</td></tr>
+        <tr data-flag="ok"><td class="strong">Tier 1 · Americas</td><td class="num" data-value="17940">17,940</td><td class="num" data-value="37.2"><div class="cm-cellbar"><span>37.2%</span><span class="cm-cellbar__track"><span style="--v:100%"></span></span></div></td><td class="num strong" data-value="94.6">94.6%</td><td>On track</td></tr>
+        <tr data-flag="ok"><td class="strong">Tier 1 · EMEA</td><td class="num" data-value="12610">12,610</td><td class="num" data-value="26.2"><div class="cm-cellbar"><span>26.2%</span><span class="cm-cellbar__track"><span style="--v:70%"></span></span></div></td><td class="num strong" data-value="93.0">93.0%</td><td>On track</td></tr>
         <tr data-flag="warn"><td class="strong">Tier 1 · APAC</td><td class="num" data-value="8330">8,330</td><td class="num" data-value="17.3"><div class="cm-cellbar"><span>17.3%</span><span class="cm-cellbar__track"><span style="--v:46%"></span></span></div></td><td class="num strong" data-value="87.4">87.4%</td><td>At risk</td></tr>
-        <tr data-flag="crit"><td class="strong">Billing</td><td class="num" data-value="5480">5,480</td><td class="num" data-value="11.4"><div class="cm-cellbar"><span>11.4%</span><span class="cm-cellbar__track"><span style="--v:31%"></span></span></div></td><td class="num strong" data-value="82.6">82.6%</td><td>Breach</td></tr>
+        <tr data-flag="crit"><td class="strong">Billing specialists</td><td class="num" data-value="5480">5,480</td><td class="num" data-value="11.4"><div class="cm-cellbar"><span>11.4%</span><span class="cm-cellbar__track"><span style="--v:31%"></span></span></div></td><td class="num strong" data-value="82.6">82.6%</td><td>Breach</td></tr>
+        <tr><td class="strong">Technical escalations</td><td class="num" data-value="3850">3,850</td><td class="num" data-value="8.0"><div class="cm-cellbar"><span>8.0%</span><span class="cm-cellbar__track"><span style="--v:21%"></span></span></div></td><td class="num strong" data-value="89.9">89.9%</td><td>Watch</td></tr>
       </tbody>
-      <tfoot><tr><td>All teams</td><td class="num">31,750</td><td class="num">65.9%</td><td class="num">90.8%</td><td></td></tr></tfoot>
+      <tfoot><tr><td>All teams</td><td class="num">48,210</td><td class="num">100%</td><td class="num">91.2%</td><td></td></tr></tfoot>
     </table>
   </div>
   <span class="cm-caption">
     <span class="cm-caption__line">Source: helpdesk warehouse · Q3 2026.</span>
-    <span class="cm-caption__line">Flags: green on track, yellow at risk, red breach.</span>
+    <span class="cm-caption__line">Flags: green on track, yellow at risk, red breach, grey watch.</span>
   </span>
 </div>
           </div>
@@ -497,7 +499,7 @@
           <header><span class="cm-label">5.12</span><h3 class="cm-h3">Process diagram</h3><p>Three to six steps, left to right, stacking below 800px, with <code>--steps</code> set to the step count. Mark one step at most with <code>cm-emph</code> and a chip saying why. A flow with branches, loops or lanes is a diagram (Part 07).</p></header>
           <div data-demo>
 <ol class="cm-process" style="--steps:4">
-  <li class="cm-step"><span class="cm-step__n">01</span><span class="cm-step__title">Triage</span><span class="cm-step__body">Classified on arrival.</span></li>
+  <li class="cm-step"><span class="cm-step__n">01</span><span class="cm-step__title">Triage</span><span class="cm-step__body">Chat classified on arrival.</span></li>
   <li class="cm-step"><span class="cm-step__n">02</span><span class="cm-step__title">Tier 1</span><span class="cm-step__body">71% close here.</span></li>
   <li class="cm-step cm-emph"><span class="cm-step__n">03</span><span class="cm-step__title">Specialist queue</span><span class="cm-step__body">Median wait 9h 40m.</span><span class="cm-chip cm-chip--warn">Bottleneck</span></li>
   <li class="cm-step"><span class="cm-step__n">04</span><span class="cm-step__title">Close</span><span class="cm-step__body">Survey after 24h.</span></li>
@@ -576,7 +578,7 @@
   <h3 class="cm-card__title">Three actions for Q4</h3>
   <ol class="cm-findings">
     <li><span class="cm-findings__claim">Hire six billing specialists before renewals.</span> Billing is the lowest-performing queue.<div class="cm-chips"><span class="cm-chip">Owner · Support Ops</span><span class="cm-chip">Due 2026-11-02</span><span class="cm-chip cm-chip--accent">+2.1 pp SLA, est.</span></div></li>
-    <li><span class="cm-findings__claim">Make APAC weekend coverage permanent.</span> The pilot removed the Monday queue spike.<div class="cm-chips"><span class="cm-chip">Owner · APAC lead</span><span class="cm-chip">Decide by 2026-10-31</span></div></li>
+    <li><span class="cm-findings__claim">Make APAC weekend coverage permanent.</span> The Monday queue spike went away during the pilot.<div class="cm-chips"><span class="cm-chip">Owner · APAC lead</span><span class="cm-chip">Decide by 2026-10-31</span></div></li>
   </ol>
 </div>
           </div>
@@ -599,7 +601,7 @@
           <header><span class="cm-label">5.20</span><h3 class="cm-h3">Sources and citations</h3><p>One register lists every source a document rests on and closes the Notes &amp; sources appendix. Each entry has a key, a title, a publisher, a type tag, a locator and a date.</p><p>A citation reads the key and lands on the entry, whose back link returns to the citation followed. An entry no claim cites has no back link. No chip or score stands for confidence.</p></header>
           <div data-demo>
 <div class="cm-stack">
-  <p class="cm-prose">Median first response fell to 2h 14m as of <time datetime="2026-09-30">30 September</time>.<a class="cm-cite" href="#src-1" id="cite-1">S1</a> Satisfaction closed the quarter at 87.4%.<a class="cm-cite" href="#src-2" id="cite-2">S2</a></p>
+  <p class="cm-prose">Median first response fell to 2h 14m as of <time datetime="2026-09-30">30 September</time>.<a class="cm-cite" href="#src-1" id="cite-1">S1</a> Satisfaction averaged 87.4% over the quarter.<a class="cm-cite" href="#src-2" id="cite-2">S2</a></p>
   <ol class="cm-sources">
     <li id="src-1"><span class="cm-id">S1</span><span><b>Helpdesk warehouse, ticket facts</b><br><span class="cm-tag">Dataset</span> Support Operations Analytics · <code>support.tickets_fact</code> <a class="cm-back" href="#cite-1" aria-label="Back to text">↩</a></span><span class="cm-meta">refreshed <time datetime="2026-10-05">2026-10-05</time></span></li>
     <li id="src-2"><span class="cm-id">S2</span><span><b>CSAT survey export, Q3 2026</b><br><span class="cm-tag">System export</span> Customer Experience · <code>csat/exports/2026-q3.csv</code> <a class="cm-back" href="#cite-2" aria-label="Back to text">↩</a></span><span class="cm-meta">exported <time datetime="2026-10-05">2026-10-05</time></span></li>
@@ -644,7 +646,7 @@
 <ol class="cm-changes">
   <li><span class="cm-tag">Correction</span><span>Billing within-SLA share corrected from 81.9% to 82.6%. <a href="#tbl-demo">Table 1</a></span><span class="cm-meta"><time datetime="2026-10-30">2026-10-30</time></span></li>
   <li><span class="cm-tag">Added</span><span>Anomaly alerting added as a third strategy. <a href="#tbl-cmp">Table 2</a></span><span class="cm-meta"><time datetime="2026-10-30">2026-10-30</time></span></li>
-  <li><span class="cm-tag">Revised</span><span>Billing SLA target revised from 85% to 86.4%. <a href="#tbl-demo">Table 1</a></span><span class="cm-meta"><time datetime="2026-10-12">2026-10-12</time></span></li>
+  <li><span class="cm-tag">Revised</span><span>Tier 1 · APAC status revised from On track to At risk. <a href="#tbl-demo">Table 1</a></span><span class="cm-meta"><time datetime="2026-10-12">2026-10-12</time></span></li>
 </ol>
           </div>
         </div>
@@ -654,7 +656,7 @@
           <div data-demo>
 <ol class="cm-versions">
   <li><span class="cm-id">v2.0</span><span>Billing within-SLA share corrected; anomaly alerting added to the strategy comparison.<br><span class="cm-meta">Support Operations Analytics</span></span><span class="cm-meta"><time datetime="2026-10-30">2026-10-30</time></span></li>
-  <li><span class="cm-id">v1.1</span><span>Billing SLA target revised to 86.4%.<br><span class="cm-meta">Support Operations Analytics</span></span><span class="cm-meta"><time datetime="2026-10-12">2026-10-12</time></span></li>
+  <li><span class="cm-id">v1.1</span><span>Tier 1 · APAC status revised to At risk.<br><span class="cm-meta">Support Operations Analytics</span></span><span class="cm-meta"><time datetime="2026-10-12">2026-10-12</time></span></li>
   <li><span class="cm-id">v1.0</span><span>First published.<br><span class="cm-meta">Support Operations Analytics</span></span><span class="cm-meta"><time datetime="2026-10-06">2026-10-06</time></span></li>
 </ol>
           </div>
@@ -711,14 +713,14 @@
 <div class="cm-card cm-workflow cm-bleed">
   <span class="cm-label cm-card__kicker">Workflow</span>
   <h3 class="cm-card__title">Ticket escalation</h3>
-  <p>A ticket enters at triage and leaves when its owner closes it; each stage names who acts and what hands the ticket on.</p>
+  <p>A ticket enters at intent triage and leaves at closure; each stage names who acts and what hands the ticket on.</p>
   <ol class="cm-stages">
     <li>
       <h4 class="cm-procedure__title">Intent triage</h4>
-      <p>The routing classifier tags each chat as billing, technical or account before pickup.</p>
+      <p>The routing classifier tags each chat with its intent, such as billing; an agent sets it on other channels.</p>
       <dl class="cm-facts">
-        <div><dt>Actor</dt><dd>Routing classifier</dd></div>
-        <div><dt>Hands on when</dt><dd>The intent is tagged</dd></div>
+        <div><dt>Actor</dt><dd>Routing classifier or Tier 1 agent</dd></div>
+        <div><dt>Hands on when</dt><dd>The intent is set</dd></div>
       </dl>
     </li>
     <li>
@@ -726,32 +728,32 @@
       <p>An agent answers from macros and the help centre.</p>
       <dl class="cm-facts">
         <div><dt>Actor</dt><dd>Tier 1 agent</dd></div>
-        <div><dt>Hands on when</dt><dd>The fix needs account access or a product change</dd></div>
+        <div><dt>Hands on when</dt><dd>The fix needs a specialist decision</dd></div>
       </dl>
     </li>
     <li>
       <h4 class="cm-procedure__title">Specialist queue</h4>
-      <p>A billing or technical specialist reproduces the issue and fixes what configuration allows.</p>
+      <p>A billing or technical specialist decides the case and fixes what account access and configuration allow.</p>
       <dl class="cm-facts">
         <div><dt>Actor</dt><dd>Billing or technical specialist</dd></div>
-        <div><dt>Takes in</dt><dd>Ticket with reproduction steps</dd></div>
+        <div><dt>Takes in</dt><dd>Ticket with the account and the problem recorded</dd></div>
         <div><dt>Hands on when</dt><dd>The fix needs a code change</dd></div>
       </dl>
     </li>
     <li>
       <h4 class="cm-procedure__title">Engineering fix</h4>
-      <p>Engineering repairs the data or ships the change, then returns the ticket to its owner.</p>
+      <p>A product engineer repairs the data or ships the change, then returns the ticket to the specialist.</p>
       <dl class="cm-facts">
-        <div><dt>Actor</dt><dd>Product engineering</dd></div>
+        <div><dt>Actor</dt><dd>Product engineer</dd></div>
         <div><dt>Produces</dt><dd>Fix note on the ticket</dd></div>
-        <div><dt>Hands on when</dt><dd>The fix is deployed</dd></div>
+        <div><dt>Hands on when</dt><dd>The fix is deployed; the ticket returns to Specialist queue</dd></div>
       </dl>
     </li>
     <li>
       <h4 class="cm-procedure__title">Closure and survey</h4>
-      <p>The ticket owner confirms the fix with the customer and closes the ticket.</p>
+      <p>The role holding the ticket confirms the fix with the customer and closes the ticket.</p>
       <dl class="cm-facts">
-        <div><dt>Actor</dt><dd>Ticket owner</dd></div>
+        <div><dt>Actor</dt><dd>Role holding the ticket</dd></div>
         <div><dt>Produces</dt><dd>Closed ticket and a survey request</dd></div>
       </dl>
     </li>
@@ -759,8 +761,8 @@
   <div class="cm-sub">
     <span class="cm-label">Exceptions</span>
     <ul class="cm-list">
-      <li>A security or data-loss report skips Tier 1 and goes to the on-call engineer.</li>
-      <li>A reply after close reopens the ticket at Tier 1 resolution.</li>
+      <li>A security or data-loss report skips Tier 1 and goes to the on-call product engineer.</li>
+      <li>A customer reply after close reopens the ticket at Tier 1 resolution.</li>
     </ul>
   </div>
 </div>
@@ -773,16 +775,16 @@
 <div class="cm-card cm-framework cm-bleed">
   <span class="cm-label cm-card__kicker">Framework</span>
   <h3 class="cm-card__title">Support quality pillars</h3>
-  <p>Four pillars that every team review covers, so no review reports speed alone.</p>
+  <p>Four pillars cover the quality a customer receives, and no one pillar stands in for another.</p>
   <ul class="cm-parts">
-    <li class="cm-tile"><p class="cm-t5">Speed</p><p>First response and resolution time against the SLA for each channel.</p></li>
-    <li class="cm-tile"><p class="cm-t5">Accuracy</p><p>Tickets fixed on the first contact, read from the reopen rate.</p></li>
-    <li class="cm-tile"><p class="cm-t5">Effort</p><p>Contacts a customer makes for one issue, across every channel.</p></li>
-    <li class="cm-tile"><p class="cm-t5">Sentiment</p><p>Survey scores and verbatim comments after close.</p></li>
+    <li class="cm-tile"><p class="cm-t5">Speed</p><p>How soon a person answers and the ticket closes, from first response time and resolved within SLA.</p></li>
+    <li class="cm-tile"><p class="cm-t5">Accuracy</p><p>Whether the first fix holds, read from the share of tickets reopened after close.</p></li>
+    <li class="cm-tile"><p class="cm-t5">Effort</p><p>How much work one issue costs the customer, counted as contacts per issue.</p></li>
+    <li class="cm-tile"><p class="cm-t5">Sentiment</p><p>How the customer rates the help, as customer satisfaction (CSAT) from the survey sent after close.</p></li>
   </ul>
   <div class="cm-scope">
-    <div><span class="cm-label">Use when</span><ul class="cm-list"><li>Choosing the measures for a quarterly team review.</li><li>Auditing a dashboard that reports volume only.</li></ul></div>
-    <div><span class="cm-label">Not for</span><ul class="cm-list"><li>Rating one agent, which coaching reviews cover.</li><li>Forecasting staff, which the workforce plan covers.</li></ul></div>
+    <div><span class="cm-label">Use when</span><ul class="cm-list"><li>Choosing the measures for a quarterly or team review.</li><li>Auditing a review or dashboard that reports one pillar.</li></ul></div>
+    <div><span class="cm-label">Not for</span><ul class="cm-list"><li>Rating one agent's work, which coaching reviews cover.</li><li>Planning staff numbers, which the workforce plan covers.</li></ul></div>
   </div>
 </div>
           </div>
@@ -797,11 +799,11 @@
   <p class="cm-t5">The queue that resolves a ticket is set by two needs: product depth and account access.</p>
   <ul class="cm-parts">
     <li class="cm-tile"><p class="cm-t5">Product depth</p><p>How far into the product a fix reaches, from a help-centre answer to a code change.</p></li>
-    <li class="cm-tile"><p class="cm-t5">Account access</p><p>Whether the fix edits billing or account records, which only specialists may change.</p></li>
+    <li class="cm-tile"><p class="cm-t5">Account access</p><p>Whether the fix changes billing or account records past the Tier 1 limits, which only specialists may change.</p></li>
   </ul>
   <ol class="cm-parts cm-parts--matrix">
     <li class="cm-tile"><span class="cm-label">Shallow · no access</span><p class="cm-t5">Tier 1</p><p>Answered from macros and the help centre.</p></li>
-    <li class="cm-tile"><span class="cm-label">Shallow · access</span><p class="cm-t5">Billing specialists</p><p>Refunds, proration and invoice corrections.</p></li>
+    <li class="cm-tile"><span class="cm-label">Shallow · access</span><p class="cm-t5">Billing specialists</p><p>Large refunds, proration and invoice corrections.</p></li>
     <li class="cm-tile"><span class="cm-label">Deep · no access</span><p class="cm-t5">Technical escalations</p><p>Reproduced and fixed through configuration.</p></li>
     <li class="cm-tile"><span class="cm-label">Deep · access</span><p class="cm-t5">Engineering</p><p>Data repairs that need a code change.</p></li>
   </ol>
@@ -891,7 +893,7 @@
     <span class="cm-figure-s">3.9 of 5</span>
     <span class="cm-chip cm-chip--ok">Adopt</span>
   </div>
-  <p>APAC weekend coverage becomes permanent, with its cost reviewed in the Q1 budget.</p>
+  <p>The pilot review recommends permanent APAC weekend coverage, with its cost reviewed in the Q1 budget.</p>
   <span class="cm-caption"><span class="cm-caption__line">Source: APAC pilot review, Support Operations · scores agreed 2026-10-24.</span></span>
 </div>
           </div>
@@ -913,16 +915,16 @@
     </dl>
     <dl>
       <dt>Source</dt><dd>Helpdesk warehouse, ticket facts<a class="cm-cite" href="#src-1" id="cite-5">S1</a></dd>
-      <dt>Cadence</dt><dd>Daily, after the 05:00 UTC load</dd>
+      <dt>Cadence</dt><dd>Daily, after the 06:00 UTC warehouse refresh</dd>
       <dt>Owner</dt><dd>Support Operations Analytics</dd>
     </dl>
   </div>
   <div class="cm-sub">
     <span class="cm-label">Thresholds</span>
     <ul class="cm-bands">
-      <li><span><b>95% or more</b><br>Weekly review only.</span><span class="cm-chips"><span class="cm-chip cm-chip--ok">On track</span></span></li>
-      <li><span><b>90% to 94.9%</b><br>Team leads review breached tickets each day.</span><span class="cm-chips"><span class="cm-chip cm-chip--warn">At risk</span></span></li>
-      <li><span><b>Below 90%</b><br>The support operations lead opens an incident review.</span><span class="cm-chips"><span class="cm-chip cm-chip--crit">Breach</span></span></li>
+      <li><span><b>90% or more</b><br>Weekly review only.</span><span class="cm-chips"><span class="cm-chip cm-chip--ok">On track</span></span></li>
+      <li><span><b>85% to 89.9%</b><br>Team leads review breached tickets each day.</span><span class="cm-chips"><span class="cm-chip cm-chip--warn">At risk</span></span></li>
+      <li><span><b>Below 85%</b><br>The support operations lead opens an incident review.</span><span class="cm-chips"><span class="cm-chip cm-chip--crit">Breach</span></span></li>
     </ul>
   </div>
   <div class="cm-sub">
@@ -1173,7 +1175,7 @@
   <span class="cm-figure__kind">Figure 5</span>
   <h3 class="cm-figure__title cm-figure__title--sm">Open backlog</h3>
   <p class="cm-figure__desc">Tickets open or pending at Sunday close, Q3 2026.</p>
-  <div class="cm-chart" style="--h:300px" data-chart role="img" aria-label="Area chart. Backlog falls from 1,940 to 1,186, under the 1,200 ceiling.">
+  <div class="cm-chart" style="--h:300px" data-chart role="img" aria-label="Area chart. Backlog falls from 1,872 in the first week to 1,186, under the 1,200 ceiling.">
     <script type="application/json">
     {
       "xAxis": {"type": "category", "boundaryGap": false, "data": ["Jul","","","","Aug","","","","Sep","","","",""]},
@@ -1218,18 +1220,18 @@
             <div data-demo>
 <figure class="cm-figure">
   <span class="cm-figure__kind">Figure 7</span>
-  <h3 class="cm-figure__title cm-figure__title--sm">Escalations by destination queue</h3>
-  <p class="cm-figure__desc">Share of 3,850 escalated tickets by destination queue.</p>
-  <div class="cm-chart" style="--h:300px" data-chart role="img" aria-label="Donut chart. Billing takes 52% of escalations, technical 33%, account 15%.">
+  <h3 class="cm-figure__title cm-figure__title--sm">Tickets by specialist team</h3>
+  <p class="cm-figure__desc">Share of the 9,330 tickets the two specialist teams handled, Q3 2026.</p>
+  <div class="cm-chart" style="--h:300px" data-chart role="img" aria-label="Donut chart. Billing specialists handled 58.7% of the specialist teams' tickets and technical escalations 41.3%.">
     <script type="application/json">
     {
-      "series": [{"type": "pie", "radius": ["44%","66%"], "center": ["50%","50%"],
+      "series": [{"type": "pie", "radius": ["44%","66%"], "center": ["50%","50%"], "startAngle": 16,
         "label": {"show": true, "formatter": "{b}\n{d}%", "lineHeight": 18},
-        "data": [{"name": "Billing", "value": 52}, {"name": "Technical", "value": 33, "itemStyle": {"color": "$c2"}}, {"name": "Account", "value": 15, "itemStyle": {"color": "$context"}}]}]
+        "data": [{"name": "Billing specialists", "value": 58.7}, {"name": "Technical escalations", "value": 41.3, "itemStyle": {"color": "$c2"}}]}]
     }
     </script>
   </div>
-  <figcaption class="cm-caption"><span class="cm-caption__line">Source: escalations, Q3</span></figcaption>
+  <figcaption class="cm-caption"><span class="cm-caption__line">Source: helpdesk warehouse · resolved tickets, Q3 2026.</span></figcaption>
 </figure>
             </div>
           </div>
@@ -1241,22 +1243,25 @@
 <figure class="cm-figure cm-bleed">
   <span class="cm-figure__kind">Figure 8</span>
   <h3 class="cm-figure__title cm-figure__title--sm">Contacts by weekday and time</h3>
-  <p class="cm-figure__desc">Average tickets created per three-hour block, by weekday, local time.</p>
+  <p class="cm-figure__desc">Average tickets created per two-hour block on four days of the week, local time, Q3 2026.</p>
   <div class="cm-chart" style="--h:260px" data-chart role="img" aria-label="Heatmap. Weekday mornings carry the most contacts; weekends under half.">
     <script type="application/json">
     {
       "tooltip": {"trigger": "item"},
-      "xAxis": {"type": "category", "axisLine": {"show": false}, "data": ["06","09","12","15","18","21"]},
+      "xAxis": {"type": "category", "axisLine": {"show": false}, "data": ["06–08","08–10","10–12","12–14","14–16","16–18","18–20","20–22"]},
       "yAxis": {"type": "category", "inverse": true, "axisLine": {"show": false}, "data": ["Mon","Wed","Fri","Sun"]},
       "visualMap": {"min": 0, "max": 120, "orient": "horizontal", "left": 0, "bottom": 0, "itemHeight": 200, "text": ["120 per block", "0"], "calculable": false},
       "series": [{"name": "Avg tickets", "type": "heatmap", "itemStyle": {"borderColor": "$surface", "borderWidth": 3, "borderRadius": 4},
-        "data": [[0,0,30],[1,0,120],[2,0,105],[3,0,98],[4,0,68],[5,0,38],[0,1,26],[1,1,104],[2,1,91],[3,1,85],[4,1,59],[5,1,33],[0,2,23],[1,2,94],[2,2,82],[3,2,77],[4,2,53],[5,2,30],[0,3,10],[1,3,42],[2,3,36],[3,3,34],[4,3,24],[5,3,13]]}]
+        "data": [[0,0,30],[1,0,83],[2,0,120],[3,0,113],[4,0,105],[5,0,98],[6,0,68],[7,0,38],
+                 [0,1,26],[1,1,72],[2,1,104],[3,1,98],[4,1,91],[5,1,85],[6,1,59],[7,1,33],
+                 [0,2,23],[1,2,65],[2,2,94],[3,2,88],[4,2,82],[5,2,77],[6,2,53],[7,2,30],
+                 [0,3,10],[1,3,29],[2,3,42],[3,3,39],[4,3,36],[5,3,34],[6,3,24],[7,3,13]]}]
     }
     </script>
   </div>
   <figcaption class="cm-caption">
     <span class="cm-caption__line">Source: helpdesk warehouse.</span>
-    <span class="cm-caption__line">Note: 00:00 to 06:00 omitted (6% of volume).</span>
+    <span class="cm-caption__line">Note: 22:00 to 06:00 omitted (6% of volume).</span>
   </figcaption>
 </figure>
           </div>
@@ -1282,7 +1287,7 @@
   </div>
   <figcaption class="cm-caption">
     <span class="cm-caption__line">Source: helpdesk warehouse · resolved tickets, Q3 2026.</span>
-    <span class="cm-caption__line">Note: bands follow the team status flags: breach below 85%, at risk below 90%.</span>
+    <span class="cm-caption__line">Note: bands grade attainment: breach below 85%, at risk from 85% to 90%.</span>
   </figcaption>
 </figure>
           </div>
@@ -1371,7 +1376,7 @@
 <figure class="cm-figure">
   <span class="cm-figure__kind">Figure 13</span>
   <h3 class="cm-figure__title cm-figure__title--sm">First response time by channel</h3>
-  <p class="cm-figure__desc">Hours to first response, quartiles of the same sample as Figure 11.</p>
+  <p class="cm-figure__desc">Hours to first response, quartiles of the same sample as Figure 12.</p>
   <div class="cm-chart" style="--h:300px" data-chart role="img" aria-label="Box plot. Email's middle half runs from 2.8 to 4.6 hours, chat's from 0.3 to 0.7; one chat ticket and one phone ticket sit past their whiskers.">
     <script type="application/json">
     {
@@ -1768,12 +1773,12 @@
         </div>
 
         <div class="g-comp">
-          <header><span class="cm-label">7.9</span><h3 class="cm-h3">Hierarchy</h3><p>A tree read left to right: each node names its parent, and children appear in the order written. The kit places the levels and draws one line from each parent to each child. At most 4 levels and 12 leaves.</p></header>
+          <header><span class="cm-label">7.9</span><h3 class="cm-h3">Hierarchy</h3><p>A tree read left to right: each node names its parent, and children appear in the order written. The kit places the levels and draws one line from each parent to each child. At most 4 levels and 6 leaves.</p></header>
           <div data-demo>
 <figure class="cm-figure cm-bleed">
   <span class="cm-figure__kind">Figure 23</span>
   <h3 class="cm-figure__title">Ticket categories</h3>
-  <p class="cm-figure__desc">The categories an agent picks from when closing a ticket, grouped by area.</p>
+  <p class="cm-figure__desc">Six of the categories an agent picks from when closing a ticket, grouped by area.</p>
   <div class="cm-diagram" data-diagram="hierarchy" role="img" aria-label="">
     <script type="application/json">
     {
@@ -1782,14 +1787,12 @@
         {"id": "billing", "label": "Billing", "parent": "all"},
         {"id": "refunds", "label": "Refunds", "parent": "billing"},
         {"id": "disputes", "label": "Disputed charges", "parent": "billing"},
-        {"id": "invoices", "label": "Invoices", "parent": "billing"},
         {"id": "account", "label": "Account", "parent": "all"},
         {"id": "sign-in", "label": "Sign-in", "parent": "account"},
         {"id": "export", "label": "Data export", "parent": "account"},
         {"id": "product", "label": "Product", "parent": "all"},
         {"id": "bugs", "label": "Bugs", "parent": "product"},
-        {"id": "how-to", "label": "How-to questions", "parent": "product"},
-        {"id": "requests", "label": "Feature requests", "parent": "product"}
+        {"id": "how-to", "label": "How-to questions", "parent": "product"}
       ]
     }
     </script>

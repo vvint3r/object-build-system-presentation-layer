@@ -197,6 +197,34 @@
             <div><dt>Reported value</dt><dd>The median across tickets created in the period, in hours and minutes. A quarter's value comes from the first warehouse refresh after the quarter closes.</dd></div>
           </dl>
         </aside>
+        <figure class="cm-figure cm-bleed">
+          <span class="cm-figure__kind">Figure 2</span>
+          <h3 class="cm-figure__title">From the helpdesk to the reported median</h3>
+          <p class="cm-figure__desc">How ticket records reach the warehouse, and where the reported median goes.</p>
+          <div class="cm-diagram" data-diagram="flow" role="img" aria-label="">
+            <script type="application/json">
+            {
+              "nodes": [
+                {"id": "helpdesk", "type": "external", "label": "Helpdesk", "col": 1, "row": 1},
+                {"id": "refresh", "type": "step", "label": "Warehouse refresh", "detail": "Daily, 06:00 UTC", "col": 2, "row": 1},
+                {"id": "facts", "type": "store", "label": "tickets_fact", "col": 3, "row": 1},
+                {"id": "median", "type": "step", "label": "Median query", "detail": "Clock rules applied", "col": 3, "row": 2},
+                {"id": "review", "type": "external", "label": "Quarterly review", "col": 4, "row": 2}
+              ],
+              "edges": [
+                {"from": "helpdesk", "to": "refresh", "kind": "data", "label": "Tickets"},
+                {"from": "refresh", "to": "facts", "kind": "data"},
+                {"from": "facts", "to": "median", "kind": "data"},
+                {"from": "median", "to": "review", "kind": "data", "label": "Median"}
+              ],
+              "groups": [
+                {"type": "boundary", "label": "Helpdesk warehouse", "col": 2, "row": 1, "cols": 2, "rows": 2}
+              ]
+            }
+            </script>
+          </div>
+          <figcaption class="cm-caption"><span class="cm-caption__line">Source: helpdesk warehouse tables and refresh schedule.<a class="cm-cite" href="#src-1" id="cite-6">S1</a><a class="cm-cite" href="#src-2" id="cite-7">S2</a></span></figcaption>
+        </figure>
         <div class="cm-code cm-bleed">
           <div class="cm-code__bar"><span class="cm-code__file">frt_median.sql</span><span class="cm-tag">SQL</span></div>
 <pre><code><span class="c">-- median first response time, in minutes, for tickets created in Q3 2026</span>
@@ -227,7 +255,7 @@
         <ul class="cm-related">
           <li><span class="cm-tag">Metric</span><a href="Sample%20Report%20-%20Q3%20Support%20Review.html#service">Resolved within SLA</a><p>Measures the whole ticket against its due time, so a fast first reply alone does not meet it.</p></li>
           <li><span class="cm-tag">Metric</span><a href="Sample%20Report%20-%20Q3%20Support%20Review.html#initiatives">Specialist queue wait</a><p>Starts when a ticket is escalated, often after the first reply has stopped this clock.</p></li>
-          <li><span class="cm-tag">Metric</span><a href="Sample%20Report%20-%20Q3%20Support%20Review.html#sentiment">Customer satisfaction</a><p>Rates the whole ticket, from a survey sent 24 hours after it closes.<a class="cm-cite" href="#src-4" id="cite-6">S4</a></p></li>
+          <li><span class="cm-tag">Metric</span><a href="Sample%20Report%20-%20Q3%20Support%20Review.html#sentiment">Customer satisfaction</a><p>Rates the whole ticket, from a survey sent 24 hours after it closes.<a class="cm-cite" href="#src-4" id="cite-8">S4</a></p></li>
           <li><span class="cm-tag">Guide</span><a href="Guide%20-%20Billing%20Escalation.html#steps">Billing ticket escalation to specialists</a><p>Step 6 sends the reply that stops the clock on an escalated billing ticket.</p></li>
         </ul>
       </div>
@@ -246,7 +274,7 @@
           <p>A customer opens a chat at 10:02 and gets an automatic acknowledgement at once. An agent sends the first reply at 10:09. First response time is 7m, since the acknowledgement does not stop the clock.</p>
           <h3>Email over a weekend</h3>
           <p>An email arrives at 14:00 on a Saturday, and an agent replies at 09:30 on Monday. First response time is 43h 30m, because the clock runs through the weekend.</p>
-          <p>The same rule shapes APAC's Q3 result. Its median was 3h 20m with unstaffed weekends counted, and 2h 31m on weekdays only.<a class="cm-cite" href="#src-4" id="cite-7">S4</a></p>
+          <p>The same rule shapes APAC's Q3 result. Its median was 3h 20m with unstaffed weekends counted, and 2h 31m on weekdays only.<a class="cm-cite" href="#src-4" id="cite-9">S4</a></p>
           <h3>Escalated billing ticket</h3>
           <p>A billing email arrives at 11:20 on a Tuesday, and a Tier 1 agent replies at 12:05 while escalating it. First response time is 45m. The wait for a billing specialist after that reply counts as specialist queue wait.</p>
           <h3>Median of five tickets</h3>

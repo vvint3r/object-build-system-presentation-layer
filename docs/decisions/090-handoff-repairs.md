@@ -99,4 +99,4 @@ template placement and namespace above.
 ## Left
 
 The diagram's screen-width capacity, how `col` and `row` read when a flow runs down, and how a
-branch ends partway through a flow are left to a separate session.
+branch ends partway through a flow are left to a separate session. Record 086 takes all three.

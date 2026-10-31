@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>First response time for new agents</title>
+<meta name="cm-kit" content="1.2">
+<meta name="cm-kind" content="guide">
+<meta name="cm-id" content="guide-first-response-basics">
+<meta name="cm-type" content="module">
+<script>(function(){var t;try{t=localStorage.getItem('cm-theme')}catch(e){}document.documentElement.dataset.theme=t||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')})()</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,300;1,400&family=JetBrains+Mono:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="report-kit/cm-report.css">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js" defer></script>
+<script src="report-kit/cm-report.js" defer></script>
+</head>
+<body>
+
+<header class="cm-topbar">
+  <div class="cm-topbar__in">
+    <a class="cm-wordmark" href="index.html">support-operations</a>
+    <span class="cm-chip">Learning module</span>
+    <div class="cm-topbar__actions">
+      <button class="cm-btn cm-btn--quiet cm-btn--sm" type="button" data-cm-theme-toggle>Dark mode</button>
+    </div>
+  </div>
+</header>
+
+<div class="cm-shell">
+  <nav class="cm-rail" aria-label="Contents">
+    <div class="cm-toc">
+      <span class="cm-label">Contents</span>
+      <ol>
+        <li><a href="#purpose"><span class="n">01</span>Purpose</a></li>
+        <li><a href="#objectives"><span class="n">02</span>Objectives</a></li>
+        <li><a href="#prerequisites"><span class="n">03</span>Prerequisites</a></li>
+        <li><a href="#steps"><span class="n">04</span>Lessons</a></li>
+        <li><a href="#exercises"><span class="n">05</span>Exercises</a></li>
+        <li><a href="#exceptions"><span class="n">06</span>Exceptions and recovery</a></li>
+        <li><a href="#related"><span class="n">07</span>Related documents</a></li>
+        <li><a href="#sources"><span class="n">A</span>Notes &amp; sources</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main class="cm-main" id="top">
+
+    <!-- MASTHEAD -->
+    <header class="cm-mast">
+      <nav class="cm-crumbs" aria-label="Breadcrumb">
+        <a href="index.html">Support operations</a><span class="sep" aria-hidden="true">/</span>
+        <a href="index.html#service-performance">Service performance</a><span class="sep" aria-hidden="true">/</span>
+        <span aria-current="page">First response basics</span>
+      </nav>
+      <div class="cm-bar" aria-hidden="true"></div>
+      <h1 class="cm-mast__title">First response time for new agents</h1>
+      <p class="cm-mast__dek">Three short lessons, with exercises, on working out first response time for a ticket and a quarter.</p>
+      <dl class="cm-mast__meta">
+        <div><dt>Status</dt><dd><span class="cm-chip">Guide</span><span class="cm-chip cm-chip--ok">Final</span><span class="cm-chip cm-chip--note">Sample data</span></dd></div>
+        <div><dt>Published</dt><dd>2026-10-29</dd></div>
+        <div><dt>Reading time</dt><dd>5 min</dd></div>
+        <div><dt>Version</dt><dd>1.0</dd></div>
+      </dl>
+      <dl class="cm-byline">
+        <div><dt>Prepared by</dt><dd>Support Operations Analytics</dd></div>
+        <div><dt>Reviewed by</dt><dd>Tier 1 training lead</dd></div>
+        <div><dt>Distribution</dt><dd>Internal · support agents</dd></div>
+      </dl>
+    </header>
+
+    <!-- 01 PURPOSE -->
+    <section class="cm-section" id="purpose" aria-labelledby="purpose-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 01</span>
+        <h2 class="cm-section__title" id="purpose-t">Purpose</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>New Tier 1 agents take this module to <strong>read first response time the way the quarterly review reports it</strong>. Their replies stop its clock, and the quarter's figure is held to a target.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 OBJECTIVES -->
+    <section class="cm-section" id="objectives" aria-labelledby="objectives-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 02</span>
+        <h2 class="cm-section__title" id="objectives-t">Objectives</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>Each objective links to <strong>the lesson that teaches it and the exercise that checks it</strong>.</p>
+        </div>
+        <ol class="cm-olist">
+          <li>Work out a ticket's first response time from its timestamps: <a href="#lesson-1">lesson 1</a>, <a href="#exercise-1">exercise 1</a>.</li>
+          <li>Report a period's first response time as the median of its tickets: <a href="#lesson-2">lesson 2</a>, <a href="#exercise-2">exercise 2</a>.</li>
+          <li>Tell first response time apart from specialist queue wait and resolution within SLA: <a href="#lesson-3">lesson 3</a>, <a href="#exercise-3">exercise 3</a>.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 03 PREREQUISITES -->
+    <section class="cm-section" id="prerequisites" aria-labelledby="prerequisites-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 03</span>
+        <h2 class="cm-section__title" id="prerequisites-t">Prerequisites</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>The lessons explain the measure, <strong>not the helpdesk itself</strong>.</p>
+        </div>
+        <ul class="cm-list">
+          <li>Helpdesk onboarding done, so macros, internal notes and escalations are familiar.</li>
+          <li>The <a href="Reference%20-%20Support%20Glossary.html#terms">support operations glossary</a> open alongside, for the exact sense of each term.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 04 LESSONS (the guide's Steps part) -->
+    <section class="cm-section" id="steps" aria-labelledby="steps-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 04</span>
+        <h2 class="cm-section__title" id="steps-t">Lessons</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>Each lesson <strong>states a rule, then works a case</strong> through it.</p>
+        </div>
+        <ol class="cm-procedure">
+          <li id="lesson-1">
+            <h3 class="cm-procedure__title">Find the clock's start and stop</h3>
+            <p>The clock starts at the ticket's creation time. It stops at the first public reply a person sends, including a reply sent with a macro.<a class="cm-cite" href="#src-1" id="cite-1">S1</a></p>
+            <p>Automatic acknowledgements and internal notes do not stop it. The clock runs through nights and weekends, since it measures the wait the customer sees.</p>
+            <div class="cm-procedure__outcome"><span class="cm-label">Outcome</span><p>Every timestamp on a ticket sorts into clock start, clock stop or neither.</p></div>
+          </li>
+          <li id="lesson-2">
+            <h3 class="cm-procedure__title">Take the median across the period</h3>
+            <p>A period's first response time is the median of the tickets created in it, not the mean. Tickets created by staff, spam and merged duplicates are left out first.<a class="cm-cite" href="#src-1" id="cite-2">S1</a></p>
+            <p>Five tickets of 7m, 45m, 1h 50m, 3h 40m and 43h 30m have a median of 1h 50m. Their mean is 9h 58m, pulled up by one weekend ticket.</p>
+            <div class="cm-procedure__outcome"><span class="cm-label">Outcome</span><p>The figure to compare with the quarterly target is the median, never the mean.</p></div>
+          </li>
+          <li id="lesson-3">
+            <h3 class="cm-procedure__title">Separate first response from the other measures</h3>
+            <p>First response time stops at the first reply, even one sent with an escalation. Specialist queue wait runs from the escalation until a specialist picks the ticket up, and also counts every hour.</p>
+            <p>Resolution within SLA is a test, not a wait: the ticket passes when it is resolved before its due time. Chat and phone get 4 hours; email, web form and social get 24 business hours, counted 08:00 to 18:00 on weekdays.<a class="cm-cite" href="#src-2" id="cite-3">S2</a></p>
+            <p>The measures can disagree: in Q3, support met its first response target and missed its resolution target.<a class="cm-cite" href="#src-3" id="cite-4">S3</a></p>
+            <div class="cm-procedure__outcome"><span class="cm-label">Outcome</span><p>An escalated ticket gives three readings: a first response time, a specialist queue wait and a due time met or missed.</p></div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 05 EXERCISES -->
+    <section class="cm-section" id="exercises" aria-labelledby="exercises-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 05</span>
+        <h2 class="cm-section__title" id="exercises-t">Exercises</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>Try each exercise <strong>before opening its answer</strong>; every answer shows its working. The tickets are illustrative.</p>
+        </div>
+
+        <div class="cm-stack" id="exercise-1">
+          <h3 class="cm-h3">Chat with an acknowledgement and a note</h3>
+          <div class="cm-prose">
+            <p>A chat opens at 09:15 and gets an automatic acknowledgement at once. An agent adds an internal note at 09:18, then sends the first public reply with a macro at 09:26. Work out the chat's first response time.</p>
+          </div>
+          <div class="cm-bleed">
+            <details class="cm-collapse">
+              <summary><div><span class="cm-label">Answer</span><h4>Exercise 1</h4></div></summary>
+              <div class="cm-collapse__body">
+                <div class="cm-prose"><p>The answer is 11m. The clock starts at 09:15 and stops at the 09:26 macro reply; neither the acknowledgement nor the internal note stops it.</p></div>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <div class="cm-stack" id="exercise-2">
+          <h3 class="cm-h3">Six tickets in one week</h3>
+          <div class="cm-prose">
+            <p>A week's six tickets waited 5m, 12m, 35m, 1h 05m, 2h 20m and 26h for a first reply. A staff member created the 5m ticket. Work out the week's first response time.</p>
+          </div>
+          <div class="cm-bleed">
+            <details class="cm-collapse">
+              <summary><div><span class="cm-label">Answer</span><h4>Exercise 2</h4></div></summary>
+              <div class="cm-collapse__body">
+                <div class="cm-prose"><p>The answer is 1h 05m. The staff ticket is left out, and 1h 05m is the middle of the five times left. Their mean would be 6h 02m, pulled up by the 26h ticket.</p></div>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <div class="cm-stack" id="exercise-3">
+          <h3 class="cm-h3">Escalated billing email</h3>
+          <div class="cm-prose">
+            <p>A billing email arrives at 15:10 on a Wednesday, and at 15:40 a Tier 1 agent replies and escalates it. A specialist picks it up at 09:10 on Thursday and resolves it at 11:00 on Friday. Give the first response time and specialist queue wait, and say whether the ticket met its due time.</p>
+          </div>
+          <div class="cm-bleed">
+            <details class="cm-collapse">
+              <summary><div><span class="cm-label">Answer</span><h4>Exercise 3</h4></div></summary>
+              <div class="cm-collapse__body">
+                <div class="cm-prose"><p>First response time is 30m, from 15:10 to the 15:40 reply. Specialist queue wait is 17h 30m, from 15:40 to 09:10 on Thursday. The due time falls 24 business hours after 15:10 on Wednesday, at 09:10 on Monday, so the ticket was resolved within SLA.<a class="cm-cite" href="#src-2" id="cite-5">S2</a></p></div>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 EXCEPTIONS AND RECOVERY -->
+    <section class="cm-section" id="exceptions" aria-labelledby="exceptions-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 06</span>
+        <h2 class="cm-section__title" id="exceptions-t">Exceptions and recovery</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>In two cases the measured time <strong>differs from the wait the customer saw</strong>.</p>
+        </div>
+        <div class="cm-stack">
+          <h3 class="cm-h3">Merged ticket</h3>
+          <div class="cm-prose">
+            <p>A merged ticket keeps the creation time of the ticket that survives the merge.<a class="cm-cite" href="#src-1" id="cite-6">S1</a> When the customer first wrote on the duplicate, the measured time is shorter than the real wait. Check the merge history before quoting such a ticket's time.</p>
+          </div>
+        </div>
+        <div class="cm-stack">
+          <h3 class="cm-h3">Ticket still waiting for a reply</h3>
+          <div class="cm-prose">
+            <p>A ticket with no reply yet has no first response time, so a live median leaves out the longest waits. A quarter's figure is fixed at the first warehouse refresh after the quarter closes, once those replies have counted.<a class="cm-cite" href="#src-1" id="cite-7">S1</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 RELATED DOCUMENTS -->
+    <section class="cm-section" id="related" aria-labelledby="related-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 07</span>
+        <h2 class="cm-section__title" id="related-t">Related documents</h2>
+      </header>
+      <div class="cm-section__body">
+        <ul class="cm-related">
+          <li><span class="cm-tag">Reference</span><a href="Reference%20-%20First%20Response%20Time.html#measurement">First response time</a><p>The full clock rules, exclusions and query that the lessons summarise.</p></li>
+          <li><span class="cm-tag">Reference</span><a href="Reference%20-%20Service%20Levels.html#subtopics">Service levels</a><p>Places first response time beside resolution within SLA and specialist queue wait.</p></li>
+          <li><span class="cm-tag">Report</span><a href="Sample%20Report%20-%20Q3%20Support%20Review.html#service">Customer support operations review, Q3 2026</a><p>The quarter's first response time and SLA attainment, read the way lesson 3 sets out.</p></li>
+          <li><span class="cm-tag">Guide</span><a href="Guide%20-%20Billing%20Escalation.html#steps">Billing ticket escalation to specialists</a><p>The escalation whose reply in step 6 stops the first response clock.</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- A NOTES & SOURCES -->
+    <section class="cm-section cm-section--part" id="sources" aria-labelledby="sources-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Appendix A</span>
+        <h2 class="cm-section__title" id="sources-t">Notes &amp; sources</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-stack">
+          <h3 class="cm-h4">Sources</h3>
+          <ol class="cm-sources">
+            <li id="src-1"><span class="cm-id">S1</span><span><b>First response time, metric reference</b><br><span class="cm-tag">Document</span> Support Operations Analytics · <a href="Reference%20-%20First%20Response%20Time.html">Reference - First Response Time.html</a> <a class="cm-back" href="#cite-1" aria-label="Back to text">↩</a></span><span class="cm-meta">published <time datetime="2026-10-14">2026-10-14</time></span></li>
+            <li id="src-2"><span class="cm-id">S2</span><span><b>SLA policy v3</b><br><span class="cm-tag">Document</span> Support Operations · <code>support/sla-policy-v3.pdf</code> <a class="cm-back" href="#cite-3" aria-label="Back to text">↩</a></span><span class="cm-meta">published <time datetime="2026-01-01">2026-01-01</time></span></li>
+            <li id="src-3"><span class="cm-id">S3</span><span><b>Customer support operations review, Q3 2026</b><br><span class="cm-tag">Report</span> Support Operations Analytics · <a href="Sample%20Report%20-%20Q3%20Support%20Review.html">Sample Report - Q3 Support Review.html</a> <a class="cm-back" href="#cite-4" aria-label="Back to text">↩</a></span><span class="cm-meta">published <time datetime="2026-10-12">2026-10-12</time></span></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <footer class="cm-footer">
+      <span><b>First response time for new agents</b></span>
+      <span>v1.0 · published 2026-10-29</span>
+      <span>Support Operations Analytics</span>
+      <span>Content Morphia Report Kit 1.2</span>
+    </footer>
+  </main>
+</div>
+</body>
+</html>

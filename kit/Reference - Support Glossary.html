@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Support operations glossary</title>
+<meta name="cm-kit" content="1.2">
+<meta name="cm-kind" content="reference">
+<meta name="cm-id" content="reference-support-glossary">
+<meta name="cm-type" content="glossary">
+<script>(function(){var t;try{t=localStorage.getItem('cm-theme')}catch(e){}document.documentElement.dataset.theme=t||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')})()</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,300;1,400&family=JetBrains+Mono:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="report-kit/cm-report.css">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js" defer></script>
+<script src="report-kit/cm-report.js" defer></script>
+</head>
+<body>
+
+<header class="cm-topbar">
+  <div class="cm-topbar__in">
+    <a class="cm-wordmark" href="index.html">support-operations</a>
+    <span class="cm-chip">Glossary</span>
+    <div class="cm-topbar__actions">
+      <button class="cm-btn cm-btn--quiet cm-btn--sm" type="button" data-cm-theme-toggle>Dark mode</button>
+    </div>
+  </div>
+</header>
+
+<div class="cm-shell">
+  <nav class="cm-rail" aria-label="Contents">
+    <div class="cm-toc">
+      <span class="cm-label">Contents</span>
+      <ol>
+        <li><a href="#definition"><span class="n">01</span>Definition</a></li>
+        <li><a href="#terms"><span class="n">02</span>Terms</a></li>
+        <li><a href="#relationships"><span class="n">03</span>Relationships</a></li>
+        <li><a href="#examples"><span class="n">04</span>Examples</a></li>
+        <li><a href="#sources"><span class="n">A</span>Notes &amp; sources</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main class="cm-main" id="top">
+
+    <!-- MASTHEAD -->
+    <header class="cm-mast">
+      <nav class="cm-crumbs" aria-label="Breadcrumb">
+        <a href="index.html">Support operations</a><span class="sep" aria-hidden="true">/</span>
+        <a href="index.html#service-performance">Service performance</a><span class="sep" aria-hidden="true">/</span>
+        <span aria-current="page">Support glossary</span>
+      </nav>
+      <div class="cm-bar" aria-hidden="true"></div>
+      <h1 class="cm-mast__title">Support operations glossary</h1>
+      <p class="cm-mast__dek">The terms the support documents use for clocks, targets, queues and the survey, each defined once.</p>
+      <dl class="cm-mast__meta">
+        <div><dt>Status</dt><dd><span class="cm-chip">Reference</span><span class="cm-chip cm-chip--ok">Final</span><span class="cm-chip cm-chip--note">Sample data</span></dd></div>
+        <div><dt>Published</dt><dd>2026-10-28</dd></div>
+        <div><dt>Reading time</dt><dd>4 min</dd></div>
+        <div><dt>Version</dt><dd>1.0</dd></div>
+      </dl>
+      <dl class="cm-byline">
+        <div><dt>Prepared by</dt><dd>Support Operations Analytics</dd></div>
+        <div><dt>Distribution</dt><dd>Internal · all staff</dd></div>
+      </dl>
+    </header>
+
+    <!-- 01 DEFINITION -->
+    <section class="cm-section" id="definition" aria-labelledby="definition-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 01</span>
+        <h2 class="cm-section__title" id="definition-t">Definition</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>The support operations glossary gives <strong>the shared sense of each service term</strong> in the support documents. Each term follows the policy or dataset it cites, and changes only when that source does. Plan, price and invoice terms fall outside it.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 TERMS -->
+    <section class="cm-section" id="terms" aria-labelledby="terms-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 02</span>
+        <h2 class="cm-section__title" id="terms-t">Terms</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>Terms are grouped by <strong>what they describe</strong>, and run A to Z within each group.</p>
+        </div>
+
+        <div class="cm-stack">
+          <h3 class="cm-h3">Clocks and waits</h3>
+          <aside class="cm-def">
+            <span class="cm-def__label">Definitions</span>
+            <dl>
+              <div><dt>Business hours</dt><dd>08:00 to 18:00 on weekdays, in the time zone of the Tier 1 region that takes the ticket. Due times for email, web form and social count only these hours.<a class="cm-cite" href="#src-1" id="cite-1">S1</a></dd></div>
+              <div><dt>First response time</dt><dd>Time from a ticket's creation to the first reply a person sends, counting every hour. Automatic acknowledgements and internal notes do not stop it. Also called FRT.<a class="cm-cite" href="#src-2" id="cite-2">S2</a></dd></div>
+              <div><dt>Specialist queue wait</dt><dd>Time an escalated ticket waits from the escalation until a specialist picks it up. Like first response time, it counts every hour.<a class="cm-cite" href="#src-2" id="cite-3">S2</a></dd></div>
+            </dl>
+          </aside>
+        </div>
+
+        <div class="cm-stack">
+          <h3 class="cm-h3">Due times and attainment</h3>
+          <aside class="cm-def">
+            <span class="cm-def__label">Definitions</span>
+            <dl>
+              <div><dt>Resolved within SLA</dt><dd>A ticket resolved before its SLA due time. A period's figure is the share of its resolved tickets that meet it. Also called SLA attainment.<a class="cm-cite" href="#src-1" id="cite-4">S1</a></dd></div>
+              <div><dt>SLA due time</dt><dd>The deadline for resolving a ticket under the service level agreement (SLA). It falls 4 hours after creation for chat and phone, and 24 business hours after for email, web form and social.<a class="cm-cite" href="#src-1" id="cite-5">S1</a></dd></div>
+            </dl>
+          </aside>
+        </div>
+
+        <div class="cm-stack">
+          <h3 class="cm-h3">Queues and escalation</h3>
+          <aside class="cm-def">
+            <span class="cm-def__label">Definitions</span>
+            <dl>
+              <div><dt>Backlog</dt><dd>Tickets open or waiting on the customer at 23:59 UTC each Sunday, when the weekly snapshot is taken.<a class="cm-cite" href="#src-2" id="cite-6">S2</a></dd></div>
+              <div><dt>Escalation</dt><dd>Handing a ticket from Tier 1 to the billing or technical specialists, with an escalation macro, a reason code and an internal note. The escalating agent stays on as a follower.<a class="cm-cite" href="#src-3" id="cite-7">S3</a></dd></div>
+              <div><dt>Intent routing</dt><dd>A classifier that reads each new chat and sends it to the billing, technical or account queue. Email and web-form tickets wait in one shared queue.<a class="cm-cite" href="#src-4" id="cite-8">S4</a></dd></div>
+              <div><dt>Reason code</dt><dd>The code on an escalation that names the decision a specialist must make, such as Refund approval or Dispute. It decides which specialist desk takes the ticket.<a class="cm-cite" href="#src-3" id="cite-9">S3</a></dd></div>
+              <div><dt>Tier 1</dt><dd>The first line of agents, organised by region, who pick up every new ticket and either resolve it or escalate it.<a class="cm-cite" href="#src-4" id="cite-10">S4</a></dd></div>
+            </dl>
+          </aside>
+        </div>
+
+        <div class="cm-stack">
+          <h3 class="cm-h3">Survey</h3>
+          <aside class="cm-def">
+            <span class="cm-def__label">Definitions</span>
+            <dl>
+              <div><dt>Customer satisfaction</dt><dd>The share of survey responses scoring 4 or 5 on a 5-point scale, with every response counted once. The survey goes out 24 hours after a ticket closes. Also called CSAT.<a class="cm-cite" href="#src-5" id="cite-11">S5</a></dd></div>
+              <div><dt>Response rate</dt><dd>The share of resolved tickets whose survey gets a response. The lower it is, the less a period's customer satisfaction speaks for every ticket.<a class="cm-cite" href="#src-5" id="cite-12">S5</a></dd></div>
+            </dl>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 RELATIONSHIPS -->
+    <section class="cm-section" id="relationships" aria-labelledby="relationships-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 03</span>
+        <h2 class="cm-section__title" id="relationships-t">Relationships</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>Each document below <strong>uses a group of these terms</strong> and adds detail the glossary leaves out.</p>
+        </div>
+        <ul class="cm-related">
+          <li><span class="cm-tag">Reference</span><a href="Reference%20-%20First%20Response%20Time.html#measurement">First response time</a><p>Adds the clock's edge cases and the query behind the reported median.</p></li>
+          <li><span class="cm-tag">Report</span><a href="Sample%20Report%20-%20Q3%20Support%20Review.html#methodology">Customer support operations review, Q3 2026</a><p>Repeats four terms for the quarter's figures: first response time, within SLA, backlog and CSAT.</p></li>
+          <li><span class="cm-tag">Guide</span><a href="Guide%20-%20Billing%20Escalation.html#steps">Billing ticket escalation to specialists</a><p>Applies escalation, reason codes and SLA due times to a billing ticket, step by step.</p></li>
+          <li><span class="cm-tag">Reference</span><a href="Reference%20-%20Service%20Levels.html#subtopics">Service levels</a><p>Explains how the three waits and their targets fit together.</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 04 EXAMPLES -->
+    <section class="cm-section" id="examples" aria-labelledby="examples-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 04</span>
+        <h2 class="cm-section__title" id="examples-t">Examples</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>Both examples <strong>count two clocks side by side</strong>: first response time in every hour, the due time in business hours only. The tickets and times are illustrative.</p>
+          <h3>Disputed charge by email</h3>
+          <p>A customer emails at 09:02 on a Wednesday about a disputed charge, and an automatic acknowledgement goes out at once. At 09:40 a Tier 1 agent replies and escalates with the reason code Dispute. First response time is 38m, since the acknowledgement does not stop the clock.</p>
+          <p>The disputes desk picks the ticket up at 14:10, a specialist queue wait of 4h 30m. Counting 24 business hours from 09:02 on Wednesday puts the due time at 13:02 on Friday. Resolved at 16:00 on Thursday, the ticket counts as resolved within SLA.</p>
+          <h3>Email over a weekend</h3>
+          <p>An email arrives at 17:00 on a Friday, and the first reply comes at 10:00 on Monday. First response time is 65h, since that clock counts the whole weekend. Only 3 business hours pass, so 21 of the 24 remain before the due time.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- A NOTES & SOURCES -->
+    <section class="cm-section cm-section--part" id="sources" aria-labelledby="sources-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Appendix A</span>
+        <h2 class="cm-section__title" id="sources-t">Notes &amp; sources</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-stack">
+          <h3 class="cm-h4">Sources</h3>
+          <ol class="cm-sources">
+            <li id="src-1"><span class="cm-id">S1</span><span><b>SLA policy v3</b><br><span class="cm-tag">Document</span> Support Operations · <code>support/sla-policy-v3.pdf</code> <a class="cm-back" href="#cite-1" aria-label="Back to text">↩</a></span><span class="cm-meta">published <time datetime="2026-01-01">2026-01-01</time></span></li>
+            <li id="src-2"><span class="cm-id">S2</span><span><b>Helpdesk warehouse, ticket facts</b><br><span class="cm-tag">Dataset</span> Support Operations Analytics · <code>support.tickets_fact</code> <a class="cm-back" href="#cite-2" aria-label="Back to text">↩</a></span><span class="cm-meta">refreshed <time datetime="2026-10-05">2026-10-05</time></span></li>
+            <li id="src-3"><span class="cm-id">S3</span><span><b>Billing escalation policy v4</b><br><span class="cm-tag">Document</span> Billing Operations · <code>billing/escalation-policy-v4.pdf</code> <a class="cm-back" href="#cite-7" aria-label="Back to text">↩</a></span><span class="cm-meta">published <time datetime="2026-08-12">2026-08-12</time></span></li>
+            <li id="src-4"><span class="cm-id">S4</span><span><b>Helpdesk routing rules</b><br><span class="cm-tag">System export</span> Support Operations · <code>helpdesk/config/routing-rules.json</code> <a class="cm-back" href="#cite-8" aria-label="Back to text">↩</a></span><span class="cm-meta">exported <time datetime="2026-10-05">2026-10-05</time></span></li>
+            <li id="src-5"><span class="cm-id">S5</span><span><b>CSAT survey export, Q3 2026</b><br><span class="cm-tag">System export</span> Customer Experience · <code>csat/exports/2026-q3.csv</code> <a class="cm-back" href="#cite-11" aria-label="Back to text">↩</a></span><span class="cm-meta">exported <time datetime="2026-10-05">2026-10-05</time></span></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <footer class="cm-footer">
+      <span><b>Support operations glossary</b></span>
+      <span>v1.0 · published 2026-10-28</span>
+      <span>Support Operations Analytics</span>
+      <span>Content Morphia Report Kit 1.2</span>
+    </footer>
+  </main>
+</div>
+</body>
+</html>

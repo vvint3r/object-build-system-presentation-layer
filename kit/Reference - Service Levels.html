@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Service levels</title>
+<meta name="cm-kit" content="1.2">
+<meta name="cm-kind" content="reference">
+<meta name="cm-id" content="reference-service-levels">
+<meta name="cm-type" content="topic">
+<script>(function(){var t;try{t=localStorage.getItem('cm-theme')}catch(e){}document.documentElement.dataset.theme=t||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')})()</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,300;1,400&family=JetBrains+Mono:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="report-kit/cm-report.css">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js" defer></script>
+<script src="report-kit/cm-report.js" defer></script>
+</head>
+<body>
+
+<header class="cm-topbar">
+  <div class="cm-topbar__in">
+    <a class="cm-wordmark" href="index.html">support-operations</a>
+    <span class="cm-chip">Topic</span>
+    <div class="cm-topbar__actions">
+      <button class="cm-btn cm-btn--quiet cm-btn--sm" type="button" data-cm-theme-toggle>Dark mode</button>
+    </div>
+  </div>
+</header>
+
+<div class="cm-shell">
+  <nav class="cm-rail" aria-label="Contents">
+    <div class="cm-toc">
+      <span class="cm-label">Contents</span>
+      <ol>
+        <li><a href="#definition"><span class="n">01</span>Definition</a></li>
+        <li><a href="#subtopics"><span class="n">02</span>Subtopics</a></li>
+        <li><a href="#properties"><span class="n">03</span>Properties</a></li>
+        <li><a href="#relationships"><span class="n">04</span>Relationships</a></li>
+        <li><a href="#examples"><span class="n">05</span>Examples</a></li>
+        <li><a href="#sources"><span class="n">A</span>Notes &amp; sources</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main class="cm-main" id="top">
+
+    <!-- MASTHEAD -->
+    <header class="cm-mast">
+      <nav class="cm-crumbs" aria-label="Breadcrumb">
+        <a href="index.html">Support operations</a><span class="sep" aria-hidden="true">/</span>
+        <a href="index.html#service-performance">Service performance</a><span class="sep" aria-hidden="true">/</span>
+        <span aria-current="page">Service levels</span>
+      </nav>
+      <div class="cm-bar" aria-hidden="true"></div>
+      <h1 class="cm-mast__title">Service levels</h1>
+      <p class="cm-mast__dek">How long customers wait for a reply, a resolution and a specialist, and which documents cover each.</p>
+      <dl class="cm-mast__meta">
+        <div><dt>Status</dt><dd><span class="cm-chip">Reference</span><span class="cm-chip cm-chip--ok">Final</span><span class="cm-chip cm-chip--note">Sample data</span></dd></div>
+        <div><dt>Published</dt><dd>2026-10-27</dd></div>
+        <div><dt>Reading time</dt><dd>3 min</dd></div>
+        <div><dt>Version</dt><dd>1.0</dd></div>
+      </dl>
+      <dl class="cm-byline">
+        <div><dt>Prepared by</dt><dd>Support Operations Analytics</dd></div>
+        <div><dt>Distribution</dt><dd>Internal · all staff</dd></div>
+      </dl>
+    </header>
+
+    <!-- 01 DEFINITION -->
+    <section class="cm-section" id="definition" aria-labelledby="definition-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 01</span>
+        <h2 class="cm-section__title" id="definition-t">Definition</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>Service levels are <strong>how long a customer waits at each stage of a ticket</strong>: for a first reply, for resolution and for a specialist. Customer satisfaction is reported beside them but is not a wait, so it falls outside the subject.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 SUBTOPICS -->
+    <section class="cm-section" id="subtopics" aria-labelledby="subtopics-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 02</span>
+        <h2 class="cm-section__title" id="subtopics-t">Subtopics</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>Each wait runs on <strong>its own clock</strong>, so a ticket can be fast on one and late on another.</p>
+        </div>
+
+        <div class="cm-stack">
+          <h3 class="cm-h3">First response time</h3>
+          <div class="cm-prose">
+            <p>The clock runs from a ticket's creation to the first reply a person sends, and counts every hour, nights and weekends included. It measures how long a customer goes without hearing from anyone.</p>
+          </div>
+          <ul class="cm-related">
+            <li><span class="cm-tag">Reference</span><a href="Reference%20-%20First%20Response%20Time.html#measurement">First response time</a><p>The clock rules, the tickets left out and the query behind the reported median.</p></li>
+            <li><span class="cm-tag">Guide</span><a href="Guide%20-%20First%20Response%20Basics.html#steps">First response time for new agents</a><p>Three short lessons with exercises, for an agent new to the measure.</p></li>
+          </ul>
+        </div>
+
+        <div class="cm-stack">
+          <h3 class="cm-h3">Resolution within SLA</h3>
+          <div class="cm-prose">
+            <p>Each ticket gets a due time by channel from the service level agreement (SLA) policy.<a class="cm-cite" href="#src-1" id="cite-1">S1</a> A ticket resolved before its due time counts as resolved within SLA, however long its first reply took.</p>
+          </div>
+          <ul class="cm-related">
+            <li><span class="cm-tag">Report</span><a href="Sample%20Report%20-%20Q3%20Support%20Review.html#service">Q3 speed and service levels</a><p>The latest quarter's attainment by channel, and why email and the web form hold it down.</p></li>
+            <li><span class="cm-tag">Guide</span><a href="Guide%20-%20Billing%20Escalation.html#exceptions">Billing escalation exceptions</a><p>What an agent does when an escalated billing ticket passes its due time.</p></li>
+          </ul>
+        </div>
+
+        <div class="cm-stack">
+          <h3 class="cm-h3">Specialist queue wait</h3>
+          <div class="cm-prose">
+            <p>The wait starts when Tier 1 escalates a ticket and ends when a specialist picks it up. It runs inside the resolution clock, so a long specialist wait uses up the ticket's due time.</p>
+          </div>
+          <ul class="cm-related">
+            <li><span class="cm-tag">Guide</span><a href="Guide%20-%20Billing%20Escalation.html#steps">Billing escalation steps</a><p>How Tier 1 hands a billing ticket over so the specialist can act without asking again.</p></li>
+            <li><span class="cm-tag">Report</span><a href="Sample%20Report%20-%20Q3%20Support%20Review.html#initiatives">Q3 escalation path</a><p>Each stage of the escalation path with its latest median wait, and the specialist hiring planned against it.</p></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 PROPERTIES -->
+    <section class="cm-section" id="properties" aria-labelledby="properties-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 03</span>
+        <h2 class="cm-section__title" id="properties-t">Properties</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>Two of the three waits carry <strong>a quarterly target</strong>; the specialist queue wait is reported without one.</p>
+        </div>
+        <div class="cm-props">
+          <dl>
+            <dt>First response target</dt><dd>Median of 2h 30m or less each quarter<a class="cm-cite" href="#src-2" id="cite-2">S2</a></dd>
+            <dt>Resolution target</dt><dd>95% of tickets resolved within SLA each quarter</dd>
+            <dt>Specialist wait target</dt><dd>None; reported each quarter</dd>
+          </dl>
+          <dl>
+            <dt>Due times</dt><dd>4 hours for chat and phone, counted around the clock; 24 business hours for email, web form and social<a class="cm-cite" href="#src-1" id="cite-3">S1</a></dd>
+          </dl>
+          <dl>
+            <dt>Owner</dt><dd>Support Operations</dd>
+            <dt>Source system</dt><dd>Helpdesk warehouse, <code>support.tickets_fact</code><a class="cm-cite" href="#src-3" id="cite-4">S3</a></dd>
+            <dt>Reported in</dt><dd><a href="Sample%20Report%20-%20Q3%20Support%20Review.html#summary">Customer support operations review</a>, each quarter</dd>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 RELATIONSHIPS -->
+    <section class="cm-section" id="relationships" aria-labelledby="relationships-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 04</span>
+        <h2 class="cm-section__title" id="relationships-t">Relationships</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>Service levels sit between <strong>ticket demand</strong>, which drives the waits, and <strong>customer satisfaction</strong>, which reflects them.</p>
+        </div>
+        <ul class="cm-related">
+          <li><span class="cm-tag">Report</span><a href="Sample%20Report%20-%20Q3%20Support%20Review.html#demand">Q3 demand</a><p>Weekly ticket volume, whose peaks lengthen all three waits.</p></li>
+          <li><span class="cm-tag">Report</span><a href="Sample%20Report%20-%20Q3%20Support%20Review.html#sentiment">Q3 customer sentiment</a><p>Satisfaction rates the whole ticket after it closes, so any of the three waits can move it.</p></li>
+          <li><span class="cm-tag">Reference</span><a href="Reference%20-%20Support%20Glossary.html#terms">Support operations glossary</a><p>The exact sense of each clock, due time and queue named here.</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 05 EXAMPLES -->
+    <section class="cm-section" id="examples" aria-labelledby="examples-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 05</span>
+        <h2 class="cm-section__title" id="examples-t">Examples</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>The example follows <strong>one ticket through all three waits</strong>. The ticket and its times are illustrative.</p>
+          <h3>Large refund on chat</h3>
+          <p>A chat opens at 10:00 about a $3,000 refund, and Tier 1 replies and escalates it at 10:04. First response time is 4m. The due time is 14:00, since chat counts every hour.<a class="cm-cite" href="#src-1" id="cite-5">S1</a></p>
+          <p>A billing specialist picks the ticket up at 13:30, a specialist queue wait of 3h 26m. The refund is above the $2,500 a specialist can approve, so it needs the billing operations lead and finance sign-off.<a class="cm-cite" href="#src-4" id="cite-6">S4</a></p>
+          <p>That approval adds up to 2 business days, so the ticket passes its due time.<a class="cm-cite" href="#src-4" id="cite-7">S4</a> It is resolved outside SLA, though its first reply took 4 minutes.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- A NOTES & SOURCES -->
+    <section class="cm-section cm-section--part" id="sources" aria-labelledby="sources-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Appendix A</span>
+        <h2 class="cm-section__title" id="sources-t">Notes &amp; sources</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-stack">
+          <h3 class="cm-h4">Sources</h3>
+          <ol class="cm-sources">
+            <li id="src-1"><span class="cm-id">S1</span><span><b>SLA policy v3</b><br><span class="cm-tag">Document</span> Support Operations · <code>support/sla-policy-v3.pdf</code> <a class="cm-back" href="#cite-1" aria-label="Back to text">↩</a></span><span class="cm-meta">published <time datetime="2026-01-01">2026-01-01</time></span></li>
+            <li id="src-2"><span class="cm-id">S2</span><span><b>Support service targets 2026</b><br><span class="cm-tag">Document</span> Support Operations · <code>support/service-targets-2026.pdf</code> <a class="cm-back" href="#cite-2" aria-label="Back to text">↩</a></span><span class="cm-meta">published <time datetime="2026-01-01">2026-01-01</time></span></li>
+            <li id="src-3"><span class="cm-id">S3</span><span><b>Helpdesk warehouse, ticket facts</b><br><span class="cm-tag">Dataset</span> Support Operations Analytics · <code>support.tickets_fact</code> <a class="cm-back" href="#cite-4" aria-label="Back to text">↩</a></span><span class="cm-meta">refreshed <time datetime="2026-10-05">2026-10-05</time></span></li>
+            <li id="src-4"><span class="cm-id">S4</span><span><b>Refund authority matrix v4</b><br><span class="cm-tag">Document</span> Billing Operations · <code>billing/refund-authority-v4.pdf</code> <a class="cm-back" href="#cite-6" aria-label="Back to text">↩</a></span><span class="cm-meta">published <time datetime="2026-08-12">2026-08-12</time></span></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <footer class="cm-footer">
+      <span><b>Service levels</b></span>
+      <span>v1.0 · published 2026-10-27</span>
+      <span>Support Operations Analytics</span>
+      <span>Content Morphia Report Kit 1.2</span>
+    </footer>
+  </main>
+</div>
+</body>
+</html>

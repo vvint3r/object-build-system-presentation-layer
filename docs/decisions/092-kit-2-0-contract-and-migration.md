@@ -15,6 +15,8 @@
 | Every document carries one `cm-id` tag, after `cm-kind`, or after `cm-kit` on a report without a kind tag | §2, §7, §8.31 | `head-order`, failure |
 | A key finding's or a recommended action's claim line is the `<li>`'s own first child; no element wraps the item | §8.3, §8.19 | `claim-wrapper`, failure |
 | A page of a type starts from its type's template | §1 rule 1, §7.6, §14 item 1 | Checklist, §14 item 1 |
+| No text a chart draws runs past the chart's edge, at any width | §5, §9 | `chart-text-fit`, failure |
+| A horizontal bar chart keeps room at the right for its value labels, and a horizontal scale bar shortens to fit its end labels | §9 | The chart script |
 
 The `doc-id` warning leaves the checks: `head-order` holds the rule and names the missing tag. The
 checks gain tests of their own, `checks/test.mjs` (`npm test`).
@@ -24,6 +26,21 @@ checks gain tests of their own, `checks/test.mjs` (`npm test`).
 | Passing page | The sample report | No check fails |
 | No `cm-id` | The sample report without its `cm-id` tag | `head-order` alone fails, naming the missing tag |
 | Wrapped claim | The sample report with its first key finding wrapped in a `<div>` | `claim-wrapper` alone fails |
+| Clipped label | The sample report with Figure 1's room for its end labels taken away | `chart-text-fit` alone fails, naming a label past the right edge |
+
+## Chart text
+
+`text-clip` passes over everything inside a chart, since the chart library's own elements are not page
+text. `chart-text-fit` measures each text a chart's SVG renders against the SVG's box. On the kit pages
+before the two chart script changes, it finds three texts cut off, all at the 390px phone width.
+
+| Page | Figure | Text | Past the right edge |
+| --- | --- | --- | --- |
+| First response time reference | Figure 1, a horizontal bar chart | `4h 41m` | 18px |
+| Sample report | Figure 2, a heatmap | `120 per block` | 7px |
+| Gallery | Figure 8, a heatmap | `120 per block` | 7px |
+
+With the changes it finds none, in any mode.
 
 ## Migration method
 
@@ -34,11 +51,13 @@ tree's `cm-report.css` and `cm-report.js`, where a document finds them once its 
 The 2.0 checks run on those pages, and every check that fails or warns is listed with its pages,
 modes and findings.
 
+### Placeholders, links and repairs
+
 - A finding on a released template that the current template of the same name also returns, in the
   same check and with the same value once numbers are set aside, is a placeholder and is listed apart.
 - The link check stays out: it reads a document set's folder, and a released page belongs to no set.
 - The note in section 15 gives one repair for each check listed, in the order of the head, the
-  masthead, the body and print. A repair the rehearsal showed to be incomplete is widened until the
+  masthead, the body, print and the phone width. A repair the rehearsal showed to be incomplete is widened until the
   rehearsed page passes.
 
 ## Rehearsal
@@ -51,20 +70,23 @@ sample, the dates the current sample report carries stand in for that look-up.
 
 ## Measured, 2026-10-31
 
-The pages at 22e0fb2 are the gallery, the sample report and the report template. Eight checks fail on
-them under the 2.0 checks, and none warns. The template's other findings, a `reading-time` warning
+The pages at 22e0fb2 are the gallery, the sample report and the report template. Nine checks fail on
+them under the 2.0 checks, records 091 and 093 merged, and none warns. The template's other findings, a `reading-time` warning
 among them, are placeholders the 2.0 template returns too.
 
 | Check | Pages | Repair in §15 |
 | --- | --- | --- |
 | `head-order` | Sample report, template | 1: `cm-kit` 2.0 and a `cm-id` tag |
 | `footer` | Sample report, template | 2: the kit line names 2.0 |
-| `masthead` | Sample report, template | 3: three breadcrumb steps; set and area as spans outside a set |
+| `masthead` | Sample report, template | 3: three breadcrumb steps; set and area as spans outside a set; `cm-omit set` when the source names no set |
 | `claim-wrapper` | Sample report, template | 4: no `<div>` around a finding or an action |
 | `source-entries` | Gallery, sample report, template | 5: the source entry form of §8.21 |
 | `sources` | Gallery, sample report, template | 5: a type tag from the closed set |
 | `table-na` | Gallery, sample report | 6: `n/a`, never a dash |
 | `type-floor` | Gallery, print | 7: `cm-print-stack` on side-by-side figures |
+| `chart-text-fit` | Gallery, at 390px | 8: a donut's outside labels turned with `startAngle` |
+
+### Rehearsal result
 
 The rehearsal's first pass, with repair 5 covering only the id and the type tag, left two failures.
 
@@ -73,7 +95,10 @@ The rehearsal's first pass, with repair 5 covering only the id and the type tag,
 
 Repair 5 gives the whole entry form, and states that a date takes no omission comment. Repair 3 names
 the three breadcrumb steps, since a document copied from the 1.2 template has two. The rehearsed
-sample passes every check: 247 ok, 0 FAIL, 0 warn.
+sample passes every check: 251 ok, 0 FAIL, 0 warn, with records 091 and 093 merged.
+
+Repair 8 comes from the gallery, which the rehearsal does not cover. The 1.2 gallery's donut cuts off
+three labels at 390px; with `"startAngle": 16`, the value the 2.0 gallery takes, it cuts off none.
 
 ## Calls
 
@@ -86,6 +111,8 @@ sample passes every check: 247 ok, 0 FAIL, 0 warn.
 | The tests include a wrapped claim | The second contract change gets the same proof as the first |
 | The migration runs released pages beside the 2.0 stylesheet and script | A document moving to 2.0 replaces its kit folder first; the checks then show what its own markup must change |
 | Repair 5 covers `source-entries` and `sources` together | One rewrite in the form of §8.21 clears both, and the clipped tags with them |
+| Repair 8 turns a donut's outside labels with `startAngle` | The 2.0 gallery fixed the same donut that way, and the 1.2 donut then cuts off no label at 390px |
+| Repair 3 names `cm-omit set` beside the three steps | Record 093 lets a document whose source names no set leave the step out |
 | A date has no omission comment in the note | §8.21 allows one for a publisher or a locator only; a date is looked up, never left out |
 | The Guide chip change and the diagram print caveat follow the numbered repairs | No check on a 1.2 page shows either, so neither has a check to name |
 | Changed in 1.2 holds the lines of the 1.2 release, and Changed in 2.0 everything after it | The lines record 090 added to the 1.2 list landed after 22e0fb2 |
@@ -93,6 +120,11 @@ sample passes every check: 247 ok, 0 FAIL, 0 warn.
 | The design bundle's README carries section 15 | A reader of the bundle moving a 1.2 document needs the note |
 | The gallery's revision-history specimen names v2.0 as its newest entry | `revisions` compares the newest entry with the page's masthead Version, which reads 2.0 |
 | The gallery's Last updated and footer date read 2026-10-31 | The date of the change to 2.0 |
+| The bar chart's room for its labels comes from the chart script, not from each page's axis | One rule serves every horizontal bar chart at every width; a page that stretched its axis to make room would change its scale for one width only |
+| The reference's Figure 1 ticks every 150 minutes, from 0 to 300 | At 390px the narrower plot ran six ticks together; 150 minutes is the target, and the axis keeps its extent |
+| `chart-text-fit` reads the rendered SVG, not the chart library's layout | The library can hold a text width measured before the page's font loaded: a slope chart's labels read 8px past the edge there and fit on the page |
+| The reference's Excluded tickets definition names the fourth kind, and note 1 names the query condition and the quarterly refresh | The definition answers the question in one place; the note then adds what the definition does not say |
+| The reference's related item says specialist queue wait runs from the escalation | The billing guide escalates at step 5 and replies at step 6, so the wait can start before the first reply |
 | The acceptance reference is First response time | It is the reference acceptance document (record 078), the guide links to it, and its clock rules hold the most exclusions a reader can miss |
 | A Covered row of `docs/adoption.md` names what it leaves out and the record that keeps it out | A Covered status then reads the same in every row, and a gap in scope shows as Partial |
 | Charts read Covered with nothing left: the library's chart empty states stay out | A chart with no data is left out, never drawn empty (§1 rule 12) |
@@ -118,6 +150,9 @@ sample passes every check: 247 ok, 0 FAIL, 0 warn.
 | `docs/adoption.md` | Labels follow the spec; Covered rows name what they leave out |
 | `docs/decisions/090-handoff-repairs.md` | Its Left names record 086 |
 | `docs/acceptance-questions.md` | The acceptance question set |
+| `kit/report-kit/cm-report.js` | Room at the right for a horizontal bar's value labels; a horizontal scale bar shortens to fit its end labels |
+| `checks/charts.mjs`, `checks/test.mjs` | `chart-text-fit`, and the clipped label case |
+| `kit/Reference - First Response Time.html` | Excluded tickets names a ticket with no reply yet; note 1 and the specialist queue wait item follow; Figure 1 ticks every 150 minutes |
 
 ## Version
 

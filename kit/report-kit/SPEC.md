@@ -2200,14 +2200,15 @@ A document built on kit 1.2 takes the 2.0 `report-kit/` files, then the repairs 
 
 1. `head-order`: set `cm-kit` to `2.0`. Add `<meta name="cm-id">` naming the document, after `cm-kind`, or after `cm-kit` on a report without a kind tag (§2, §8.31).
 2. `footer`: name `Content Morphia Report Kit 2.0` in the footer (§7.1).
-3. `masthead`: write the breadcrumb as three steps, set, area and document. Outside a set, the set and area steps are `span` elements, not links to `#top` (§7.1, §8.31).
+3. `masthead`: write the breadcrumb as three steps, set, area and document. Outside a set, the set and area steps are `span` elements, not links to `#top` (§7.1, §8.31). When the source names no set, the set step is left out with `cm-omit set` (§7.5).
 4. `claim-wrapper`: remove the `<div>` around each key finding and each recommended action, so the claim line is the `<li>`'s own first child (§8.3, §8.19).
 5. `source-entries` and `sources`: rewrite each source entry in the form of §8.21. It holds the key `SN` in `.cm-id` under the id `src-N`, the title in `<b>`, then the type tag, publisher and locator, then a date word and its `<time datetime>`.
    - The type tag comes from the closed set: Dataset, Report, Interview, Document or System export. In the 1.2 layout a longer tag runs out of its box, which `text-clip` fails; the §8.21 form holds it.
    - A publisher or locator the document does not record takes its omission comment (§7.5). A date has no omission comment: it is the date the source carries, looked up at the source.
 6. `table-na`: write a table cell that does not apply as `n/a`, never as a dash (§8.11).
 7. `type-floor`: mark a grid of side-by-side figures `cm-print-stack`, so each figure prints full width with its text at 11px or more (§4, §8.10).
+8. `chart-text-fit`: keep every text a chart draws inside the chart at 390px. The kit makes room for a horizontal bar's value labels and a scale bar's end labels. A pie's outside labels turn with `startAngle` until they sit above and below the ring; a label that still runs out shortens (§5, §9).
 
 One change shows in no check on a 1.2 page. A report whose type chip reads Guide is a guide: it takes `<meta name="cm-kind" content="guide">`, the guide template and the guide's parts (§7.3).
 
-A diagram added on the way to 2.0 can meet every capacity ceiling and still fail print, when its labels run long or it sits near several ceilings at once. The print check fails it, and it splits or its text shortens (§8.20).
+A diagram added on the way to 2.0 can meet every capacity ceiling and the width count and still fail print, when its labels run long or it sits near several ceilings at once. The print check fails it, and it splits or its text shortens (§8.20).

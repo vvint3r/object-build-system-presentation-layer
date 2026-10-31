@@ -13,6 +13,8 @@ Kit files (all in `report-kit/`):
 | `template.html` | Report starter. Copy it for every report. |
 | `template-guide.html` | Guide starter. Copy it for every guide. |
 | `template-reference.html` | Reference starter. Copy it for every reference. |
+| `template-roadmap.html` | Roadmap starter: a report with the roadmap’s parts (§7.14). |
+| `template-case-study.html` | Case study starter: a report with the case study’s parts (§7.15). |
 | `SPEC.md` | This file. |
 
 Human-readable version with live examples and copy-paste markup: `Report Kit - Spec & Gallery.html`. Reference output, one document per kind (§7): `Sample Report - Q3 Support Review.html`, `Guide - Billing Escalation.html` and `Reference - First Response Time.html`. The three form a document set, and `index.html` lists them (§8.31).
@@ -336,6 +338,67 @@ Evidence rules:
 - The table's caption cites the source of every measured value and of every estimate.
 - An option with no trial is measured by a cited model, and its cells say est.
 - The recommendation states where the recommended option is weaker, as well as where it leads.
+
+### 7.14 Roadmap
+
+A roadmap answers one question: **what has to happen, by whom and by when, to reach one goal?** It is a report with `<meta name="cm-type" content="roadmap">` after `cm-id`, and it starts from `template-roadmap.html`. It keeps every part of §7.2 and adds three.
+
+Choose a roadmap over a plain report when the subject is planned work toward a dated goal, not what past numbers show. Choose it over a process (§7.11) when the work runs once to an end state rather than repeating.
+
+Required parts, each a section with a fixed id, in this order between the executive summary and Recommendations:
+
+1. **Goal** (`goal`): one paragraph opens the section. It states the end state with its key phrase in bold, the date it is due, and the expected effect with its citation. A second paragraph may give the baseline the goal moves from.
+2. **Milestones** (`milestones`): a lede, the status block (§8.22) straight after it, a timeline (§8.12) with one item per milestone, then the milestone table.
+   - A timeline item names the milestone and states its exit criteria in one sentence that opens “Done when”. The next milestone due is `is-current`, and later ones are `is-planned`.
+   - Each item carries one status chip from a closed set: `Done` (`cm-chip--ok`, on an `is-done` item), `On track` (plain), `At risk` (`cm-chip--warn`), `Late` (`cm-chip--crit`) or `Planned` (plain).
+   - The milestone table has the columns Key, Milestone, Owner, Due and Depends on, in that order. It lists the timeline’s milestones in the same order, with the same names and dates.
+   - Key is `M` and a number. Owner is one team or role. Due is an ISO date in `<time datetime>`, written with non-breaking hyphens (U+2011) so it never wraps in a narrow column.
+   - Depends on is `None`, or keys such as `M2, M3`. Each milestone named there is in the table and due no later than the one that depends on it.
+3. **Out of scope** (`out-of-scope`): a lede, then a `ul.cm-list` of what a reader might expect the roadmap to change and it leaves alone. Each item says what happens to that thing instead.
+
+Optional parts: up to two risk callouts in Milestones (§7.2), each naming the dependency that could move a date. A roadmap may add sections of its own between Goal and Out of scope, such as one on cost. The kit draws no board or Gantt chart: the timeline and the milestone table carry the plan.
+
+The KPI strip **SHOULD** show the measures the goal moves, at their baseline. Recommendations holds the decisions the plan needs from its readers, each with an owner and a decide-by date. A plan with nothing to decide leaves Recommendations out (§7.5).
+
+Components: KPI strip (§8.2), key findings (§8.3), status block (§8.22), timeline (§8.12), table (§8.11), callouts (§8.4), recommendations card (§8.19), sources and citations (§8.21).
+
+Evidence rules:
+
+- The goal’s expected effect is stated as an expectation and cites the analysis it comes from.
+- Figures that change as the plan runs, such as milestones done, sit in the status block. Each cites its source, unless the document counts it from its own milestones.
+- The milestone table’s caption cites the record that set its owners and dates.
+- A milestone whose date moves keeps its key, and the change log records the move (§8.22).
+
+### 7.15 Case study
+
+A case study answers one question: **what changed after one intervention, and how far does the evidence support it?** It is a report with `<meta name="cm-type" content="case-study">` after `cm-id`, and it starts from `template-case-study.html`. It keeps every part of §7.2 and adds five.
+
+Choose a case study over a plain report when the document judges one change by comparing measures before and after it; a plain report reviews a period. Choose it over a comparison (§7.13) when one state followed the other, rather than options set side by side for a choice.
+
+Required parts, each a section with a fixed id, in this order between the executive summary and Recommendations:
+
+1. **Situation** (`situation`): the state before the intervention, opening with a paragraph that cites its source. It says what was wrong and how the numbers showed it.
+2. **Intervention** (`intervention`): what changed, who changed it and when. A lede, then a timeline (§8.12) of the dated changes, including parts added or withdrawn during the study.
+3. **Results** (`results`): a lede that counts the measures that got better, did not move and got worse. Then:
+   - A property sheet (§8.7) with the keys `Before` and `After`, each a period `YYYY-MM-DD → YYYY-MM-DD`. The two periods have the same number of days, and After starts after Before ends.
+   - The same sheet names the scope, the control group (or `None`) and the data source.
+   - A results table with the columns Measure, Before, After, Change and Direction, one row per measure. Direction is a word from a closed set: `Better`, `No change` or `Worse`.
+   - Optionally, a figure of one measure across both periods. Its before values are `$context` marks, and a marked area names the intervention period (§9).
+4. **Confounds** (`confounds`): a lede, then a list or table of the other changes in or near the two periods. Each could move a measure without the intervention; each says which way, with its source.
+5. **Failures** (`failures`): a lede, then a list or table of the parts of the intervention that did not work. Each says what happened and whether the part was withdrawn or kept at a cost.
+
+Limitations are required: one or two limitation callouts, or three or more in the limitation register in A.2 (§8.22). A comparison of before and after cannot rule out every other cause, so a case study always names at least one limit.
+
+The KPI strip **SHOULD** show measures after the intervention, with the change against before as the delta and the before value in the foot. The key findings name the measures that did not improve or got worse, as well as those that did. Optional parts: sections of the document’s own between Situation and Failures, such as one on cost.
+
+Components: KPI strip (§8.2), key findings (§8.3), timeline (§8.12), property sheet (§8.7), table (§8.11), bar chart (§9), callouts or limitation register (§8.4, §8.22), recommendations card (§8.19), sources and citations (§8.21).
+
+Evidence rules:
+
+- A claim of effect cites its source: each key finding, each paragraph of Results and the results table’s caption.
+- Every measure the study tracked has a row in the results table, whatever its direction. A measure that got worse is never left out.
+- Each measure keeps one definition in both periods, given in A.1. A.1 also defines `No change`: the size of move below which a measure counts as unchanged.
+- Without a control group, a limitation names the missing control. A difference in volume or mix between the periods is a confound.
 
 ## 8. Components
 
@@ -1699,6 +1762,8 @@ Components set limits of their own. Where a component limit and a limit above bo
 | Evaluation criterion | A name of 4 words at most, then one sentence of evidence | §8.29 |
 | Metric definition | 15 to 60 words | §8.30 |
 | Threshold response | One sentence | §8.30 |
+| Roadmap goal | One paragraph that opens its section | §7.14 |
+| Milestone exit criteria | One sentence, opening “Done when” | §7.14 |
 
 ### 13.2 Register
 
@@ -1748,6 +1813,7 @@ Headings are `h1` to `h6` and table titles.
 17. Every diagram: JSON within its mode's fields and capacity, a label on every decision branch and every named edge, `role="img"`, a caption with a source line, and nothing overlapping or clipped in light, dark and print (§8.20).
 18. Each structured component opens with its kind label and title and holds its required parts within its counts and limits (§8.25 to §8.30).
 19. `cm-id` names the document. The breadcrumb runs from set to area to document. In a set, every link names a file and a section id, the index page is rewritten, and `npm run links` passes on the folder (§8.31).
+20. A roadmap or a case study has its recipe’s required parts in order, each with its id, and passes its type check (§7.14, §7.15).
 
 ## 15. Changes from Content Morphia Foundations
 
@@ -1783,6 +1849,8 @@ Added for reference pages: workflow, framework, model, method, requirement, eval
 Added for charts: recipes by question; bullet, slope, strip, box and interval charts declared with a `cm` key; end labels that name every line in place of the legend (§9).
 
 Added for document sets: document ids and addresses, the breadcrumb from set to area to document, the generated index page and the link check (§8.31).
+
+Added as page types on the report kind: roadmap (§7.14) and case study (§7.15).
 
 Added for reports: ECharts chart method and theme; categorical and sequential palettes; dark token set; print rules; report masthead and contents rail; KPI strip; key findings; native tables with sorting and in-cell bars; pull quote; timeline; process diagram; definition, questions and property-sheet blocks; footnotes; collapsible appendix; chart draw-in motion; packaging modes.
 

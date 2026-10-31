@@ -96,3 +96,4 @@ Rounds 40e and 40f exist only in `CONTINUATION.md` and are taken from there.
 | [083-document-sets.md](083-document-sets.md) | Document sets | 2026-10-30 | orchestrating session, record 075 |
 | [084-sequence-state-and-entity-relationship-diagrams.md](084-sequence-state-and-entity-relationship-diagrams.md) | Sequence, state and entity relationship diagrams | 2026-10-30 | orchestrating session, record 075 |
 | [085-diagram-families.md](085-diagram-families.md) | Diagram families: journey map, system and data flow, layer stack, hierarchy | 2026-10-30 | orchestrating session, record 075 |
+| [089-roadmap-and-case-study.md](089-roadmap-and-case-study.md) | Roadmap and case study | 2026-10-30 | orchestrating session, record 075 |

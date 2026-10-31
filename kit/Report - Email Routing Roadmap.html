@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Email and web-form routing roadmap · October 2026 to January 2027</title>
+<meta name="cm-kit" content="1.2">
+<meta name="cm-kind" content="report">
+<meta name="cm-id" content="report-email-routing-roadmap">
+<meta name="cm-type" content="roadmap">
+<script>(function(){var t;try{t=localStorage.getItem('cm-theme')}catch(e){}document.documentElement.dataset.theme=t||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')})()</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,300;1,400&family=JetBrains+Mono:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="report-kit/cm-report.css">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js" defer></script>
+<script src="report-kit/cm-report.js" defer></script>
+</head>
+<body>
+
+<header class="cm-topbar">
+  <div class="cm-topbar__in">
+    <a class="cm-wordmark" href="index.html">support-operations</a>
+    <span class="cm-chip">Roadmap</span>
+    <div class="cm-topbar__actions">
+      <button class="cm-btn cm-btn--quiet cm-btn--sm" type="button" data-cm-theme-toggle>Dark mode</button>
+    </div>
+  </div>
+</header>
+
+<div class="cm-shell">
+  <nav class="cm-rail" aria-label="Contents">
+    <div class="cm-toc">
+      <span class="cm-label">Contents</span>
+      <ol>
+        <li><a href="#summary"><span class="n">01</span>Executive summary</a></li>
+        <li><a href="#goal"><span class="n">02</span>Goal</a></li>
+        <li><a href="#milestones"><span class="n">03</span>Milestones</a></li>
+        <li><a href="#out-of-scope"><span class="n">04</span>Out of scope</a></li>
+        <li><a href="#recommendations"><span class="n">05</span>Recommendations</a></li>
+        <li><a href="#methodology"><span class="n">A</span>Methodology</a></li>
+        <li><a href="#sources"><span class="n">B</span>Notes &amp; sources</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main class="cm-main" id="top">
+
+    <!-- MASTHEAD -->
+    <header class="cm-mast">
+      <nav class="cm-crumbs" aria-label="Breadcrumb">
+        <a href="index.html">Support operations</a><span class="sep" aria-hidden="true">/</span>
+        <a href="index.html#service-performance">Service performance</a><span class="sep" aria-hidden="true">/</span>
+        <span aria-current="page">Email routing roadmap</span>
+      </nav>
+      <div class="cm-bar" aria-hidden="true"></div>
+      <h1 class="cm-mast__title">Email and web-form routing roadmap, October 2026 to January 2027</h1>
+      <p class="cm-mast__dek">The milestones that bring intent routing to email and web-form tickets by 14 December, and measure the result in January.</p>
+      <dl class="cm-mast__meta">
+        <div><dt>Status</dt><dd><span class="cm-chip">Report</span><span class="cm-chip cm-chip--ok">Final</span><span class="cm-chip cm-chip--note">Sample data</span></dd></div>
+        <div><dt>Period</dt><dd>2026-10-19 → 2027-01-15</dd></div>
+        <div><dt>Published</dt><dd>2026-10-30</dd></div>
+        <div><dt>Reading time</dt><dd>4 min</dd></div>
+        <div><dt>Version</dt><dd>1.0</dd></div>
+      </dl>
+      <dl class="cm-byline">
+        <div><dt>Prepared by</dt><dd>Support Tooling</dd></div>
+        <div><dt>Reviewed by</dt><dd>VP, Customer Experience</dd></div>
+        <div><dt>Distribution</dt><dd>Internal · all staff</dd></div>
+      </dl>
+    </header>
+
+    <!-- 01 EXECUTIVE SUMMARY -->
+    <section class="cm-section" id="summary" aria-labelledby="summary-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 01</span>
+        <h2 class="cm-section__title" id="summary-t">Executive summary</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>Support Tooling plans to route <strong>email and web-form tickets by intent by 14 December</strong>, as chat has been since 8 July. Those two channels carry 55% of tickets and resolve fewer within SLA than chat does.<a class="cm-cite" href="#src-1" id="cite-1">S1</a></p>
+        </div>
+
+        <div class="cm-kpis cm-kpis--2 cm-bleed">
+          <div class="cm-kpi">
+            <span class="cm-kpi__label">Email within SLA, Q3</span>
+            <span class="cm-kpi__value">88.3<small>%</small></span>
+            <span class="cm-kpi__delta"><span class="cm-delta cm-delta--bad">6.7 pp below target</span></span>
+            <div class="cm-kpi__foot"><span>Chat, Q3</span><b>96.1%</b></div>
+          </div>
+          <div class="cm-kpi">
+            <span class="cm-kpi__label">Web form within SLA, Q3</span>
+            <span class="cm-kpi__value">86.9<small>%</small></span>
+            <span class="cm-kpi__delta"><span class="cm-delta cm-delta--bad">8.1 pp below target</span></span>
+            <div class="cm-kpi__foot"><span>Chat, Q3</span><b>96.1%</b></div>
+          </div>
+        </div>
+
+        <div class="cm-summary cm-bleed">
+          <span class="cm-chip cm-chip--accent">Summary</span>
+          <h3 class="cm-card__title">Key findings</h3>
+          <ol class="cm-findings">
+            <li><div><span class="cm-findings__claim">Routing goes live in two steps in December.</span> Email routes from 7 December and the web form from 14 December, after the November renewal cycle.<a class="cm-cite" href="#src-3" id="cite-2">S3</a></div></li>
+            <li><div><span class="cm-findings__claim">A shadow gate stands before any live routing.</span> The classifier’s labels must match the closing queue on 90% of two weeks of email.<a class="cm-cite" href="#src-3" id="cite-3">S3</a></div></li>
+            <li><div><span class="cm-findings__claim">Live email routing waits on six new billing specialists.</span> Routing sends billing email straight to the specialist queue, which already waits a median 9h 40m.<a class="cm-cite" href="#src-1" id="cite-4">S1</a></div></li>
+            <li><div><span class="cm-findings__claim">Two decisions are due in early November.</span> Contract cover for empty specialist seats by 2 November, and what a missed shadow gate moves by 6 November.</div></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 GOAL -->
+    <section class="cm-section" id="goal" aria-labelledby="goal-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 02</span>
+        <h2 class="cm-section__title" id="goal-t">Goal</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>By 14 December 2026, <strong>every email and web-form ticket lands in a billing, technical or account queue</strong> on arrival, as chats have since 8 July. The Q3 review expects email SLA attainment to rise about 4 points, still short of the 95% target.<a class="cm-cite" href="#src-1" id="cite-5">S1</a></p>
+          <p>Email and the web form carry 55% of tickets and resolved 88.3% and 86.9% within SLA in Q3, against chat’s 96.1%. The estimate rests on chat, whose first response fell 27% once routing went live.<a class="cm-cite" href="#src-1" id="cite-6">S1</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 MILESTONES -->
+    <section class="cm-section" id="milestones" aria-labelledby="milestones-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 03</span>
+        <h2 class="cm-section__title" id="milestones-t">Milestones</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>Six milestones lead from agreed labels to a measured result, and <strong>two are at risk</strong>. Email routing waits until 7 December, after the November renewal cycle.</p>
+        </div>
+
+        <div class="cm-status cm-bleed">
+          <div class="cm-status__head"><span class="cm-label">Status</span><span class="cm-meta">as of <time datetime="2026-10-30">2026-10-30</time></span></div>
+          <dl>
+            <div><dt>Milestones done</dt><dd>1 of 6</dd></div>
+            <div><dt>Specialists signed</dt><dd>4 of 6<a class="cm-cite" href="#src-4" id="cite-7">S4</a></dd></div>
+            <div><dt>Shadow agreement</dt><dd>87% after 4 days<a class="cm-cite" href="#src-2" id="cite-8">S2</a></dd></div>
+          </dl>
+        </div>
+
+        <div class="cm-card cm-bleed">
+          <span class="cm-label cm-card__kicker">Timeline</span>
+          <h3 class="cm-card__title">Milestones and exit criteria</h3>
+          <ol class="cm-timeline">
+            <li class="is-done"><span class="cm-timeline__date">Oct 23<small>2026</small></span><span class="cm-timeline__mark"></span><div><div class="cm-timeline__title">Intent labels agreed</div><p class="cm-timeline__body">Done when billing, technical and account leads sign off one label set for email and web form.</p><div class="cm-chips"><span class="cm-chip cm-chip--ok">Done</span></div></div></li>
+            <li class="is-current"><span class="cm-timeline__date">Nov 02<small>2026</small></span><span class="cm-timeline__mark"></span><div><div class="cm-timeline__title">Billing specialists onboarded</div><p class="cm-timeline__body">Done when six new specialists, staff or contract, start on the billing rota.</p><div class="cm-chips"><span class="cm-chip cm-chip--warn">At risk</span></div></div></li>
+            <li class="is-planned"><span class="cm-timeline__date">Nov 13<small>2026</small></span><span class="cm-timeline__mark"></span><div><div class="cm-timeline__title">Shadow gate passed</div><p class="cm-timeline__body">Done when shadow labels match the closing queue on 90% or more of two weeks of email.</p><div class="cm-chips"><span class="cm-chip cm-chip--warn">At risk</span></div></div></li>
+            <li class="is-planned"><span class="cm-timeline__date">Dec 07<small>2026</small></span><span class="cm-timeline__mark"></span><div><div class="cm-timeline__title">Email routing live</div><p class="cm-timeline__body">Done when inbound email lands in the billing, technical or account queue the classifier picks.</p><div class="cm-chips"><span class="cm-chip">Planned</span></div></div></li>
+            <li class="is-planned"><span class="cm-timeline__date">Dec 14<small>2026</small></span><span class="cm-timeline__mark"></span><div><div class="cm-timeline__title">Web-form routing live</div><p class="cm-timeline__body">Done when web-form tickets land in the queue the classifier picks, as email does.</p><div class="cm-chips"><span class="cm-chip">Planned</span></div></div></li>
+            <li class="is-planned"><span class="cm-timeline__date">Jan 15<small>2027</small></span><span class="cm-timeline__mark"></span><div><div class="cm-timeline__title">Result measured</div><p class="cm-timeline__body">Done when SLA attainment for the first four routed weeks is compared with the same weeks of 2025.</p><div class="cm-chips"><span class="cm-chip">Planned</span></div></div></li>
+          </ol>
+        </div>
+
+        <div>
+          <div class="cm-table-title" id="tbl-1"><span class="cm-table-title__kind">Table 1</span>Milestone owners and dependencies</div>
+          <div class="cm-table-wrap cm-bleed">
+            <table class="cm-table" data-sortable aria-labelledby="tbl-1">
+              <thead><tr><th aria-sort="ascending">Key</th><th>Milestone</th><th>Owner</th><th>Due</th><th>Depends on</th></tr></thead>
+              <tbody>
+                <tr><td class="strong">M1</td><td>Intent labels agreed</td><td>Support Tooling</td><td><time datetime="2026-10-23">2026‑10‑23</time></td><td>None</td></tr>
+                <tr><td class="strong">M2</td><td>Billing specialists onboarded</td><td>Support Ops</td><td><time datetime="2026-11-02">2026‑11‑02</time></td><td>None</td></tr>
+                <tr><td class="strong">M3</td><td>Shadow gate passed</td><td>Support Tooling</td><td><time datetime="2026-11-13">2026‑11‑13</time></td><td>M1</td></tr>
+                <tr><td class="strong">M4</td><td>Email routing live</td><td>Support Tooling</td><td><time datetime="2026-12-07">2026‑12‑07</time></td><td>M2, M3</td></tr>
+                <tr><td class="strong">M5</td><td>Web-form routing live</td><td>Support Tooling</td><td><time datetime="2026-12-14">2026‑12‑14</time></td><td>M4</td></tr>
+                <tr><td class="strong">M6</td><td>Result measured</td><td>Support Operations Analytics</td><td><time datetime="2027-01-15">2027‑01‑15</time></td><td>M5</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <span class="cm-caption">
+            <span class="cm-caption__line">Source: email routing kickoff record, owners agreed on <time datetime="2026-10-19">19 October 2026</time>.<a class="cm-cite" href="#src-3" id="cite-9">S3</a></span>
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 OUT OF SCOPE -->
+    <section class="cm-section" id="out-of-scope" aria-labelledby="out-of-scope-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 04</span>
+        <h2 class="cm-section__title" id="out-of-scope-t">Out of scope</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>The roadmap changes <strong>how email and web-form tickets reach a queue</strong>; other channels and SLA terms stay as they are.</p>
+        </div>
+        <ul class="cm-list">
+          <li>Social messages, 5% of tickets, stay in the shared queue until the January result is known.</li>
+          <li>Phone calls keep their menu routing, which already sorts callers by topic.</li>
+          <li>SLA due times stay at 24 business hours for email and web form, so the January result compares like with like.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 05 RECOMMENDATIONS -->
+    <section class="cm-section" id="recommendations" aria-labelledby="recommendations-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 05</span>
+        <h2 class="cm-section__title" id="recommendations-t">Recommendations</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-card cm-featured cm-bleed">
+          <div class="cm-card__kicker"><span class="cm-chip cm-chip--accent">Recommended</span></div>
+          <h3 class="cm-card__title">Two decisions for November</h3>
+          <ol class="cm-findings">
+            <li><div><span class="cm-findings__claim">Approve contract cover for any specialist seat still empty on 2 November.</span> Routed billing email joins a specialist queue that already waits a median 9h 40m.<a class="cm-cite" href="#src-1" id="cite-10">S1</a><div class="cm-chips"><span class="cm-chip">Owner · VP, Customer Experience</span><span class="cm-chip">Decide by 2026-11-02</span><span class="cm-chip cm-chip--accent">Email live 2026-12-07</span></div></div></li>
+            <li><div><span class="cm-findings__claim">Agree that a missed shadow gate moves email routing, not the 90% bar.</span> Agreement stood at 87% after four days, and a lower bar sends more email to the wrong queue.<a class="cm-cite" href="#src-2" id="cite-11">S2</a><div class="cm-chips"><span class="cm-chip">Owner · VP, Customer Experience</span><span class="cm-chip">Decide by 2026-11-06</span><span class="cm-chip cm-chip--accent">Live agreement ≥ 90%</span></div></div></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- A METHODOLOGY -->
+    <section class="cm-section cm-section--part" id="methodology" aria-labelledby="methodology-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Appendix A</span>
+        <h2 class="cm-section__title" id="methodology-t">Methodology</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-bleed">
+          <details class="cm-collapse" open>
+            <summary><div><span class="cm-label">A.1</span><h3>Terms used in this report</h3></div></summary>
+            <div class="cm-collapse__body">
+              <aside class="cm-def">
+                <span class="cm-def__label">Definitions</span>
+                <dl>
+                  <div><dt>Within SLA</dt><dd>A ticket resolved before its SLA due time. Email and web-form tickets have 24 business hours; chat has 4 hours around the clock.</dd></div>
+                  <div><dt>Intent routing</dt><dd>Sending a ticket on arrival to the billing, technical or account queue, from a classifier’s reading of its text, rather than to one shared queue.</dd></div>
+                  <div><dt>Shadow agreement</dt><dd>The share of labelled emails whose label matches the queue the ticket closed in. In shadow running the classifier labels without routing, so agents’ choices are the yardstick.</dd></div>
+                </dl>
+              </aside>
+            </div>
+          </details>
+          <details class="cm-collapse">
+            <summary><div><span class="cm-label">A.2</span><h3>Data sources and coverage</h3></div></summary>
+            <div class="cm-collapse__body">
+              <ul class="cm-list cm-small">
+                <li>Q3 figures come from the Q3 review: resolved tickets, 2026-07-01 to 2026-09-30.</li>
+                <li>Status figures are as of 2026-10-30, from the shadow log and the hiring tracker.</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- B NOTES & SOURCES -->
+    <section class="cm-section" id="sources" aria-labelledby="sources-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Appendix B</span>
+        <h2 class="cm-section__title" id="sources-t">Notes &amp; sources</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-stack">
+          <h3 class="cm-h4">Sources</h3>
+          <ol class="cm-sources">
+            <li id="src-1"><span class="cm-id">S1</span><span><b>Customer support operations review, Q3 2026</b><br><span class="cm-tag">Report</span> Support Operations Analytics · <a href="Sample%20Report%20-%20Q3%20Support%20Review.html">Sample Report - Q3 Support Review.html</a> <a class="cm-back" href="#cite-1" aria-label="Back to text">↩</a></span><span class="cm-meta">published <time datetime="2026-10-12">2026-10-12</time></span></li>
+            <li id="src-2"><span class="cm-id">S2</span><span><b>Email routing shadow log</b><br><span class="cm-tag">System export</span> Support Tooling · <code>routing/shadow/email-2026-10.csv</code> <a class="cm-back" href="#cite-8" aria-label="Back to text">↩</a></span><span class="cm-meta">exported <time datetime="2026-10-30">2026-10-30</time></span></li>
+            <li id="src-3"><span class="cm-id">S3</span><span><b>Email routing kickoff record</b><br><span class="cm-tag">Document</span> Support Tooling · <code>tooling/email-routing/kickoff.md</code> <a class="cm-back" href="#cite-2" aria-label="Back to text">↩</a></span><span class="cm-meta">published <time datetime="2026-10-19">2026-10-19</time></span></li>
+            <li id="src-4"><span class="cm-id">S4</span><span><b>Billing specialist hiring tracker</b><br><span class="cm-tag">System export</span> Workforce Management · <code>wfm.hiring_tracker</code> <a class="cm-back" href="#cite-7" aria-label="Back to text">↩</a></span><span class="cm-meta">exported <time datetime="2026-10-30">2026-10-30</time></span></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <footer class="cm-footer">
+      <span><b>Email and web-form routing roadmap · October 2026 to January 2027</b></span>
+      <span>v1.0 · published 2026-10-30</span>
+      <span>Support Tooling</span>
+      <span>Content Morphia Report Kit 1.2</span>
+    </footer>
+  </main>
+</div>
+</body>
+</html>

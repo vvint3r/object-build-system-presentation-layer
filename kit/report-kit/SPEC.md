@@ -1685,7 +1685,7 @@ npm run index -- <folder>
 A reader who opens any two documents in a set finds one value for each fact they share: a number, a name, a date, a rule.
 
 - A shared fact matches in every place it appears: prose, KPI, chart data, table, diagram and text equivalent. A changed number changes in all of them.
-- When two documents disagree, the less trusted side changes. Trust runs, highest first: the source the fact cites; the set's main report (the sample report in the kit folder); the document published first.
+- When two documents disagree, the less trusted side changes. Trust runs, highest first: the source the fact cites; the set's main report, when it has one (the sample report in the kit folder); the document published first.
 - A fact with no source in the set is removed, or marked as unsourced (§8.21), never made up to fill a gap.
 - A figure taken from another document names its population when it differs from the one the citing document defines, such as tickets resolved against tickets created in a period.
 - A before-and-after comparison states a change seen after an event, not an effect of it: "fell 27% after routing went live", not "routing cut it by 27%".

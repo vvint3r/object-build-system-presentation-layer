@@ -16,7 +16,7 @@ publishing. No check reads them: whether two documents agree needs a reader of b
 | Rule | Spec | Check |
 | --- | --- | --- |
 | A fact two documents share has one value in every place it appears: prose, KPI, chart data, table, diagram and text equivalent | §8.31 | Checklist, §14 item 19 |
-| When two documents disagree, the less trusted side changes. Trust runs, highest first: the source the fact cites; the set's main report; the document published first | §8.31 | Checklist |
+| When two documents disagree, the less trusted side changes. Trust runs, highest first: the source the fact cites; the set's main report, when it has one; the document published first | §8.31 | Checklist |
 | A fact with no source in the set is removed or marked as unsourced, never made up | §8.31, §8.21 | Checklist |
 | A figure taken from another document names its population when it differs from the one the citing document defines | §8.31 | Checklist |
 | A before-and-after comparison states a change seen after an event, not an effect of it | §8.31 | Checklist |

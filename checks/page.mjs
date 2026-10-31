@@ -128,6 +128,20 @@ export function install(cfg) {
     return H.KINDS.includes(v) ? v : 'report';
   };
 
+  // The page's type, from <meta name="cm-type">: a recipe on one document kind (SPEC.md section
+  // 7.6), each value with the kind it builds on. A page without the tag, or with a value outside the
+  // set, has no type; head-order fails the value and the kind it names.
+  H.TYPES = {
+    topic: 'reference', glossary: 'reference', framework: 'reference', process: 'reference',
+    metric: 'reference', comparison: 'reference', module: 'guide', roadmap: 'report', 'case-study': 'report',
+  };
+  H.typeMeta = () => [...H.source().querySelectorAll('meta[name="cm-type"]')];
+  H.type = () => {
+    const m = H.typeMeta()[0];
+    const v = m ? (m.getAttribute('content') || '').trim() : '';
+    return Object.prototype.hasOwnProperty.call(H.TYPES, v) ? v : null;
+  };
+
   // An omission comment inside root: <!-- cm-omit {name}: {reason} -->, with a reason after the
   // colon. A document marks a required block of its kind that it has no content for this way
   // (SPEC.md section 7.5); the checks for that block accept the comment in place of the block.

@@ -8,7 +8,8 @@
 //   FAIL  a rule is broken; the indented lines give where (a CSS path) and the computed value
 //   warn  a check that needs judgment; it never changes the exit code
 //   skip  the page is exempt from this check (checks/exempt.mjs), or the check belongs to another
-//         document kind (a check's `kinds`; SPEC.md section 7)
+//         document kind (a check's `kinds`; SPEC.md section 7) or page type (a check's `types`;
+//         SPEC.md section 7.6)
 // Checks on the page as written run once and report the mode as "all". Findings that share a
 // value and an element kind are listed once with a count; at most 10 are listed per check, and
 // --all lists every finding in full. Regions a page exempts from named checks are listed in
@@ -44,14 +45,17 @@ import provenance from './provenance.mjs';
 import recipes from './recipes.mjs';
 import structured from './structured.mjs';
 import offline from './offline.mjs';
+import typesCore from './types-core.mjs';
 import { fontCss, echarts, faces } from '../tools/offline.mjs';
 
-// Each module exports checks: { name, level: 'fail' | 'warn', source, once?, kinds?, offline?, inPage | run }.
+// Each module exports checks: { name, level: 'fail' | 'warn', source, once?, kinds?, types?, offline?, inPage | run }.
 // inPage runs in the page with window.__cm (checks/page.mjs); run gets the Playwright page and
 // what the loader collected. Both return findings: [{ where, value }]. A check with `kinds` runs
 // only on documents of those kinds (report, guide, reference) and is skipped on the others. A check
-// marked offline runs only on a page in the offline packaging mode.
-const CHECKS = [markup, colour, type, radius, budgets, decoration, meaning, charts, diagrams, sequence, state, entityRelationship, figures, tables, structure, kinds, judgment, navigation, writing, provenance, structured, offline, recipes].flat();
+// with `types` runs only on pages whose cm-type is one of those types (SPEC.md section 7.6) and is
+// skipped on every other page, a page with no type among them. A check marked offline runs only on
+// a page in the offline packaging mode.
+const CHECKS = [markup, colour, type, radius, budgets, decoration, meaning, charts, diagrams, sequence, state, entityRelationship, figures, tables, structure, kinds, judgment, navigation, writing, provenance, structured, offline, recipes, typesCore].flat();
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const KIT = path.join(ROOT, 'kit', 'report-kit');
@@ -131,10 +135,11 @@ for (const file of pages) {
     const { page, errors, requests, blocked } = await load(browser, file, mode, { offline: off });
     await page.evaluate(install, cfg);
     const docKind = await page.evaluate(() => window.__cm.kind());
+    const docType = await page.evaluate(() => window.__cm.type());
     for (const check of CHECKS) {
       if (check.once && i > 0) continue;
       if (check.offline && !off) continue;
-      if (skipped.includes(check.name) || (check.kinds && !check.kinds.includes(docKind))) {
+      if (skipped.includes(check.name) || (check.kinds && !check.kinds.includes(docKind)) || (check.types && !check.types.includes(docType))) {
         console.log(`skip  ${name}  ${(check.once ? 'all' : mode).padEnd(5)}  ${check.name}  (${check.source})`);
         continue;
       }

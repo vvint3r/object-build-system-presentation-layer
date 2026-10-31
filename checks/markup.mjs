@@ -39,6 +39,16 @@ export default [
         if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(v) && !/^\{\{[\s\S]*\}\}$/.test(v)) out.push({ where: H.path(m), value: `cm-id "${v}" (lowercase words joined by hyphens)` });
         if (m.parentElement !== d.head) out.push({ where: H.path(m), value: 'cm-id tag outside <head>' });
       }
+      // The type tag: at most one, in the head, naming a type from the closed set whose kind is the
+      // page's kind (SPEC §7.6). It follows the id tag, or the kind tag on a page without an id.
+      const types = H.typeMeta();
+      if (types.length > 1) out.push({ where: 'head', value: `${types.length} cm-type tags (at most 1)` });
+      for (const m of types) {
+        const v = attr(m, 'content').trim();
+        if (!Object.prototype.hasOwnProperty.call(H.TYPES, v)) out.push({ where: H.path(m), value: `cm-type "${v}" (${Object.keys(H.TYPES).join(', ')})` });
+        else if (H.TYPES[v] !== H.kind()) out.push({ where: H.path(m), value: `cm-type "${v}" on a ${H.kind()} (a ${v.replace(/-/g, ' ')} is a ${H.TYPES[v]})` });
+        if (m.parentElement !== d.head) out.push({ where: H.path(m), value: 'cm-type tag outside <head>' });
+      }
       const report = H.kind() === 'report';
       const noPeriod = !report || H.omitted(d.head, 'title-period');
       const fonts = off
@@ -57,6 +67,7 @@ export default [
         ['<meta name="cm-kit" content="1.2">', el => el.matches('meta[name="cm-kit"]') && attr(el, 'content') === '1.2'],
         ...(metas.length ? [['<meta name="cm-kind">, after cm-kit', el => el.matches('meta[name="cm-kind"]')]] : []),
         ...(ids.length ? [['<meta name="cm-id">, after cm-kind', el => el.matches('meta[name="cm-id"]')]] : []),
+        ...(types.length ? [[`<meta name="cm-type">, after ${ids.length ? 'cm-id' : 'cm-kind'}`, el => el.matches('meta[name="cm-type"]')]] : []),
         ['theme pre-paint script', el => el.matches('script:not([src])') && same(el.textContent, kit.prepaint)],
         ...fonts,
         off

@@ -449,6 +449,27 @@ pre code{all:unset}
 .cm-diagram--print .cm-diagram__node{max-width:120px}
 .cm-diagram--print .cm-diagram__node--terminal{max-width:192px;padding:10px 16px}
 .cm-diagram--print .cm-diagram__node--decision{max-width:none;padding:0}
+/* state diagram: the start is a filled dot and an end a ringed dot, each in a cell of its own */
+.cm-diagram__node--initial,.cm-diagram__node--final{min-width:0;padding:0;border-radius:var(--cm-r-pill)}
+.cm-diagram__node--initial{width:16px;height:16px;background:var(--cm-ink);border:0}
+.cm-diagram__node--final{width:22px;height:22px;border:1.5px solid var(--cm-ink)}
+.cm-diagram__node--final::before,.cm-diagram__swatch--final::before{content:"";position:absolute;inset:3.5px;background:var(--cm-ink);border-radius:var(--cm-r-pill)}
+.cm-diagram__swatch--initial{width:12px;height:12px;margin:0 5px;background:var(--cm-ink);border:0;border-radius:var(--cm-r-pill)}
+.cm-diagram__swatch--final{position:relative;width:16px;height:16px;margin:0 3px;border:1.5px solid var(--cm-ink);border-radius:var(--cm-r-pill)}
+/* sequence diagram: lifelines in the field colour, activation bars outlined in ink, replies dotted */
+.cm-diagram__lifeline{stroke:var(--cm-field);stroke-width:1.5}
+.cm-diagram__activation{fill:var(--cm-surface);stroke:var(--cm-ink);stroke-width:1.5}
+.cm-diagram__edge--reply .cm-diagram__line{stroke-dasharray:0 6;stroke-linecap:round}
+.cm-diagram__swatch--message,.cm-diagram__swatch--reply{width:24px;height:0;background:none;border:0;border-top:2px solid var(--cm-ink);border-radius:0}
+.cm-diagram__swatch--reply{border-top-style:dotted}
+.cm-diagram__swatch--activation{width:12px;height:16px;margin:0 5px;border:1.5px solid var(--cm-ink);border-radius:2px}
+/* entity relationship diagram: an entity is its name over a list of its key attributes */
+.cm-diagram__node--entity{align-items:stretch;justify-content:flex-start;gap:0;max-width:none;padding:0;text-align:left;white-space:nowrap}
+.cm-diagram__node--entity>.cm-diagram__name{padding:10px 16px;border-bottom:1px solid var(--cm-field)}
+.cm-diagram__attrs{display:flex;flex-direction:column;padding:6px 0}
+.cm-diagram__attr{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:3px 16px;font-size:13px;line-height:1.45}
+.cm-diagram__attr .cm-tag{flex:none}
+.cm-diagram--print .cm-diagram__node--entity{max-width:none}
 .cm-data>.cm-olist,.cm-data>.cm-list{margin-top:16px}
 
 /* ---------- 18b. Structured components ---------- */

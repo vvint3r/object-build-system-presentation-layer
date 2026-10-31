@@ -612,6 +612,169 @@ The kit applies the rest:
 - On a narrow screen the diagram keeps its geometry and scrolls sideways inside its own box. Labels never shrink.
 - Print narrows the gaps and the nodes, then scales the drawing to fit the printed column and a page, never below 80%. The text version prints open.
 
+#### Sequence
+
+A sequence diagram shows the messages that pass between people or systems, in the order they are sent. A hand-off with branches or loops is a flow diagram with lanes.
+
+```html
+<div class="cm-diagram" data-diagram="sequence" role="img" aria-label="">
+  <script type="application/json">
+  {
+    "nodes": [
+      {"id": "customer", "label": "Customer"},
+      {"id": "agent", "label": "Tier 1 agent"},
+      {"id": "billing", "label": "Billing specialist"}
+    ],
+    "edges": [
+      {"from": "customer", "to": "agent", "label": "Reports double charge"},
+      {"from": "agent", "to": "billing", "label": "Escalates", "activate": true},
+      {"from": "agent", "to": "customer", "kind": "reply", "label": "Gives due time"},
+      {"from": "billing", "to": "billing", "label": "Checks the ledger"},
+      {"from": "billing", "to": "customer", "kind": "reply", "label": "Refunds charge"}
+    ]
+  }
+  </script>
+</div>
+```
+
+The JSON holds `nodes` and `edges` only. Participants stand left to right in the order written and messages run down in the order written, so the author writes no columns or rows. A node holds `id`, `label` and an optional `detail`; an edge holds `from`, `to` and `label`, with optional `kind` and `activate`.
+
+| Value | Drawn as | Use |
+| --- | --- | --- |
+| A node | Rectangle with a lifeline down from it | A person or system that sends or receives |
+| `message` | Solid line, the default | A request, a report or a hand-off |
+| `reply` | Dotted line | An answer to an earlier message |
+| `optional` | Dashed line | A message sent only in some cases |
+| `"activate": true` | Narrow bar on the receiver's lifeline | The receiver works on the message until its next reply |
+
+- Every message carries a label of 1 to 3 words. It stands above its arrow in the gap beside the sender, so no label sits on a lifeline.
+- An arrow starts on the sender's lifeline and stops 8px short of the receiver's. A message to oneself turns right and comes back to the same lifeline.
+- An activation bar runs from the message that opens it to the receiver's next reply, or to the last message. A participant has one bar open at a time.
+- Lifelines are 1.5px in the field colour, so they read as structure rather than as messages.
+- A key above the drawing names the lines and the bar whenever the diagram has a reply, an optional message or an activation bar.
+- A sequence diagram has no emphasised node.
+
+| Item | At most | Reason |
+| --- | --- | --- |
+| Participants | 4 | Five participants with three-word messages do not fit the printed column at 80% |
+| Messages | 12 | The library labels edges only while a view has 12 or fewer, and every message carries a label |
+
+A participant `label` stops at 24 characters and a `detail` at 40, as a flow node's; a message label stops at 3 words, as an edge label.
+
+The text version lists every message once, numbered in time order. Each item gives the sender and the receiver, "replies to" for a reply, "to itself" and "optional" where they apply, then the label. A message that opens a bar names the message that closes it. An empty `aria-label` takes a summary: the number of messages, the participants, and the number of replies.
+
+#### State
+
+A state diagram shows the states one thing passes through, such as a ticket, and the events that move it from one to the next. Steps that people carry out are a flow diagram.
+
+```html
+<div class="cm-diagram" data-diagram="state" role="img" aria-label="">
+  <script type="application/json">
+  {
+    "nodes": [
+      {"id": "start", "type": "initial", "col": 1, "row": 1},
+      {"id": "open", "type": "state", "label": "Open", "detail": "An agent is working on it", "col": 2, "row": 1},
+      {"id": "pending", "type": "state", "label": "Pending", "col": 2, "row": 2},
+      {"id": "solved", "type": "state", "label": "Solved", "col": 3, "row": 1},
+      {"id": "end", "type": "final", "col": 3, "row": 2}
+    ],
+    "edges": [
+      {"from": "start", "to": "open"},
+      {"from": "open", "to": "pending", "label": "Asks customer"},
+      {"from": "pending", "to": "open", "label": "Customer replies"},
+      {"from": "pending", "to": "pending", "label": "Reminder sent"},
+      {"from": "open", "to": "solved", "label": "Agent solves"},
+      {"from": "solved", "to": "end", "label": "After 4 days"}
+    ]
+  }
+  </script>
+</div>
+```
+
+The JSON holds `nodes`, `edges` and an optional `direction`, placed on the grid as in a flow diagram. A node holds `id`, `type`, `col` and `row`; a state adds `label` and may add `detail` and `emphasis`. An edge holds `from`, `to` and `label`.
+
+| Value | Drawn as | Use |
+| --- | --- | --- |
+| `initial` | Filled dot, no label | Where the thing starts; exactly one |
+| `state` | Rounded rectangle; `detail` adds a second line | A condition the thing stays in until an event moves it |
+| `final` | Ringed dot, no label | Where the thing ends; none, one or more |
+
+- Every transition is a solid line with an arrowhead, named by its event. Only the transition out of the start goes unnamed.
+- The start has one transition out and none in; an end has none out. No two transitions out of one state share an event.
+- A self-transition, with `from` and `to` the same state, is a loop on one side of the state. The kit takes the first side in reading order that no other transition uses, and sets the event beyond the loop.
+- An event stands beside its line in the label style, 8px clear of every line, node and other label. It does not stand in line with its edge, as a flow's edge label does.
+- A key above the drawing names the start, the state, the end and the transition whenever the diagram has a start or an end.
+- One state at most is emphasised, with a chip of one or two words naming why. It counts toward the section's one `cm-emph` (§6).
+
+| Item | At most | Reason |
+| --- | --- | --- |
+| Nodes | 24 | The flow ceiling, from the library's panel tier |
+| Columns | 4 | Every transition carries its event, so a fifth column does not fit the printed column at 80% |
+| Rows | 5 | The flow ceiling, from a printed page |
+| Transitions | 12 | The library labels edges only while a view has 12 or fewer, and every transition but the first is named |
+| Emphasised states | 1 | §6 |
+
+A state `label` stops at 24 characters, a `detail` at 40, an event at 3 words and `emphasis` at 2 words, as in a flow diagram.
+
+The text version lists every state once, numbered in reading order from the start. Each item names the state and its detail, then each event with where it leads: the state and its number, "stays in" for a self-transition, and "the end". The first state is named as the starting state. An empty `aria-label` takes a summary: the number of states, the first and the last, and the counts of transitions and self-transitions.
+
+#### Entity relationship
+
+An entity relationship diagram shows the records a system keeps, the keys that identify them, and how many of one record relate to each of another. Values over time are a chart.
+
+```html
+<div class="cm-diagram" data-diagram="entity-relationship" role="img" aria-label="">
+  <script type="application/json">
+  {
+    "nodes": [
+      {"id": "customer", "label": "Customer", "col": 1, "row": 1, "attributes": [
+        {"name": "customer_id", "key": "primary"}, {"name": "plan"}]},
+      {"id": "ticket", "label": "Ticket", "col": 2, "row": 1, "attributes": [
+        {"name": "ticket_id", "key": "primary"}, {"name": "customer_id", "key": "foreign"}, {"name": "status"}]},
+      {"id": "message", "label": "Message", "col": 2, "row": 2, "attributes": [
+        {"name": "message_id", "key": "primary"}, {"name": "ticket_id", "key": "foreign"}]}
+    ],
+    "edges": [
+      {"from": "customer", "to": "ticket", "fromEnd": "1", "toEnd": "0 or more", "label": "raises"},
+      {"from": "ticket", "to": "message", "fromEnd": "1", "toEnd": "1 or more", "label": "holds"}
+    ]
+  }
+  </script>
+</div>
+```
+
+The JSON holds `nodes` and `edges` only, placed on the grid as in a flow diagram. An entity holds `id`, `label`, `col`, `row` and `attributes`. An attribute holds `name` and an optional `key`. A relationship holds `from`, `to`, `fromEnd` and `toEnd`, with an optional `label`.
+
+| Value | Drawn as | Use |
+| --- | --- | --- |
+| An entity | Rounded rectangle: its name, a rule, then one attribute a line | A kind of record the system keeps |
+| `"key": "primary"` | `PK` tag after the attribute | The attribute that identifies one record |
+| `"key": "foreign"` | `FK` tag after the attribute | The attribute that points to another entity's record |
+| A relationship | Solid line with no arrowhead | Records of two entities that belong together |
+| `fromEnd`, `toEnd` | A count in words beside each end: `1`, `0 or 1`, `1 or more`, `0 or more` | How many records of the entity at that end relate to one record at the other end |
+
+- Every entity names its primary key. An attribute list keeps the keys and the attributes the text discusses, not every column.
+- Counts are written in words, not as crow's feet, so a reader needs no notation to read them.
+- A count stands beside the entity it counts, below a line across or to the right of a line down. Two counts on one straight line stand at least 24px apart.
+- The relationship's `label` names it with a verb, read from `from` to `to`. It stands where a flow's edge label does.
+- The `from` entity comes first in reading order: in an earlier row, or earlier in the same row. The name then reads left to right or top to bottom.
+- One relationship leaves each side of an entity, so an entity takes part in 4 at most. An entity never relates to itself.
+- A line runs on to meet the entity at each end, since it carries no arrowhead.
+- A key above the drawing names the `PK` and `FK` tags in use, and says that a count tells how many of the entity beside it.
+- An entity relationship diagram has no emphasised node.
+
+| Item | At most | Reason |
+| --- | --- | --- |
+| Entities | 6 | Two columns of three rows |
+| Columns | 2 | Two counts beside each line widen every gap, so a third column does not fit the printed column at 80% |
+| Rows | 3 | Four rows of six-attribute entities do not fit a printed page at 80% |
+| Relationships | 7 | Every neighbouring pair on a grid of 2 columns and 3 rows |
+| Attributes in an entity | 6 | Six-attribute entities in 3 rows fill a printed page |
+
+An entity `label` and an attribute `name` stop at 24 characters; a relationship `label` stops at 3 words, as an edge label.
+
+The text version lists every entity in reading order, with its primary keys, foreign keys and other attributes. Every relationship follows as one item: its name, then the count at each end, such as "Ticket per Customer: 0 or more". An empty `aria-label` takes a summary: the number of entities, their names, and the number of relationships.
+
 #### Journey map
 
 A journey map shows what one person does across the phases of an experience, and how each step feels. It is a flow diagram with an `experience` scale and a `level` on every node.
@@ -1469,7 +1632,7 @@ Headings are `h1` to `h6` and table titles.
 14. Writing within §13: prose inside the limits, in plain words and neutral third person, with no em or en dashes; each section leads with its finding; headings are plain noun phrases in sentence case.
 15. Changing numbers sit in one dated status block; change log and revision history run newest first with dated entries; each limitation status is a word from its set (§8.22).
 16. `cm-kind` names the kind, or is absent for a report. A guide or a reference has its required parts in order, each with its id, or their omission comments (§7.3 to §7.5). Every procedure step closes with its outcome; every related item has a tag, a link and a sentence.
-17. Every diagram: JSON within its mode's fields and capacity, a label on every decision branch, `role="img"`, a caption with a source line, and nothing overlapping or clipped in light, dark and print (§8.20).
+17. Every diagram: JSON within its mode's fields and capacity, a label on every decision branch and every named edge, `role="img"`, a caption with a source line, and nothing overlapping or clipped in light, dark and print (§8.20).
 18. Each structured component opens with its kind label and title and holds its required parts within its counts and limits (§8.25 to §8.30).
 19. `cm-id` names the document. The breadcrumb runs from set to area to document. In a set, every link names a file and a section id, the index page is rewritten, and `npm run links` passes on the folder (§8.31).
 
@@ -1510,4 +1673,4 @@ Added for document sets: document ids and addresses, the breadcrumb from set to 
 
 Added for reports: ECharts chart method and theme; categorical and sequential palettes; dark token set; print rules; report masthead and contents rail; KPI strip; key findings; native tables with sorting and in-cell bars; pull quote; timeline; process diagram; definition, questions and property-sheet blocks; footnotes; collapsible appendix; chart draw-in motion; packaging modes.
 
-Not yet covered: maps, the sequence, state and entity relationship diagram modes, network diagrams, interactive filters, a PDF cover page. Use a figure with `cm-slot` and flag the gap in an HTML comment until these exist.
+Not yet covered: maps, network diagrams, interactive filters, a PDF cover page. Use a figure with `cm-slot` and flag the gap in an HTML comment until these exist.

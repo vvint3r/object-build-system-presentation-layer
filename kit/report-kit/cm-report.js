@@ -6,7 +6,7 @@
                            a "cm" key in the option declares a slope, bullet, strip, box or interval chart (SPEC section 9)
    [data-spark]            sparkline from data-values="1,2,3"
    .cm-diagram[data-diagram]  diagram JSON as <script type="application/json"> child, in a drawing mode (flow, sequence,
-                           state, entity-relationship); draws nodes, edges and labels, and writes the text version after the caption
+                           state, entity-relationship, layer-stack, hierarchy); draws nodes, edges and labels, and writes the text version after the caption
    table[data-sortable]    click-to-sort headers (th.num sorts numerically; td[data-value] overrides text)
    .cm-toc a[href^="#"]    scroll-spy sets aria-current on the visible section
    a.cm-cite[id]           following a citation points its source entry's back link (a.cm-back) at that citation
@@ -642,7 +642,7 @@
       cv.appendChild(b.el); cv.appendChild(b.lab);
     });
     m.lanes.forEach(function (l) { l.el = mk('span', 'cm-diagram__lane', l.label); cv.appendChild(l.el); });
-    m.phases.forEach(function (p) { p.el = mk('div', 'cm-diagram__phase', p.label); cv.appendChild(p.el); });
+    (m.phases || []).forEach(function (p) { p.el = mk('div', 'cm-diagram__phase', p.label); cv.appendChild(p.el); });
     m.nodes.forEach(function (n) {
       var e = n.el = mk('div', 'cm-diagram__node cm-diagram__node--' + n.type + (n.emphasis ? ' cm-emph' : ''));
       e.setAttribute('data-node', n.id);
@@ -662,12 +662,12 @@
     if (n.emphasis) e.appendChild(mk('span', 'cm-chip', n.emphasis));
   }
 
-  // Sizes as drawn. Steps, stores and external entities in one column share its widest width and in
-  // one row its tallest height, so the grid reads as a grid. A decision is the smallest square
+  // Sizes as drawn. Steps, stores, external entities and states in one column share its widest width
+  // and in one row its tallest height, so the grid reads as a grid; entities share the width only. A decision is the smallest square
   // whose diamond holds its question: text w wide and h tall fits when w + h fits the diagonal.
   function dgMeasure(d) {
     var m = d.model, colW = {}, rowH = {};
-    var boxy = function (n) { return n.type === 'step' || n.type === 'store' || n.type === 'external'; };
+    var boxy = function (n) { return n.type === 'step' || n.type === 'store' || n.type === 'external' || n.type === 'state'; };
     m.nodes.forEach(function (n) {
       var e = n.el;
       e.style.left = '0px'; e.style.top = '0px'; e.style.width = ''; e.style.height = '';
@@ -685,9 +685,11 @@
       } else {
         n.w = even(e.offsetWidth); n.h = even(e.offsetHeight);
       }
-      if (boxy(n)) { colW[n.col] = Math.max(colW[n.col] || 0, n.w); rowH[n.row] = Math.max(rowH[n.row] || 0, n.h); }
+      if (boxy(n) || n.type === 'entity') colW[n.col] = Math.max(colW[n.col] || 0, n.w);
+      if (boxy(n)) rowH[n.row] = Math.max(rowH[n.row] || 0, n.h);
     });
-    m.nodes.forEach(function (n) { if (boxy(n)) { n.w = colW[n.col]; n.h = rowH[n.row]; } });
+    // an entity keeps its own height, the length of its attribute list
+    m.nodes.forEach(function (n) { if (boxy(n) || n.type === 'entity') n.w = colW[n.col]; if (boxy(n)) n.h = rowH[n.row]; });
     m.edges.forEach(function (e) { if (e.el) { e.lw = Math.ceil(e.el.offsetWidth); e.lh = Math.ceil(e.el.offsetHeight); } });
     m.lanes.forEach(function (l) {
       var s = l.el.style, r = document.createRange();
@@ -697,7 +699,7 @@
       s.width = l.w + 'px'; l.h = Math.ceil(l.el.offsetHeight);
     });
     m.bounds.forEach(function (b) { b.lw = Math.ceil(b.lab.offsetWidth); b.lh = Math.ceil(b.lab.offsetHeight); });
-    dgJourneyMeasure(d, colW);
+    if (m.phases) dgJourneyMeasure(d, colW);
   }
 
   // The grid: column and row tracks sized to their nodes, gaps between them (gap 0 is outside the
@@ -848,13 +850,13 @@
     cost += (p.length - 2) * 24;
     done.forEach(function (o) {
       var share = o.e.from === e.from && o.plan.a === plan.a ? 'out' : o.e.to === e.to && o.plan.b === plan.b ? 'in' : '';
-      // a side carries edges out or edges in, never both; a decision's corner, and a labelled edge,
-      // has a side of its own
+      // a side carries edges out or edges in, never both; a decision's corner carries one branch, an
+      // entity's side one relationship, and a flow edge with a label a side of its own
       [[e.from, plan.a, 'out'], [e.to, plan.b, 'in']].forEach(function (u) {
         [[o.e.from, o.plan.a, 'out'], [o.e.to, o.plan.b, 'in']].forEach(function (w) {
           if (u[0] !== w[0] || u[1] !== w[1]) return;
-          if (u[2] !== w[2]) cost += 1000;
-          else if (u[2] === 'out') cost += u[0].type === 'decision' || e.label || o.e.label ? 1000 : 12;
+          if (u[2] !== w[2] || u[0].type === 'entity') cost += 1000;
+          else if (u[2] === 'out') cost += u[0].type === 'decision' || (d.mode.labels === dgLabelsInline && (e.label || o.e.label)) ? 1000 : 12;
           else cost += 4;
         });
       });
@@ -951,7 +953,7 @@
     return { off: off, ext: ext, need: off + ext + DG.clear + (r.p.length === 2 ? DG.head + 16 : DG.r + 8) };
   }
   // Places every label and returns the gaps that need more room for a label to fit.
-  function dgLabels(d, g, routes) {
+  function dgLabelsInline(d, g, routes) {
     var m = d.model, placed = [], lines = [], short = [];
     routes.forEach(function (r) { dgSegs(r.p).forEach(function (s, i) { lines.push({ r: r, i: i, s: s }); }); });
     (d.dividers || []).forEach(function (s) { lines.push({ s: s }); });
@@ -993,6 +995,91 @@
     return short;
   }
 
+  // Edge labels stand beside the line they name, 8px clear of every line, node and label: above a
+  // run across, to the left of a run down, nearest the source first. Returns the labels that found
+  // no place, with the gap that would make room. The default for a mode on the flow grid, and the
+  // placement of a state's events; a flow's labels stand in line (dgLabelsInline).
+  function dgLabels(d, g, routes) {
+    var m = d.model, placed = [], lines = [], short = [];
+    routes.forEach(function (r) { dgSegs(r.p).forEach(function (s) { lines.push(s); }); });
+    (d.dividers || []).forEach(function (s) { lines.push(s); });
+    var boxes = m.nodes.map(function (n) { return dgRect(n, 0); });
+    m.bounds.forEach(function (b) { if (b.lr) boxes.push(b.lr); });
+    if (g.rail) boxes.push({ l: 0, t: 0, r: g.rail + g.pad - 4, b: g.H });
+    var free = function (b) {
+      var c = DG.clear - 0.5, x = { l: b.l - c, t: b.t - c, r: b.r + c, b: b.b + c };
+      if (b.l < 2 || b.t < 2 || b.r > g.W - 2 || b.b > g.H - 2) return false;
+      if (boxes.some(function (o) { return o.l < x.r && o.r > x.l && o.t < x.b && o.b > x.t; })) return false;
+      if (placed.some(function (o) { return o.l < x.r && o.r > x.l && o.t < x.b && o.b > x.t; })) return false;
+      return !lines.some(function (s) { return dgHits(s[0], s[1], x); });
+    };
+    routes.forEach(function (r) {
+      var e = r.e;
+      if (!e.el) return;
+      var w = e.lw, h = e.lh, segs = dgSegs(r.p), spot = null, own = null;
+      // a loop's label stands outside its far run, centred on it
+      if (r.loop) {
+        var f = segs[1], fx = (f[0][0] + f[1][0]) / 2, fy = (f[0][1] + f[1][1]) / 2;
+        var lt = r.loop === 'top' ? { l: fx - w / 2, t: fy - DG.clear - h } : r.loop === 'bottom' ? { l: fx - w / 2, t: fy + DG.clear }
+          : r.loop === 'right' ? { l: fx + DG.clear, t: fy - h / 2 } : { l: fx - DG.clear - w, t: fy - h / 2 };
+        own = { l: Math.round(lt.l), t: Math.round(lt.t), r: Math.round(lt.l) + w, b: Math.round(lt.t) + h };
+        if (free(own)) spot = own;
+      }
+      if (!spot) segs.some(function (s, i) {
+        var a = s[0], b = s[1], u = dgDir(a, b), hz = a[1] === b[1];
+        var ext = hz ? w : h, L = dgLen(a, b);
+        var lo = (i > 0 ? DG.r : 0) + 2, hi = L - (i === segs.length - 1 ? DG.head + 4 : i < segs.length - 1 ? DG.r + 2 : 2);
+        if (hi - lo < ext) return false;
+        var cands = [];
+        [lo, Math.max(lo, Math.round((L - ext) / 2))].forEach(function (o) {
+          if (o + ext > hi) return;
+          var along = hz ? a[0] + u[0] * o - (u[0] < 0 ? ext : 0) : a[1] + u[1] * o - (u[1] < 0 ? ext : 0);
+          if (hz) {
+            cands.push({ l: along, t: a[1] - DG.clear - h }, { l: along, t: a[1] + DG.clear });
+          } else {
+            cands.push({ l: a[0] - DG.clear - w, t: along }, { l: a[0] + DG.clear, t: along });
+          }
+        });
+        return cands.some(function (c) {
+          var box = { l: c.l, t: c.t, r: c.l + w, b: c.t + h };
+          if (free(box)) { spot = box; return true; }
+          return false;
+        });
+      });
+      if (spot) { placed.push(spot); r.label = spot; }
+      else if (own) { placed.push(own); r.label = own; }
+      else {
+        // no room: lengthen the first run (or the longest, when the first is a short stub) by
+        // widening the gap it crosses, and give the gap it runs along room for the label beside it
+        var s = dgLen(segs[0][0], segs[0][1]) >= 2 * DG.r + 8 ? segs[0]
+          : segs.reduce(function (x, y) { return dgLen(y[0], y[1]) > dgLen(x[0], x[1]) ? y : x; }, segs[0]);
+        var hz = s[0][1] === s[1][1], lo = Math.min(s[0][hz ? 0 : 1], s[1][hz ? 0 : 1]), hi = Math.max(s[0][hz ? 0 : 1], s[1][hz ? 0 : 1]);
+        var gapAt = function (starts, sizes, a, b) {
+          var best = -1, lap = 0;
+          starts.forEach(function (st, k) { var o = Math.min(b, st + sizes[k]) - Math.max(a, st); if (o > lap) { lap = o; best = k; } });
+          return best;
+        };
+        var idx = gapAt(hz ? g.gx : g.gy, hz ? g.gw : g.gh, lo, hi);
+        var want = (hz ? w : h) + 2 * DG.r + DG.head + 12;
+        if (idx > -1) short.push({ axis: hz ? 'x' : 'y', i: idx, size: (hz ? g.gw : g.gh)[idx] + want - (hi - lo) });
+        // a line that crosses or joins the run in that gap leaves half of it on either side: each half
+        // needs the room
+        var mine = dgSegs(r.p), inner = { l: Math.min(s[0][0], s[1][0]) + 1, t: Math.min(s[0][1], s[1][1]) - 0.5,
+          r: Math.max(s[0][0], s[1][0]) - 1, b: Math.max(s[0][1], s[1][1]) + 0.5 };
+        if (!hz) inner = { l: s[0][0] - 0.5, t: inner.t + 0.5 + 1, r: s[0][0] + 0.5, b: inner.b - 0.5 - 1 };
+        var cut = lines.some(function (t) {
+          return !mine.some(function (u) { return u[0] === t[0] && u[1] === t[1]; }) && !dgOverlap(s, t) && dgHits(t[0], t[1], inner);
+        });
+        if (idx > -1 && cut) short.push({ axis: hz ? 'x' : 'y', i: idx, size: 2 * ((hz ? w : h) + DG.clear + DG.stand + 4) });
+        var c = hz ? s[0][1] : s[0][0], across = gapAt(hz ? g.gy : g.gx, hz ? g.gh : g.gw, c - 0.5, c + 0.5);
+        if (across > -1) short.push({ axis: hz ? 'y' : 'x', i: across, size: 2 * ((hz ? h : w) + 2 * DG.clear) + 4 });
+        var a = segs[0][0];
+        r.label = { l: a[0], t: a[1], r: a[0] + w, b: a[1] + h };
+      }
+    });
+    return short;
+  }
+
   // A path through right-angle turns, each rounded to radius rad or less.
   function dgRound(p, rad) {
     var dd = 'M' + p[0][0] + ' ' + p[0][1], n = p.length;
@@ -1004,10 +1091,12 @@
     }
     return dd + 'L' + p[n - 1][0] + ' ' + p[n - 1][1];
   }
-  function dgPathD(p) {
-    var q = p.map(function (x) { return x.slice(); }), n = q.length;
+  // The path of an edge with rounded elbows, ending where its arrowhead begins (or at its end, with
+  // no arrowhead).
+  function dgPathD(p, bare) {
+    var q = p.map(function (x) { return x.slice(); }), n = q.length, k = bare ? 0 : DG.head;
     var u = dgDir(q[n - 2], q[n - 1]);
-    q[n - 1] = [q[n - 1][0] - u[0] * DG.head, q[n - 1][1] - u[1] * DG.head];
+    q[n - 1] = [q[n - 1][0] - u[0] * k, q[n - 1][1] - u[1] * k];
     return dgRound(q, DG.r);
   }
   function dgHead(p) {
@@ -1017,7 +1106,7 @@
   function svgEl(tag, attrs) { var e = document.createElementNS(SVGNS, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); return e; }
 
   function dgLayout(d) {
-    var el = d.el, m = d.model, P = printing ? DG_GAP.print : DG_GAP.screen, cv = d.canvas;
+    var el = d.el, m = d.model, P = (d.mode.gaps || DG_GAP)[printing ? 'print' : 'screen'], cv = d.canvas;
     if (!printing && !el.clientWidth) { d.pending = true; return; }
     d.pending = false;
     el.classList.toggle('cm-diagram--print', printing);
@@ -1025,7 +1114,9 @@
     dgMeasure(d);
     // Pass 1 routes on a grid with room outside every track; later passes keep the routes, size each
     // gap to what runs through it (tracks, labels, outside loops) and route again on the new grid.
-    var need = { x: {}, y: {}, ox: {}, oy: {} }, g, routes = [], order = m.edges.slice();
+    // a self-transition is no route: its mode draws it as a loop on one side of its node
+    var need = { x: {}, y: {}, ox: {}, oy: {} }, g, routes = [], drawn = routes;
+    var order = m.edges.filter(function (e) { return e.from !== e.to; });
     var along = m.dir === 'down' ? 'row' : 'col', cross = m.dir === 'down' ? 'col' : 'row';
     order.sort(function (a, b) {
       var fa = a.to[along] > a.from[along] || (a.to[along] === a.from[along] && a.to[cross] > a.from[cross]);
@@ -1052,8 +1143,9 @@
         routes = kept;
       }
       var tracks = dgNudge(routes);
+      drawn = d.mode.loops ? routes.concat(d.mode.loops(d, g, routes)) : routes;
       dgBoundLabels(d, routes);
-      var short = dgLabels(d, g, routes);
+      var short = (d.mode.labels || dgLabels)(d, g, drawn);
       // what each gap needs next pass
       var next = { x: {}, y: {}, ox: {}, oy: {} };
       routes.forEach(function (r) {
@@ -1080,6 +1172,7 @@
         next.y[b.row - 1] = Math.max(next.y[b.row - 1] || 0, b.row === 1 ? 40 : 64);
         next.y[b.last] = Math.max(next.y[b.last] || 0, b.last === m.R ? 28 : 56);
       });
+      if (d.mode.grow) d.mode.grow(d, g, drawn, next);
       var grew = pass === 0;
       ['x', 'y', 'ox', 'oy'].forEach(function (k) {
         Object.keys(next[k]).forEach(function (i) {
@@ -1091,7 +1184,7 @@
       if (!grew && !short.length) break;
       if (pass > 0 && !grew) break;
     }
-    dgDraw(d, g, routes);
+    dgDraw(d, g, drawn);
   }
 
   // A boundary's name sits at the left of its top line, or at the right when an edge crosses the
@@ -1162,16 +1255,27 @@
       geo.nodes.push({ id: n.id, type: n.type, el: n.el });
     });
     routes.forEach(function (r) {
-      var p = r.p.map(function (pt) { return [X(pt[0]), Y(pt[1])]; });
+      var p = r.p.map(function (pt) { return [X(pt[0]), Y(pt[1])]; }), n = p.length;
+      // a flow edge's line starts 8px past the label in line with it
       if (r.inline) { var u0 = dgDir(p[0], p[1]); p[0] = [p[0][0] + u0[0] * r.inline, p[0][1] + u0[1] * r.inline]; }
+      // a line with no arrowhead runs on to meet the box at each end
+      if (d.mode.bare) [[0, 1], [n - 1, n - 2]].forEach(function (k) {
+        var u = dgDir(p[k[1]], p[k[0]]);
+        p[k[0]] = [p[k[0]][0] + u[0] * DG.stand, p[k[0]][1] + u[1] * DG.stand];
+      });
       var grp = svgEl('g', { 'class': 'cm-diagram__edge cm-diagram__edge--' + r.e.kind, 'data-from': r.e.from.id, 'data-to': r.e.to.id });
-      grp.appendChild(svgEl('path', { 'class': 'cm-diagram__line', d: dgPathD(p) }));
-      grp.appendChild(svgEl('polygon', { 'class': 'cm-diagram__head', points: dgHead(p) }));
+      grp.appendChild(svgEl('path', { 'class': 'cm-diagram__line', d: dgPathD(p, d.mode.bare) }));
+      if (!d.mode.bare) grp.appendChild(svgEl('polygon', { 'class': 'cm-diagram__head', points: dgHead(p) }));
       svg.appendChild(grp);
       if (r.e.el) { r.e.el.style.left = X(r.label.l) + 'px'; r.e.el.style.top = Y(r.label.t) + 'px'; }
       geo.edges.push({ from: r.e.from.id, to: r.e.to.id, kind: r.e.kind, label: r.e.label, labelEl: r.e.el || null, points: p });
+      // labels a mode sets beside an edge besides its name, such as the count at each end
+      (r.labels || []).forEach(function (l) {
+        l.el.style.left = X(l.box.l) + 'px'; l.el.style.top = Y(l.box.t) + 'px';
+        (geo.labels = geo.labels || []).push({ el: l.el, name: l.name });
+      });
     });
-    if (m.phases.length || m.journey) dgJourneyDraw(d, g, geo, X, Y);
+    if (m.journey || (m.phases && m.phases.length)) dgJourneyDraw(d, g, geo, X, Y);
     if (m.layered) dgLayersDraw(d, g, geo, X, Y);
     geo.routed = routes.length;
     geo.total = m.edges.length;
@@ -1339,7 +1443,517 @@
     });
   }
 
-  DG_MODES.flow = { model: dgModel, key: dgKey, text: dgText, layout: dgLayout };
+  DG_MODES.flow = { model: dgModel, key: dgKey, text: dgText, layout: dgLayout, labels: dgLabelsInline };
+
+  /* ---------- diagrams: state ---------- */
+  // A state diagram (SPEC section 8.20, State) is drawn on the flow grid: states are rounded rectangles,
+  // the start a filled dot and an end a ringed dot, each in a cell of its own, and every transition
+  // a solid line named by its event. A self-transition leaves and re-enters one side of its state,
+  // the first side in reading order that no other transition uses, with its event beyond the loop.
+  var ST_TYPES = ['initial', 'state', 'final'], ST_LOOP = 32;
+  var ST_NAMES = { initial: 'Start', state: 'State', final: 'End', flow: 'Transition' };
+
+  function stModel(spec) {
+    var byId = {}, nodes = [], edges = [], C = 1, R = 1;
+    list(spec.nodes).forEach(function (n) {
+      if (!n || n.id == null || byId[n.id]) return;
+      var t = ST_TYPES.indexOf(n.type) > -1 ? n.type : 'state', st = t === 'state';
+      var m = { id: String(n.id), type: t, label: st && n.label != null ? String(n.label) : '', detail: st && n.detail ? String(n.detail) : '',
+        col: int(n.col, 1), row: int(n.row, 1), emphasis: st && n.emphasis ? String(n.emphasis) : '' };
+      byId[m.id] = m; nodes.push(m); C = Math.max(C, m.col); R = Math.max(R, m.row);
+    });
+    list(spec.edges).forEach(function (e) {
+      if (e && byId[e.from] && byId[e.to]) edges.push({ from: byId[e.from], to: byId[e.to], kind: 'flow', label: e.label ? String(e.label) : '' });
+    });
+    return { nodes: nodes, edges: edges, lanes: [], bounds: [], dir: spec.direction === 'down' ? 'down' : 'right', C: C, R: R };
+  }
+
+  // The key appears when the diagram has a start or an end, since a dot does not name itself.
+  function stKey(m) {
+    var types = ST_TYPES.filter(function (t) { return m.nodes.some(function (n) { return n.type === t; }); });
+    if (!types.some(function (t) { return t !== 'state'; })) return null;
+    var key = mk('div', 'cm-diagram__key');
+    types.concat(m.edges.length ? ['flow'] : []).forEach(function (t) {
+      var item = mk('span', 'cm-diagram__key-item');
+      item.appendChild(mk('i', 'cm-diagram__swatch cm-diagram__swatch--' + t));
+      item.appendChild(document.createTextNode(ST_NAMES[t]));
+      key.appendChild(item);
+    });
+    return key;
+  }
+  function stNode(n, e) { if (n.type === 'state') dgNode(n, e); }
+
+  // Each self-transition as a route: out of the side, round, and back into the same side.
+  function stLoops(d, g, routes) {
+    var order = d.model.dir === 'down' ? ['right', 'left', 'bottom', 'top'] : ['top', 'bottom', 'right', 'left'];
+    return d.model.edges.filter(function (e) { return e.from === e.to; }).map(function (e) {
+      var n = e.from, used = {};
+      routes.forEach(function (r) { if (r.e.from === n) used[r.plan.a] = 1; if (r.e.to === n) used[r.plan.b] = 1; });
+      var side = order.filter(function (s) { return !used[s]; })[0] || order[0];
+      var cx = n.x + n.w / 2, cy = n.y + n.h / 2, k = ST_LOOP / 2, s = DG.stand, L = ST_LOOP, p;
+      if (side === 'top') { var t = n.y - s; p = [[cx - k, t], [cx - k, t - L], [cx + k, t - L], [cx + k, t]]; }
+      else if (side === 'bottom') { var b = n.y + n.h + s; p = [[cx + k, b], [cx + k, b + L], [cx - k, b + L], [cx - k, b]]; }
+      else if (side === 'right') { var x = n.x + n.w + s; p = [[x, cy - k], [x + L, cy - k], [x + L, cy + k], [x, cy + k]]; }
+      else { var l = n.x - s; p = [[l, cy + k], [l - L, cy + k], [l - L, cy - k], [l, cy - k]]; }
+      return { e: e, plan: { a: side, b: side }, p: p, loop: side };
+    });
+  }
+  // Room for each loop and its event in the gap on its side: the loop and label alone in an outside
+  // gap that carries no line, and clear of the gap's middle line anywhere else.
+  function stGrow(d, g, drawn, next) {
+    drawn.forEach(function (r) {
+      if (!r.loop) return;
+      var n = r.e.from, hz = r.loop === 'top' || r.loop === 'bottom';
+      var ext = DG.stand + ST_LOOP + DG.clear + (r.e.el ? (hz ? r.e.lh : r.e.lw) : 0) + 4;
+      var i = r.loop === 'top' ? n.row - 1 : r.loop === 'bottom' ? n.row : r.loop === 'left' ? n.col - 1 : n.col;
+      var last = hz ? g.R : g.C, o = hz ? next.y : next.x, used = (hz ? next.oy : next.ox)[i];
+      var want = (i === 0 || i === last) && !used ? ext + DG.clear : 2 * ext + 3 * DG.track;
+      o[i] = Math.max(o[i] || 0, want);
+    });
+  }
+
+  // The text version: every state once, numbered in reading order from the start, with each
+  // transition as its event and where it leads. The start and ends are named on the states they
+  // join rather than listed.
+  function stText(d) {
+    var m = d.model, states = m.nodes.filter(function (n) { return n.type === 'state'; }), order = [], seen = {};
+    var outs = function (n) { return m.edges.filter(function (e) { return e.from === n; }); };
+    var visit = function (n) {
+      if (seen[n.id] || n.type !== 'state') return;
+      seen[n.id] = true; order.push(n);
+      outs(n).forEach(function (e) { visit(e.to); });
+    };
+    var first = [];
+    m.nodes.filter(function (n) { return n.type === 'initial'; }).forEach(function (s) { outs(s).forEach(function (e) { if (first.indexOf(e.to) < 0) first.push(e.to); }); });
+    first.forEach(visit);
+    states.forEach(visit);
+    order.forEach(function (n, i) { n.num = i + 1; });
+    var stop = function (s) { s = s.trim(); return /[.?!]$/.test(s) ? s : s + '.'; };
+    var ol = mk('ol', 'cm-olist cm-small');
+    order.forEach(function (n) {
+      var parts = [stop(n.label)];
+      if (n.detail) parts.push(stop(n.detail));
+      if (first.indexOf(n) > -1) parts.push('The starting state.');
+      if (n.emphasis) parts.push(stop('Marked: ' + n.emphasis));
+      outs(n).forEach(function (e) {
+        var to = e.to, where = to === n ? 'stays in ' + n.label : to.type === 'final' ? 'the end'
+          : to.type === 'initial' ? 'back to the start' : (to.num < n.num ? 'back to state ' : 'state ') + to.num + ', ' + to.label;
+        parts.push(stop(e.label ? e.label + ': ' + where : where.charAt(0).toUpperCase() + where.slice(1)));
+      });
+      if (!outs(n).length) parts.push('No transition leaves it.');
+      ol.appendChild(mk('li', null, parts.join(' ')));
+    });
+    if (!(d.el.getAttribute('aria-label') || '').trim()) {
+      var ends = order.filter(function (n) { return outs(n).some(function (e) { return e.to.type === 'final'; }); }).map(function (n) { return n.label; });
+      var loops = m.edges.filter(function (e) { return e.from === e.to; }).length;
+      var moves = m.edges.filter(function (e) { return e.from.type === 'state' && e.from !== e.to; }).length;
+      var s = 'State diagram of ' + states.length + (states.length === 1 ? ' state' : ' states')
+        + (first.length ? ' from ' + first.map(function (n) { return n.label; }).join(' or ') : '')
+        + (ends.length ? ' to ' + ends.join(' or ') : '')
+        + ', with ' + moves + (moves === 1 ? ' transition' : ' transitions')
+        + (loops ? ' and ' + loops + (loops === 1 ? ' self-transition' : ' self-transitions') : '');
+      d.el.setAttribute('aria-label', s + '. The text version under the figure lists every state.');
+    }
+    var det = mk('details', 'cm-data');
+    det.setAttribute('data-cm-diagram-text', '');
+    det.appendChild(mk('summary', null, 'View as text'));
+    det.appendChild(ol);
+    var fig = d.el.closest('figure'), cap = fig && fig.querySelector('.cm-caption');
+    if (cap) cap.after(det); else d.el.after(det);
+    d.text = det;
+  }
+
+  DG_MODES.state = { model: stModel, key: stKey, node: stNode, text: stText, layout: dgLayout, loops: stLoops, grow: stGrow };
+
+  /* ---------- diagrams: sequence ---------- */
+  // A sequence diagram (SPEC section 8.20, Sequence) has a geometry of its own: participants across
+  // the top in the order written, a lifeline down from each, and messages as horizontal arrows in
+  // the order written, so time runs down. Each label stands above its arrow in the gap beside the
+  // sender, so it never sits on a lifeline; the gaps widen to hold their labels. A message marked
+  // "activate" opens an activation bar on its receiver, closed by the receiver's next reply.
+  // bar: half the width of an activation bar; selfW and selfH: a message to oneself turns right and
+  // comes back; top: from the participants to the first label; after: from the last arrow to the
+  // end of the lifelines.
+  var SQ = { bar: 6, selfW: 40, selfH: 24, top: 16, after: 24 };
+  var SQ_GAP = { screen: { col: 64, msg: 16, pad: 8 }, print: { col: 40, msg: 8, pad: 8 } };
+  var SQ_KINDS = ['message', 'reply', 'optional'];
+  var SQ_NAMES = { message: 'Message', reply: 'Reply', optional: 'Optional message', activation: 'Active' };
+
+  function sqModel(spec) {
+    var byId = {}, nodes = [], edges = [];
+    list(spec.nodes).forEach(function (n) {
+      if (!n || n.id == null || byId[n.id]) return;
+      var m = { id: String(n.id), type: 'participant', label: n.label == null ? '' : String(n.label), detail: n.detail ? String(n.detail) : '', emphasis: '', col: nodes.length };
+      byId[m.id] = m; nodes.push(m);
+    });
+    list(spec.edges).forEach(function (e) {
+      if (!e || !byId[e.from] || !byId[e.to]) return;
+      edges.push({ from: byId[e.from], to: byId[e.to], kind: SQ_KINDS.indexOf(e.kind) > -1 ? e.kind : 'message',
+        label: e.label ? String(e.label) : '', activate: e.activate === true && e.from !== e.to, i: edges.length });
+    });
+    // activation bars: from the message that opens one to the receiver's next reply, or the end
+    var open = {}, bars = [];
+    edges.forEach(function (e, i) {
+      var b = open[e.from.id];
+      if (b && e.kind === 'reply' && e.from !== e.to) { b.last = i; delete open[e.from.id]; }
+      if (e.activate && !open[e.to.id]) { open[e.to.id] = { node: e.to, first: i, last: -1 }; bars.push(open[e.to.id]); }
+    });
+    bars.forEach(function (b) { if (b.last < 0) b.last = edges.length - 1; });
+    return { nodes: nodes, edges: edges, bars: bars };
+  }
+
+  function sqKey(m) {
+    var kinds = SQ_KINDS.filter(function (k) { return m.edges.some(function (e) { return e.kind === k; }); });
+    if (m.bars.length) kinds.push('activation');
+    if (!kinds.some(function (k) { return k !== 'message'; })) return null;
+    var key = mk('div', 'cm-diagram__key');
+    kinds.forEach(function (k) {
+      var item = mk('span', 'cm-diagram__key-item');
+      item.appendChild(mk('i', 'cm-diagram__swatch cm-diagram__swatch--' + k));
+      item.appendChild(document.createTextNode(SQ_NAMES[k]));
+      key.appendChild(item);
+    });
+    return key;
+  }
+
+  function sqBuild(d) {
+    var el = d.el, m = d.model;
+    el.textContent = '';
+    var key = sqKey(m);
+    if (key) el.appendChild(key);
+    var cv = d.canvas = mk('div', 'cm-diagram__canvas');
+    var svg = d.svg = document.createElementNS(SVGNS, 'svg');
+    svg.setAttribute('class', 'cm-diagram__lines');
+    svg.setAttribute('aria-hidden', 'true');
+    svg.setAttribute('focusable', 'false');
+    cv.appendChild(svg);
+    m.nodes.forEach(function (n) {
+      var e = n.el = mk('div', 'cm-diagram__node cm-diagram__node--participant');
+      e.setAttribute('data-node', n.id);
+      dgNode(n, e);
+      cv.appendChild(e);
+    });
+    m.edges.forEach(function (e) { if (e.label) { e.el = mk('span', 'cm-diagram__edge-label', e.label); cv.appendChild(e.el); } });
+    el.appendChild(cv);
+  }
+
+  function sqLayout(d) {
+    var el = d.el, m = d.model, P = printing ? SQ_GAP.print : SQ_GAP.screen, cv = d.canvas, svg = d.svg;
+    if (!printing && !el.clientWidth) { d.pending = true; return; }
+    d.pending = false;
+    el.classList.toggle('cm-diagram--print', printing);
+    cv.style.transform = ''; cv.style.marginRight = ''; cv.style.marginBottom = ''; cv.style.width = '4000px'; cv.style.height = '1px';
+    var N = m.nodes.length, hh = 0;
+    m.nodes.forEach(function (n) {
+      n.el.style.left = '0px'; n.el.style.top = '0px'; n.el.style.width = ''; n.el.style.height = '';
+      n.w = even(n.el.offsetWidth); hh = Math.max(hh, even(n.el.offsetHeight));
+    });
+    m.nodes.forEach(function (n) { n.h = hh; });
+    var lh = 0;
+    m.edges.forEach(function (e) { if (e.el) { e.lw = Math.ceil(e.el.offsetWidth); e.lh = Math.ceil(e.el.offsetHeight); lh = Math.max(lh, e.lh); } });
+    var active = function (n, i) { return m.bars.some(function (b) { return b.node === n && i >= b.first && i <= b.last; }); };
+    // the gap right of each participant: its neighbour's half width, and every label set in it
+    var gap = [], self = 0;
+    for (var k = 0; k < N; k++) gap[k] = k < N - 1 ? m.nodes[k].w / 2 + m.nodes[k + 1].w / 2 + P.col : 0;
+    m.edges.forEach(function (e) {
+      var w = e.el ? e.lw : 0, s = e.from.col;
+      if (e.from === e.to) {
+        var need = SQ.bar + Math.max(SQ.selfW, DG.clear + w) + DG.clear + SQ.bar + 4;
+        if (s < N - 1) gap[s] = Math.max(gap[s], need); else self = Math.max(self, need);
+      } else {
+        var g = e.to.col > s ? s : s - 1;
+        gap[g] = Math.max(gap[g], w + 2 * DG.clear + 2 * SQ.bar + 8);
+      }
+    });
+    var x = [], cx = P.pad + m.nodes[0].w / 2;
+    for (k = 0; k < N; k++) { x[k] = cx; cx += gap[k]; }
+    var W = Math.max(x[N - 1] + m.nodes[N - 1].w / 2, x[N - 1] + self) + P.pad;
+    // time runs down: one row a message, a label's height and its air above each arrow
+    var top = P.pad, hb = top + hh, y = hb + SQ.top - P.msg, ys = [];
+    m.edges.forEach(function (e, i) {
+      y += P.msg + (e.el ? e.lh : lh) + DG.clear;
+      ys[i] = y;
+      y += DG.clear + (e.from === e.to ? SQ.selfH : 0);
+    });
+    var bottom = (m.edges.length ? y - DG.clear : hb + SQ.top) + SQ.after, H = bottom + P.pad;
+    var fit = dgFit(d, W, H, true), X = function (v) { return Math.round(v + fit.ox); }, Y = Math.round;
+    var geo = { scale: fit.scale, ox: fit.ox, W: fit.W, H: fit.H, nodes: [], edges: [], lines: [], lanes: [] };
+    m.nodes.forEach(function (n, k) {
+      var s = n.el.style;
+      n.x = x[k] - n.w / 2; n.y = top;
+      s.left = X(n.x) + 'px'; s.top = Y(n.y) + 'px'; s.width = n.w + 'px'; s.height = n.h + 'px';
+      svg.appendChild(svgEl('line', { 'class': 'cm-diagram__lifeline', x1: X(x[k]), y1: Y(hb), x2: X(x[k]), y2: Y(bottom) }));
+      geo.nodes.push({ id: n.id, type: n.type, el: n.el });
+      geo.lines.push({ kind: 'lifeline', points: [[X(x[k]), Y(hb)], [X(x[k]), Y(bottom)]] });
+    });
+    m.bars.forEach(function (b) {
+      var bx = X(x[b.node.col]) - SQ.bar, bt = Y(ys[b.first] - DG.clear), bb = Y(ys[b.last] + (m.edges[b.last].from === m.edges[b.last].to ? SQ.selfH : 0) + DG.clear);
+      svg.appendChild(svgEl('rect', { 'class': 'cm-diagram__activation', x: bx, y: bt, width: 2 * SQ.bar, height: bb - bt, rx: 2 }));
+      geo.lines.push({ kind: 'activation bar', points: [[bx, bt], [bx, bb]] }, { kind: 'activation bar', points: [[bx + 2 * SQ.bar, bt], [bx + 2 * SQ.bar, bb]] });
+    });
+    m.edges.forEach(function (e, i) {
+      var a = e.from.col, b = e.to.col, yy = ys[i], p, lab;
+      var off = function (n, dir) { return active(n, i) ? dir * SQ.bar : 0; };
+      if (a === b) {
+        var x0 = x[a] + off(e.from, 1);
+        p = [[x0, yy], [x0 + SQ.selfW, yy], [x0 + SQ.selfW, yy + SQ.selfH], [x0 + DG.stand, yy + SQ.selfH]];
+        lab = { l: x0 + DG.clear, t: yy - DG.clear - (e.lh || 0) };
+      } else {
+        var dir = b > a ? 1 : -1, x1 = x[a] + off(e.from, dir), x2 = x[b] - off(e.to, dir) - dir * DG.stand;
+        p = [[x1, yy], [x2, yy]];
+        // centred in the gap beside the sender, between its lifeline and the next one
+        var g0 = x[a] + dir * SQ.bar, g1 = x[a + dir] - dir * SQ.bar;
+        lab = { l: (g0 + g1) / 2 - (e.lw || 0) / 2, t: yy - DG.clear - (e.lh || 0) };
+      }
+      p = p.map(function (pt) { return [X(pt[0]), Y(pt[1])]; });
+      var grp = svgEl('g', { 'class': 'cm-diagram__edge cm-diagram__edge--' + e.kind, 'data-from': e.from.id, 'data-to': e.to.id });
+      grp.appendChild(svgEl('path', { 'class': 'cm-diagram__line', d: dgPathD(p) }));
+      grp.appendChild(svgEl('polygon', { 'class': 'cm-diagram__head', points: dgHead(p) }));
+      svg.appendChild(grp);
+      if (e.el) { e.el.style.left = X(lab.l) + 'px'; e.el.style.top = Y(lab.t) + 'px'; }
+      geo.edges.push({ from: e.from.id, to: e.to.id, kind: e.kind, label: e.label, labelEl: e.el || null, points: p });
+    });
+    geo.routed = geo.edges.length;
+    geo.total = m.edges.length;
+    el._cmDiagram = geo;
+  }
+
+  // The text version: one numbered item for each message in time order, with its sender and
+  // receiver, and the span of each activation.
+  function sqText(d) {
+    var m = d.model, stop = function (s) { s = s.trim(); return /[.?!]$/.test(s) ? s : s + '.'; };
+    var ol = mk('ol', 'cm-olist cm-small');
+    m.edges.forEach(function (e, i) {
+      var who = e.from === e.to ? e.from.label + ', to itself' : e.kind === 'reply' ? e.from.label + ' replies to ' + e.to.label : e.from.label + ' to ' + e.to.label;
+      if (e.kind === 'optional') who += ', optional';
+      var parts = [stop(who + (e.label ? ': ' + e.label : ''))];
+      m.bars.forEach(function (b) {
+        if (b.first !== i) return;
+        parts.push(stop(b.node.label + ' is active until ' + (b.last > i ? 'message ' + (b.last + 1) : 'the end')));
+      });
+      ol.appendChild(mk('li', null, parts.join(' ')));
+    });
+    if (!(d.el.getAttribute('aria-label') || '').trim()) {
+      var names = m.nodes.map(function (n) { return n.label; }), replies = m.edges.filter(function (e) { return e.kind === 'reply'; }).length;
+      var s = 'Sequence diagram of ' + m.edges.length + (m.edges.length === 1 ? ' message' : ' messages') + ' between '
+        + (names.length > 1 ? names.slice(0, -1).join(', ') + ' and ' + names[names.length - 1] : names[0] || 'no one')
+        + (replies ? ', ' + replies + (replies === 1 ? ' of them a reply' : ' of them replies') : '');
+      d.el.setAttribute('aria-label', s + '. The text version under the figure lists every message in order.');
+    }
+    var det = mk('details', 'cm-data');
+    det.setAttribute('data-cm-diagram-text', '');
+    det.appendChild(mk('summary', null, 'View as text'));
+    det.appendChild(ol);
+    var fig = d.el.closest('figure'), cap = fig && fig.querySelector('.cm-caption');
+    if (cap) cap.after(det); else d.el.after(det);
+    d.text = det;
+  }
+
+  DG_MODES.sequence = { model: sqModel, build: sqBuild, text: sqText, layout: sqLayout };
+
+  /* ---------- diagrams: entity relationship ---------- */
+  // An entity relationship diagram (SPEC section 8.20, Entity relationship) is drawn on the flow
+  // grid. An entity is a small table: its name, then its key attributes, each primary or foreign key
+  // tagged. A relationship is a plain line with no arrowhead, one to a side of an entity, with its
+  // count written at each end beside the entity it counts: 1, 0 or 1, 1 or more, 0 or more. The
+  // gaps are wider than a flow's, since every line carries a count at both ends.
+  var ER_ENDS = ['1', '0 or 1', '1 or more', '0 or more'];
+  var ER_GAP = { screen: { col: 96, row: 72, lane: 72, pad: 8 }, print: { col: 64, row: 56, lane: 64, pad: 8 } };
+  var ER_KEYS = { primary: ['PK', 'Primary key'], foreign: ['FK', 'Foreign key'] };
+  var ER_SEP = 24;
+
+  function erModel(spec) {
+    var byId = {}, nodes = [], edges = [], C = 1, R = 1;
+    list(spec.nodes).forEach(function (n) {
+      if (!n || n.id == null || byId[n.id]) return;
+      var m = { id: String(n.id), type: 'entity', label: n.label == null ? '' : String(n.label), detail: '', emphasis: '',
+        col: int(n.col, 1), row: int(n.row, 1), attrs: list(n.attributes).filter(function (a) { return a && a.name != null; }).map(function (a) {
+          return { name: String(a.name), key: ER_KEYS[a.key] ? a.key : '' };
+        }) };
+      byId[m.id] = m; nodes.push(m); C = Math.max(C, m.col); R = Math.max(R, m.row);
+    });
+    list(spec.edges).forEach(function (e) {
+      if (!e || !byId[e.from] || !byId[e.to] || e.from === e.to) return;
+      edges.push({ from: byId[e.from], to: byId[e.to], kind: 'relation', label: e.label ? String(e.label) : '',
+        fromEnd: ER_ENDS.indexOf(e.fromEnd) > -1 ? e.fromEnd : '1', toEnd: ER_ENDS.indexOf(e.toEnd) > -1 ? e.toEnd : '1' });
+    });
+    return { nodes: nodes, edges: edges, lanes: [], bounds: [], dir: 'right', C: C, R: R };
+  }
+
+  // The key names the key tags in use, and says which entity a count counts.
+  function erKey(m) {
+    var keys = Object.keys(ER_KEYS).filter(function (k) { return m.nodes.some(function (n) { return n.attrs.some(function (a) { return a.key === k; }); }); });
+    if (!keys.length && !m.edges.length) return null;
+    var key = mk('div', 'cm-diagram__key');
+    keys.forEach(function (k) {
+      var item = mk('span', 'cm-diagram__key-item');
+      item.appendChild(mk('span', 'cm-tag', ER_KEYS[k][0]));
+      item.appendChild(document.createTextNode(ER_KEYS[k][1]));
+      key.appendChild(item);
+    });
+    if (m.edges.length) {
+      var item = mk('span', 'cm-diagram__key-item');
+      item.appendChild(mk('span', 'cm-label', '1 or more'));
+      item.appendChild(document.createTextNode('How many of the entity beside it'));
+      key.appendChild(item);
+    }
+    return key;
+  }
+  function erNode(n, e) {
+    n.nameEl = mk('span', 'cm-diagram__name', n.label);
+    e.appendChild(n.nameEl);
+    var rows = mk('span', 'cm-diagram__attrs');
+    n.attrs.forEach(function (a) {
+      var row = mk('span', 'cm-diagram__attr');
+      row.appendChild(mk('span', null, a.name));
+      if (a.key) row.appendChild(mk('span', 'cm-tag', ER_KEYS[a.key][0]));
+      rows.appendChild(row);
+    });
+    e.appendChild(rows);
+  }
+  function erBuild(d) {
+    dgBuild(d);
+    d.model.edges.forEach(function (e) {
+      e.fromEl = mk('span', 'cm-diagram__edge-label', e.fromEnd);
+      e.toEl = mk('span', 'cm-diagram__edge-label', e.toEnd);
+      d.canvas.appendChild(e.fromEl); d.canvas.appendChild(e.toEl);
+    });
+  }
+
+  // The relationship's name stands where a flow's edge label does, above a run across or to the left
+  // of a run down, middle first. Each end's count stands on the other side of the line, beside the
+  // entity it counts, and two counts on one run stand at least ER_SEP apart, so each reads with its
+  // own end. A label with no room asks for a wider gap, as a flow's edge label does.
+  function erLabels(d, g, routes) {
+    var m = d.model, placed = [], lines = [], short = [];
+    routes.forEach(function (r) { dgSegs(r.p).forEach(function (s) { lines.push(s); }); });
+    var boxes = m.nodes.map(function (n) { return dgRect(n, 0); });
+    var free = function (b) {
+      var c = DG.clear - 0.5, x = { l: b.l - c, t: b.t - c, r: b.r + c, b: b.b + c };
+      if (b.l < 2 || b.t < 2 || b.r > g.W - 2 || b.b > g.H - 2) return false;
+      var meet = function (o) { return o.l < x.r && o.r > x.l && o.t < x.b && o.b > x.t; };
+      if (boxes.some(meet) || placed.some(meet)) return false;
+      return !lines.some(function (s) { return dgHits(s[0], s[1], x); });
+    };
+    var gapAt = function (starts, sizes, a, b) {
+      var best = -1, lap = 0;
+      starts.forEach(function (st, k) { var o = Math.min(b, st + sizes[k]) - Math.max(a, st); if (o > lap) { lap = o; best = k; } });
+      return best;
+    };
+    var size = function (el) { return [Math.ceil(el.offsetWidth), Math.ceil(el.offsetHeight)]; };
+    routes.forEach(function (r) {
+      var e = r.e, segs = dgSegs(r.p), n = segs.length, sz = { start: size(e.fromEl), end: size(e.toEl) };
+      var longest = segs.reduce(function (x, s, k) { return dgLen(s[0], s[1]) > dgLen(segs[x][0], segs[x][1]) ? k : x; }, 0);
+      var first = null;
+      r.labels = [];
+      [[e.fromEl, 'start', e.from.label], [e.toEl, 'end', e.to.label], [e.el, 'mid']].forEach(function (q) {
+        var lab = q[0], at = q[1];
+        if (!lab) return;
+        var w = Math.ceil(lab.offsetWidth), h = Math.ceil(lab.offsetHeight), spot = null, tight = false, wish = [], preferred = at === 'mid' ? -1 : 1, side = 0;
+        var i0 = at === 'start' ? 0 : at === 'end' ? n - 1 : longest;
+        var tries = at === 'mid' ? [longest].concat(segs.map(function (s, i) { return i; }).filter(function (i) { return i !== longest; })) : [i0];
+        tries.some(function (i) {
+          var a = segs[i][0], b = segs[i][1], u = dgDir(a, b), hz = a[1] === b[1], ext = hz ? w : h, L = dgLen(a, b);
+          var lo = (i > 0 ? DG.r : 0) + 2, hi = L - (i < n - 1 ? DG.r : 0) - 2;
+          if (hi - lo < ext) return false;
+          var os = at === 'start' ? [lo] : at === 'end' ? [hi - ext] : [Math.round((L - ext) / 2), lo, hi - ext];
+          // the name above or to the left first, a count below or to the right first
+          var sides = [preferred, -preferred], cands = [];
+          sides.forEach(function (side) {
+            os.forEach(function (o) {
+              if (o < lo || o + ext > hi) return;
+              var along = hz ? a[0] + u[0] * o - (u[0] < 0 ? ext : 0) : a[1] + u[1] * o - (u[1] < 0 ? ext : 0);
+              if (hz) cands.push({ l: along, t: side < 0 ? a[1] - DG.clear - h : a[1] + DG.clear, side: side });
+              else cands.push({ l: side < 0 ? a[0] - DG.clear - w : a[0] + DG.clear, t: along, side: side });
+            });
+          });
+          return cands.some(function (c) {
+            var box = { l: c.l, t: c.t, r: c.l + w, b: c.t + h };
+            // the second count on the run the first stands on, on the same side: ER_SEP apart
+            if (at === 'end' && first && first.i === i && first.side === c.side) {
+              var apart = hz ? Math.max(box.l - first.box.r, first.box.l - box.r) : Math.max(box.t - first.box.b, first.box.t - box.b);
+              if (apart < ER_SEP) { tight = true; return false; }
+            }
+            // past the canvas edge on the preferred side: the outside gap grows to hold it
+            if (c.side === preferred) {
+              if (box.r > g.W - 2) wish.push({ axis: 'x', i: g.C, size: g.gw[g.C] + box.r - g.W + 4 });
+              if (box.l < 2) wish.push({ axis: 'x', i: 0, size: g.gw[0] + 4 - box.l });
+              if (box.b > g.H - 2) wish.push({ axis: 'y', i: g.R, size: g.gh[g.R] + box.b - g.H + 4 });
+              if (box.t < 2) wish.push({ axis: 'y', i: 0, size: g.gh[0] + 4 - box.t });
+            }
+            if (!free(box)) return false;
+            spot = box; side = c.side;
+            if (at === 'start') first = { i: i, side: c.side, box: box };
+            return true;
+          });
+        });
+        if (side !== preferred) wish.forEach(function (x) { short.push(x); });
+        // two counts pushed to opposite sides of one run read as one diagonal: the gap grows to put
+        // them on one side
+        if (tight && spot) {
+          var t = segs[i0], th = t[0][1] === t[1][1], k0 = th ? 0 : 1;
+          var gi = gapAt(th ? g.gx : g.gy, th ? g.gw : g.gh, Math.min(t[0][k0], t[1][k0]), Math.max(t[0][k0], t[1][k0]));
+          if (gi > -1) short.push({ axis: th ? 'x' : 'y', i: gi, size: sz.start[k0] + sz.end[k0] + ER_SEP + 4 + 2 * DG.stand });
+        }
+        if (!spot) {
+          // no room: the gap the run crosses grows to hold what stands beside it
+          var s = segs[i0], hz = s[0][1] === s[1][1], lo = Math.min(s[0][hz ? 0 : 1], s[1][hz ? 0 : 1]), hi = Math.max(s[0][hz ? 0 : 1], s[1][hz ? 0 : 1]);
+          var idx = gapAt(hz ? g.gx : g.gy, hz ? g.gw : g.gh, lo, hi), ext = hz ? w : h, k = hz ? 0 : 1;
+          var want = at === 'mid' ? (hz ? g.gw : g.gh)[idx] + Math.max(8, ext + 2 * DG.r + 8 - (hi - lo))
+            : n === 1 ? sz.start[k] + sz.end[k] + ER_SEP + 4 + 2 * DG.stand
+            : 2 * (ext + DG.r + 4 + DG.stand);
+          if (idx > -1) short.push({ axis: hz ? 'x' : 'y', i: idx, size: want });
+          var c = hz ? s[0][1] : s[0][0], across = gapAt(hz ? g.gy : g.gx, hz ? g.gh : g.gw, c - 0.5, c + 0.5);
+          if (across > -1) short.push({ axis: hz ? 'y' : 'x', i: across, size: 2 * ((hz ? h : w) + 2 * DG.clear) + 4 });
+          spot = { l: s[0][0], t: s[0][1], r: s[0][0] + w, b: s[0][1] + h };
+        }
+        placed.push(spot);
+        if (at === 'mid') r.label = spot;
+        else r.labels.push({ el: lab, box: spot, name: 'count "' + lab.textContent + '" beside ' + q[2] });
+      });
+    });
+    return short;
+  }
+
+  // The text version: every entity in reading order with its keys and other attributes, then every
+  // relationship with the count at each end.
+  function erText(d) {
+    var m = d.model, stop = function (s) { s = s.trim(); return /[.?!]$/.test(s) ? s : s + '.'; };
+    var order = m.nodes.slice().sort(function (a, b) { return a.row - b.row || a.col - b.col; });
+    var ol = mk('ol', 'cm-olist cm-small');
+    order.forEach(function (n) {
+      var parts = [stop(n.label)];
+      ['primary', 'foreign'].forEach(function (k) {
+        var as = n.attrs.filter(function (a) { return a.key === k; }).map(function (a) { return a.name; });
+        if (as.length) parts.push(stop(ER_KEYS[k][1] + (as.length > 1 ? 's' : '') + ': ' + as.join(', ')));
+      });
+      var rest = n.attrs.filter(function (a) { return !a.key; }).map(function (a) { return a.name; });
+      if (rest.length) parts.push(stop((n.attrs.length > rest.length ? 'Other attributes' : 'Attributes') + ': ' + rest.join(', ')));
+      ol.appendChild(mk('li', null, parts.join(' ')));
+    });
+    m.edges.forEach(function (e) {
+      var a = e.from.label, b = e.to.label;
+      ol.appendChild(mk('li', null, [stop(e.label ? a + ' ' + e.label + ' ' + b : 'Relationship between ' + a + ' and ' + b),
+        stop(b + ' per ' + a + ': ' + e.toEnd), stop(a + ' per ' + b + ': ' + e.fromEnd)].join(' ')));
+    });
+    if (!(d.el.getAttribute('aria-label') || '').trim()) {
+      var names = order.map(function (n) { return n.label; });
+      var s = 'Entity relationship diagram of ' + m.nodes.length + (m.nodes.length === 1 ? ' entity' : ' entities')
+        + (names.length > 1 ? ', ' + names.slice(0, -1).join(', ') + ' and ' + names[names.length - 1] : names.length ? ', ' + names[0] : '')
+        + ', with ' + m.edges.length + (m.edges.length === 1 ? ' relationship' : ' relationships');
+      d.el.setAttribute('aria-label', s + '. The text version under the figure lists every entity with its keys, then every relationship with its counts.');
+    }
+    var det = mk('details', 'cm-data');
+    det.setAttribute('data-cm-diagram-text', '');
+    det.appendChild(mk('summary', null, 'View as text'));
+    det.appendChild(ol);
+    var fig = d.el.closest('figure'), cap = fig && fig.querySelector('.cm-caption');
+    if (cap) cap.after(det); else d.el.after(det);
+    d.text = det;
+  }
+
+  DG_MODES['entity-relationship'] = { model: erModel, build: erBuild, key: erKey, node: erNode, text: erText, layout: dgLayout,
+    labels: erLabels, gaps: ER_GAP, bare: true };
 
   /* ---------- diagrams: layer stack ---------- */
   // A layer stack is drawn by the flow engine: each layer is a row framed across the full width and

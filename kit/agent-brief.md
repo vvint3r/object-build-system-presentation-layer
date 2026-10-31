@@ -25,16 +25,16 @@ All links point at one commit of the kit, so every document built from this brie
 
 | File | Role | Link |
 | --- | --- | --- |
-| `SPEC.md` | The rules in force. Read in full before writing. | [SPEC.md](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/6f3ecb4a496b123b826c9b18d0f879b25c71af8f/kit/report-kit/SPEC.md) |
-| `template.html` | The starting file for every report | [template.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/6f3ecb4a496b123b826c9b18d0f879b25c71af8f/kit/report-kit/template.html) |
-| `template-guide.html` | The starting file for every guide | [template-guide.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/6f3ecb4a496b123b826c9b18d0f879b25c71af8f/kit/report-kit/template-guide.html) |
-| `template-reference.html` | The starting file for every reference | [template-reference.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/6f3ecb4a496b123b826c9b18d0f879b25c71af8f/kit/report-kit/template-reference.html) |
-| `cm-report.css` | Tokens and every component class; the only stylesheet | [cm-report.css](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/6f3ecb4a496b123b826c9b18d0f879b25c71af8f/kit/report-kit/cm-report.css) |
-| `cm-report.js` | Theme toggle, chart theme and drawing, diagram drawing and text versions, sortable tables, contents rail, print | [cm-report.js](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/6f3ecb4a496b123b826c9b18d0f879b25c71af8f/kit/report-kit/cm-report.js) |
-| Sample report | A finished report built on the kit: the reference output for reports | [Sample Report - Q3 Support Review.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/6f3ecb4a496b123b826c9b18d0f879b25c71af8f/kit/Sample%20Report%20-%20Q3%20Support%20Review.html) |
-| Sample guide | A finished guide: the reference output for guides | [Guide - Billing Escalation.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/6f3ecb4a496b123b826c9b18d0f879b25c71af8f/kit/Guide%20-%20Billing%20Escalation.html) |
-| Sample reference | A finished reference: the reference output for references | [Reference - First Response Time.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/6f3ecb4a496b123b826c9b18d0f879b25c71af8f/kit/Reference%20-%20First%20Response%20Time.html) |
-| Spec and gallery | Every component as a live example, with its markup | [Report Kit - Spec & Gallery.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/6f3ecb4a496b123b826c9b18d0f879b25c71af8f/kit/Report%20Kit%20-%20Spec%20%26%20Gallery.html) |
+| `SPEC.md` | The rules in force. Read in full before writing. | [SPEC.md](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/ebbb323a430ac2105533f70e42ace6625b449735/kit/report-kit/SPEC.md) |
+| `template.html` | The starting file for every report | [template.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/ebbb323a430ac2105533f70e42ace6625b449735/kit/report-kit/template.html) |
+| `template-guide.html` | The starting file for every guide | [template-guide.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/ebbb323a430ac2105533f70e42ace6625b449735/kit/report-kit/template-guide.html) |
+| `template-reference.html` | The starting file for every reference | [template-reference.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/ebbb323a430ac2105533f70e42ace6625b449735/kit/report-kit/template-reference.html) |
+| `cm-report.css` | Tokens and every component class; the only stylesheet | [cm-report.css](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/ebbb323a430ac2105533f70e42ace6625b449735/kit/report-kit/cm-report.css) |
+| `cm-report.js` | Theme toggle, chart theme and drawing, diagram drawing and text versions, sortable tables, contents rail, print | [cm-report.js](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/ebbb323a430ac2105533f70e42ace6625b449735/kit/report-kit/cm-report.js) |
+| Sample report | A finished report built on the kit: the reference output for reports | [Sample Report - Q3 Support Review.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/ebbb323a430ac2105533f70e42ace6625b449735/kit/Sample%20Report%20-%20Q3%20Support%20Review.html) |
+| Sample guide | A finished guide: the reference output for guides | [Guide - Billing Escalation.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/ebbb323a430ac2105533f70e42ace6625b449735/kit/Guide%20-%20Billing%20Escalation.html) |
+| Sample reference | A finished reference: the reference output for references | [Reference - First Response Time.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/ebbb323a430ac2105533f70e42ace6625b449735/kit/Reference%20-%20First%20Response%20Time.html) |
+| Spec and gallery | Every component as a live example, with its markup | [Report Kit - Spec & Gallery.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/ebbb323a430ac2105533f70e42ace6625b449735/kit/Report%20Kit%20-%20Spec%20%26%20Gallery.html) |
 
 An agent with git can clone the whole kit instead:
 `git clone https://github.com/vvint3r/object-build-system-presentation-layer`.
@@ -76,9 +76,9 @@ The pasted kit code is never edited, shortened or reformatted.
 at jsDelivr, pinned to the same commit:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vvint3r/object-build-system-presentation-layer@6f3ecb4a496b123b826c9b18d0f879b25c71af8f/kit/report-kit/cm-report.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vvint3r/object-build-system-presentation-layer@ebbb323a430ac2105533f70e42ace6625b449735/kit/report-kit/cm-report.css">
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js" defer></script>
-<script src="https://cdn.jsdelivr.net/gh/vvint3r/object-build-system-presentation-layer@6f3ecb4a496b123b826c9b18d0f879b25c71af8f/kit/report-kit/cm-report.js" defer></script>
+<script src="https://cdn.jsdelivr.net/gh/vvint3r/object-build-system-presentation-layer@ebbb323a430ac2105533f70e42ace6625b449735/kit/report-kit/cm-report.js" defer></script>
 ```
 
 Links to `raw.githubusercontent.com` do not work in a page: that host serves the files as plain
@@ -119,10 +119,10 @@ Charts are ECharts option JSON inside the kit's figure markup. The agent never c
 and never writes chart JavaScript. It picks the chart by the reader's question, from the recipes in
 section 9. A `"cm"` key declares a bullet, slope, strip, box or interval chart, and the kit draws it.
 End labels that name every line take the legend's place. Diagrams are JSON too (section 8.20 of
-`SPEC.md`). A flow diagram, journey map or system and data flow places nodes by column and row, with
-edges between them. A layer stack lists layers from the top down, each dependency running down. A
-hierarchy names each node's parent. The kit draws them; the agent writes no coordinates, SVG or
-styles.
+`SPEC.md`). A flow, state or entity relationship diagram, a journey map or a system and data flow
+places its nodes by column and row; a sequence diagram lists its participants and messages in
+order. A layer stack lists layers from the top down, each dependency running down. A hierarchy
+names each node's parent. The kit draws them; the agent writes no coordinates, SVG or styles.
 
 ## Writing rules
 
@@ -223,6 +223,9 @@ Content maps onto existing components:
 | Dated events in order | Timeline, `cm-timeline` | 8.12 |
 | Stages in sequence, seen at a glance | Process diagram, `cm-process` | 8.13 |
 | A process with branches, loops or hand-offs between roles | Figure with a flow diagram, `cm-diagram` | 8.20 |
+| Messages between people or systems, in the order they are sent | Figure with a sequence diagram, `cm-diagram` | 8.20 |
+| The states one thing passes through, and the events that move it | Figure with a state diagram, `cm-diagram` | 8.20 |
+| The records a system keeps, their keys, and how many of one relate to another | Figure with an entity relationship diagram, `cm-diagram` | 8.20 |
 | One person's steps across the phases of an experience, and how each feels | Figure with a journey map, `cm-diagram` | 8.20 |
 | Systems, where their data rests and what moves between them | Figure with a system and data flow, `cm-diagram` | 8.20 |
 | The layers of a system and what each part depends on | Figure with a layer stack, `cm-diagram` | 8.20 |
@@ -274,9 +277,9 @@ The kit has no search, faceted browse or version selector; each needs a server.
 
 ## Kit gaps
 
-Maps, sequence, state, entity relationship and network diagrams, interactive filters and a PDF
-cover page. A document that needs one uses a figure holding a `cm-slot` placeholder and names the
-gap in an HTML comment. The agent does not draw its own diagram, icon or layout to fill the gap.
+Maps, network diagrams, interactive filters and a PDF cover page. A document that needs one uses
+a figure holding a `cm-slot` placeholder and names the gap in an HTML comment. The agent does not
+draw its own diagram, icon or layout to fill the gap.
 
 ## Checks
 

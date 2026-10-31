@@ -15,11 +15,12 @@
 //   components/<Comp>/            README.md and preview.html for each component of SPEC section 8,
 //                                 and Chart; components/Cover/preview.html, the system's cover
 //   fonts/ · licenses/            the WOFF2 faces and the licences of what the bundle carries
-//   report-kit/                   template.html, cm-report.css and cm-report.js as the kit has them
+//   report-kit/                   the kit's templates, cm-report.css and cm-report.js as they are
+//   <example>.html                the kit's example documents, one per kind, as they are
 //   design-system.json            the index, written last
 
 import { chromium } from 'playwright';
-import { copyFileSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { execSync } from 'node:child_process';
 import { createRequire } from 'node:module';
 import path from 'node:path';
@@ -420,7 +421,16 @@ for (const pkg of ['@fontsource/nunito', '@fontsource/jetbrains-mono']) {
 const chartsDir = path.dirname(require.resolve('echarts/package.json'));
 put('licenses/echarts-LICENSE.txt', read(path.join(chartsDir, 'LICENSE')));
 put('licenses/echarts-NOTICE.txt', read(path.join(chartsDir, 'NOTICE')));
-put('report-kit/template.html', kit.template);
+// The templates, one per document kind, and the example documents. Each sits at the path it has
+// beside the kit, so its links to report-kit/ resolve inside the bundle too.
+const kindOf = html => (html.match(/<meta name="cm-kind" content="([^"]+)">/) || [, 'report'])[1];
+const KIT_DIR = path.join(ROOT, 'kit', 'report-kit');
+const templates = readdirSync(KIT_DIR).filter(f => /^template.*\.html$/.test(f)).sort()
+  .map(f => ({ file: f, kind: kindOf(read(path.join(KIT_DIR, f))) }));
+const examples = readdirSync(path.join(ROOT, 'kit')).filter(f => f.endsWith('.html') && f !== path.basename(GALLERY)).sort()
+  .map(f => ({ file: f, kind: kindOf(read(path.join(ROOT, 'kit', f))), title: (read(path.join(ROOT, 'kit', f)).match(/<title>([^<]*)<\/title>/) || [])[1] }));
+for (const t of templates) put(`report-kit/${t.file}`, read(path.join(KIT_DIR, t.file)));
+for (const e of examples) put(e.file, read(path.join(ROOT, 'kit', e.file)));
 put('report-kit/cm-report.css', kit.css);
 put('report-kit/cm-report.js', kit.js);
 
@@ -436,7 +446,8 @@ const readme = `Content Morphia publishes reports, documents and analyses as sin
 
 | File | Use |
 | --- | --- |
-| \`report-kit/template.html\` | The start of every document. Copy it whole. |
+${templates.map(t => `| \`report-kit/${t.file}\` | The start of every ${t.kind}. Copy it whole. |`).join('\n')}
+${examples.map(e => `| \`${e.file}\` | An example ${e.kind}: ${e.title}. |`).join('\n')}
 | \`report-kit/cm-report.css\` | The only stylesheet: every token and class. Linked, or pasted into a \`<style>\` element (§2). |
 | \`report-kit/cm-report.js\` | Theme toggle, chart drawing, sortable tables, contents scroll-spy and print preparation. Linked, or pasted as the last element in \`<body>\` (§2). |
 | \`components/<Component>/README.md\` | Canonical markup and rules for one component; \`preview.html\` beside it shows it live. |

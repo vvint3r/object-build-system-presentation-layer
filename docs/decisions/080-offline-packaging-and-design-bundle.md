@@ -9,9 +9,9 @@
 
 ## Rules
 
-Section 2 of `SPEC.md` holds a third packaging mode, Offline: one HTML file with the kit's CSS and
-JS, the Nunito and JetBrains Mono faces as WOFF2 data, and ECharts 5.5.1 inside it. The pack tool
-writes it; no one writes it by hand. The new checks are in `checks/offline.mjs`.
+Section 2 of `SPEC.md` holds a third packaging mode, Offline. One HTML file carries the kit's CSS
+and JS, Nunito and JetBrains Mono as WOFF2 data, and ECharts 5.5.1. The pack tool writes it; no one
+writes it by hand. The new checks are in `checks/offline.mjs`.
 
 | Rule | Source | Check |
 | --- | --- | --- |
@@ -25,7 +25,7 @@ writes it; no one writes it by hand. The new checks are in `checks/offline.mjs`.
 | Command | Writes | From |
 | --- | --- | --- |
 | `npm run pack -- "<page>"` | `offline/<page file name>` | The page, `template.html`, the pinned `@fontsource/nunito` and `@fontsource/jetbrains-mono` packages, the installed `echarts` package |
-| `npm run bundle` | `bundle/project/`, the Design System artifact files | `cm-report.css`, `cm-report.js`, `template.html`, `SPEC.md`, the gallery, the sample report, the same packages |
+| `npm run bundle` | `bundle/project/`, the Design System artifact files | `cm-report.css`, `cm-report.js`, the three templates, `SPEC.md`, the gallery, the example documents, the same packages |
 | `npm run bundle:check` | Nothing; screenshots with `--shots <folder>` | The bundle, rendered as the Design System page renders it, with the network shut |
 
 Both output folders are generated and git-ignored.
@@ -42,41 +42,49 @@ Both output folders are generated and git-ignored.
 | `components/lib/echarts.min.js` | ECharts 5.5.1 |
 | `components/<Component>/` | `README.md` and `preview.html` for each gallery example of a spec section 8 component, and Chart |
 | `components/Cover/preview.html` | The cover |
-| `fonts/`, `licenses/`, `report-kit/` | The faces, their licences and ECharts', and the kit's three files as they are |
+| `fonts/`, `licenses/` | The faces, their licences and ECharts' |
+| `report-kit/` | The kit's stylesheet, script and three templates as they are |
+| Example documents | The sample report, guide and reference as they are, at the bundle's root so their `report-kit/` links resolve |
 
 ## Calls
 
 - **Offline file name.** The page's own file name in `offline/`, so links between packed pages keep
   working. The tool refuses a file that is already in `offline/`.
 - **Faces.** The faces the template's Google Fonts link names, Latin subset, with that subset's
-  unicode range. The glyphs the kit pages use outside it (arrows, triangles, the star) are in no
-  Nunito subset, so the offline file draws them as the linked page does.
+  unicode range. The kit pages also use arrows, triangles and a star. No Nunito subset has them, so
+  the offline file draws them as the linked page does.
 - **Recognising an offline page.** A page that carries a WOFF2 data URL is in the offline mode. The
   checks rebuild its font faces and ECharts from the template and the installed packages and compare
   them whole.
-- **Agent brief.** An agent outside the repository never builds an offline file; the brief names the
+- **Agent brief.** An agent outside the repository never builds an offline file. The brief names the
   pack tool as the only way to make one.
-- **Components.** One per gallery example of section 5, tied to the spec section that defines it,
-  and Chart from the gallery's line chart with section 9 as its rules. A spec section that defines
-  several blocks gives each its own component and its own part of the section.
+- **Components.** One component per example in the gallery's section 5, tied to the spec section
+  that defines it. Chart comes from the gallery's line chart, with spec section 9 as its rules. A spec
+  section that defines several blocks gives each its own component and its own part of the section.
 - **Token names.** The kit's custom properties without `--`. Spacing takes the two scales of section 5
   as `block-N` and `inset-N`; the page, reading, rail and bleed widths form a `layout` family.
 - **Theme values.** A dark value only where the kit's dark block declares one; a `var()` colour is an
   alias. `cm-l2` takes the accent's value in each theme in `tokens.json` and stays in `bundle.css`
   as `var(--cm-accent)`, so print still turns it to the light accent.
-- **Type styles.** Named by the rows of the type table, measured on the rendered sample report, then
-  the gallery's examples, then a probe with the row's class. Code splits into inline code and a code
+- **Type styles.** Named by the rows of the type table. Each is measured on the rendered sample
+  report, else on the gallery's examples, else on a probe with the row's class. Code splits into inline code and a code
   block, which render at different sizes.
 - **tokens.css.** Written by the tool, since a page with `editing: "code"` never saves one. Its first
   line ends "generated from tokens.json", which lets the page take it over.
-- **Read-only page.** `editing: "code"` keeps the system's page read-only: the repository is the
-  source of truth, and a change made in Claude Design comes back as a task.
+- **Read-only page.** `editing: "code"` keeps the system's page read-only, since the repository is
+  the source of truth. A change made in Claude Design comes back as a task.
 - **README.** The spec's own text, without its history (section 15). En and em dashes in prose become
   words or commas; code keeps its characters.
 - **Previews.** The gallery's example markup in `<main class="cm-main">`, with charts drawn without
   motion. Heights come from rendering each preview at 960px in both themes.
-- **Cover.** The ink slab with its accent offset, as the featured card carries `cm-l2`; chips with
-  status offsets as the pattern; the name at 96px and 900.
+- **Kinds.** The bundle carries every template and every example document, one per kind. The README
+  lists each with its kind, read from the page's `cm-kind` meta.
+- **Cover.** An ink slab with its accent offset, as the featured card carries `cm-l2`. Chip pills
+  with status offsets form the pattern. The name is set at 96px and weight 900.
+
+## Version
+
+The kit stays at 1.2. The version for this change is the orchestrating session's call.
 
 ## Status, 30 Oct 2026
 

@@ -51,8 +51,9 @@ sample, the dates the current sample report carries stand in for that look-up.
 
 ## Measured, 2026-10-31
 
-The pages at 22e0fb2 are the gallery, the sample report and the report template. Nine checks fail or
-warn on them under the 2.0 checks.
+The pages at 22e0fb2 are the gallery, the sample report and the report template. Eight checks fail on
+them under the 2.0 checks, and none warns. The template's other findings, a `reading-time` warning
+among them, are placeholders the 2.0 template returns too.
 
 | Check | Pages | Repair in §15 |
 | --- | --- | --- |
@@ -64,7 +65,6 @@ warn on them under the 2.0 checks.
 | `sources` | Gallery, sample report, template | 5: a type tag from the closed set |
 | `table-na` | Gallery, sample report | 6: `n/a`, never a dash |
 | `type-floor` | Gallery, print | 7: `cm-print-stack` on side-by-side figures |
-| `reading-time` | Template, warning | None: the 2.0 template's placeholder returns it too |
 
 The rehearsal's first pass, with repair 5 covering only the id and the type tag, left two failures.
 
@@ -111,7 +111,7 @@ sample passes every check: 247 ok, 0 FAIL, 0 warn.
 | `tools/bundle.mjs` | The bundle's README carries section 15 |
 | `tools/index.mjs`, `kit/index.html` | Version 2.0 |
 | Every kit document, template, `cm-report.css` and `cm-report.js` | Version 2.0 |
-| `kit/Report Kit - Spec & Gallery.html` | Version 2.0, its date, the head example and the revision specimen |
+| `kit/Report Kit - Spec & Gallery.html` | Version 2.0, its date, the head example and the revision specimen; the updates table gains page types and diagrams, and its limitation lists the gaps of §15 |
 | `kit/agent-brief.md` | Version 2.0, rule 1 and the claim line's place; commit pins unchanged |
 | `CLAUDE.md` | Version 2.0, rule 1, the template list pointing at the spec's kit-files table, the test and migration tools |
 | `README.md`, `docs/plan.md`, `docs/subprojects/` | Dated status: steps 6 and 8 done, the 2.0 release the one open step |

@@ -1269,6 +1269,42 @@
 </figure>
           </div>
         </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">7.3</span><h3 class="cm-h3">State</h3><p>The states one ticket passes through, and the event behind each change. A dot marks the start, a ringed dot the end, and a loop an event that leaves the state as it was.</p></header>
+          <div data-demo>
+<figure class="cm-figure cm-bleed">
+  <span class="cm-figure__kind">Figure 10</span>
+  <h3 class="cm-figure__title">Ticket status</h3>
+  <p class="cm-figure__desc">The statuses a support ticket takes from arrival to closing, with the event that moves it each time.</p>
+  <div class="cm-diagram" data-diagram="state" role="img" aria-label="">
+    <script type="application/json">
+    {
+      "nodes": [
+        {"id": "start", "type": "initial", "col": 1, "row": 1},
+        {"id": "new", "type": "state", "label": "New", "detail": "Waiting in a queue", "col": 2, "row": 1},
+        {"id": "open", "type": "state", "label": "Open", "detail": "An agent is working on it", "col": 3, "row": 1},
+        {"id": "pending", "type": "state", "label": "Pending", "detail": "Waiting on the customer", "col": 3, "row": 2},
+        {"id": "solved", "type": "state", "label": "Solved", "detail": "Answer sent", "col": 4, "row": 1},
+        {"id": "end", "type": "final", "col": 4, "row": 2}
+      ],
+      "edges": [
+        {"from": "start", "to": "new"},
+        {"from": "new", "to": "open", "label": "Assigned"},
+        {"from": "open", "to": "pending", "label": "Asks customer"},
+        {"from": "pending", "to": "open", "label": "Customer replies"},
+        {"from": "pending", "to": "pending", "label": "Reminder sent"},
+        {"from": "open", "to": "solved", "label": "Agent solves"},
+        {"from": "solved", "to": "open", "label": "Reopened"},
+        {"from": "solved", "to": "end", "label": "After 4 days"}
+      ]
+    }
+    </script>
+  </div>
+  <figcaption class="cm-caption"><span class="cm-caption__line">Source: helpdesk status rules, as of 2026-09-30.</span></figcaption>
+</figure>
+          </div>
+        </div>
       </div>
     </section>
 

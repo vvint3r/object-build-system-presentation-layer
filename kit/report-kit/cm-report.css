@@ -444,6 +444,13 @@ pre code{all:unset}
 .cm-diagram--print .cm-diagram__node{max-width:120px}
 .cm-diagram--print .cm-diagram__node--terminal{max-width:192px;padding:10px 16px}
 .cm-diagram--print .cm-diagram__node--decision{max-width:none;padding:0}
+/* state diagram: the start is a filled dot and an end a ringed dot, each in a cell of its own */
+.cm-diagram__node--initial,.cm-diagram__node--final{min-width:0;padding:0;border-radius:var(--cm-r-pill)}
+.cm-diagram__node--initial{width:16px;height:16px;background:var(--cm-ink);border:0}
+.cm-diagram__node--final{width:22px;height:22px;border:1.5px solid var(--cm-ink)}
+.cm-diagram__node--final::before,.cm-diagram__swatch--final::before{content:"";position:absolute;inset:3.5px;background:var(--cm-ink);border-radius:var(--cm-r-pill)}
+.cm-diagram__swatch--initial{width:12px;height:12px;margin:0 5px;background:var(--cm-ink);border:0;border-radius:var(--cm-r-pill)}
+.cm-diagram__swatch--final{position:relative;width:16px;height:16px;margin:0 3px;border:1.5px solid var(--cm-ink);border-radius:var(--cm-r-pill)}
 .cm-data>.cm-olist{margin-top:16px}
 
 /* ---------- 18b. Structured components ---------- */

@@ -593,6 +593,60 @@ The kit applies the rest:
 - On a narrow screen the diagram keeps its geometry and scrolls sideways inside its own box. Labels never shrink.
 - Print narrows the gaps and the nodes, then scales the drawing to fit the printed column and a page, never below 80%. The text version prints open.
 
+#### State
+
+A state diagram shows the states one thing passes through, such as a ticket, and the events that move it from one to the next. Steps that people carry out are a flow diagram.
+
+```html
+<div class="cm-diagram" data-diagram="state" role="img" aria-label="">
+  <script type="application/json">
+  {
+    "nodes": [
+      {"id": "start", "type": "initial", "col": 1, "row": 1},
+      {"id": "open", "type": "state", "label": "Open", "detail": "An agent is working on it", "col": 2, "row": 1},
+      {"id": "pending", "type": "state", "label": "Pending", "col": 2, "row": 2},
+      {"id": "solved", "type": "state", "label": "Solved", "col": 3, "row": 1},
+      {"id": "end", "type": "final", "col": 3, "row": 2}
+    ],
+    "edges": [
+      {"from": "start", "to": "open"},
+      {"from": "open", "to": "pending", "label": "Asks customer"},
+      {"from": "pending", "to": "open", "label": "Customer replies"},
+      {"from": "pending", "to": "pending", "label": "Reminder sent"},
+      {"from": "open", "to": "solved", "label": "Agent solves"},
+      {"from": "solved", "to": "end", "label": "After 4 days"}
+    ]
+  }
+  </script>
+</div>
+```
+
+The JSON holds `nodes`, `edges` and an optional `direction`, placed on the grid as in a flow diagram. A node holds `id`, `type`, `col` and `row`; a state adds `label` and may add `detail` and `emphasis`. An edge holds `from`, `to` and `label`.
+
+| Value | Drawn as | Use |
+| --- | --- | --- |
+| `initial` | Filled dot, no label | Where the thing starts; exactly one |
+| `state` | Rounded rectangle; `detail` adds a second line | A condition the thing stays in until an event moves it |
+| `final` | Ringed dot, no label | Where the thing ends; none, one or more |
+
+- Every transition is a solid line with an arrowhead, named by its event. Only the transition out of the start goes unnamed.
+- The start has one transition out and none in; an end has none out. No two transitions out of one state share an event.
+- A self-transition, with `from` and `to` the same state, is a loop on one side of the state. The kit takes the first side in reading order that no other transition uses, and sets the event beyond the loop.
+- A key above the drawing names the start, the state, the end and the transition whenever the diagram has a start or an end.
+- One state at most is emphasised, with a chip of one or two words naming why. It counts toward the section's one `cm-emph` (§6).
+
+| Item | At most | Reason |
+| --- | --- | --- |
+| Nodes | 24 | The flow ceiling, from the library's panel tier |
+| Columns | 4 | Every transition carries its event, so a fifth column does not fit the printed column at 80% |
+| Rows | 5 | The flow ceiling, from a printed page |
+| Transitions | 12 | The library labels edges only while a view has 12 or fewer, and every transition but the first is named |
+| Emphasised states | 1 | §6 |
+
+A state `label` stops at 24 characters, a `detail` at 40, an event at 3 words and `emphasis` at 2 words, as in a flow diagram.
+
+The text version lists every state once, numbered in reading order from the start. Each item names the state and its detail, then each event with where it leads: the state and its number, "stays in" for a self-transition, and "the end". The first state is named as the starting state. An empty `aria-label` takes a summary: the number of states, the first and the last, and the counts of transitions and self-transitions.
+
 ### 8.21 Sources and citations
 
 The source register lists every source a document rests on, and closes the Notes & sources appendix after the notes. A citation ties a claim to its sources; an evidence date says how current a claim is.
@@ -1097,7 +1151,7 @@ Headings are `h1` to `h6` and table titles.
 14. Writing within §13: prose inside the limits, in plain words and neutral third person, with no em or en dashes; each section leads with its finding; headings are plain noun phrases in sentence case.
 15. Changing numbers sit in one dated status block; change log and revision history run newest first with dated entries; each limitation status is a word from its set (§8.22).
 16. `cm-kind` names the kind, or is absent for a report. A guide or a reference has its required parts in order, each with its id, or their omission comments (§7.3 to §7.5). Every procedure step closes with its outcome; every related item has a tag, a link and a sentence.
-17. Every diagram: JSON within the flow fields and capacity, a label on every decision branch, `role="img"`, a caption with a source line, and nothing overlapping or clipped in light, dark and print (§8.20).
+17. Every diagram: JSON within its mode's fields and capacity, a label on every decision branch and every named edge, `role="img"`, a caption with a source line, and nothing overlapping or clipped in light, dark and print (§8.20).
 18. Each structured component opens with its kind label and title and holds its required parts within its counts and limits (§8.25 to §8.30).
 
 ## 15. Changes from Content Morphia Foundations

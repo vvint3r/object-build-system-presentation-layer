@@ -330,12 +330,12 @@
     if (n.emphasis) e.appendChild(mk('span', 'cm-chip', n.emphasis));
   }
 
-  // Sizes as drawn. Steps, stores and external entities in one column share its widest width and in
-  // one row its tallest height, so the grid reads as a grid. A decision is the smallest square
+  // Sizes as drawn. Steps, stores, external entities and states in one column share its widest width
+  // and in one row its tallest height, so the grid reads as a grid. A decision is the smallest square
   // whose diamond holds its question: text w wide and h tall fits when w + h fits the diagonal.
   function dgMeasure(d) {
     var m = d.model, colW = {}, rowH = {};
-    var boxy = function (n) { return n.type === 'step' || n.type === 'store' || n.type === 'external'; };
+    var boxy = function (n) { return n.type === 'step' || n.type === 'store' || n.type === 'external' || n.type === 'state'; };
     m.nodes.forEach(function (n) {
       var e = n.el;
       e.style.left = '0px'; e.style.top = '0px'; e.style.width = ''; e.style.height = '';
@@ -614,8 +614,16 @@
     routes.forEach(function (r) {
       var e = r.e;
       if (!e.el) return;
-      var w = e.lw, h = e.lh, segs = dgSegs(r.p), spot = null;
-      segs.some(function (s, i) {
+      var w = e.lw, h = e.lh, segs = dgSegs(r.p), spot = null, own = null;
+      // a loop's label stands outside its far run, centred on it
+      if (r.loop) {
+        var f = segs[1], fx = (f[0][0] + f[1][0]) / 2, fy = (f[0][1] + f[1][1]) / 2;
+        var lt = r.loop === 'top' ? { l: fx - w / 2, t: fy - DG.clear - h } : r.loop === 'bottom' ? { l: fx - w / 2, t: fy + DG.clear }
+          : r.loop === 'right' ? { l: fx + DG.clear, t: fy - h / 2 } : { l: fx - DG.clear - w, t: fy - h / 2 };
+        own = { l: Math.round(lt.l), t: Math.round(lt.t), r: Math.round(lt.l) + w, b: Math.round(lt.t) + h };
+        if (free(own)) spot = own;
+      }
+      if (!spot) segs.some(function (s, i) {
         var a = s[0], b = s[1], u = dgDir(a, b), hz = a[1] === b[1];
         var ext = hz ? w : h, L = dgLen(a, b);
         var lo = (i > 0 ? DG.r : 0) + 2, hi = L - (i === segs.length - 1 ? DG.head + 4 : i < segs.length - 1 ? DG.r + 2 : 2);
@@ -637,6 +645,7 @@
         });
       });
       if (spot) { placed.push(spot); r.label = spot; }
+      else if (own) { placed.push(own); r.label = own; }
       else {
         // no room: lengthen the first run (or the longest, when the first is a short stub) by
         // widening the gap it crosses, and give the gap it runs along room for the label beside it
@@ -651,6 +660,15 @@
         var idx = gapAt(hz ? g.gx : g.gy, hz ? g.gw : g.gh, lo, hi);
         var want = (hz ? w : h) + 2 * DG.r + DG.head + 12;
         if (idx > -1) short.push({ axis: hz ? 'x' : 'y', i: idx, size: (hz ? g.gw : g.gh)[idx] + want - (hi - lo) });
+        // a line that crosses or joins the run in that gap leaves half of it on either side: each half
+        // needs the room
+        var mine = dgSegs(r.p), inner = { l: Math.min(s[0][0], s[1][0]) + 1, t: Math.min(s[0][1], s[1][1]) - 0.5,
+          r: Math.max(s[0][0], s[1][0]) - 1, b: Math.max(s[0][1], s[1][1]) + 0.5 };
+        if (!hz) inner = { l: s[0][0] - 0.5, t: inner.t + 0.5 + 1, r: s[0][0] + 0.5, b: inner.b - 0.5 - 1 };
+        var cut = lines.some(function (t) {
+          return !mine.some(function (u) { return u[0] === t[0] && u[1] === t[1]; }) && !dgOverlap(s, t) && dgHits(t[0], t[1], inner);
+        });
+        if (idx > -1 && cut) short.push({ axis: hz ? 'x' : 'y', i: idx, size: 2 * ((hz ? w : h) + DG.clear + DG.stand + 4) });
         var c = hz ? s[0][1] : s[0][0], across = gapAt(hz ? g.gy : g.gx, hz ? g.gh : g.gw, c - 0.5, c + 0.5);
         if (across > -1) short.push({ axis: hz ? 'y' : 'x', i: across, size: 2 * ((hz ? h : w) + 2 * DG.clear) + 4 });
         var a = segs[0][0];
@@ -688,7 +706,9 @@
     dgMeasure(d);
     // Pass 1 routes on a grid with room outside every track; later passes keep the routes, size each
     // gap to what runs through it (tracks, labels, outside loops) and route again on the new grid.
-    var need = { x: {}, y: {}, ox: {}, oy: {} }, g, routes = [], order = m.edges.slice();
+    // a self-transition is no route: its mode draws it as a loop on one side of its node
+    var need = { x: {}, y: {}, ox: {}, oy: {} }, g, routes = [], drawn = routes;
+    var order = m.edges.filter(function (e) { return e.from !== e.to; });
     var along = m.dir === 'down' ? 'row' : 'col', cross = m.dir === 'down' ? 'col' : 'row';
     order.sort(function (a, b) {
       var fa = a.to[along] > a.from[along] || (a.to[along] === a.from[along] && a.to[cross] > a.from[cross]);
@@ -715,7 +735,8 @@
         routes = kept;
       }
       var tracks = dgNudge(routes);
-      var short = dgLabels(d, g, routes);
+      drawn = d.mode.loops ? routes.concat(d.mode.loops(d, g, routes)) : routes;
+      var short = dgLabels(d, g, drawn);
       // what each gap needs next pass
       var next = { x: {}, y: {}, ox: {}, oy: {} };
       routes.forEach(function (r) {
@@ -742,6 +763,7 @@
         next.y[b.row - 1] = Math.max(next.y[b.row - 1] || 0, b.row === 1 ? 40 : 64);
         next.y[b.last] = Math.max(next.y[b.last] || 0, b.last === m.R ? 28 : 56);
       });
+      if (d.mode.grow) d.mode.grow(d, g, drawn, next);
       var grew = pass === 0;
       ['x', 'y', 'ox', 'oy'].forEach(function (k) {
         Object.keys(next[k]).forEach(function (i) {
@@ -753,7 +775,7 @@
       if (!grew && !short.length) break;
       if (pass > 0 && !grew) break;
     }
-    dgDraw(d, g, routes);
+    dgDraw(d, g, drawn);
   }
 
   function dgBounds(d, g) {
@@ -883,6 +905,126 @@
   }
 
   DG_MODES.flow = { model: dgModel, key: dgKey, text: dgText, layout: dgLayout };
+
+  /* ---------- diagrams: state ---------- */
+  // A state diagram (SPEC section 8.20, State) is drawn on the flow grid: states are rounded rectangles,
+  // the start a filled dot and an end a ringed dot, each in a cell of its own, and every transition
+  // a solid line named by its event. A self-transition leaves and re-enters one side of its state,
+  // the first side in reading order that no other transition uses, with its event beyond the loop.
+  var ST_TYPES = ['initial', 'state', 'final'], ST_LOOP = 32;
+  var ST_NAMES = { initial: 'Start', state: 'State', final: 'End', flow: 'Transition' };
+
+  function stModel(spec) {
+    var byId = {}, nodes = [], edges = [], C = 1, R = 1;
+    list(spec.nodes).forEach(function (n) {
+      if (!n || n.id == null || byId[n.id]) return;
+      var t = ST_TYPES.indexOf(n.type) > -1 ? n.type : 'state', st = t === 'state';
+      var m = { id: String(n.id), type: t, label: st && n.label != null ? String(n.label) : '', detail: st && n.detail ? String(n.detail) : '',
+        col: int(n.col, 1), row: int(n.row, 1), emphasis: st && n.emphasis ? String(n.emphasis) : '' };
+      byId[m.id] = m; nodes.push(m); C = Math.max(C, m.col); R = Math.max(R, m.row);
+    });
+    list(spec.edges).forEach(function (e) {
+      if (e && byId[e.from] && byId[e.to]) edges.push({ from: byId[e.from], to: byId[e.to], kind: 'flow', label: e.label ? String(e.label) : '' });
+    });
+    return { nodes: nodes, edges: edges, lanes: [], bounds: [], dir: spec.direction === 'down' ? 'down' : 'right', C: C, R: R };
+  }
+
+  // The key appears when the diagram has a start or an end, since a dot does not name itself.
+  function stKey(m) {
+    var types = ST_TYPES.filter(function (t) { return m.nodes.some(function (n) { return n.type === t; }); });
+    if (!types.some(function (t) { return t !== 'state'; })) return null;
+    var key = mk('div', 'cm-diagram__key');
+    types.concat(m.edges.length ? ['flow'] : []).forEach(function (t) {
+      var item = mk('span', 'cm-diagram__key-item');
+      item.appendChild(mk('i', 'cm-diagram__swatch cm-diagram__swatch--' + t));
+      item.appendChild(document.createTextNode(ST_NAMES[t]));
+      key.appendChild(item);
+    });
+    return key;
+  }
+  function stNode(n, e) { if (n.type === 'state') dgNode(n, e); }
+
+  // Each self-transition as a route: out of the side, round, and back into the same side.
+  function stLoops(d, g, routes) {
+    var order = d.model.dir === 'down' ? ['right', 'left', 'bottom', 'top'] : ['top', 'bottom', 'right', 'left'];
+    return d.model.edges.filter(function (e) { return e.from === e.to; }).map(function (e) {
+      var n = e.from, used = {};
+      routes.forEach(function (r) { if (r.e.from === n) used[r.plan.a] = 1; if (r.e.to === n) used[r.plan.b] = 1; });
+      var side = order.filter(function (s) { return !used[s]; })[0] || order[0];
+      var cx = n.x + n.w / 2, cy = n.y + n.h / 2, k = ST_LOOP / 2, s = DG.stand, L = ST_LOOP, p;
+      if (side === 'top') { var t = n.y - s; p = [[cx - k, t], [cx - k, t - L], [cx + k, t - L], [cx + k, t]]; }
+      else if (side === 'bottom') { var b = n.y + n.h + s; p = [[cx + k, b], [cx + k, b + L], [cx - k, b + L], [cx - k, b]]; }
+      else if (side === 'right') { var x = n.x + n.w + s; p = [[x, cy - k], [x + L, cy - k], [x + L, cy + k], [x, cy + k]]; }
+      else { var l = n.x - s; p = [[l, cy + k], [l - L, cy + k], [l - L, cy - k], [l, cy - k]]; }
+      return { e: e, plan: { a: side, b: side }, p: p, loop: side };
+    });
+  }
+  // Room for each loop and its event in the gap on its side: the loop and label alone in an outside
+  // gap that carries no line, and clear of the gap's middle line anywhere else.
+  function stGrow(d, g, drawn, next) {
+    drawn.forEach(function (r) {
+      if (!r.loop) return;
+      var n = r.e.from, hz = r.loop === 'top' || r.loop === 'bottom';
+      var ext = DG.stand + ST_LOOP + DG.clear + (r.e.el ? (hz ? r.e.lh : r.e.lw) : 0) + 4;
+      var i = r.loop === 'top' ? n.row - 1 : r.loop === 'bottom' ? n.row : r.loop === 'left' ? n.col - 1 : n.col;
+      var last = hz ? g.R : g.C, o = hz ? next.y : next.x, used = (hz ? next.oy : next.ox)[i];
+      var want = (i === 0 || i === last) && !used ? ext + DG.clear : 2 * ext + 3 * DG.track;
+      o[i] = Math.max(o[i] || 0, want);
+    });
+  }
+
+  // The text version: every state once, numbered in reading order from the start, with each
+  // transition as its event and where it leads. The start and ends are named on the states they
+  // join rather than listed.
+  function stText(d) {
+    var m = d.model, states = m.nodes.filter(function (n) { return n.type === 'state'; }), order = [], seen = {};
+    var outs = function (n) { return m.edges.filter(function (e) { return e.from === n; }); };
+    var visit = function (n) {
+      if (seen[n.id] || n.type !== 'state') return;
+      seen[n.id] = true; order.push(n);
+      outs(n).forEach(function (e) { visit(e.to); });
+    };
+    var first = [];
+    m.nodes.filter(function (n) { return n.type === 'initial'; }).forEach(function (s) { outs(s).forEach(function (e) { if (first.indexOf(e.to) < 0) first.push(e.to); }); });
+    first.forEach(visit);
+    states.forEach(visit);
+    order.forEach(function (n, i) { n.num = i + 1; });
+    var stop = function (s) { s = s.trim(); return /[.?!]$/.test(s) ? s : s + '.'; };
+    var ol = mk('ol', 'cm-olist cm-small');
+    order.forEach(function (n) {
+      var parts = [stop(n.label)];
+      if (n.detail) parts.push(stop(n.detail));
+      if (first.indexOf(n) > -1) parts.push('The starting state.');
+      if (n.emphasis) parts.push(stop('Marked: ' + n.emphasis));
+      outs(n).forEach(function (e) {
+        var to = e.to, where = to === n ? 'stays in ' + n.label : to.type === 'final' ? 'the end'
+          : to.type === 'initial' ? 'back to the start' : (to.num < n.num ? 'back to state ' : 'state ') + to.num + ', ' + to.label;
+        parts.push(stop(e.label ? e.label + ': ' + where : where.charAt(0).toUpperCase() + where.slice(1)));
+      });
+      if (!outs(n).length) parts.push('No transition leaves it.');
+      ol.appendChild(mk('li', null, parts.join(' ')));
+    });
+    if (!(d.el.getAttribute('aria-label') || '').trim()) {
+      var ends = order.filter(function (n) { return outs(n).some(function (e) { return e.to.type === 'final'; }); }).map(function (n) { return n.label; });
+      var loops = m.edges.filter(function (e) { return e.from === e.to; }).length;
+      var moves = m.edges.filter(function (e) { return e.from.type === 'state' && e.from !== e.to; }).length;
+      var s = 'State diagram of ' + states.length + (states.length === 1 ? ' state' : ' states')
+        + (first.length ? ' from ' + first.map(function (n) { return n.label; }).join(' or ') : '')
+        + (ends.length ? ' to ' + ends.join(' or ') : '')
+        + ', with ' + moves + (moves === 1 ? ' transition' : ' transitions')
+        + (loops ? ' and ' + loops + (loops === 1 ? ' self-transition' : ' self-transitions') : '');
+      d.el.setAttribute('aria-label', s + '. The text version under the figure lists every state.');
+    }
+    var det = mk('details', 'cm-data');
+    det.setAttribute('data-cm-diagram-text', '');
+    det.appendChild(mk('summary', null, 'View as text'));
+    det.appendChild(ol);
+    var fig = d.el.closest('figure'), cap = fig && fig.querySelector('.cm-caption');
+    if (cap) cap.after(det); else d.el.after(det);
+    d.text = det;
+  }
+
+  DG_MODES.state = { model: stModel, key: stKey, node: stNode, text: stText, layout: dgLayout, loops: stLoops, grow: stGrow };
 
   function dgAll() { diagrams.forEach(function (d) { if (d.model) d.mode.layout(d); }); }
   function initDiagrams() {

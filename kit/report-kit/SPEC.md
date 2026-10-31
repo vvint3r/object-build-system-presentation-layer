@@ -15,6 +15,10 @@ Kit files (all in `report-kit/`):
 | `template-reference.html` | Reference starter. Copy it for every reference. |
 | `template-roadmap.html` | Roadmap starter: a report with the roadmap’s parts (§7.14). |
 | `template-case-study.html` | Case study starter: a report with the case study’s parts (§7.15). |
+| `template-framework.html` | Framework starter: a reference with the framework page’s parts (§7.10). |
+| `template-process.html` | Process starter: a reference with the process page’s parts (§7.11). |
+| `template-metric.html` | Metric starter: a reference with the metric page’s parts (§7.12). |
+| `template-comparison.html` | Comparison starter: a reference with the comparison page’s parts (§7.13). |
 | `SPEC.md` | This file. |
 
 Human-readable version with live examples and copy-paste markup: `Report Kit - Spec & Gallery.html`. Reference output, one document per kind (§7): `Sample Report - Q3 Support Review.html`, `Guide - Billing Escalation.html` and `Reference - First Response Time.html`. The three form a document set, and `index.html` lists them (§8.31).
@@ -1764,6 +1768,8 @@ Components set limits of their own. Where a component limit and a limit above bo
 | Threshold response | One sentence | §8.30 |
 | Roadmap goal | One paragraph that opens its section | §7.14 |
 | Milestone exit criteria | One sentence, opening “Done when” | §7.14 |
+| Framework application; framework limits | 3 to 7 steps; 1 to 4 cases, one h3 each | §7.10 |
+| Comparison options; change conditions | 2 to 4 options; 1 to 4 conditions | §7.13 |
 
 ### 13.2 Register
 
@@ -1814,6 +1820,7 @@ Headings are `h1` to `h6` and table titles.
 18. Each structured component opens with its kind label and title and holds its required parts within its counts and limits (§8.25 to §8.30).
 19. `cm-id` names the document. The breadcrumb runs from set to area to document. In a set, every link names a file and a section id, the index page is rewritten, and `npm run links` passes on the folder (§8.31).
 20. A roadmap or a case study has its recipe’s required parts in order, each with its id, and passes its type check (§7.14, §7.15).
+21. A framework, process, metric or comparison page has its recipe’s required parts in order, each with its id, and passes its type check (§7.10 to §7.13).
 
 ## 15. Changes from Content Morphia Foundations
 
@@ -1849,6 +1856,8 @@ Added for reference pages: workflow, framework, model, method, requirement, eval
 Added for charts: recipes by question; bullet, slope, strip, box and interval charts declared with a `cm` key; end labels that name every line in place of the legend (§9).
 
 Added for document sets: document ids and addresses, the breadcrumb from set to area to document, the generated index page and the link check (§8.31).
+
+Added as page types on the reference kind: framework (§7.10), process (§7.11), metric (§7.12) and comparison (§7.13).
 
 Added as page types on the report kind: roadmap (§7.14) and case study (§7.15).
 

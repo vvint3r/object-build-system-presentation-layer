@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>APAC weekend coverage pilot · August to October 2026</title>
+<meta name="cm-kit" content="1.2">
+<meta name="cm-kind" content="report">
+<meta name="cm-id" content="report-apac-weekend-pilot">
+<meta name="cm-type" content="case-study">
+<script>(function(){var t;try{t=localStorage.getItem('cm-theme')}catch(e){}document.documentElement.dataset.theme=t||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')})()</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,300;1,400&family=JetBrains+Mono:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="report-kit/cm-report.css">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js" defer></script>
+<script src="report-kit/cm-report.js" defer></script>
+</head>
+<body>
+
+<header class="cm-topbar">
+  <div class="cm-topbar__in">
+    <a class="cm-wordmark" href="index.html">support-operations</a>
+    <span class="cm-chip">Case study</span>
+    <div class="cm-topbar__actions">
+      <button class="cm-btn cm-btn--quiet cm-btn--sm" type="button" data-cm-theme-toggle>Dark mode</button>
+    </div>
+  </div>
+</header>
+
+<div class="cm-shell">
+  <nav class="cm-rail" aria-label="Contents">
+    <div class="cm-toc">
+      <span class="cm-label">Contents</span>
+      <ol>
+        <li><a href="#summary"><span class="n">01</span>Executive summary</a></li>
+        <li><a href="#situation"><span class="n">02</span>Situation</a></li>
+        <li><a href="#intervention"><span class="n">03</span>Intervention</a></li>
+        <li><a href="#results"><span class="n">04</span>Results</a></li>
+        <li><a href="#confounds"><span class="n">05</span>Confounds</a></li>
+        <li><a href="#failures"><span class="n">06</span>Failures</a></li>
+        <li><a href="#recommendations"><span class="n">07</span>Recommendations</a></li>
+        <li><a href="#methodology"><span class="n">A</span>Methodology</a></li>
+        <li><a href="#sources"><span class="n">B</span>Notes &amp; sources</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main class="cm-main" id="top">
+
+    <!-- MASTHEAD -->
+    <header class="cm-mast">
+      <nav class="cm-crumbs" aria-label="Breadcrumb">
+        <a href="index.html">Support operations</a><span class="sep" aria-hidden="true">/</span>
+        <a href="index.html#service-performance">Service performance</a><span class="sep" aria-hidden="true">/</span>
+        <span aria-current="page">APAC weekend pilot</span>
+      </nav>
+      <div class="cm-bar" aria-hidden="true"></div>
+      <h1 class="cm-mast__title">APAC weekend coverage pilot, August to October 2026</h1>
+      <p class="cm-mast__dek">Four staffed APAC weekends against the four before: three measures better, one unchanged and one worse.</p>
+      <dl class="cm-mast__meta">
+        <div><dt>Status</dt><dd><span class="cm-chip">Analysis</span><span class="cm-chip cm-chip--ok">Final</span><span class="cm-chip cm-chip--note">Sample data</span></dd></div>
+        <div><dt>Period</dt><dd>2026-08-22 → 2026-10-12</dd></div>
+        <div><dt>Published</dt><dd>2026-10-26</dd></div>
+        <div><dt>Reading time</dt><dd>6 min</dd></div>
+        <div><dt>Version</dt><dd>1.0</dd></div>
+      </dl>
+      <dl class="cm-byline">
+        <div><dt>Prepared by</dt><dd>Support Operations Analytics</dd></div>
+        <div><dt>Reviewed by</dt><dd>APAC lead</dd></div>
+        <div><dt>Distribution</dt><dd>Internal · all staff</dd></div>
+      </dl>
+    </header>
+
+    <!-- 01 EXECUTIVE SUMMARY -->
+    <section class="cm-section" id="summary" aria-labelledby="summary-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 01</span>
+        <h2 class="cm-section__title" id="summary-t">Executive summary</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>Two volunteer agents a shift on APAC weekends <strong>cut the Monday queue by more than half</strong> over four weekends. Monday first response fell 45 minutes, but weekend tickets were resolved no faster, and Wednesday first response slowed 27 minutes.<a class="cm-cite" href="#src-1" id="cite-1">S1</a></p>
+        </div>
+
+        <div class="cm-kpis cm-kpis--3 cm-bleed">
+          <div class="cm-kpi">
+            <span class="cm-kpi__label">Monday queue</span>
+            <span class="cm-kpi__value">96</span>
+            <span class="cm-kpi__delta"><span class="cm-delta cm-delta--good">▼ −116 vs before</span></span>
+            <div class="cm-kpi__foot"><span>Before 212</span><b>−55%</b></div>
+          </div>
+          <div class="cm-kpi">
+            <span class="cm-kpi__label">Monday first response</span>
+            <span class="cm-kpi__value">2h 27<small>m</small></span>
+            <span class="cm-kpi__delta"><span class="cm-delta cm-delta--good">▼ −45m vs before</span></span>
+            <div class="cm-kpi__foot"><span>Before 3h 12m</span><b>−23%</b></div>
+          </div>
+          <div class="cm-kpi">
+            <span class="cm-kpi__label">Wednesday first response</span>
+            <span class="cm-kpi__value">2h 51<small>m</small></span>
+            <span class="cm-kpi__delta"><span class="cm-delta cm-delta--bad">▲ +27m vs before</span></span>
+            <div class="cm-kpi__foot"><span>Before 2h 24m</span><b>+19%</b></div>
+          </div>
+        </div>
+
+        <div class="cm-summary cm-bleed">
+          <span class="cm-chip cm-chip--accent">Summary</span>
+          <h3 class="cm-card__title">Key findings</h3>
+          <ol class="cm-findings">
+            <li><div><span class="cm-findings__claim">Weekend cover cut the Monday queue by more than half.</span> Tickets waiting at Monday open fell from 212 to 96 on average across four Mondays.<a class="cm-cite" href="#src-1" id="cite-2">S1</a></div></li>
+            <li><div><span class="cm-findings__claim">Monday first response fell 45 minutes.</span> The median fell from 3h 12m to 2h 27m, and weekend tickets got a first reply in 1h 50m instead of 29h 40m.<a class="cm-cite" href="#src-1" id="cite-3">S1</a></div></li>
+            <li><div><span class="cm-findings__claim">Weekend tickets were resolved no faster.</span> Median resolution moved from 46h 10m to 44h 30m, because billing hand-offs still waited for Monday.<a class="cm-cite" href="#src-1" id="cite-4">S1</a></div></li>
+            <li><div><span class="cm-findings__claim">Wednesday first response got 27 minutes slower.</span> Volunteers took their rest days midweek, and the Wednesday median rose from 2h 24m to 2h 51m.<a class="cm-cite" href="#src-1" id="cite-5">S1</a><a class="cm-cite" href="#src-2" id="cite-6">S2</a></div></li>
+            <li><div><span class="cm-findings__claim">Four weekends with no control region leave the size of the effect uncertain.</span> Billing volume after the v4 launch and a macro rewrite also changed between the two periods.<a class="cm-cite" href="#src-3" id="cite-7">S3</a></div></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 SITUATION -->
+    <section class="cm-section" id="situation" aria-labelledby="situation-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 02</span>
+        <h2 class="cm-section__title" id="situation-t">Situation</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>Until 16 September, <strong>APAC had no staffed weekend coverage</strong>, so tickets created from Friday evening waited for Monday.<a class="cm-cite" href="#src-3" id="cite-8">S3</a> Monday mornings opened with a queue of weekend tickets ahead of the day’s new ones.</p>
+          <p>APAC’s Q3 median first response was 3h 20m with weekends counted, against 2h 31m on weekdays alone.<a class="cm-cite" href="#src-3" id="cite-9">S3</a> The pilot set out to clear weekend tickets before Monday, and so shorten the Monday wait.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 INTERVENTION -->
+    <section class="cm-section" id="intervention" aria-labelledby="intervention-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 03</span>
+        <h2 class="cm-section__title" id="intervention-t">Intervention</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>From 19 September, <strong>two volunteer agents covered each APAC weekend shift</strong>, 08:00 to 20:00 local time on Saturday and Sunday.<a class="cm-cite" href="#src-2" id="cite-10">S2</a> They worked no overtime and took their rest days midweek.</p>
+        </div>
+
+        <div class="cm-card cm-bleed">
+          <span class="cm-label cm-card__kicker">Timeline</span>
+          <h3 class="cm-card__title">Pilot changes</h3>
+          <ol class="cm-timeline">
+            <li class="is-done"><span class="cm-timeline__date">Sep 16<small>2026</small></span><span class="cm-timeline__mark"></span><div><div class="cm-timeline__title">Pilot approved</div><p class="cm-timeline__body">Support Ops approved four weekends of volunteer cover, with a decision due on 31 October.</p></div></li>
+            <li class="is-done"><span class="cm-timeline__date">Sep 19<small>2026</small></span><span class="cm-timeline__mark"></span><div><div class="cm-timeline__title">First staffed weekend</div><p class="cm-timeline__body">Two agents a shift, with an auto-reply that promised a first reply within two hours.</p></div></li>
+            <li class="is-done"><span class="cm-timeline__date">Sep 26<small>2026</small></span><span class="cm-timeline__mark"></span><div><div class="cm-timeline__title">On-call billing specialist added</div><p class="cm-timeline__body">Weekend agents could page a billing specialist about a refund or a double charge.</p></div></li>
+            <li class="is-done"><span class="cm-timeline__date">Sep 27<small>2026</small></span><span class="cm-timeline__mark"></span><div><div class="cm-timeline__title">Two-hour promise dropped</div><p class="cm-timeline__body">The auto-reply acknowledges the ticket without naming a time.</p></div></li>
+            <li class="is-done"><span class="cm-timeline__date">Oct 04<small>2026</small></span><span class="cm-timeline__mark"></span><div><div class="cm-timeline__title">On-call specialist withdrawn</div><p class="cm-timeline__body">Billing tickets raised at weekends wait for Monday again.</p></div></li>
+            <li class="is-planned"><span class="cm-timeline__date">Oct 31<small>2026</small></span><span class="cm-timeline__mark"></span><div><div class="cm-timeline__title">Decision on permanent cover</div><p class="cm-timeline__body">The pilot review scored the pilot 3.9 of 5 and recommends keeping it.<a class="cm-cite" href="#src-4" id="cite-11">S4</a></p></div></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 RESULTS -->
+    <section class="cm-section" id="results" aria-labelledby="results-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 04</span>
+        <h2 class="cm-section__title" id="results-t">Results</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>Against the four weekends before the pilot, <strong>three of five measures got better</strong>, one did not move and one got worse.<a class="cm-cite" href="#src-1" id="cite-12">S1</a> Each measure keeps one definition in both periods (A.1).</p>
+        </div>
+
+        <div class="cm-props">
+          <dl>
+            <dt>Before</dt><dd>2026-08-22 → 2026-09-14</dd>
+            <dt>After</dt><dd>2026-09-19 → 2026-10-12</dd>
+            <dt>Length</dt><dd>24 days, four weekends and their Mondays</dd>
+          </dl>
+          <dl>
+            <dt>Scope</dt><dd>APAC Tier 1 tickets</dd>
+            <dt>Control</dt><dd>None</dd>
+            <dt>Source</dt><dd>Helpdesk warehouse, ticket facts<a class="cm-cite" href="#src-1" id="cite-13">S1</a></dd>
+          </dl>
+        </div>
+
+        <div class="cm-prose">
+          <p>The Monday queue fell on every staffed Monday, from between 193 and 236 tickets before the pilot to between 90 and 104 during it.<a class="cm-cite" href="#src-1" id="cite-14">S1</a></p>
+        </div>
+
+        <figure class="cm-figure cm-bleed">
+          <span class="cm-figure__kind">Figure 1</span>
+          <h3 class="cm-figure__title">Tickets waiting at Monday open, APAC</h3>
+          <p class="cm-figure__desc">APAC Tier 1 tickets waiting for an agent at 09:00 local time, four Mondays before the pilot and four during it.</p>
+          <div class="cm-chart" style="--h:300px" data-chart role="img"
+               aria-label="Bar chart. Tickets waiting at Monday open ran from 193 to 236 before the pilot and from 90 to 104 during it.">
+            <script type="application/json">
+            {
+              "xAxis": {"type": "category", "data": ["Aug 24", "Aug 31", "Sep 7", "Sep 14", "Sep 21", "Sep 28", "Oct 5", "Oct 12"]},
+              "yAxis": {"type": "value", "name": "Tickets waiting"},
+              "series": [{"name": "Tickets waiting", "type": "bar",
+                "data": [
+                  {"value": 236, "itemStyle": {"color": "$context"}},
+                  {"value": 198, "itemStyle": {"color": "$context"}},
+                  {"value": 221, "itemStyle": {"color": "$context"}},
+                  {"value": 193, "itemStyle": {"color": "$context"}},
+                  104, 91, 99, 90],
+                "label": {"show": true, "position": "top"},
+                "markArea": {"data": [[{"xAxis": "Sep 21", "name": "Pilot"}, {"xAxis": "Oct 12"}]]}}]
+            }
+            </script>
+          </div>
+          <figcaption class="cm-caption">
+            <span class="cm-caption__line">Source: helpdesk warehouse, APAC Tier 1 tickets · refreshed <time datetime="2026-10-20">2026-10-20</time>.</span>
+            <span class="cm-caption__line">Note: grey bars are the four Mondays before the pilot.</span>
+          </figcaption>
+        </figure>
+
+        <div>
+          <div class="cm-table-title" id="tbl-1"><span class="cm-table-title__kind">Table 1</span>Measures before and after the pilot</div>
+          <div class="cm-table-wrap cm-bleed">
+            <table class="cm-table" data-sortable aria-labelledby="tbl-1">
+              <thead><tr><th>Measure</th><th class="num">Before</th><th class="num">After</th><th class="num">Change</th><th>Direction</th></tr></thead>
+              <tbody>
+                <tr><td class="strong">Tickets waiting at Monday open</td><td class="num">212</td><td class="num">96</td><td class="num" data-value="-116">−116</td><td>Better</td></tr>
+                <tr><td class="strong">Monday first response, median</td><td class="num" data-value="192">3h 12m</td><td class="num" data-value="147">2h 27m</td><td class="num" data-value="-45">−45m</td><td>Better</td></tr>
+                <tr><td class="strong">Weekend first response, median</td><td class="num" data-value="1780">29h 40m</td><td class="num" data-value="110">1h 50m</td><td class="num" data-value="-1670">−27h 50m</td><td>Better</td></tr>
+                <tr><td class="strong">Weekend resolution, median</td><td class="num" data-value="2770">46h 10m</td><td class="num" data-value="2670">44h 30m</td><td class="num" data-value="-100">−1h 40m</td><td>No change</td></tr>
+                <tr><td class="strong">Wednesday first response, median</td><td class="num" data-value="144">2h 24m</td><td class="num" data-value="171">2h 51m</td><td class="num" data-value="27">+27m</td><td>Worse</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <span class="cm-caption">
+            <span class="cm-caption__line">Source: helpdesk warehouse, APAC Tier 1 tickets · refreshed <time datetime="2026-10-20">2026-10-20</time>.<a class="cm-cite" href="#src-1" id="cite-15">S1</a></span>
+            <span class="cm-caption__line">Note: a move under 5% of the before value counts as no change.</span>
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 CONFOUNDS -->
+    <section class="cm-section" id="confounds" aria-labelledby="confounds-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 05</span>
+        <h2 class="cm-section__title" id="confounds-t">Confounds</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>In or near the two periods, <strong>three other changes</strong> could each move a measure without the pilot.</p>
+        </div>
+        <ul class="cm-list">
+          <li>Billing v4 launched on 12 August, ten days before the first period, and billing volume was still settling.<a class="cm-cite" href="#src-3" id="cite-16">S3</a> A busier before period would overstate the queue’s fall.</li>
+          <li>The macro library rewrite of 26 August fell inside the before period.<a class="cm-cite" href="#src-3" id="cite-17">S3</a> If agents kept getting faster with the new macros, the after period gains from it.</li>
+          <li>APAC weekend volume fell 3%, from 1,040 to 1,010 tickets.<a class="cm-cite" href="#src-1" id="cite-18">S1</a> Fewer tickets alone would shrink the Monday queue a little.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 06 FAILURES -->
+    <section class="cm-section" id="failures" aria-labelledby="failures-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 06</span>
+        <h2 class="cm-section__title" id="failures-t">Failures</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>The pilot withdrew <strong>two of its parts</strong>, and a third stayed in place at a cost.</p>
+        </div>
+        <div>
+          <div class="cm-table-title" id="tbl-2"><span class="cm-table-title__kind">Table 2</span>Pilot parts that failed</div>
+          <div class="cm-table-wrap cm-bleed">
+            <table class="cm-table" aria-labelledby="tbl-2">
+              <thead><tr><th>Part</th><th>What happened</th><th>Ended</th></tr></thead>
+              <tbody>
+                <tr><td class="strong">Two-hour reply promise</td><td class="wrap">The auto-reply’s promise was missed on three of the first four weekend days.</td><td><time datetime="2026-09-27">2026‑09‑27</time></td></tr>
+                <tr><td class="strong">On-call billing specialist</td><td class="wrap">Five of 11 pages went unanswered within an hour, so billing tickets waited for Monday anyway.</td><td><time datetime="2026-10-04">2026‑10‑04</time></td></tr>
+                <tr><td class="strong">Midweek rest days</td><td class="wrap">Wednesday cover thinned, and Wednesday first response slowed 27 minutes.</td><td>In place</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <span class="cm-caption">
+            <span class="cm-caption__line">Source: on-call pager log and workforce schedule · exported <time datetime="2026-10-20">2026-10-20</time>.<a class="cm-cite" href="#src-5" id="cite-19">S5</a><a class="cm-cite" href="#src-2" id="cite-20">S2</a></span>
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 RECOMMENDATIONS -->
+    <section class="cm-section" id="recommendations" aria-labelledby="recommendations-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 07</span>
+        <h2 class="cm-section__title" id="recommendations-t">Recommendations</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-card cm-featured cm-bleed">
+          <div class="cm-card__kicker"><span class="cm-chip cm-chip--accent">Recommended</span></div>
+          <h3 class="cm-card__title">Two actions with permanent cover</h3>
+          <ol class="cm-findings">
+            <li><div><span class="cm-findings__claim">Move volunteers’ rest days from midweek to Friday.</span> Wednesday first response slowed 27 minutes while rest days fell midweek.<div class="cm-chips"><span class="cm-chip">Owner · APAC lead</span><span class="cm-chip">Due 2026-11-07</span><span class="cm-chip cm-chip--accent">Wednesday back to 2h 24m, est.</span></div></div></li>
+            <li><div><span class="cm-findings__claim">Measure eight more weekends before sizing the permanent rota.</span> Four weekends a period leave the size of the effect uncertain.<div class="cm-chips"><span class="cm-chip">Owner · Support Operations Analytics</span><span class="cm-chip">Due 2026-12-14</span><span class="cm-chip cm-chip--accent">Effect size measured</span></div></div></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- A METHODOLOGY -->
+    <section class="cm-section cm-section--part" id="methodology" aria-labelledby="methodology-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Appendix A</span>
+        <h2 class="cm-section__title" id="methodology-t">Methodology</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-bleed">
+          <details class="cm-collapse" open>
+            <summary><div><span class="cm-label">A.1</span><h3>Terms used in this report</h3></div></summary>
+            <div class="cm-collapse__body">
+              <aside class="cm-def">
+                <span class="cm-def__label">Definitions</span>
+                <dl>
+                  <div><dt>Monday queue</dt><dd>APAC Tier 1 tickets waiting for an agent at 09:00 local time each Monday, averaged over the four Mondays of a period.</dd></div>
+                  <div><dt>First response</dt><dd>Elapsed time from a ticket’s creation to the first human reply, as <a href="Reference%20-%20First%20Response%20Time.html#definition">First response time</a> defines it. Monday, Wednesday and weekend medians cover tickets created on those days, local time.</dd></div>
+                  <div><dt>Weekend resolution</dt><dd>Median time from creation to solve for APAC tickets created on a Saturday or Sunday, whatever day they were solved.</dd></div>
+                  <div><dt>No change</dt><dd>A move of less than 5% of the before value, in either direction. A move of 5% or more counts as better or worse.</dd></div>
+                </dl>
+              </aside>
+            </div>
+          </details>
+          <details class="cm-collapse" open>
+            <summary><div><span class="cm-label">A.2</span><h3>Data sources and coverage</h3></div></summary>
+            <div class="cm-collapse__body">
+              <ul class="cm-list cm-small">
+                <li>APAC Tier 1 tickets created 22 August to 14 September and 19 September to 12 October 2026, local time.</li>
+                <li>Spam and merged duplicates are left out, with the filters of the Q3 review.</li>
+              </ul>
+              <div class="cm-stack">
+                <h4 class="cm-h4">Limitations</h4>
+                <ul class="cm-limits">
+                  <li><span><b>Four weekends each side</b><br>Each median rests on four days a period, so one unusual Monday or weekend moves it.</span><span class="cm-chips"><span class="cm-chip cm-chip--warn">Open</span><span class="cm-chip">Fix due 2026-12-14</span></span></li>
+                  <li><span><b>No control region</b><br>No other region ran without cover in the same weeks, so the season cannot be separated from the pilot.</span><span class="cm-chips"><span class="cm-chip cm-chip--note">By design</span></span></li>
+                  <li><span><b>Volunteer rota</b><br>Volunteers chose to work weekends, and a permanent rota may draw less experienced agents.</span><span class="cm-chips"><span class="cm-chip cm-chip--warn">Open</span></span></li>
+                </ul>
+              </div>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- B NOTES & SOURCES -->
+    <section class="cm-section" id="sources" aria-labelledby="sources-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Appendix B</span>
+        <h2 class="cm-section__title" id="sources-t">Notes &amp; sources</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-stack">
+          <h3 class="cm-h4">Sources</h3>
+          <ol class="cm-sources">
+            <li id="src-1"><span class="cm-id">S1</span><span><b>Helpdesk warehouse, ticket facts</b><br><span class="cm-tag">Dataset</span> Support Operations Analytics · <code>support.tickets_fact</code> <a class="cm-back" href="#cite-1" aria-label="Back to text">↩</a></span><span class="cm-meta">refreshed <time datetime="2026-10-20">2026-10-20</time></span></li>
+            <li id="src-2"><span class="cm-id">S2</span><span><b>Workforce schedule, APAC weekend pilot</b><br><span class="cm-tag">System export</span> Workforce Management · shifts 2026-09-19 → 10-12 · <code>wfm.schedule_shifts</code> <a class="cm-back" href="#cite-6" aria-label="Back to text">↩</a></span><span class="cm-meta">exported <time datetime="2026-10-20">2026-10-20</time></span></li>
+            <li id="src-3"><span class="cm-id">S3</span><span><b>Customer support operations review, Q3 2026</b><br><span class="cm-tag">Report</span> Support Operations Analytics · <a href="Sample%20Report%20-%20Q3%20Support%20Review.html">Sample Report - Q3 Support Review.html</a> <a class="cm-back" href="#cite-7" aria-label="Back to text">↩</a></span><span class="cm-meta">published <time datetime="2026-10-12">2026-10-12</time></span></li>
+            <li id="src-4"><span class="cm-id">S4</span><span><b>APAC weekend pilot review</b><br><span class="cm-tag">Document</span> Support Operations · <code>support/pilots/apac-weekend-review.pdf</code> <a class="cm-back" href="#cite-11" aria-label="Back to text">↩</a></span><span class="cm-meta">published <time datetime="2026-10-24">2026-10-24</time></span></li>
+            <li id="src-5"><span class="cm-id">S5</span><span><b>On-call pager log, billing</b><br><span class="cm-tag">System export</span> Billing Operations · <code>oncall/billing-pages-2026-10.csv</code> <a class="cm-back" href="#cite-19" aria-label="Back to text">↩</a></span><span class="cm-meta">exported <time datetime="2026-10-20">2026-10-20</time></span></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <footer class="cm-footer">
+      <span><b>APAC weekend coverage pilot · August to October 2026</b></span>
+      <span>v1.0 · published 2026-10-26</span>
+      <span>Support Operations Analytics</span>
+      <span>Content Morphia Report Kit 1.2</span>
+    </footer>
+  </main>
+</div>
+</body>
+</html>

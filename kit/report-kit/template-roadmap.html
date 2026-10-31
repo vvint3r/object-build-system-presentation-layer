@@ -1,0 +1,289 @@
+<!doctype html>
+<!--
+  Content Morphia · Report Kit 1.2 · ROADMAP TEMPLATE
+  Copy this file for every new roadmap: a report with the roadmap's parts (SPEC.md §7.14). Replace every {{ … }} placeholder.
+  A roadmap keeps every part of a report and adds its own; it never removes one. Its type check enforces the recipe.
+  Delete blocks you do not need; never add new chrome. Rules: report-kit/SPEC.md
+  A report without measured numbers leaves out a required block it has no content for and marks its place with an omission comment (SPEC.md §7.5).
+  Paths below assume the report sits inside report-kit/. Elsewhere, point the two kit paths at report-kit/cm-report.css and report-kit/cm-report.js.
+  For a single self-contained file, paste cm-report.css into <style> and cm-report.js into <script> (see SPEC.md §2).
+  In a set, the file is named {Kind} - {Short Title}.html, the cm-id is that name in lowercase with hyphens, and the wordmark and breadcrumb link to the set's index.html (SPEC.md §8.31).
+  A document outside a set writes its set and area steps as <span>s and links the wordmark to #top. In a set, npm run index -- <folder> rewrites index.html and npm run links -- <folder> checks the links.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{ Roadmap title }} · {{ Period }}</title>
+<meta name="cm-kit" content="1.2">
+<meta name="cm-kind" content="report">
+<meta name="cm-id" content="{{ id }}">
+<meta name="cm-type" content="roadmap">
+<script>(function(){var t;try{t=localStorage.getItem('cm-theme')}catch(e){}document.documentElement.dataset.theme=t||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')})()</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,300;1,400&family=JetBrains+Mono:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="cm-report.css">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js" defer></script>
+<script src="cm-report.js" defer></script>
+</head>
+<body>
+
+<header class="cm-topbar">
+  <div class="cm-topbar__in">
+    <a class="cm-wordmark" href="index.html">{{ publisher-name }}</a>
+    <span class="cm-chip">{{ Report series }}</span>
+    <div class="cm-topbar__actions">
+      <button class="cm-btn cm-btn--quiet cm-btn--sm" type="button" data-cm-theme-toggle>Dark mode</button>
+      <!-- PRINT BUTTON (optional): add only when the document is asked to carry one; browser printing works without it.
+      <button class="cm-btn cm-btn--secondary cm-btn--sm" type="button" data-cm-print>Print / PDF</button> -->
+    </div>
+  </div>
+</header>
+
+<div class="cm-shell">
+  <!-- CONTENTS RAIL: one link per <section id>. Use two-digit numbers; appendices use letters. -->
+  <nav class="cm-rail" aria-label="Contents">
+    <div class="cm-toc">
+      <span class="cm-label">Contents</span>
+      <ol>
+        <li><a href="#summary"><span class="n">01</span>Executive summary</a></li>
+        <li><a href="#goal"><span class="n">02</span>Goal</a></li>
+        <li><a href="#milestones"><span class="n">03</span>Milestones</a></li>
+        <li><a href="#out-of-scope"><span class="n">04</span>Out of scope</a></li>
+        <li><a href="#recommendations"><span class="n">05</span>Recommendations</a></li>
+        <li><a href="#methodology"><span class="n">A</span>Methodology</a></li>
+        <li><a href="#sources"><span class="n">B</span>Notes &amp; sources</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main class="cm-main" id="top">
+
+    <!-- MASTHEAD (required) -->
+    <header class="cm-mast">
+      <nav class="cm-crumbs" aria-label="Breadcrumb">
+        <a href="index.html">{{ Document set }}</a><span class="sep" aria-hidden="true">/</span>
+        <a href="index.html#{{ area-id }}">{{ Area }}</a><span class="sep" aria-hidden="true">/</span>
+        <span aria-current="page">{{ Short title }}</span>
+      </nav>
+      <div class="cm-bar" aria-hidden="true"></div>
+      <h1 class="cm-mast__title">{{ Roadmap title, 4 to 10 words }}</h1>
+      <p class="cm-mast__dek">{{ One sentence: what the report covers and for which period. }}</p>
+      <!-- METADATA: label on top, value below. Status chips: Draft = cm-chip, In review = cm-chip--warn, Final = cm-chip--ok -->
+      <dl class="cm-mast__meta">
+        <div><dt>Status</dt><dd><span class="cm-chip">{{ Analysis | Report | Brief }}</span><span class="cm-chip cm-chip--ok">{{ Final }}</span></dd></div>
+        <div><dt>Period</dt><dd>{{ YYYY-MM-DD → YYYY-MM-DD }}</dd></div>
+        <div><dt>Published</dt><dd>{{ YYYY-MM-DD }}</dd></div>
+        <div><dt>Reading time</dt><dd>{{ N }} min</dd></div>
+        <div><dt>Version</dt><dd>{{ 1.0 }}</dd></div>
+      </dl>
+      <dl class="cm-byline">
+        <div><dt>Prepared by</dt><dd>{{ Team or author }}</dd></div>
+        <div><dt>Distribution</dt><dd>{{ Audience }}</dd></div>
+      </dl>
+    </header>
+
+        <!-- 01 EXECUTIVE SUMMARY (required) -->
+    <section class="cm-section" id="summary" aria-labelledby="summary-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 01</span>
+        <h2 class="cm-section__title" id="summary-t">Executive summary</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>{{ 2 to 4 sentences: the goal and its date, why it matters, the main risk to it. }}<a class="cm-cite" href="#src-1" id="cite-1">S1</a></p>
+        </div>
+
+        <!-- KPI STRIP: 2 to 4 KPIs; add cm-kpis--3 / cm-kpis--2 for fewer than four. A roadmap shows the measures its goal moves, at their baseline. -->
+        <div class="cm-kpis cm-kpis--2 cm-bleed">
+          <div class="cm-kpi">
+            <span class="cm-kpi__label">{{ Measure the goal moves }}</span>
+            <span class="cm-kpi__value">{{ 0.0 }}<small>%</small></span>
+            <span class="cm-kpi__delta"><span class="cm-delta">{{ Baseline, before the plan }}</span></span>
+            <div class="cm-kpi__foot"><span>{{ Target }}</span><b>{{ TargetVAL }}</b></div>
+          </div>
+          <div class="cm-kpi">
+            <span class="cm-kpi__label">{{ Measure the goal moves }}</span>
+            <span class="cm-kpi__value">{{ 0.0 }}<small>%</small></span>
+            <span class="cm-kpi__delta"><span class="cm-delta">{{ Baseline, before the plan }}</span></span>
+            <div class="cm-kpi__foot"><span>{{ Target }}</span><b>{{ TargetVAL }}</b></div>
+          </div>
+        </div>
+
+        <!-- KEY FINDINGS (required): 3 to 5 items, each a claim line of one sentence + its evidence and citation -->
+        <div class="cm-summary cm-bleed">
+          <span class="cm-chip cm-chip--accent">Summary</span>
+          <h3 class="cm-card__title">Key findings</h3>
+          <ol class="cm-findings">
+            <li><div><span class="cm-findings__claim">{{ Claim, one sentence. }}</span> {{ Evidence with the number. }}<a class="cm-cite" href="#src-1" id="cite-2">S1</a></div></li>
+            <li><div><span class="cm-findings__claim">{{ Claim, one sentence. }}</span> {{ Evidence with the number. }}<a class="cm-cite" href="#src-1" id="cite-3">S1</a></div></li>
+            <li><div><span class="cm-findings__claim">{{ Claim, one sentence. }}</span> {{ Evidence with the number. }}<a class="cm-cite" href="#src-1" id="cite-4">S1</a></div></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 GOAL (required, id goal) -->
+    <section class="cm-section" id="goal" aria-labelledby="goal-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 02</span>
+        <h2 class="cm-section__title" id="goal-t">Goal</h2>
+      </header>
+      <div class="cm-section__body">
+        <!-- GOAL (required): one paragraph opens the section: the end state with its key phrase in bold, the date it is due, and the expected effect with its citation. A second paragraph may give the baseline. -->
+        <div class="cm-prose">
+          <p>{{ By date, <strong>the end state, in bold</strong>. The expected effect, stated as an expectation. }}<a class="cm-cite" href="#src-1" id="cite-5">S1</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 MILESTONES (required, id milestones) -->
+    <section class="cm-section" id="milestones" aria-labelledby="milestones-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 03</span>
+        <h2 class="cm-section__title" id="milestones-t">Milestones</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>{{ Lede: how many milestones lead from the start to the goal, with <strong>the key phrase in bold</strong>. }}</p>
+        </div>
+
+        <!-- STATUS BLOCK (required, straight after the lede): the figures that change as the plan runs, dated (SPEC.md §8.22) -->
+        <div class="cm-status cm-bleed">
+          <div class="cm-status__head"><span class="cm-label">Status</span><span class="cm-meta">as of <time datetime="{{ YYYY-MM-DD }}">{{ YYYY-MM-DD }}</time></span></div>
+          <dl>
+            <div><dt>Milestones done</dt><dd>{{ N of N }}</dd></div>
+            <div><dt>{{ Key, 1 to 3 words }}</dt><dd>{{ Value with unit }}<a class="cm-cite" href="#src-1" id="cite-6">S1</a></dd></div>
+          </dl>
+        </div>
+
+        <!-- TIMELINE (required): one item per milestone, oldest first. Body: the exit criteria in one sentence opening "Done when".
+             One status chip each: Done = cm-chip--ok on an is-done item | On track = cm-chip | At risk = cm-chip--warn | Late = cm-chip--crit | Planned = cm-chip.
+             The next milestone due is is-current; later ones are is-planned. -->
+        <div class="cm-card cm-bleed">
+          <span class="cm-label cm-card__kicker">Timeline</span>
+          <h3 class="cm-card__title">Milestones and exit criteria</h3>
+          <ol class="cm-timeline">
+            <li class="is-done"><span class="cm-timeline__date">{{ Mon DD }}<small>{{ YYYY }}</small></span><span class="cm-timeline__mark"></span><div><div class="cm-timeline__title">{{ Milestone name }}</div><p class="cm-timeline__body">Done when {{ the exit criteria, one sentence }}.</p><div class="cm-chips"><span class="cm-chip cm-chip--ok">Done</span></div></div></li>
+            <li class="is-current"><span class="cm-timeline__date">{{ Mon DD }}<small>{{ YYYY }}</small></span><span class="cm-timeline__mark"></span><div><div class="cm-timeline__title">{{ Milestone name }}</div><p class="cm-timeline__body">Done when {{ the exit criteria, one sentence }}.</p><div class="cm-chips"><span class="cm-chip">On track</span></div></div></li>
+            <li class="is-planned"><span class="cm-timeline__date">{{ Mon DD }}<small>{{ YYYY }}</small></span><span class="cm-timeline__mark"></span><div><div class="cm-timeline__title">{{ Milestone name }}</div><p class="cm-timeline__body">Done when {{ the exit criteria, one sentence }}.</p><div class="cm-chips"><span class="cm-chip">Planned</span></div></div></li>
+          </ol>
+        </div>
+
+        <!-- MILESTONE TABLE (required): the timeline's milestones in the same order, names and dates. Key = M and a number.
+             Due = <time datetime> with non-breaking hyphens (U+2011) in its text. Depends on = None, or keys due no later than the row's own date. -->
+        <div>
+          <div class="cm-table-title" id="tbl-1"><span class="cm-table-title__kind">Table 1</span>Milestone owners and dependencies</div>
+          <div class="cm-table-wrap cm-bleed">
+            <table class="cm-table" data-sortable aria-labelledby="tbl-1">
+              <thead><tr><th aria-sort="ascending">Key</th><th>Milestone</th><th>Owner</th><th>Due</th><th>Depends on</th></tr></thead>
+              <tbody>
+                <tr><td class="strong">M1</td><td>{{ Milestone name }}</td><td>{{ Team or role }}</td><td><time datetime="{{ YYYY-MM-DD }}">{{ YYYY‑MM‑DD }}</time></td><td>None</td></tr>
+                <tr><td class="strong">M2</td><td>{{ Milestone name }}</td><td>{{ Team or role }}</td><td><time datetime="{{ YYYY-MM-DD }}">{{ YYYY‑MM‑DD }}</time></td><td>{{ M1 }}</td></tr>
+                <tr><td class="strong">M3</td><td>{{ Milestone name }}</td><td>{{ Team or role }}</td><td><time datetime="{{ YYYY-MM-DD }}">{{ YYYY‑MM‑DD }}</time></td><td>{{ M2 }}</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <span class="cm-caption"><span class="cm-caption__line">Source: {{ the record that set owners and dates }}.<a class="cm-cite" href="#src-1" id="cite-7">S1</a></span></span>
+        </div>
+
+        <!-- RISK CALLOUTS (optional, at most two): the dependency that could move a date. -->
+      </div>
+    </section>
+
+    <!-- 04 OUT OF SCOPE (required, id out-of-scope) -->
+    <section class="cm-section" id="out-of-scope" aria-labelledby="out-of-scope-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 04</span>
+        <h2 class="cm-section__title" id="out-of-scope-t">Out of scope</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>{{ Lede: <strong>what the roadmap changes</strong>, and that it leaves the rest alone. }}</p>
+        </div>
+        <!-- One item per thing a reader might expect the roadmap to change: what happens to it instead. -->
+        <ul class="cm-list">
+          <li>{{ Thing left alone, and what happens to it instead. }}</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- RECOMMENDATIONS (recommended): the one cm-featured card. Leave out with <!-- cm-omit recommendations: … --> when there is nothing to act on (SPEC.md §7.5). -->
+    <section class="cm-section" id="recommendations" aria-labelledby="recommendations-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 05</span>
+        <h2 class="cm-section__title" id="recommendations-t">Recommendations</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-card cm-featured cm-bleed">
+          <div class="cm-card__kicker"><span class="cm-chip cm-chip--accent">Recommended</span></div>
+          <h3 class="cm-card__title">{{ The decisions the plan needs }}</h3>
+          <ol class="cm-findings">
+            <li><div><span class="cm-findings__claim">{{ Action, one sentence. }}</span> {{ Why, with the number. }}<div class="cm-chips"><span class="cm-chip">Owner · {{ Team or role }}</span><span class="cm-chip">Decide by {{ YYYY-MM-DD }}</span><span class="cm-chip cm-chip--accent">{{ Expected impact }}</span></div></div></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- APPENDIX A: METHODOLOGY (required when the report shows computed numbers) -->
+    <section class="cm-section cm-section--part" id="methodology" aria-labelledby="methodology-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Appendix A</span>
+        <h2 class="cm-section__title" id="methodology-t">Methodology</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-bleed">
+          <details class="cm-collapse" open>
+            <summary><div><span class="cm-label">A.1</span><h3>Terms used in this report</h3></div></summary>
+            <div class="cm-collapse__body">
+              <aside class="cm-def">
+                <span class="cm-def__label">Definitions</span>
+                <dl>
+                  <div><dt>{{ Term }}</dt><dd>{{ Definition, including how it is computed. }}</dd></div>
+                </dl>
+              </aside>
+            </div>
+          </details>
+          <details class="cm-collapse">
+            <summary><div><span class="cm-label">A.2</span><h3>Data sources and coverage</h3></div></summary>
+            <div class="cm-collapse__body">
+              <ul class="cm-list cm-small">
+                <li>{{ Where the baseline and status figures come from, and their dates. }}</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- APPENDIX B: NOTES & SOURCES (required) -->
+    <section class="cm-section" id="sources" aria-labelledby="sources-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Appendix B</span>
+        <h2 class="cm-section__title" id="sources-t">Notes &amp; sources</h2>
+      </header>
+      <div class="cm-section__body">
+        <!-- NOTES (optional): <div class="cm-stack"><h3 class="cm-h4">Notes</h3><ol class="cm-notes">…</ol></div>, each note linked both ways (SPEC.md §8.15) -->
+        <div class="cm-stack">
+          <h3 class="cm-h4">Sources</h3>
+          <!-- SOURCE REGISTER: key S1, S2… kept across versions; id src-N. Type: Dataset | Report | Interview | Document | System export.
+               Locator: a link, or the system and path in <code>. Cite after punctuation: <a class="cm-cite" href="#src-1" id="cite-1">S1</a>;
+               a cited source ends with <a class="cm-back" href="#cite-1" aria-label="Back to text">↩</a> to its first citation. -->
+          <ol class="cm-sources">
+            <li id="src-1"><span class="cm-id">S1</span><span><b>{{ Source title }}</b><br><span class="cm-tag">Dataset</span> {{ Publisher }} · <code>{{ system.path }}</code> <a class="cm-back" href="#cite-1" aria-label="Back to text">↩</a></span><span class="cm-meta">{{ refreshed }} <time datetime="{{ YYYY-MM-DD }}">{{ YYYY-MM-DD }}</time></span></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <footer class="cm-footer">
+      <span><b>{{ Roadmap title }}</b></span>
+      <span>v{{ 1.0 }} · published {{ YYYY-MM-DD }}</span>
+      <span>{{ Team }}</span>
+      <span>Content Morphia Report Kit 1.2</span>
+    </footer>
+  </main>
+</div>
+</body>
+</html>

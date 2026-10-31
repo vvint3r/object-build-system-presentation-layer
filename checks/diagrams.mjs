@@ -17,14 +17,15 @@ export default [
     name: 'diagram-json', level: 'fail', source: 'SPEC §8.20', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, out = [];
-      const TOP = ['nodes', 'edges', 'groups', 'direction'];
-      const NODE = ['id', 'type', 'label', 'detail', 'col', 'row', 'emphasis'];
+      const TOP = ['nodes', 'edges', 'groups', 'direction', 'experience'];
+      const NODE = ['id', 'type', 'label', 'detail', 'col', 'row', 'emphasis', 'level'];
       const EDGE = ['from', 'to', 'kind', 'label'];
       const LANE = ['type', 'label', 'row', 'rows'];
       const BOUND = ['type', 'label', 'col', 'row', 'cols', 'rows'];
+      const PHASE = ['type', 'label', 'col', 'cols'];
       const TYPES = ['terminal', 'step', 'decision', 'store', 'external'];
       const KINDS = ['flow', 'data', 'optional'];
-      const MODES = ['flow', 'sequence', 'state', 'entity-relationship'];
+      const MODES = ['flow', 'sequence', 'state', 'entity-relationship', 'layer-stack', 'hierarchy'];
       const pos = v => Number.isInteger(v) && v >= 1;
       const str = v => typeof v === 'string' && v.trim() !== '';
       for (const el of H.source().querySelectorAll('.cm-diagram')) {
@@ -75,7 +76,8 @@ export default [
           if (!g || typeof g !== 'object') { bad(`${w} is not an object`); return; }
           if (g.type === 'lane') { extra(g, LANE, `${w} (lane)`); if (!pos(g.row)) bad(`${w}: row is a whole number from 1`); }
           else if (g.type === 'boundary') { extra(g, BOUND, `${w} (boundary)`); if (!pos(g.col) || !pos(g.row)) bad(`${w}: col and row are whole numbers from 1`); }
-          else { bad(`${w}: type "${g.type}" (lane or boundary)`); return; }
+          else if (g.type === 'phase') { extra(g, PHASE, `${w} (phase)`); if (!pos(g.col)) bad(`${w}: col is a whole number from 1`); }
+          else { bad(`${w}: type "${g.type}" (lane, boundary or phase)`); return; }
           if (!str(g.label)) bad(`${w}: no label`);
           ['rows', 'cols'].forEach(k => { if (g[k] != null && !pos(g[k])) bad(`${w}: ${k} is a whole number from 1`); });
         });
@@ -159,7 +161,7 @@ export default [
   {
     // Diagram text is not prose: it has its own limits. A node label is 1 to 24 characters and its
     // detail line 40 at most; an edge label is 1 to 3 words; an emphasis chip is 1 or 2 words; a
-    // lane or boundary label is 24 characters at most.
+    // lane, boundary or phase label is 24 characters at most.
     name: 'diagram-labels', level: 'fail', source: 'SPEC §8.20', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, out = [];

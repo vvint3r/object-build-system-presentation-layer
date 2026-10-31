@@ -614,10 +614,12 @@
     if (m.journey) kinds.push('experience');
     if (!types.some(function (t) { return t === 'store' || t === 'external'; }) && !kinds.some(function (k) { return k !== 'flow'; })) return null;
     var key = mk('div', 'cm-diagram__key');
+    // in a system and data flow the solid line passes control, so the key names it so
+    var sys = types.some(function (t) { return t === 'store' || t === 'external'; }) || m.bounds.length || kinds.indexOf('data') > -1;
     types.concat(kinds).forEach(function (t) {
       var item = mk('span', 'cm-diagram__key-item');
       item.appendChild(mk('i', 'cm-diagram__swatch cm-diagram__swatch--' + t));
-      item.appendChild(document.createTextNode(DG_NAMES[t] + (t === 'experience' ? ', ' + m.scale[0] + ' to ' + m.scale[m.scale.length - 1] : '')));
+      item.appendChild(document.createTextNode(t === 'flow' && sys ? 'Control' : DG_NAMES[t] + (t === 'experience' ? ', low to high: ' + m.scale.join(', ') : '')));
       key.appendChild(item);
     });
     return key;
@@ -1276,7 +1278,7 @@
   // Phases are frames across the top, one over the columns each spans. The experience line runs
   // under the steps: across each step's column at that step's level on the scale, turning at right
   // angles in the gaps between columns. Each level is named under its run, and the lowest level is
-  // marked "Low point".
+  // marked "Low point" above its run, where the line leaves room.
   var DG_JY = { pitch: 16, lead: 32, below: 20 };
   function dgJourneyBuild(d, cv) {
     var m = d.model, lv = m.nodes.filter(function (n) { return n.level; });
@@ -1290,7 +1292,7 @@
   // Sizes the phase frames at the width of the columns they span (gaps at their least), and the
   // room the phases and the experience line take above and below the grid.
   function dgJourneyMeasure(d, colW) {
-    var m = d.model, P = printing ? DG_GAP.print : DG_GAP.screen, top = 0, word = 0, low = 0;
+    var m = d.model, P = printing ? DG_GAP.print : DG_GAP.screen, top = 0, word = 0;
     m.phases.forEach(function (p) {
       var w = 0;
       for (var c = p.col; c <= p.lastCol; c++) w += (colW[c] || 96) + (c > p.col ? P.col : 0);
@@ -1300,9 +1302,9 @@
     d.spaceTop = m.phases.length ? top + DG_JY.below : 0;
     m.nodes.forEach(function (n) {
       if (n.wordEl) { n.ww = Math.ceil(n.wordEl.offsetWidth); n.wh = Math.ceil(n.wordEl.offsetHeight); word = Math.max(word, n.wh); }
-      if (n.lowEl) { n.lw = Math.ceil(n.lowEl.offsetWidth); n.lh = Math.ceil(n.lowEl.offsetHeight); low = Math.max(low, n.lh); }
+      if (n.lowEl) { n.lw = Math.ceil(n.lowEl.offsetWidth); n.lh = Math.ceil(n.lowEl.offsetHeight); }
     });
-    d.spaceBottom = m.journey ? DG_JY.lead + (m.scale.length - 1) * DG_JY.pitch + DG.clear + word + (low ? DG.clear + low : 0) : 0;
+    d.spaceBottom = m.journey ? DG_JY.lead + (m.scale.length - 1) * DG_JY.pitch + DG.clear + word : 0;
   }
   function dgJourneyDraw(d, g, geo, X, Y) {
     var m = d.model, svg = d.svg, n0 = m.scale.length;
@@ -1331,7 +1333,7 @@
       n.wordEl.style.left = X(c - n.ww / 2) + 'px'; n.wordEl.style.top = Y(y) + 'px';
       geo.experience.labels.push({ el: n.wordEl, label: n.wordEl.textContent });
       if (n.lowEl) {
-        n.lowEl.style.left = X(c - n.lw / 2) + 'px'; n.lowEl.style.top = Y(y + n.wh + DG.clear) + 'px';
+        n.lowEl.style.left = X(c - n.lw / 2) + 'px'; n.lowEl.style.top = Y(yAt(n) - DG.clear - n.lh) + 'px';
         geo.experience.labels.push({ el: n.lowEl, label: 'Low point', node: n.id });
       }
     });
@@ -1387,7 +1389,7 @@
       var parts = [stop(n.label)], uses = m.edges.filter(function (e) { return e.from === n; });
       if (n.detail) parts.push(stop(n.detail));
       parts.push(stop('Layer: ' + m.lanes[n.row - 1].label));
-      if (uses.length) parts.push(stop('Depends on: ' + dgAnd(uses.map(function (e) { return 'step ' + e.to.num + ', ' + e.to.label; }))));
+      if (uses.length) parts.push(stop('Depends on: ' + dgAnd(uses.map(function (e) { return 'component ' + e.to.num + ', ' + e.to.label; }))));
       ol.appendChild(mk('li', null, parts.join(' ')));
     });
     if (!(d.el.getAttribute('aria-label') || '').trim()) {
@@ -1398,7 +1400,15 @@
     }
     dgTextBox(d, ol);
   }
-  DG_MODES['layer-stack'] = { model: dgLayersModel, build: dgLayersBuild, key: dgKey, text: dgLayersText, layout: dgLayout };
+  // The key names the one line a layer stack draws, since its arrows run against the flow of data.
+  function dgLayersKey() {
+    var key = mk('div', 'cm-diagram__key'), item = mk('span', 'cm-diagram__key-item');
+    item.appendChild(mk('i', 'cm-diagram__swatch cm-diagram__swatch--flow'));
+    item.appendChild(document.createTextNode('Depends on'));
+    key.appendChild(item);
+    return key;
+  }
+  DG_MODES['layer-stack'] = { model: dgLayersModel, build: dgLayersBuild, key: dgLayersKey, text: dgLayersText, layout: dgLayout };
 
   /* ---------- diagrams: hierarchy ---------- */
   // A hierarchy is a tree read left to right: the root in the first column, each level of children
@@ -1491,8 +1501,10 @@
       var a = e.from, c = e.to, ay = a.y + h / 2, cy = c.y + h / 2, mid = a.x + a.w + P.col / 2;
       var q = dgClean([[a.x + a.w + DG.stand, ay], [mid, ay], [mid, cy], [c.x - DG.stand, cy]]);
       var p = q.map(function (pt) { return [X(pt[0]), Y(pt[1])]; });
+      // the parent's line meets the spine square, so the branches never close into a point
+      var dd = p.length < 4 ? dgRound(p, DG.r) : 'M' + p[0][0] + ' ' + p[0][1] + 'L' + p[1][0] + ' ' + p[1][1] + dgRound(p.slice(1), DG.r).replace(/^M[-\d.]+ [-\d.]+/, '');
       var grp = svgEl('g', { 'class': 'cm-diagram__edge cm-diagram__edge--flow', 'data-from': a.id, 'data-to': c.id });
-      grp.appendChild(svgEl('path', { 'class': 'cm-diagram__line', d: dgRound(p, DG.r) }));
+      grp.appendChild(svgEl('path', { 'class': 'cm-diagram__line', d: dd }));
       svg.appendChild(grp);
       geo.edges.push({ from: a.id, to: c.id, kind: 'flow', label: '', labelEl: null, points: p });
     });

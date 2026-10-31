@@ -644,8 +644,8 @@ A journey map shows what one person does across the phases of an experience, and
 - One step stands in each column, so the line reads one step at a time.
 - Phases are frames across the top, in the track colour, each over the columns it spans. Together they cover every column once.
 - The experience line runs 32px under the steps in the accent colour, 2px: across each step's column at its level, turning in the gap between columns. Levels stand 16px apart.
-- Each run carries its word below it in the label style. Where the levels differ, the lowest adds "Low point" under its word.
-- The key names the line and the ends of its scale, such as "Experience, Frustrated to Pleased".
+- Each run carries its word below it in the label style. Where the levels differ, "Low point" stands above the lowest run, so it reads as a note on the line, not a level.
+- The key names the line and its whole scale, low to high, so a level no step reaches still has its place.
 - Edges are optional. The column order already reads as time.
 
 The flow's capacity holds. Five steps of 24-character labels with phases print at 81%; a sixth column of the shortest labels needs less than 80%.
@@ -687,6 +687,7 @@ A system and data flow shows systems, where their data rests and what moves betw
 - A data store connects only to steps, by data edges. Data reaches a store and leaves it through a step.
 - Data edges are dotted and control edges solid. An edge that crosses a boundary carries a label naming what crosses: the data, or the event that passes control.
 - A data store is ruled above and below with one 2px line each, not a double line.
+- The key names the solid line "Control".
 
 The flow's capacity holds, with its 2 boundaries.
 
@@ -722,6 +723,7 @@ A layer stack shows the layers of a system, from the one people use at the top t
 - A dependency runs down to a lower layer: it leaves the bottom of one component and enters the top of the other.
 - A dependency upward or within one layer breaks the stack. The kit leaves it undrawn and warns in the console, and the checks fail the page. The stack is redrawn so the dependency runs down, or the relation moves to a flow diagram.
 - Each layer is a frame in the track colour across the drawing's full width, 16px around its components, named on the left in the label style.
+- A key above the drawing names the line "Depends on", since the arrows run against the way data moves.
 
 | Item | At most | Reason |
 | --- | --- | --- |
@@ -730,7 +732,7 @@ A layer stack shows the layers of a system, from the one people use at the top t
 
 A component `label` stops at 24 characters and a `detail` at 40, as a flow node's; a layer `label` stops at 24, as a lane's. A larger stack splits into an overview of the layers and one stack for each layer that needs detail.
 
-The text version numbers every component from the top layer down, with its layer and the components it depends on. An empty `aria-label` takes a summary: the number of layers, the top and the base, and the number of components and dependencies.
+The text version numbers every component from the top layer down, with its layer and the components it depends on, by number. An empty `aria-label` takes a summary: the number of layers, the top and the base, and the number of components and dependencies.
 
 #### Hierarchy
 
@@ -758,7 +760,8 @@ A hierarchy shows how a whole divides into parts, read left to right: an organis
 - The author writes no columns or rows. Children stand top to bottom in the order written, and the ECharts tree layout places them; the kit draws every box and line.
 - Each level is a column, left to right, its boxes as wide as its widest node. Every box takes the height of the tallest.
 - Siblings stand 16px apart. Groups of siblings stand further apart, as the tree layout spaces them.
-- A line runs from a parent's right side along the middle of the gap to each child's left side, 8px clear of both, with rounded elbows. It carries no arrowhead: it means "part of", not a step in a flow.
+- A line runs from a parent's right side along the middle of the gap to each child's left side, 8px clear of both. It meets the spine square and turns into each branch with a rounded elbow, so the branches never close into a point.
+- A hierarchy line carries no arrowhead: it means "part of", not a step in a flow.
 - The drawing needs ECharts. Without it, the text version stands alone and the drawing is skipped, as a chart is.
 
 | Item | At most | Reason |

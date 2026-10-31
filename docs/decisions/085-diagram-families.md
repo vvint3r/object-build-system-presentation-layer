@@ -54,20 +54,28 @@ limits of record 077; a phase label stops at 24 characters, as a lane's.
   its own summary and text version, so an author names no family.
 - **Journey without a rail.** The scale is named by a word under each run and by the key, not by a
   rail of level names on the left: a rail would take a column's width and leave four steps.
-- **Low point.** Every step at the lowest level is marked, when the levels differ. A flat journey has
-  no low point.
+- **Low point.** Every step at the lowest level is marked, when the levels differ, above its run: a
+  note under the level word read as a second level. A flat journey has no low point.
+- **Journey key.** The key lists the whole scale, low to high, so a reader can place a level no step
+  reaches.
 - **Store rules.** "Double-ruled" in record 076 reads as one 2px rule above and one below, as the
   library draws a data store (record 010) and as the flow mode already does.
+- **Control in the key.** A system and data flow's key names the solid line "Control", which says
+  what it carries beside "Data".
 - **Upward dependencies.** A layer stack draws only downward dependencies. An upward or same-layer one
   is left undrawn with a console warning, and the checks fail the page: drawing it would show a stack
   that is not one.
+- **Layer stack key.** A one-item key names the line "Depends on": the arrows run from the consumer
+  to the source, against the way data moves.
 - **Layer stack on the flow grid.** Layers are rows of the flow grid and components its cells, so a
   layer stack inherits routing, standoffs, print scaling and the shared checks.
 - **Hierarchy layout.** Record 076 names the hierarchy as "the ECharts tree" and rules out a layout
   engine of the kit's own. The ECharts tree layout places the nodes once, off screen; the kit draws
   every box and line in its own classes. Placement here is the only placement not the author's. The
   kit's drawing keeps hierarchy boxes like flow boxes and lets every shared check run on it.
-- **Hierarchy lines.** No arrowheads: a line in a hierarchy means "part of", not a step.
+- **Hierarchy lines.** No arrowheads: a line in a hierarchy means "part of", not a step. A parent's
+  line meets the spine square; rounding it there closed the branches into a point that read as an
+  arrowhead.
 - **Hierarchy without ECharts.** The text version stands alone and the drawing is skipped, as a
   chart's is.
 - **Mode names.** `layer-stack` and `hierarchy` follow the family names in §15, as

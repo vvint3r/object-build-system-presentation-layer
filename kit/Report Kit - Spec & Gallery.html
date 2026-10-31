@@ -969,7 +969,7 @@
             <ul class="cm-list" style="max-width:var(--cm-read)">
               <li data-comment-anchor="2eb9697b06-li">Each chart carries one message: the figure title states what it shows, and the prose above states the finding.</li>
               <li data-comment-anchor="e607be6d95-li">Color follows role: the focal series takes <code>$c1</code>, the comparison <code>$c2</code> or <code>$context</code>. More than four series become small multiples or a table.</li>
-              <li>Two or more series get a legend, added automatically at the top left in series order. End labels and value labels never replace it.</li>
+              <li>Two or more series get a legend, added at the top left in series order. A slope chart, or a line chart whose end labels name every line, has none.</li>
               <li>Axis titles carry units: the value axis is named (“Tickets per week”) unless every tick already shows the unit (“90%”).</li>
               <li>Bars and areas start at zero; lines may zoom.</li>
               <li>No chart uses 3D, gradient fills or dual y-axes. A pie or donut shows only a part of a whole, in four slices or fewer.</li>
@@ -979,9 +979,92 @@
         </div>
 
         <div class="g-comp">
-          <header><span class="cm-label">6.0</span><h3 class="cm-h3">Chart anatomy</h3><p>The parts a chart carries, top to bottom, and which ones the kit draws itself.</p></header>
+          <header><span class="cm-label">6.0</span><h3 class="cm-h3">Recipes by question</h3><p>A chart answers the question a reader brings to it. Each table names the charts for one question, with when each fits, its data, its annotation and the usual mistake. No question justifies 3D, gradient fills, dual y-axes, radar, gauge, word clouds, two charts in one figure, or bars and areas not starting at zero.</p></header>
           <div>
-            <div class="cm-table-title" id="tbl-anatomy"><span class="cm-table-title__kind">Table 6.1</span>Parts of a chart</div>
+            <div class="cm-table-title" id="tbl-comparison"><span class="cm-table-title__kind">Table 6.1</span>Comparison of categories</div>
+            <div class="cm-table-wrap cm-bleed">
+              <table class="cm-table" aria-labelledby="tbl-comparison">
+                <thead><tr><th>Chart</th><th>Use when</th><th>Data</th><th>Annotation</th><th>Common mistake</th></tr></thead>
+                <tbody>
+                  <tr><td class="strong wrap">Bar</td><td class="wrap">A few to a dozen categories on one measure</td><td class="wrap">One value per category; horizontal when labels are long or ranked, largest at the top</td><td class="wrap">Value labels on every bar up to 12; a target as a <code>markLine</code></td><td class="wrap">A value axis that does not start at zero</td></tr>
+                  <tr><td class="strong wrap">Bullet</td><td class="wrap">Each measure against its target, with optional bands that grade it</td><td class="wrap">A value and a target per measure, all in one unit</td><td class="wrap">Target mark, values and band names, drawn by the kit</td><td class="wrap">Measures in different units on one axis</td></tr>
+                  <tr><td class="strong wrap">Heatmap</td><td class="wrap">A magnitude across two categories at once, such as weekday by hour</td><td class="wrap">One value per cell; a scale bar with end labels</td><td class="wrap">The scale bar's end values</td><td class="wrap">More rows than fit at about 40px each</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <span class="cm-caption"><span class="cm-caption__line">Source: <code>SPEC.md</code>, section 9, recipes by question.</span></span>
+          </div>
+          <div>
+            <div class="cm-table-title" id="tbl-change"><span class="cm-table-title__kind">Table 6.2</span>Change over time</div>
+            <div class="cm-table-wrap cm-bleed">
+              <table class="cm-table" aria-labelledby="tbl-change">
+                <thead><tr><th>Chart</th><th>Use when</th><th>Data</th><th>Annotation</th><th>Common mistake</th></tr></thead>
+                <tbody>
+                  <tr><td class="strong wrap">Line</td><td class="wrap">A measure over many periods</td><td class="wrap">One value per period; the value axis may start above zero</td><td class="wrap">Events as vertical <code>markLine</code>; end labels naming each line</td><td class="wrap">More than four coloured lines</td></tr>
+                  <tr><td class="strong wrap">Area</td><td class="wrap">One level over time, where the total matters</td><td class="wrap">One series; the value axis starts at zero</td><td class="wrap">A threshold as <code>markLine</code></td><td class="wrap">Two series as areas, which hide each other</td></tr>
+                  <tr><td class="strong wrap">Slope</td><td class="wrap">Two points in time per category, where the change matters more than the path</td><td class="wrap">Two values per line</td><td class="wrap">Labels at both ends, drawn by the kit; lines picked out in <code>$c1</code></td><td class="wrap">Three or more periods, which a line chart shows better</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <span class="cm-caption"><span class="cm-caption__line">Source: <code>SPEC.md</code>, section 9, recipes by question.</span></span>
+          </div>
+          <div>
+            <div class="cm-table-title" id="tbl-distribution"><span class="cm-table-title__kind">Table 6.3</span>Distribution within groups</div>
+            <div class="cm-table-wrap cm-bleed">
+              <table class="cm-table" aria-labelledby="tbl-distribution">
+                <thead><tr><th>Chart</th><th>Use when</th><th>Data</th><th>Annotation</th><th>Common mistake</th></tr></thead>
+                <tbody>
+                  <tr><td class="strong wrap">Strip</td><td class="wrap">Each value matters, up to a few hundred per category</td><td class="wrap">Every value, per category</td><td class="wrap">Count and median, drawn by the kit</td><td class="wrap">An average alone, which hides the spread and the outliers</td></tr>
+                  <tr><td class="strong wrap">Box</td><td class="wrap">Many values per category, or only their summaries</td><td class="wrap">Every value per category, or five numbers and a count</td><td class="wrap">Count, drawn by the kit</td><td class="wrap">A box over a handful of values, where a strip shows each one</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <span class="cm-caption"><span class="cm-caption__line">Source: <code>SPEC.md</code>, section 9, recipes by question.</span></span>
+          </div>
+          <div>
+            <div class="cm-table-title" id="tbl-uncertainty"><span class="cm-table-title__kind">Table 6.4</span>Uncertainty of estimates</div>
+            <div class="cm-table-wrap cm-bleed">
+              <table class="cm-table" aria-labelledby="tbl-uncertainty">
+                <thead><tr><th>Chart</th><th>Use when</th><th>Data</th><th>Annotation</th><th>Common mistake</th></tr></thead>
+                <tbody>
+                  <tr><td class="strong wrap">Interval band</td><td class="wrap">An estimate or forecast over time</td><td class="wrap">A low and a high per point, and the interval's name</td><td class="wrap">The interval's name in the legend, drawn by the kit</td><td class="wrap">A band without a name, which a reader cannot weigh</td></tr>
+                  <tr><td class="strong wrap">Error bars</td><td class="wrap">Estimates per category, such as survey results</td><td class="wrap">A low and a high per bar or point, and the interval's name</td><td class="wrap">The interval's name in the legend, drawn by the kit</td><td class="wrap">Error bars on stacked bars, whose segments carry no estimate of their own</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <span class="cm-caption"><span class="cm-caption__line">Source: <code>SPEC.md</code>, section 9, recipes by question.</span></span>
+          </div>
+          <div>
+            <div class="cm-table-title" id="tbl-composition"><span class="cm-table-title__kind">Table 6.5</span>Composition of a whole</div>
+            <div class="cm-table-wrap cm-bleed">
+              <table class="cm-table" aria-labelledby="tbl-composition">
+                <thead><tr><th>Chart</th><th>Use when</th><th>Data</th><th>Annotation</th><th>Common mistake</th></tr></thead>
+                <tbody>
+                  <tr><td class="strong wrap">Stacked bar</td><td class="wrap">Parts of a whole over time or across categories</td><td class="wrap">Up to four parts</td><td class="wrap">A value axis in percent when the shares matter</td><td class="wrap">More than four parts</td></tr>
+                  <tr><td class="strong wrap">Donut</td><td class="wrap">One whole in up to four parts, when the total matters</td><td class="wrap">Up to four slices</td><td class="wrap">Labels with name and value, which act as the legend</td><td class="wrap">Two donuts side by side, where a stacked bar compares better</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <span class="cm-caption"><span class="cm-caption__line">Source: <code>SPEC.md</code>, section 9, recipes by question.</span></span>
+          </div>
+          <div>
+            <div class="cm-table-title" id="tbl-relationship"><span class="cm-table-title__kind">Table 6.6</span>Relationship between measures</div>
+            <div class="cm-table-wrap cm-bleed">
+              <table class="cm-table" aria-labelledby="tbl-relationship">
+                <thead><tr><th>Chart</th><th>Use when</th><th>Data</th><th>Annotation</th><th>Common mistake</th></tr></thead>
+                <tbody>
+                  <tr><td class="strong wrap">Scatter</td><td class="wrap">Two measures per item, such as teams or accounts</td><td class="wrap">A pair of values per item; both axes named with units</td><td class="wrap">The picked-out point in <code>$c1</code> with a label</td><td class="wrap">Reading a correlation as a cause</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <span class="cm-caption"><span class="cm-caption__line">Source: <code>SPEC.md</code>, section 9, recipes by question.</span></span>
+          </div>
+        </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">6.1</span><h3 class="cm-h3">Chart anatomy</h3><p>The parts a chart carries, top to bottom, and which ones the kit draws itself.</p></header>
+          <div>
+            <div class="cm-table-title" id="tbl-anatomy"><span class="cm-table-title__kind">Table 6.7</span>Parts of a chart</div>
             <div class="cm-table-wrap cm-bleed">
               <table class="cm-table" data-sortable aria-labelledby="tbl-anatomy">
                 <thead><tr><th>Part</th><th>Where</th><th>Rule</th><th>When</th></tr></thead>
@@ -989,7 +1072,7 @@
                   <tr><td class="strong">Kind and number</td><td><code>.cm-figure__kind</code></td><td class="wrap">“Figure 3”, numbered in order across the report</td><td>Always</td></tr>
                   <tr><td class="strong">Title</td><td><code>.cm-figure__title</code></td><td class="wrap">What is shown, in 10 words or fewer</td><td>Always</td></tr>
                   <tr><td class="strong">Description</td><td><code>.cm-figure__desc</code></td><td class="wrap">Measure, unit, scope and period in one sentence</td><td>Always</td></tr>
-                  <tr><td class="strong">Legend</td><td>Top left, automatic</td><td class="wrap">Series names in plot order; <code>"legend": false</code> only for a single series</td><td>2+ series</td></tr>
+                  <tr><td class="strong">Legend</td><td>Top left, automatic</td><td class="wrap">Series names in plot order; <code>"legend": false</code> only for a single series. None when end labels name every line, or on a slope</td><td>2+ series</td></tr>
                   <tr><td class="strong">Axis titles</td><td><code>xAxis.name</code>, <code>yAxis.name</code></td><td class="wrap">Quantity and unit; y title sits above the axis, x title under the labels</td><td>Unit not in ticks</td></tr>
                   <tr><td class="strong">Tick labels, gridlines</td><td>Automatic</td><td class="wrap">Short labels; hairline gridlines on the value axis only; 1.5px ink baseline</td><td>Always</td></tr>
                   <tr><td class="strong">Data labels</td><td><code>label</code>, <code>endLabel</code></td><td class="wrap">Values the reader should quote; every bar when there are 12 or fewer</td><td>Key values</td></tr>
@@ -1004,7 +1087,7 @@
         </div>
 
         <div class="g-comp">
-          <header><span class="cm-label">6.1</span><h3 class="cm-h3">Line: focus against context</h3><p>The current period in <code>$c1</code>; prior period in <code>$context</code>. The legend appears on its own; end labels repeat the series names at the line ends. An event marker is a vertical <code>markLine</code>.</p></header>
+          <header><span class="cm-label">6.2</span><h3 class="cm-h3">Line: focus against context</h3><p>The current period in <code>$c1</code>; prior period in <code>$context</code>. End labels with <code>"{a}"</code> name both lines where they end, so the kit leaves the legend out, and moves labels apart that would touch. An event marker is a vertical <code>markLine</code>.</p></header>
           <div data-demo>
 <figure class="cm-figure cm-bleed">
   <span class="cm-figure__kind">Figure 1</span>
@@ -1017,8 +1100,8 @@
       "xAxis": {"type": "category", "boundaryGap": false, "data": ["Wk 1","Wk 2","Wk 3","Wk 4","Wk 5","Wk 6","Wk 7","Wk 8","Wk 9","Wk 10"]},
       "yAxis": {"type": "value", "name": "Tickets per week", "min": 3000},
       "series": [
-        {"name": "Q2 2026", "type": "line", "data": [3320,3390,3410,3350,3470,3440,3510,3400,3460,3520], "lineStyle": {"color": "$context"}, "itemStyle": {"color": "$context"}, "endLabel": {"show": true, "formatter": "Q2"}},
-        {"name": "Q3 2026", "type": "line", "data": [3410,3520,3480,3655,3590,3720,4310,4120,3790,3700], "endLabel": {"show": true, "formatter": "Q3"},
+        {"name": "Q2 2026", "type": "line", "data": [3320,3390,3410,3350,3470,3440,3510,3400,3460,3520], "lineStyle": {"color": "$context"}, "itemStyle": {"color": "$context"}, "endLabel": {"show": true, "formatter": "{a}"}},
+        {"name": "Q3 2026", "type": "line", "data": [3410,3520,3480,3655,3590,3720,4310,4120,3790,3700], "endLabel": {"show": true, "formatter": "{a}"},
          "markLine": {"data": [{"xAxis": "Wk 7", "label": {"formatter": "Launch", "position": "end"}}]}}
       ]
     }
@@ -1030,7 +1113,7 @@
         </div>
 
         <div class="g-comp">
-          <header><span class="cm-label">6.2</span><h3 class="cm-h3">Bar: ranking with a target</h3><p>Horizontal bars for ranked categories, sorted with the largest at the top. Value labels on, target as a dashed <code>markLine</code>. One series, so no legend.</p></header>
+          <header><span class="cm-label">6.3</span><h3 class="cm-h3">Bar: ranking with a target</h3><p>Horizontal bars for ranked categories, sorted with the largest at the top. Value labels on, target as a dashed <code>markLine</code>. One series, so no legend.</p></header>
           <div data-demo>
 <figure class="cm-figure cm-bleed" data-comment-anchor="8f7ddc5e88-figure">
   <span class="cm-figure__kind">Figure 2</span>
@@ -1056,7 +1139,7 @@
 
         <div class="cm-grid cm-grid--2 cm-bleed" style="align-items:start">
           <div class="g-comp">
-            <header><span class="cm-label">6.3</span><h3 class="cm-h3">Stacked columns: composition</h3><p>Up to four parts. The kit separates segments with a thin surface gap and rounds every segment.</p></header>
+            <header><span class="cm-label">6.4</span><h3 class="cm-h3">Stacked columns: composition</h3><p>Up to four parts. The kit separates segments with a thin surface gap and rounds every segment.</p></header>
             <div data-demo>
 <figure class="cm-figure">
   <span class="cm-figure__kind">Figure 3</span>
@@ -1081,7 +1164,7 @@
             </div>
           </div>
           <div class="g-comp">
-            <header><span class="cm-label">6.4</span><h3 class="cm-h3">Area: one level over time</h3><p>A single series with <code>"areaStyle": {}</code>. Thresholds as <code>markLine</code> on the y-axis.</p></header>
+            <header><span class="cm-label">6.5</span><h3 class="cm-h3">Area: one level over time</h3><p>A single series with <code>"areaStyle": {}</code>. Thresholds as <code>markLine</code> on the y-axis.</p></header>
             <div data-demo>
 <figure class="cm-figure">
   <span class="cm-figure__kind">Figure 4</span>
@@ -1105,7 +1188,7 @@
 
         <div class="cm-grid cm-grid--2 cm-bleed" style="align-items:start">
           <div class="g-comp">
-            <header><span class="cm-label">6.5</span><h3 class="cm-h3">Scatter: relationship</h3><p>Name both axes with units. Highlight one point by giving it <code>$c1</code> and a label; the rest stay <code>$c2</code>.</p></header>
+            <header><span class="cm-label">6.6</span><h3 class="cm-h3">Scatter: relationship</h3><p>Name both axes with units. Highlight one point by giving it <code>$c1</code> and a label; the rest stay <code>$c2</code>.</p></header>
             <div data-demo>
 <figure class="cm-figure">
   <span class="cm-figure__kind">Figure 5</span>
@@ -1128,7 +1211,7 @@
             </div>
           </div>
           <div class="g-comp">
-            <header><span class="cm-label">6.6</span><h3 class="cm-h3">Donut: part of a whole</h3><p>Four slices or fewer, labelled with names and values, which act as the legend. Use only when the total itself matters.</p></header>
+            <header><span class="cm-label">6.7</span><h3 class="cm-h3">Donut: part of a whole</h3><p>Four slices or fewer, labelled with names and values, which act as the legend. Use only when the total itself matters.</p></header>
             <div data-demo>
 <figure class="cm-figure">
   <span class="cm-figure__kind">Figure 6</span>
@@ -1150,7 +1233,7 @@
         </div>
 
         <div class="g-comp">
-          <header><span class="cm-label">6.7</span><h3 class="cm-h3">Heatmap: two categories and a magnitude</h3><p>Sequential ramp via <code>"inRange": {"color": "$seq"}</code> (applied by default), cells separated by a 3px <code>$surface</code> border. The scale bar under the grid is the legend; give its ends values with <code>text</code>.</p></header>
+          <header><span class="cm-label">6.8</span><h3 class="cm-h3">Heatmap: two categories and a magnitude</h3><p>Sequential ramp via <code>"inRange": {"color": "$seq"}</code> (applied by default), cells separated by a 3px <code>$surface</code> border. The scale bar under the grid is the legend; give its ends values with <code>text</code>.</p></header>
           <div data-demo>
 <figure class="cm-figure cm-bleed">
   <span class="cm-figure__kind">Figure 7</span>
@@ -1172,6 +1255,159 @@
     <span class="cm-caption__line">Source: helpdesk warehouse.</span>
     <span class="cm-caption__line">Note: 00:00 to 06:00 omitted (6% of volume).</span>
   </figcaption>
+</figure>
+          </div>
+        </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">6.9</span><h3 class="cm-h3">Bullet: each measure against its target</h3><p>A horizontal <code>bar</code> series with <code>"cm": {"chart": "bullet"}</code>. The kit draws a grey track per bar, the target as an ink mark across it, and each value at the row's end. Optional bands grade the scale in up to three grey steps, named above the top row.</p></header>
+          <div data-demo>
+<figure class="cm-figure cm-bleed">
+  <span class="cm-figure__kind">Figure 8</span>
+  <h3 class="cm-figure__title cm-figure__title--sm">SLA attainment by team against target</h3>
+  <p class="cm-figure__desc">Share of resolved tickets closed inside the SLA window, by team, Q3 2026.</p>
+  <div class="cm-chart" style="--h:320px" data-chart role="img" aria-label="Bullet chart. No team reaches the 95% target; Tier 1 Americas comes closest at 94.6%, and billing specialists sit in the breach band at 82.6%.">
+    <script type="application/json">
+    {
+      "xAxis": {"type": "value", "min": 0, "max": 100, "axisLabel": {"formatter": "{value}%"}},
+      "yAxis": {"type": "category", "data": ["Billing specialists","Tier 1 · APAC","Technical escalations","Tier 1 · EMEA","Tier 1 · Americas"]},
+      "series": [{"name": "Within SLA", "type": "bar", "data": [82.6,87.4,89.9,93.0,94.6],
+        "cm": {"chart": "bullet", "target": 95,
+               "bands": [{"to": 85, "name": "Breach"}, {"to": 90, "name": "At risk"}, {"name": "On track"}]}}]
+    }
+    </script>
+  </div>
+  <figcaption class="cm-caption">
+    <span class="cm-caption__line">Source: helpdesk warehouse · resolved tickets, Q3 2026.</span>
+    <span class="cm-caption__line">Note: bands follow the team status flags: breach below 85%, at risk below 90%.</span>
+  </figcaption>
+</figure>
+          </div>
+        </div>
+
+        <div class="cm-grid cm-grid--2 cm-bleed" style="align-items:start">
+          <div class="g-comp">
+            <header><span class="cm-label">6.10</span><h3 class="cm-h3">Slope: two points in time</h3><p>A <code>line</code> chart with two categories and <code>"cm": {"chart": "slope"}</code> at the top level. Labels at both ends name each line and give its value, so there is no legend. Lines are ink; a line given <code>"color": "$c1"</code> stands out and the rest turn grey.</p></header>
+            <div data-demo>
+<figure class="cm-figure">
+  <span class="cm-figure__kind">Figure 9</span>
+  <h3 class="cm-figure__title cm-figure__title--sm">SLA attainment by channel, Q2 to Q3</h3>
+  <p class="cm-figure__desc">Share of resolved tickets closed inside the SLA window, by channel.</p>
+  <div class="cm-chart" style="--h:300px" data-chart role="img" aria-label="Slope chart. Email gains most, from 86.1% to 88.3%; web form and social slip.">
+    <script type="application/json">
+    {
+      "cm": {"chart": "slope"},
+      "xAxis": {"type": "category", "data": ["Q2 2026", "Q3 2026"]},
+      "yAxis": {"type": "value", "axisLabel": {"formatter": "{value}%"}},
+      "series": [
+        {"name": "Chat", "type": "line", "data": [94.0, 96.1]},
+        {"name": "Phone", "type": "line", "data": [93.6, 94.8]},
+        {"name": "Social", "type": "line", "data": [91.2, 90.4]},
+        {"name": "Email", "type": "line", "data": [86.1, 88.3], "color": "$c1"},
+        {"name": "Web form", "type": "line", "data": [87.5, 86.9]}
+      ]
+    }
+    </script>
+  </div>
+  <figcaption class="cm-caption"><span class="cm-caption__line">Source: helpdesk warehouse · resolved tickets, Q2 and Q3 2026.</span></figcaption>
+</figure>
+            </div>
+          </div>
+          <div class="g-comp">
+            <header><span class="cm-label">6.11</span><h3 class="cm-h3">Interval band: a forecast with its range</h3><p>A <code>line</code> series with <code>"cm": {"chart": "interval"}</code>, a low and a high per point, and the interval's name. The kit fills the band in the line's colour and names it in the legend.</p></header>
+            <div data-demo>
+<figure class="cm-figure">
+  <span class="cm-figure__kind">Figure 10</span>
+  <h3 class="cm-figure__title cm-figure__title--sm">Weekly ticket forecast</h3>
+  <p class="cm-figure__desc">Forecast tickets per week, monthly average, October 2026 to March 2027.</p>
+  <div class="cm-chart" style="--h:300px" data-chart role="img" aria-label="Line chart with an interval band. The forecast peaks at 3,900 a week in December; the 80% interval widens from 100 to 720 tickets by March.">
+    <script type="application/json">
+    {
+      "xAxis": {"type": "category", "boundaryGap": false, "data": ["Oct","Nov","Dec","Jan","Feb","Mar"]},
+      "yAxis": {"type": "value", "name": "Tickets per week", "min": 3000, "max": 4500, "interval": 500},
+      "series": [{"name": "Forecast", "type": "line", "data": [3650,3720,3900,3810,3700,3680],
+        "cm": {"chart": "interval", "name": "80% interval",
+               "low": [3600,3600,3700,3550,3400,3330], "high": [3700,3850,4120,4090,4020,4050]}}]
+    }
+    </script>
+  </div>
+  <figcaption class="cm-caption"><span class="cm-caption__line">Source: demand model, run 2026-10-05.</span></figcaption>
+</figure>
+            </div>
+          </div>
+        </div>
+
+        <div class="cm-grid cm-grid--2 cm-bleed" style="align-items:start">
+          <div class="g-comp">
+            <header><span class="cm-label">6.12</span><h3 class="cm-h3">Strip: every value</h3><p>A <code>scatter</code> series with <code>"cm": {"chart": "strip"}</code> and every value per category. The kit spreads the dots across each row, marks the median and writes the count under each name.</p></header>
+            <div data-demo>
+<figure class="cm-figure">
+  <span class="cm-figure__kind">Figure 11</span>
+  <h3 class="cm-figure__title cm-figure__title--sm">First response time by channel</h3>
+  <p class="cm-figure__desc">Hours to first response, one dot per ticket, a sample from one week of September 2026.</p>
+  <div class="cm-chart" style="--h:300px" data-chart role="img" aria-label="Strip plot. Chat answers within about half an hour, phone within about an hour, and email takes 2 to 7 hours, with a median near 3.6.">
+    <script type="application/json">
+    {
+      "xAxis": {"type": "value", "name": "First response, hours"},
+      "yAxis": {"type": "category", "data": ["Chat", "Phone", "Email"]},
+      "series": [{"name": "Tickets", "type": "scatter", "cm": {"chart": "strip", "values": [
+        [0.2,0.4,0.3,0.5,0.6,0.8,0.3,0.2,1.1,0.4,0.5,0.7,0.9,0.3,0.6,2.5],
+        [0.8,1.2,1.5,0.9,1.1,2.4,1.3,1.0,0.7,1.6,1.8,1.2],
+        [2.1,3.5,4.2,2.8,5.1,3.9,2.6,6.8,4.4,3.1,2.9,3.7,4.8,5.6,3.3,2.2]
+      ]}}]
+    }
+    </script>
+  </div>
+  <figcaption class="cm-caption"><span class="cm-caption__line">Source: helpdesk warehouse · sample of resolved tickets, week of 2026-09-14.</span></figcaption>
+</figure>
+            </div>
+          </div>
+          <div class="g-comp">
+            <header><span class="cm-label">6.13</span><h3 class="cm-h3">Box: quartiles and outliers</h3><p>A <code>boxplot</code> series with <code>"cm": {"chart": "box"}</code> and the same values. The kit computes the quartiles, draws whiskers to 1.5 times the interquartile range and the values past them as dots. With summaries only, give five numbers per category and the counts in <code>n</code>.</p></header>
+            <div data-demo>
+<figure class="cm-figure">
+  <span class="cm-figure__kind">Figure 12</span>
+  <h3 class="cm-figure__title cm-figure__title--sm">First response time by channel</h3>
+  <p class="cm-figure__desc">Hours to first response, quartiles of the same sample as Figure 11.</p>
+  <div class="cm-chart" style="--h:300px" data-chart role="img" aria-label="Box plot. Email's middle half runs from 2.8 to 4.6 hours, chat's from 0.3 to 0.7; one chat ticket and one phone ticket sit past their whiskers.">
+    <script type="application/json">
+    {
+      "xAxis": {"type": "value", "name": "First response, hours"},
+      "yAxis": {"type": "category", "data": ["Chat", "Phone", "Email"]},
+      "series": [{"name": "First response", "type": "boxplot", "cm": {"chart": "box", "values": [
+        [0.2,0.4,0.3,0.5,0.6,0.8,0.3,0.2,1.1,0.4,0.5,0.7,0.9,0.3,0.6,2.5],
+        [0.8,1.2,1.5,0.9,1.1,2.4,1.3,1.0,0.7,1.6,1.8,1.2],
+        [2.1,3.5,4.2,2.8,5.1,3.9,2.6,6.8,4.4,3.1,2.9,3.7,4.8,5.6,3.3,2.2]
+      ]}}]
+    }
+    </script>
+  </div>
+  <figcaption class="cm-caption"><span class="cm-caption__line">Source: helpdesk warehouse · sample of resolved tickets, week of 2026-09-14.</span></figcaption>
+</figure>
+            </div>
+          </div>
+        </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">6.14</span><h3 class="cm-h3">Error bars: estimates per category</h3><p>A <code>scatter</code> or <code>bar</code> series with <code>"cm": {"chart": "interval"}</code>. The kit draws an ink error bar on each point, names the interval in the legend and moves each value label past it. Points read better than bars when only the estimate matters.</p></header>
+          <div data-demo>
+<figure class="cm-figure cm-bleed">
+  <span class="cm-figure__kind">Figure 13</span>
+  <h3 class="cm-figure__title cm-figure__title--sm">CSAT by channel</h3>
+  <p class="cm-figure__desc">Share of survey responses rating 4 or 5 out of 5, by channel, Q3 2026.</p>
+  <div class="cm-chart" style="--h:300px" data-chart role="img" aria-label="Dot plot with error bars. Chat leads at 91.2%; the intervals for email and web form overlap, so the two do not differ clearly.">
+    <script type="application/json">
+    {
+      "xAxis": {"type": "value", "name": "CSAT, %", "min": 78, "max": 94, "interval": 4},
+      "yAxis": {"type": "category", "name": "Channel", "data": ["Web form","Email","Social","Phone","Chat"]},
+      "series": [{"name": "CSAT", "type": "scatter", "data": [82.7, 84.3, 86.9, 88.4, 91.2],
+        "label": {"show": true, "position": "right", "formatter": "{c}%"},
+        "cm": {"chart": "interval", "name": "95% confidence interval",
+               "low": [80.1, 82.9, 83.2, 86.0, 90.1], "high": [85.3, 85.1, 90.6, 90.8, 92.3]}}]
+    }
+    </script>
+  </div>
+  <figcaption class="cm-caption"><span class="cm-caption__line">Source: CSAT survey export, Q3 2026 · Wilson intervals.</span></figcaption>
 </figure>
           </div>
         </div>
@@ -1229,7 +1465,7 @@
           <header><span class="cm-label">7.1</span><h3 class="cm-h3">Process and decision flow</h3><p>Steps in reading order, a decision with labelled branches, and a loop back for rework. The empty <code>aria-label</code> lets the kit write the summary.</p></header>
           <div data-demo>
 <figure class="cm-figure cm-bleed">
-  <span class="cm-figure__kind">Figure 8</span>
+  <span class="cm-figure__kind">Figure 14</span>
   <h3 class="cm-figure__title">Help-centre article review</h3>
   <p class="cm-figure__desc">Steps from a finished draft to a live article, with the rework loop.</p>
   <div class="cm-diagram" data-diagram="flow" role="img" aria-label="">
@@ -1263,7 +1499,7 @@
           <header><span class="cm-label">7.2</span><h3 class="cm-h3">Swimlane</h3><p>One lane per role, each a row band named on the left. A step sits in the lane of the role that does it, so every hand-off crosses a lane line.</p></header>
           <div data-demo>
 <figure class="cm-figure cm-bleed">
-  <span class="cm-figure__kind">Figure 9</span>
+  <span class="cm-figure__kind">Figure 15</span>
   <h3 class="cm-figure__title">Billing question hand-offs</h3>
   <p class="cm-figure__desc">Steps from a customer’s report to the answer, by the role that takes each one.</p>
   <div class="cm-diagram" data-diagram="flow" role="img" aria-label="">
@@ -1460,7 +1696,7 @@
             <li>A report's summary has a lede, 2 to 4 KPIs with comparisons and 3 to 5 findings. Other kinds hold their parts in order.</li>
             <li>A required block left out carries its omission comment.</li>
             <li>Every number in the summary appears again, with its source, in the body.</li>
-            <li>Every figure has a kind, title, description, legend when there are 2+ series, axis titles with units, <code>aria-label</code> and source line.</li>
+            <li>Every figure has a kind, title, description, legend or end labels (2+ series), axis titles with units, <code>aria-label</code> and source line.</li>
             <li>Every table has a kind and title, <code>.num</code> on numeric columns, and a source caption.</li>
             <li>A report has one summary box and one recommendations card; guides and references have neither. At most one solid verdict chip per table.</li>
           </ol>

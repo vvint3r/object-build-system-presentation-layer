@@ -664,7 +664,7 @@ ol.cm-parts.cm-parts--matrix{--n:2}
   .cm-procedure>li,.cm-stages>li{padding-top:20px;padding-bottom:20px}
   .cm-procedure>li::before,.cm-stages>li::before{top:20px}
   .cm-figure__title,.cm-section__head,.cm-h3,.cm-h4,.cm-table-title{break-after:avoid}
-  .cm-chart svg{width:100%!important;height:auto!important}
+  .cm-chart svg{position:static!important;display:block;width:100%!important;height:auto!important}
   .cm-chart{height:auto!important;min-height:0}
   .cm-chart>div{width:100%!important;height:auto!important}
   .cm-sources a[href^="http"]::after{content:" · " attr(href);font-size:11px;font-weight:400}

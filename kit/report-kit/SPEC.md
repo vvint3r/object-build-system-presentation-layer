@@ -9,7 +9,7 @@ Kit files (all in `report-kit/`):
 | File | Role |
 | --- | --- |
 | `cm-report.css` | Tokens (light, dark, print) and every component class. The only stylesheet. |
-| `cm-report.js` | Theme toggle, ECharts theme + draw-in, diagram drawing and text versions, sortable tables, contents scroll-spy, link targets clear of the top bar, citation back links, print prep. |
+| `cm-report.js` | Theme toggle, ECharts theme + draw-in, charts built from kit declarations, diagram drawing and text versions, sortable tables, contents scroll-spy, link targets clear of the top bar, citation back links, print prep. |
 | `template.html` | Report starter. Copy it for every report. |
 | `template-guide.html` | Guide starter. Copy it for every guide. |
 | `template-reference.html` | Reference starter. Copy it for every reference. |
@@ -1185,9 +1185,9 @@ The kit has no search, faceted browse or version selector, since each needs a se
 
 ## 9. Charts
 
-**Method:** ECharts 5.5.1, SVG renderer, option JSON inside `<script type="application/json">` within `.cm-chart[data-chart]`. Agents **MUST NOT** call `echarts.init` or write chart JavaScript. The JSON **MUST** be valid JSON (double quotes, no comments, no functions, no trailing commas).
+**Method:** ECharts 5.5.1, SVG renderer, option JSON inside `<script type="application/json">` within `.cm-chart[data-chart]`. Agents **MUST NOT** call `echarts.init` or write chart JavaScript. The JSON **MUST** be valid JSON (double quotes, no comments, no functions, no trailing commas). Chart types that ECharts cannot draw from JSON alone are declared with a `"cm"` key (**Kit declarations** below).
 
-**Applied automatically — do not set these:** fonts, text colors, axis lines, gridlines, tick removal, legend look and placement, axis-title placement, plot top/bottom padding (worked out from the legend, axis titles, reference-line labels and a heatmap's scale bar), tooltip look, series palette, bar width (≤ 16px) and rounding, stacked-segment gaps, line width 2.5, hidden symbols, area opacity 0.18, markLine/markArea styling, label styling, heatmap ramp, animation timing, renderer.
+**Applied automatically — do not set these:** fonts, text colors, axis lines, gridlines, tick removal, legend look and placement, axis-title placement, plot top/bottom padding (worked out from the legend, axis titles, reference-line labels and a heatmap's scale bar), tooltip look, series palette, bar width (≤ 16px) and rounding, stacked-segment gaps, line width 2.5, hidden symbols, area opacity 0.18, markLine/markArea styling, label styling, spacing of end labels that would touch, heatmap ramp, animation timing, renderer, and everything a kit declaration draws.
 
 **Anatomy (MUST, in this order):**
 
@@ -1196,7 +1196,7 @@ The kit has no search, faceted browse or version selector, since each needs a se
 | Kind and number | `.cm-figure__kind` | “Figure N”, sequential across the report |
 | Title | `.cm-figure__title` | What is shown, ≤ 10 words |
 | Description | `.cm-figure__desc` | Measure, unit, scope and period |
-| Legend | automatic | Shown for 2+ series, top left, series order. `"legend": false` only to suppress it on a single series. End labels or value labels may be added; they never replace the legend |
+| Legend | automatic | Shown for 2+ series, top left, series order. `"legend": false` only to suppress it on a single series. A line chart whose every line carries an end label naming it (`"formatter": "{a}"` or the series name) has no legend, and neither has a slope chart: the labels name the lines where they are. Value labels, and end labels that do not name their line, sit alongside the legend |
 | Axis titles | `xAxis.name`, `yAxis.name` | Quantity and unit (“Tickets per week”). Required on the value axis unless every tick shows the unit (“90%”). Scatter names both axes. The kit places a y-axis title above the plot and an x-axis title under it, on a value or a category axis, and makes room for each |
 | Data labels | `label`, `endLabel` | Values the reader should quote; every bar when there are ≤ 12 |
 | Annotations | `markLine`, `markArea` | Target, event or period, labelled in 1–3 words |
@@ -1213,26 +1213,138 @@ The kit has no search, faceted browse or version selector, since each needs a se
 - Focus on one mark: in a bar, line or area series, the picked-out mark keeps the default colour and the rest of the series takes `$context`.
 - Scatter points and other point marks keep their series colour, and the picked-out point takes `$c1` and a label. Grey points would sit below 3:1, each needing a value label.
 - Semantic solids (`$ok`, `$warn`, `$crit`) only when the series *is* a status, with words in the legend.
+- Slope lines are ink. Lines picked out take `"color": "$c1"` (up to four, `$c1` to `$c4`), and the rest turn `$context`; the labels at both ends carry every value.
+- Bullet bands are grey steps, darkest first: `$field`, `$hairline`, `$track`. An interval band takes its line's colour at the area opacity, 0.18.
 
-**Chart choice:**
+**Recipes by question.** Pick the chart by the question the reader brings to it. Each recipe gives the chart, when it fits, the data it needs, the annotation it usually wants and the mistake to avoid. Types marked `cm` are kit declarations (below).
 
-| Question | Chart | Notes |
-| --- | --- | --- |
-| Change over time | `line` | Category x-axis with `"boundaryGap": false`; y may start above zero |
-| Level over time, one series | `line` + `"areaStyle": {}` | y starts at zero |
-| Compare categories | `bar` | Horizontal (`yAxis.type: "category"`) when labels are long or ranked; sort largest at top (data listed smallest first) |
-| Composition over time | stacked `bar` | ≤ 4 parts, `"stack": "name"`; do not set radius or width |
-| Relationship | `scatter` | Name both axes with units |
-| Two categories × magnitude | `heatmap` | `visualMap` with min/max and `text` end labels; `"yAxis": {"inverse": true}` |
-| Part of a whole | `pie` with `"radius": ["44%","66%"]` | ≤ 4 slices, labels with name and value, only when the total matters |
+*Comparison: how categories differ on one measure.*
+
+| Chart | Use when | Data | Annotation | Common mistake |
+| --- | --- | --- | --- | --- |
+| `bar` | A few to a dozen categories on one measure | One value per category. Horizontal (`yAxis.type: "category"`) when labels are long or ranked, largest at top (data listed smallest first) | Value labels on every bar up to 12; a target as a `markLine` | A value axis that does not start at zero |
+| Bullet: `bar` + `cm` | Each measure against its target, with optional bands that grade it | A value and a target per measure, all in one unit | Target mark, values and band names, all drawn by the kit | Measures in different units on one axis |
+| `heatmap` | A magnitude across two categories at once, such as weekday by hour | One value per cell; `visualMap` with min/max and `text` end labels; `"yAxis": {"inverse": true}` | The scale bar's end labels | More rows than fit at about 40px each |
+
+*Change: how a measure moves over time.*
+
+| Chart | Use when | Data | Annotation | Common mistake |
+| --- | --- | --- | --- | --- |
+| `line` | A measure over many periods | One value per period; category x-axis with `"boundaryGap": false`; y may start above zero | Events as vertical `markLine`; end labels naming each line | More than four coloured lines |
+| Area: `line` + `"areaStyle": {}` | One level over time, where the total matters | One series; y starts at zero | A threshold as `markLine` | Two series as areas, which hide each other |
+| Slope: `line` + `cm` | Two points in time per category, where the change matters more than the path | Two values per line; two categories on the x-axis | Labels at both ends, drawn by the kit; lines picked out in `$c1` | Three or more periods, which a line chart shows better |
+
+*Distribution: how values spread within each group.*
+
+| Chart | Use when | Data | Annotation | Common mistake |
+| --- | --- | --- | --- | --- |
+| Strip: `scatter` + `cm` | Each value matters, up to a few hundred per category | Every value, per category | Count and median, drawn by the kit | An average alone, which hides the spread and the outliers |
+| Box: `boxplot` + `cm` | Many values per category, or only their summaries | Every value per category, or five numbers and a count per category | Count, drawn by the kit | A box over a handful of values, where a strip shows each one |
+
+*Uncertainty: how sure an estimate is.*
+
+| Chart | Use when | Data | Annotation | Common mistake |
+| --- | --- | --- | --- | --- |
+| Interval band: `line` + `cm` | An estimate or forecast over time | A low and a high per point, and the interval's name | The interval's name in the legend, drawn by the kit | A band without a name, which a reader cannot weigh |
+| Error bars: `bar` or `scatter` + `cm` | Estimates per category, such as survey results | A low and a high per bar or point, and the interval's name | As for the band | Error bars on stacked bars, whose segments carry no estimate of their own |
+
+*Composition: how a whole divides into parts.*
+
+| Chart | Use when | Data | Annotation | Common mistake |
+| --- | --- | --- | --- | --- |
+| Stacked `bar` | Parts of a whole over time or across categories | Up to 4 parts, `"stack": "name"`; do not set radius or width | Value axis in percent when the shares matter | More than four parts |
+| Donut: `pie` with `"radius": ["44%","66%"]` | One whole in up to four parts, when the total matters | Up to 4 slices | Labels with name and value, which act as the legend | Two donuts side by side, where a stacked bar compares better |
+
+*Relationship: how two measures move together.*
+
+| Chart | Use when | Data | Annotation | Common mistake |
+| --- | --- | --- | --- | --- |
+| `scatter` | Two measures per item, such as teams or accounts | A pair of values per item; name both axes with units | The picked-out point in `$c1` with a label | Reading a correlation as a cause |
 
 **MUST NOT:** 3D, gradient fills, dual y-axes, radar, gauge, word clouds, more than one chart per figure, bars or areas that do not start at zero, a `barWidth` above 16.
+
+An interval band and a box mark a range, not a level, so the zero rule does not apply to them; a bullet's bar is a bar and starts at zero.
 
 **Annotations:**
 - Target or threshold: `"markLine": {"data": [{"yAxis": 95, "label": {"formatter": "Target 95%", "position": "insideStartTop"}}]}` (use `xAxis` for vertical lines and horizontal bars, `position: "end"`).
 - Event: vertical markLine on the category (`{"xAxis": "Wk 7"}`) with a 1–3 word label.
 - Period band: `"markArea": {"data": [[{"xAxis": "Wk 6"}, {"xAxis": "Wk 8"}]]}`.
-- Direct labels: `"endLabel": {"show": true, "formatter": "Q3"}` on lines (add `"grid": {"right": 64}`); `"label": {"show": true, "position": "right", "formatter": "{c}%"}` on bars. The kit sets every value label, on a series or on a single point, in ink on the surface colour, and draws a series above its reference lines, so a line never runs through a number.
+- Direct labels: `"endLabel": {"show": true, "formatter": "{a}"}` names a line at its end (add `"grid": {"right": 64}`, more for long names); when every line carries one, the legend is left out. `"label": {"show": true, "position": "right", "formatter": "{c}%"}` on bars. The kit sets every value label, on a series or on a single point, in ink on the surface colour, and draws a series above its reference lines, so a line never runs through a number. End labels that would touch move apart.
+
+**Kit declarations.** Option JSON carries no functions, so four chart types are declared with a `"cm"` key and built by the kit's script at every draw, from the current tokens: theme, print and dark mode work as for any chart. The rest of the JSON stays ordinary ECharts, with its axes, series names, axis titles and annotations, and every rule above applies to it. `chart` names the type.
+
+| Declaration | Where | Fields | What the kit draws |
+| --- | --- | --- | --- |
+| `{"chart": "slope"}` | Top level of a line chart | None | Each line's two points, with a label at both ends giving its name and value; no legend, no y-axis labels or gridlines |
+| `{"chart": "bullet", …}` | On a `bar` series, categories on the y-axis | `target`: one number, or one per bar. `bands` (optional): 1 to 3 `{"to": 90, "name": "Breach"}`, from the axis start; the last runs to the axis end and needs no `to` | A grey track per bar, stepped by band; the bar 8px thick on it; the target as a 2px ink mark across it; each value at the end of its row; band names above the top row; a legend naming the bar and the target |
+| `{"chart": "strip", "values": […]}` | On a `scatter` series on a category axis | `values`: every value, one list per category | Each value as a hollow dot, spread across its row; the median as an ink mark; the count under each category name |
+| `{"chart": "box", …}` | On a `boxplot` series | `values` as for a strip; or, from summaries, `[low, q1, median, q3, high]` per category in `data` and the counts in `n` | Quartiles by linear interpolation; whiskers to the furthest values within 1.5 times the interquartile range; values past them as hollow dots named "Outliers"; the count under each category name |
+| `{"chart": "interval", …}` | On a `line`, `bar` or `scatter` series | `name`: the interval's level or kind ("90% interval", "95% confidence interval", "Interquartile range"). `low`, `high`: one number per point | Around a line, a band in its colour; on bars and points, 1.5px ink error bars with 8px caps, and each value label past its error bar; the name in the legend |
+
+- A bullet is horizontal, and its measures share one unit and one value axis, which starts at zero. Measures in different units go in figures of their own.
+- A chart holds one distribution series, so each category has one count.
+- The value axis's formatter (`"{value}%"`) writes the values a declaration labels: a slope's ends, a bullet's values and its target. A bar's own `label.formatter` wins for a bullet.
+
+Slope:
+
+```json
+{
+  "cm": {"chart": "slope"},
+  "xAxis": {"type": "category", "data": ["Q2 2026", "Q3 2026"]},
+  "yAxis": {"type": "value", "axisLabel": {"formatter": "{value}%"}},
+  "series": [
+    {"name": "Chat", "type": "line", "data": [94.0, 96.1]},
+    {"name": "Email", "type": "line", "data": [86.1, 88.3], "color": "$c1"},
+    {"name": "Web form", "type": "line", "data": [87.5, 86.9]}
+  ]
+}
+```
+
+Bullet:
+
+```json
+{
+  "xAxis": {"type": "value", "min": 0, "max": 100, "axisLabel": {"formatter": "{value}%"}},
+  "yAxis": {"type": "category", "data": ["Billing specialists", "Tier 1 · APAC", "Tier 1 · Americas"]},
+  "series": [{"name": "Within SLA", "type": "bar", "data": [82.6, 87.4, 94.6],
+    "cm": {"chart": "bullet", "target": 95,
+           "bands": [{"to": 85, "name": "Breach"}, {"to": 92, "name": "At risk"}, {"name": "On track"}]}}]
+}
+```
+
+Strip (for a box, the same with `"type": "boxplot"` and `"chart": "box"`):
+
+```json
+{
+  "xAxis": {"type": "value", "name": "First response, hours"},
+  "yAxis": {"type": "category", "data": ["Chat", "Email"]},
+  "series": [{"name": "Tickets", "type": "scatter",
+    "cm": {"chart": "strip", "values": [[0.2, 0.4, 0.3, 0.6], [2.1, 3.5, 4.2, 2.8, 5.1]]}}]
+}
+```
+
+Box from summaries:
+
+```json
+{
+  "xAxis": {"type": "value", "name": "First response, hours"},
+  "yAxis": {"type": "category", "data": ["Chat", "Email"]},
+  "series": [{"name": "First response", "type": "boxplot",
+    "data": [[0.1, 0.3, 0.5, 0.8, 1.4], [1.2, 2.6, 3.4, 4.6, 7.9]],
+    "cm": {"chart": "box", "n": [4120, 6380]}}]
+}
+```
+
+Interval (a band on a line; on a `bar` or `scatter` series the same fields draw error bars):
+
+```json
+{
+  "xAxis": {"type": "category", "boundaryGap": false, "data": ["Oct", "Nov", "Dec"]},
+  "yAxis": {"type": "value", "name": "Tickets per week", "min": 3000},
+  "series": [{"name": "Forecast", "type": "line", "data": [3650, 3720, 3900],
+    "cm": {"chart": "interval", "name": "80% interval", "low": [3600, 3600, 3700], "high": [3700, 3850, 4120]}}]
+}
+```
 
 **Formatting:** axis label formatters as template strings only (`"{value}%"`). Category labels short (`Wk 1`, `Jul`, `Mon`). Thin crowded axes with `"axisLabel": {"interval": 2}`.
 
@@ -1340,7 +1452,7 @@ Headings are `h1` to `h6` and table titles.
 2. Top bar with the wordmark, one series chip and the theme toggle; a print button only when the document is asked to carry one. Masthead complete with labelled metadata and the type chip for the kind; title ≤ 10 words. A report's period left out of the masthead or the title carries its omission comment (§7.5); a guide or a reference has no period.
 3. Report summary: lede, 2 to 4 KPIs with stated comparisons (or the KPI strip's omission comment, §7.5), 3 to 5 findings.
 4. Every summary number reappears in the body with its source.
-5. Every figure: kind, title, description, legend for 2+ series, value-axis title with unit, `role="img"`, `aria-label`, caption with a source line. Figure numbers sequential.
+5. Every figure: kind, title, description, legend for 2+ series (or an end label naming every line), value-axis title with unit, `role="img"`, `aria-label`, caption with a source line. Figure numbers sequential.
 6. Every table: kind and title, `.num` on numeric columns, `data-value` on formatted cells, source caption; row flags explained.
 7. Budgets: in a report, 1 `cm-featured` (none with the Recommendations omission comment, §7.5) and 1 `cm-summary`; in a guide or a reference, neither. ≤ 1 verdict chip per table, ≤ 1 `cm-emph` per section, ≤ 4 colored chart series.
 8. Mono only inside code; no colored fills behind labels or chips.
@@ -1386,6 +1498,8 @@ Changed in 1.2:
 Added for guides and references: document kinds (§7), procedure (§8.23), related list (§8.24).
 
 Added for reference pages: workflow, framework, model, method, requirement, evaluation and metric detail (§8.25 to §8.30).
+
+Added for charts: recipes by question; bullet, slope, strip, box and interval charts declared with a `cm` key; end labels that name every line in place of the legend (§9).
 
 Added for document sets: document ids and addresses, the breadcrumb from set to area to document, the generated index page and the link check (§8.31).
 

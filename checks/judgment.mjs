@@ -231,7 +231,7 @@ export default [
     name: 'chart-label', level: 'warn', source: 'SPEC §8.10; §9', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, out = [];
-      const TYPE = /\b(bar|column|line|area|scatter|pie|donut|doughnut|heatmap|histogram|dot|slope|dumbbell|waterfall|funnel|box|chart|plot)\b/i;
+      const TYPE = /\b(bar|column|line|area|scatter|pie|donut|doughnut|heatmap|histogram|dot|slope|dumbbell|waterfall|funnel|box|bullet|strip|chart|plot)\b/i;
       for (const el of H.source().querySelectorAll('.cm-chart[aria-label]')) {
         if (H.exempt(el, check)) continue;
         const label = el.getAttribute('aria-label').trim();

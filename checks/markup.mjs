@@ -14,10 +14,11 @@ export default [
     // The required head, in order. Other elements may sit between the required ones. The kind tag,
     // when present, follows the kit tag and names one of the three kinds. A report's title carries
     // its period, or the omission comment in the head; a guide's or a reference's title is the
-    // title alone (SPEC §2; §7).
+    // title alone (SPEC §2; §7). In the offline mode the kit's font faces take the place of the font
+    // links, ECharts sits inline, and the kit CSS and JS are pasted as in the self-contained mode.
     name: 'head-order', level: 'fail', source: 'SPEC §2; §7', once: true,
     inPage: () => {
-      const H = window.__cm, d = H.source(), kit = H.cfg.kit;
+      const H = window.__cm, d = H.source(), kit = H.cfg.kit, off = kit.offline;
       const same = (a, b) => a.replace(/\r\n/g, '\n').trim() === b.replace(/\r\n/g, '\n').trim();
       const attr = (el, a) => el.getAttribute(a) || '';
       const ECHARTS = 'https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js';
@@ -31,6 +32,13 @@ export default [
       }
       const report = H.kind() === 'report';
       const noPeriod = !report || H.omitted(d.head, 'title-period');
+      const fonts = off
+        ? [['kit font faces (<style> of @font-face rules, written by tools/pack.mjs)', el => el.matches('style') && same(el.textContent, off.fonts)]]
+        : [
+          ['preconnect to fonts.googleapis.com', el => el.matches('link[rel="preconnect"]') && attr(el, 'href') === 'https://fonts.googleapis.com'],
+          ['preconnect to fonts.gstatic.com, crossorigin', el => el.matches('link[rel="preconnect"][crossorigin]') && attr(el, 'href') === 'https://fonts.gstatic.com'],
+          ['Google Fonts stylesheet', el => el.matches('link[rel="stylesheet"]') && attr(el, 'href') === kit.fonts],
+        ];
       const want = [
         ['<meta charset="utf-8">', el => el.matches('meta[charset]') && /^utf-8$/i.test(attr(el, 'charset'))],
         ['<meta name="viewport">', el => el.matches('meta[name="viewport"]') && attr(el, 'content').replace(/\s/g, '') === 'width=device-width,initial-scale=1'],
@@ -40,11 +48,13 @@ export default [
         ['<meta name="cm-kit" content="1.2">', el => el.matches('meta[name="cm-kit"]') && attr(el, 'content') === '1.2'],
         ...(metas.length ? [['<meta name="cm-kind">, after cm-kit', el => el.matches('meta[name="cm-kind"]')]] : []),
         ['theme pre-paint script', el => el.matches('script:not([src])') && same(el.textContent, kit.prepaint)],
-        ['preconnect to fonts.googleapis.com', el => el.matches('link[rel="preconnect"]') && attr(el, 'href') === 'https://fonts.googleapis.com'],
-        ['preconnect to fonts.gstatic.com, crossorigin', el => el.matches('link[rel="preconnect"][crossorigin]') && attr(el, 'href') === 'https://fonts.gstatic.com'],
-        ['Google Fonts stylesheet', el => el.matches('link[rel="stylesheet"]') && attr(el, 'href') === kit.fonts],
-        ['kit CSS (cm-report.css, linked or pasted)', el => (el.matches('link[rel="stylesheet"]') && /(^|\/)cm-report\.css$/.test(attr(el, 'href'))) || (el.matches('style') && same(el.textContent, kit.css))],
-        ['ECharts 5.5.1', el => el.matches('script') && attr(el, 'src') === ECHARTS],
+        ...fonts,
+        off
+          ? ['kit CSS (cm-report.css, pasted)', el => el.matches('style') && same(el.textContent, kit.css)]
+          : ['kit CSS (cm-report.css, linked or pasted)', el => (el.matches('link[rel="stylesheet"]') && /(^|\/)cm-report\.css$/.test(attr(el, 'href'))) || (el.matches('style') && same(el.textContent, kit.css))],
+        off
+          ? ['ECharts 5.5.1 (pasted)', el => el.matches('script:not([src])') && same(el.textContent, off.echarts)]
+          : ['ECharts 5.5.1', el => el.matches('script') && attr(el, 'src') === ECHARTS],
       ];
       const kids = [...d.head.children];
       let last = -1, lastName = '';
@@ -54,11 +64,12 @@ export default [
         if (at < last) out.push({ where: H.path(kids[at]), value: `out of order: ${name} comes before ${lastName}` });
         else { last = at; lastName = name; }
       }
-      // Kit JS: linked in the head after ECharts, or pasted as the last element of the body.
-      const linked = kids.findIndex(el => el.matches('script') && /(^|\/)cm-report\.js$/.test(attr(el, 'src')));
+      // Kit JS: linked in the head after ECharts, or pasted as the last element of the body. The
+      // offline mode pastes it.
+      const linked = off ? -1 : kids.findIndex(el => el.matches('script') && /(^|\/)cm-report\.js$/.test(attr(el, 'src')));
       const lastEl = d.body.lastElementChild;
       const pasted = lastEl && lastEl.matches('script:not([src])') && same(lastEl.textContent, kit.js);
-      if (linked < 0 && !pasted) out.push({ where: 'head', value: 'missing: kit JS (cm-report.js in the head, or pasted as the last element of the body)' });
+      if (linked < 0 && !pasted) out.push({ where: 'head', value: `missing: kit JS (${off ? 'pasted' : 'cm-report.js in the head, or pasted'} as the last element of the body)` });
       else if (linked >= 0 && linked < last) out.push({ where: H.path(kids[linked]), value: `out of order: kit JS comes before ${lastName}` });
       return out;
     },
@@ -73,8 +84,10 @@ export default [
         const href = l.getAttribute('href') || '';
         if (!href.startsWith('https://fonts.googleapis.com/') && !/(^|\/)cm-report\.css$/.test(href) && !H.exempt(l, check)) out.push({ where: H.path(l), value: `stylesheet ${href}` });
       }
+      // The kit's stylesheet, pasted, and in the offline mode the kit's font faces (SPEC §2).
+      const kitOwn = t => same(t, H.cfg.kit.css) || (H.cfg.kit.offline && same(t, H.cfg.kit.offline.fonts));
       for (const s of d.querySelectorAll('style')) {
-        if (!same(s.textContent, H.cfg.kit.css) && !H.exempt(s, check)) out.push({ where: H.path(s), value: `<style> block of ${s.textContent.trim().split('\n').length} lines that is not cm-report.css` });
+        if (!kitOwn(s.textContent) && !H.exempt(s, check)) out.push({ where: H.path(s), value: `<style> block of ${s.textContent.trim().split('\n').length} lines that is not cm-report.css` });
       }
       return out;
     },

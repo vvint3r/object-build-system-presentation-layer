@@ -10,8 +10,9 @@ export default [
     // The first part opens the document with one paragraph; Notes & sources closes it. A part the
     // spec lets a document leave out may be replaced by its omission comment in <main>. A document
     // may add sections between the required parts. No KPI strip: the summary and
-    // featured budgets (checks/budgets.mjs) hold the other blocks these kinds never carry.
-    name: 'kind-anatomy', level: 'fail', source: 'SPEC §7.3; §7.4; §7.5', once: true, kinds: ['guide', 'reference'],
+    // featured budgets (checks/budgets.mjs) hold the other blocks these kinds never carry. In a
+    // glossary, Terms takes the place of Properties (SPEC §7.8), the one substitution a page type makes.
+    name: 'kind-anatomy', level: 'fail', source: 'SPEC §7.3; §7.4; §7.5; §7.8', once: true, kinds: ['guide', 'reference'],
     inPage: ({ check }) => {
       const H = window.__cm, d = H.source(), out = [], kind = H.kind();
       const SOURCES = { id: 'sources', name: 'Notes & sources', has: '.cm-sources', what: 'a sources list (.cm-sources)' };
@@ -26,7 +27,9 @@ export default [
         ],
         reference: [
           { id: 'definition', name: 'Definition', lede: true },
-          { id: 'properties', name: 'Properties', has: '.cm-props', what: 'a property sheet (.cm-props)' },
+          H.type() === 'glossary'
+            ? { id: 'terms', name: 'Terms', has: 'aside.cm-def', what: 'a definition block (aside.cm-def)' }
+            : { id: 'properties', name: 'Properties', has: '.cm-props', what: 'a property sheet (.cm-props)' },
           { id: 'relationships', name: 'Relationships', omit: true },
           { id: 'examples', name: 'Examples', omit: true },
           SOURCES,

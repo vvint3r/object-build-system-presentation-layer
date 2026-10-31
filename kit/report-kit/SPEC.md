@@ -13,11 +13,14 @@ Kit files (all in `report-kit/`):
 | `template.html` | Report starter. Copy it for every report. |
 | `template-guide.html` | Guide starter. Copy it for every guide. |
 | `template-reference.html` | Reference starter. Copy it for every reference. |
+| `template-topic.html` | Topic starter: a reference with the topic's parts (§7.7). |
+| `template-glossary.html` | Glossary starter: a reference with Terms in the place of Properties (§7.8). |
+| `template-module.html` | Module starter: a guide with the module's parts (§7.9). |
 | `template-roadmap.html` | Roadmap starter: a report with the roadmap’s parts (§7.14). |
 | `template-case-study.html` | Case study starter: a report with the case study’s parts (§7.15). |
 | `SPEC.md` | This file. |
 
-Human-readable version with live examples and copy-paste markup: `Report Kit - Spec & Gallery.html`. Reference output, one document per kind (§7): `Sample Report - Q3 Support Review.html`, `Guide - Billing Escalation.html` and `Reference - First Response Time.html`. The three form a document set, and `index.html` lists them (§8.31).
+Human-readable version with live examples and copy-paste markup: `Report Kit - Spec & Gallery.html`. Reference output, one document per kind (§7): `Sample Report - Q3 Support Review.html`, `Guide - Billing Escalation.html` and `Reference - First Response Time.html`. The three form a document set, and `index.html` lists them (§8.31). Each page type has one worked example in the set, such as `Reference - Support Glossary.html` for the glossary (§7.6).
 
 ---
 
@@ -63,7 +66,7 @@ The pack tool (`tools/pack.mjs`) writes the offline form of a page in either oth
 
 The file makes no network request. Characters outside the Latin subset fall back to a system face.
 
-Required `<head>` (copy from the kind's template, in this order): charset, viewport, `<title>{Report title} · {Period}</title>` (`<title>{Title}</title>` for a guide, a reference, or a report that covers no period, §7), `<meta name="cm-kit" content="1.2">`, `<meta name="cm-kind" content="{kind}">` naming the kind (`report`, `guide` or `reference`; a page without it is a report, §7), `<meta name="cm-id" content="{id}">` naming the document (§8.31), the inline theme pre-paint script, font preconnects + Google Fonts link (Nunito 300 to 900 + italic 300/400, JetBrains Mono 400/600/700; offline: the font `<style>` in their place), kit CSS, ECharts 5.5.1, kit JS. `<html lang>` **MUST** be set.
+Required `<head>` (copy from the kind's template, in this order): charset, viewport, `<title>{Report title} · {Period}</title>` (`<title>{Title}</title>` for a guide, a reference, or a report that covers no period, §7), `<meta name="cm-kit" content="1.2">`, `<meta name="cm-kind" content="{kind}">` naming the kind (`report`, `guide` or `reference`; a page without it is a report, §7), `<meta name="cm-id" content="{id}">` naming the document (§8.31), an optional `<meta name="cm-type" content="{type}">` naming the page type (§7.6), the inline theme pre-paint script, font preconnects + Google Fonts link (Nunito 300 to 900 + italic 300/400, JetBrains Mono 400/600/700; offline: the font `<style>` in their place), kit CSS, ECharts 5.5.1, kit JS. `<html lang>` **MUST** be set.
 
 ## 3. Tokens
 
@@ -135,7 +138,7 @@ Never stack a shadow with a border except where the class does it. Never nest a 
 
 The kit builds three kinds of document. A **report** sets out what the numbers show and what to do about them. A **guide** takes a reader through one task, step by step. A **reference** describes one thing, such as a metric, a dataset or a system, for a reader to look up.
 
-A `<meta name="cm-kind">` tag in `<head>`, straight after `cm-kit`, names the kind: `report`, `guide` or `reference`. A page without the tag is a report. Each kind starts from its own template (§1 rule 1). A `cm-id` tag follows, naming the document (§8.31). A page without one passes with a warning until kit 2.0, when the tag becomes required. The index page of a document set carries the kind `index`; a script writes it (§8.31).
+A `<meta name="cm-kind">` tag in `<head>`, straight after `cm-kit`, names the kind: `report`, `guide` or `reference`. A page without the tag is a report. Each kind starts from its own template (§1 rule 1). A `cm-id` tag follows, naming the document (§8.31). A page without one passes with a warning until kit 2.0, when the tag becomes required. The index page of a document set carries the kind `index`; a script writes it (§8.31). An optional `cm-type` tag after `cm-id` names a page type, a recipe on one kind (§7.6).
 
 ```html
 <meta name="cm-kit" content="1.2">
@@ -225,6 +228,141 @@ A document can lack the content of a block its kind requires: a briefing without
 | Examples section | Reference | The thing has no case to work through | `examples` | In `<main>`, where the section would be |
 
 No other block is left out this way. A required block missing without its omission comment fails the checks.
+
+### 7.6 Page types
+
+A page type is **a recipe on one document kind** for a reader's question that recurs, such as what a set of terms means. A typed page is a document of its kind: it keeps every required part of the kind, in order, and adds parts of its own. A type never removes a kind's part. The one substitution is the glossary's, where Terms takes the place of Properties (§7.8).
+
+A `<meta name="cm-type">` tag in `<head>`, straight after `cm-id`, names the type. The tag is optional: a page without it is a plain document of its kind, held to the kind's parts alone. The value comes from the selection table below, and the type's kind is the page's `cm-kind`.
+
+```html
+<meta name="cm-kind" content="reference">
+<meta name="cm-id" content="reference-support-glossary">
+<meta name="cm-type" content="glossary">
+```
+
+- A typed page starts from its type's template, `template-<type>.html`: the kind's template with the type's parts in place (§1 rule 1).
+- File name, id and the masthead's type chip follow the kind (§7.1, §8.31): `Reference - Support Glossary.html`, chip `Reference`. The top bar's series chip may name the type, such as `Glossary`.
+- The checks for a type run only on pages that carry its tag; other pages skip them.
+
+#### Recipe
+
+Each type's section states the same fields, in this order.
+
+| Field | What it states |
+| --- | --- |
+| Reader's question | The question the page answers |
+| Kind | The kind the type builds on |
+| Choose it | When the type fits rather than its nearest neighbour |
+| Required parts | Each part's id, and where it sits among the kind's parts |
+| Optional parts | Parts a page may add, with their ids and places |
+| Components | The kit components the parts use |
+| Evidence rules | What the parts cite, and what stays out of them |
+
+#### Selection
+
+The type to use is the one whose question is the reader's. The neighbour column separates the near cases. A report with no type is the plain report of §7.2.
+
+| Type | `cm-type` | Kind | Reader's question | Nearest neighbour | Section |
+| --- | --- | --- | --- | --- | --- |
+| Guide | none | Guide | How is this task carried out? | Module: a guide's steps do the task once; a module teaches it and checks the learning. | §7.3 |
+| Reference | none | Reference | What is this one thing, and what are its facts? | Topic: a reference describes one thing; a topic explains a subject of several parts and links out for each. | §7.4 |
+| Topic | `topic` | Reference | What is this subject, and which documents cover each part? | Index page (§8.31): the index is a generated listing of a folder that explains nothing; a topic is written, explains each part and gives a reason for each link. | §7.7 |
+| Glossary | `glossary` | Reference | What does each term mean in this set of documents? | Reference: a reference describes one thing in full; a glossary defines five or more terms, a few sentences each. Fewer terms go in a definition block (§8.5) of the document that uses them. | §7.8 |
+| Module | `module` | Guide | How is this skill learnt, and how is the learning checked? | Guide: a guide is instructions a reader carries out; a module teaches a rule through lessons and checks it with exercises. | §7.9 |
+| Framework | `framework` | Reference | What parts make up this way of covering a subject? | Framework component (§8.26): the component is one block on any page; a framework page is a whole reference about one framework. | §7.10 |
+| Process | `process` | Reference | How does this process run, stage by stage? | Guide: a process page describes how the work runs, with a workflow (§8.25) and a flow diagram; a guide is instructions a reader carries out. | §7.11 |
+| Metric | `metric` | Reference | What does this measure count, and how is it judged? | Metric detail (§8.30): the component is one block on any page; a metric page is a whole reference about one measure. | §7.12 |
+| Comparison | `comparison` | Reference | How do these options differ on the same criteria? | Reference: a reference describes one thing; a comparison sets two or more side by side. | §7.13 |
+| Roadmap | `roadmap` | Report | What has to happen, by whom and by when, to reach one goal? | Report: a plain report shows what past numbers say; a roadmap plans dated work toward a goal. | §7.14 |
+| Case study | `case-study` | Report | What changed after one intervention, and how far does the evidence support it? | Report: a plain report reviews a period; a case study judges one change by its measures before and after. | §7.15 |
+
+### 7.7 Topic
+
+A topic is the written overview of a subject made of several parts, such as service levels, with the documents that cover each part. Worked example: `Reference - Service Levels.html`.
+
+- **Reader's question:** what is this subject, and which documents cover each part of it?
+- **Kind:** reference (§7.4).
+- **Choose it** over the index page (§8.31) when the reader needs the subject explained, not a folder listed. Choose a plain reference when the subject is one thing whose facts fit one property sheet.
+- **Required parts:** Subtopics (`subtopics`), after Definition and before Properties. A lede, then two or more groups, one per part of the subject. Each group is a `.cm-stack` under an h3 naming the part. It holds a paragraph that explains the part, then a related list (§8.24) of the documents that cover it, every link leading out of the page.
+- **Optional parts:** Reading order (`reading-order`), after Subtopics and before Properties: an ordered list (`ol.cm-olist`) of documents in the order a newcomer reads them, each a link with its reason after it.
+- **The kind's parts:** Definition says what the subject spans and what falls outside it. Properties holds facts the subtopics do not state, such as targets, owner and source system. Relationships names neighbouring subjects. Examples follow one case through several parts.
+- **Components:** related list (§8.24), property sheet (§8.7), lists (§8.14).
+- **Evidence rules:** a topic states rules and targets, never a period's results. Results stay in the report that measures them, reached by a link, or sit in a dated status block (§8.22). A subtopic says enough to choose its links and does not repeat the documents behind them.
+
+```html
+<section class="cm-section" id="subtopics" aria-labelledby="subtopics-t">
+  <header class="cm-section__head">…</header>
+  <div class="cm-section__body">
+    <div class="cm-prose"><p>A lede, with its key phrase in bold.</p></div>
+    <div class="cm-stack">
+      <h3 class="cm-h3">First response time</h3>
+      <div class="cm-prose"><p>What this part of the subject is and how it works.</p></div>
+      <ul class="cm-related">
+        <li><span class="cm-tag">Reference</span><a href="Reference%20-%20First%20Response%20Time.html#measurement">First response time</a><p>What the reader finds there.</p></li>
+      </ul>
+    </div>
+    <!-- one .cm-stack per part, two or more -->
+  </div>
+</section>
+```
+
+### 7.8 Glossary
+
+A glossary defines the terms that several documents in a set share, each in the sense the set uses. Worked example: `Reference - Support Glossary.html`.
+
+- **Reader's question:** what does each term mean in this set of documents?
+- **Kind:** reference (§7.4), with Terms (`terms`) in the place of Properties. A glossary has no Properties section. In a glossary, the facts a reader looks up are the terms themselves; a property sheet about the glossary would repeat its masthead, byline and sources.
+- **Choose it** over a plain reference when the reader looks up many terms, a few sentences each. Choose a definition block (§8.5) in the document that uses the terms when there are fewer than five, or one document uses them.
+- **Required parts:** Terms (`terms`), after Definition and before Relationships. A lede, then definition blocks (§8.5) holding five or more terms in all. With more than one block, each sits in a `.cm-stack` under an h3 that names what its terms describe. Terms run A to Z within a block, and each term is defined once on the page.
+- **Optional parts:** none.
+- **The kind's parts:** Definition says what the glossary covers, what its terms follow, and what falls outside it. Relationships links the documents that use the terms. Examples work several terms through one case with real times or values.
+- **Components:** definition (§8.5), related list (§8.24).
+- **Evidence rules:** each definition cites the policy, dataset or system it follows (§8.21), and changes only when that source does. A definition holds no number that will change (§13.2).
+
+```html
+<div class="cm-stack">
+  <h3 class="cm-h3">Clocks and waits</h3>
+  <aside class="cm-def">
+    <span class="cm-def__label">Definitions</span>
+    <dl>
+      <div><dt>Business hours</dt><dd>What the term covers and how it counts, 15 to 60 words.<a class="cm-cite" href="#src-1" id="cite-1">S1</a></dd></div>
+    </dl>
+  </aside>
+</div>
+```
+
+### 7.9 Module
+
+A module teaches one skill through lessons and checks it with exercises, for a reader who must apply a rule to new cases. Worked example: `Guide - First Response Basics.html`.
+
+- **Reader's question:** how is this skill learnt, and how is the learning checked?
+- **Kind:** guide (§7.3).
+- **Choose it** over a plain guide when the reader must understand a rule well enough to apply it unaided. A guide's steps do the work once; a module's lessons teach it, and its exercises check it.
+- **Required parts:**
+  1. Objectives (`objectives`), after Purpose and before Prerequisites: an ordered list (`ol.cm-olist`) of 2 to 5 objectives. Each says in one sentence what the reader can do afterwards, and links to the lesson that teaches it and the exercise that checks it.
+  2. Lessons: the guide's Steps part (`steps`), titled `Lessons`. Each lesson is a procedure step (§8.23) with an id, `lesson-1`, `lesson-2` and on: the rule it teaches, a worked case, and an outcome.
+  3. Exercises (`exercises`), after Lessons and before Exceptions and recovery: a lede, then one group per exercise. Each group is a `.cm-stack` with an id, `exercise-1` and on, an h3, the task, and the answer in a closed collapsible (§8.16) labelled `Answer`. Every exercise checks a stated objective.
+- **Optional parts:** none.
+- **The kind's parts:** Prerequisites names what the lessons assume. Exceptions and recovery covers the cases where the rule misleads, and how to read them. Related documents links the references the lessons summarise.
+- **Components:** procedure (§8.23), lists (§8.14), collapsible (§8.16), related list (§8.24); a model (§8.27) when a lesson teaches one.
+- **Evidence rules:** rules and limits in a lesson carry their source, as in any guide step (§7.3). Exercise cases are illustrative and say so; each answer shows its working. Figures that change over time stay out of lessons and exercises.
+- **Static:** a module records nothing about its reader. It carries no form controls, scores, progress tracking or resume point, and no interactive check such as a multiple-choice question. An answer stays closed until the reader opens it, and print opens every answer (§12).
+
+```html
+<div class="cm-stack" id="exercise-1">
+  <h3 class="cm-h3">Chat with an acknowledgement and a note</h3>
+  <div class="cm-prose"><p>The task, with the inputs it needs.</p></div>
+  <div class="cm-bleed">
+    <details class="cm-collapse">                          <!-- never open -->
+      <summary><div><span class="cm-label">Answer</span><h4>Exercise 1</h4></div></summary>
+      <div class="cm-collapse__body">
+        <div class="cm-prose"><p>The answer first, then its working.</p></div>
+      </div>
+    </details>
+  </div>
+</div>
+```
 
 ### 7.14 Roadmap
 
@@ -540,7 +678,7 @@ A note explains a point in the text. A source is cited with `a.cm-cite` and list
 </div>
 ```
 
-Appendices only. First item `open`. Never hide findings or anything the summary depends on. The body spaces its own blocks, so several blocks go straight into it.
+Appendices only, and the answers to a module's exercises (§7.9). In an appendix the first item is `open`; an answer is never `open`. Never hide findings or anything the summary depends on. The body spaces its own blocks, so several blocks go straight into it.
 
 ### 8.17 Code
 
@@ -1591,7 +1729,7 @@ Automatic from tokens; agents write nothing extra. The pre-paint script in `<hea
 
 ## 12. Print and PDF
 
-- Browser print (the browser's own command, or the optional print button): always light; chrome hidden; 16 × 14mm margins; shadows become 1px borders; the L2 card keeps its offset; appendices open; charts redraw static at print width; figures, KPIs, callouts, definitions and table rows never split.
+- Browser print (the browser's own command, or the optional print button): always light; chrome hidden; 16 × 14mm margins; shadows become 1px borders; the L2 card keeps its offset; appendices and exercise answers open; charts redraw static at print width; figures, KPIs, callouts, definitions and table rows never split.
 - Mark side-by-side figure grids `cm-print-stack` so they print full width.
 - Diagrams redraw with narrower gaps and nodes, scaled to fit the printed column and a page, never below 80%; their text versions print open (§8.20).
 - Use `cm-section--break` to start a section on a new page (typically the first appendix in long reports).
@@ -1649,6 +1787,9 @@ Components set limits of their own. Where a component limit and a limit above bo
 | Evaluation criterion | A name of 4 words at most, then one sentence of evidence | §8.29 |
 | Metric definition | 15 to 60 words | §8.30 |
 | Threshold response | One sentence | §8.30 |
+| Topic subtopic | An h3, a paragraph, then a related list | §7.7 |
+| Glossary terms | 5 or more, each a definition of 15 to 60 words | §7.8, §8.5 |
+| Module objective | One sentence; 2 to 5 per module | §7.9 |
 | Roadmap goal | One paragraph that opens its section | §7.14 |
 | Milestone exit criteria | One sentence, opening “Done when” | §7.14 |
 
@@ -1696,11 +1837,12 @@ Headings are `h1` to `h6` and table titles.
 13. Opened in light, dark and print preview with no console errors.
 14. Writing within §13: prose inside the limits, in plain words and neutral third person, with no em or en dashes; each section leads with its finding; headings are plain noun phrases in sentence case.
 15. Changing numbers sit in one dated status block; change log and revision history run newest first with dated entries; each limitation status is a word from its set (§8.22).
-16. `cm-kind` names the kind, or is absent for a report. A guide or a reference has its required parts in order, each with its id, or their omission comments (§7.3 to §7.5). Every procedure step closes with its outcome; every related item has a tag, a link and a sentence.
+16. `cm-kind` names the kind, or is absent for a report; `cm-type`, when present, names a type of that kind (§7.6). A guide or a reference has its required parts in order, each with its id, or their omission comments (§7.3 to §7.5). Every procedure step closes with its outcome; every related item has a tag, a link and a sentence.
 17. Every diagram: JSON within its mode's fields and capacity, a label on every decision branch and every named edge, `role="img"`, a caption with a source line, and nothing overlapping or clipped in light, dark and print (§8.20).
 18. Each structured component opens with its kind label and title and holds its required parts within its counts and limits (§8.25 to §8.30).
 19. `cm-id` names the document. The breadcrumb runs from set to area to document. In a set, every link names a file and a section id, the index page is rewritten, and `npm run links` passes on the folder (§8.31).
 20. A roadmap or a case study has its recipe’s required parts in order, each with its id, and passes its type check (§7.14, §7.15).
+21. A topic, a glossary or a module has its recipe's required parts in order, each with its id, and passes its type check (§7.7 to §7.9). A module's answers are closed, and it carries no form controls.
 
 ## 15. Changes from Content Morphia Foundations
 
@@ -1734,6 +1876,8 @@ Added for guides and references: document kinds (§7), procedure (§8.23), relat
 Added for reference pages: workflow, framework, model, method, requirement, evaluation and metric detail (§8.25 to §8.30).
 
 Added for charts: recipes by question; bullet, slope, strip, box and interval charts declared with a `cm` key; end labels that name every line in place of the legend (§9).
+
+Added for page types: the `cm-type` tag, the recipe format and the selection table (§7.6); topic (§7.7), glossary (§7.8) and module (§7.9).
 
 Added for document sets: document ids and addresses, the breadcrumb from set to area to document, the generated index page and the link check (§8.31).
 

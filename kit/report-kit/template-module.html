@@ -1,0 +1,276 @@
+<!doctype html>
+<!--
+  Content Morphia · Report Kit 1.2 · MODULE TEMPLATE
+  Copy this file for every new learning module: one skill taught through lessons and checked with exercises.
+  A module is a guide (SPEC.md §7.3) with Objectives after Purpose, Steps titled Lessons, and Exercises after the lessons (SPEC.md §7.9).
+  Replace every {{ … }} placeholder. Parts and their order are fixed. Each objective links to its lesson and its exercise.
+  Each answer sits in a closed collapsible labelled Answer; print opens it. A module carries no form controls, scores or progress tracking.
+  A guide has no executive summary, KPI strip, summary card, recommendations card or Period.
+  A required part the module has no content for is left out with an omission comment in its place (SPEC.md §7.5), for example:
+  <!- - cm-omit prerequisites: Nothing needs to be in place before the first lesson. - ->
+  Paths below assume the page sits inside report-kit/. Elsewhere, point the two kit paths at report-kit/cm-report.css and report-kit/cm-report.js.
+  In a set, the file is named {Kind} - {Short Title}.html, the cm-id is that name in lowercase with hyphens, and the wordmark and breadcrumb link to the set's index.html (SPEC.md §8.31).
+  A document outside a set writes its set and area steps as <span>s and links the wordmark to #top. In a set, npm run index -- <folder> rewrites index.html and npm run links -- <folder> checks the links.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{ Module title }}</title>
+<meta name="cm-kit" content="1.2">
+<meta name="cm-kind" content="guide">
+<meta name="cm-id" content="{{ id }}">
+<meta name="cm-type" content="module">
+<script>(function(){var t;try{t=localStorage.getItem('cm-theme')}catch(e){}document.documentElement.dataset.theme=t||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')})()</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,300;1,400&family=JetBrains+Mono:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="cm-report.css">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js" defer></script>
+<script src="cm-report.js" defer></script>
+</head>
+<body>
+
+<header class="cm-topbar">
+  <div class="cm-topbar__in">
+    <a class="cm-wordmark" href="index.html">{{ publisher-name }}</a>
+    <span class="cm-chip">Learning module</span>
+    <div class="cm-topbar__actions">
+      <button class="cm-btn cm-btn--quiet cm-btn--sm" type="button" data-cm-theme-toggle>Dark mode</button>
+    </div>
+  </div>
+</header>
+
+<div class="cm-shell">
+  <!-- CONTENTS RAIL: one link per <section id>. Two-digit numbers; the appendix uses a letter. -->
+  <nav class="cm-rail" aria-label="Contents">
+    <div class="cm-toc">
+      <span class="cm-label">Contents</span>
+      <ol>
+        <li><a href="#purpose"><span class="n">01</span>Purpose</a></li>
+        <li><a href="#objectives"><span class="n">02</span>Objectives</a></li>
+        <li><a href="#prerequisites"><span class="n">03</span>Prerequisites</a></li>
+        <li><a href="#steps"><span class="n">04</span>Lessons</a></li>
+        <li><a href="#exercises"><span class="n">05</span>Exercises</a></li>
+        <li><a href="#exceptions"><span class="n">06</span>Exceptions and recovery</a></li>
+        <li><a href="#related"><span class="n">07</span>Related documents</a></li>
+        <li><a href="#sources"><span class="n">A</span>Notes &amp; sources</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main class="cm-main" id="top">
+
+    <!-- MASTHEAD (required). No Period field in a guide. -->
+    <header class="cm-mast">
+      <nav class="cm-crumbs" aria-label="Breadcrumb">
+        <a href="index.html">{{ Document set }}</a><span class="sep" aria-hidden="true">/</span>
+        <a href="index.html#{{ area-id }}">{{ Area }}</a><span class="sep" aria-hidden="true">/</span>
+        <span aria-current="page">{{ Short title }}</span>
+      </nav>
+      <div class="cm-bar" aria-hidden="true"></div>
+      <h1 class="cm-mast__title">{{ Module title, 4 to 10 words }}</h1>
+      <p class="cm-mast__dek">{{ One sentence: the skill the lessons teach, and for whom. }}</p>
+      <!-- METADATA: Status chips: Draft = cm-chip, In review = cm-chip--warn, Final = cm-chip--ok -->
+      <dl class="cm-mast__meta">
+        <div><dt>Status</dt><dd><span class="cm-chip">Guide</span><span class="cm-chip cm-chip--ok">{{ Final }}</span></dd></div>
+        <div><dt>Published</dt><dd>{{ YYYY-MM-DD }}</dd></div>
+        <div><dt>Reading time</dt><dd>{{ N }} min</dd></div>
+        <div><dt>Version</dt><dd>{{ 1.0 }}</dd></div>
+      </dl>
+      <dl class="cm-byline">
+        <div><dt>Prepared by</dt><dd>{{ Team or author }}</dd></div>
+        <div><dt>Distribution</dt><dd>{{ Audience }}</dd></div>
+      </dl>
+    </header>
+
+    <!-- 01 PURPOSE (required): one paragraph on who takes the module and why, with its key phrase in bold -->
+    <section class="cm-section" id="purpose" aria-labelledby="purpose-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 01</span>
+        <h2 class="cm-section__title" id="purpose-t">Purpose</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>{{ Who takes the module and what it equips them to do, }} <strong>{{ key phrase }}</strong> {{ in two or three sentences. }}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 OBJECTIVES (required): 2 to 5, each one sentence on what the reader can do afterwards, linking to the lesson that teaches it and the exercise that checks it -->
+    <section class="cm-section" id="objectives" aria-labelledby="objectives-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 02</span>
+        <h2 class="cm-section__title" id="objectives-t">Objectives</h2>
+      </header>
+      <div class="cm-section__body">
+        <ol class="cm-olist">
+          <li>{{ What the reader can do after lesson 1, in one sentence }}: <a href="#lesson-1">lesson 1</a>, <a href="#exercise-1">exercise 1</a>.</li>
+          <li>{{ What the reader can do after lesson 2 }}: <a href="#lesson-2">lesson 2</a>, <a href="#exercise-2">exercise 2</a>.</li>
+          <li>{{ What the reader can do after lesson 3 }}: <a href="#lesson-3">lesson 3</a>, <a href="#exercise-3">exercise 3</a>.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 03 PREREQUISITES (required): what the lessons assume -->
+    <section class="cm-section" id="prerequisites" aria-labelledby="prerequisites-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 03</span>
+        <h2 class="cm-section__title" id="prerequisites-t">Prerequisites</h2>
+      </header>
+      <div class="cm-section__body">
+        <ul class="cm-list">
+          <li>{{ Knowledge, access or tool the lessons assume. }}</li>
+          <li>{{ Another prerequisite. }}</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 04 LESSONS (required, the guide's Steps part, titled Lessons): a lede, then a procedure of 3 to 9 lessons, each with an id. Each lesson: a title (8 words at most), the rule it teaches and a worked case, then its outcome. -->
+    <section class="cm-section" id="steps" aria-labelledby="steps-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 04</span>
+        <h2 class="cm-section__title" id="steps-t">Lessons</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>{{ How the lessons build on each other, }} <strong>{{ key phrase }}</strong>{{ . }}</p>
+        </div>
+        <ol class="cm-procedure">
+          <li id="lesson-1">
+            <h3 class="cm-procedure__title">{{ Lesson title }}</h3>
+            <p>{{ The rule the lesson teaches, in one to three sentences. }}<a class="cm-cite" href="#src-1" id="cite-1">S1</a></p>
+            <p>{{ A worked case that applies the rule. }}</p>
+            <div class="cm-procedure__outcome"><span class="cm-label">Outcome</span><p>{{ What the reader can now tell or do, in one sentence. }}</p></div>
+          </li>
+          <li id="lesson-2">
+            <h3 class="cm-procedure__title">{{ Lesson title }}</h3>
+            <p>{{ The rule the lesson teaches. }}</p>
+            <p>{{ A worked case that applies the rule. }}</p>
+            <div class="cm-procedure__outcome"><span class="cm-label">Outcome</span><p>{{ What the reader can now tell or do. }}</p></div>
+          </li>
+          <li id="lesson-3">
+            <h3 class="cm-procedure__title">{{ Lesson title }}</h3>
+            <p>{{ The rule the lesson teaches. }}</p>
+            <p>{{ A worked case that applies the rule. }}</p>
+            <div class="cm-procedure__outcome"><span class="cm-label">Outcome</span><p>{{ What the reader can now tell or do. }}</p></div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 05 EXERCISES (required): a lede, then one group per exercise, each with an id, an h3, the task, and the answer in a closed collapsible labelled Answer -->
+    <section class="cm-section" id="exercises" aria-labelledby="exercises-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 05</span>
+        <h2 class="cm-section__title" id="exercises-t">Exercises</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>{{ How to use the exercises, }} <strong>{{ key phrase }}</strong>{{ . The cases are illustrative. }}</p>
+        </div>
+
+        <div class="cm-stack" id="exercise-1">
+          <h3 class="cm-h3">{{ Exercise 1 title }}</h3>
+          <div class="cm-prose">
+            <p>{{ The task, with the inputs it needs. }}</p>
+          </div>
+          <div class="cm-bleed">
+            <details class="cm-collapse">
+              <summary><div><span class="cm-label">Answer</span><h4>Exercise 1</h4></div></summary>
+              <div class="cm-collapse__body">
+                <div class="cm-prose"><p>{{ The answer first, then its working. }}</p></div>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <div class="cm-stack" id="exercise-2">
+          <h3 class="cm-h3">{{ Exercise 2 title }}</h3>
+          <div class="cm-prose">
+            <p>{{ The task, with the inputs it needs. }}</p>
+          </div>
+          <div class="cm-bleed">
+            <details class="cm-collapse">
+              <summary><div><span class="cm-label">Answer</span><h4>Exercise 2</h4></div></summary>
+              <div class="cm-collapse__body">
+                <div class="cm-prose"><p>{{ The answer first, then its working. }}</p></div>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <div class="cm-stack" id="exercise-3">
+          <h3 class="cm-h3">{{ Exercise 3 title }}</h3>
+          <div class="cm-prose">
+            <p>{{ The task, with the inputs it needs. }}</p>
+          </div>
+          <div class="cm-bleed">
+            <details class="cm-collapse">
+              <summary><div><span class="cm-label">Answer</span><h4>Exercise 3</h4></div></summary>
+              <div class="cm-collapse__body">
+                <div class="cm-prose"><p>{{ The answer first, then its working. }}</p></div>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 EXCEPTIONS AND RECOVERY (required): one h3 per case where the rule misleads, then how to read it -->
+    <section class="cm-section" id="exceptions" aria-labelledby="exceptions-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 06</span>
+        <h2 class="cm-section__title" id="exceptions-t">Exceptions and recovery</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>{{ The cases where the rule misleads, }} <strong>{{ key phrase }}</strong>{{ . }}</p>
+          <h3>{{ Condition }}</h3>
+          <p>{{ How to read the case, and which lesson it changes. }}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 RELATED DOCUMENTS (required). Tag: Report | Guide | Reference | Metric | Dataset | System -->
+    <section class="cm-section" id="related" aria-labelledby="related-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 07</span>
+        <h2 class="cm-section__title" id="related-t">Related documents</h2>
+      </header>
+      <div class="cm-section__body">
+        <ul class="cm-related">
+          <li><span class="cm-tag">Reference</span><a href="{{ file.html }}">{{ Document title }}</a><p>{{ One sentence on what the reader finds there. }}</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- APPENDIX A: NOTES & SOURCES (required) -->
+    <section class="cm-section cm-section--part" id="sources" aria-labelledby="sources-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Appendix A</span>
+        <h2 class="cm-section__title" id="sources-t">Notes &amp; sources</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-stack">
+          <h3 class="cm-h4">Sources</h3>
+          <!-- SOURCE REGISTER: key S1, S2… kept across versions; id src-N. Type: Dataset | Report | Interview | Document | System export.
+               Locator: a link, or the system and path in <code>. Cite after punctuation: <a class="cm-cite" href="#src-1" id="cite-1">S1</a>;
+               a cited source ends with <a class="cm-back" href="#cite-1" aria-label="Back to text">↩</a> to its first citation. -->
+          <ol class="cm-sources">
+            <li id="src-1"><span class="cm-id">S1</span><span><b>{{ Source title }}</b><br><span class="cm-tag">Document</span> {{ Publisher }} · <code>{{ system.path }}</code> <a class="cm-back" href="#cite-1" aria-label="Back to text">↩</a></span><span class="cm-meta">{{ published }} <time datetime="{{ YYYY-MM-DD }}">{{ YYYY-MM-DD }}</time></span></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <footer class="cm-footer">
+      <span><b>{{ Module title }}</b></span>
+      <span>v{{ 1.0 }} · published {{ YYYY-MM-DD }}</span>
+      <span>{{ Team }}</span>
+      <span>Content Morphia Report Kit 1.2</span>
+    </footer>
+  </main>
+</div>
+</body>
+</html>

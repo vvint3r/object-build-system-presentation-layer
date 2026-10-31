@@ -14,11 +14,11 @@ export default [
     // The required head, in order. Other elements may sit between the required ones. The kind tag,
     // when present, follows the kit tag and names one of the three document kinds, or the index
     // page. The id tag follows them: one per page, lowercase words joined by hyphens, or a template
-    // placeholder. A report's title carries its period, or the omission comment in the head; the
+    // placeholder. The optional type tag follows the id tag (SPEC §7.6). A report's title carries its period, or the omission comment in the head; the
     // title of any other kind is the title alone (SPEC §2; §7; §8.31). In the offline mode the kit's
     // font faces take the place of the font links, ECharts sits inline, and the kit CSS and JS are
     // pasted as in the self-contained mode.
-    name: 'head-order', level: 'fail', source: 'SPEC §2; §7; §8.31', once: true,
+    name: 'head-order', level: 'fail', source: 'SPEC §2; §7; §7.6; §8.31', once: true,
     inPage: () => {
       const H = window.__cm, d = H.source(), kit = H.cfg.kit, off = kit.offline;
       const same = (a, b) => a.replace(/\r\n/g, '\n').trim() === b.replace(/\r\n/g, '\n').trim();
@@ -39,6 +39,16 @@ export default [
         if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(v) && !/^\{\{[\s\S]*\}\}$/.test(v)) out.push({ where: H.path(m), value: `cm-id "${v}" (lowercase words joined by hyphens)` });
         if (m.parentElement !== d.head) out.push({ where: H.path(m), value: 'cm-id tag outside <head>' });
       }
+      // The type tag: at most one, in the head, naming a type from the closed set whose kind is the
+      // page's kind (SPEC §7.6). It follows the id tag, or the kind tag on a page without an id.
+      const types = H.typeMeta();
+      if (types.length > 1) out.push({ where: 'head', value: `${types.length} cm-type tags (at most 1)` });
+      for (const m of types) {
+        const v = attr(m, 'content').trim();
+        if (!Object.prototype.hasOwnProperty.call(H.TYPES, v)) out.push({ where: H.path(m), value: `cm-type "${v}" (${Object.keys(H.TYPES).join(', ')})` });
+        else if (H.TYPES[v] !== H.kind()) out.push({ where: H.path(m), value: `cm-type "${v}" on a ${H.kind()} (a ${v.replace(/-/g, ' ')} is a ${H.TYPES[v]})` });
+        if (m.parentElement !== d.head) out.push({ where: H.path(m), value: 'cm-type tag outside <head>' });
+      }
       const report = H.kind() === 'report';
       const noPeriod = !report || H.omitted(d.head, 'title-period');
       const fonts = off
@@ -57,6 +67,7 @@ export default [
         ['<meta name="cm-kit" content="1.2">', el => el.matches('meta[name="cm-kit"]') && attr(el, 'content') === '1.2'],
         ...(metas.length ? [['<meta name="cm-kind">, after cm-kit', el => el.matches('meta[name="cm-kind"]')]] : []),
         ...(ids.length ? [['<meta name="cm-id">, after cm-kind', el => el.matches('meta[name="cm-id"]')]] : []),
+        ...(types.length ? [[`<meta name="cm-type">, after ${ids.length ? 'cm-id' : 'cm-kind'}`, el => el.matches('meta[name="cm-type"]')]] : []),
         ['theme pre-paint script', el => el.matches('script:not([src])') && same(el.textContent, kit.prepaint)],
         ...fonts,
         off

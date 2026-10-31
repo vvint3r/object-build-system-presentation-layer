@@ -457,16 +457,19 @@ for (const pkg of ['@fontsource/nunito', '@fontsource/jetbrains-mono']) {
 const chartsDir = path.dirname(require.resolve('echarts/package.json'));
 put('licenses/echarts-LICENSE.txt', read(path.join(chartsDir, 'LICENSE')));
 put('licenses/echarts-NOTICE.txt', read(path.join(chartsDir, 'NOTICE')));
-// The templates, one per document kind, and the example documents. Each sits at the path it has
-// beside the kit, so its links to report-kit/ resolve inside the bundle too. The kit folder's index
+// The templates, one per document kind and one per page type (§7.6), and the example documents.
+// Each sits at the path it has beside the kit, so its links to report-kit/ resolve inside the bundle
+// too. A page type is named with the kind it builds on. The kit folder's index
 // page stays out: the format reserves index.html, and a set's index page is written by the index
 // script, never composed (§8.31).
 const kindOf = html => (html.match(/<meta name="cm-kind" content="([^"]+)">/) || [, 'report'])[1];
+const typeOf = html => (html.match(/<meta name="cm-type" content="([^"]+)">/) || [])[1] || null;
+const typeName = t => t.replace(/-/g, ' ');
 const KIT_DIR = path.join(ROOT, 'kit', 'report-kit');
 const templates = readdirSync(KIT_DIR).filter(f => /^template.*\.html$/.test(f)).sort()
-  .map(f => ({ file: f, kind: kindOf(read(path.join(KIT_DIR, f))) }));
+  .map(f => { const html = read(path.join(KIT_DIR, f)); return { file: f, kind: kindOf(html), type: typeOf(html) }; });
 const examples = readdirSync(path.join(ROOT, 'kit')).filter(f => f.endsWith('.html') && f !== path.basename(GALLERY) && f !== 'index.html').sort()
-  .map(f => ({ file: f, kind: kindOf(read(path.join(ROOT, 'kit', f))), title: (read(path.join(ROOT, 'kit', f)).match(/<title>([^<]*)<\/title>/) || [])[1] }));
+  .map(f => { const html = read(path.join(ROOT, 'kit', f)); return { file: f, kind: kindOf(html), type: typeOf(html), title: (html.match(/<title>([^<]*)<\/title>/) || [])[1] }; });
 for (const t of templates) put(`report-kit/${t.file}`, read(path.join(KIT_DIR, t.file)));
 for (const e of examples) put(e.file, read(path.join(ROOT, 'kit', e.file)));
 put('report-kit/cm-report.css', kit.css);
@@ -484,8 +487,8 @@ const readme = `Content Morphia publishes reports, documents and analyses as sin
 
 | File | Use |
 | --- | --- |
-${templates.map(t => `| \`report-kit/${t.file}\` | The start of every ${t.kind}. Copy it whole. |`).join('\n')}
-${examples.map(e => `| \`${e.file}\` | An example ${e.kind}: ${e.title}. |`).join('\n')}
+${templates.map(t => `| \`report-kit/${t.file}\` | The start of every ${t.type ? `${typeName(t.type)}, a ${t.kind}` : t.kind}. Copy it whole. |`).join('\n')}
+${examples.map(e => `| \`${e.file}\` | An example ${e.type ? `${typeName(e.type)}, a ${e.kind}` : e.kind}: ${e.title}. |`).join('\n')}
 | \`report-kit/cm-report.css\` | The only stylesheet: every token and class. Linked, or pasted into a \`<style>\` element (§2). |
 | \`report-kit/cm-report.js\` | Theme toggle, chart drawing, sortable tables, contents scroll-spy and print preparation. Linked, or pasted as the last element in \`<body>\` (§2). |
 | \`components/<Component>/README.md\` | Canonical markup and rules for one component; \`preview.html\` beside it shows it live. |

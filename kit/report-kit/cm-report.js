@@ -112,9 +112,30 @@
     return 'rgba(' + [1, 3, 5].map(function (i) { return parseInt(h.slice(i, i + 2), 16); }).join(',') + ',' + a + ')';
   }
   function val(d) { return d && typeof d === 'object' && !Array.isArray(d) ? d.value : d; }
-  function num(v) { return typeof v === 'number' && window.echarts ? echarts.format.addCommas(v) : String(v); }
+  // A value label carries thousands separators and the chart's precision: the most decimal places
+  // any value in its series is written with, so 94.0 beside 96.1 reads "94.0" (SPEC section 9).
+  // JSON keeps no trailing zero, so the places come from the chart's other values.
+  function places(v) { var m = String(v).match(/\.(\d+)$/); return m ? m[1].length : 0; }
+  function precision(series) {
+    var dp = 0;
+    list(series).forEach(function (s) {
+      list(s && s.data).forEach(function (d) { var v = val(d); if (typeof v === 'number' && isFinite(v)) dp = Math.max(dp, places(v)); });
+    });
+    return Math.min(dp, 4);
+  }
+  function num(v, dp) {
+    if (typeof v !== 'number' || !window.echarts) return String(v);
+    return echarts.format.addCommas(dp == null ? v : v.toFixed(dp));
+  }
   // a value written with a template such as "{value}%" or "{c} h"
-  function tpl(f, v) { return typeof f === 'string' && /\{(value|c)\}/.test(f) ? f.replace(/\{(value|c)\}/g, num(v)) : num(v); }
+  function tpl(f, v, dp) { return typeof f === 'string' && /\{(value|c)\}/.test(f) ? f.replace(/\{(value|c)\}/g, num(v, dp)) : num(v, dp); }
+  // A label template ("{c}%", "{a}: {c}") as a function that writes {c} as tpl() does.
+  function valueLabel(f, dp) {
+    return function (p) {
+      var v = Array.isArray(p.value) ? null : p.value;
+      return f.replace(/\{a\}/g, p.seriesName).replace(/\{b\}/g, p.name).replace(/\{c\}/g, v == null ? String(p.value) : num(v, dp));
+    };
+  }
   function axisTpl(a) { return a && a.axisLabel && typeof a.axisLabel.formatter === 'string' ? a.axisLabel.formatter : '{value}'; }
   function quantile(s, p) { var h = (s.length - 1) * p, i = Math.floor(h); return s[i] + ((s[Math.min(i + 1, s.length - 1)] - s[i]) * (h - i)); }
   // Label centres ys (pixels) moved apart to at least gap, inside lo and hi, in their order: labels
@@ -159,7 +180,7 @@
   function colourOf(s) { return s.color || (s.lineStyle && s.lineStyle.color) || (s.itemStyle && s.itemStyle.color) || null; }
 
   function bullet(o, s, i, c, t, inst, out) {
-    var data = list(s.data).map(val), n = data.length;
+    var data = list(s.data).map(val), n = data.length, dp = precision(o.series);
     var targets = Array.isArray(c.target) ? c.target : data.map(function () { return c.target; });
     var same = targets.every(function (x) { return x === targets[0]; });
     var vAxis = list(o.xAxis)[0] || {}, cAxis = list(o.yAxis)[0] || {};
@@ -191,7 +212,7 @@
         for (var k = names.length - 1, edge = api.getWidth() - 2; k >= 0; k--) { names[k].x = Math.min(names[k].x, edge - names[k].w); edge = names[k].x - GAP; }
         names.forEach(function (q) { kids.push({ type: 'text', x: q.x, y: q.y, style: { text: q.text, fill: t.ink, fontFamily: t.font, fontSize: 12, fontWeight: 700, align: 'left', verticalAlign: 'bottom' } }); });
         var end = api.coord([ext[1], j]);
-        kids.push({ type: 'text', x: end[0] + 12, y: end[1], style: { text: tpl(f, data[j]), fill: t.ink, fontFamily: t.font, fontSize: 12, fontWeight: 700, align: 'left', verticalAlign: 'middle' } });
+        kids.push({ type: 'text', x: end[0] + 12, y: end[1], style: { text: tpl(f, data[j], dp), fill: t.ink, fontFamily: t.font, fontSize: 12, fontWeight: 700, align: 'left', verticalAlign: 'middle' } });
         return { type: 'group', children: kids };
       }
     });
@@ -207,7 +228,7 @@
     s.barWidth = BAR; s.z = 3;
     if (s.label) s.label.show = false;
     cAxis.axisLine = merge(cAxis.axisLine || {}, { show: false });
-    var w = Math.max.apply(null, data.map(function (v) { return measure(tpl(f, v)); }));
+    var w = Math.max.apply(null, data.map(function (v) { return measure(tpl(f, v, dp)); }));
     o.grid = o.grid || {};
     o.grid.right = Math.max(o.grid.right || 0, w + 24);
     if (named) out.top = Math.max(out.top, 24);
@@ -310,7 +331,8 @@
       };
       if (yCat) {
         var lf = typeof s.label.formatter === 'string' ? s.label.formatter : '{c}';
-        var lw = Math.max.apply(null, data.map(function (d) { var v = val(d); return measure(tpl(lf, Array.isArray(v) ? v[0] : v)); }).concat([0]));
+        var ldp = precision(o.series);
+        var lw = Math.max.apply(null, data.map(function (d) { var v = val(d); return measure(tpl(lf, Array.isArray(v) ? v[0] : v, ldp)); }).concat([0]));
         o.grid = o.grid || {};
         o.grid.right = Math.max(o.grid.right || 0, lw + GAP + 4);
       }
@@ -328,10 +350,10 @@
     xa.axisLabel = merge({ margin: 20 }, xa.axisLabel || {});
     if (ya.min == null) ya.min = 'dataMin';
     if (ya.max == null) ya.max = 'dataMax';
-    var lw = 0, rw = 0;
+    var lw = 0, rw = 0, dp = precision(series);
     series.forEach(function (s) {
       var d = list(s.data).map(val);
-      var L = s.name + '  ' + tpl(f, d[0]), R = tpl(f, d[1]) + '  ' + s.name;
+      var L = s.name + '  ' + tpl(f, d[0], dp), R = tpl(f, d[1], dp) + '  ' + s.name;
       lw = Math.max(lw, measure(L)); rw = Math.max(rw, measure(R));
       if (!colourOf(s)) s.color = picked ? t.context : t.ink;
       s.symbol = 'circle'; s.symbolSize = 7; s.showSymbol = true;
@@ -380,6 +402,7 @@
   function prepare(spec, t, animate, inst) {
     var o = resolve(JSON.parse(JSON.stringify(spec)), t);
     var axisChart = !!(o.xAxis || o.yAxis);
+    var dp = precision(o.series);
     o.animation = animate && motion && !printing;
     var cm = inst ? expand(o, t, inst) : { series: [], icons: {}, top: 0, legendOff: false };
     o.tooltip = merge({
@@ -387,9 +410,9 @@
       textStyle: { color: t.ink, fontFamily: t.font, fontSize: 13 }, extraCssText: 'border-radius:12px;box-shadow:' + t.l3 + ';',
       axisPointer: { type: 'line', lineStyle: { color: t.ink, width: 1, type: [3, 3] }, shadowStyle: { color: t['accent-wash'] } }
     }, o.tooltip || {});
-    // legend: shown automatically for 2+ series on axis charts; "legend": false opts out. A line
-    // chart whose every line carries an end label naming it ("{a}" or the series name) has none, and
-    // neither has a slope: the labels name the lines where they are.
+    // legend: shown automatically for 2+ series on axis charts, none for one. A line chart whose every
+    // line carries an end label naming it ("{a}" or the series name) has none, and neither has a
+    // slope: the labels name the lines where they are. The spec has the JSON set no legend.
     var series = list(o.series);
     var direct = series.length > 1 && series.every(function (s) {
       var e = s && s.endLabel;
@@ -454,9 +477,20 @@
       // value labels, on the series and on single points, sit on the surface colour; a series with a
       // reference line draws above it (markLine z is 5), so the line passes behind marks and numbers
       var label = { color: t.ink, opacity: 1, fontFamily: t.font, fontSize: 12, fontWeight: 700, backgroundColor: s.type === 'pie' ? 'transparent' : t.surface, padding: [3, 4], borderRadius: 2 };
-      if (s.label && s.label.show) s.label = merge(label, s.label);
-      list(s.data).forEach(function (d, j, all) { if (d && d.label && d.label.show) all[j] = merge(d, { label: merge(label, d.label) }); });
-      if (s.endLabel && s.endLabel.show) s.endLabel = merge({ color: t.ink, fontFamily: t.font, fontSize: 12, fontWeight: 800, distance: 8 }, s.endLabel);
+      // value labels on bars and lines write {c} with separators at the chart's precision
+      var numbered = s.type === 'bar' || s.type === 'line';
+      // (a point's own label without a formatter takes the series' one)
+      var write = function (l, inherits) {
+        var f = l && l.formatter;
+        if (!numbered || !l || (f == null && inherits) || (f != null && (typeof f !== 'string' || f.indexOf('{c}') < 0))) return l;
+        return merge(l, { formatter: valueLabel(f == null ? '{c}' : f, dp) });
+      };
+      if (s.label && s.label.show) s.label = write(merge(label, s.label));
+      list(s.data).forEach(function (d, j, all) {
+        if (d && d.label && d.label.show) all[j] = merge(d, { label: write(merge(label, d.label), s.label && s.label.show) });
+        else if (d && d.label && s.label && s.label.show) all[j] = merge(d, { label: write(d.label, true) });
+      });
+      if (s.endLabel && s.endLabel.show) s.endLabel = write(merge({ color: t.ink, fontFamily: t.font, fontSize: 12, fontWeight: 800, distance: 8 }, s.endLabel));
       if (s.markLine && s.z == null) s.z = 6;
       if (s.markLine) s.markLine = merge({ symbol: 'none', silent: true, animation: false, lineStyle: { color: t.ink, width: 1.5, type: [4, 4] },
         label: { color: t.ink, fontFamily: t.font, fontSize: 12, fontWeight: 700, backgroundColor: t.surface, padding: [2, 6] } }, s.markLine);

@@ -37,15 +37,19 @@ Human-readable version with live examples and copy-paste markup: `Report Kit - S
 9. **Meaning never rests on color alone.** Every status chip and flagged row carries a word; every highlight is backed by the sentence; every recommended column carries ★.
 10. **No corners outside the radius set:** 2 thin bar, 4 chip/tag, 6 code chip, 8 input/slot, 12 table/tile, 14 card, 999 pill. Every drawn shape is rounded; square corners belong only to lines (rules, dotted connectors, the timeline rail), masked icons and the full-width top bar. The CSS applies them; never override.
 11. **No decoration.** No emoji, no stock imagery, no icons beyond the glyphs the CSS supplies, no gradients except where one carries meaning (the dashed rail of a planned timeline item, a chart's colour-scale legend), no colored left borders on cards or callouts, no drop caps.
-12. **No filler.** Omit an optional block rather than pad it. Every number shown is sourced.
+12. **No filler.** Omit an optional block rather than pad it. Every number shown is sourced (§8.21).
 
 ## 2. Packaging
 
 Three modes. All use the same markup.
 
-**Linked** (default for sites and shared folders):
+**Linked** (default for sites and shared folders): the document sits beside the `report-kit/` folder, and its `<head>` ends with these lines, after the `cm-` meta tags:
 
 ```html
+<script>(function(){var t;try{t=localStorage.getItem('cm-theme')}catch(e){}document.documentElement.dataset.theme=t||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')})()</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,300;1,400&family=JetBrains+Mono:wght@400;600;700&display=swap">
 <link rel="stylesheet" href="report-kit/cm-report.css">
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js" defer></script>
 <script src="report-kit/cm-report.js" defer></script>
@@ -66,7 +70,7 @@ The pack tool (`tools/pack.mjs`) writes the offline form of a page in either oth
 
 The file makes no network request. Characters outside the Latin subset fall back to a system face.
 
-Required `<head>` (copy from the kind's template, in this order): charset, viewport, `<title>{Report title} · {Period}</title>` (`<title>{Title}</title>` for a guide, a reference, or a report that covers no period, §7), `<meta name="cm-kit" content="1.2">`, `<meta name="cm-kind" content="{kind}">` naming the kind (`report`, `guide` or `reference`; a page without it is a report, §7), `<meta name="cm-id" content="{id}">` naming the document (§8.31), an optional `<meta name="cm-type" content="{type}">` naming the page type (§7.6), the inline theme pre-paint script, font preconnects + Google Fonts link (Nunito 300 to 900 + italic 300/400, JetBrains Mono 400/600/700; offline: the font `<style>` in their place), kit CSS, ECharts 5.5.1, kit JS. `<html lang>` **MUST** be set.
+Required `<head>` (copy from the kind's template, in this order): charset, viewport, `<title>{Report title} · {Period}</title>` with the period named as in the title (§7.2), or `<title>{Title}</title>` for a guide, a reference, or a report that covers no period, `<meta name="cm-kit" content="1.2">`, `<meta name="cm-kind" content="{kind}">` naming the kind (`report`, `guide` or `reference`; a page without it is a report, §7), `<meta name="cm-id" content="{id}">` naming the document (§8.31), an optional `<meta name="cm-type" content="{type}">` naming the page type (§7.6), the inline theme pre-paint script, font preconnects + Google Fonts link (Nunito 300 to 900 + italic 300/400, JetBrains Mono 400/600/700; offline: the font `<style>` in their place), kit CSS, ECharts 5.5.1, kit JS. `<html lang>` **MUST** be set.
 
 ## 3. Tokens
 
@@ -101,7 +105,8 @@ Semantic meaning is fixed: ok = healthy/validated, warn = attention/at risk, cri
 | T5 | `.cm-t5`, `.cm-timeline__title`, `.cm-step__title`, `.cm-findings__claim`, terms | 16–18 / 700–800 | none |
 | Body | default | 16 / 400 / 1.9 | Reading column, max 70ch |
 | Small | `.cm-small`, text inside surfaces | 15 / 400 / 1.8 | — |
-| Label | `.cm-label`, kinds, metadata, status and fact keys, callout, definition and question labels, table heads, contents rail and process step numbers; `.cm-chip` (text centred in the 20px pill), `.cm-tag`, `.cm-delta` | 11 / 800 / caps, +0.06em | — |
+| Label | `.cm-label`, kinds, metadata, status and fact keys, callout, definition and question labels, table heads, contents rail and process step numbers; `.cm-chip` (text centred in the 20px pill), `.cm-tag` | 11 / 800 / caps, +0.06em | — |
+| Delta | `.cm-delta` | 11 / 800, +0.06em, in the case written, so units read as written (`−50s`, `+2.1 pp`) | — |
 | Role tag | property-sheet `<sup>` | 11 / 700, sentence case | — |
 | Meta | `.cm-meta` | 13 / 400 | Dates, sizes, provenance |
 | Code | `<code>` | JetBrains Mono, 0.8em and never under 11px / 600 | none |
@@ -148,7 +153,7 @@ A `<meta name="cm-kind">` tag in `<head>`, straight after `cm-kit`, names the ki
 
 | Kind | Type chip | Required parts, in order | Never carries |
 | --- | --- | --- | --- |
-| Report | Analysis, Report or Brief | Executive summary; body parts; Recommendations (recommended); Methodology (when numbers are computed); Notes & sources | |
+| Report | Analysis, Report or Brief | Executive summary; body parts; Recommendations (recommended); Methodology (with a KPI strip, a chart or a table); Notes & sources | |
 | Guide | Guide | Purpose; Prerequisites; Steps; Exceptions and recovery; Related documents; Notes & sources | Executive summary, KPI strip, summary card, recommendations card, Period |
 | Reference | Reference | Definition; Properties; Relationships; Examples; Notes & sources | Executive summary, KPI strip, summary card, recommendations card, Period |
 
@@ -156,16 +161,17 @@ Every kind shares the top bar, contents rail, masthead, Notes & sources and foot
 
 ### 7.1 Shared blocks
 
-1. **Top bar** (required): `.cm-topbar` with the wordmark (publisher, lowercase-hyphenated), one series chip and the theme toggle. A print button after the toggle is optional, added only when the document is asked to carry one: `<button class="cm-btn cm-btn--secondary cm-btn--sm" type="button" data-cm-print>Print / PDF</button>`. Browser printing works without it (§12). In a document set, the wordmark links to the set's index page (§8.31).
+1. **Top bar** (required): `.cm-topbar` with the wordmark (publisher, lowercase-hyphenated), one series chip and the theme toggle. A print button after the toggle is optional, added only when the document is asked to carry one: `<button class="cm-btn cm-btn--secondary cm-btn--sm" type="button" data-cm-print>Print / PDF</button>`. Browser printing works without it (§12). In a document set, the wordmark links to the set's index page (§8.31); outside one, it links to `#top`.
+   - A document belongs to a set when it is published in a folder beside the set's index page, which the index script writes (§8.31). Any other document stands alone.
 2. **Contents rail** (recommended; required at ≥ 4 sections): one link per section id. Numbers `01…`, appendices `A`, `B`.
-3. **Masthead** (required): breadcrumb from set to area to document (§8.31), `.cm-bar`, title, dek (one sentence), then `dl.cm-mast__meta` with one `<div><dt>Label</dt><dd>Value</dd></div>` per field, then `dl.cm-byline`. Labels name the value; never leave a value unlabelled.
-   - Title: 4 to 10 words, 22 characters a line at most. A reference's title is the name of the thing it describes, 1 to 10 words.
+3. **Masthead** (required): breadcrumb from set to area to document (§8.31); a document that stands alone writes its set and area steps as `span` elements, with no links, `.cm-bar`, title, dek (one sentence), then `dl.cm-mast__meta` with one `<div><dt>Label</dt><dd>Value</dd></div>` per field, then `dl.cm-byline`. Labels name the value; never leave a value unlabelled.
+   - Title: 4 to 10 words. The masthead wraps it at 22 characters a line (`max-width: 22ch`), so no single word in it runs longer. A reference's title is the name of the thing it describes, 1 to 10 words.
    - Status: the type chip for the kind (table above); a status chip, Draft `cm-chip`, In review `cm-chip--warn` or Final `cm-chip--ok`; an optional `cm-chip--note` “Sample data” or “Preliminary”.
    - Period `YYYY-MM-DD → YYYY-MM-DD`: reports only. A guide or a reference has no Period field.
    - Published `YYYY-MM-DD`.
-   - Reading time `N min`: the words in `<main>` ÷ 220, rounded up. Scripts, chart data tables and screen-reader-only text do not count. A word is any run of characters between spaces that holds a letter or digit.
+   - Reading time `N min`: the words in `<main>` ÷ 220, rounded up. Every word a reader sees counts, headings, labels, chips, KPI values and table cells among them. Scripts, data disclosures (`details.cm-data`: a chart's data table, a diagram's text version), `aria-hidden` text and screen-reader-only text do not. A word is any run of characters between spaces that holds a letter or digit.
    - Version `X.Y`.
-   - Byline: Prepared by, optional Reviewed by, Distribution.
+   - Byline: Prepared by, optional Reviewed by, Distribution. Distribution names the readers the document is for, such as `Internal · all staff`. When they are not known, the field is left out with its omission comment (§7.5).
 4. **The kind's parts** (required): §7.2 for a report, §7.3 for a guide, §7.4 for a reference.
 5. **Notes & sources** (required): the last section, an appendix with the id `sources`. It holds `.cm-notes`, then the source register `.cm-sources` (§8.15, §8.21), then the revision history and the change log when the document has them (§8.22).
 6. **Footer** (required): title, version + published date, owner, `Content Morphia Report Kit 1.2`.
@@ -176,11 +182,13 @@ Section ids are short, lowercase and stable (`summary`, `demand`, `methodology`,
 
 1. **Part 01 · Executive summary** (required): a lede of 2 to 4 sentences; a KPI strip of 2 to 4; `.cm-summary` with 3 to 5 key findings.
 2. **Part 02 … N** (required): one topic per section. Inside: TL;DR or lede stating the finding → figure(s) or table → at most two callouts → optional questions block.
-3. **Recommendations** (recommended): its own section after the body and before the appendices, holding the single `.cm-featured` card; each action has owner, due date and expected impact chips.
-4. **Appendix A · Methodology** (required when numbers are computed): `.cm-section--part`; collapsibles: A.1 Terms (a `.cm-def` block, open), A.2 Data sources and coverage (holding the limitation register when the document has three or more limits, §8.22), A.3 Queries.
+3. **Recommendations** (recommended): its own section after the body and before the appendices. It holds the single `.cm-featured` card (§8.19), then at most one callout, such as the combined effect of several actions.
+4. **Appendix A · Methodology** (required when the report shows numbers in a KPI strip, a chart or a table): `.cm-section--part`, then collapsibles numbered A.1, A.2 in order. Terms comes first, a `.cm-def` block, open. Data sources and coverage, then Queries, follow when the document has them. Data sources and coverage holds the limitation register when the document has three or more limits (§8.22).
 5. **Appendix B · Notes & sources** (required, §7.1).
 
-A report's `<title>` carries its period: `{Report title} · {Period}`.
+The type chip names the report's form: `Report` for a review of a period, `Analysis` for an investigation of one question, `Brief` for a short briefing, such as one without measured numbers.
+
+A report that covers a period names it in its title, after a comma: `Customer support operations review, Q3 2026`. Its `<title>` gives the same words with ` · ` in place of the comma: `Customer support operations review · Q3 2026`. Both name the period as a reader would (`Q3 2026`, `September 2026`); the masthead's Period field gives its dates.
 
 ### 7.3 Guide
 
@@ -209,7 +217,7 @@ A reference may add sections of its own between these parts, such as one on how 
 
 ### 7.5 Blocks left out
 
-A document can lack the content of a block its kind requires: a briefing without measured numbers, a guide for a task with nothing to set up. It leaves such a block out, invents nothing to fill it, and puts an omission comment where the block would be. The comment starts `cm-omit`, names the block, and says why after a colon:
+A document can lack the content of a block or a field its kind requires: a briefing without measured numbers, a guide for a task with nothing to set up, a source whose path is not recorded. It leaves such a block out, invents nothing to fill it, and puts an omission comment where the block would be. The comment starts `cm-omit`, names the block, and says why after a colon:
 
 ```html
 <!-- cm-omit kpi-strip: The briefing reports no measured numbers. -->
@@ -226,8 +234,11 @@ A document can lack the content of a block its kind requires: a briefing without
 | Related documents section | Guide | No other document bears on the task | `related` | In `<main>`, where the section would be |
 | Relationships section | Reference | The thing connects to nothing else that is documented | `relationships` | In `<main>`, where the section would be |
 | Examples section | Reference | The thing has no case to work through | `examples` | In `<main>`, where the section would be |
+| Byline Distribution field | Any | The readers the document is for are not known | `distribution` | In `dl.cm-byline`, where the field would be |
+| Source publisher | Any | The source's author or publisher is not recorded | `publisher` | In the source entry (§8.21), where the publisher would be |
+| Source locator | Any | The source's path or address is not recorded | `locator` | In the source entry (§8.21), where the locator would be |
 
-No other block is left out this way. A required block missing without its omission comment fails the checks.
+No other block or field is left out this way. A required block missing without its omission comment fails the checks.
 
 ### 7.6 Page types
 
@@ -474,6 +485,8 @@ Number with two digits: `Part 01`. Appendices: `class="cm-section cm-section--pa
 - Delta: `▲`/`▼` + signed change + comparison. `cm-delta` neutral, `cm-delta--good` favourable, `cm-delta--bad` unfavourable, judged by the reader's interest.
 - Spark: optional, ≥ 6 points, same period as the KPI. `data-color="ink"` for neutral metrics.
 - Progress against a target can replace the spark: `<div class="cm-meter" style="--v:91.2%;--t:95%"><span></span><i></i></div>`.
+- Foot: the reference the value is read against, named with its value in a `<span>`: a target (`Target 95%`), an earlier value (`Q2 44,870`, `Before 212`) or a comparison (`Chat, Q3 96.1%`). A `<b>` after it gives where the value stands against that reference: the gap (`−3.8 pp`), `Met` or a change in percent (`−55%`). The `<b>` is left out when the delta already states it.
+- The strip carries no sources. Its numbers reappear in the body with their citations (§8.21, §14 item 4).
 
 ### 8.3 Summary and key findings
 
@@ -617,7 +630,8 @@ Verbatim only. ≤ 1 per section. Pair with a figure in `.cm-grid.cm-grid--wide.
 - The title sits above the table; the caption under it holds the source line, then any flags or note line, as for a figure (§8.10).
 - Columns are separated by 16px gutters automatically; never add borders.
 - A table wider than its box scrolls sideways inside it on screen. In print nothing scrolls: the gutters narrow to 12px and the heads wrap, so the table holds to the printed column.
-- Numeric columns: `.num` on `th` and `td`; consistent decimals; thousands separators; `−` (U+2212) for negatives; `—` for not applicable.
+- Numeric columns: `.num` on `th` and `td`; consistent decimals; thousands separators; `−` (U+2212) for negatives.
+- A cell whose value does not apply reads `n/a`, in `.soft`. A dash never stands for a value.
 - `.strong` for the row key and the column the reader should compare; `.soft` for n/a values; `.wrap` for prose cells.
 - **Row flags:** `data-flag="ok|warn|crit|info|note|accent"` on a `<tr>` draws a 4px status bar in the left gutter. Use it instead of colored chips in status columns; keep the status word in the row and explain the colors in a caption line that opens "Flags:".
 - `data-sortable` when the table has ≥ 5 rows. `data-value` holds the raw number whenever the cell text is formatted. Mark the initial sort with `aria-sort`. Status columns get `data-nosort`.
@@ -713,6 +727,10 @@ Token spans: `k` keyword, `s` string, `n` number, `f` callable, `c` comment. Key
 ```
 
 The only `cm-featured` in the report, inside the Recommendations section. 1–5 actions. Each action opens with one claim line, the action as an imperative sentence, then one sentence of reason and its chips. The card width follows the reading measure.
+
+- Owner: `Owner · ` and the role or team that carries the action out.
+- Date: `Due YYYY-MM-DD` for work to finish, or `Decide by YYYY-MM-DD` for a decision.
+- Expected impact: `cm-chip--accent`, the estimated change with its unit, marked `est.` when it is an estimate. An action whose impact is not estimated carries no impact chip; no estimate is invented for it.
 
 ### 8.20 Diagram
 
@@ -1158,14 +1176,19 @@ The source register lists every source a document rests on, and closes the Notes
 </ol>
 ```
 
-- Each entry carries a key, a title, its author or publisher, a type, a locator and a date.
+- Each entry carries a key, a title, its author or publisher, a type, a locator and a date. A publisher or locator that is not recorded is left out with its omission comment in the entry (§7.5), never guessed.
 - The key is `S` and a number, in `.cm-id`. The entry's id is `src-` and the same number: `S4` is `src-4`. A source keeps its key in every version, and a new source takes the next unused number. Entries run in key order.
 - The type is a tag from a closed set: `Dataset`, `Report`, `Interview`, `Document`, `System export`.
 - The locator says where to find the source: its URL as a link, or the system and path in `<code>`. Printing adds each URL after its link.
-- The date is the one the source carries, as an ISO date in `<time datetime>`. A word before it says what it dates: published, refreshed, exported, recorded or accessed.
+- The date is the one the source carries, as an ISO date in `<time datetime>`. A word before it says what it dates, from a closed set:
+  - `published`, `refreshed`, `exported`, `recorded` or `accessed`, for what happened on that date;
+  - `as of`, for a snapshot whose content held on that date, such as rules in force;
+  - `covers`, for a source that carries only the period it covers, given as two dates as in the Period field: `covers <time datetime="2026-09-01">2026-09-01</time> → <time datetime="2026-09-30">2026-09-30</time>`.
 - A citation is `a.cm-cite` after punctuation, like a footnote reference. Its text is the source's key; its id is unique, `cite-1`, `cite-2` in order of appearance. A claim with several sources carries one citation for each, side by side.
 - A cited entry ends with one back link, `a.cm-back`, to its first citation. Following any citation lands on the entry, and the kit's script points the back link at that citation. An entry no claim cites is listed with no back link.
 - A source count never stands in for confidence. The kit has no confidence chip or score; what several sources agree on is stated as a claim, with its citations.
+
+A number is sourced (§1 rule 12) by a citation, or by the source line of the caption under its figure or table. A number the source material gives without its source carries a note (§8.15) saying that no source is recorded for it; no source is guessed. A KPI strip's numbers are sourced where they reappear in the body (§14 item 4).
 
 An evidence date says how current a figure, table or claim is: "as of" and a `<time datetime>`. In prose the date is readable (`as of <time datetime="2026-09-30">30 September</time>`); in a caption it is ISO. Every `<time>` carries an ISO `datetime`.
 
@@ -1570,7 +1593,7 @@ The kit has no search, faceted browse or version selector, since each needs a se
 | Kind and number | `.cm-figure__kind` | “Figure N”, sequential across the report |
 | Title | `.cm-figure__title` | What is shown, ≤ 10 words |
 | Description | `.cm-figure__desc` | Measure, unit, scope and period |
-| Legend | automatic | Shown for 2+ series, top left, series order. `"legend": false` only to suppress it on a single series. A line chart whose every line carries an end label naming it (`"formatter": "{a}"` or the series name) has no legend, and neither has a slope chart: the labels name the lines where they are. Value labels, and end labels that do not name their line, sit alongside the legend |
+| Legend | automatic | Shown for 2+ series, top left, series order; one series has none. A line chart whose every line carries an end label naming it (`"formatter": "{a}"` or the series name) has no legend, and neither has a slope chart: the labels name the lines where they are. Value labels, and end labels that do not name their line, sit alongside the legend. The JSON sets no `legend` |
 | Axis titles | `xAxis.name`, `yAxis.name` | Quantity and unit (“Tickets per week”). Required on the value axis unless every tick shows the unit (“90%”). Scatter names both axes. The kit places a y-axis title above the plot and an x-axis title under it, on a value or a category axis, and makes room for each |
 | Data labels | `label`, `endLabel` | Values the reader should quote; every bar when there are ≤ 12 |
 | Annotations | `markLine`, `markArea` | Target, event or period, labelled in 1–3 words |
@@ -1587,7 +1610,7 @@ The kit has no search, faceted browse or version selector, since each needs a se
 - Focus on one mark: in a bar, line or area series, the picked-out mark keeps the default colour and the rest of the series takes `$context`.
 - Scatter points and other point marks keep their series colour, and the picked-out point takes `$c1` and a label. Grey points would sit below 3:1, each needing a value label.
 - Semantic solids (`$ok`, `$warn`, `$crit`) only when the series *is* a status, with words in the legend.
-- Slope lines are ink. Lines picked out take `"color": "$c1"` (up to four, `$c1` to `$c4`), and the rest turn `$context`; the labels at both ends carry every value.
+- Slope lines are ink. Lines picked out take `"color": "$c1"` (up to four, `$c1` to `$c4`). The kit then draws every other line in `$context`, so no colour is set for them. The labels at both ends carry every value.
 - Bullet bands are grey steps, darkest first: `$field`, `$hairline`, `$track`. An interval band takes its line's colour at the area opacity, 0.18.
 
 **Recipes by question.** Pick the chart by the question the reader brings to it. Each recipe gives the chart, when it fits, the data it needs, the annotation it usually wants and the mistake to avoid. Types marked `cm` are kit declarations (below).
@@ -1606,7 +1629,7 @@ The kit has no search, faceted browse or version selector, since each needs a se
 | --- | --- | --- | --- | --- |
 | `line` | A measure over many periods | One value per period; category x-axis with `"boundaryGap": false`; y may start above zero | Events as vertical `markLine`; end labels naming each line | More than four coloured lines |
 | Area: `line` + `"areaStyle": {}` | One level over time, where the total matters | One series; y starts at zero | A threshold as `markLine` | Two series as areas, which hide each other |
-| Slope: `line` + `cm` | Two points in time per category, where the change matters more than the path | Two values per line; two categories on the x-axis | Labels at both ends, drawn by the kit; lines picked out in `$c1` | Three or more periods, which a line chart shows better |
+| Slope: `line` + `cm` | Two points in time per category, where the change matters more than the path | Two values per line, as numbers; two categories on the x-axis | Labels at both ends, drawn by the kit; lines picked out in `$c1`; a target as a `markLine` whose label gives its value, since a slope has no value axis labels | Three or more periods, which a line chart shows better |
 
 *Distribution: how values spread within each group.*
 
@@ -1644,6 +1667,7 @@ An interval band and a box mark a range, not a level, so the zero rule does not 
 - Event: vertical markLine on the category (`{"xAxis": "Wk 7"}`) with a 1–3 word label.
 - Period band: `"markArea": {"data": [[{"xAxis": "Wk 6"}, {"xAxis": "Wk 8"}]]}`.
 - Direct labels: `"endLabel": {"show": true, "formatter": "{a}"}` names a line at its end (add `"grid": {"right": 64}`, more for long names); when every line carries one, the legend is left out. `"label": {"show": true, "position": "right", "formatter": "{c}%"}` on bars. The kit sets every value label, on a series or on a single point, in ink on the surface colour, and draws a series above its reference lines, so a line never runs through a number. End labels that would touch move apart.
+- Value labels: the kit writes `{c}` with thousands separators and at the chart's precision, the most decimal places any value in its series carries. So `94.0` beside `96.1` reads `94.0`, and `13240` reads `13,240`. The ends of a slope and a bullet's values follow the same rule. Values stay numbers in the JSON, never strings.
 
 **Kit declarations.** Option JSON carries no functions, so four chart types are declared with a `"cm"` key and built by the kit's script at every draw, from the current tokens: theme, print and dark mode work as for any chart. The rest of the JSON stays ordinary ECharts, with its axes, series names, axis titles and annotations, and every rule above applies to it. `chart` names the type.
 
@@ -1759,13 +1783,15 @@ Each limit **MUST** hold. The 25-word sentence is a target (**SHOULD**).
 | Section lede | 45 words at most, with its key phrase in bold |
 | Caption (`.cm-caption`) | 30 words at most |
 
+Prose between headings is counted from one heading to the next. Headings are `h1` to `h6`, figure titles among them, and table titles (§13.3).
+
 A section's lede is the paragraph that opens its body. In a section with a TL;DR, the TL;DR stands in for the lede. It keeps its own limit of 40 words (§8.1) and carries no bold phrase; its label marks it. A definition, a question and an answer are each measured as a paragraph.
 
 Components set limits of their own. Where a component limit and a limit above both apply, both hold.
 
 | Element | Limit | Section |
 | --- | --- | --- |
-| Title | 4 to 10 words (a reference: 1 to 10), 22 characters a line at most | §7.1 |
+| Title | 4 to 10 words (a reference: 1 to 10); the masthead wraps it at 22 characters a line | §7.1 |
 | Dek | One sentence | §7.1 |
 | Executive summary lede | 2 to 4 sentences | §7.2 |
 | Guide purpose, reference definition | One paragraph | §7.3, §7.4 |
@@ -1816,7 +1842,8 @@ Components set limits of their own. Where a component limit and a limit above bo
 - No bold label runs into the text that follows it, anywhere. A label that must stay takes its own line (a card or callout title line), a heading, a table row or a definition-list term.
 - A bold phrase never opens a paragraph, list item or callout body with more text on the same line; it would read as a label.
 - A caption's source and note lines are lines of their own, in the caption's regular weight (§8.10).
-- Dates ISO in metadata (`2026-10-12`), readable in prose (`12 August`). Durations as `2h 14m`. Percentage-point changes as `pp`.
+- Dates ISO in metadata (`2026-10-12`), readable in prose (`12 August`). Percentage-point changes as `pp`.
+- Durations as a number and a letter for each unit, largest first, with no unit skipped between: `2h 14m`, `1m 50s`, `45s`. A chip sets its text in capitals, so a duration in a chip writes its unit as a word: `45 min`.
 
 ### 13.3 Headings
 
@@ -1877,6 +1904,10 @@ Changed in 1.2:
 - A disclosure body spaces its own blocks (§8.16).
 - The print button is optional, added only when the document asks for one (§7).
 - A document without measured numbers leaves out a required block it has nothing for, with an omission comment (§7).
+- Distribution, a source's publisher and a source's locator take an omission comment when not recorded (§7.5).
+- A source's date word comes from a closed set, with `as of` and `covers` (§8.21).
+- A delta keeps the case it is written in (§4). A table cell that does not apply reads `n/a` (§8.11).
+- Value labels carry thousands separators and the chart's precision (§9).
 
 Added for guides and references: document kinds (§7), procedure (§8.23), related list (§8.24).
 
@@ -1893,3 +1924,14 @@ Added as page types on the report kind: roadmap (§7.14) and case study (§7.15)
 Added for reports: ECharts chart method and theme; categorical and sequential palettes; dark token set; print rules; report masthead and contents rail; KPI strip; key findings; native tables with sorting and in-cell bars; pull quote; timeline; process diagram; definition, questions and property-sheet blocks; footnotes; collapsible appendix; chart draw-in motion; packaging modes.
 
 Not yet covered: maps, network diagrams, interactive filters, a PDF cover page. Use a figure with `cm-slot` and flag the gap in an HTML comment until these exist.
+
+### Migration from 1.2 to 2.0
+
+A document built on kit 1.2 makes these changes for 2.0. The first two belong to the version itself. The rest bring an early 1.2 document in line with rules the kit already holds.
+
+1. Add `<meta name="cm-id">` after `cm-kind`, naming the document (§8.31). In 1.2 a page without it passes with a warning; in 2.0 it fails `head-order`.
+2. Set `cm-kit` in `<head>` and the kit line in the footer to 2.0.
+3. Write a table cell that does not apply as `n/a`, not a dash (§8.11).
+4. Give each source date a word from the closed set, and each unrecorded publisher, locator or Distribution its omission comment (§7.5, §8.21).
+5. Write chart values as numbers, never strings, and drop any `"legend"` key (§9).
+6. Write each key finding and recommended action as the canonical `<li>`, its claim line first, with no wrapping `<div>` (§8.3, §8.19) In 1.2 a wrapped item passes with a warning.

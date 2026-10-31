@@ -47,6 +47,8 @@ Both output folders are generated and git-ignored.
 | `report-kit/` | The kit's stylesheet, script and three templates as they are |
 | Example documents | The sample report, guide and reference as they are, at the bundle's root so their `report-kit/` links resolve |
 
+Record 090 places the templates beside `report-kit/` and sets the namespace to `CM`.
+
 ## Calls
 
 - **Offline file name.** The page's own file name in `offline/`, so links between packed pages keep

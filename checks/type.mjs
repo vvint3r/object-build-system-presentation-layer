@@ -109,7 +109,8 @@ export default [
     // same. A diagram scaled to fit the printed column sets its labels larger so they print at 11px
     // (section 8.20): there the size is measured as drawn, within 2%. The breadcrumb keeps three
     // weights: links 700, the current page 900, separators 300. Text with no lower-case letters (rail
-    // and step numbers, appendix letters) needs no transform.
+    // and step numbers, appendix letters) needs no transform. A delta keeps the case it is written
+    // in, so its units read as written ("−50s", not "−50S").
     name: 'label-type', level: 'fail', source: 'SPEC §4; records 056, 058, 086',
     inPage: ({ check }) => {
       const H = window.__cm, out = [];
@@ -126,9 +127,10 @@ export default [
         const bad = [];
         if (scaled ? drawn < SIZE - 0.01 || drawn > SIZE * 1.02 : px !== SIZE) bad.push(scaled ? `${+drawn.toFixed(2)}px as drawn` : `font-size ${px}px`);
         if (cs.fontWeight !== w) bad.push(`font-weight ${cs.fontWeight}`);
-        if (/[a-z]/.test(text) && cs.textTransform !== 'uppercase') bad.push(`text-transform ${cs.textTransform}`);
+        const asWritten = !!el.closest('.cm-delta');
+        if (asWritten ? cs.textTransform !== 'none' : /[a-z]/.test(text) && cs.textTransform !== 'uppercase') bad.push(`text-transform ${cs.textTransform}`);
         if (Math.abs(ls - TRACK * px) > 0.05) bad.push(`letter-spacing ${cs.letterSpacing}`);
-        if (bad.length) out.push({ where: H.where(el, pseudo), value: `${bad.join(', ')} (expected ${SIZE}px, ${w}, uppercase, ${TRACK}em)` });
+        if (bad.length) out.push({ where: H.where(el, pseudo), value: `${bad.join(', ')} (expected ${SIZE}px, ${w}, ${asWritten ? 'as written' : 'uppercase'}, ${TRACK}em)` });
       }
       return out;
     },

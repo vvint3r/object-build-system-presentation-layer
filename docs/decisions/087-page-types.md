@@ -21,7 +21,7 @@ Section 7.6 of `SPEC.md` defines a page type: a recipe on one document kind, nam
 | A type's checks run only on pages of that type; a page with no `cm-type` meets the kind's rules alone, as before | §7.6 | The runner's `types` filter; each type check also returns nothing on another type |
 | A topic adds Subtopics (`subtopics`) after Definition and before Properties: a lede, then two or more groups, each an h3, a paragraph and a related list whose every link leaves the page | §7.7 | `type-topic`, failure |
 | A topic may add Reading order (`reading-order`) after Subtopics and before Properties: an ordered list, each item a link out with its reason | §7.7 | `type-topic`, failure |
-| A topic states rules and targets, never a period's results | §7.7 | Checklist, §14 item 21 |
+| A topic states rules and targets, never a period's results | §7.7 | Checklist, §14 item 15 |
 | In a glossary, Terms (`terms`) takes the place of Properties, after Definition and before Relationships; a glossary has no Properties section | §7.8 | `kind-anatomy` and `type-glossary`, failure |
 | Terms holds five or more terms in definition blocks; with more than one block, each sits under an h3; terms run A to Z within a block, and each is defined once on the page | §7.8 | `type-glossary`, failure |
 | Each glossary definition cites the source it follows | §7.8, §8.21 | `type-glossary`, failure |

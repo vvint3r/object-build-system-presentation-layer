@@ -1272,9 +1272,9 @@ A hierarchy shows how a whole divides into parts, read left to right: an organis
 | Item | At most | Reason |
 | --- | --- | --- |
 | Levels | 4 | Four levels of 24-character labels print at full size; five need 82% |
-| Leaves, nodes with no children | 12 | Twelve leaves in three groups print at 83%; in four groups they need less than 80% |
+| Leaves, nodes with no children | 6 | Six leaves of 24-character labels print at 87% or more in one, two or three groups; seven in three groups need less than 80% |
 
-Print is the final test here too: twelve leaves in many small groups fail the page check, and the tree splits. A larger tree splits into an overview of the upper levels and one hierarchy for each branch that needs it. A `label` stops at 24 characters and a `detail` at 40, as a flow node's.
+Print is the final test here too. Shorter labels fit more leaves on a page. A detail line on every leaf makes each box taller, and four such leaves in two groups run past a page. A larger tree splits into an overview of the upper levels and one hierarchy for each branch that needs it. A `label` stops at 24 characters and a `detail` at 40, as a flow node's.
 
 The text version is an indented list: every node once, under its parent. An empty `aria-label` takes a summary: the number of items, levels and leaves, and the parts the root divides into.
 

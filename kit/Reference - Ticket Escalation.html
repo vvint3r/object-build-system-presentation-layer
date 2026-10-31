@@ -129,13 +129,13 @@
             {
               "nodes": [
                 {"id": "triage", "type": "step", "label": "Intent triage", "detail": "Classifier or agent", "col": 1, "row": 1},
-                {"id": "tier1", "type": "step", "label": "Tier 1 resolution", "detail": "Macros, help centre", "col": 2, "row": 1},
-                {"id": "specialist-needed", "type": "decision", "label": "Escalate?", "col": 3, "row": 1},
-                {"id": "closed-tier1", "type": "terminal", "label": "Ticket closes", "col": 4, "row": 1},
-                {"id": "specialist", "type": "step", "label": "Specialist queue", "detail": "Billing or technical", "col": 2, "row": 2},
-                {"id": "code-needed", "type": "decision", "label": "Code change?", "col": 3, "row": 2},
-                {"id": "closed-specialist", "type": "terminal", "label": "Ticket closes", "col": 4, "row": 2},
-                {"id": "engineering", "type": "step", "label": "Engineering fix", "detail": "Data repair or release", "col": 3, "row": 3}
+                {"id": "closed-tier1", "type": "terminal", "label": "Ticket closes", "col": 2, "row": 1},
+                {"id": "tier1", "type": "step", "label": "Tier 1 resolution", "detail": "Macros, help centre", "col": 1, "row": 2},
+                {"id": "specialist-needed", "type": "decision", "label": "Escalate?", "col": 2, "row": 2},
+                {"id": "specialist", "type": "step", "label": "Specialist queue", "detail": "Billing or technical", "col": 1, "row": 3},
+                {"id": "code-needed", "type": "decision", "label": "Code change?", "col": 2, "row": 3},
+                {"id": "closed-specialist", "type": "terminal", "label": "Ticket closes", "col": 3, "row": 3},
+                {"id": "engineering", "type": "step", "label": "Engineering fix", "detail": "Data repair or release", "col": 2, "row": 4}
               ],
               "edges": [
                 {"from": "triage", "to": "tier1"},
@@ -148,9 +148,9 @@
                 {"from": "engineering", "to": "specialist", "label": "Fix deployed"}
               ],
               "groups": [
-                {"type": "lane", "label": "Tier 1", "row": 1},
-                {"type": "lane", "label": "Specialist", "row": 2},
-                {"type": "lane", "label": "Engineer", "row": 3}
+                {"type": "lane", "label": "Tier 1", "row": 1, "rows": 2},
+                {"type": "lane", "label": "Specialist", "row": 3},
+                {"type": "lane", "label": "Engineer", "row": 4}
               ]
             }
             </script>

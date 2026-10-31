@@ -33,6 +33,7 @@
 
 <header class="cm-topbar">
   <div class="cm-topbar__in">
+    <!-- Wordmark: the publisher, or the team or role in Prepared by when the source names none. Series chip: the series, or the page type or kind when none is named (SPEC.md §7.1). -->
     <a class="cm-wordmark" href="index.html">{{ publisher-name }}</a>
     <span class="cm-chip">{{ Reference series }}</span>
     <div class="cm-topbar__actions">
@@ -63,6 +64,7 @@
     <!-- MASTHEAD (required). The title is the name of the thing. No Period field in a reference. -->
     <header class="cm-mast">
       <nav class="cm-crumbs" aria-label="Breadcrumb">
+        <!-- Standing alone, the set and area steps are <span>s. When the source names no set, the set step and its separator give way to cm-omit set (SPEC.md §8.31). -->
         <a href="index.html">{{ Document set }}</a><span class="sep" aria-hidden="true">/</span>
         <a href="index.html#{{ area-id }}">{{ Area }}</a><span class="sep" aria-hidden="true">/</span>
         <span aria-current="page">{{ Short title }}</span>
@@ -70,14 +72,14 @@
       <div class="cm-bar" aria-hidden="true"></div>
       <h1 class="cm-mast__title">{{ Name of the thing }}</h1>
       <p class="cm-mast__dek">{{ One sentence: what the thing is and who uses it. }}</p>
-      <!-- METADATA: Status chips: Draft = cm-chip, In review = cm-chip--warn, Final = cm-chip--ok -->
+      <!-- METADATA: Status chips: Draft = cm-chip, In review = cm-chip--warn, Final = cm-chip--ok. The status chip reads Draft until the owner approves the document, and Draft when the source states no status. Published is the version\'s effective date when the source gives one. These fields are the whole list (SPEC.md §7.1). -->
       <dl class="cm-mast__meta">
         <div><dt>Status</dt><dd><span class="cm-chip">Reference</span><span class="cm-chip cm-chip--ok">{{ Final }}</span></dd></div>
         <div><dt>Published</dt><dd>{{ YYYY-MM-DD }}</dd></div>
         <div><dt>Reading time</dt><dd>{{ N }} min</dd></div>
         <div><dt>Version</dt><dd>{{ 1.0 }}</dd></div>
       </dl>
-      <!-- BYLINE: Distribution names the readers the document is for. When they are not known, the field gives way to an omission comment, cm-omit distribution (SPEC.md §7.5). -->
+      <!-- BYLINE: Prepared by, then Reviewed by when the source names a reviewer, then Distribution. Prepared by names the owner when the source names no preparer. Distribution names the readers the document is for; when they are not known, the field gives way to an omission comment, cm-omit distribution (SPEC.md §7.1, §7.5). -->
       <dl class="cm-byline">
         <div><dt>Prepared by</dt><dd>{{ Team or author }}</dd></div>
         <div><dt>Distribution</dt><dd>{{ Audience }}</dd></div>
@@ -97,7 +99,7 @@
       </div>
     </section>
 
-    <!-- 02 PROPERTIES (required): a property sheet of 2 to 4 groups -->
+    <!-- 02 PROPERTIES (required): a property sheet of 2 to 4 groups: owner, roles, start, end, and the policies with the targets and due times they set -->
     <section class="cm-section" id="properties" aria-labelledby="properties-t">
       <header class="cm-section__head">
         <span class="cm-section__num">Part 02</span>
@@ -132,7 +134,8 @@
         <div class="cm-prose">
           <p>{{ How work moves between the roles, }} <strong>{{ key phrase }}</strong>{{ . }}</p>
         </div>
-        <!-- A flow diagram (SPEC.md §8.20), one lane for each role. Every stage of the workflow is a node, under the same name. -->
+        <!-- A flow diagram (SPEC.md §8.20), one lane for each role. Every stage of the workflow is a node, under the same name; a last stage that ends the flow may be the end terminal. A decision is no stage: the stage before it names its branches in Hands on when (SPEC.md §7.11).
+             Count the width from the JSON before drawing: 1 a column, 1 for the lane names, 1 for each gap between columns holding an edge label (2 past 10 characters); at most 5. A decision has at most 3 branches, 2 in the first or last lane. -->
         <figure class="cm-figure cm-bleed">
           <span class="cm-figure__kind">Figure 1</span>
           <h3 class="cm-figure__title">{{ What the diagram shows }}</h3>
@@ -174,7 +177,7 @@
         <div class="cm-prose">
           <p>{{ Where the work stands or waits, }} <strong>{{ key phrase }}</strong>{{ . }}</p>
         </div>
-        <!-- Optional: a status block (SPEC.md §8.22) here holds the stage measures that change, such as waits and rates. -->
+        <!-- Optional: a status block (SPEC.md §8.22) here holds the stage measures that change, such as waits and rates: one list in stage order, a result against its target as "1.1 business days, target 2". For a period, the date is the period's last day and the first row's value names the period. -->
         <!-- The workflow (SPEC.md §8.25), titled as the page is; its stage names are the diagram's. No procedure on a process page. -->
         <div class="cm-card cm-workflow cm-bleed">
           <span class="cm-label cm-card__kicker">Workflow</span>
@@ -213,7 +216,7 @@
       </div>
     </section>
 
-    <!-- 05 RELATIONSHIPS (required). Tag: Report | Guide | Reference | Metric | Dataset | System -->
+    <!-- 05 RELATIONSHIPS (required). Tag: Report | Guide | Reference | Metric | Dataset | System. Documents of the kit only: a policy, dataset or system with no page in the kit is named in the text and cited (SPEC.md §8.24). -->
     <section class="cm-section" id="relationships" aria-labelledby="relationships-t">
       <header class="cm-section__head">
         <span class="cm-section__num">Part 05</span>
@@ -229,7 +232,7 @@
       </div>
     </section>
 
-    <!-- 06 EXAMPLES (required): worked cases, one h3 each -->
+    <!-- 06 EXAMPLES (required): worked cases, one h3 each. Cases made up to show the rules say so in the lede, with the word illustrative. -->
     <section class="cm-section" id="examples" aria-labelledby="examples-t">
       <header class="cm-section__head">
         <span class="cm-section__num">Part 06</span>
@@ -251,6 +254,7 @@
         <h2 class="cm-section__title" id="sources-t">Notes &amp; sources</h2>
       </header>
       <div class="cm-section__body">
+        <!-- NOTES: left out, heading and all, when the document has no notes (SPEC.md §7.1). -->
         <div class="cm-stack">
           <h3 class="cm-h4">Notes</h3>
           <ol class="cm-notes">

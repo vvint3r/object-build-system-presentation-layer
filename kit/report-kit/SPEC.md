@@ -167,17 +167,20 @@ Every kind shares the top bar, contents rail, masthead, Notes & sources and foot
 
 1. **Top bar** (required): `.cm-topbar` with the wordmark (publisher, lowercase-hyphenated), one series chip and the theme toggle. A print button after the toggle is optional, added only when the document is asked to carry one: `<button class="cm-btn cm-btn--secondary cm-btn--sm" type="button" data-cm-print>Print / PDF</button>`. Browser printing works without it (§12). In a document set, the wordmark links to the set's index page (§8.31); outside one, it links to `#top`.
    - A document belongs to a set when it is published in a folder beside the set's index page, which the index script writes (§8.31). Any other document stands alone.
+   - The publisher is the organisation or team that publishes the document, the same on every document of a set: `support-operations`. When the source names no publisher, the wordmark takes the team or role in Prepared by: `head-of-billing-support`.
+   - The series chip names the series the document belongs to, such as `Support processes`. When the source names no series, it names the page type, such as `Process`, or the kind for a page with no type.
 2. **Contents rail** (recommended; required at ≥ 4 sections): one link per section id. Numbers `01…`, appendices `A`, `B`.
 3. **Masthead** (required): breadcrumb from set to area to document (§8.31); a document that stands alone writes its set and area steps as `span` elements, with no links, `.cm-bar`, title, dek (one sentence), then `dl.cm-mast__meta` with one `<div><dt>Label</dt><dd>Value</dd></div>` per field, then `dl.cm-byline`. Labels name the value; never leave a value unlabelled.
    - Title: 4 to 10 words. The masthead wraps it at 22 characters a line (`max-width: 22ch`), so no single word in it runs longer. A reference's title is the name of the thing it describes, 1 to 10 words.
-   - Status: the type chip for the kind (table above); a status chip, Draft `cm-chip`, In review `cm-chip--warn` or Final `cm-chip--ok`; an optional `cm-chip--note` “Sample data” or “Preliminary”.
+   - Status: the type chip for the kind (table above); a status chip, Draft `cm-chip`, In review `cm-chip--warn` or Final `cm-chip--ok`; an optional `cm-chip--note` “Sample data” or “Preliminary”. The status chip reads Draft until the document's owner approves it, and Draft when the source states no status.
    - Period `YYYY-MM-DD → YYYY-MM-DD`: reports only. A guide or a reference has no Period field.
-   - Published `YYYY-MM-DD`.
-   - Reading time `N min`: the words in `<main>` ÷ 220, rounded up. Every word a reader sees counts, headings, labels, chips, KPI values and table cells among them. Scripts, data disclosures (`details.cm-data`: a chart's data table, a diagram's text version), `aria-hidden` text and screen-reader-only text do not. A word is any run of characters between spaces that holds a letter or digit.
+   - Published `YYYY-MM-DD`: the date this version reaches its readers. A source that gives the version an effective date gives this date. With no date in the source, it is the date the document is finished.
+   - Reading time `N min`: the words in `<main>` ÷ 220, rounded up. Every word a reader sees counts, headings, labels, chips, KPI values and table cells among them. Scripts, data disclosures (`details.cm-data`: a chart's data table, a diagram's text version), `aria-hidden` text and screen-reader-only text do not. A chart's or a diagram's JSON is a script, so its labels do not count. A word is any run of characters between spaces that holds a letter or digit.
    - Version `X.Y`.
-   - Byline: Prepared by, optional Reviewed by, Distribution. Distribution names the readers the document is for, such as `Internal · all staff`. When they are not known, the field is left out with its omission comment (§7.5).
+   - These fields are the whole list. Any other fact about the subject, such as the day a policy takes effect, sits in the body: in Properties for a reference.
+   - Byline: Prepared by, then Reviewed by when the source names a reviewer, then Distribution. Prepared by names the team or role answerable for the document, the owner the footer names. When the source names an owner and no preparer, Prepared by names the owner. Distribution names the readers the document is for, such as `Internal · all staff`. When they are not known, the field is left out with its omission comment (§7.5).
 4. **The kind's parts** (required): §7.2 for a report, §7.3 for a guide, §7.4 for a reference.
-5. **Notes & sources** (required): the last section, an appendix with the id `sources`. It holds `.cm-notes`, then the source register `.cm-sources` (§8.15, §8.21), then the revision history and the change log when the document has them (§8.22).
+5. **Notes & sources** (required): the last section, an appendix with the id `sources`. It holds `.cm-notes` when the document has notes, then the source register `.cm-sources` (§8.15, §8.21). The revision history and the change log follow when the document has them (§8.22). A document with no notes has no notes list and no comment in its place.
 6. **Footer** (required): title, version + published date, owner, `Content Morphia Report Kit 2.0`.
 
 Section ids are short, lowercase and stable (`summary`, `demand`, `methodology`, `sources`). Every `<section>` has `aria-labelledby` pointing at its h2.
@@ -198,7 +201,7 @@ A report that covers a period names it in its title, after a comma: `Customer su
 
 A guide takes one reader through one task, from the event that starts it to the state that ends it. Its parts follow the order of the work. Each required part is a section with a fixed id.
 
-1. **Part 01 · Purpose** (required, `purpose`): one paragraph that opens the document. It names the task, who carries it out and what it achieves, with its key phrase in bold.
+1. **Part 01 · Purpose** (required, `purpose`): one paragraph that opens the document. It names the task, who carries it out and what it achieves, with its key phrase in bold. It is the section's lede, so it runs 45 words at most (§13.1).
 2. **Prerequisites** (required, `prerequisites`): a `ul.cm-list` of what must be in place before the first step: access, tools, information.
 3. **Steps** (required, `steps`): a lede, then a procedure (§8.23) of 3 to 9 steps, each closing with its outcome. A longer task splits into several procedures, each under an h3 that names its stage.
 4. **Exceptions and recovery** (required, `exceptions`): one h3 per case, named for the condition, then what to do instead. A case that changes a step names that step.
@@ -211,10 +214,10 @@ A guide may add sections of its own between these parts. Limits, due times and o
 
 A reference describes one thing for a reader who looks it up: what it is, its facts, what it connects to and how it applies. Each required part is a section with a fixed id.
 
-1. **Part 01 · Definition** (required, `definition`): one paragraph that opens the document and says what the thing is, with its key phrase in bold.
+1. **Part 01 · Definition** (required, `definition`): one paragraph that opens the document and says what the thing is, with its key phrase in bold. It is the section's lede, so it runs 45 words at most (§13.1).
 2. **Properties** (required, `properties`): a property sheet (§8.7) of the facts a reader looks up, such as unit, owner, source system, update frequency and target.
-3. **Relationships** (required, `relationships`): what the thing feeds, depends on or is reported with, as a related list (§8.24).
-4. **Examples** (required, `examples`): worked cases, one h3 each, that apply the thing to concrete inputs.
+3. **Relationships** (required, `relationships`): the other documents of the kit that describe what the thing feeds, depends on or is reported with, as a related list (§8.24). A policy, dataset or system with no document of its own is named in Properties and cited (§8.21), not listed here.
+4. **Examples** (required, `examples`): worked cases, one h3 each, that apply the thing to concrete inputs. Cases made up to show the rules say so in the section's lede, with the word illustrative; a real case cites its source.
 5. **Appendix A · Notes & sources** (required, §7.1).
 
 A reference may add sections of its own between these parts, such as one on how the thing is measured.
@@ -236,13 +239,29 @@ A document can lack the content of a block or a field its kind requires: a brief
 | Prerequisites section | Guide | Nothing needs to be in place before the first step | `prerequisites` | In `<main>`, where the section would be |
 | Exceptions and recovery section | Guide | No case departs from the steps | `exceptions` | In `<main>`, where the section would be |
 | Related documents section | Guide | No other document bears on the task | `related` | In `<main>`, where the section would be |
-| Relationships section | Reference | The thing connects to nothing else that is documented | `relationships` | In `<main>`, where the section would be |
+| Relationships section | Reference | No other document of the kit bears on the thing; what it depends on outside the kit is in Properties and the sources | `relationships` | In `<main>`, where the section would be |
 | Examples section | Reference | The thing has no case to work through | `examples` | In `<main>`, where the section would be |
 | Byline Distribution field | Any | The readers the document is for are not known | `distribution` | In `dl.cm-byline`, where the field would be |
+| Breadcrumb set step, with its separator | Any standing alone | The source names no document set | `set` | In `nav.cm-crumbs`, before the area step |
 | Source publisher | Any | The source's author or publisher is not recorded | `publisher` | In the source entry (§8.21), where the publisher would be |
 | Source locator | Any | The source's path or address is not recorded | `locator` | In the source entry (§8.21), where the locator would be |
 
 No other block or field is left out this way. A required block missing without its omission comment fails the checks.
+
+Section numbers run over the sections present. The section after an omitted one takes the next number, so a process page without Relationships numbers Examples `Part 05`, straight after Stages at `Part 04`. The contents rail matches.
+
+Other facts a source can leave out take one stated form each, never a guess:
+
+| Fact the source does not give | Stated form | Section |
+| --- | --- | --- |
+| Status | The status chip reads Draft | §7.1 |
+| Publication date | Published is the date the document is finished; an effective date for the version is its Published date | §7.1 |
+| Publisher | The wordmark takes the team or role in Prepared by | §7.1 |
+| Series | The series chip names the page type, or the kind | §7.1 |
+| Preparer | Prepared by names the owner | §7.1 |
+| Reviewer | No Reviewed by field, and no comment | §7.1 |
+| Document set | The set step's omission comment, `set` | §8.31 |
+| Source of a number | A note saying no source is recorded | §8.21 |
 
 ### 7.6 Page types
 
@@ -257,7 +276,7 @@ A `<meta name="cm-type">` tag in `<head>`, straight after `cm-id`, names the typ
 ```
 
 - A typed page starts from its type's template, `template-<type>.html`: the kind's template with the type's parts in place (§1 rule 1).
-- File name, id and the masthead's type chip follow the kind (§7.1, §8.31): `Reference - Support Glossary.html`, chip `Reference`. The top bar's series chip may name the type, such as `Glossary`.
+- File name, id and the masthead's type chip follow the kind (§7.1, §8.31): `Reference - Support Glossary.html`, chip `Reference`. The top bar's series chip names the series, or the type, such as `Glossary`, when the source names no series (§7.1).
 - The checks for a type run only on pages that carry its tag; other pages skip them.
 
 #### Recipe
@@ -278,15 +297,18 @@ Each type's section states the same fields, in this order.
 
 The type to use is the one whose question is the reader's. The neighbour column separates the near cases. A report with no type is the plain report of §7.2.
 
+A document answers one question. When the source material answers two, the page takes the type for the question its subject names. The rest goes in the parts that type allows for it, such as a process page's status block for a quarter's stage measures. Material no part allows is a document of its own, linked from Relationships or Related documents. The readers named in Distribution never choose the type: one process page serves every role in it.
+
 | Type | `cm-type` | Kind | Reader's question | Nearest neighbour | Section |
 | --- | --- | --- | --- | --- | --- |
+| Report | none | Report | What do the numbers for a period or a question show, and what follows from them? | Process, metric: a report reviews results; a process page says how the work runs, and a metric page defines one measure and where it stands. | §7.2 |
 | Guide | none | Guide | How is this task carried out? | Module: a guide's steps do the task once; a module teaches it and checks the learning. | §7.3 |
 | Reference | none | Reference | What is this one thing, and what are its facts? | Topic: a reference describes one thing; a topic explains a subject of several parts and links out for each. | §7.4 |
 | Topic | `topic` | Reference | What is this subject, and which documents cover each part? | Index page (§8.31): the index is a generated listing of a folder that explains nothing; a topic is written, explains each part and gives a reason for each link. | §7.7 |
 | Glossary | `glossary` | Reference | What does each term mean in this set of documents? | Reference: a reference describes one thing in full; a glossary defines five or more terms, a few sentences each. Fewer terms go in a definition block (§8.5) of the document that uses them. | §7.8 |
 | Module | `module` | Guide | How is this skill learnt, and how is the learning checked? | Guide: a guide is instructions a reader carries out; a module teaches a rule through lessons and checks it with exercises. | §7.9 |
 | Framework | `framework` | Reference | How does this framework divide its subject, and how is it applied? | Framework component (§8.26): the component is one block on any page; a framework page is a whole reference about one framework. | §7.10 |
-| Process | `process` | Reference | How does this process run, and which role does each stage? | Guide: a process page describes how the work runs, with a workflow (§8.25) and a flow diagram; a guide is instructions a reader carries out. | §7.11 |
+| Process | `process` | Reference | How does this process run, and which role does each stage? | Guide: a process page shows work passing between roles, with a workflow (§8.25) and a flow diagram; a guide is the steps one reader carries out. Work shared by several roles is a process page, even where one role's part reads as steps. | §7.11 |
 | Metric | `metric` | Reference | What does this measure count, where does it stand, and how is it worked out? | Metric detail (§8.30): the component is one block on any page; a metric page is a whole reference about one measure. | §7.12 |
 | Comparison | `comparison` | Reference | Which option fits, on stated criteria, and what would change the choice? | Reference: a reference describes one thing; a comparison sets two to four options side by side for a decision. | §7.13 |
 | Roadmap | `roadmap` | Report | What has to happen, by whom and by when, to reach one goal? | Report: a plain report shows what past numbers say; a roadmap plans dated work toward a goal. | §7.14 |
@@ -410,9 +432,9 @@ Evidence rules:
 
 A process page answers one question: how does a process run from start to end, and which role does each stage? It is a reference with `<meta name="cm-type" content="process">` after `cm-id`, and it starts from `template-process.html`. It keeps every part of §7.4 and adds two. Worked example: `Reference - Ticket Escalation.html`.
 
-Choose a process page over a guide (§7.3) when the reader needs the whole path of the work across its roles. A guide holds the steps one reader carries out, and the process page links to it from Relationships. Choose a process page over a roadmap (§7.14) when the work repeats rather than running once to an end state.
+Choose a process page over a guide (§7.3) when the reader needs the whole path of the work across its roles. A guide holds the steps one reader carries out, and the process page links to it from Relationships. Choose a process page over a roadmap (§7.14) when the work repeats rather than running once to an end state. Choose it over a plain report (§7.2) when the reader needs how the work runs. A period's measures of its stages then go in the status block; a review of the period is a report.
 
-Properties names the process's owner and roles, the event that starts it and the state that ends it. It also cites the policies that set its rules.
+Properties names the process's owner and roles, the event that starts it and the state that ends it. It also cites the policies that set its rules, with the targets and due times they set. A target is a rule, so it sits in Properties; the measured result against it changes, so it sits in the status block.
 
 Required parts, each a section with a fixed id, in this order between Properties and Relationships:
 
@@ -422,6 +444,13 @@ Required parts, each a section with a fixed id, in this order between Properties
 | Stages | `stages` | A lede, then one workflow (§8.25) named as the page is. Each stage title is the label of a node in the flow diagram. |
 
 The flow diagram is required because work that passes between roles is a flow diagram, not a process diagram (§8.13). A process page carries no procedure (§8.23); the steps one role carries out belong in a guide.
+
+The diagram and the workflow match in these ways:
+
+- A stage is a step node with the stage's title as its label. A last stage that ends the flow, such as the payment that returns a refund, may be the end terminal instead. Its title then names the outcome, `Refund paid`, and is the terminal's label.
+- A decision is no stage of its own. It belongs to the stage before it, and that stage's `Hands on when` names each branch and the stage it leads to.
+- The diagram draws every branch of every decision it shows. A case in the workflow's Exceptions part is not drawn: the exceptions are the text's.
+- A flow past the diagram's capacity (§8.20) draws its main path, and moves the rarer branches into Exceptions or splits into an overview and details.
 
 Optional parts: a status block (§8.22) after the Stages lede, for stage measures that change, such as waits and shares of work. A process page may add sections of its own between Flow and Relationships, such as a second diagram from §8.20.
 
@@ -437,7 +466,7 @@ Evidence rules:
 
 A metric page answers one question: what does a measure count, where does it stand, and how is it worked out? It is a reference with `<meta name="cm-type" content="metric">` after `cm-id`, and it starts from `template-metric.html`. It keeps every part of §7.4, adds one and allows a second. Worked example: `Reference - First Response Time.html`.
 
-Choose a metric page when one measure is the subject of the document. A measure that a report or another page defines in passing stays a metric detail (§8.30) inside that document. A dataset, a system or a policy is a plain reference (§7.4).
+Choose a metric page when one measure is the subject of the document. A measure that a report or another page defines in passing stays a metric detail (§8.30) inside that document. A dataset, a system or a policy is a plain reference (§7.4). Choose a metric page over a plain report (§7.2) when the reader needs one measure's definition and standing. A review of a period across measures is a report.
 
 Properties holds the metric detail (§8.30) in place of a plain property sheet, named as the page is. Its definition gives the counting rule, while the Definition part says what the measure means to a reader. The card holds no related metrics; the page lists them under Relationships.
 
@@ -670,7 +699,7 @@ Use where a term first matters, or as the A.1 glossary. Each definition says wha
 </div>
 ```
 
-Facts about one thing: a metric, dataset, system or document. Keys are 1 to 3 words. Group related keys; 2 to 4 groups. Role tags in `<sup>` (one word). A reference's Properties section holds one (§7.4).
+Facts about one thing: a metric, dataset, system or document. Keys are 1 to 3 words. A key's sub-label in `<small>` is 1 to 3 words of its own and does not count toward the key: `Approver<small>(over $500)</small>`. Group related keys; 2 to 4 groups. Role tags in `<sup>` (one word). A reference's Properties section holds one (§7.4).
 
 ### 8.8 Inline emphasis
 
@@ -862,11 +891,11 @@ A flow diagram shows a process with branches, loops or hand-offs between roles. 
     <script type="application/json">
     {
       "nodes": [
-        {"id": "arrive", "type": "terminal", "label": "Ticket arrives", "col": 1, "row": 1},
-        {"id": "channel", "type": "decision", "label": "Which channel?", "col": 2, "row": 1},
+        {"id": "arrive", "type": "terminal", "label": "New ticket", "col": 1, "row": 1},
+        {"id": "channel", "type": "decision", "label": "Channel?", "col": 2, "row": 1},
         {"id": "classify", "type": "step", "label": "Intent classifier", "detail": "Billing, technical or account queue", "col": 3, "row": 1},
         {"id": "shared", "type": "step", "label": "Shared queue", "detail": "One queue for every topic", "col": 3, "row": 2},
-        {"id": "agent", "type": "terminal", "label": "Agent picks it up", "col": 4, "row": 1}
+        {"id": "agent", "type": "terminal", "label": "With an agent", "col": 4, "row": 1}
       ],
       "edges": [
         {"from": "arrive", "to": "channel"},
@@ -908,25 +937,51 @@ Shape marks the node type and line style the edge kind. A key above the drawing 
 - The flow reads left to right, or top to bottom with `"direction": "down"`. A diagram with lanes flows right.
 - `col` counts across from the left and `row` down from the top, whichever way the flow reads. A flow that reads down places its steps in rows, so its edges move forward down the rows; a flow that reads right moves forward across the columns. More edges move forward than back; a process that returns as often as it advances is a state diagram.
 - Every step and decision has an edge out. A branch that ends before the last step ends at a terminal of its own, named for the outcome. A terminal starts or ends the flow, so it has edges in or edges out, never both. A journey map, whose columns already read as time, and a system and data flow, which may end at a store or an external entity, are the exceptions.
-- Every branch out of a decision carries a label: "Yes" and "No", or the condition. No two branches of one decision share a label.
+- Every branch out of a decision carries a label of 1 to 3 words that answers its question. The label is "Yes" or "No", a value such as `Over $500`, or a role when the question asks who. No two branches of one decision share a label. A condition longer than three words goes in the text, such as the stage that holds the decision (§8.25). The label names the value that decides it.
+- A decision sends each branch out of a side of its own, and its incoming edges share one side, so it has at most three branches. In the first or last row, a third branch loops round the outside of the drawing, so a decision there has at most two. In a flow that reads down, the same holds for the first or last column. A decision with more outcomes becomes two decisions in a row: the first asks one condition, such as `Within 30 days?`, and the second the next.
 - A lane is a row band named on the left, one role or system each. With lanes, every row sits in exactly one lane, so each hand-off crosses a lane line.
 - A boundary is a rounded frame around a block of cells, named at the left of its top line, or at the right when an edge crosses where the name would stand.
 - One node at most is emphasised: a step, with a chip of one or two words naming why. It counts toward the section's one `cm-emph` (§6).
 
-Capacity. A flow past any ceiling splits into an overview and details: one diagram of the stages, then one for each stage that needs it.
+Capacity. Every ceiling below is counted from the JSON, so a document built away from the kit's repository can meet it without drawing the diagram.
 
 | Item | At most | Reason |
 | --- | --- | --- |
 | Nodes | 24 | The library's panel tier holds 8 to 24 nodes |
-| Columns | 5, or 4 with lanes | Five steps of 24-character labels print at 82% and six do not fit the printed column at 80%; with lanes, four print at 88% and five do not fit, since the lane names take a column's width |
+| Width | 5, counted as below | At the print floor of 80%, where text prints at 125%, a column of steps takes 120px and the gap after it 40px: five such columns fill the 638px printed column |
 | Rows | 5 | Five rows of plain steps print at full size; five with a detail line each run past a printed page at 80%, and the print check fails them |
 | Lanes | 5 | The library's journey map, its widest lane diagram, has 5 lanes |
+| Branches of one decision | 3, or 2 in the first or last row | Each branch leaves by a side of its own, and the incoming edges take a side |
 | Boundaries | 2 | The library's panel tier allows 2 groups |
 | Edge labels | 12 | The library labels edges only while a view has 12 or fewer |
 | Line crossings | 3 | The library's crossing budget for one view |
 | Emphasised nodes | 1 | §6 |
 
-Print is the final test. A diagram near several ceilings at once can still be too large to print at 80%; the check then fails it, and it splits or its text shortens. An edge label stands in its gap and widens it, so a gap with a label counts as a column against the ceiling: four steps with one labelled gap print at 80%, and three steps with two do not fit.
+The width counts each part that takes about a column of steps in print:
+
+| Part | Counts |
+| --- | --- |
+| Each column | 1 |
+| The lane names, in a diagram with lanes | 1 |
+| Each gap between columns that holds an edge label | 1 |
+| A gap between columns whose longest label runs past 10 characters | 2 |
+
+So a diagram has at most 5 columns, or 4 with lanes, less one or two for each labelled gap between them, as the table counts. In a flow that reads right, an edge's label stands in the gap beside its node in two cases:
+
+- The edge joins two nodes of one row.
+- The edge runs forward to another row, and no edge from the same node runs forward along its row. Such an edge takes the forward side; beside a branch along the row, it leaves up or down instead.
+
+A labelled edge within one column, or back to an earlier column in another row, leaves up or down and widens no gap between columns. In a flow that reads down, every labelled edge between two columns counts the gap beside its node.
+
+Terminal labels past 13 characters and decision labels past 12 widen their columns beyond a step's 120px, a terminal's to as much as 192px. A diagram may hold two such columns, and none when its width counts 5. Shorter labels, or a decision split in two, keep it inside.
+
+Past a ceiling, a flow takes one of these forms:
+
+- An overview and details: one diagram of the stages, then one for each stage that needs it.
+- In a process page, the main path drawn and the rarer branches written as the workflow's Exceptions (§7.11).
+- For a decision with more than three outcomes, two decisions in a row.
+
+The checks measure the drawing in print when the document returns to the repository (§14). They fail a drawing wider than the printed column at 80%, or taller than a page. They also catch what the counts cannot see, such as an edge looping round the outside.
 
 Diagram text is not prose (§13). It keeps its own limits:
 
@@ -942,6 +997,8 @@ The kit applies the rest:
 
 - Nodes in one column share a width and nodes in one row share a height. A decision's square grows to hold its question.
 - Edges run at right angles through the gaps between columns and rows, with rounded elbows and an arrowhead, in 2px ink. Edges that leave or enter one side share a line. Decision outlines and boundaries are 1.5px.
+- Branches that enter one node by one side join on their last run, so two paths to one stage meet before its arrowhead. Each keeps its label near its own source.
+- A line in at a node's top and out at its bottom would read as one line through the node. So a step whose top takes in two edges or more reaches the node directly below it from the side, with a hook. The hook is the drawing working as meant. A straight line down needs those edges to enter from the side, or the next node beside the step.
 - An edge label stands on its line, near where the line leaves its node. The line runs 16px from the node, breaks 8px before the label and goes on 8px past it, with the label centred on it. The placement is the same whether the line leaves sideways or up and down.
 - A labelled edge leaves its node by a side no other edge uses, so no other line runs where its label stands.
 - When the line leaves a boundary within that reach, it runs 8px past the boundary side before it breaks, so the label stands outside. A label stands at least 24px before a side its line goes on to cross, so the line shows before it crosses.
@@ -1194,7 +1251,7 @@ A system and data flow shows systems, where their data rests and what moves betw
 - A data store is ruled above and below with one 2px line each, not a double line.
 - The key names the solid line "Control".
 
-The flow's capacity holds, with its 2 boundaries. Each label in line widens its gap, so labelled crossings reach the printed column sooner: each counts as a column against the ceiling, and the print check fails a diagram that needs less than 80%.
+The flow's capacity holds, with its 2 boundaries. Each label in line widens its gap, so a labelled crossing counts in the width as any labelled gap does. The print check fails a diagram that needs less than 80%.
 
 Each item of the text version names the boundaries its node stands within, and marks data edges "(data)". An empty `aria-label` takes a summary: the number of steps, data stores, external entities and boundaries, and the number of data flows and control flows.
 
@@ -1283,7 +1340,7 @@ The text version is an indented list: every node once, under its parent. An empt
 The source register lists every source a document rests on, and closes the Notes & sources appendix after the notes. A citation ties a claim to its sources; an evidence date says how current a claim is.
 
 ```html
-<p>Median first response fell to 2h 14m.<a class="cm-cite" href="#src-1" id="cite-1">S1</a></p>
+<p>Median first response fell to 2h 14m.<a class="cm-cite" href="#src-1" id="cite-1">S1</a> Card refunds reach customers in 5 to 10 business days.<a class="cm-cite" href="#src-2" id="cite-2">S2</a></p>
 
 <ol class="cm-sources">
   <li id="src-1">
@@ -1291,13 +1348,18 @@ The source register lists every source a document rests on, and closes the Notes
     <span><b>Helpdesk warehouse, ticket facts</b><br><span class="cm-tag">Dataset</span> Support Operations Analytics · <code>support.tickets_fact</code> <a class="cm-back" href="#cite-1" aria-label="Back to text">↩</a></span>
     <span class="cm-meta">refreshed <time datetime="2026-10-05">2026-10-05</time></span>
   </li>
+  <li id="src-2">
+    <span class="cm-id">S2</span>
+    <span><b>Payment provider merchant guide, settlement times</b><br><span class="cm-tag">Document</span> <!-- cm-omit publisher: The source notes do not name the publisher. --><!-- cm-omit locator: The source notes do not say where the guide is held. --><a class="cm-back" href="#cite-2" aria-label="Back to text">↩</a></span>
+    <span class="cm-meta">accessed <time datetime="2026-10-05">2026-10-05</time></span>
+  </li>
 </ol>
 ```
 
-- Each entry carries a key, a title, its author or publisher, a type, a locator and a date. A publisher or locator that is not recorded is left out with its omission comment in the entry (§7.5), never guessed.
+- Each entry carries a key, a title, its author or publisher, a type, a locator and a date. A publisher or locator that is not recorded is left out with its omission comment in the entry (§7.5), never guessed. The comment stands where the missing part would, and the ` · ` between publisher and locator goes with it. An entry may leave out both, as S2 above does.
 - The key is `S` and a number, in `.cm-id`. The entry's id is `src-` and the same number: `S4` is `src-4`. A source keeps its key in every version, and a new source takes the next unused number. Entries run in key order.
 - The type is a tag from a closed set: `Dataset`, `Report`, `Interview`, `Document`, `System export`.
-- The locator says where to find the source: its URL as a link, or the system and path in `<code>`. Printing adds each URL after its link.
+- The locator says where to find the source: its URL as a link, or the system and path in `<code>`. A place named in words, such as a folder in a document library, is the system's name, then the place in `<code>`: policy library, `Refunds`. A database table is `schema.table`: `support.refund_requests`. Printing adds each URL after its link.
 - The date is the one the source carries, as an ISO date in `<time datetime>`. A word before it says what it dates, from a closed set:
   - `published`, `refreshed`, `exported`, `recorded` or `accessed`, for what happened on that date;
   - `as of`, for a snapshot whose content held on that date, such as rules in force;
@@ -1306,7 +1368,7 @@ The source register lists every source a document rests on, and closes the Notes
 - A cited entry ends with one back link, `a.cm-back`, to its first citation. Following any citation lands on the entry, and the kit's script points the back link at that citation. An entry no claim cites is listed with no back link.
 - A source count never stands in for confidence. The kit has no confidence chip or score; what several sources agree on is stated as a claim, with its citations.
 
-A number is sourced (§1 rule 12) by a citation, or by the source line of the caption under its figure or table. A number the source material gives without its source carries a note (§8.15) saying that no source is recorded for it; no source is guessed. A KPI strip's numbers are sourced where they reappear in the body (§14 item 4).
+A number is sourced (§1 rule 12) by a citation, or by the source line of the caption under its figure or table. A number the source material gives without its source carries a note (§8.15) saying that no source is recorded for it; no source is guessed. So does a number from a record no reader can find again, such as one person's own tally. It has no source entry; its note names where the number comes from and says that no source is recorded. A KPI strip's numbers are sourced where they reappear in the body (§14 item 4).
 
 An evidence date says how current a figure, table or claim is: "as of" and a `<time datetime>`. In prose the date is readable (`as of <time datetime="2026-09-30">30 September</time>`); in a caption it is ISO. Every `<time>` carries an ISO `datetime`.
 
@@ -1346,9 +1408,11 @@ The status block:
 ```
 
 - It is the one place for the numbers in a document that will change (§13.2). A document has one at most, after the lede of the section whose work it tracks.
-- Its head carries the date its numbers were true, as an ISO date in `<time datetime>`.
+- Its head carries the date its numbers were true, as an ISO date in `<time datetime>`. For numbers that cover a period, such as a quarter, that date is the period's last day. The first row's value names the period, `6,140 in Q3 2026`, and a row that covers another period names its own.
 - Steps, rules and definitions elsewhere name a quantity and leave its value to the block.
-- Keys are 1 to 3 words. Values carry their unit, and a count against a total reads `14 of 16`.
+- Keys are 1 to 3 words. Values carry their unit, and a count against a total reads `14 of 16`. A result against its target reads `1.1 business days, target 2`; the target itself is a rule, stated where the rules are.
+- The rows are one list with no groups, in the order of what they measure: the whole first, then each stage or part. The block is never a table, however many rows it holds.
+- A citation sources its row and the rows after it, up to the next citation or note mark. So rows from one source cite it once, on the first. A row after a note mark cites its source again. A row that counts the document's own items, such as milestones done, cites nothing.
 
 The change log:
 
@@ -1409,7 +1473,7 @@ The steps a reader carries out, in order: a guide's Steps section (§7.3). The C
 </ul>
 ```
 
-Links to other documents, or to places in them, with how each relates. The tag names what the item is, from a closed set: `Report`, `Guide`, `Reference`, `Metric`, `Dataset`, `System`. The link text is the item's title. The sentence says what the reader finds there that bears on this document. Guides close with one in Related documents (§7.3); a reference's Relationships section holds one (§7.4). Below 640px the tag stacks above the link.
+Links to other documents of the kit, or to places in them, with how each relates. The tag names what the item is, from a closed set: `Report`, `Guide`, `Reference`, `Metric`, `Dataset`, `System`. A `Dataset` or `System` item is the kit's reference page on it; a policy's page takes `Reference`. A policy, dataset or system with no page in the kit is no item: the text names it and cites it as a source (§8.21). The link text is the item's title. The sentence says what the reader finds there that bears on this document. Guides close with one in Related documents (§7.3); a reference's Relationships section holds one (§7.4). Below 640px the tag stacks above the link.
 
 Each link is an address (§8.31): the document's file name, and a section id after `#` for a place in it. On a set's index page each item closes with a meta line, `span.cm-meta`, holding the document's status and published date. Documents leave the meta line out, since a date copied from another document goes stale.
 
@@ -1444,7 +1508,7 @@ A workflow sets out how work moves between roles or stages, in order: the role t
 - Optional: an `Exceptions` part with 1 to 3 items, each a condition and where the work goes instead.
 - A procedure (§8.23) is the steps one reader carries out in a guide; a workflow is how work moves between roles or stages. A stage closes with who acts and what hands the work on, where a step closes with its outcome.
 - The process diagram (§8.13) sets three to six steps across the page, a line each, with no actors or conditions. It is the overview at a glance; a workflow is the reference a reader works from. A document can carry both, the diagram first, with the same stage names in the same order.
-- The flow diagram (§8.20) is the picture of a flow, with lanes, branches and loops drawn as nodes and edges. A workflow is text: it reads in order, prints whole and reflows on a phone with no sideways scroll. Draw the flow when the branches or the hand-offs between lanes are the point; write the workflow when the reader acts on each stage. Shown together, both use the same stage names.
+- The flow diagram (§8.20) is the picture of a flow, with lanes, branches and loops drawn as nodes and edges. A workflow is text: it reads in order, prints whole and reflows on a phone with no sideways scroll. Draw the flow when the branches or the hand-offs between lanes are the point; write the workflow when the reader acts on each stage. Shown together, both use the same stage names, matched node for stage as a process page sets out (§7.11).
 - A method (§8.28) is one role's technique, ending in a decision; a workflow passes work between roles. A timeline (§8.12) holds dated events; a workflow has no dates.
 
 ### 8.26 Framework
@@ -1655,7 +1719,15 @@ The breadcrumb runs from the set to the area to the document. Each step links to
 - The set step names the set and links to the index page, `index.html`. Every document in a set names the same set.
 - The area step names the area and links to its section on the index page: `index.html#` and the area id, the area name in lowercase with hyphens. Documents on one subject share an area.
 - The last step is the document's short title, a `span` with `aria-current="page"`. No step links to the page it sits on.
-- A document outside a set writes its set and area steps as `span` elements, since neither has a page to link to.
+- A document outside a set writes its set and area steps as `span` elements, since neither has a page to link to. The set step names the document set the source files the document in. The knowledge index as a whole is not a set, and an area is not one either. When the source names no set, the set step and the separator after it are left out with the `set` omission comment (§7.5):
+
+```html
+<nav class="cm-crumbs" aria-label="Breadcrumb">
+  <!-- cm-omit set: The source names no document set. -->
+  <span>Billing</span><span class="sep" aria-hidden="true">/</span>
+  <span aria-current="page">Refund request handling</span>
+</nav>
+```
 - In a set, the top bar's wordmark links to `index.html` as well, so the index is one step away from any point in a document. Outside a set, and on the index page, it links to `#top`.
 
 #### Index page
@@ -1925,7 +1997,7 @@ Components set limits of their own. Where a component limit and a limit above bo
 | Title | 4 to 10 words (a reference: 1 to 10); the masthead wraps it at 22 characters a line | §7.1 |
 | Dek | One sentence | §7.1 |
 | Executive summary lede | 2 to 4 sentences | §7.2 |
-| Guide purpose, reference definition | One paragraph | §7.3, §7.4 |
+| Guide purpose, reference definition | One paragraph, the section's lede, so 45 words at most | §7.3, §7.4 |
 | TL;DR | One or two sentences, 40 words at most | §8.1 |
 | Key finding | A claim line of one full sentence, then its evidence | §8.3 |
 | Definition | 15 to 60 words | §8.5 |
@@ -1962,6 +2034,7 @@ Components set limits of their own. Where a component limit and a limit above bo
 ### 13.2 Register
 
 - Plain, factual sentences. State the number, the comparison and the period: “rose 2.3 points to 87.4% against Q2”, not “improved significantly”.
+- A sentence that uses a word of change (rose, risen, fell, fallen, grew, grown, dropped, climbed, declined, improved, worsened, increased, decreased, doubled, halved) carries a number. Where the word means something else, as a request is declined, another word takes its place: refused, turned down.
 - Plain words: “use”, not “utilize”; “so”, not “in order to”. No emoji.
 - Lead every section with the finding, then the evidence.
 - Neutral third person, written for any reader. No “you”, “your”, “we” or “our” in the body; a document is never a message to the person who asked for it. A pull quote is verbatim (§8.9) and keeps its speaker's words.
@@ -1989,6 +2062,8 @@ Headings are `h1` to `h6` and table titles.
 
 ## 14. Pre-publish checklist
 
+The checks this list names, `npm run check` with its type checks and `npm run links`, are tools of the kit's repository and travel in no bundle. A document composed away from the repository meets each item by reading and counting. The checks run when the document returns to the repository, and a failure there sends it back to its author.
+
 1. Started from the template for the document's kind, or for its page type (§7.6); no class, color, font or inline style outside §1 rule 2.
 2. Top bar with the wordmark, one series chip and the theme toggle; a print button only when the document is asked to carry one. Masthead complete with labelled metadata and the type chip for the kind; title ≤ 10 words. A report's period left out of the masthead or the title carries its omission comment (§7.5); a guide or a reference has no period.
 3. Report summary: lede, 2 to 4 KPIs with stated comparisons (or the KPI strip's omission comment, §7.5), 3 to 5 findings.
@@ -2011,6 +2086,20 @@ Headings are `h1` to `h6` and table titles.
 20. A roadmap or a case study has its recipe’s required parts in order, each with its id, and passes its type check (§7.14, §7.15).
 21. A topic, a glossary or a module has its recipe's required parts in order, each with its id, and passes its type check (§7.7 to §7.9). A module's answers are closed, and it carries no form controls.
 22. A framework, process, metric or comparison page has its recipe's required parts in order, each with its id, and passes its type check (§7.10 to §7.13).
+
+These items are confirmed by counting, with no browser:
+
+| Item | Count | Limit |
+| --- | --- | --- |
+| 2 | Words in the title; masthead fields; words in `<main>` for the reading time | 4 to 10 words, 1 to 10 for a reference; the fields of §7.1; words ÷ 220, rounded up |
+| 3 | KPIs; key findings | 2 to 4; 3 to 5 |
+| 7 | `cm-featured`, `cm-summary`, verdict chips, `cm-emph`, coloured chart series | The budgets in the item |
+| 14 | Words and sentences in each paragraph, list item, lede and run of prose between headings | §13.1 |
+| 16 | Required parts, in order, with their ids or omission comments | §7.3 to §7.5, and the type's recipe |
+| 17 | Nodes, rows, lanes, boundaries, edge labels, a decision's branches, and the width count, all from the JSON | §8.20 Capacity |
+| 18 | Stages, steps and items in each structured component | §8.25 to §8.30 |
+
+The rest, such as print width, overlap and computed colour, needs the page drawn; the checks confirm it in a browser on the document's return.
 
 ## 15. Changes from Content Morphia Foundations
 
@@ -2052,23 +2141,40 @@ Changed in 2.0:
 - Documents in one folder form a set, with addresses, a breadcrumb, a generated index page and a link check (§8.31).
 - Documents in a set agree: a shared fact has one value everywhere, a trust order settles a disagreement, and a link reaches only a document published on or before its own (§8.31).
 - A document stands alone unless it sits beside its set's index page. Alone, its set and area steps are spans, and its wordmark links to `#top` (§7.1).
+- A fact the source does not give takes one stated form: the status chip reads Draft, Published is the effective date or the day of finishing, and the wordmark takes the team in Prepared by (§7.1, §7.5).
+- The publisher is the organisation or team that publishes the document, the same on every document of a set (§7.1).
+- The masthead fields are the whole list, and the byline runs Prepared by, Reviewed by when there is a reviewer, then Distribution (§7.1).
+- A document whose source names no set leaves the set step out with `cm-omit set` (§7.5, §8.31).
+- The notes list appears only when a document has notes, and section numbers run over the sections present (§7.1, §7.5).
+- A guide's Purpose and a reference's Definition are their sections' ledes, at most 45 words (§7.3, §7.4).
+- Relationships lists documents of the kit; a policy, dataset or system with no page is named in Properties and cited (§7.4, §8.24).
+- A made-up example says it is illustrative, and a real case cites its source (§7.4).
+- Material that answers two questions takes the type for the question its subject names (§7.6).
+- A process page's Properties holds the targets and due times its policies set, and its diagram draws each stage as a step (§7.11, §8.25).
 - A report's type chip names its form: Report for a period, Analysis for one question, Brief for a short briefing (§7.2).
 - A report that covers a period names it in its title after a comma, and in `<title>` after ` · ` (§7.2).
 - Recommendations holds the featured card, then at most one callout (§7.2).
 - Methodology is required with a KPI strip, a chart or a table, and Terms comes first in it (§7.2).
-- Reading time counts every word a reader sees, chips, KPI values and table cells among them (§7.1).
+- Reading time counts every word a reader sees, chips, KPI values and table cells among them, and leaves out a chart's or a diagram's JSON (§7.1).
 - A KPI foot names its reference with its value, then its standing against it (§8.2).
 - A wrapped key finding or recommended action fails: the claim line is the item's own first child (§8.3, §8.19).
 - An action carries an impact chip only for an estimate, and its date chip reads `Due` or `Decide by` (§8.19).
 - A source register lists every source with its key, type, locator and date, and citations link to it both ways (§8.21).
 - A source's date word comes from a closed set, with `as of` and `covers` (§8.21).
 - A number without a source carries a note saying no source is recorded (§8.21).
+- A source entry's omission comment stands where its part would, and a locator in words names the system, then the place in `<code>` (§8.21).
+- A number from a record no reader can find again carries a note and no source entry (§8.21).
 - A dated status block, a change log, a revision history and a limitation register record what changes (§8.22).
+- A status block over a period dates its head to the period's last day, and its rows run in stage order (§8.22).
+- A result against its target reads `1.1 business days, target 2`, and a citation in a status block sources the rows down to the next mark (§8.22).
+- A property key's sub-label is 1 to 3 words of its own (§8.7).
 - The procedure (§8.23), the related list (§8.24) and the structured components (§8.25 to §8.30) join the components.
 - Diagrams are drawn from JSON in six modes: flow, sequence, state, entity relationship, layer stack and hierarchy (§8.20).
 - The flow mode draws process and decision flows, swimlanes, journey maps, and system and data flows (§8.20).
 - Every diagram has a text version and capacity ceilings, and a screen diagram too wide for its box narrows, then scales (§8.20).
 - A hierarchy holds at most 4 levels and 6 leaves (§8.20).
+- A flow diagram's width counts 5 at most from its JSON, and long terminal and decision labels widen their columns (§8.20).
+- A decision has at most 3 branches, each labelled in 1 to 3 words that answer its question (§8.20).
 - A flow's branch that ends early ends at a terminal of its own, and `col` and `row` keep their meaning in a flow that reads down (§8.20).
 - A chart is chosen by the reader's question; bullet, slope, strip, box and interval charts are declared with a `cm` key (§9).
 - End labels that name every line take the place of a legend, and a chart's JSON sets no `legend` key (§9).
@@ -2082,6 +2188,8 @@ Changed in 2.0:
 - At a 390px phone width the page never scrolls sideways; chips wrap inside their outline, and tables print without scrolling (§5, §8.11, §8.18).
 - Prose between headings runs from one heading to the next, and figure and table titles count as headings (§13.1).
 - A duration takes a number and a letter for each unit, largest first (§13.2).
+- A word of change carries a number (§13.2).
+- The checklist's counted items name what to count, so a document composed away from the repository meets them by counting (§14).
 - The offline mode packs a page with its fonts and ECharts inside, for reading with no network (§2).
 
 Not yet covered: maps, network diagrams, interactive filters, a PDF cover page. Use a figure with `cm-slot` and flag the gap in an HTML comment until these exist.

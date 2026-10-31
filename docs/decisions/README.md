@@ -103,3 +103,4 @@ Rounds 40e and 40f exist only in `CONTINUATION.md` and are taken from there.
 | [090-handoff-repairs.md](090-handoff-repairs.md) | Hand-off repairs: gaps a writer cannot fill, value labels and the design bundle | 2026-10-30 | orchestrating session, record 075 |
 | [091-agreement-across-a-set.md](091-agreement-across-a-set.md) | Agreement across a set: shared facts, trust order and the hierarchy leaf ceiling | 2026-10-31 | orchestrating session, record 075 |
 | [092-kit-2-0-contract-and-migration.md](092-kit-2-0-contract-and-migration.md) | Kit 2.0 contract and migration from 1.2 | 2026-10-31 | orchestrating session, record 075 |
+| [093-stated-forms-and-diagram-width.md](093-stated-forms-and-diagram-width.md) | Stated forms, diagram width and checks away from the repository | 2026-10-31 | orchestrating session, record 075 |

@@ -185,11 +185,13 @@ export default [
 
   {
     // Breadcrumb, bar, title, dek, the labelled metadata fields in their formats, and the byline
-    // with Prepared by and Distribution, or Distribution's omission comment. The type chip names the document's kind. A report carries
+    // with Prepared by, an optional Reviewed by and Distribution, or Distribution's omission comment,
+    // in that order. The metadata fields are the whole list. The type chip names the document's kind. A report carries
     // a Period field, or its omission comment in the metadata list; a guide and a reference carry
     // none (SPEC §7.1). A document's breadcrumb runs set, area, document; the set step links to
     // index.html and the area step to index.html#{area id} where the set has an index page, and each
-    // is plain text where it has none. An index page's breadcrumb is its set alone, and its fields
+    // is plain text where it has none; a document standing alone may leave the set step out with
+    // its omission comment (cm-omit set). An index page's breadcrumb is its set alone, and its fields
     // are Status, Documents and Updated, with no byline (SPEC §8.31).
     name: 'masthead', level: 'fail', source: 'SPEC §7.1; §8.31; §14 item 2', once: true,
     inPage: ({ check }) => {
@@ -212,8 +214,12 @@ export default [
         const steps = kids.filter(el => !el.classList.contains('sep'));
         if (!kids.every((el, i) => el.classList.contains('sep') === (i % 2 === 1)) || (kids.length && kids.length % 2 === 0)) out.push({ where, value: 'steps and separators (span.sep) do not alternate, one separator between two steps' });
         for (const el of kids) if (el.classList.contains('sep') && el.getAttribute('aria-hidden') !== 'true') out.push({ where: H.path(el), value: 'separator without aria-hidden="true"' });
-        const want = index ? 1 : 3;
-        if (steps.length !== want) out.push({ where, value: `${steps.length} steps (${index ? 'the set alone' : 'three: set, area and document'})` });
+        // A document standing alone whose source names no set leaves the set step out with its
+        // omission comment, so its trail runs area, document (SPEC §8.31, §7.5).
+        const noSet = !index && H.omitted(crumbs, 'set');
+        const want = index ? 1 : noSet ? 2 : 3;
+        if (steps.length !== want) out.push({ where, value: `${steps.length} steps (${index ? 'the set alone' : noSet ? 'two: area and document, with the set step left out' : 'three: set, area and document'})` });
+        if (noSet && steps.length > 1 && steps[0].localName !== 'span') out.push({ where: H.path(steps[0]), value: `<${steps[0].localName}> as the area step of a document with no set (a span: it stands alone)` });
         const last = steps[steps.length - 1];
         if (last && !(last.localName === 'span' && last.getAttribute('aria-current') === 'page')) out.push({ where: H.path(last), value: 'the last step is not the page itself (span aria-current="page")' });
         const placeholder = t => /\{\{/.test(t);
@@ -224,7 +230,7 @@ export default [
           if (el.localName !== 'a') { out.push({ where: H.path(el), value: `<${el.localName}> as a step (a link, or a span where there is no page)` }); return; }
           const href = el.getAttribute('href') || '';
           if (placeholder(href) || placeholder(H.text(el))) return;
-          const target = i === 0 ? 'index.html' : `index.html#${slug(H.text(el))}`;
+          const target = i === 0 && !noSet ? 'index.html' : `index.html#${slug(H.text(el))}`;
           if (href !== target) out.push({ where: H.path(el), value: `href="${href}" (${target})` });
           if (i === 1 && steps[0].localName !== 'a') out.push({ where: H.path(el), value: 'the area step links to the index page, and the set step does not' });
         });
@@ -272,6 +278,8 @@ export default [
         }
         else if (!re.test(H.text(meta.get(k)))) out.push({ where: H.path(meta.get(k)), value: `${k} "${H.text(meta.get(k))}" (${form})` });
       }
+      // The fields are the whole list: any other fact about the subject sits in the body (SPEC §7.1).
+      for (const k of meta.keys()) if (!['Status', ...Object.keys(FORMAT)].includes(k)) out.push({ where: H.path(meta.get(k)), value: `a ${k} field (Status, ${kind === 'report' ? 'Period, ' : ''}Published, Reading time and Version)` });
       const status = meta.get('Status');
       if (status) {
         const chips = [...status.querySelectorAll('.cm-chip')];
@@ -291,6 +299,12 @@ export default [
       const by = fields(byline);
       if (byline && !by.has('Prepared by')) out.push({ where: at, value: 'byline has no Prepared by' });
       if (byline && !by.has('Distribution') && !H.omitted(byline, 'distribution')) out.push({ where: at, value: 'byline has no Distribution, and no omission comment (cm-omit distribution)' });
+      // Prepared by, then Reviewed by when there is a reviewer, then Distribution, and nothing else.
+      const BYLINE = ['Prepared by', 'Reviewed by', 'Distribution'];
+      const keys = [...by.keys()];
+      for (const k of keys) if (!BYLINE.includes(k)) out.push({ where: H.path(by.get(k)), value: `a ${k} field in the byline (${BYLINE.join(', ')})` });
+      const order = keys.filter(k => BYLINE.includes(k));
+      if (order.join() !== BYLINE.filter(k => order.includes(k)).join()) out.push({ where: H.path(byline), value: `byline fields ${order.join(', ')} (in the order ${BYLINE.join(', ')})` });
       return out;
     },
   },

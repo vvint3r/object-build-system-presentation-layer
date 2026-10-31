@@ -55,13 +55,17 @@ template are never rebuilt from memory, from a description, or from another desi
 
 The masthead and top bar name a publisher (the wordmark, lowercase and hyphenated), a series, an
 author or team, and an audience. When the request does not give them, the agent asks before building
-rather than inventing them. An audience the owner does not name gives way to an omission comment in
-the byline (section 7.5 of `SPEC.md`). The top bar carries a print button only when the request asks
-for one.
+rather than inventing them. What the owner does not supply takes its stated form (section 7.5 of
+`SPEC.md`). The status chip reads Draft, and Published is the version's effective date or the day the
+document is finished. The wordmark takes the team or role in Prepared by, and the series chip names the
+page type. Prepared by names the owner when no preparer is given, and Reviewed by follows it only when a
+reviewer is named. An audience not named, or a document set not named, gives way to an omission comment
+in the byline or the breadcrumb. The top bar carries a print button only when the request asks for one.
 
 The same holds for the material a document draws on. A source whose publisher or path is not
 recorded leaves it out with an omission comment, and a number given without its source carries a
-note saying that no source is recorded (section 8.21). Nothing is guessed.
+note saying that no source is recorded (section 8.21). So does a number from a record no reader can
+find again, such as one person's tally. Nothing is guessed.
 
 ## Packaging
 
@@ -132,8 +136,10 @@ diagram, a journey map or a system and data flow places its nodes by column and 
 diagram lists its participants and messages in order. A layer stack lists layers from the top down,
 each dependency running down. A hierarchy names each node's parent. The kit draws them; the agent
 writes no coordinates, SVG or styles. In a flow, `col` counts across and `row` down whichever way
-it reads, a branch that ends early ends at a terminal of its own, and a labelled gap counts as a
-column against the ceiling.
+it reads, and a branch that ends early ends at a terminal of its own. Capacity is counted from the
+JSON before drawing. The width counts 1 for each column, 1 for the lane names and 1 for each gap
+between columns that holds an edge label. A gap whose label runs past 10 characters counts 2, and
+the width stays at 5 or under. A decision has at most 3 branches, and 2 in the first or last row.
 
 ## Writing rules
 
@@ -160,6 +166,9 @@ the section lede, under its own limit of 40 words and with no bold phrase.
 - Numbers that will change never sit inside definitions of steps or rules. They go in one dated
   status block, `cm-status` (section 8.22 of `SPEC.md`).
 - No em dashes or en dashes in prose. A table cell whose value does not apply reads `n/a`.
+- A sentence with a word of change (rose, fell, grew, declined, improved and the like) carries a
+  number. Where the word means something else, as a request is declined, another word takes its
+  place: refused.
 - Durations as a number and a letter per unit, largest first: `2h 14m`, `1m 50s`, `45s`. A chip sets
   its text in capitals, so a duration in one writes its unit as a word: `45 min`.
 - Plain, factual sentences with the number, the comparison and the period; plain words. Each section
@@ -239,9 +248,10 @@ These blocks and fields, and no others, are left out this way (section 7.5 of `S
 | Prerequisites section | Guide | Nothing needs to be in place before the first step | `prerequisites` | In `<main>`, where the section would be |
 | Exceptions and recovery section | Guide | No case departs from the steps | `exceptions` | In `<main>`, where the section would be |
 | Related documents section | Guide | No other document bears on the task | `related` | In `<main>`, where the section would be |
-| Relationships section | Reference | The thing connects to nothing else that is documented | `relationships` | In `<main>`, where the section would be |
+| Relationships section | Reference | No other document of the kit bears on the thing | `relationships` | In `<main>`, where the section would be |
 | Examples section | Reference | The thing has no case to work through | `examples` | In `<main>`, where the section would be |
 | Byline Distribution field | Any | The readers the document is for are not known | `distribution` | In `dl.cm-byline` |
+| Breadcrumb set step, with its separator | Any standing alone | The source names no document set | `set` | In `nav.cm-crumbs`, before the area step |
 | Source publisher | Any | The source's author or publisher is not recorded | `publisher` | In the source entry |
 | Source locator | Any | The source's path or address is not recorded | `locator` | In the source entry |
 
@@ -299,9 +309,11 @@ document of its kind.
 
 - A typed page starts from `template-<type>.html` beside the kind templates, such as
   `template-glossary.html`: the kind's template with the type's parts in place.
-- File name, id and the masthead's type chip follow the kind. The top bar's series chip may name
-  the type.
-- The type is the one whose question is the reader's:
+- File name, id and the masthead's type chip follow the kind. The top bar's series chip names the
+  series, or the type when no series is named.
+- The type is the one whose question is the reader's. When the material answers two questions, the
+  type is the one for the question its subject names. The rest goes in the parts that type allows,
+  or into a document of its own:
 
 | Type | `cm-type` | Kind | Reader's question | Choose it over |
 | --- | --- | --- | --- | --- |
@@ -311,7 +323,7 @@ document of its kind.
 | Glossary | `glossary` | Reference | What does each term mean in this set? | A definition block, when five or more terms are shared by several documents |
 | Module | `module` | Guide | How is this skill learnt, and how is the learning checked? | A guide, when the reader must apply a rule unaided |
 | Framework | `framework` | Reference | How does this framework divide its subject, and how is it applied? | The framework component, when the whole page is about one framework |
-| Process | `process` | Reference | How does this process run, and which role does each stage? | A guide, when the page describes how work runs rather than instructs |
+| Process | `process` | Reference | How does this process run, and which role does each stage? | A guide, when the page describes how work runs rather than instructs; a plain report, when a period's stage measures come with the process |
 | Metric | `metric` | Reference | What does this measure count, where does it stand, and how is it worked out? | The metric detail component, when the whole page is about one measure |
 | Comparison | `comparison` | Reference | Which option fits, on stated criteria, and what would change the choice? | A reference, when two to four options sit side by side for a decision |
 | Roadmap | `roadmap` | Report | What has to happen, by whom and by when, to reach one goal? | A plain report, when the subject is planned work toward a dated goal |
@@ -330,8 +342,9 @@ document of its kind.
   framework card named as the page is, with both scope lists, Use when and Not for. Application is 3
   to 7 numbered steps or a method; Limits is 1 to 4 cases, one h3 each.
 - Process: `flow` and `stages` after Properties. Flow holds a flow diagram with a lane for each
-  role; Stages holds one workflow named as the page is, each stage titled as a node of the diagram.
-  Stage measures sit in a status block, and the page carries no procedure.
+  role. Stages holds one workflow named as the page is; each stage is titled as a step node, or as
+  the end terminal for a last stage. A decision is no stage; the stage before it names
+  its branches. Stage measures sit in a status block, and the page carries no procedure.
 - Metric: Properties holds the metric detail, named as the page is, without related metrics. A
   `status` section follows, with a status block giving the value under the metric's name; an
   optional `measurement` section comes after it.
@@ -377,7 +390,9 @@ draw its own diagram, icon or layout to fill the gap.
 ## Checks
 
 **Before handing over:** the pre-publish checklist in section 14 of `SPEC.md`, and the document
-opened in light, dark and print preview, and at a 390px phone width, with no console errors.
+opened in light, dark and print preview, and at a 390px phone width, with no console errors. An agent
+without the kit's repository confirms the counted items by hand, from the table that closes section
+14. The checks run when the document returns to the repository.
 
 **Automated, for an agent with git and Node.js.** The kit's checks run on any HTML file, in any
 packaging:

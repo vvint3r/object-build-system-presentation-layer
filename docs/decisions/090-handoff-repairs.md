@@ -15,7 +15,7 @@
 | Distribution, a source's publisher and a source's locator take an omission comment when not recorded | §7.1, §7.5, §8.21 |
 | A source's date word comes from a closed set: published, refreshed, exported, recorded, accessed, `as of` for a snapshot, `covers` with two dates for a period | §8.21 |
 | A number given without its source carries a note saying no source is recorded; a KPI strip's numbers are sourced where they reappear in the body | §1 rule 12, §8.2, §8.21 |
-| A KPI foot holds a reference and its standing: a target with the gap or `Met`, or a prior value alone | §8.2 |
+| A KPI foot names its reference with its value (a target, an earlier value or a comparison), then in `<b>` the standing against it unless the delta states it | §8.2 |
 | An action carries an impact chip only when its impact is estimated; its date chip reads `Due` or `Decide by` | §8.19 |
 | Recommendations holds the featured card, then at most one callout | §7.2 |
 | Methodology is required with a KPI strip, a chart or a table; Terms comes first, and Data sources and Queries follow when the report has them | §7, §7.2 |
@@ -41,6 +41,7 @@ changes, and gives the migration from 1.2 to 2.0.
 | Check | Level | Reads |
 | --- | --- | --- |
 | `masthead` | failure | A byline with Prepared by, and Distribution or its omission comment |
+| `claim-wrapper` | warning | The claim line is the item's own first child, with no wrapper; a warning in 1.2, since the 1.2 templates wrapped it |
 | `source-entries` | failure | A locator or its omission comment; a date word from the closed set; two dates after `covers`, one after any other word |
 | `label-type` | failure | A delta in the case written; every other label in capitals |
 | `value-labels` | failure | Each bar, line, slope and bullet value label shows its value with separators at the chart's precision |
@@ -89,6 +90,8 @@ changes, and gives the migration from 1.2 to 2.0.
 | Bundled documents take the standalone form | The bundle has no set index, and the format reserves `index.html` for the platform's page |
 | The namespace is `CM` | A document and a preview then use one global, the one the spec names |
 | Components follow spec order | A section number then finds its README by position |
+| A wrapped finding or action warns and does not fail | A document copied from the 1.2 templates is not at fault; `cm-id` follows the same path to 2.0 |
+| The KPI foot names its reference with its value: a target, an earlier value or a comparison | The roadmap and case study read against a comparison and a before value; one form covers every reference |
 
 Record 074's call that tables keep the em dash gives way to `n/a`. Record 080's bundle layout takes the
 template placement and namespace above.

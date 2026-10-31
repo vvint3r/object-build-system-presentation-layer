@@ -333,6 +333,21 @@ export default [
   },
 
   {
+    // The claim line is the item's own first child, as in the canonical markup; no element wraps it.
+    // The 1.2 templates once wrapped each item in a <div>, so a wrapped item warns in 1.2 (SPEC §15).
+    name: 'claim-wrapper', level: 'warn', source: 'SPEC §8.3; §8.19; §15', once: true,
+    inPage: ({ check }) => {
+      const H = window.__cm, out = [];
+      for (const claim of H.source().querySelectorAll('ol.cm-findings > li .cm-findings__claim')) {
+        const li = claim.closest('li');
+        if (H.exempt(li, check) || claim.parentElement === li) continue;
+        out.push({ where: H.path(claim), value: `the claim line sits in a <${claim.parentElement.localName}>; the canonical <li> holds it with no wrapper` });
+      }
+      return out;
+    },
+  },
+
+  {
     // Notes and sources close the document, notes first, and the footer follows. Every document kind
     // closes this way (SPEC §7.1); an index page has no sources, and its footer follows its last
     // section (SPEC §8.31).

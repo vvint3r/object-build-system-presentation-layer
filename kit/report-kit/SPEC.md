@@ -347,7 +347,7 @@ Number with two digits: `Part 01`. Appendices: `class="cm-section cm-section--pa
 - Delta: `▲`/`▼` + signed change + comparison. `cm-delta` neutral, `cm-delta--good` favourable, `cm-delta--bad` unfavourable, judged by the reader's interest.
 - Spark: optional, ≥ 6 points, same period as the KPI. `data-color="ink"` for neutral metrics.
 - Progress against a target can replace the spark: `<div class="cm-meter" style="--v:91.2%;--t:95%"><span></span><i></i></div>`.
-- Foot: the reference the value is read against, a target (`Target 95%`) or the prior period's value (`Q2 44,870`). Against a target, a `<b>` after it gives the gap (`−3.8 pp`) or `Met`. With a prior value the foot holds that value alone, since the delta states the change.
+- Foot: the reference the value is read against, named with its value in a `<span>`: a target (`Target 95%`), an earlier value (`Q2 44,870`, `Before 212`) or a comparison (`Chat, Q3 96.1%`). A `<b>` after it gives where the value stands against that reference: the gap (`−3.8 pp`), `Met` or a change in percent (`−55%`). The `<b>` is left out when the delta already states it.
 - The strip carries no sources. Its numbers reappear in the body with their citations (§8.21, §14 item 4).
 
 ### 8.3 Summary and key findings
@@ -1783,4 +1783,4 @@ A document built on kit 1.2 makes these changes for 2.0. The first two belong to
 3. Write a table cell that does not apply as `n/a`, not a dash (§8.11).
 4. Give each source date a word from the closed set, and each unrecorded publisher, locator or Distribution its omission comment (§7.5, §8.21).
 5. Write chart values as numbers, never strings, and drop any `"legend"` key (§9).
-6. Write each key finding and recommended action as the canonical `<li>`, its claim line first, with no wrapping `<div>` (§8.3, §8.19).
+6. Write each key finding and recommended action as the canonical `<li>`, its claim line first, with no wrapping `<div>` (§8.3, §8.19) In 1.2 a wrapped item passes with a warning.

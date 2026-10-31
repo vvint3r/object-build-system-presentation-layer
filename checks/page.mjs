@@ -82,7 +82,8 @@ export function install(cfg) {
   // a label drawn by ::after.
   H.LABEL = '.cm-label, .cm-crumbs, .cm-mast__meta dt, .cm-byline dt, .cm-kpi__label, .cm-callout__label, '
     + '.cm-def__label, .cm-qa__label, .cm-props dt, .cm-status dt, .cm-quote footer b, .cm-figure__kind, .cm-slot b, '
-    + '.cm-data>summary, .cm-table-title__kind, .cm-table th, .cm-toc a .n, .cm-step__n, .cm-chip, .cm-tag, .cm-delta';
+    + '.cm-data>summary, .cm-table-title__kind, .cm-table th, .cm-toc a .n, .cm-step__n, .cm-chip, .cm-tag, .cm-delta, '
+    + '.cm-diagram__edge-label, .cm-diagram__lane, .cm-diagram__boundary-label';
   // A property-sheet key's sub-label (<dt>Rule<small>(per ticket)</small></dt>, SPEC.md section 8.7)
   // is plain running text inside the label, not part of it. A table head's sort arrow is a glyph.
   H.isLabel = (el, pseudo) => (!!el.closest(H.LABEL) && !el.closest('.cm-props dt small')

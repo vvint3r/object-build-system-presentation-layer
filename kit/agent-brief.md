@@ -30,7 +30,7 @@ All links point at one commit of the kit, so every document built from this brie
 | `template-guide.html` | The starting file for every guide | [template-guide.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/6f3ecb4a496b123b826c9b18d0f879b25c71af8f/kit/report-kit/template-guide.html) |
 | `template-reference.html` | The starting file for every reference | [template-reference.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/6f3ecb4a496b123b826c9b18d0f879b25c71af8f/kit/report-kit/template-reference.html) |
 | `cm-report.css` | Tokens and every component class; the only stylesheet | [cm-report.css](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/6f3ecb4a496b123b826c9b18d0f879b25c71af8f/kit/report-kit/cm-report.css) |
-| `cm-report.js` | Theme toggle, chart theme and drawing, sortable tables, contents rail, print | [cm-report.js](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/6f3ecb4a496b123b826c9b18d0f879b25c71af8f/kit/report-kit/cm-report.js) |
+| `cm-report.js` | Theme toggle, chart theme and drawing, diagram drawing and text versions, sortable tables, contents rail, print | [cm-report.js](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/6f3ecb4a496b123b826c9b18d0f879b25c71af8f/kit/report-kit/cm-report.js) |
 | Sample report | A finished report built on the kit: the reference output for reports | [Sample Report - Q3 Support Review.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/6f3ecb4a496b123b826c9b18d0f879b25c71af8f/kit/Sample%20Report%20-%20Q3%20Support%20Review.html) |
 | Sample guide | A finished guide: the reference output for guides | [Guide - Billing Escalation.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/6f3ecb4a496b123b826c9b18d0f879b25c71af8f/kit/Guide%20-%20Billing%20Escalation.html) |
 | Sample reference | A finished reference: the reference output for references | [Reference - First Response Time.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/6f3ecb4a496b123b826c9b18d0f879b25c71af8f/kit/Reference%20-%20First%20Response%20Time.html) |
@@ -116,13 +116,15 @@ A summary of section 1 of `SPEC.md`. The spec governs.
 12. No filler. Every number shown is sourced.
 
 Charts are ECharts option JSON inside the kit's figure markup. The agent never calls `echarts.init`
-and never writes chart JavaScript.
+and never writes chart JavaScript. Flow diagrams are JSON too: nodes placed by column and row, and
+edges between them (section 8.20 of `SPEC.md`). The kit draws them; the agent writes no coordinates,
+SVG or styles.
 
 ## Writing rules
 
 Section 13 of `SPEC.md` holds every writing rule; the spec governs. Prose is the running text of
 `<main>`: paragraphs, list items, definitions, questions and answers, callout bodies, captions and
-process-step bodies. Code, tables and chart data are not prose.
+process-step bodies. Code, tables, and chart and diagram data are not prose.
 
 | Item | Limit |
 | --- | --- |
@@ -214,6 +216,7 @@ Content maps onto existing components:
 | Facts about one thing: a company, a role, a system | Property sheet, `cm-props` | 8.7 |
 | Dated events in order | Timeline, `cm-timeline` | 8.12 |
 | Stages in sequence, seen at a glance | Process diagram, `cm-process` | 8.13 |
+| A process with branches, loops or hand-offs between roles | Figure with a flow diagram, `cm-diagram` | 8.20 |
 | Steps a reader carries out, each with its outcome | Procedure, `cm-procedure` | 8.23 |
 | Other documents, or places in them, and how each relates | Related list, `cm-related` | 8.24 |
 | Options compared on the same attributes | Table, with the recommended column marked | 8.11 |
@@ -230,7 +233,8 @@ Content maps onto existing components:
 
 ## Kit gaps
 
-Maps, network and hierarchy diagrams, interactive filters and a PDF cover page. A document that
+Maps, diagrams other than flow diagrams (sequence, state, layer stack, hierarchy, entity
+relationship, network), interactive filters and a PDF cover page. A document that
 needs one uses a figure holding a `cm-slot` placeholder and names the gap in an HTML
 comment. The agent does not draw its own diagram, icon or layout to fill the gap.
 

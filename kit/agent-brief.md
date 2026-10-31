@@ -199,6 +199,20 @@ reason after a colon:
 <!-- cm-omit kpi-strip: The briefing reports no measured numbers. -->
 ```
 
+A roadmap and a case study are reports with a `cm-type` tag after `cm-id`: `roadmap` or
+`case-study` (sections 7.14 and 7.15 of `SPEC.md`). Each starts from its own template,
+`template-roadmap.html` or `template-case-study.html`, keeps every part of a report and adds its own
+between the executive summary and Recommendations.
+
+- Roadmap: `goal`, `milestones`, `out-of-scope`. The goal paragraph states the end state, the date
+  it is due and its cited expected effect. Milestones holds the dated status block, a timeline whose
+  items state exit criteria ("Done when …") with one status chip each, and a table of key,
+  milestone, owner, due date and dependencies.
+- Case study: `situation`, `intervention`, `results`, `confounds`, `failures`. Results names Before
+  and After periods of equal length and lists every measure with a direction: Better, No change or
+  Worse. Key findings, Results paragraphs and the results table's caption cite their sources, and at
+  least one limitation is named.
+
 These blocks, and no others, are left out this way (section 7.5 of `SPEC.md`):
 
 | Block | Kind | Left out when | Name | Where the comment sits |

@@ -7,6 +7,8 @@
   A required part the task has no content for is left out with an omission comment in its place (SPEC.md §7.5), for example:
   <!- - cm-omit prerequisites: Nothing needs to be in place before the first step. - ->
   Paths below assume the guide sits inside report-kit/. Elsewhere, point the two kit paths at report-kit/cm-report.css and report-kit/cm-report.js.
+  In a set, the file is named {Kind} - {Short Title}.html, the cm-id is that name in lowercase with hyphens, and the wordmark and breadcrumb link to the set's index.html (SPEC.md §8.31).
+  A document outside a set writes its set and area steps as <span>s and links the wordmark to #top. In a set, npm run index -- <folder> rewrites index.html and npm run links -- <folder> checks the links.
 -->
 <html lang="en">
 <head>
@@ -15,6 +17,7 @@
 <title>{{ Guide title }}</title>
 <meta name="cm-kit" content="1.2">
 <meta name="cm-kind" content="guide">
+<meta name="cm-id" content="{{ id }}">
 <script>(function(){var t;try{t=localStorage.getItem('cm-theme')}catch(e){}document.documentElement.dataset.theme=t||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')})()</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,7 +30,7 @@
 
 <header class="cm-topbar">
   <div class="cm-topbar__in">
-    <a class="cm-wordmark" href="#top">{{ publisher-name }}</a>
+    <a class="cm-wordmark" href="index.html">{{ publisher-name }}</a>
     <span class="cm-chip">{{ Guide series }}</span>
     <div class="cm-topbar__actions">
       <button class="cm-btn cm-btn--quiet cm-btn--sm" type="button" data-cm-theme-toggle>Dark mode</button>
@@ -56,8 +59,9 @@
     <!-- MASTHEAD (required). No Period field in a guide. -->
     <header class="cm-mast">
       <nav class="cm-crumbs" aria-label="Breadcrumb">
-        <a href="#top">Guides</a><span class="sep" aria-hidden="true">/</span>
-        <span aria-current="page">{{ Area }}</span>
+        <a href="index.html">{{ Document set }}</a><span class="sep" aria-hidden="true">/</span>
+        <a href="index.html#{{ area-id }}">{{ Area }}</a><span class="sep" aria-hidden="true">/</span>
+        <span aria-current="page">{{ Short title }}</span>
       </nav>
       <div class="cm-bar" aria-hidden="true"></div>
       <h1 class="cm-mast__title">{{ Guide title, 4 to 10 words }}</h1>

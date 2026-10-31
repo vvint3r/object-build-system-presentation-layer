@@ -84,9 +84,14 @@ at jsDelivr, pinned to the same commit:
 Links to `raw.githubusercontent.com` do not work in a page: that host serves the files as plain
 text, and browsers refuse them as a stylesheet or script.
 
+**Offline**, for reading with no network at all. Only the kit's pack tool makes this form, from a
+finished document in either mode above: `npm run pack -- "<document>.html"` in the kit's repository
+writes a copy to `offline/` with the fonts and ECharts inside it. An agent never builds an offline
+file by hand.
+
 Where the agent's own environment blocks Google Fonts or jsDelivr, the document still carries those
-links unchanged; the reader's browser loads them. ECharts is never inlined, replaced or moved to
-another version, and TLS verification is never disabled to reach a blocked host.
+links unchanged; the reader's browser loads them. The agent never inlines ECharts, replaces it or
+moves it to another version, and never disables TLS verification to reach a blocked host.
 
 ## Non-negotiable rules
 
@@ -156,10 +161,12 @@ the section lede, under its own limit of 40 words and with no bold phrase.
 
 The kit builds three kinds of document, each with its own required parts (section 7 of `SPEC.md`).
 A `cm-kind` tag in the head, straight after `cm-kit`, names the kind; a page without it is a report.
+A `cm-id` tag follows it and names the document (see Document sets).
 
 ```html
 <meta name="cm-kit" content="1.2">
 <meta name="cm-kind" content="guide">
+<meta name="cm-id" content="guide-billing-escalation">
 ```
 
 | Kind | Use for | Type chip | Required parts, in order |
@@ -233,6 +240,29 @@ Content maps onto existing components:
 | Changes since an earlier version | Change log and revision history, `cm-changes` and `cm-versions` | 8.22 |
 | Three or more limits of the document | Limitation register, `cm-limits` | 8.22 |
 
+## Document sets
+
+The documents in one folder form a set, listed by an index page, `index.html` (section 8.31 of
+`SPEC.md`). An area is a subject within the set; it groups documents of every kind.
+
+- The file name is the kind, a spaced hyphen and a short title: `Guide - Billing Escalation.html`.
+  The `cm-id` is the file name without `.html`, in lowercase with hyphens:
+  `guide-billing-escalation`. Neither changes once published, and no two documents in a set share
+  an id.
+- A link to another document is its file name, with spaces as `%20`:
+  `Guide%20-%20Billing%20Escalation.html`. A link to a place in it adds a section id, such as
+  `#steps`. Links between documents name sections only, never figures, tables or notes.
+- The breadcrumb runs set, area, document. The set step links to `index.html`; the area step links
+  to `index.html#` and the area name in lowercase with hyphens; the last step is the document's
+  short title. In a set, the wordmark links to `index.html` too. A document outside a set writes
+  the set and area steps as plain `span` elements and links the wordmark to `#top`.
+- The index page is never written by hand: `npm run index -- <folder>` writes it from the
+  documents. It quotes each document's dek, so a dek in a set runs 18 words or fewer.
+- `npm run links -- <folder>` fails on a missing or shared id, a link to a file or section that does
+  not exist, or an index page that no longer matches the documents.
+
+The kit has no search, faceted browse or version selector; each needs a server.
+
 ## Kit gaps
 
 Maps, diagrams other than flow diagrams (sequence, state, layer stack, hierarchy, entity
@@ -245,7 +275,7 @@ comment. The agent does not draw its own diagram, icon or layout to fill the gap
 **Before handing over:** the pre-publish checklist in section 14 of `SPEC.md`, and the document
 opened in light, dark and print preview with no console errors.
 
-**Automated, for an agent with git and Node.js.** The kit's checks run on any HTML file, in either
+**Automated, for an agent with git and Node.js.** The kit's checks run on any HTML file, in any
 packaging:
 
 ```
@@ -260,3 +290,10 @@ The run prints one line per check and mode (`ok`, `FAIL` with the element and co
 `warn`, `skip`) and exits 1 on any failure. Failures are fixed in the document, never in the kit or
 the checks. A block left out with its omission comment passes; a required block missing without one
 fails.
+
+For a document in a set, the agent also rewrites the set's index page and checks the folder's links:
+
+```
+npm run index -- /absolute/path/to/folder
+npm run links -- /absolute/path/to/folder
+```

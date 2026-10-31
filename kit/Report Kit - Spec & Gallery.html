@@ -82,7 +82,7 @@
         <div class="cm-grid cm-grid--4 cm-bleed">
           <div class="cm-tile"><code>cm-report.css</code><p class="cm-small" style="margin-top:16px">Tokens for light, dark and print, plus every component class.</p></div>
           <div class="cm-tile"><code>cm-report.js</code><p class="cm-small" style="margin-top:16px">Theme toggle, chart theme and draw-in, sortable tables, contents scroll-spy, link targets clear of the top bar, print prep.</p></div>
-          <div class="cm-tile"><code>template.html</code><p class="cm-small" style="margin-top:16px">The starter every report copies; guides and references copy <code>template-guide.html</code> and <code>template-reference.html</code>. Placeholders in <code>{{ }}</code>.</p></div>
+          <div class="cm-tile"><code>template.html</code><p class="cm-small" style="margin-top:16px">The starter every report copies; guides, references and each page type copy their own, such as <code>template-guide.html</code>. Placeholders in <code>{{ }}</code>.</p></div>
           <div class="cm-tile"><code>SPEC.md</code><p class="cm-small" style="margin-top:16px">The same rules written for agents, as hard rules, budgets and canonical markup.</p></div>
         </div>
         <div class="cm-grid cm-grid--3 cm-bleed">
@@ -127,6 +127,7 @@
                 <tr><td class="strong">Chips</td><td class="wrap">Tinted fills</td><td class="wrap">Outlined. Status color is a 2px offset to the right and bottom; one solid ink verdict per table</td><td><span class="cm-chip">Changed</span></td></tr>
                 <tr><td class="strong">Callouts</td><td class="wrap">Icon, tinted label chip, text in one row</td><td class="wrap">Icon and label on one row, body below on the label’s edge. Label underlined in the semantic color; no fill</td><td><span class="cm-chip">Changed</span></td></tr>
                 <tr><td class="strong">Document kinds</td><td class="wrap">One page type</td><td class="wrap">Report, guide and reference, each with its own required parts, named by a <code>cm-kind</code> tag; procedure and related list for guides and references</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
+                <tr><td class="strong">Page types</td><td class="wrap">None</td><td class="wrap">Topic, glossary, module, framework, process, metric, comparison, roadmap and case study: recipes on the three kinds, each with its template, named by a <code>cm-type</code> tag</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
                 <tr><td class="strong">Reference blocks</td><td class="wrap">None</td><td class="wrap">Definition, questions and property sheet</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
                 <tr><td class="strong">Charts</td><td class="wrap">Referenced, not specified</td><td class="wrap">ECharts as the single method; theme generated from tokens; palette c1–c4 + context grey; sequential ramp; automatic legend for 2+ series; axis titles with units; annotations</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
                 <tr><td class="strong">Dark mode</td><td class="wrap">Deferred</td><td class="wrap">Full dark token set. Surfaces separate by lightness plus a 1px light ring because soft shadows vanish on dark</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
@@ -135,6 +136,7 @@
                 <tr><td class="strong">KPI blocks</td><td class="wrap">Single metric card</td><td class="wrap">Strip of 2–4 with delta meaning (neutral, good, bad), sparkline, target foot</td><td><span class="cm-chip">Extended</span></td></tr>
                 <tr><td class="strong">Tables</td><td class="wrap">Grid of divs</td><td class="wrap">Native table. 16px column gutters, right-aligned numbers, dotted totals rule, row flags in the left gutter, in-cell bars, sorting</td><td><span class="cm-chip">Changed</span></td></tr>
                 <tr><td class="strong">Timeline, process</td><td class="wrap">Process as inline text</td><td class="wrap">Vertical timeline on one continuous rail; step diagram on S2 tiles with one L1e bottleneck</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
+                <tr><td class="strong">Diagrams</td><td class="wrap">Separate page, not supplied</td><td class="wrap">Drawn by the kit from JSON in six modes: flow, sequence, state, entity relationship, layer stack and hierarchy; each with a text version and capacity ceilings</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
                 <tr><td class="strong">Appendix</td><td class="wrap">Collapsible section header</td><td class="wrap">Native details element; opens automatically for print</td><td><span class="cm-chip">Changed</span></td></tr>
                 <tr><td class="strong">Structured components</td><td class="wrap">Structured page: stage cards, swimlane, framework variants, method, metric, requirement and evaluation cards</td><td class="wrap">Workflow, framework, model, method, requirement, evaluation and metric detail as text-first cards, with parts as tiles, facts rows and a criteria register</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
                 <tr><td class="strong">Document sets</td><td class="wrap">Menu bar with a list of pages for each group</td><td class="wrap">Document ids and file-name addresses, a breadcrumb from set to area to document, a generated index page, and a link check over the folder</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
@@ -147,7 +149,7 @@
         </div>
         <aside class="cm-callout cm-callout--limitation" data-comment-anchor="dbb76ce24d-aside">
           <span class="cm-callout__label">Limitation</span>
-          <div class="cm-callout__body">The kit does not yet cover maps, network and hierarchy diagrams, interactive filters or a cover page for long PDFs. Foundations’ own Charts, Print and Diagram pages were not supplied; reconcile once they are.</div>
+          <div class="cm-callout__body">The kit does not yet cover maps, network diagrams, interactive filters or a cover page for long PDFs. Foundations’ own Charts, Print and Diagram pages were not supplied; reconcile once they are.</div>
         </aside>
       </div>
     </section>

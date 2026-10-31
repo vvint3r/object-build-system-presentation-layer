@@ -173,7 +173,7 @@ pre code{all:unset}
 /* ---------- 8. Chips, tags, buttons ---------- */
 /* Outline only. Status color sits in a 2px offset to the right and bottom; the word carries the meaning. */
 .cm-chip,.cm-tag,.cm-delta{--c:transparent;display:inline-flex;align-items:center;justify-content:center;gap:6px;height:20px;padding:0 8px;font-family:var(--cm-font);font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;line-height:1;white-space:nowrap;color:var(--cm-ink);border:1px solid var(--cm-ink);background:transparent;border-radius:var(--cm-r-pill);vertical-align:middle;font-variant-numeric:tabular-nums}
-.cm-tag{height:18px;padding:0 6px;border-radius:var(--cm-r-chip)}
+.cm-tag{height:20px;padding:0 6px;border-radius:var(--cm-r-chip)}
 /* A delta keeps the case it is written in, so units read as written: "−50s", "+2.1 pp". */
 .cm-delta{text-transform:none}
 .cm-tag--dashed,.cm-chip--dashed{border-style:dashed}
@@ -434,7 +434,7 @@ pre code{all:unset}
 .cm-diagram__node{position:absolute;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-width:96px;max-width:168px;padding:12px 16px;text-align:center;background:var(--cm-surface);border:1px solid var(--cm-field);border-radius:var(--cm-r-tile)}
 .cm-diagram__name{font-size:15px;font-weight:700;line-height:1.35;text-wrap:balance}
 .cm-diagram__detail{font-size:max(13px,calc(11px * var(--cm-dg-k,1)));font-weight:400;line-height:1.45;text-wrap:balance}
-.cm-diagram__node .cm-chip{margin-top:8px;font-size:calc(11px * var(--cm-dg-k,1));height:calc(20px * var(--cm-dg-k,1));padding:0 calc(8px * var(--cm-dg-k,1))}
+.cm-diagram__node .cm-chip{margin-top:8px;max-width:none;white-space:nowrap;font-size:calc(11px * var(--cm-dg-k,1));height:calc(20px * var(--cm-dg-k,1));padding:0 calc(8px * var(--cm-dg-k,1))}
 .cm-diagram__node--terminal{min-width:0;max-width:224px;padding:10px 22px;border-radius:var(--cm-r-pill)}
 .cm-diagram__node--store{border-width:2px 0;border-color:var(--cm-ink);border-radius:2px}
 .cm-diagram__node--external{border:2px solid var(--cm-ink);border-radius:var(--cm-r-chip)}
@@ -473,7 +473,7 @@ pre code{all:unset}
 .cm-diagram__node--entity>.cm-diagram__name{padding:10px 16px;border-bottom:1px solid var(--cm-field)}
 .cm-diagram__attrs{display:flex;flex-direction:column;padding:6px 0}
 .cm-diagram__attr{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:3px 16px;font-size:max(13px,calc(11px * var(--cm-dg-k,1)));line-height:1.45}
-.cm-diagram__attr .cm-tag{flex:none;font-size:calc(11px * var(--cm-dg-k,1));height:calc(18px * var(--cm-dg-k,1));padding:0 calc(6px * var(--cm-dg-k,1))}
+.cm-diagram__attr .cm-tag{flex:none;font-size:calc(11px * var(--cm-dg-k,1));height:calc(20px * var(--cm-dg-k,1));padding:0 calc(6px * var(--cm-dg-k,1))}
 .cm-diagram--narrow .cm-diagram__node--entity{max-width:none}
 .cm-data>.cm-olist,.cm-data>.cm-list{margin-top:16px}
 
@@ -615,7 +615,7 @@ ol.cm-parts.cm-parts--matrix{--n:2}
   :root{--cm-bleed:20px}
   /* a chip, tag or delta wider than its line wraps its words inside the outline */
   .cm-chip,.cm-tag,.cm-delta{height:auto;min-height:20px;max-width:100%;white-space:normal;line-height:1.2;padding-block:1.5px;text-align:center}
-  .cm-tag{min-height:18px}
+  .cm-tag{min-height:20px}
   .cm-shell{padding:0 0 80px}
   .cm-topbar__in{padding:12px 20px}
   .cm-bleed{margin-inline:0}

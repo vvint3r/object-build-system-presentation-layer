@@ -105,7 +105,7 @@ Semantic meaning is fixed: ok = healthy/validated, warn = attention/at risk, cri
 | T5 | `.cm-t5`, `.cm-timeline__title`, `.cm-step__title`, `.cm-findings__claim`, terms | 16–18 / 700–800 | none |
 | Body | default | 16 / 400 / 1.9 | Reading column, max 70ch |
 | Small | `.cm-small`, text inside surfaces | 15 / 400 / 1.8 | — |
-| Label | `.cm-label`, kinds, metadata, status and fact keys, callout, definition and question labels, table heads, contents rail and process step numbers; `.cm-chip` (text centred in the 20px pill), `.cm-tag` | 11 / 800 / caps, +0.06em | — |
+| Label | `.cm-label`, kinds, metadata, status and fact keys, callout, definition and question labels, table heads, contents rail and process step numbers; `.cm-chip` (text centred in the 20px pill), `.cm-tag` (in a 20px box) | 11 / 800 / caps, +0.06em | — |
 | Delta | `.cm-delta` | 11 / 800, +0.06em, in the case written, so units read as written (`−50s`, `+2.1 pp`) | — |
 | Role tag | property-sheet `<sup>` | 11 / 700, sentence case | — |
 | Meta | `.cm-meta` | 13 / 400 | Dates, sizes, provenance |
@@ -832,9 +832,10 @@ The kit applies the rest:
 - The drawing recomputes on resize, on a theme change and before print.
 - A text version follows the caption: a `details.cm-data` disclosure, "View as text", with one numbered item for each node in reading order. Each item gives the node's name and detail, then where the flow goes next: each branch with its label and step number, and a loop as "Back to step N". The node's phase, lane and boundaries, its experience level and the emphasised node are named.
 - An empty `aria-label` takes a summary from the data: the number of steps, the first and last, and the count of lanes, decisions and loops. A journey map and a system and data flow take their own summary (below). An author's `aria-label` stays; it states what the diagram shows in one sentence.
-- When the screen layout is wider than its box, the diagram takes the narrower gaps and nodes of the print layout. If it is still wider, it keeps its geometry and scrolls sideways inside its own box. Labels never shrink.
+- When the screen layout is wider than its box, the diagram takes the narrower gaps and nodes of the print layout. If it is still wider, it scales to the box's width, never below 80%, with its text set larger as in print. Past that floor it scrolls sideways inside its own box. Text never draws under its own size.
 - Print narrows the gaps and the nodes, then scales the drawing to fit the 638px printed column and 720px of a page, never below 80%. Text in a scaled drawing is set larger by the inverse of the scale, up to 125%, so it prints at its own size and never under 11px. The text version prints open.
-- At a desktop window, 1000px and wider, a diagram fits its box without scrolling; the layout check fails one that scrolls.
+- A diagram within its capacity never scrolls at a desktop window, 1000px and wider. The layout check fails one that scrolls at 1440px.
+- A node widens to hold its emphasis chip, which never wraps.
 
 #### Sequence
 
@@ -1868,11 +1869,11 @@ Headings are `h1` to `h6` and table titles.
 10. Chart JSON parses; colors only via `$tokens`; bars/areas start at zero.
 11. Footnotes and citations link both ways; every source has a key, type, locator and date, and the sources list every dataset (§8.21).
 12. Contents rail links match section ids; every section has `aria-labelledby`.
-13. Opened in light, dark and print preview with no console errors.
+13. Opened in light, dark and print preview, and at a 390px phone width, with no console errors. Nothing scrolls sideways but a table, code or a diagram in its own box; no text is cut off or under 11px (§4, §5).
 14. Writing within §13: prose inside the limits, in plain words and neutral third person, with no em or en dashes; each section leads with its finding; headings are plain noun phrases in sentence case.
 15. Changing numbers sit in one dated status block; change log and revision history run newest first with dated entries; each limitation status is a word from its set (§8.22).
 16. `cm-kind` names the kind, or is absent for a report; `cm-type`, when present, names a type of that kind (§7.6). A guide or a reference has its required parts in order, each with its id, or their omission comments (§7.3 to §7.5). Every procedure step closes with its outcome; every related item has a tag, a link and a sentence.
-17. Every diagram: JSON within its mode's fields and capacity, a label on every decision branch and every named edge, `role="img"`, a caption with a source line, and nothing overlapping or clipped in light, dark and print (§8.20).
+17. Every diagram: JSON within its mode's fields and capacity, a label on every decision branch and every named edge, a terminal at the end of every branch, `role="img"`, a caption with a source line, and nothing overlapping or clipped in light, dark and print (§8.20).
 18. Each structured component opens with its kind label and title and holds its required parts within its counts and limits (§8.25 to §8.30).
 19. `cm-id` names the document. The breadcrumb runs from set to area to document. In a set, every link names a file and a section id, the index page is rewritten, and `npm run links` passes on the folder (§8.31).
 20. A roadmap or a case study has its recipe’s required parts in order, each with its id, and passes its type check (§7.14, §7.15).
@@ -1908,6 +1909,9 @@ Changed in 1.2:
 - A source's date word comes from a closed set, with `as of` and `covers` (§8.21).
 - A delta keeps the case it is written in (§4). A table cell that does not apply reads `n/a` (§8.11).
 - Value labels carry thousands separators and the chart's precision (§9).
+- No text is under 11px on screen or on paper: labels, chips, tags and deltas are 11px at +0.06em, and diagrams set their text larger as print scales them (§4, §8.20).
+- At a 390px phone width the page never scrolls sideways; chips wrap inside their outline, and tables print without scrolling (§5, §8.11, §8.18).
+- A flow's branch that ends early ends at a terminal of its own, and `col` and `row` keep their meaning in a flow that reads down (§8.20).
 
 Added for guides and references: document kinds (§7), procedure (§8.23), related list (§8.24).
 

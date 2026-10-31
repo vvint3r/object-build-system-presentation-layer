@@ -699,12 +699,13 @@
   // Sizes as drawn. Steps, stores, external entities and states in one column share its widest width
   // and in one row its tallest height, so the grid reads as a grid; entities share the width only. A decision is the smallest square
   // whose diamond holds its question: text w wide and h tall fits when w + h fits the diagonal.
+  function dgPx(el, prop) { return parseFloat(getComputedStyle(el)[prop]) || 0; }
   function dgMeasure(d) {
     var m = d.model, colW = {}, rowH = {};
     var boxy = function (n) { return n.type === 'step' || n.type === 'store' || n.type === 'external' || n.type === 'state'; };
     m.nodes.forEach(function (n) {
       var e = n.el;
-      e.style.left = '0px'; e.style.top = '0px'; e.style.width = ''; e.style.height = '';
+      e.style.left = '0px'; e.style.top = '0px'; e.style.width = ''; e.style.height = ''; e.style.maxWidth = '';
       if (n.type === 'decision') {
         var nm = n.nameEl, best = null;
         nm.style.width = '';
@@ -718,6 +719,9 @@
         n.w = n.h = even(Math.max(80, best.side));
       } else {
         n.w = even(e.offsetWidth); n.h = even(e.offsetHeight);
+        // an emphasis chip never wraps: a node narrower than its chip widens to hold it
+        var chip = e.querySelector('.cm-chip');
+        if (chip) n.w = Math.max(n.w, even(chip.offsetWidth + e.offsetWidth - e.clientWidth + dgPx(e, 'paddingLeft') + dgPx(e, 'paddingRight')));
       }
       if (boxy(n) || n.type === 'entity') colW[n.col] = Math.max(colW[n.col] || 0, n.w);
       if (boxy(n)) rowH[n.row] = Math.max(rowH[n.row] || 0, n.h);
@@ -1252,14 +1256,16 @@
   // drawing's own size stay on the diagram for dgPlace.
   function dgFit(d, gW, gH, centre) {
     var el = d.el, cv = d.canvas, svg = d.svg;
-    var scale = printing ? Math.max(DG.minScale, Math.min(1, DG.printW / gW, DG.printH / gH)) : 1;
+    // print fits the printed column and a page; a screen drawing too wide for its box fits its width
+    var boxW = printing ? DG.printW : el.clientWidth;
+    var scale = printing || d.squeeze ? Math.max(DG.minScale, Math.min(1, boxW / gW, printing ? DG.printH / gH : 1)) : 1;
     d.fit = { scale: scale, gW: gW, gH: gH };
-    var room = Math.floor((printing ? DG.printW : el.clientWidth) / scale);
+    var room = Math.floor(boxW / scale);
     var ox = centre ? Math.max(0, Math.floor((room - gW) / 2)) : 0, W = Math.max(gW, room), H = gH;
     cv.style.width = W + 'px'; cv.style.height = H + 'px';
     cv.style.transform = scale < 1 ? 'scale(' + scale + ')' : '';
-    cv.style.marginRight = scale < 1 ? -Math.ceil(W * (1 - scale)) + 'px' : '';
-    cv.style.marginBottom = scale < 1 ? -Math.ceil(H * (1 - scale)) + 'px' : '';
+    cv.style.marginRight = scale < 1 ? -Math.floor(W * (1 - scale)) + 'px' : '';
+    cv.style.marginBottom = scale < 1 ? -Math.floor(H * (1 - scale)) + 'px' : '';
     svg.setAttribute('width', W); svg.setAttribute('height', H); svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
     while (svg.firstChild) svg.removeChild(svg.firstChild);
     return { scale: scale, ox: ox, W: W, H: H };
@@ -1291,7 +1297,7 @@
     });
     m.nodes.forEach(function (n) {
       var s = n.el.style;
-      s.left = X(n.x) + 'px'; s.top = Y(n.y) + 'px'; s.width = n.w + 'px'; s.height = n.h + 'px';
+      s.left = X(n.x) + 'px'; s.top = Y(n.y) + 'px'; s.width = n.w + 'px'; s.height = n.h + 'px'; s.maxWidth = 'none';
       geo.nodes.push({ id: n.id, type: n.type, el: n.el });
     });
     routes.forEach(function (r) {
@@ -2193,19 +2199,22 @@
   DG_MODES.hierarchy = { model: dgTreeModel, key: function () { return null; }, text: dgTreeText, layout: dgTreeLayout };
 
   // Lay a diagram out for where it is shown. On screen it takes the screen gaps and nodes; a drawing
-  // wider than its box takes the narrow ones print uses, and one still wider scrolls in its box. In
-  // print it is narrow and scaled to fit the printed column and a page. Text that scale would take
-  // below the 11px floor is set larger first (--cm-dg-k), and the drawing laid out again, until the
-  // text prints at 11px or more; the 80% floor on the scale bounds the loop.
+  // wider than its box takes the narrow ones print uses, then scales to the box's width, and one
+  // still wider at the 80% floor scrolls in its box. In print it is narrow and scaled to fit the
+  // printed column and a page. Text that scale would take below its own size is set larger first
+  // (--cm-dg-k), and the drawing laid out again, until the text is drawn at its size or more; the
+  // 80% floor on the scale bounds the loop.
   function dgPlace(d) {
     var cv = d.canvas;
-    d.narrow = printing; d.fit = null;
+    d.narrow = printing; d.squeeze = false; d.fit = null;
     if (cv) cv.style.removeProperty('--cm-dg-k');
     d.mode.layout(d);
     if (d.pending || !d.fit) return;
     if (!printing) {
-      if (d.fit.gW > d.el.clientWidth) { d.narrow = true; d.mode.layout(d); }
-      return;
+      if (d.fit.gW <= d.el.clientWidth) return;
+      d.narrow = true; d.mode.layout(d);
+      if (d.fit.gW <= d.el.clientWidth) return;
+      d.squeeze = true; d.mode.layout(d);
     }
     var k = 1, ok = function () { var t = d.fit.scale * k; return t >= 0.9999 && (t <= 1.02 || k === 1); };
     for (var i = 0; i < 6 && !ok(); i++) {

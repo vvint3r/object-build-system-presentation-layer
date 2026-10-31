@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "preview": "node tools/preview.mjs",
-    "check": "node checks/run.mjs"
+    "check": "node checks/run.mjs",
+    "index": "node tools/index.mjs",
+    "links": "node checks/links.mjs"
   },
   "devDependencies": {
     "echarts": "5.5.1",

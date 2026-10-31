@@ -90,3 +90,4 @@ Rounds 40e and 40f exist only in `CONTINUATION.md` and are taken from there.
 | [077-flow-diagrams.md](077-flow-diagrams.md) | Flow diagrams | 2026-10-30 | orchestrating session, record 075 |
 | [078-document-kinds.md](078-document-kinds.md) | Document kinds | 2026-10-30 | orchestrating session, record 075 |
 | [079-provenance-and-status.md](079-provenance-and-status.md) | Provenance and status | 2026-10-30 | orchestrating session, record 075 |
+| [083-document-sets.md](083-document-sets.md) | Document sets | 2026-10-30 | orchestrating session, record 075 |

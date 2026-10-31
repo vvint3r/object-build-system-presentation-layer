@@ -115,10 +115,12 @@ export function install(cfg) {
   let source;
   H.source = () => source || (source = new DOMParser().parseFromString(cfg.src, 'text/html'));
 
-  // The document's kind, from <meta name="cm-kind"> in the page as written (SPEC.md section 7): report,
-  // guide or reference. A page without the tag is a report; head-order fails a value outside the three,
-  // and the other checks then read the page as a report.
-  H.KINDS = ['report', 'guide', 'reference'];
+  // The page's kind, from <meta name="cm-kind"> in the page as written: report, guide or reference for
+  // a document (SPEC.md section 7), index for a set's generated index page (section 8.25). A page
+  // without the tag is a report; head-order fails a value outside the four, and the other checks then
+  // read the page as a report.
+  H.DOCUMENTS = ['report', 'guide', 'reference'];
+  H.KINDS = [...H.DOCUMENTS, 'index'];
   H.kindMeta = () => [...H.source().querySelectorAll('meta[name="cm-kind"]')];
   H.kind = () => {
     const m = H.kindMeta()[0];

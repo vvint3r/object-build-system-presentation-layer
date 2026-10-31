@@ -12,10 +12,11 @@ export default [
 
   {
     // The required head, in order. Other elements may sit between the required ones. The kind tag,
-    // when present, follows the kit tag and names one of the three kinds. A report's title carries
-    // its period, or the omission comment in the head; a guide's or a reference's title is the
-    // title alone (SPEC §2; §7).
-    name: 'head-order', level: 'fail', source: 'SPEC §2; §7', once: true,
+    // when present, follows the kit tag and names one of the three document kinds, or the index
+    // page. The id tag follows them: one per page, lowercase words joined by hyphens, or a template
+    // placeholder. A report's title carries its period, or the omission comment in the head; the
+    // title of any other kind is the title alone (SPEC §2; §7; §8.25).
+    name: 'head-order', level: 'fail', source: 'SPEC §2; §7; §8.25', once: true,
     inPage: () => {
       const H = window.__cm, d = H.source(), kit = H.cfg.kit;
       const same = (a, b) => a.replace(/\r\n/g, '\n').trim() === b.replace(/\r\n/g, '\n').trim();
@@ -26,8 +27,15 @@ export default [
       if (metas.length > 1) out.push({ where: 'head', value: `${metas.length} cm-kind tags (at most 1)` });
       for (const m of metas) {
         const v = attr(m, 'content').trim();
-        if (!H.KINDS.includes(v)) out.push({ where: H.path(m), value: `cm-kind "${v}" (report, guide or reference)` });
+        if (!H.KINDS.includes(v)) out.push({ where: H.path(m), value: `cm-kind "${v}" (report, guide, reference or index)` });
         if (m.parentElement !== d.head) out.push({ where: H.path(m), value: 'cm-kind tag outside <head>' });
+      }
+      const ids = [...d.querySelectorAll('meta[name="cm-id"]')];
+      if (ids.length > 1) out.push({ where: 'head', value: `${ids.length} cm-id tags (exactly 1)` });
+      for (const m of ids) {
+        const v = attr(m, 'content').trim();
+        if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(v) && !/^\{\{[\s\S]*\}\}$/.test(v)) out.push({ where: H.path(m), value: `cm-id "${v}" (lowercase words joined by hyphens)` });
+        if (m.parentElement !== d.head) out.push({ where: H.path(m), value: 'cm-id tag outside <head>' });
       }
       const report = H.kind() === 'report';
       const noPeriod = !report || H.omitted(d.head, 'title-period');
@@ -39,6 +47,7 @@ export default [
           : ['<title>{title} · {period}</title>, or the period left out with cm-omit title-period', el => el.matches('title') && / · \S/.test(el.textContent)],
         ['<meta name="cm-kit" content="1.2">', el => el.matches('meta[name="cm-kit"]') && attr(el, 'content') === '1.2'],
         ...(metas.length ? [['<meta name="cm-kind">, after cm-kit', el => el.matches('meta[name="cm-kind"]')]] : []),
+        ['<meta name="cm-id">, after cm-kind', el => el.matches('meta[name="cm-id"]')],
         ['theme pre-paint script', el => el.matches('script:not([src])') && same(el.textContent, kit.prepaint)],
         ['preconnect to fonts.googleapis.com', el => el.matches('link[rel="preconnect"]') && attr(el, 'href') === 'https://fonts.googleapis.com'],
         ['preconnect to fonts.gstatic.com, crossorigin', el => el.matches('link[rel="preconnect"][crossorigin]') && attr(el, 'href') === 'https://fonts.gstatic.com'],

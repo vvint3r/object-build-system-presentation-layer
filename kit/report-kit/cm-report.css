@@ -418,6 +418,10 @@ pre code{all:unset}
 .cm-diagram__swatch--data{border-top-style:dotted}
 .cm-diagram__swatch--optional{border-top-style:dashed}
 .cm-diagram__swatch--experience{width:24px;height:0;background:none;border:0;border-top:2px solid var(--cm-accent);border-radius:0}
+/* a layer stack's key: the line with its arrowhead, since the direction carries the meaning */
+.cm-diagram__swatch--depends{width:24px;height:8px;background:none;border:0;border-radius:0;overflow:visible}
+/* a journey's scale may wrap on a narrow screen */
+.cm-diagram__key-item--scale{white-space:normal}
 .cm-diagram__canvas{position:relative;transform-origin:0 0}
 .cm-diagram__lines{position:absolute;left:0;top:0;max-width:none;overflow:visible}
 .cm-diagram__line{fill:none;stroke:var(--cm-ink);stroke-width:2}

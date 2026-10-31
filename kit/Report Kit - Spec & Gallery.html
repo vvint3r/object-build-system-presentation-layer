@@ -1428,7 +1428,7 @@
               <li>A flow diagram shows branches, loops or lanes. Three to six steps in a line are a process diagram.</li>
               <li>Shape marks the node type and line style the edge kind. A key names the rarer ones.</li>
               <li>Every branch out of a decision carries a label: yes and no, or the condition.</li>
-              <li>An edge label stands on its line, where the line leaves its node.</li>
+              <li>An edge label stands on its line, near where the line leaves its node, with line on both sides.</li>
               <li>At most 24 nodes, 5 columns (4 with lanes), 5 rows, 5 lanes and 12 edge labels. A larger flow splits into an overview and details.</li>
               <li>One node at most is emphasised, with a chip naming why.</li>
               <li>The kit writes a text version under the caption, and a summary when the <code>aria-label</code> is empty.</li>
@@ -1642,7 +1642,7 @@
         </div>
 
         <div class="g-comp">
-          <header><span class="cm-label">7.6</span><h3 class="cm-h3">Journey map</h3><p>Phases as frames across the top, one step per column under them, and the experience line under the steps. Each step carries its <code>level</code> on the scale the <code>experience</code> list names, lowest first; the kit marks the low point.</p></header>
+          <header><span class="cm-label">7.6</span><h3 class="cm-h3">Journey map</h3><p>Phases as frames across the top, one step per column under them, and the experience line under the steps. Each step carries its <code>level</code> on the scale the <code>experience</code> list names, lowest first. Each word stands under its run, between that level and the next one down.</p></header>
           <div data-demo>
 <figure class="cm-figure cm-bleed">
   <span class="cm-figure__kind">Figure 13</span>
@@ -1685,11 +1685,11 @@
     {
       "nodes": [
         {"id": "customer", "type": "external", "label": "Customer", "col": 1, "row": 1},
-        {"id": "survey", "type": "step", "label": "Survey tool", "detail": "Sends surveys", "col": 2, "row": 1},
-        {"id": "responses", "type": "store", "label": "Survey responses", "col": 2, "row": 2},
-        {"id": "scheduler", "type": "step", "label": "Scheduler", "col": 3, "row": 1},
-        {"id": "load", "type": "step", "label": "Nightly load", "col": 3, "row": 2},
-        {"id": "csat", "type": "store", "label": "csat_daily", "col": 4, "row": 2}
+        {"id": "survey", "type": "step", "label": "Survey tool", "detail": "Sends surveys", "col": 1, "row": 2},
+        {"id": "responses", "type": "store", "label": "Survey responses", "col": 1, "row": 3},
+        {"id": "scheduler", "type": "step", "label": "Scheduler", "col": 2, "row": 2},
+        {"id": "load", "type": "step", "label": "Nightly load", "col": 2, "row": 3},
+        {"id": "csat", "type": "store", "label": "csat_daily", "col": 3, "row": 3}
       ],
       "edges": [
         {"from": "customer", "to": "survey", "kind": "data", "label": "Answers"},
@@ -1699,8 +1699,8 @@
         {"from": "load", "to": "csat", "kind": "data"}
       ],
       "groups": [
-        {"type": "boundary", "label": "Survey platform", "col": 2, "row": 1, "rows": 2},
-        {"type": "boundary", "label": "Data warehouse", "col": 3, "row": 1, "cols": 2, "rows": 2}
+        {"type": "boundary", "label": "Survey platform", "col": 1, "row": 2, "rows": 2},
+        {"type": "boundary", "label": "Data warehouse", "col": 2, "row": 2, "cols": 2, "rows": 2}
       ]
     }
     </script>

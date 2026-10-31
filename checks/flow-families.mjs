@@ -97,9 +97,9 @@ export default [
   },
 
   {
-    // Every edge label stands on the line of its edge's first run, centred on it, and the line
-    // starts 8px past the label: one placement for a line that leaves sideways and one that leaves
-    // up or down.
+    // Every edge label stands on the line of its edge's first run, centred on it. The line runs at
+    // least 16px from its node, breaks 8px before the label and goes on 8px past it: one placement
+    // for a line that leaves sideways and one that leaves up or down.
     name: 'diagram-label-inline', level: 'fail', source: 'SPEC §8.20',
     inPage: ({ check }) => {
       const H = window.__cm, out = [];
@@ -117,6 +117,14 @@ export default [
           const far = hz ? (u > 0 ? L.r : L.l) : (u > 0 ? L.b : L.t);
           const gap = ((hz ? a[0] : a[1]) - far) * u;
           if (gap < 6.5 || gap > 9.5) out.push({ where, value: `the edge ${e.from} to ${e.to} starts ${Math.round(gap)}px past its label "${e.label}" (8px)` });
+          const ld = e.lead;
+          if (!ld) { out.push({ where, value: `no line between node "${e.from}" and its label "${e.label}"` }); return; }
+          const run = Math.abs(ld[1][0] - ld[0][0]) + Math.abs(ld[1][1] - ld[0][1]);
+          const near = hz ? (u > 0 ? L.l : L.r) : (u > 0 ? L.t : L.b);
+          const air = (near - (hz ? ld[1][0] : ld[1][1])) * u;
+          if ((hz ? ld[0][1] !== a[1] || ld[1][1] !== a[1] : ld[0][0] !== a[0] || ld[1][0] !== a[0])) out.push({ where, value: `the line before label "${e.label}" is not in line with its edge` });
+          if (run < 15.5) out.push({ where, value: `the line before label "${e.label}" runs ${Math.round(run)}px (16px at least)` });
+          if (air < 6.5 || air > 9.5) out.push({ where, value: `the line before label "${e.label}" stops ${Math.round(air)}px short of it (8px)` });
         });
       }
       return out;
@@ -125,8 +133,8 @@ export default [
 
   {
     // A journey map as drawn: each phase frame clear of the steps and of the other frames; the
-    // experience line under the steps; and each word under it, and the low point label, 8px clear
-    // of every node, edge, run of the line and other label, inside the diagram.
+    // experience line under the steps; and each level word under it 8px clear of every node, edge,
+    // run of the line and other label, inside the diagram.
     name: 'journey-layout', level: 'fail', source: 'SPEC §8.20, Journey map',
     inPage: ({ check }) => {
       const H = window.__cm, out = [], CLEAR = 7.5;
@@ -154,7 +162,7 @@ export default [
         if (Math.min(...pts.map(p => p[1])) < lowest + CLEAR) bad('the experience line runs within 8px of a step, or above one');
         const edges = [];
         g.edges.forEach(e => e.points.slice(1).forEach((p, i) => edges.push([e.points[i], p])));
-        const words = g.experience.labels.map(L => ({ name: L.label === 'Low point' ? 'the low point label' : `the level word "${L.label}"`, b: box(L.el) }));
+        const words = g.experience.labels.map(L => ({ name: `the level word "${L.label}"`, b: box(L.el) }));
         words.forEach((W, i) => {
           const air = grow(W.b, CLEAR);
           nodes.forEach(n => { if (meet(air, n.b)) bad(`${W.name} is within 8px of node "${n.id}"`); });

@@ -602,9 +602,9 @@ The kit applies the rest:
 
 - Nodes in one column share a width and nodes in one row share a height. A decision's square grows to hold its question.
 - Edges run at right angles through the gaps between columns and rows, with rounded elbows and an arrowhead, in 2px ink. Edges that leave or enter one side share a line. Decision outlines and boundaries are 1.5px.
-- An edge label stands on its line, where the line leaves its node: centred on the line, 8px from the node, and the line starts 8px past it. The placement is the same whether the line leaves sideways or up and down.
+- An edge label stands on its line, near where the line leaves its node. The line runs 16px from the node, breaks 8px before the label and goes on 8px past it, with the label centred on it. The placement is the same whether the line leaves sideways or up and down.
 - A labelled edge leaves its node by a side no other edge uses, so no other line runs where its label stands.
-- On a line that goes on to cross a boundary side, the label stands at least 24px before that side, so the line shows before it crosses.
+- When the line leaves a boundary within that reach, it runs 8px past the boundary side before it breaks, so the label stands outside. A label stands at least 24px before a side its line goes on to cross, so the line shows before it crosses.
 - Edge labels take the label style on the page colour, 8px clear of every other line, node and label.
 - The drawing recomputes on resize, on a theme change and before print.
 - A text version follows the caption: a `details.cm-data` disclosure, "View as text", with one numbered item for each node in reading order. Each item gives the node's name and detail, then where the flow goes next: each branch with its label and step number, and a loop as "Back to step N". The node's phase, lane and boundaries, its experience level and the emphasised node are named.
@@ -756,7 +756,7 @@ The JSON holds `nodes` and `edges` only, placed on the grid as in a flow diagram
 - Every entity names its primary key. An attribute list keeps the keys and the attributes the text discusses, not every column.
 - Counts are written in words, not as crow's feet, so a reader needs no notation to read them.
 - A count stands beside the entity it counts, below a line across or to the right of a line down. Two counts on one straight line stand at least 24px apart.
-- The relationship's `label` names it with a verb, read from `from` to `to`. It stands where a flow's edge label does.
+- The relationship's `label` names it with a verb, read from `from` to `to`. It stands beside its line, above a run across or to the left of a run down.
 - The `from` entity comes first in reading order: in an earlier row, or earlier in the same row. The name then reads left to right or top to bottom.
 - One relationship leaves each side of an entity, so an entity takes part in 4 at most. An entity never relates to itself.
 - A line runs on to meet the entity at each end, since it carries no arrowhead.
@@ -806,8 +806,8 @@ A journey map shows what one person does across the phases of an experience, and
 - Every node carries a `level`, its place on the scale, from 1 for the first word. Without a scale, no node has a level.
 - One step stands in each column, so the line reads one step at a time.
 - Phases are frames across the top, in the track colour, each over the columns it spans. Together they cover every column once.
-- The experience line runs 32px under the steps in the accent colour, 2px: across each step's column at its level, turning in the gap between columns. Levels stand 16px apart.
-- Each run carries its word below it in the label style. Where the levels differ, "Low point" stands above the lowest run, so it reads as a note on the line, not a level.
+- The experience line runs 32px under the steps in the accent colour, 2px: across each step's column at its level, turning in the gap between columns. Levels stand 24px apart.
+- Each run carries its word below it in the label style, between its level and the next one down, so no word stands level with another run. The drawing shows the low point by height alone; the text version and the summary name it.
 - The key names the line and its whole scale, low to high, so a level no step reaches still has its place.
 - Edges are optional. The column order already reads as time.
 
@@ -825,10 +825,10 @@ A system and data flow shows systems, where their data rests and what moves betw
   {
     "nodes": [
       {"id": "customer", "type": "external", "label": "Customer", "col": 1, "row": 1},
-      {"id": "survey", "type": "step", "label": "Survey tool", "detail": "Sends surveys", "col": 2, "row": 1},
-      {"id": "responses", "type": "store", "label": "Responses", "col": 2, "row": 2},
-      {"id": "load", "type": "step", "label": "Nightly load", "col": 3, "row": 2},
-      {"id": "csat", "type": "store", "label": "csat_daily", "col": 4, "row": 2}
+      {"id": "survey", "type": "step", "label": "Survey tool", "detail": "Sends surveys", "col": 1, "row": 2},
+      {"id": "responses", "type": "store", "label": "Responses", "col": 1, "row": 3},
+      {"id": "load", "type": "step", "label": "Nightly load", "col": 2, "row": 3},
+      {"id": "csat", "type": "store", "label": "csat_daily", "col": 3, "row": 3}
     ],
     "edges": [
       {"from": "customer", "to": "survey", "kind": "data", "label": "Answers"},
@@ -837,8 +837,8 @@ A system and data flow shows systems, where their data rests and what moves betw
       {"from": "load", "to": "csat", "kind": "data"}
     ],
     "groups": [
-      {"type": "boundary", "label": "Survey platform", "col": 2, "row": 1, "rows": 2},
-      {"type": "boundary", "label": "Data warehouse", "col": 3, "row": 2, "cols": 2}
+      {"type": "boundary", "label": "Survey platform", "col": 1, "row": 2, "rows": 2},
+      {"type": "boundary", "label": "Data warehouse", "col": 2, "row": 3, "cols": 2}
     ]
   }
   </script>
@@ -852,7 +852,7 @@ A system and data flow shows systems, where their data rests and what moves betw
 - A data store is ruled above and below with one 2px line each, not a double line.
 - The key names the solid line "Control".
 
-The flow's capacity holds, with its 2 boundaries.
+The flow's capacity holds, with its 2 boundaries. Each label in line widens its gap, so labelled crossings reach the printed column sooner: four columns with two of them can print below 80%, and the print check then fails the diagram.
 
 Each item of the text version names the boundaries its node stands within, and marks data edges "(data)". An empty `aria-label` takes a summary: the number of steps, data stores, external entities and boundaries, and the number of data flows and control flows.
 

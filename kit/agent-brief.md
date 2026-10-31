@@ -46,10 +46,10 @@ template are never rebuilt from memory, from a description, or from another desi
 
 1. This brief.
 2. `SPEC.md`, in full.
-3. The sample of the document's kind (report, guide or reference), for what a finished document
-   looks like.
+3. The sample of the document's kind (report, guide or reference), or the worked example of its
+   page type, for what a finished document looks like.
 4. The gallery, for the markup of each component the document needs.
-5. The template for the kind, which becomes the document.
+5. The template for the kind, or for the page type, which becomes the document.
 
 ## Inputs from the owner
 
@@ -278,6 +278,49 @@ Content maps onto existing components:
 | Numbers that will change | Status block, `cm-status` | 8.22 |
 | Changes since an earlier version | Change log and revision history, `cm-changes` and `cm-versions` | 8.22 |
 | Three or more limits of the document | Limitation register, `cm-limits` | 8.22 |
+
+## Page types
+
+A page type is a recipe on one document kind for a reader's question that recurs (sections 7.6 to
+7.15 of `SPEC.md`). A typed page keeps every required part of its kind and adds parts of its own. A
+`cm-type` tag in the head, straight after `cm-id`, names the type; a page without it is a plain
+document of its kind.
+
+```html
+<meta name="cm-kind" content="reference">
+<meta name="cm-id" content="reference-support-glossary">
+<meta name="cm-type" content="glossary">
+```
+
+- A typed page starts from `template-<type>.html` beside the kind templates, such as
+  `template-glossary.html`: the kind's template with the type's parts in place.
+- File name, id and the masthead's type chip follow the kind. The top bar's series chip may name
+  the type.
+- The type is the one whose question is the reader's:
+
+| Type | `cm-type` | Kind | Reader's question | Choose it over |
+| --- | --- | --- | --- | --- |
+| Guide | none | Guide | How is this task carried out? | A module, when the task is done once rather than learnt |
+| Reference | none | Reference | What is this one thing, and what are its facts? | A topic, when the subject is one thing |
+| Topic | `topic` | Reference | What is this subject, and which documents cover each part? | The index page, which lists a folder and explains nothing |
+| Glossary | `glossary` | Reference | What does each term mean in this set? | A definition block, when five or more terms are shared by several documents |
+| Module | `module` | Guide | How is this skill learnt, and how is the learning checked? | A guide, when the reader must apply a rule unaided |
+| Framework | `framework` | Reference | What parts make up this way of covering a subject? | The framework component, when the whole page is about one framework |
+| Process | `process` | Reference | How does this process run, stage by stage? | A guide, when the page describes how work runs rather than instructs |
+| Metric | `metric` | Reference | What does this measure count, and how is it judged? | The metric detail component, when the whole page is about one measure |
+| Comparison | `comparison` | Reference | How do these options differ on the same criteria? | A reference, when two or more things sit side by side |
+| Roadmap | `roadmap` | Report | What has to happen, by whom and by when, to reach one goal? | A plain report, when the subject is planned work toward a dated goal |
+| Case study | `case-study` | Report | What changed after one intervention, and how far does the evidence support it? | A plain report, when one change is judged before and after |
+
+- Topic: a `subtopics` section after Definition, with two or more groups, each an h3, a paragraph
+  and a related list whose links leave the page. An optional `reading-order` follows it. A topic
+  states rules and targets, never a period's results.
+- Glossary: a `terms` section takes the place of Properties. It holds definition blocks of five or
+  more terms, grouped under h3s, A to Z within a group, each defined once and citing its source.
+- Module: an `objectives` list after Purpose, each objective linking to its lesson and its exercise;
+  Steps titled Lessons, each lesson with an id; an `exercises` section after the lessons, each
+  answer in a closed collapsible labelled Answer. A module has no form controls, scores or progress
+  tracking.
 
 ## Document sets
 

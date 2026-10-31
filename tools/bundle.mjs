@@ -483,13 +483,16 @@ for (const pkg of ['@fontsource/nunito', '@fontsource/jetbrains-mono']) {
 const chartsDir = path.dirname(require.resolve('echarts/package.json'));
 put('licenses/echarts-LICENSE.txt', read(path.join(chartsDir, 'LICENSE')));
 put('licenses/echarts-NOTICE.txt', read(path.join(chartsDir, 'NOTICE')));
-// The templates, one per document kind, and the example documents, all at the bundle's root beside
-// report-kit/, so a template copied whole links the kit as a document does (§2). The kit folder's
-// index page stays out: the format reserves index.html, and a set's index page is written by the
-// index script, never composed (§8.31). The index script and the set it serves stay in the
-// repository, so every document here takes the form of one outside a set (§7.1): its set and area
-// steps are spans, and its wordmark links to #top.
+// The templates, one per document kind and one per page type (§7.6), and the example documents,
+// all at the bundle's root beside report-kit/, so a template copied whole links the kit as a document
+// does (§2). A page type is named with the kind it builds on. The kit folder's index page stays out:
+// the format reserves index.html, and a set's index page is written by the index script, never
+// composed (§8.31). The index script and the set it serves stay in the repository, so every document
+// here takes the form of one outside a set (§7.1): its set and area steps are spans, and its
+// wordmark links to #top.
 const kindOf = html => (html.match(/<meta name="cm-kind" content="([^"]+)">/) || [, 'report'])[1];
+const typeOf = html => (html.match(/<meta name="cm-type" content="([^"]+)">/) || [])[1] || null;
+const typeName = t => t.replace(/-/g, ' ');
 const KIT_DIR = path.join(ROOT, 'kit', 'report-kit');
 const standalone = html => html
   .replace(/(<a class="cm-wordmark") href="index\.html"/g, '$1 href="#top"')
@@ -506,9 +509,9 @@ const bundledTemplate = (html, file) => {
   return out;
 };
 const templates = readdirSync(KIT_DIR).filter(f => /^template.*\.html$/.test(f)).sort()
-  .map(f => ({ file: f, kind: kindOf(read(path.join(KIT_DIR, f))) }));
+  .map(f => { const html = read(path.join(KIT_DIR, f)); return { file: f, kind: kindOf(html), type: typeOf(html) }; });
 const examples = readdirSync(path.join(ROOT, 'kit')).filter(f => f.endsWith('.html') && f !== path.basename(GALLERY) && f !== 'index.html').sort()
-  .map(f => ({ file: f, kind: kindOf(read(path.join(ROOT, 'kit', f))), title: (read(path.join(ROOT, 'kit', f)).match(/<title>([^<]*)<\/title>/) || [])[1] }));
+  .map(f => { const html = read(path.join(ROOT, 'kit', f)); return { file: f, kind: kindOf(html), type: typeOf(html), title: (html.match(/<title>([^<]*)<\/title>/) || [])[1] }; });
 for (const t of templates) put(t.file, bundledTemplate(read(path.join(KIT_DIR, t.file)), t.file));
 for (const e of examples) {
   const html = standalone(read(path.join(ROOT, 'kit', e.file)));
@@ -534,8 +537,8 @@ A document built from this bundle stands alone. Document sets, their index pages
 
 | File | Use |
 | --- | --- |
-${templates.map(t => `| \`${t.file}\` | The start of every ${t.kind}. Copy it whole, beside \`report-kit/\`. |`).join('\n')}
-${examples.map(e => `| \`${e.file}\` | An example ${e.kind}: ${e.title}. |`).join('\n')}
+${templates.map(t => `| \`${t.file}\` | The start of every ${t.type ? `${typeName(t.type)}, a ${t.kind}` : `${t.kind}${templates.some(o => o.kind === t.kind && o.type) ? ' of no page type' : ''}`}. Copy it whole, beside \`report-kit/\`. |`).join('\n')}
+${examples.map(e => `| \`${e.file}\` | An example ${e.type ? `${typeName(e.type)}, a ${e.kind}` : e.kind}: ${e.title}. |`).join('\n')}
 | \`report-kit/cm-report.css\` | The only stylesheet: every token and class. Linked, or pasted into a \`<style>\` element (§2). |
 | \`report-kit/cm-report.js\` | Theme toggle, chart drawing, sortable tables, contents scroll-spy and print preparation. Linked, or pasted as the last element in \`<body>\` (§2). |
 | \`components/<Component>/README.md\` | Canonical markup and rules for one component; \`preview.html\` beside it shows it live. |

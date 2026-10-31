@@ -80,7 +80,7 @@ characters, on the safe side.
 | Page | Change | Printed |
 | --- | --- | --- |
 | Ticket escalation reference | Tier 1's lane takes two rows, so the flow uses three columns and one labelled gap | 86.5% |
-| First response time reference | Quarterly review sits below the median query | 100% |
+| First response time reference | Quarterly review sits below the helpdesk, so the median runs back along the second row | 100% |
 | Sample report | Shorter terminal and decision labels in the routing flow | 93.8% |
 | Gallery, process flow | Live sits below Publish, in four columns | 95.5% |
 | Gallery, swimlane | Shorter terminal and decision labels | 94.9% |

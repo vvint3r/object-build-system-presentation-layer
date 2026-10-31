@@ -2,7 +2,7 @@
 
 This repository is the source of truth for **content-morphia**, a design system for a knowledge index:
 reports, documents and analyses published as single HTML files, built for reference density and
-long-form reading comfort. The kit in force is **Report Kit 1.2**. Claude Design consumes the system;
+long-form reading comfort. The kit in force is **Report Kit 2.0**. Claude Design consumes the system;
 it is not edited there. See `docs/plan.md`.
 
 ## Read before working
@@ -24,14 +24,14 @@ it is not edited there. See `docs/plan.md`.
 
 | Path | Contents |
 | --- | --- |
-| `kit/report-kit/` | `SPEC.md`, `cm-report.css`, `cm-report.js` and the templates `template.html`, `template-guide.html`, `template-reference.html`: the kit itself |
+| `kit/report-kit/` | `SPEC.md`, `cm-report.css`, `cm-report.js` and a template for each document kind and page type: the kit itself. The spec's kit-files table lists every file |
 | `kit/Report Kit - Spec & Gallery.html` | Live examples of every component, with copy-paste markup |
 | `kit/Sample Report - Q3 Support Review.html` | Reference output: a complete report built on the kit |
 | `kit/Guide - Billing Escalation.html` | Reference output: a complete guide built on the kit |
 | `kit/Reference - First Response Time.html` | Reference output: a complete reference built on the kit |
 | `kit/agent-brief.md` | Instructions for agents outside this repository that build documents on the kit |
 | `docs/` | Plan, decision framework, open items, adoption backlog, decisions, library reference |
-| `checks/` | Automated checks on rendered pages: the spec's hard rules and pre-publish checklist |
+| `checks/` | Automated checks on rendered pages: the spec's hard rules and pre-publish checklist; `checks/test.mjs` tests them (`npm test`) |
 | `tools/load.mjs` | Opens a kit page in light, dark or print; shared by the checks and the preview |
 | `tools/preview.mjs` | Renders kit pages with the chart library served locally |
 | `tools/pack.mjs` | Writes a page's offline form to `offline/` (`npm run pack`); `tools/offline.mjs` holds its parts |
@@ -69,8 +69,8 @@ it is not edited there. See `docs/plan.md`.
 A summary of section 1 of `kit/report-kit/SPEC.md`. The spec governs; change this list, and the one
 in `kit/agent-brief.md`, in the same commit as the spec.
 
-1. Documents start from the template for their kind (report, guide or reference) and compose only from
-   classes in `cm-report.css`.
+1. Documents start from the template for their kind (report, guide or reference), or from their page
+   type's template, and compose only from classes in `cm-report.css`.
 2. No added stylesheets, `<style>` blocks, custom classes or inline styles, except the custom properties
    the spec allows (`--h`, `--v`, `--t`, `--steps`).
 3. No hex, rgb or named colours in markup. Chart JSON uses `$token` strings.

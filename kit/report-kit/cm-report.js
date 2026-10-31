@@ -1,4 +1,4 @@
-/* Content Morphia · Report Kit runtime v1.2
+/* Content Morphia · Report Kit runtime v2.0
    Requires ECharts 5 (loaded before this file). Behaviours, all opt-in by markup:
    [data-cm-theme-toggle]  light/dark switch (persists in localStorage "cm-theme")
    [data-cm-print]         opens the print dialog

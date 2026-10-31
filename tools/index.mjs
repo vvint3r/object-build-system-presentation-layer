@@ -125,7 +125,7 @@ ${a.docs.map(entry).join('\n')}
 
   const html = `<!doctype html>
 <!--
-  Content Morphia · Report Kit 1.2 · INDEX PAGE
+  Content Morphia · Report Kit 2.0 · INDEX PAGE
   Generated from the documents in this folder by \`npm run index -- <folder>\` (tools/index.mjs).
   Regenerate it after adding or changing a document; never edit it by hand (SPEC.md §8.31).
 -->
@@ -134,7 +134,7 @@ ${a.docs.map(entry).join('\n')}
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(s.set)}</title>
-<meta name="cm-kit" content="1.2">
+<meta name="cm-kit" content="2.0">
 <meta name="cm-kind" content="index">
 <meta name="cm-id" content="index">
 <script>${prepaint}</script>
@@ -187,7 +187,7 @@ ${s.areas.map(section).join('\n')}
       <span><b>${esc(s.set)}</b></span>
       <span>${n} document${n === 1 ? '' : 's'} · updated ${updated}</span>
       <span>${esc(s.publisher)}</span>
-      <span>Content Morphia Report Kit 1.2</span>
+      <span>Content Morphia Report Kit 2.0</span>
     </footer>
   </main>
 </div>

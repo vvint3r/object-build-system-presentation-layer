@@ -13,8 +13,8 @@ export default [
   {
     // The required head, in order. Other elements may sit between the required ones. The kind tag,
     // when present, follows the kit tag and names one of the three document kinds, or the index
-    // page. The id tag follows them: one per page, lowercase words joined by hyphens, or a template
-    // placeholder. The optional type tag follows the id tag (SPEC §7.6). A report's title carries its period, or the omission comment in the head; the
+    // page. The id tag follows them, required on every page: exactly one, lowercase words joined by
+    // hyphens, or a template placeholder. The optional type tag follows the id tag (SPEC §7.6). A report's title carries its period, or the omission comment in the head; the
     // title of any other kind is the title alone (SPEC §2; §7; §8.31). In the offline mode the kit's
     // font faces take the place of the font links, ECharts sits inline, and the kit CSS and JS are
     // pasted as in the self-contained mode.
@@ -64,10 +64,10 @@ export default [
         noPeriod
           ? ['<title>{title}</title>', el => el.matches('title') && el.textContent.trim() !== '']
           : ['<title>{title} · {period}</title>, or the period left out with cm-omit title-period', el => el.matches('title') && / · \S/.test(el.textContent)],
-        ['<meta name="cm-kit" content="1.2">', el => el.matches('meta[name="cm-kit"]') && attr(el, 'content') === '1.2'],
+        ['<meta name="cm-kit" content="2.0">', el => el.matches('meta[name="cm-kit"]') && attr(el, 'content') === '2.0'],
         ...(metas.length ? [['<meta name="cm-kind">, after cm-kit', el => el.matches('meta[name="cm-kind"]')]] : []),
-        ...(ids.length ? [['<meta name="cm-id">, after cm-kind', el => el.matches('meta[name="cm-id"]')]] : []),
-        ...(types.length ? [[`<meta name="cm-type">, after ${ids.length ? 'cm-id' : 'cm-kind'}`, el => el.matches('meta[name="cm-type"]')]] : []),
+        [`<meta name="cm-id">, after ${metas.length ? 'cm-kind' : 'cm-kit'}`, el => el.matches('meta[name="cm-id"]')],
+        ...(types.length ? [['<meta name="cm-type">, after cm-id', el => el.matches('meta[name="cm-type"]')]] : []),
         ['theme pre-paint script', el => el.matches('script:not([src])') && same(el.textContent, kit.prepaint)],
         ...fonts,
         off
@@ -93,16 +93,6 @@ export default [
       if (linked < 0 && !pasted) out.push({ where: 'head', value: `missing: kit JS (${off ? 'pasted' : 'cm-report.js in the head, or pasted'} as the last element of the body)` });
       else if (linked >= 0 && linked < last) out.push({ where: H.path(kids[linked]), value: `out of order: kit JS comes before ${lastName}` });
       return out;
-    },
-  },
-
-  {
-    // A document made with kit 1.2 before document ids existed has no cm-id tag. It passes with a
-    // warning until kit 2.0, when head-order requires the tag (SPEC §7; §8.31).
-    name: 'doc-id', level: 'warn', source: 'SPEC §7; §8.31', once: true,
-    inPage: () => {
-      const d = window.__cm.source();
-      return d.querySelector('meta[name="cm-id"]') ? [] : [{ where: 'head', value: 'no cm-id tag (required from kit 2.0)' }];
     },
   },
 

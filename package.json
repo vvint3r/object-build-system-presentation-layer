@@ -6,6 +6,7 @@
   "scripts": {
     "preview": "node tools/preview.mjs",
     "check": "node checks/run.mjs",
+    "test": "node checks/test.mjs",
     "index": "node tools/index.mjs",
     "links": "node checks/links.mjs",
     "pack": "node tools/pack.mjs",

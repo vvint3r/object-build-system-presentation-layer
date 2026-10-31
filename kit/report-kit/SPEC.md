@@ -1,4 +1,4 @@
-# Content Morphia · Report Kit 1.2 — Agent Specification
+# Content Morphia · Report Kit 2.0 — Agent Specification
 
 This file tells an agent how to produce a report, document or analysis as a single HTML artifact in the Content Morphia style. Follow it exactly. When this file and your own taste disagree, this file wins.
 
@@ -30,7 +30,7 @@ Human-readable version with live examples and copy-paste markup: `Report Kit - S
 
 ## 1. Non-negotiable rules
 
-1. **MUST** start from the template for the document's kind (§7): `template.html` for a report, `template-guide.html` for a guide, `template-reference.html` for a reference. Compose only from classes in `cm-report.css`.
+1. **MUST** start from the template for the document's kind (§7): `template.html` for a report, `template-guide.html` for a guide, `template-reference.html` for a reference. A page of a type starts from its type's template, `template-<type>.html` (§7.6). Compose only from classes in `cm-report.css`.
 2. **MUST NOT** add stylesheets, `<style>` blocks, classes of your own, or inline `style` attributes. Allowed inline custom properties only: `--h` (chart height), `--v` (bar/meter fill), `--t` (meter target), `--steps` (process step count), plus `style="align-items:center"` or `style="align-items:start"` on a grid.
 3. **MUST NOT** write hex, rgb or named colors anywhere in markup. In chart JSON use token strings (`"$accent"`, see §9).
 4. **Text is black or white.** **MUST NOT** use grey text or lowered opacity for de-emphasis. Rank text with weight: 300 (de-emphasised, kickers), 400 (body), 600 (code, chart axis labels), 700 (bold phrase, row keys, role tags), 800 (labels, block titles, terms), 900 (page/section title). These are the weights the kit loads; use no other. Two exceptions to black or white, both applied by the CSS: keywords, strings and numbers in code take the syntax colours (§8.17), and the verdict chip's text takes the paper colour on its ink fill.
@@ -74,7 +74,7 @@ The pack tool (`tools/pack.mjs`) writes the offline form of a page in either oth
 
 The file makes no network request. Characters outside the Latin subset fall back to a system face.
 
-Required `<head>` (copy from the kind's template, in this order): charset, viewport, `<title>{Report title} · {Period}</title>` with the period named as in the title (§7.2), or `<title>{Title}</title>` for a guide, a reference, or a report that covers no period, `<meta name="cm-kit" content="1.2">`, `<meta name="cm-kind" content="{kind}">` naming the kind (`report`, `guide` or `reference`; a page without it is a report, §7), `<meta name="cm-id" content="{id}">` naming the document (§8.31), an optional `<meta name="cm-type" content="{type}">` naming the page type (§7.6), the inline theme pre-paint script, font preconnects + Google Fonts link (Nunito 300 to 900 + italic 300/400, JetBrains Mono 400/600/700; offline: the font `<style>` in their place), kit CSS, ECharts 5.5.1, kit JS. `<html lang>` **MUST** be set.
+Required `<head>` (copy from the kind's template, in this order): charset, viewport, `<title>{Report title} · {Period}</title>` with the period named as in the title (§7.2), or `<title>{Title}</title>` for a guide, a reference, or a report that covers no period, `<meta name="cm-kit" content="2.0">`, `<meta name="cm-kind" content="{kind}">` naming the kind (`report`, `guide` or `reference`; a page without it is a report, §7), `<meta name="cm-id" content="{id}">` naming the document (§8.31), an optional `<meta name="cm-type" content="{type}">` naming the page type (§7.6), the inline theme pre-paint script, font preconnects + Google Fonts link (Nunito 300 to 900 + italic 300/400, JetBrains Mono 400/600/700; offline: the font `<style>` in their place), kit CSS, ECharts 5.5.1, kit JS. `<html lang>` **MUST** be set.
 
 ## 3. Tokens
 
@@ -147,10 +147,10 @@ Never stack a shadow with a border except where the class does it. Never nest a 
 
 The kit builds three kinds of document. A **report** sets out what the numbers show and what to do about them. A **guide** takes a reader through one task, step by step. A **reference** describes one thing, such as a metric, a dataset or a system, for a reader to look up.
 
-A `<meta name="cm-kind">` tag in `<head>`, straight after `cm-kit`, names the kind: `report`, `guide` or `reference`. A page without the tag is a report. Each kind starts from its own template (§1 rule 1). A `cm-id` tag follows, naming the document (§8.31). A page without one passes with a warning until kit 2.0, when the tag becomes required. The index page of a document set carries the kind `index`; a script writes it (§8.31). An optional `cm-type` tag after `cm-id` names a page type, a recipe on one kind (§7.6).
+A `<meta name="cm-kind">` tag in `<head>`, straight after `cm-kit`, names the kind: `report`, `guide` or `reference`. A page without the tag is a report. Each kind starts from its own template (§1 rule 1). A `cm-id` tag follows, or follows `cm-kit` on a report without a kind tag, and names the document (§8.31). Every document carries one; a page without it fails the checks. The index page of a document set carries the kind `index`; a script writes it (§8.31). An optional `cm-type` tag after `cm-id` names a page type, a recipe on one kind (§7.6).
 
 ```html
-<meta name="cm-kit" content="1.2">
+<meta name="cm-kit" content="2.0">
 <meta name="cm-kind" content="guide">
 <meta name="cm-id" content="guide-billing-escalation">
 ```
@@ -178,7 +178,7 @@ Every kind shares the top bar, contents rail, masthead, Notes & sources and foot
    - Byline: Prepared by, optional Reviewed by, Distribution. Distribution names the readers the document is for, such as `Internal · all staff`. When they are not known, the field is left out with its omission comment (§7.5).
 4. **The kind's parts** (required): §7.2 for a report, §7.3 for a guide, §7.4 for a reference.
 5. **Notes & sources** (required): the last section, an appendix with the id `sources`. It holds `.cm-notes`, then the source register `.cm-sources` (§8.15, §8.21), then the revision history and the change log when the document has them (§8.22).
-6. **Footer** (required): title, version + published date, owner, `Content Morphia Report Kit 1.2`.
+6. **Footer** (required): title, version + published date, owner, `Content Morphia Report Kit 2.0`.
 
 Section ids are short, lowercase and stable (`summary`, `demand`, `methodology`, `sources`). Every `<section>` has `aria-labelledby` pointing at its h2.
 
@@ -617,7 +617,7 @@ Number with two digits: `Part 01`. Appendices: `class="cm-section cm-section--pa
 </div>
 ```
 
-3–5 findings, ordered by importance. Each claim is a full sentence that would survive on its own. It sits on a line of its own in `.cm-findings__claim`, at 800, with the evidence on the next line. A finding has exactly one claim line, and it opens the item.
+3–5 findings, ordered by importance. Each claim is a full sentence that would survive on its own. It sits on a line of its own in `.cm-findings__claim`, at 800, with the evidence on the next line. A finding has exactly one claim line, and it opens the item as the `<li>`'s own first child; no element wraps the claim and its evidence.
 
 ### 8.4 Callouts
 
@@ -843,7 +843,7 @@ Token spans: `k` keyword, `s` string, `n` number, `f` callable, `c` comment. Key
 </div>
 ```
 
-The only `cm-featured` in the report, inside the Recommendations section. 1–5 actions. Each action opens with one claim line, the action as an imperative sentence, then one sentence of reason and its chips. The card width follows the reading measure.
+The only `cm-featured` in the report, inside the Recommendations section. 1–5 actions. Each action opens with one claim line, the `<li>`'s own first child as in §8.3, stating the action as an imperative sentence, then one sentence of reason and its chips. The card width follows the reading measure.
 
 - Owner: `Owner · ` and the role or team that carries the action out.
 - Date: `Due YYYY-MM-DD` for work to finish, or `Decide by YYYY-MM-DD` for a decision.
@@ -1626,7 +1626,7 @@ A document set is the documents in one folder, with an index page that lists the
 
 #### Address
 
-Every document names itself in `<head>`, straight after `cm-kind`:
+Every document names itself in `<head>`, straight after `cm-kind`, or after `cm-kit` on a report without a kind tag:
 
 ```html
 <meta name="cm-kind" content="guide">

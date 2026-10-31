@@ -334,8 +334,7 @@ export default [
 
   {
     // The claim line is the item's own first child, as in the canonical markup; no element wraps it.
-    // The 1.2 templates once wrapped each item in a <div>, so a wrapped item warns in 1.2 (SPEC §15).
-    name: 'claim-wrapper', level: 'warn', source: 'SPEC §8.3; §8.19; §15', once: true,
+    name: 'claim-wrapper', level: 'fail', source: 'SPEC §8.3; §8.19', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, out = [];
       for (const claim of H.source().querySelectorAll('ol.cm-findings > li .cm-findings__claim')) {
@@ -380,7 +379,7 @@ export default [
       const f = d.querySelector('.cm-footer');
       if (!f || H.exempt(f, check)) return [];
       const t = H.text(f);
-      if (!t.includes('Content Morphia Report Kit 1.2')) out.push({ where: H.path(f), value: 'does not name "Content Morphia Report Kit 1.2"' });
+      if (!t.includes('Content Morphia Report Kit 2.0')) out.push({ where: H.path(f), value: 'does not name "Content Morphia Report Kit 2.0"' });
       const field = k => { const dt = [...d.querySelectorAll('.cm-mast__meta dt')].find(x => H.text(x) === k); return dt && dt.nextElementSibling ? H.text(dt.nextElementSibling) : ''; };
       const v = field('Version'), p = field('Published');
       if (v && !t.includes('v' + v)) out.push({ where: H.path(f), value: `no version "v${v}" (masthead Version ${v})` });

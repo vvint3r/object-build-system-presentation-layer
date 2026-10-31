@@ -54,7 +54,7 @@ export const EXEMPT = [
   {
     page: GALLERY,
     whole: true,
-    checks: ['head-order', 'doc-id', 'topbar', 'masthead', 'summary-anatomy', 'report-anatomy', 'footer', 'methodology', 'table-numbers'],
+    checks: ['head-order', 'topbar', 'masthead', 'summary-anatomy', 'report-anatomy', 'footer', 'methodology', 'table-numbers'],
     why: 'Report anatomy: the gallery is not a report, so it carries no kit meta, report masthead, '
       + 'summary with KPIs and findings, sources appendix, methodology or report footer, its top '
       + 'bar links to the sample report, and it numbers its tables by section (Table 2.1).',

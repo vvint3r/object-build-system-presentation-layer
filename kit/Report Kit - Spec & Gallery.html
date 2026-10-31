@@ -583,7 +583,7 @@
           <header><span class="cm-label">5.19</span><h3 class="cm-h3">Figure with an image or placeholder</h3><p>Same mat as a chart figure. Use <code>&lt;img&gt;</code> with real alt text, or <code>cm-slot</code> where material is still missing. Images are evidence, never decoration.</p></header>
           <div data-demo>
 <figure class="cm-figure cm-bleed">
-  <span class="cm-figure__kind">Figure 8</span>
+  <span class="cm-figure__kind">Figure 1</span>
   <h3 class="cm-figure__title cm-figure__title--sm">Escalation form, before and after</h3>
   <p class="cm-figure__desc">Screenshots of the agent-side form.</p>
   <div class="cm-slot"><b>Drop figure · 16:9</b><i>Screenshot or diagram export</i></div>
@@ -1090,7 +1090,7 @@
           <header><span class="cm-label">6.2</span><h3 class="cm-h3">Line: focus against context</h3><p>The current period in <code>$c1</code>; prior period in <code>$context</code>. End labels with <code>"{a}"</code> name both lines where they end, so the kit leaves the legend out, and moves labels apart that would touch. An event marker is a vertical <code>markLine</code>.</p></header>
           <div data-demo>
 <figure class="cm-figure cm-bleed">
-  <span class="cm-figure__kind">Figure 1</span>
+  <span class="cm-figure__kind">Figure 2</span>
   <h3 class="cm-figure__title cm-figure__title--sm">Weekly tickets, Q3 against Q2</h3>
   <p class="cm-figure__desc">Tickets created per week across all channels, weeks counted from the start of each quarter.</p>
   <div class="cm-chart" style="--h:320px" data-chart role="img" aria-label="Line chart. Q3 weekly tickets peak at 4,310 in week 7, the Billing v4 launch.">
@@ -1116,7 +1116,7 @@
           <header><span class="cm-label">6.3</span><h3 class="cm-h3">Bar: ranking with a target</h3><p>Horizontal bars for ranked categories, sorted with the largest at the top. Value labels on, target as a dashed <code>markLine</code>. One series, so no legend.</p></header>
           <div data-demo>
 <figure class="cm-figure cm-bleed" data-comment-anchor="8f7ddc5e88-figure">
-  <span class="cm-figure__kind">Figure 2</span>
+  <span class="cm-figure__kind">Figure 3</span>
   <h3 class="cm-figure__title cm-figure__title--sm">SLA attainment by channel</h3>
   <p class="cm-figure__desc">Share of resolved tickets closed inside the SLA window, Q3 2026.</p>
   <div class="cm-chart" style="--h:280px" data-chart role="img" aria-label="Bar chart. Only chat, at 96.1%, clears the 95% target.">
@@ -1142,7 +1142,7 @@
             <header><span class="cm-label">6.4</span><h3 class="cm-h3">Stacked columns: composition</h3><p>Up to four parts. The kit separates segments with a thin surface gap and rounds every segment.</p></header>
             <div data-demo>
 <figure class="cm-figure">
-  <span class="cm-figure__kind">Figure 3</span>
+  <span class="cm-figure__kind">Figure 4</span>
   <h3 class="cm-figure__title cm-figure__title--sm">Channel mix by month</h3>
   <p class="cm-figure__desc">Share of tickets by channel, April to September 2026.</p>
   <div class="cm-chart" style="--h:300px" data-chart role="img" aria-label="Stacked column chart. Chat grows from 22% of tickets in April to 34% in September.">
@@ -1167,7 +1167,7 @@
             <header><span class="cm-label">6.5</span><h3 class="cm-h3">Area: one level over time</h3><p>A single series with <code>"areaStyle": {}</code>. Thresholds as <code>markLine</code> on the y-axis.</p></header>
             <div data-demo>
 <figure class="cm-figure">
-  <span class="cm-figure__kind">Figure 4</span>
+  <span class="cm-figure__kind">Figure 5</span>
   <h3 class="cm-figure__title cm-figure__title--sm">Open backlog</h3>
   <p class="cm-figure__desc">Tickets open or pending at Sunday close, Q3 2026.</p>
   <div class="cm-chart" style="--h:300px" data-chart role="img" aria-label="Area chart. Backlog falls from 1,940 to 1,186, under the 1,200 ceiling.">
@@ -1191,7 +1191,7 @@
             <header><span class="cm-label">6.6</span><h3 class="cm-h3">Scatter: relationship</h3><p>Name both axes with units. Highlight one point by giving it <code>$c1</code> and a label; the rest stay <code>$c2</code>.</p></header>
             <div data-demo>
 <figure class="cm-figure">
-  <span class="cm-figure__kind">Figure 5</span>
+  <span class="cm-figure__kind">Figure 6</span>
   <h3 class="cm-figure__title cm-figure__title--sm">Response time against CSAT</h3>
   <p class="cm-figure__desc">One point per team, Q3 medians.</p>
   <div class="cm-chart" style="--h:300px" data-chart role="img" aria-label="Scatter chart. Teams with slower first response have lower CSAT; billing is the outlier.">
@@ -1214,7 +1214,7 @@
             <header><span class="cm-label">6.7</span><h3 class="cm-h3">Donut: part of a whole</h3><p>Four slices or fewer, labelled with names and values, which act as the legend. Use only when the total itself matters.</p></header>
             <div data-demo>
 <figure class="cm-figure">
-  <span class="cm-figure__kind">Figure 6</span>
+  <span class="cm-figure__kind">Figure 7</span>
   <h3 class="cm-figure__title cm-figure__title--sm">Escalations by destination queue</h3>
   <p class="cm-figure__desc">Share of 3,850 escalated tickets by destination queue.</p>
   <div class="cm-chart" style="--h:300px" data-chart role="img" aria-label="Donut chart. Billing takes 52% of escalations, technical 33%, account 15%.">
@@ -1236,7 +1236,7 @@
           <header><span class="cm-label">6.8</span><h3 class="cm-h3">Heatmap: two categories and a magnitude</h3><p>Sequential ramp via <code>"inRange": {"color": "$seq"}</code> (applied by default), cells separated by a 3px <code>$surface</code> border. The scale bar under the grid is the legend; give its ends values with <code>text</code>.</p></header>
           <div data-demo>
 <figure class="cm-figure cm-bleed">
-  <span class="cm-figure__kind">Figure 7</span>
+  <span class="cm-figure__kind">Figure 8</span>
   <h3 class="cm-figure__title cm-figure__title--sm">Contacts by weekday and time</h3>
   <p class="cm-figure__desc">Average tickets created per three-hour block, by weekday, local time.</p>
   <div class="cm-chart" style="--h:260px" data-chart role="img" aria-label="Heatmap. Weekday mornings carry the most contacts; weekends under half.">
@@ -1263,7 +1263,7 @@
           <header><span class="cm-label">6.9</span><h3 class="cm-h3">Bullet: each measure against its target</h3><p>A horizontal <code>bar</code> series with <code>"cm": {"chart": "bullet"}</code>. The kit draws a grey track per bar, the target as an ink mark across it, and each value at the row's end. Optional bands grade the scale in up to three grey steps, named above the top row.</p></header>
           <div data-demo>
 <figure class="cm-figure cm-bleed">
-  <span class="cm-figure__kind">Figure 8</span>
+  <span class="cm-figure__kind">Figure 9</span>
   <h3 class="cm-figure__title cm-figure__title--sm">SLA attainment by team against target</h3>
   <p class="cm-figure__desc">Share of resolved tickets closed inside the SLA window, by team, Q3 2026.</p>
   <div class="cm-chart" style="--h:320px" data-chart role="img" aria-label="Bullet chart. No team reaches the 95% target; Tier 1 Americas comes closest at 94.6%, and billing specialists sit in the breach band at 82.6%.">
@@ -1290,7 +1290,7 @@
             <header><span class="cm-label">6.10</span><h3 class="cm-h3">Slope: two points in time</h3><p>A <code>line</code> chart with two categories and <code>"cm": {"chart": "slope"}</code> at the top level. Labels at both ends name each line and give its value, so there is no legend. Lines are ink; a line given <code>"color": "$c1"</code> stands out and the rest turn grey.</p></header>
             <div data-demo>
 <figure class="cm-figure">
-  <span class="cm-figure__kind">Figure 9</span>
+  <span class="cm-figure__kind">Figure 10</span>
   <h3 class="cm-figure__title cm-figure__title--sm">SLA attainment by channel, Q2 to Q3</h3>
   <p class="cm-figure__desc">Share of resolved tickets closed inside the SLA window, by channel.</p>
   <div class="cm-chart" style="--h:300px" data-chart role="img" aria-label="Slope chart. Email gains most, from 86.1% to 88.3%; web form and social slip.">
@@ -1317,7 +1317,7 @@
             <header><span class="cm-label">6.11</span><h3 class="cm-h3">Interval band: a forecast with its range</h3><p>A <code>line</code> series with <code>"cm": {"chart": "interval"}</code>, a low and a high per point, and the interval's name. The kit fills the band in the line's colour and names it in the legend.</p></header>
             <div data-demo>
 <figure class="cm-figure">
-  <span class="cm-figure__kind">Figure 10</span>
+  <span class="cm-figure__kind">Figure 11</span>
   <h3 class="cm-figure__title cm-figure__title--sm">Weekly ticket forecast</h3>
   <p class="cm-figure__desc">Forecast tickets per week, monthly average, October 2026 to March 2027.</p>
   <div class="cm-chart" style="--h:300px" data-chart role="img" aria-label="Line chart with an interval band. The forecast peaks at 3,900 a week in December; the 80% interval widens from 100 to 720 tickets by March.">
@@ -1342,7 +1342,7 @@
             <header><span class="cm-label">6.12</span><h3 class="cm-h3">Strip: every value</h3><p>A <code>scatter</code> series with <code>"cm": {"chart": "strip"}</code> and every value per category. The kit spreads the dots across each row, marks the median and writes the count under each name.</p></header>
             <div data-demo>
 <figure class="cm-figure">
-  <span class="cm-figure__kind">Figure 11</span>
+  <span class="cm-figure__kind">Figure 12</span>
   <h3 class="cm-figure__title cm-figure__title--sm">First response time by channel</h3>
   <p class="cm-figure__desc">Hours to first response, one dot per ticket, a sample from one week of September 2026.</p>
   <div class="cm-chart" style="--h:300px" data-chart role="img" aria-label="Strip plot. Chat answers within about half an hour, phone within about an hour, and email takes 2 to 7 hours, with a median near 3.6.">
@@ -1366,7 +1366,7 @@
             <header><span class="cm-label">6.13</span><h3 class="cm-h3">Box: quartiles and outliers</h3><p>A <code>boxplot</code> series with <code>"cm": {"chart": "box"}</code> and the same values. The kit computes the quartiles, draws whiskers to 1.5 times the interquartile range and the values past them as dots. With summaries only, give five numbers per category and the counts in <code>n</code>.</p></header>
             <div data-demo>
 <figure class="cm-figure">
-  <span class="cm-figure__kind">Figure 12</span>
+  <span class="cm-figure__kind">Figure 13</span>
   <h3 class="cm-figure__title cm-figure__title--sm">First response time by channel</h3>
   <p class="cm-figure__desc">Hours to first response, quartiles of the same sample as Figure 11.</p>
   <div class="cm-chart" style="--h:300px" data-chart role="img" aria-label="Box plot. Email's middle half runs from 2.8 to 4.6 hours, chat's from 0.3 to 0.7; one chat ticket and one phone ticket sit past their whiskers.">
@@ -1392,7 +1392,7 @@
           <header><span class="cm-label">6.14</span><h3 class="cm-h3">Error bars: estimates per category</h3><p>A <code>scatter</code> or <code>bar</code> series with <code>"cm": {"chart": "interval"}</code>. The kit draws an ink error bar on each point, names the interval in the legend and moves each value label past it. Points read better than bars when only the estimate matters.</p></header>
           <div data-demo>
 <figure class="cm-figure cm-bleed">
-  <span class="cm-figure__kind">Figure 13</span>
+  <span class="cm-figure__kind">Figure 14</span>
   <h3 class="cm-figure__title cm-figure__title--sm">CSAT by channel</h3>
   <p class="cm-figure__desc">Share of survey responses rating 4 or 5 out of 5, by channel, Q3 2026.</p>
   <div class="cm-chart" style="--h:300px" data-chart role="img" aria-label="Dot plot with error bars. Chat leads at 91.2%; the intervals for email and web form overlap, so the two do not differ clearly.">
@@ -1468,7 +1468,7 @@
           <header><span class="cm-label">7.1</span><h3 class="cm-h3">Process and decision flow</h3><p>Steps in reading order, a decision with labelled branches, and a loop back for rework. The empty <code>aria-label</code> lets the kit write the summary.</p></header>
           <div data-demo>
 <figure class="cm-figure cm-bleed">
-  <span class="cm-figure__kind">Figure 14</span>
+  <span class="cm-figure__kind">Figure 15</span>
   <h3 class="cm-figure__title">Help-centre article review</h3>
   <p class="cm-figure__desc">Steps from a finished draft to a live article, with the rework loop.</p>
   <div class="cm-diagram" data-diagram="flow" role="img" aria-label="">
@@ -1502,7 +1502,7 @@
           <header><span class="cm-label">7.2</span><h3 class="cm-h3">Swimlane</h3><p>One lane per role, each a row band named on the left. A step sits in the lane of the role that does it, so every hand-off crosses a lane line.</p></header>
           <div data-demo>
 <figure class="cm-figure cm-bleed">
-  <span class="cm-figure__kind">Figure 15</span>
+  <span class="cm-figure__kind">Figure 16</span>
   <h3 class="cm-figure__title">Billing question hand-offs</h3>
   <p class="cm-figure__desc">Steps from a customer’s report to the answer, by the role that takes each one.</p>
   <div class="cm-diagram" data-diagram="flow" role="img" aria-label="">
@@ -1541,7 +1541,7 @@
           <header><span class="cm-label">7.3</span><h3 class="cm-h3">Sequence</h3><p>Messages between people or systems in the order they are sent, with time running down. Order places everything, so the JSON has no columns or rows.</p></header>
           <div data-demo>
 <figure class="cm-figure cm-bleed">
-  <span class="cm-figure__kind">Figure 10</span>
+  <span class="cm-figure__kind">Figure 17</span>
   <h3 class="cm-figure__title">Refund above the agent limit</h3>
   <p class="cm-figure__desc">Messages between the customer, the Tier 1 agent and the billing specialist, from the request to the refund.</p>
   <div class="cm-diagram" data-diagram="sequence" role="img" aria-label="">
@@ -1573,7 +1573,7 @@
           <header><span class="cm-label">7.4</span><h3 class="cm-h3">State</h3><p>The states one ticket passes through, and the event behind each change. A dot marks the start, a ringed dot the end, and a loop an event that leaves the state as it was.</p></header>
           <div data-demo>
 <figure class="cm-figure cm-bleed">
-  <span class="cm-figure__kind">Figure 11</span>
+  <span class="cm-figure__kind">Figure 18</span>
   <h3 class="cm-figure__title">Ticket status</h3>
   <p class="cm-figure__desc">The statuses a support ticket takes from arrival to closing, with the event that moves it each time.</p>
   <div class="cm-diagram" data-diagram="state" role="img" aria-label="">
@@ -1609,7 +1609,7 @@
           <header><span class="cm-label">7.5</span><h3 class="cm-h3">Entity relationship</h3><p>The records a helpdesk keeps and how they relate. Tags mark the keys, and the words beside each end of a line give the count at that end.</p></header>
           <div data-demo>
 <figure class="cm-figure cm-bleed">
-  <span class="cm-figure__kind">Figure 12</span>
+  <span class="cm-figure__kind">Figure 19</span>
   <h3 class="cm-figure__title">Support data model</h3>
   <p class="cm-figure__desc">The records behind one support conversation, and how many of each belong to the next.</p>
   <div class="cm-diagram" data-diagram="entity-relationship" role="img" aria-label="">
@@ -1645,7 +1645,7 @@
           <header><span class="cm-label">7.6</span><h3 class="cm-h3">Journey map</h3><p>Phases as frames across the top, one step per column under them, and the experience line under the steps. Each step carries its <code>level</code> on the scale the <code>experience</code> list names, lowest first. Each word stands under its run, between that level and the next one down.</p></header>
           <div data-demo>
 <figure class="cm-figure cm-bleed">
-  <span class="cm-figure__kind">Figure 13</span>
+  <span class="cm-figure__kind">Figure 20</span>
   <h3 class="cm-figure__title">Disputed charge journey</h3>
   <p class="cm-figure__desc">A customer’s steps from noticing a charge taken twice to the refund, and how each step felt.</p>
   <div class="cm-diagram" data-diagram="flow" role="img" aria-label="">
@@ -1677,7 +1677,7 @@
           <header><span class="cm-label">7.7</span><h3 class="cm-h3">System and data flow</h3><p>Systems and the data that moves between them: boundaries frame the systems, stores carry a rule above and below, and external entities a heavy border. Dotted edges move data and solid edges pass control. Every edge that crosses a boundary is named.</p></header>
           <div data-demo>
 <figure class="cm-figure cm-bleed">
-  <span class="cm-figure__kind">Figure 14</span>
+  <span class="cm-figure__kind">Figure 21</span>
   <h3 class="cm-figure__title">Satisfaction survey data</h3>
   <p class="cm-figure__desc">How survey answers move from the customer to the warehouse table the reports read.</p>
   <div class="cm-diagram" data-diagram="flow" role="img" aria-label="">
@@ -1714,7 +1714,7 @@
           <header><span class="cm-label">7.8</span><h3 class="cm-h3">Layer stack</h3><p>Layers from the consumer at the top to the source at the base, each named on the left, with its components placed by column. A dependency runs down, from the component that depends to the one it depends on. At most 5 layers of 4 components.</p></header>
           <div data-demo>
 <figure class="cm-figure cm-bleed">
-  <span class="cm-figure__kind">Figure 15</span>
+  <span class="cm-figure__kind">Figure 22</span>
   <h3 class="cm-figure__title">Support analytics layers</h3>
   <p class="cm-figure__desc">The reports support leads read, and the metrics, tables and systems each one depends on.</p>
   <div class="cm-diagram" data-diagram="layer-stack" role="img" aria-label="">
@@ -1763,7 +1763,7 @@
           <header><span class="cm-label">7.9</span><h3 class="cm-h3">Hierarchy</h3><p>A tree read left to right: each node names its parent, and children appear in the order written. The kit places the levels and draws one line from each parent to each child. At most 4 levels and 12 leaves.</p></header>
           <div data-demo>
 <figure class="cm-figure cm-bleed">
-  <span class="cm-figure__kind">Figure 16</span>
+  <span class="cm-figure__kind">Figure 23</span>
   <h3 class="cm-figure__title">Ticket categories</h3>
   <p class="cm-figure__desc">The categories an agent picks from when closing a ticket, grouped by area.</p>
   <div class="cm-diagram" data-diagram="hierarchy" role="img" aria-label="">

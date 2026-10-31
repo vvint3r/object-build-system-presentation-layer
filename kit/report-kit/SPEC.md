@@ -1787,6 +1787,9 @@ Components set limits of their own. Where a component limit and a limit above bo
 | Evaluation criterion | A name of 4 words at most, then one sentence of evidence | §8.29 |
 | Metric definition | 15 to 60 words | §8.30 |
 | Threshold response | One sentence | §8.30 |
+| Topic subtopic | An h3, a paragraph, then a related list | §7.7 |
+| Glossary terms | 5 or more, each a definition of 15 to 60 words | §7.8, §8.5 |
+| Module objective | One sentence; 2 to 5 per module | §7.9 |
 | Roadmap goal | One paragraph that opens its section | §7.14 |
 | Milestone exit criteria | One sentence, opening “Done when” | §7.14 |
 
@@ -1834,11 +1837,12 @@ Headings are `h1` to `h6` and table titles.
 13. Opened in light, dark and print preview with no console errors.
 14. Writing within §13: prose inside the limits, in plain words and neutral third person, with no em or en dashes; each section leads with its finding; headings are plain noun phrases in sentence case.
 15. Changing numbers sit in one dated status block; change log and revision history run newest first with dated entries; each limitation status is a word from its set (§8.22).
-16. `cm-kind` names the kind, or is absent for a report; `cm-type`, when present, names a type of that kind (§7.6). A guide or a reference has its required parts in order, each with its id, or their omission comments (§7.3 to §7.5); a typed page also has its type's parts. Every procedure step closes with its outcome; every related item has a tag, a link and a sentence.
+16. `cm-kind` names the kind, or is absent for a report; `cm-type`, when present, names a type of that kind (§7.6). A guide or a reference has its required parts in order, each with its id, or their omission comments (§7.3 to §7.5). Every procedure step closes with its outcome; every related item has a tag, a link and a sentence.
 17. Every diagram: JSON within its mode's fields and capacity, a label on every decision branch and every named edge, `role="img"`, a caption with a source line, and nothing overlapping or clipped in light, dark and print (§8.20).
 18. Each structured component opens with its kind label and title and holds its required parts within its counts and limits (§8.25 to §8.30).
 19. `cm-id` names the document. The breadcrumb runs from set to area to document. In a set, every link names a file and a section id, the index page is rewritten, and `npm run links` passes on the folder (§8.31).
 20. A roadmap or a case study has its recipe’s required parts in order, each with its id, and passes its type check (§7.14, §7.15).
+21. A topic, a glossary or a module has its recipe's required parts in order, each with its id, and passes its type check (§7.7 to §7.9). A module's answers are closed, and it carries no form controls.
 
 ## 15. Changes from Content Morphia Foundations
 

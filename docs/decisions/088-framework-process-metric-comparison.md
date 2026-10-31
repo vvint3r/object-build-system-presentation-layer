@@ -75,7 +75,7 @@ Each check fails a broken copy of its worked example: 19 broken copies, every on
 | The caption's note line explains ★ and est. | A cold reader could not tell what either marked, and meaning never rests on a symbol alone |
 | With 5 or more criteria the table is sortable by criterion only | §8.11 asks for sorting at 5 rows; option columns mix units, so they carry `data-nosort` |
 | The comparison example shares every overlapping fact with the APAC case study and the gallery's evaluation, and the two documents link to each other | Both describe the same pilot; the Wednesday measure that got worse joins the criteria |
-| The process example names both end states "Ticket closes", with the lane naming the role | The printed diagram then fits the 632px column; the lane already says who closes |
+| The process example's decisions read "Escalate?" and "Code change?", and both end states "Ticket closes" | The printed diagram then fits the 638px column with its text set larger (record 086); the lane already says who closes |
 | New areas Ticket handling and Staffing hold the process and comparison examples | Neither fits Service performance, the only existing area besides Billing |
 | The recipes list parts in tables, with no bold label run into text | The kit's writing rule on run-in labels applies to the spec as to pages |
 | The selection table's and the agent brief's rows for the four types take the recipes' questions and neighbours | The core session wrote the rows before the recipes existed; a reader choosing a type meets the same question in both places |

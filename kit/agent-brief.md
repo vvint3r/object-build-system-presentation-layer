@@ -84,9 +84,14 @@ at jsDelivr, pinned to the same commit:
 Links to `raw.githubusercontent.com` do not work in a page: that host serves the files as plain
 text, and browsers refuse them as a stylesheet or script.
 
+**Offline**, for reading with no network at all. Only the kit's pack tool makes this form, from a
+finished document in either mode above: `npm run pack -- "<document>.html"` in the kit's repository
+writes a copy to `offline/` with the fonts and ECharts inside it. An agent never builds an offline
+file by hand.
+
 Where the agent's own environment blocks Google Fonts or jsDelivr, the document still carries those
-links unchanged; the reader's browser loads them. ECharts is never inlined, replaced or moved to
-another version, and TLS verification is never disabled to reach a blocked host.
+links unchanged; the reader's browser loads them. The agent never inlines ECharts, replaces it or
+moves it to another version, and never disables TLS verification to reach a blocked host.
 
 ## Non-negotiable rules
 
@@ -270,7 +275,7 @@ comment. The agent does not draw its own diagram, icon or layout to fill the gap
 **Before handing over:** the pre-publish checklist in section 14 of `SPEC.md`, and the document
 opened in light, dark and print preview with no console errors.
 
-**Automated, for an agent with git and Node.js.** The kit's checks run on any HTML file, in either
+**Automated, for an agent with git and Node.js.** The kit's checks run on any HTML file, in any
 packaging:
 
 ```

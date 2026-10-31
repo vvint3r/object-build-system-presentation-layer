@@ -36,7 +36,7 @@ Human-readable version with live examples and copy-paste markup: `Report Kit - S
 
 ## 2. Packaging
 
-Two modes. Both use the same markup.
+Three modes. All use the same markup.
 
 **Linked** (default for sites and shared folders):
 
@@ -48,7 +48,20 @@ Two modes. Both use the same markup.
 
 **Self-contained** (for email or attachments): replace the CSS link with `<style>` + the full contents of `cm-report.css`, and the kit script with `<script>` + the full contents of `cm-report.js`, placed as the last element in `<body>`. Keep the font and ECharts CDN links. Do not edit the pasted code.
 
-Required `<head>` (copy from the kind's template, in this order): charset, viewport, `<title>{Report title} · {Period}</title>` (`<title>{Title}</title>` for a guide, a reference, or a report that covers no period, §7), `<meta name="cm-kit" content="1.2">`, `<meta name="cm-kind" content="{kind}">` naming the kind (`report`, `guide` or `reference`; a page without it is a report, §7), `<meta name="cm-id" content="{id}">` naming the document (§8.31), the inline theme pre-paint script, font preconnects + Google Fonts link (Nunito 300 to 900 + italic 300/400, JetBrains Mono 400/600/700), kit CSS, ECharts 5.5.1, kit JS. `<html lang>` **MUST** be set.
+**Offline** (for reading with no network at all):
+
+```
+npm run pack -- "<page>.html"
+```
+
+The pack tool (`tools/pack.mjs`) writes the offline form of a page in either other mode to `offline/<page file name>` and leaves the source page unchanged. An offline file is never written or edited by hand. It differs from the self-contained mode in two places:
+
+- One `<style>` of `@font-face` rules replaces the font preconnects and the Google Fonts link. It holds each face that link names as WOFF2 data, Latin subset, from the pinned `@fontsource/nunito` and `@fontsource/jetbrains-mono` packages.
+- `<script>` + the full text of ECharts 5.5.1, from the installed `echarts` package, replaces the ECharts CDN link.
+
+The file makes no network request. Characters outside the Latin subset fall back to a system face.
+
+Required `<head>` (copy from the kind's template, in this order): charset, viewport, `<title>{Report title} · {Period}</title>` (`<title>{Title}</title>` for a guide, a reference, or a report that covers no period, §7), `<meta name="cm-kit" content="1.2">`, `<meta name="cm-kind" content="{kind}">` naming the kind (`report`, `guide` or `reference`; a page without it is a report, §7), `<meta name="cm-id" content="{id}">` naming the document (§8.31), the inline theme pre-paint script, font preconnects + Google Fonts link (Nunito 300 to 900 + italic 300/400, JetBrains Mono 400/600/700; offline: the font `<style>` in their place), kit CSS, ECharts 5.5.1, kit JS. `<html lang>` **MUST** be set.
 
 ## 3. Tokens
 
@@ -87,7 +100,8 @@ Semantic meaning is fixed: ok = healthy/validated, warn = attention/at risk, cri
 | Chip | `.cm-chip`, text centred in the 20px pill | 9 / 800 / caps, +0.08em, line height 10px | — |
 | Role tag | property-sheet `<sup>` | 10 / 700, sentence case | — |
 | Meta | `.cm-meta` | 13 / 400 | Dates, sizes, provenance |
-| Code | `<code>`, `.cm-code` | JetBrains Mono 600, 0.8em / 13px | — |
+| Code | `<code>` | JetBrains Mono, 0.8em / 600 | none |
+| Code block | `.cm-code`; its file name `.cm-code__file` | JetBrains Mono, 13 / 400; file name 12 / 600 | none |
 
 The rule thickness follows the heading level; the CSS applies it. Headings never skip a level (h1 → h2 → h3 → h4). Nunito never below 9px (chips), 10px (labels, tags, deltas, role tags and table sort arrows) or 13px (running text). The breadcrumb is a label with three weights: links 700, the current page 900, separators 300. `<strong>` marks a phrase, never a whole paragraph. `.cm-aside` (300 italic) de-emphasises a phrase.
 

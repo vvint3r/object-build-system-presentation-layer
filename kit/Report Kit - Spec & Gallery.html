@@ -85,7 +85,7 @@
           <div class="cm-tile"><code>template.html</code><p class="cm-small" style="margin-top:16px">The starter every report copies; guides and references copy <code>template-guide.html</code> and <code>template-reference.html</code>. Placeholders in <code>{{ }}</code>.</p></div>
           <div class="cm-tile"><code>SPEC.md</code><p class="cm-small" style="margin-top:16px">The same rules written for agents, as hard rules, budgets and canonical markup.</p></div>
         </div>
-        <div class="cm-grid cm-grid--2 cm-bleed">
+        <div class="cm-grid cm-grid--3 cm-bleed">
           <div class="cm-card">
             <h3 class="cm-card__title cm-card__title--sm">Linked package</h3>
             <p class="cm-small">The report links <code>report-kit/cm-report.css</code> and <code>report-kit/cm-report.js</code>. Use when reports are published to one site or folder so a kit update reaches every report.</p>
@@ -93,6 +93,10 @@
           <div class="cm-card">
             <h3 class="cm-card__title cm-card__title--sm">Self-contained file</h3>
             <p class="cm-small">Paste the full CSS into one <code>&lt;style&gt;</code> and the full JS into one <code>&lt;script&gt;</code> at the end of <code>&lt;body&gt;</code>. Fonts and ECharts stay on CDN links. Use when the report is emailed or attached.</p>
+          </div>
+          <div class="cm-card">
+            <h3 class="cm-card__title cm-card__title--sm">Offline file</h3>
+            <p class="cm-small">Run <code>npm run pack</code> on a finished document in the kit's repository. It writes one file to <code>offline/</code> with the CSS, JS, fonts and ECharts inside. Use when the report is read with no network.</p>
           </div>
         </div>
         <div class="cm-summary cm-bleed">

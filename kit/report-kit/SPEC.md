@@ -966,7 +966,7 @@ The width counts each part that takes about a column of steps in print:
 | Each gap between columns that holds an edge label | 1 |
 | A gap between columns whose longest label runs past 10 characters | 2 |
 
-So a diagram has at most 5 columns, or 4 with lanes, less one for each labelled gap between them. In a flow that reads right, an edge's label stands in the gap beside its node in two cases:
+So a diagram has at most 5 columns, or 4 with lanes, less one or two for each labelled gap between them, as the table counts. In a flow that reads right, an edge's label stands in the gap beside its node in two cases:
 
 - The edge joins two nodes of one row.
 - The edge runs forward to another row, and no edge from the same node runs forward along its row. Such an edge takes the forward side; beside a branch along the row, it leaves up or down instead.

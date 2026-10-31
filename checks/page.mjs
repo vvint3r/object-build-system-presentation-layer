@@ -81,7 +81,7 @@ export function install(cfg) {
   // section 4 names most of it; records 056 and 058 add the rest. The collapse toggle's "Open +" is
   // a label drawn by ::after.
   H.LABEL = '.cm-label, .cm-crumbs, .cm-mast__meta dt, .cm-byline dt, .cm-kpi__label, .cm-callout__label, '
-    + '.cm-def__label, .cm-qa__label, .cm-props dt, .cm-status dt, .cm-quote footer b, .cm-figure__kind, .cm-slot b, '
+    + '.cm-def__label, .cm-qa__label, .cm-props dt, .cm-status dt, .cm-facts dt, .cm-quote footer b, .cm-figure__kind, .cm-slot b, '
     + '.cm-data>summary, .cm-table-title__kind, .cm-table th, .cm-toc a .n, .cm-step__n, .cm-chip, .cm-tag, .cm-delta, '
     + '.cm-diagram__edge-label, .cm-diagram__lane, .cm-diagram__boundary-label';
   // A property-sheet key's sub-label (<dt>Rule<small>(per ticket)</small></dt>, SPEC.md section 8.7)
@@ -116,7 +116,7 @@ export function install(cfg) {
   H.source = () => source || (source = new DOMParser().parseFromString(cfg.src, 'text/html'));
 
   // The page's kind, from <meta name="cm-kind"> in the page as written: report, guide or reference for
-  // a document (SPEC.md section 7), index for a set's generated index page (section 8.25). A page
+  // a document (SPEC.md section 7), index for a set's generated index page (section 8.31). A page
   // without the tag is a report; head-order fails a value outside the four, and the other checks then
   // read the page as a report.
   H.DOCUMENTS = ['report', 'guide', 'reference'];

@@ -446,6 +446,37 @@ pre code{all:unset}
 .cm-diagram--print .cm-diagram__node--decision{max-width:none;padding:0}
 .cm-data>.cm-olist{margin-top:16px}
 
+/* ---------- 18b. Structured components ---------- */
+/* Workflow, framework, model, method, requirement, evaluation and metric detail. Each is a card: kind label, T3 title, then its parts 24px apart in the small text size, as text inside a surface. A labelled part is a .cm-sub whose label sits on a line of its own. */
+.cm-workflow,.cm-framework,.cm-model,.cm-method,.cm-req,.cm-eval,.cm-metric{font-size:15px;line-height:1.8}
+:is(.cm-workflow,.cm-framework,.cm-model,.cm-method,.cm-req,.cm-eval,.cm-metric)>*+*:not(.cm-card__title,.cm-sub){margin-top:24px}
+.cm-sub>.cm-label:first-child{display:block;margin-bottom:16px}
+/* facts: one to five short facts about one item, key over value, as the status block sets them */
+.cm-facts{display:flex;flex-wrap:wrap;gap:24px 56px}
+.cm-facts>div{display:flex;flex-direction:column;gap:8px;min-width:0}
+.cm-facts dt{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;line-height:1.4}
+.cm-facts dd{font-size:15px;line-height:1.6}
+/* workflow stages: the procedure's numbered list (section 19); the facts close each stage */
+.cm-stages>li>.cm-facts{margin-top:8px}
+/* a list that closes a labelled part ends on its text, so the part's 24px gap follows it */
+.cm-sub>.cm-bands>li:last-child,.cm-sub>.cm-related>li:last-child{padding-bottom:0}
+/* parts: named parts as tiles. Peers sit two or three across; an ordered list stacks top first; a matrix is two by two, each cell naming its position */
+.cm-parts{--n:2;list-style:none;padding:0;display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:24px}
+ul.cm-parts:has(>li:nth-child(3):last-child),ul.cm-parts:has(>li:nth-child(5)){--n:3}
+ol.cm-parts{--n:1}
+ol.cm-parts.cm-parts--matrix{--n:2}
+.cm-parts>li>*+*{margin-top:6px}
+.cm-parts>li>.cm-label{display:block}
+.cm-parts>li>.cm-label+*{margin-top:12px}
+/* scope: when a method or framework applies and when it does not, or when a model holds and when it breaks */
+.cm-scope{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 40px}
+.cm-scope>div{min-width:0}
+.cm-scope>div>.cm-label{display:block;margin-bottom:12px}
+/* evaluation result: under a dotted rule, as a table's totals row */
+.cm-criteria__score{font-size:15px;font-weight:800;white-space:nowrap;font-variant-numeric:tabular-nums}
+.cm-eval__result{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;padding-top:24px;border-top:2px dotted var(--cm-ink)}
+.cm-eval__result>.cm-label{flex-basis:100%}
+
 /* ---------- 19. Lists, notes, sources ---------- */
 /* Markers are positioned, never grid cells, so inline code, links and bold stay in the text flow. */
 .cm-list,.cm-olist{list-style:none;padding:0;display:flex;flex-direction:column;gap:14px}
@@ -461,27 +492,28 @@ pre code{all:unset}
 .cm-notes>li::before{content:"[" counter(cmn) "]";position:absolute;left:0;top:0;font-weight:800;font-variant-numeric:tabular-nums}
 .cm-notes>li:target,.cm-sources>li:target{background:var(--cm-accent-wash)}
 .cm-notes .cm-back,.cm-sources .cm-back{font-weight:800;margin-left:6px}
-/* Registers: sources, change log, revision history, limitations. One row anatomy: key, entry, then its date or status on the right. */
-.cm-sources,.cm-changes,.cm-versions,.cm-limits{list-style:none;padding:0;display:flex;flex-direction:column;font-size:15px;line-height:1.6}
-.cm-sources>li,.cm-changes>li,.cm-versions>li,.cm-limits>li{position:relative;display:grid;grid-template-columns:56px minmax(0,1fr) auto;gap:20px;align-items:baseline;padding:18px 0}
-.cm-sources>li+li::before,.cm-changes>li+li::before,.cm-versions>li+li::before,.cm-limits>li+li::before{content:"";position:absolute;left:0;right:0;top:0;border-top:1px solid var(--cm-hairline)}
-.cm-sources>li:first-child,.cm-changes>li:first-child,.cm-versions>li:first-child,.cm-limits>li:first-child{padding-top:0}
+/* Registers: sources, change log, revision history, limitations, evaluation criteria, metric thresholds. One row anatomy: key, entry, then its date or status on the right. */
+.cm-sources,.cm-changes,.cm-versions,.cm-limits,.cm-criteria,.cm-bands{list-style:none;padding:0;display:flex;flex-direction:column;font-size:15px;line-height:1.6}
+.cm-sources>li,.cm-changes>li,.cm-versions>li,.cm-limits>li,.cm-criteria>li,.cm-bands>li{position:relative;display:grid;grid-template-columns:56px minmax(0,1fr) auto;gap:20px;align-items:baseline;padding:18px 0}
+.cm-sources>li+li::before,.cm-changes>li+li::before,.cm-versions>li+li::before,.cm-limits>li+li::before,.cm-criteria>li+li::before,.cm-bands>li+li::before{content:"";position:absolute;left:0;right:0;top:0;border-top:1px solid var(--cm-hairline)}
+.cm-sources>li:first-child,.cm-changes>li:first-child,.cm-versions>li:first-child,.cm-limits>li:first-child,.cm-criteria>li:first-child,.cm-bands>li:first-child{padding-top:0}
 .cm-sources>li{border-radius:var(--cm-r-input)}
 .cm-sources>li>.cm-id,.cm-versions>li>.cm-id{font-size:15px;letter-spacing:0;font-variant-numeric:tabular-nums}
 .cm-sources>li>.cm-id::before{content:"["}.cm-sources>li>.cm-id::after{content:"]"}
-.cm-sources b,.cm-limits b{font-weight:700}
+.cm-sources b,.cm-limits b,.cm-criteria b,.cm-bands b{font-weight:700}
 .cm-sources .cm-tag{margin-right:4px}
 .cm-changes>li{grid-template-columns:96px minmax(0,1fr) auto}
 .cm-changes>li>.cm-tag{justify-self:start}
 .cm-versions .cm-meta{display:inline-block;margin-top:2px}
-.cm-limits>li{grid-template-columns:minmax(0,1fr) auto}
-/* Procedure: a guide's numbered steps. The number sits in the left gutter at the title's size; each step closes with its outcome under an "Outcome" label. */
-.cm-procedure{list-style:none;padding:0;counter-reset:cmp;max-width:calc(var(--cm-read) + 56px)}
-.cm-procedure>li{position:relative;display:flex;flex-direction:column;gap:12px;padding:32px 0 32px 56px;border-top:1px solid var(--cm-hairline);counter-increment:cmp}
-.cm-procedure>li:first-child{border-top:0;padding-top:0}
-.cm-procedure>li:last-child{padding-bottom:0}
-.cm-procedure>li::before{content:counter(cmp,decimal-leading-zero);position:absolute;left:0;top:32px;font-size:18px;font-weight:800;line-height:1.4;font-variant-numeric:tabular-nums}
-.cm-procedure>li:first-child::before{top:0}
+.cm-limits>li,.cm-bands>li{grid-template-columns:minmax(0,1fr) auto}
+.cm-criteria>li{grid-template-columns:64px minmax(0,1fr) auto}
+/* Procedure: a guide's numbered steps. The number sits in the left gutter at the title's size; each step closes with its outcome under an "Outcome" label. A workflow's stages (.cm-stages) share the list and its titles. */
+.cm-procedure,.cm-stages{list-style:none;padding:0;counter-reset:cmp;max-width:calc(var(--cm-read) + 56px)}
+.cm-procedure>li,.cm-stages>li{position:relative;display:flex;flex-direction:column;gap:12px;padding:32px 0 32px 56px;border-top:1px solid var(--cm-hairline);counter-increment:cmp}
+.cm-procedure>li:first-child,.cm-stages>li:first-child{border-top:0;padding-top:0}
+.cm-procedure>li:last-child,.cm-stages>li:last-child{padding-bottom:0}
+.cm-procedure>li::before,.cm-stages>li::before{content:counter(cmp,decimal-leading-zero);position:absolute;left:0;top:32px;font-size:18px;font-weight:800;line-height:1.4;font-variant-numeric:tabular-nums}
+.cm-procedure>li:first-child::before,.cm-stages>li:first-child::before{top:0}
 .cm-procedure__title{font-size:18px;font-weight:800;line-height:1.4;letter-spacing:0}
 .cm-procedure__outcome{display:flex;flex-direction:column;gap:8px;margin-top:8px}
 /* Related list: links to other documents or to places in them. The tag names what the item is; the link and one sentence sit beside it. */
@@ -571,9 +603,12 @@ pre code{all:unset}
   .cm-sources>li,.cm-versions>li{grid-template-columns:48px minmax(0,1fr)}
   .cm-sources>li>.cm-meta,.cm-versions>li>.cm-meta{grid-column:2}
   .cm-changes>li{grid-template-columns:minmax(0,1fr)}
-  .cm-limits>li{grid-template-columns:minmax(0,1fr)}
-  .cm-sources>li,.cm-changes>li,.cm-versions>li,.cm-limits>li{row-gap:12px}
-  .cm-procedure>li{padding-left:44px}
+  .cm-limits>li,.cm-bands>li{grid-template-columns:minmax(0,1fr)}
+  .cm-criteria>li{grid-template-columns:64px minmax(0,1fr)}
+  .cm-criteria>li>.cm-meta{grid-column:2}
+  .cm-sources>li,.cm-changes>li,.cm-versions>li,.cm-limits>li,.cm-criteria>li,.cm-bands>li{row-gap:12px}
+  .cm-parts,.cm-scope{grid-template-columns:minmax(0,1fr)}
+  .cm-procedure>li,.cm-stages>li{padding-left:44px}
   .cm-related>li{grid-template-columns:minmax(0,1fr);row-gap:8px}
   .cm-related>li>.cm-tag{grid-row:auto;margin-top:0}
   .cm-related>li>a,.cm-related>li>p,.cm-related>li>.cm-meta{grid-column:1}
@@ -604,9 +639,9 @@ pre code{all:unset}
   .cm-table-wrap{padding:4px 8px 12px;overflow:visible}
   .cm-collapse{padding:0 24px}
   .cm-grid--2.cm-print-stack,.cm-grid--wide.cm-print-stack{grid-template-columns:minmax(0,1fr)}
-  .cm-figure,.cm-kpi,.cm-callout,.cm-def,.cm-qa,.cm-props>dl,.cm-step,.cm-quote,.cm-summary,.cm-code,.cm-timeline>li,.cm-table tr,.cm-status,.cm-disagree,.cm-sources>li,.cm-changes>li,.cm-versions>li,.cm-limits>li,.cm-procedure>li,.cm-related>li{break-inside:avoid}
-  .cm-procedure>li{padding-top:20px;padding-bottom:20px}
-  .cm-procedure>li::before{top:20px}
+  .cm-figure,.cm-kpi,.cm-callout,.cm-def,.cm-qa,.cm-props>dl,.cm-step,.cm-quote,.cm-summary,.cm-code,.cm-timeline>li,.cm-table tr,.cm-status,.cm-disagree,.cm-sources>li,.cm-changes>li,.cm-versions>li,.cm-limits>li,.cm-procedure>li,.cm-related>li,.cm-stages>li,.cm-parts>li,.cm-scope,.cm-facts,.cm-criteria>li,.cm-bands>li,.cm-eval__result{break-inside:avoid}
+  .cm-procedure>li,.cm-stages>li{padding-top:20px;padding-bottom:20px}
+  .cm-procedure>li::before,.cm-stages>li::before{top:20px}
   .cm-figure__title,.cm-section__head,.cm-h3,.cm-h4,.cm-table-title{break-after:avoid}
   .cm-chart svg{width:100%!important;height:auto!important}
   .cm-chart{height:auto!important;min-height:0}

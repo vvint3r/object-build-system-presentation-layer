@@ -5,7 +5,7 @@
 //
 // A kit page carries <meta name="cm-kit">. Its kind is the cm-kind tag (a page without one is a
 // report); report, guide and reference are documents, and index is the generated index page
-// (SPEC.md section 8.25). Other HTML files, such as the gallery, are read only as link targets.
+// (SPEC.md section 8.31). Other HTML files, such as the gallery, are read only as link targets.
 
 import { chromium } from 'playwright';
 import { readdirSync, readFileSync, statSync } from 'node:fs';

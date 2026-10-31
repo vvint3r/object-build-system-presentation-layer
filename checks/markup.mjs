@@ -15,8 +15,8 @@ export default [
     // when present, follows the kit tag and names one of the three document kinds, or the index
     // page. The id tag follows them: one per page, lowercase words joined by hyphens, or a template
     // placeholder. A report's title carries its period, or the omission comment in the head; the
-    // title of any other kind is the title alone (SPEC §2; §7; §8.25).
-    name: 'head-order', level: 'fail', source: 'SPEC §2; §7; §8.25', once: true,
+    // title of any other kind is the title alone (SPEC §2; §7; §8.31).
+    name: 'head-order', level: 'fail', source: 'SPEC §2; §7; §8.31', once: true,
     inPage: () => {
       const H = window.__cm, d = H.source(), kit = H.cfg.kit;
       const same = (a, b) => a.replace(/\r\n/g, '\n').trim() === b.replace(/\r\n/g, '\n').trim();

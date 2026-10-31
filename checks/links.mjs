@@ -1,5 +1,5 @@
 // Link integrity across a document set: the folder that holds a set's documents and its index page
-// (SPEC.md section 8.25). Run on the folder, not on one page:
+// (SPEC.md section 8.31). Run on the folder, not on one page:
 //
 //   npm run links -- <folder>
 //
@@ -10,12 +10,12 @@
 //                  pages share one; the index page's id is "index"
 //   set-links      every document's breadcrumb runs set, area, document: the set step links to
 //                  index.html, the area step to index.html#{area id}, and the wordmark to index.html
-//   links          every link in a kit page resolves: a fragment to an id in the same page; a file
-//                  to a file that exists; a file and a fragment to a section id in that file
+//   links          every link in every page of the folder resolves: a fragment to an id in the same
+//                  page; a file to a file that exists; a file and a fragment to a section id in that file
 //   index-current  index.html exists and matches what `npm run index` writes from the documents now
 //
 // Links to other sites (http:, https:, mailto: and any other scheme) are not followed. Pages
-// without a cm-kit tag, such as the gallery, are read as link targets but not checked.
+// without a cm-kit tag, such as the gallery, have their links checked but carry no id or breadcrumb.
 
 import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
@@ -23,7 +23,7 @@ import { readFolder, readFile, slug, DOCUMENT_KINDS } from '../tools/set.mjs';
 import { buildIndex } from '../tools/index.mjs';
 
 const ID = /^[a-z0-9]+(-[a-z0-9]+)*$/;
-const SOURCE = 'SPEC §8.25';
+const SOURCE = 'SPEC §8.31';
 
 const args = process.argv.slice(2);
 if (args.length !== 1) {
@@ -78,7 +78,7 @@ async function links() {
     if (!outside.has(file)) outside.set(file, await readFile(file));
     return outside.get(file);
   };
-  for (const p of kitPages) {
+  for (const p of pages) {
     for (const { href, where } of p.links) {
       const at = `${p.file} ${where}`;
       const h = (href || '').trim();
@@ -132,5 +132,5 @@ for (const check of CHECKS) {
   for (const f of found) console.log(`        ${f.where}  ${f.value}`);
 }
 const skipped = pages.filter(p => !p.kind).map(p => p.file);
-if (skipped.length) console.log(`skip  ${name}  all    not kit pages, read only as link targets: ${skipped.join(', ')}`);
+if (skipped.length) console.log(`skip  ${name}  all    doc-ids, set-links on pages that are not kit pages (links checked): ${skipped.join(', ')}`);
 process.exit(failed ? 1 : 0);

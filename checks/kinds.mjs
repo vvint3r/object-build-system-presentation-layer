@@ -1,6 +1,6 @@
 // Document kinds: the required parts of a guide and of a reference (SPEC.md sections 7.3 to 7.5), and
 // the two components those kinds add, the procedure (section 8.23) and the related list (section
-// 8.24); and the parts of a set's index page (section 8.25). Read on the page as written. Each
+// 8.24); and the parts of a set's index page (section 8.31). Read on the page as written. Each
 // in-page function is self-contained, so helpers are repeated inside it. A report's anatomy is
 // checked in checks/structure.mjs.
 
@@ -69,7 +69,7 @@ export default [
     // file, its dek as the sentence, and a meta line with its status and its published date. The
     // masthead's Documents and Updated fields agree with the entries. Whether the entries match the
     // documents in the folder is checked across the folder (checks/links.mjs).
-    name: 'index-anatomy', level: 'fail', source: 'SPEC §8.25', once: true, kinds: ['index'],
+    name: 'index-anatomy', level: 'fail', source: 'SPEC §8.31', once: true, kinds: ['index'],
     inPage: ({ check }) => {
       const H = window.__cm, d = H.source(), out = [];
       const main = d.querySelector('main') || d.body;

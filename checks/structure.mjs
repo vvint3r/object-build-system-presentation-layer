@@ -35,7 +35,7 @@ export default [
   {
     // A sources list with entries, each tagged with its type from the closed set. The fields of
     // each entry, its locator among them, are checked by source-entries (checks/provenance.mjs). An
-    // index page cites nothing: its entries are the documents themselves (SPEC §8.25).
+    // index page cites nothing: its entries are the documents themselves (SPEC §8.31).
     name: 'sources', level: 'fail', source: 'SPEC §8.21; §14 item 11', once: true, kinds: ['report', 'guide', 'reference'],
     inPage: ({ check }) => {
       const H = window.__cm, out = [];
@@ -152,8 +152,8 @@ export default [
     // Top bar: the publisher wordmark (lowercase, hyphenated), one series chip, the theme toggle,
     // at most one print button (optional, SPEC §7.1), and nothing else. The wordmark links to the
     // top of the page, or, in a document whose breadcrumb links to its set's index page, to that
-    // page; on the index page itself, to the top (SPEC §8.25).
-    name: 'topbar', level: 'fail', source: 'SPEC §7.1; §8.25', once: true,
+    // page; on the index page itself, to the top (SPEC §8.31).
+    name: 'topbar', level: 'fail', source: 'SPEC §7.1; §8.31', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, d = H.source(), out = [];
       const bars = d.querySelectorAll('.cm-topbar');
@@ -190,8 +190,8 @@ export default [
     // none (SPEC §7.1). A document's breadcrumb runs set, area, document; the set step links to
     // index.html and the area step to index.html#{area id} where the set has an index page, and each
     // is plain text where it has none. An index page's breadcrumb is its set alone, and its fields
-    // are Status, Documents and Updated, with no byline (SPEC §8.25).
-    name: 'masthead', level: 'fail', source: 'SPEC §7.1; §8.25; §14 item 2', once: true,
+    // are Status, Documents and Updated, with no byline (SPEC §8.31).
+    name: 'masthead', level: 'fail', source: 'SPEC §7.1; §8.31; §14 item 2', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, d = H.source(), out = [], kind = H.kind();
       const m = d.querySelector('.cm-mast');
@@ -332,8 +332,8 @@ export default [
   {
     // Notes and sources close the document, notes first, and the footer follows. Every document kind
     // closes this way (SPEC §7.1); an index page has no sources, and its footer follows its last
-    // section (SPEC §8.25).
-    name: 'report-anatomy', level: 'fail', source: 'SPEC §7.1; §8.25', once: true,
+    // section (SPEC §8.31).
+    name: 'report-anatomy', level: 'fail', source: 'SPEC §7.1; §8.31', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, d = H.source(), out = [];
       const index = H.kind() === 'index';

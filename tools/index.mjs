@@ -1,5 +1,5 @@
 // Write the index page of a document set: index.html in the set's folder, built from kit components
-// (SPEC.md section 8.25). It lists every document in the folder by area, the second step of each
+// (SPEC.md section 8.31). It lists every document in the folder by area, the second step of each
 // document's breadcrumb; within an area, reports newest first, then guides and references A to Z.
 // Each entry is a related-list item: the kind as its tag, the title as its link, the dek as its
 // sentence, and a meta line with the status and the published date.
@@ -127,7 +127,7 @@ ${a.docs.map(entry).join('\n')}
 <!--
   Content Morphia · Report Kit 1.2 · INDEX PAGE
   Generated from the documents in this folder by \`npm run index -- <folder>\` (tools/index.mjs).
-  Regenerate it after adding or changing a document; never edit it by hand (SPEC.md §8.25).
+  Regenerate it after adding or changing a document; never edit it by hand (SPEC.md §8.31).
 -->
 <html lang="en">
 <head>

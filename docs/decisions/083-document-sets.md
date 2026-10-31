@@ -10,21 +10,21 @@
 
 ## Rules
 
-Section 8.25 of `SPEC.md` holds the rules: addresses, the breadcrumb, the index page and the link
-check. Sections 2, 7, 7.1, 8.24, 14 (item 18) and 15 point at it.
+Section 8.31 of `SPEC.md` holds the rules: addresses, the breadcrumb, the index page and the link
+check. Sections 2, 7, 7.1, 8.24, 14 (item 19) and 15 point at it.
 
 | Rule | Spec | Check |
 | --- | --- | --- |
-| Every page carries one `<meta name="cm-id">` after `cm-kind`: lowercase words joined by hyphens | §2, §8.25 | `head-order`, failure |
-| The file name is the kind, a spaced hyphen and a short title; the id is the file name in lowercase with hyphens; neither changes once published | §8.25 | Not checked: a published name is kept as it stands |
-| No two pages in a set share an id; the index page's id is `index` | §8.25 | `doc-ids` (links), failure |
-| A link to another document is its file name, `%20` for a space; a place in it is a section id | §8.25, §8.24 | `links` (links), failure |
-| The breadcrumb runs set, area, document; set and area steps link to `index.html` and `index.html#{area id}`, or are spans outside a set; the last step is the page itself | §7.1, §8.25 | `masthead`, failure; `set-links` (links), failure |
-| In a set, the wordmark links to `index.html`; elsewhere, and on the index page, to `#top` | §7.1, §8.25 | `topbar`, failure; `set-links` (links), failure |
-| The index page carries the kind `index`; Status (Index), Documents and Updated; no byline, no sources | §7, §8.25 | `head-order`, `masthead`, `report-anatomy`, failure |
-| One section per area, A to Z, holding one related list; each entry closes with a meta line of status and published date | §8.24, §8.25 | `index-anatomy`, failure |
-| The index page matches what `npm run index` writes from the documents | §8.25 | `index-current` (links), failure |
-| A set's deks keep the index within §13.1: 150 words an area, 18 words a sentence on average | §8.25, §13.1 | `npm run index` refuses; the page's writing checks |
+| Every page carries one `<meta name="cm-id">` after `cm-kind`: lowercase words joined by hyphens | §2, §8.31 | `head-order`, failure |
+| The file name is the kind, a spaced hyphen and a short title; the id is the file name in lowercase with hyphens; neither changes once published | §8.31 | Not checked: a published name is kept as it stands |
+| No two pages in a set share an id; the index page's id is `index` | §8.31 | `doc-ids` (links), failure |
+| A link to another document is its file name, `%20` for a space; a place in it is a section id | §8.31, §8.24 | `links` (links), failure |
+| The breadcrumb runs set, area, document; set and area steps link to `index.html` and `index.html#{area id}`, or are spans outside a set; the last step is the page itself | §7.1, §8.31 | `masthead`, failure; `set-links` (links), failure |
+| In a set, the wordmark links to `index.html`; elsewhere, and on the index page, to `#top` | §7.1, §8.31 | `topbar`, failure; `set-links` (links), failure |
+| The index page carries the kind `index`; Status (Index), Documents and Updated; no byline, no sources | §7, §8.31 | `head-order`, `masthead`, `report-anatomy`, failure |
+| One section per area, A to Z, holding one related list; each entry closes with a meta line of status and published date | §8.24, §8.31 | `index-anatomy`, failure |
+| The index page matches what `npm run index` writes from the documents | §8.31 | `index-current` (links), failure |
+| A set's deks keep the index within §13.1: 150 words an area, 18 words a sentence on average | §8.31, §13.1 | `npm run index` refuses; the page's writing checks |
 
 Checks marked "(links)" are in `checks/links.mjs` and run on a folder with `npm run links --
 <folder>`. The rest run on each page with `npm run check`.
@@ -39,8 +39,8 @@ Checks marked "(links)" are in `checks/links.mjs` and run on a folder with `npm 
 | `kit/index.html` | The kit folder's index page, generated from its three documents |
 
 The three documents carry ids and set breadcrumbs. The templates carry an id placeholder, the set
-breadcrumb and a note on documents outside a set. The gallery shows the breadcrumb (5.28) and the
-index entry (5.29).
+breadcrumb and a note on documents outside a set. The gallery shows the breadcrumb (5.35) and the
+index entry (5.36).
 
 ## Calls
 
@@ -67,9 +67,10 @@ index entry (5.29).
 | The kit's documents form one set, Support operations, in two areas: Billing, and Service performance | The publisher is Support Operations. The review and the first response reference share a subject; the escalation guide stands apart |
 | Breadcrumb rules sit in the `masthead` check, not a new check | The breadcrumb is a masthead part (§7.1). The gallery already skips `masthead`, so no exemption is added |
 | `cm-id` is required on every document, standalone or in a set | One rule whole: every document has an identity. Templates accept a placeholder, as the writing checks do |
+| The `links` check runs on every page in the folder, the gallery among them; ids and breadcrumbs are checked on kit pages only | The gallery's demos link to the kit's documents, as the metric detail does; an agent copies that markup, so its links must resolve |
 | The link check also resolves links within a page | No page check catches an in-page link to a missing id outside the rail, footnotes, citations and related list |
 | The page checks treat `index` as a kind: `sources` and `summary-anatomy` skip it; `title-length` allows 1 to 10 words | The index page's title is the set's name, as a reference's is the name of its subject |
-| The rules live in a new §8.25 | The brief for step 8 puts new rules under section 8; sections 2, 7 and 8.24 point at it |
+| The rules live in a new §8.31 | The brief for step 8 puts new rules under section 8; sections 2, 7 and 8.24 point at it |
 
 ## Left out
 

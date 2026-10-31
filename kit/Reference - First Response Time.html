@@ -193,8 +193,8 @@
           <span class="cm-def__label">Definitions</span>
           <dl>
             <div><dt>Clock start</dt><dd>The ticket's creation time, <code>created_at</code>, in UTC. A merged ticket keeps the creation time of the ticket that survives the merge.</dd></div>
-            <div><dt>Clock stop</dt><dd>The first public reply from an agent, <code>first_human_reply_at</code>. Replies sent with a macro count; automatic acknowledgements and internal notes do not.<a class="cm-fn" href="#fn-1" id="fnref-1">1</a></dd></div>
-            <div><dt>Excluded tickets</dt><dd>Tickets created by internal staff, tickets marked as spam, and merged duplicates. None of them has a customer waiting for a reply.</dd></div>
+            <div><dt>Clock stop</dt><dd>The first public reply from an agent, <code>first_human_reply_at</code>. Replies sent with a macro count; automatic acknowledgements and internal notes do not.</dd></div>
+            <div><dt>Excluded tickets</dt><dd>Tickets created by internal staff, tickets marked as spam and merged duplicates, since none has a customer waiting for a reply. A ticket with no reply from a person yet has no first response time, so it stays out until that reply is sent.<a class="cm-fn" href="#fn-1" id="fnref-1">1</a></dd></div>
             <div><dt>Reported value</dt><dd>The median across tickets created in the period, in hours and minutes. A quarter's value comes from the first warehouse refresh after the quarter closes.</dd></div>
           </dl>
         </aside>
@@ -255,7 +255,7 @@
         </div>
         <ul class="cm-related">
           <li><span class="cm-tag">Metric</span><a href="Sample%20Report%20-%20Q3%20Support%20Review.html#service">Resolved within SLA</a><p>Measures the whole ticket against its due time, so a fast first reply alone does not meet it.</p></li>
-          <li><span class="cm-tag">Metric</span><a href="Sample%20Report%20-%20Q3%20Support%20Review.html#initiatives">Specialist queue wait</a><p>Starts when a ticket is escalated, often after the first reply has stopped this clock.</p></li>
+          <li><span class="cm-tag">Metric</span><a href="Sample%20Report%20-%20Q3%20Support%20Review.html#initiatives">Specialist queue wait</a><p>Runs from the escalation until a specialist picks the ticket up, so it can start before the first reply stops this clock.</p></li>
           <li><span class="cm-tag">Metric</span><a href="Sample%20Report%20-%20Q3%20Support%20Review.html#sentiment">Customer satisfaction</a><p>Rates the whole ticket, from a survey sent 24 hours after it closes.<a class="cm-cite" href="#src-4" id="cite-8">S4</a></p></li>
         </ul>
       </div>
@@ -293,7 +293,7 @@
         <div class="cm-stack">
           <h3 class="cm-h4">Notes</h3>
           <ol class="cm-notes">
-            <li id="fn-1">A ticket with no reply from a person has no first response time yet, so the query leaves it out until that reply is sent. <a class="cm-back" href="#fnref-1" aria-label="Back to text">↩</a></li>
+            <li id="fn-1">The query leaves out a ticket with no reply from a person by its last condition, <code>first_human_reply_at is not null</code>. A quarter's value is read at the first refresh after the quarter closes, so a ticket still waiting then stays out of that value. <a class="cm-back" href="#fnref-1" aria-label="Back to text">↩</a></li>
           </ol>
         </div>
         <div class="cm-stack">

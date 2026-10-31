@@ -118,9 +118,10 @@ A summary of section 1 of `SPEC.md`. The spec governs.
 Charts are ECharts option JSON inside the kit's figure markup. The agent never calls `echarts.init`
 and never writes chart JavaScript. It picks the chart by the reader's question, from the recipes in
 section 9. A `"cm"` key declares a bullet, slope, strip, box or interval chart, and the kit draws it.
-End labels that name every line take the legend's place. Flow diagrams are JSON too: nodes placed by column and row, and
-edges between them (section 8.20 of `SPEC.md`). The kit draws them; the agent writes no coordinates,
-SVG or styles.
+End labels that name every line take the legend's place. Diagrams are JSON too (section 8.20 of
+`SPEC.md`). A flow, state or entity relationship diagram places its nodes by column and row; a
+sequence diagram lists its participants and messages in order. The kit draws them; the agent writes
+no coordinates, SVG or styles.
 
 ## Writing rules
 
@@ -221,6 +222,9 @@ Content maps onto existing components:
 | Dated events in order | Timeline, `cm-timeline` | 8.12 |
 | Stages in sequence, seen at a glance | Process diagram, `cm-process` | 8.13 |
 | A process with branches, loops or hand-offs between roles | Figure with a flow diagram, `cm-diagram` | 8.20 |
+| Messages between people or systems, in the order they are sent | Figure with a sequence diagram, `cm-diagram` | 8.20 |
+| The states one thing passes through, and the events that move it | Figure with a state diagram, `cm-diagram` | 8.20 |
+| The records a system keeps, their keys, and how many of one relate to another | Figure with an entity relationship diagram, `cm-diagram` | 8.20 |
 | Steps a reader carries out, each with its outcome | Procedure, `cm-procedure` | 8.23 |
 | Other documents, or places in them, and how each relates | Related list, `cm-related` | 8.24 |
 | Work passed between roles, stage by stage, with who acts and what hands it on | Workflow, `cm-workflow` | 8.25 |
@@ -268,8 +272,8 @@ The kit has no search, faceted browse or version selector; each needs a server.
 
 ## Kit gaps
 
-Maps, diagrams other than flow diagrams (sequence, state, layer stack, hierarchy, entity
-relationship, network), interactive filters and a PDF cover page. A document that
+Maps, diagrams other than flow, sequence, state and entity relationship diagrams (layer stack,
+hierarchy, network), interactive filters and a PDF cover page. A document that
 needs one uses a figure holding a `cm-slot` placeholder and names the gap in an HTML
 comment. The agent does not draw its own diagram, icon or layout to fill the gap.
 

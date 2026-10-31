@@ -1507,4 +1507,4 @@ Added for document sets: document ids and addresses, the breadcrumb from set to 
 
 Added for reports: ECharts chart method and theme; categorical and sequential palettes; dark token set; print rules; report masthead and contents rail; KPI strip; key findings; native tables with sorting and in-cell bars; pull quote; timeline; process diagram; definition, questions and property-sheet blocks; footnotes; collapsible appendix; chart draw-in motion; packaging modes.
 
-Not yet covered: maps, diagram modes other than flow (sequence, state, layer stack, hierarchy, entity relationship), network diagrams, interactive filters, a PDF cover page. Use a figure with `cm-slot` and flag the gap in an HTML comment until these exist.
+Not yet covered: maps, diagram modes other than flow, sequence, state and entity relationship (layer stack, hierarchy), network diagrams, interactive filters, a PDF cover page. Use a figure with `cm-slot` and flag the gap in an HTML comment until these exist.

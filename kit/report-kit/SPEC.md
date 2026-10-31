@@ -96,7 +96,7 @@ Semantic meaning is fixed: ok = healthy/validated, warn = attention/at risk, cri
 | T5 | `.cm-t5`, `.cm-timeline__title`, `.cm-step__title`, `.cm-findings__claim`, terms | 16–18 / 700–800 | none |
 | Body | default | 16 / 400 / 1.9 | Reading column, max 70ch |
 | Small | `.cm-small`, text inside surfaces | 15 / 400 / 1.8 | — |
-| Label | `.cm-label`, kinds, metadata and status keys, callout, definition and question labels, table heads, contents rail and process step numbers; `.cm-tag`, `.cm-delta` | 10 / 800 / caps, +0.08em | — |
+| Label | `.cm-label`, kinds, metadata, status and fact keys, callout, definition and question labels, table heads, contents rail and process step numbers; `.cm-tag`, `.cm-delta` | 10 / 800 / caps, +0.08em | — |
 | Chip | `.cm-chip`, text centred in the 20px pill | 9 / 800 / caps, +0.08em, line height 10px | — |
 | Role tag | property-sheet `<sup>` | 10 / 700, sentence case | — |
 | Meta | `.cm-meta` | 13 / 400 | Dates, sizes, provenance |
@@ -225,6 +225,16 @@ No other block is left out this way. A required block missing without its omissi
 ## 8. Components
 
 Markup below is canonical. Copy structure and classes exactly; change only text, data and the allowed custom properties.
+
+Sections 8.25 to 8.30 are the structured components: workflow, framework, model, method, requirement, evaluation and metric detail. They are the building blocks of reference pages such as a framework, process, guide, metric or comparison page. Each is text first: it reads in order, prints whole and reflows on a phone. They share one anatomy:
+
+- A card, `div.cm-card.cm-{kind}.cm-bleed`, opens with its kind label (`span.cm-label.cm-card__kicker`) and a T3 title (`h3.cm-card__title`) that names the thing as a noun phrase. The kind label is the component's name: Workflow, Framework, Model, Method, Requirement, Evaluation or Metric.
+- Its parts follow 24px apart, in the small text size of text inside a surface. A labelled part is a `.cm-sub`: an inset hairline, then its `.cm-label` on a line of its own.
+- Facts, `dl.cm-facts`: one to five short facts about one item, key over value, as the status block sets them (§8.22). Keys are 1 to 3 words; a value is a phrase of 12 words at most, a chip or a link. A property sheet (§8.7) holds the facts about the subject of a section, in groups; a facts row holds a few facts about one item inside a component.
+- Parts, `ul.cm-parts`: named parts as tiles, `li.cm-tile`, each a name (`p.cm-t5`, 3 words at most) and one sentence of 25 words at most. Peers sit two or three across. `ol.cm-parts` stacks its parts top first, for layers. `ol.cm-parts.cm-parts--matrix` is a two by two grid whose cells each open with a position label.
+- Scope, `div.cm-scope`: two short lists side by side, each under its label, one sentence per item and one to three items: `Use when` and `Not for`, or `Holds when` and `Breaks when`.
+- A component carries no `cm-emph` and no `cm-featured`; it takes no place in the emphasis budget (§6).
+- Its prose sits under its title, so it shares the 150 words allowed between headings (§13.1). Its component limits hold as well.
 
 ### 8.1 Section
 
@@ -724,6 +734,213 @@ The steps a reader carries out, in order: a guide's Steps section (§7.3). The C
 
 Links to other documents, or to places in them, with how each relates. The tag names what the item is, from a closed set: `Report`, `Guide`, `Reference`, `Metric`, `Dataset`, `System`. The link text is the item's title. The sentence says what the reader finds there that bears on this document. Guides close with one in Related documents (§7.3); a reference's Relationships section holds one (§7.4). Below 640px the tag stacks above the link.
 
+### 8.25 Workflow
+
+A workflow sets out how work moves between roles or stages, in order: the role that does each stage, what the stage takes in and produces, and the condition that hands the work on. A reader works through it, or looks up one stage.
+
+```html
+<div class="cm-card cm-workflow cm-bleed">
+  <span class="cm-label cm-card__kicker">Workflow</span>
+  <h3 class="cm-card__title">Ticket escalation</h3>
+  <p>What starts the work and what ends it, in one sentence.</p>
+  <ol class="cm-stages">
+    <li>
+      <h4 class="cm-procedure__title">Intent triage</h4>
+      <p>What happens at this stage, in one sentence.</p>
+      <dl class="cm-facts">
+        <div><dt>Actor</dt><dd>Routing classifier</dd></div>
+        <div><dt>Hands on when</dt><dd>The intent is tagged</dd></div>
+      </dl>
+    </li>
+  </ol>
+  <div class="cm-sub">                                       <!-- optional -->
+    <span class="cm-label">Exceptions</span>
+    <ul class="cm-list"><li>A condition, and where the work goes instead.</li></ul>
+  </div>
+</div>
+```
+
+- Required: the kind label, the title, a lede of one sentence saying what starts the work and what ends it, and `ol.cm-stages` with 3 to 6 stages. The stages take the procedure's numbered list and title (§8.23): the CSS numbers them 01, 02 in the left gutter, and each opens with `.cm-procedure__title`.
+- Each stage holds its title, one sentence on what happens (20 words at most) and its facts. The title is a heading one level below the card title, a noun phrase of 4 words at most (§13.3). `Actor` names the role that does the stage. `Hands on when` gives the condition that passes the work on, on every stage but the last; a branch names the stage it leads to. `Takes in` and `Produces` are optional. These four keys are the whole set.
+- Optional: an `Exceptions` part with 1 to 3 items, each a condition and where the work goes instead.
+- A procedure (§8.23) is the steps one reader carries out in a guide; a workflow is how work moves between roles or stages. A stage closes with who acts and what hands the work on, where a step closes with its outcome.
+- The process diagram (§8.13) sets three to six steps across the page, a line each, with no actors or conditions. It is the overview at a glance; a workflow is the reference a reader works from. A document can carry both, the diagram first, with the same stage names in the same order.
+- The flow diagram (§8.20) is the picture of a flow, with lanes, branches and loops drawn as nodes and edges. A workflow is text: it reads in order, prints whole and reflows on a phone with no sideways scroll. Draw the flow when the branches or the hand-offs between lanes are the point; write the workflow when the reader acts on each stage. Shown together, both use the same stage names.
+- A method (§8.28) is one role's technique, ending in a decision; a workflow passes work between roles. A timeline (§8.12) holds dated events; a workflow has no dates.
+
+### 8.26 Framework
+
+A framework names the parts that together cover a subject, such as the pillars of a quality review or the layers of a platform, and says what each part covers.
+
+```html
+<div class="cm-card cm-framework cm-bleed">
+  <span class="cm-label cm-card__kicker">Framework</span>
+  <h3 class="cm-card__title">Support quality pillars</h3>
+  <p>What the framework covers and how its parts relate, in one sentence.</p>
+  <ul class="cm-parts">                                        <!-- ol.cm-parts for layers, top first -->
+    <li class="cm-tile"><p class="cm-t5">Speed</p><p>What this part covers, in one sentence.</p></li>
+  </ul>
+  <div class="cm-scope">                                       <!-- optional -->
+    <div><span class="cm-label">Use when</span><ul class="cm-list"><li>A case the framework fits.</li></ul></div>
+    <div><span class="cm-label">Not for</span><ul class="cm-list"><li>A case it does not fit, and what covers it.</li></ul></div>
+  </div>
+</div>
+```
+
+- Required: the kind label, the title, a lede of one sentence saying what the framework covers and how its parts relate, and `cm-parts` with 3 to 6 parts. Parts with an order, such as layers, go in `ol.cm-parts`, top first, and the lede says what the order means.
+- Optional: the scope, `Use when` and `Not for`.
+- When every part carries the same attributes and the reader compares the parts across them, such as a goal, a signal and a metric for each, the parts are rows of a table (§8.11). The framework names the parts and what each covers; a table compares them. A page can carry both, the framework first.
+- Parts that happen one after another are a process (§8.13) or a workflow (§8.25), not a framework.
+- A model (§8.27) claims how its parts relate and states when the claim breaks. A framework organises a subject and claims nothing to test.
+
+### 8.27 Model
+
+A model is a named abstraction a reader carries away and applies: a claim about how its parts relate, the parts, and the conditions under which the claim holds and breaks. The breaking condition is what separates a model from a diagram with a name on it.
+
+```html
+<div class="cm-card cm-model cm-bleed">
+  <span class="cm-label cm-card__kicker">Model</span>
+  <h3 class="cm-card__title">Ticket placement model</h3>
+  <p class="cm-t5">The claim, in one sentence.</p>
+  <ul class="cm-parts">
+    <li class="cm-tile"><p class="cm-t5">Product depth</p><p>What this part is, in one sentence.</p></li>
+  </ul>
+  <ol class="cm-parts cm-parts--matrix">                       <!-- optional; exactly four cells -->
+    <li class="cm-tile"><span class="cm-label">Shallow · no access</span><p class="cm-t5">Tier 1</p><p>What sits here, in one sentence.</p></li>
+  </ol>
+  <div class="cm-scope">
+    <div><span class="cm-label">Holds when</span><ul class="cm-list"><li>A condition the claim needs.</li></ul></div>
+    <div><span class="cm-label">Breaks when</span><ul class="cm-list"><li>A case where the claim fails, and what to do.</li></ul></div>
+  </div>
+</div>
+```
+
+- Required: the kind label, the title, the claim, `ul.cm-parts` with 2 to 5 parts, and the scope with both `Holds when` and `Breaks when`. The claim is one sentence of 30 words at most, on a line of its own in `p.cm-t5`, as a key finding's claim (§8.3).
+- Optional: one paragraph after the claim, of 2 sentences at most; a caption source line when the model rests on data.
+- Optional schematic: a model that sorts things by two factors adds `ol.cm-parts.cm-parts--matrix`, exactly four cells in reading order (top left, top right, bottom left, bottom right). Each cell opens with a position label naming its place on both factors, so the grid reads the same stacked on a phone. The model's parts name the two factors. Any other schematic is a figure after the block (§8.10, §8.20).
+- A framework (§8.26) organises a subject; a model makes a claim and says when it breaks. A definition (§8.5) explains one term; a model explains how several relate.
+
+### 8.28 Method
+
+A method is a repeatable technique: what it achieves, when to use it, its steps and the decision it ends in.
+
+```html
+<div class="cm-card cm-method cm-bleed">
+  <span class="cm-label cm-card__kicker">Method</span>
+  <h3 class="cm-card__title">SLA breach review</h3>
+  <p>What the method achieves, in one sentence.</p>
+  <dl class="cm-facts"><div><dt>Run by</dt><dd>Team lead</dd></div></dl>   <!-- optional -->
+  <div class="cm-scope">
+    <div><span class="cm-label">Use when</span><ul class="cm-list"><li>The situation that calls for it.</li></ul></div>
+    <div><span class="cm-label">Not for</span><ul class="cm-list"><li>A case it does not fit.</li></ul></div>   <!-- optional -->
+  </div>
+  <div class="cm-sub"><span class="cm-label">Steps</span><ol class="cm-olist"><li>One instruction.</li></ol></div>
+  <div class="cm-sub"><span class="cm-label">Decision</span><p>The criterion, and what follows each outcome.</p></div>
+</div>
+```
+
+- Required: the kind label, the title, the objective as a lede of one sentence, the scope with `Use when`, a `Steps` part and a `Decision` part.
+- Steps: 3 to 7, each one instruction in one sentence of 20 words at most, in `ol.cm-olist`.
+- Decision: one paragraph of 1 or 2 sentences that states the criterion as a condition, never a question, and what follows each outcome.
+- Optional: `Not for` in the scope; facts such as who runs it, what it needs and how often.
+- A workflow (§8.25) passes work between roles; a method is one role's technique. A guide's steps, each with its outcome, are a procedure (§8.23). A list of steps with no decision at the end is an ordered list (§8.14). An action taken once, with an owner and a date, is a recommendation (§8.19).
+
+### 8.29 Requirement and evaluation
+
+Two blocks that end in a verdict: a requirement on a rule, an evaluation on a choice.
+
+A requirement states a rule, why it exists, and how a reviewer checks it.
+
+```html
+<div class="cm-card cm-req cm-bleed" id="req-04">
+  <span class="cm-label cm-card__kicker">Requirement REQ-04</span>
+  <h3 class="cm-card__title">Owned macros</h3>
+  <p class="cm-t5">The rule, in one sentence.</p>
+  <p>Why the rule exists, in one or two sentences.</p>
+  <dl class="cm-facts">
+    <div><dt>Level</dt><dd><span class="cm-chip">Required</span></dd></div>
+    <div><dt>Status</dt><dd><span class="cm-chip cm-chip--ok">Final</span></dd></div>
+    <div><dt>Owner</dt><dd>Support Tooling</dd></div>
+  </dl>
+  <div class="cm-sub"><span class="cm-label">Acceptance criteria</span><ol class="cm-olist"><li>A condition a reviewer marks true or false.</li></ol></div>
+</div>
+```
+
+- The kind label carries the requirement's key: capital letters, a hyphen and two or more digits (`REQ-04`). The card's `id` is the key in lower case (`req-04`), so other blocks link to it.
+- Required: the title, naming the rule as a noun phrase; the statement, one sentence of 30 words at most in `p.cm-t5`; the rationale, one or two sentences; facts with `Level`, `Status` and `Owner`; and an `Acceptance criteria` part with 1 to 5 criteria, one sentence each.
+- Level is a chip: `Required` plain, `Recommended` or `Optional` dashed. Status is a chip from the masthead's set: `Draft` plain, `In review` (`cm-chip--warn`), `Final` (`cm-chip--ok`).
+- Optional facts: `Evidence` (a link or a citation) and `Applies to`.
+- Criteria carry no met or unmet marks. Whether a criterion is met changes over time, so a result goes in the status block (§8.22) or an evaluation.
+- The requirement callout (§8.4) states a rule in passing, where it applies, in one or two sentences, and may end with the key of its requirement block. The block is the rule's record, once per rule, in a reference document or an appendix.
+
+An evaluation scores one subject against weighted criteria and ends in a verdict.
+
+```html
+<div class="cm-card cm-eval cm-bleed">
+  <span class="cm-label cm-card__kicker">Evaluation</span>
+  <h3 class="cm-card__title">APAC weekend coverage pilot</h3>
+  <p>What was scored, against what, on what scale, in one sentence.</p>
+  <ol class="cm-criteria">
+    <li><span class="cm-criteria__score">5 of 5</span><span><b>Monday first response</b><br>The evidence, in one sentence.</span><span class="cm-meta">weight 3</span></li>
+  </ol>
+  <div class="cm-eval__result">
+    <span class="cm-label">Weighted score</span>
+    <span class="cm-figure-s">3.9 of 5</span>
+    <span class="cm-chip cm-chip--ok">Adopt</span>
+  </div>
+  <p>What the verdict commits to, in one or two sentences.</p>
+  <span class="cm-caption"><span class="cm-caption__line">Source: who scored it, and when.</span></span>
+</div>
+```
+
+- Required: the kind label, the title naming the subject, a lede of one sentence, `ol.cm-criteria` with 2 to 6 criteria, the result, a paragraph of 1 or 2 sentences on what the verdict commits to, and a caption with a source line.
+- Each criterion holds a score (`N of M`, the same scale for every criterion), a name of 4 words at most in `<b>`, one sentence of evidence and a whole-number weight (`weight 3`).
+- The result is labelled `Weighted score`. Its value is the sum of each score times its weight, over the sum of the weights, to one decimal, on the criteria's scale.
+- The verdict is one status chip: `Adopt` (`cm-chip--ok`), `Hold` (`cm-chip--warn`) or `Reject` (`cm-chip--crit`). The solid verdict chip stays with tables and figures (§1 rule 7).
+- No confidence chip or score (§8.21).
+- A comparison table (§8.11) sets several options across the same dimensions, the recommended column marked ★. An evaluation scores one subject. Several options scored on weighted criteria go in a table: a column for each option, weighted totals in `<tfoot>`, ★ on the recommended.
+
+### 8.30 Metric detail
+
+A metric detail is the reference entry for one measure: what it counts, its formula, unit and direction, its target and thresholds, its source and its owner.
+
+```html
+<div class="cm-card cm-metric cm-bleed" id="metric-sla">
+  <span class="cm-label cm-card__kicker">Metric</span>
+  <h3 class="cm-card__title">Resolved within SLA</h3>
+  <p>What the metric counts and how, as a definition (§8.5).</p>
+  <div class="cm-props">
+    <dl>
+      <dt>Formula</dt><dd><code>100 × resolved_in_sla / resolved_total</code></dd>
+      <dt>Unit</dt><dd>Percent of resolved tickets</dd>
+      <dt>Direction</dt><dd>Higher is better</dd>
+    </dl>
+    <dl>
+      <dt>Source</dt><dd>Helpdesk warehouse, ticket facts<a class="cm-cite" href="#src-1" id="cite-5">S1</a></dd>
+      <dt>Owner</dt><dd>Support Operations Analytics</dd>
+    </dl>
+  </div>
+  <div class="cm-sub">                                       <!-- optional -->
+    <span class="cm-label">Thresholds</span>
+    <ul class="cm-bands">
+      <li><span><b>95% or more</b><br>The response, in one sentence.</span><span class="cm-chips"><span class="cm-chip cm-chip--ok">On track</span></span></li>
+    </ul>
+  </div>
+  <div class="cm-sub">                                       <!-- optional -->
+    <span class="cm-label">Related metrics</span>
+    <ul class="cm-related"><li><span class="cm-tag">Metric</span><a href="Reference%20-%20First%20Response%20Time.html">First response time</a><p>How it relates, in one sentence.</p></li></ul>
+  </div>
+</div>
+```
+
+- Required: the kind label; the title, the metric's name as KPI labels and tables give it; the definition, 15 to 60 words on what the metric counts and how; and a property sheet (§8.7) with `Formula` (in `<code>`), `Unit`, `Direction`, `Source` (cited, §8.21) and `Owner`.
+- Direction reads `Higher is better`, `Lower is better` or `Nearer the target is better`. Optional keys include `Target`, `Grain`, `Cadence`, `Aliases` and `Excludes`.
+- Optional `Thresholds`: `ul.cm-bands` with 2 to 4 bands, best first. Each band gives its range in `<b>`, the response in one sentence, and one status chip: `On track` (`cm-chip--ok`), `At risk` (`cm-chip--warn`) or `Breach` (`cm-chip--crit`).
+- Optional `Related metrics`: a related list (§8.24) of 1 to 4 items, each tagged `Metric`, linking to where the metric is defined or reported, with one sentence on how it relates.
+- It carries no current value. A value changes, and a definition holds no number that will change (§13.2). The current value goes in the KPI strip (§8.2) of a report, or the status block (§8.22) of a reference document, under the same name.
+- The KPI strip (§8.2) gives the value for a period, its change and its target; the metric detail defines what that value means.
+- A property sheet (§8.7) holds facts about any one thing; the metric detail holds one, with the keys a metric needs. A definition (§8.5) explains a term in a sentence or two; a metric detail is for a measure the page reports or judges against thresholds. A known limit of the metric is a limitation callout after the block (§8.4).
+
 ## 9. Charts
 
 **Method:** ECharts 5.5.1, SVG renderer, option JSON inside `<script type="application/json">` within `.cm-chart[data-chart]`. Agents **MUST NOT** call `echarts.init` or write chart JavaScript. The JSON **MUST** be valid JSON (double quotes, no comments, no functions, no trailing commas).
@@ -836,6 +1053,17 @@ Components set limits of their own. Where a component limit and a limit above bo
 | Chart annotation | 1 to 3 words | §9 |
 | Diagram node label | 24 characters at most | §8.20 |
 | Diagram edge label | 1 to 3 words | §8.20 |
+| Structured component lede | One sentence, 30 words at most | §8.25 to §8.29 |
+| Fact key; fact value | 1 to 3 words; a phrase of 12 words at most | §8 |
+| Part name; part description | 3 words at most; one sentence of 25 words at most | §8 |
+| Scope item | One sentence | §8 |
+| Workflow stage title; stage body | 4 words at most; one sentence of 20 words at most | §8.25 |
+| Model claim; requirement statement | One sentence, 30 words at most | §8.27, §8.29 |
+| Method step; method decision | One sentence of 20 words at most; 1 or 2 sentences | §8.28 |
+| Acceptance criterion; requirement rationale | One sentence; 1 or 2 sentences | §8.29 |
+| Evaluation criterion | A name of 4 words at most, then one sentence of evidence | §8.29 |
+| Metric definition | 15 to 60 words | §8.30 |
+| Threshold response | One sentence | §8.30 |
 
 ### 13.2 Register
 
@@ -883,6 +1111,7 @@ Headings are `h1` to `h6` and table titles.
 15. Changing numbers sit in one dated status block; change log and revision history run newest first with dated entries; each limitation status is a word from its set (§8.22).
 16. `cm-kind` names the kind, or is absent for a report. A guide or a reference has its required parts in order, each with its id, or their omission comments (§7.3 to §7.5). Every procedure step closes with its outcome; every related item has a tag, a link and a sentence.
 17. Every diagram: JSON within the flow fields and capacity, a label on every decision branch, `role="img"`, a caption with a source line, and nothing overlapping or clipped in light, dark and print (§8.20).
+18. Each structured component opens with its kind label and title and holds its required parts within its counts and limits (§8.25 to §8.30).
 
 ## 15. Changes from Content Morphia Foundations
 
@@ -912,6 +1141,8 @@ Changed in 1.2:
 - A document without measured numbers leaves out a required block it has nothing for, with an omission comment (§7).
 
 Added for guides and references: document kinds (§7), procedure (§8.23), related list (§8.24).
+
+Added for reference pages: workflow, framework, model, method, requirement, evaluation and metric detail (§8.25 to §8.30).
 
 Added for reports: ECharts chart method and theme; categorical and sequential palettes; dark token set; print rules; report masthead and contents rail; KPI strip; key findings; native tables with sorting and in-cell bars; pull quote; timeline; process diagram; definition, questions and property-sheet blocks; footnotes; collapsible appendix; chart draw-in motion; packaging modes.
 

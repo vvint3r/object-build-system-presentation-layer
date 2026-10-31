@@ -101,14 +101,13 @@ Semantic meaning is fixed: ok = healthy/validated, warn = attention/at risk, cri
 | T5 | `.cm-t5`, `.cm-timeline__title`, `.cm-step__title`, `.cm-findings__claim`, terms | 16–18 / 700–800 | none |
 | Body | default | 16 / 400 / 1.9 | Reading column, max 70ch |
 | Small | `.cm-small`, text inside surfaces | 15 / 400 / 1.8 | — |
-| Label | `.cm-label`, kinds, metadata, status and fact keys, callout, definition and question labels, table heads, contents rail and process step numbers; `.cm-tag`, `.cm-delta` | 10 / 800 / caps, +0.08em | — |
-| Chip | `.cm-chip`, text centred in the 20px pill | 9 / 800 / caps, +0.08em, line height 10px | — |
-| Role tag | property-sheet `<sup>` | 10 / 700, sentence case | — |
+| Label | `.cm-label`, kinds, metadata, status and fact keys, callout, definition and question labels, table heads, contents rail and process step numbers; `.cm-chip` (text centred in the 20px pill), `.cm-tag`, `.cm-delta` | 11 / 800 / caps, +0.06em | — |
+| Role tag | property-sheet `<sup>` | 11 / 700, sentence case | — |
 | Meta | `.cm-meta` | 13 / 400 | Dates, sizes, provenance |
-| Code | `<code>` | JetBrains Mono, 0.8em / 600 | none |
+| Code | `<code>` | JetBrains Mono, 0.8em and never under 11px / 600 | none |
 | Code block | `.cm-code`; its file name `.cm-code__file` | JetBrains Mono, 13 / 400; file name 12 / 600 | none |
 
-The rule thickness follows the heading level; the CSS applies it. Headings never skip a level (h1 → h2 → h3 → h4). Nunito never below 9px (chips), 10px (labels, tags, deltas, role tags and table sort arrows) or 13px (running text). The breadcrumb is a label with three weights: links 700, the current page 900, separators 300. `<strong>` marks a phrase, never a whole paragraph. `.cm-aside` (300 italic) de-emphasises a phrase.
+The rule thickness follows the heading level; the CSS applies it. Headings never skip a level (h1 → h2 → h3 → h4). **Type floor (MUST):** no text is smaller than 11px, on screen or on paper after print scaling. Labels, chips, tags, deltas, role tags, table sort arrows and diagram labels sit at the floor; running text never goes below 13px. Footnote markers (`<sup>`, `<sub>`) and screen-reader-only text are the only exceptions. The breadcrumb is a label with three weights: links 700, the current page 900, separators 300. `<strong>` marks a phrase, never a whole paragraph. `.cm-aside` (300 italic) de-emphasises a phrase.
 
 ## 5. Layout and spacing
 
@@ -120,6 +119,7 @@ The rule thickness follows the heading level; the CSS applies it. Headings never
 - **Bleed rule:** every top-level surface in a section (figure, card, summary, KPI strip, table wrap, code, collapsible group) carries `.cm-bleed`, so its inner text aligns with the body text. Surfaces nested inside a grid do not; put `.cm-bleed` on the grid instead.
 - Grids: `.cm-grid` + `--2`, `--3`, `--4`, or `--wide` (1.5 : 1). Add `.cm-grid--cols` for 40px text-column gaps. Grids collapse at 800px and 640px automatically.
 - Responsive behaviour is built in: rail becomes a top strip below 1150px, process diagrams stack below 800px, everything single-column below 640px.
+- **Phone width (MUST):** at 390px the page never scrolls sideways and no text runs out of its box or is cut off. A table, a code block or a diagram may scroll sideways inside its own box; nothing else does.
 - **Current section.** The rail marks the current section's link bold on the track fill. In the strip the link keeps its normal weight and takes a 2px ink underline on the track fill, so no link changes width and the strip keeps its height whichever section is current.
 
 ## 6. Elevation and emphasis budget
@@ -616,6 +616,7 @@ Verbatim only. ≤ 1 per section. Pair with a figure in `.cm-grid.cm-grid--wide.
 - Real `<table>` with `<thead>`; `<tfoot>` for a totals or calculated row (the kit adds space and a dotted rule above it).
 - The title sits above the table; the caption under it holds the source line, then any flags or note line, as for a figure (§8.10).
 - Columns are separated by 16px gutters automatically; never add borders.
+- A table wider than its box scrolls sideways inside it on screen. In print nothing scrolls: the gutters narrow to 12px and the heads wrap, so the table holds to the printed column.
 - Numeric columns: `.num` on `th` and `td`; consistent decimals; thousands separators; `−` (U+2212) for negatives; `—` for not applicable.
 - `.strong` for the row key and the column the reader should compare; `.soft` for n/a values; `.wrap` for prose cells.
 - **Row flags:** `data-flag="ok|warn|crit|info|note|accent"` on a `<tr>` draws a 4px status bar in the left gutter. Use it instead of colored chips in status columns; keep the status word in the row and explain the colors in a caption line that opens "Flags:".
@@ -697,6 +698,7 @@ Token spans: `k` keyword, `s` string, `n` number, `f` callable, `c` comment. Key
 - `cm-tag` (4px): types, languages, source kinds. `cm-tag--dashed` only for specimens in documentation.
 - `cm-btn`, `--secondary`, `--quiet`, `--sm`: top bar and interactive reports only. Labels are caps verbs.
 - ≤ 3 chips in a masthead status; ≤ 3 chips per findings item; ≤ 1 per timeline item.
+- Below 640px, a chip, tag or delta wider than its line wraps its words inside the outline, so it never pushes its block past the screen.
 
 ### 8.19 Recommendations card
 
@@ -769,6 +771,8 @@ Shape marks the node type and line style the edge kind. A key above the drawing 
 | `optional` | Dashed line | An optional or planned path |
 
 - The flow reads left to right, or top to bottom with `"direction": "down"`. A diagram with lanes flows right.
+- `col` counts across from the left and `row` down from the top, whichever way the flow reads. A flow that reads down places its steps in rows, so its edges move forward down the rows; a flow that reads right moves forward across the columns. More edges move forward than back; a process that returns as often as it advances is a state diagram.
+- Every step and decision has an edge out. A branch that ends before the last step ends at a terminal of its own, named for the outcome. A terminal starts or ends the flow, so it has edges in or edges out, never both. A journey map, whose columns already read as time, and a system and data flow, which may end at a store or an external entity, are the exceptions.
 - Every branch out of a decision carries a label: "Yes" and "No", or the condition. No two branches of one decision share a label.
 - A lane is a row band named on the left, one role or system each. With lanes, every row sits in exactly one lane, so each hand-off crosses a lane line.
 - A boundary is a rounded frame around a block of cells, named at the left of its top line, or at the right when an edge crosses where the name would stand.
@@ -779,15 +783,15 @@ Capacity. A flow past any ceiling splits into an overview and details: one diagr
 | Item | At most | Reason |
 | --- | --- | --- |
 | Nodes | 24 | The library's panel tier holds 8 to 24 nodes |
-| Columns | 5, or 4 with lanes | Six steps in a row do not fit the printed column at 80%; with lanes, five do not, since the lane names take a column's width |
-| Rows | 5 | Six rows of steps with a detail line do not fit a printed page at 80% |
+| Columns | 5, or 4 with lanes | Five steps of 24-character labels print at 82% and six do not fit the printed column at 80%; with lanes, four print at 88% and five do not fit, since the lane names take a column's width |
+| Rows | 5 | Five rows of plain steps print at full size; five with a detail line each run past a printed page at 80%, and the print check fails them |
 | Lanes | 5 | The library's journey map, its widest lane diagram, has 5 lanes |
 | Boundaries | 2 | The library's panel tier allows 2 groups |
 | Edge labels | 12 | The library labels edges only while a view has 12 or fewer |
 | Line crossings | 3 | The library's crossing budget for one view |
 | Emphasised nodes | 1 | §6 |
 
-Print is the final test. A diagram near several ceilings at once can still be too large to print at 80%; the check then fails it, and it splits or its text shortens.
+Print is the final test. A diagram near several ceilings at once can still be too large to print at 80%; the check then fails it, and it splits or its text shortens. An edge label stands in its gap and widens it, so a gap with a label counts as a column against the ceiling: four steps with one labelled gap print at 80%, and three steps with two do not fit.
 
 Diagram text is not prose (§13). It keeps its own limits:
 
@@ -810,8 +814,9 @@ The kit applies the rest:
 - The drawing recomputes on resize, on a theme change and before print.
 - A text version follows the caption: a `details.cm-data` disclosure, "View as text", with one numbered item for each node in reading order. Each item gives the node's name and detail, then where the flow goes next: each branch with its label and step number, and a loop as "Back to step N". The node's phase, lane and boundaries, its experience level and the emphasised node are named.
 - An empty `aria-label` takes a summary from the data: the number of steps, the first and last, and the count of lanes, decisions and loops. A journey map and a system and data flow take their own summary (below). An author's `aria-label` stays; it states what the diagram shows in one sentence.
-- On a narrow screen the diagram keeps its geometry and scrolls sideways inside its own box. Labels never shrink.
-- Print narrows the gaps and the nodes, then scales the drawing to fit the printed column and a page, never below 80%. The text version prints open.
+- When the screen layout is wider than its box, the diagram takes the narrower gaps and nodes of the print layout. If it is still wider, it keeps its geometry and scrolls sideways inside its own box. Labels never shrink.
+- Print narrows the gaps and the nodes, then scales the drawing to fit the 638px printed column and 720px of a page, never below 80%. Text in a scaled drawing is set larger by the inverse of the scale, up to 125%, so it prints at its own size and never under 11px. The text version prints open.
+- At a desktop window, 1000px and wider, a diagram fits its box without scrolling; the layout check fails one that scrolls.
 
 #### Sequence
 
@@ -857,7 +862,7 @@ The JSON holds `nodes` and `edges` only. Participants stand left to right in the
 
 | Item | At most | Reason |
 | --- | --- | --- |
-| Participants | 4 | Five participants with three-word messages do not fit the printed column at 80% |
+| Participants | 4 | Four participants print at full size with three-word messages of 15 characters; messages of 20 characters need less than 80%, and the print check fails them. Five participants do not fit the printed column at 80% |
 | Messages | 12 | The library labels edges only while a view has 12 or fewer, and every message carries a label |
 
 A participant `label` stops at 24 characters and a `detail` at 40, as a flow node's; a message label stops at 3 words, as an edge label.
@@ -1012,7 +1017,7 @@ A journey map shows what one person does across the phases of an experience, and
 - The key names the line and its whole scale, low to high, so a level no step reaches still has its place.
 - Edges are optional. The column order already reads as time.
 
-The flow's capacity holds. Five steps of 24-character labels with phases print at 81%; a sixth column of the shortest labels needs less than 80%.
+The flow's capacity holds. Five steps of 24-character labels with phases print at 82%; six do not fit the printed column at 80%.
 
 The text version lists the steps by column. Each item adds the step's phase and "Experience" with its word, and marks the low point. An empty `aria-label` takes a summary: the number of steps and phases, the first and last step, and where the experience is lowest and highest.
 
@@ -1053,7 +1058,7 @@ A system and data flow shows systems, where their data rests and what moves betw
 - A data store is ruled above and below with one 2px line each, not a double line.
 - The key names the solid line "Control".
 
-The flow's capacity holds, with its 2 boundaries. Each label in line widens its gap, so labelled crossings reach the printed column sooner: four columns with two of them can print below 80%, and the print check then fails the diagram.
+The flow's capacity holds, with its 2 boundaries. Each label in line widens its gap, so labelled crossings reach the printed column sooner: each counts as a column against the ceiling, and the print check fails a diagram that needs less than 80%.
 
 Each item of the text version names the boundaries its node stands within, and marks data edges "(data)". An empty `aria-label` takes a summary: the number of steps, data stores, external entities and boundaries, and the number of data flows and control flows.
 
@@ -1091,8 +1096,8 @@ A layer stack shows the layers of a system, from the one people use at the top t
 
 | Item | At most | Reason |
 | --- | --- | --- |
-| Layers | 5 | The flow's lane ceiling, since layers are lanes of the flow grid. With a detail line on every component, five layers need 70% in print |
-| Components in a layer | 4 | Four components of 24-character labels print at 81%; five need 67% |
+| Layers | 5 | The flow's lane ceiling, since layers are lanes of the flow grid. Five layers of four components print at 83%; with a detail line on every component, four layers already run past a printed page at 80% |
+| Components in a layer | 4 | Four components of 24-character labels print at 83%; five do not fit the printed column at 80% |
 
 A component `label` stops at 24 characters and a `detail` at 40, as a flow node's; a layer `label` stops at 24, as a lane's. A larger stack splits into an overview of the layers and one stack for each layer that needs detail.
 
@@ -1130,7 +1135,7 @@ A hierarchy shows how a whole divides into parts, read left to right: an organis
 
 | Item | At most | Reason |
 | --- | --- | --- |
-| Levels | 4 | Four levels of 24-character labels print at full size; five need 81% |
+| Levels | 4 | Four levels of 24-character labels print at full size; five need 82% |
 | Leaves, nodes with no children | 12 | Twelve leaves in three groups print at 83%; in four groups they need less than 80% |
 
 Print is the final test here too: twelve leaves in many small groups fail the page check, and the tree splits. A larger tree splits into an overview of the upper levels and one hierarchy for each branch that needs it. A `label` stops at 24 characters and a `detail` at 40, as a flow node's.
@@ -1731,7 +1736,9 @@ Automatic from tokens; agents write nothing extra. The pre-paint script in `<hea
 
 - Browser print (the browser's own command, or the optional print button): always light; chrome hidden; 16 × 14mm margins; shadows become 1px borders; the L2 card keeps its offset; appendices and exercise answers open; charts redraw static at print width; figures, KPIs, callouts, definitions and table rows never split.
 - Mark side-by-side figure grids `cm-print-stack` so they print full width.
-- Diagrams redraw with narrower gaps and nodes, scaled to fit the printed column and a page, never below 80%; their text versions print open (§8.20).
+- Diagrams redraw with narrower gaps and nodes, scaled to fit the 638px printed column and a page, never below 80%, with their text set larger so it prints at its own size; their text versions print open (§8.20).
+- Tables print without scrolling: 12px gutters, heads that wrap (§8.11).
+- No text prints under 11px after scaling (§4).
 - Use `cm-section--break` to start a section on a new page (typically the first appendix in long reports).
 - **Headless pipelines** (Puppeteer, Playwright, wkhtmltopdf): set `<html data-cm-static>` or call `CM.drawAll()` after load, then `CM.beforePrint()` before generating the PDF. Wait for `document.fonts.ready`.
 

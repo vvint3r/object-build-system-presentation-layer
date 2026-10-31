@@ -19,6 +19,7 @@ writes it by hand. The new checks are in `checks/offline.mjs`.
 | The font faces are the only `<style>` beside the kit stylesheet | Spec §1 rule 2; §2 | `stylesheets`, failure (offline form) |
 | The page makes no network request | Spec §2 | `offline-network`, failure |
 | Text is set in the kit's faces, loaded from the file | Spec §1 rule 5; §2 | `offline-fonts`, failure |
+| Inline `<code>` is JetBrains Mono at 0.8em and 600; a `.cm-code` block is 13px and 400, its file name 12px and 600 | Spec §4 | None; the stylesheet sets these values |
 
 ## Commands
 
@@ -60,16 +61,17 @@ Both output folders are generated and git-ignored.
   pack tool as the only way to make one.
 - **Components.** One component per example in the gallery's section 5, tied to the spec section
   that defines it. Chart comes from the gallery's line chart, with spec section 9 as its rules.
-  Diagram comes from the gallery's first flow diagram, with section 8.20 whole. A spec section that
+  Diagram comes from the gallery's swimlane, which fits a 960px card whole, with section 8.20 whole. A spec section that
   defines several blocks gives each its own component and its own part of the section.
 - **Token names.** The kit's custom properties without `--`. Spacing takes the two scales of section 5
   as `block-N` and `inset-N`; the page, reading, rail and bleed widths form a `layout` family.
 - **Theme values.** A dark value only where the kit's dark block declares one; a `var()` colour is an
   alias. `cm-l2` takes the accent's value in each theme in `tokens.json` and stays in `bundle.css`
   as `var(--cm-accent)`, so print still turns it to the light accent.
+- **Code type.** The stylesheet's values stand, and section 4 gives inline code and the code block a
+  row each. The bundle's `Code` and `Code-block` type styles follow those rows.
 - **Type styles.** Named by the rows of the type table. Each is measured on the rendered sample
-  report, else on the gallery's examples, else on a probe with the row's class. Code splits into inline code and a code
-  block, which render at different sizes.
+  report, else on the gallery's examples, else on a probe with the row's class.
 - **tokens.css.** Written by the tool, since a page with `editing: "code"` never saves one. Its first
   line ends "generated from tokens.json", which lets the page take it over.
 - **Read-only page.** `editing: "code"` keeps the system's page read-only, since the repository is
@@ -91,10 +93,10 @@ The kit stays at 1.2. The version for this change is the orchestrating session's
 
 | Item | Value |
 | --- | --- |
-| Offline sample report | 1,414 KB |
-| Offline gallery | 1,464 KB |
-| Offline guide | 1,389 KB |
-| Offline reference | 1,387 KB |
-| Parts of each offline file | Font faces 261 KB, ECharts 1,006 KB, kit CSS 49 KB, kit JS 57 KB |
+| Offline sample report | 1,417 KB |
+| Offline gallery | 1,482 KB |
+| Offline guide | 1,392 KB |
+| Offline reference | 1,390 KB |
+| Parts of each offline file | Font faces 261 KB, ECharts 1,006 KB, kit CSS 52 KB, kit JS 57 KB |
 | Checks on the four offline files, network shut | No failure, no warning; every chart and diagram drawn |
-| Design bundle | 89 files, 1,694 KB: 29 components and the cover, three templates, three example documents, 41 colours in two themes, 15 type styles, 11 faces |
+| Design bundle | 103 files, 1,731 KB: 36 components and the cover, three templates, three example documents, 41 colours in two themes, 15 type styles, 11 faces |

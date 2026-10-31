@@ -100,7 +100,8 @@ Semantic meaning is fixed: ok = healthy/validated, warn = attention/at risk, cri
 | Chip | `.cm-chip`, text centred in the 20px pill | 9 / 800 / caps, +0.08em, line height 10px | — |
 | Role tag | property-sheet `<sup>` | 10 / 700, sentence case | — |
 | Meta | `.cm-meta` | 13 / 400 | Dates, sizes, provenance |
-| Code | `<code>`, `.cm-code` | JetBrains Mono 600, 0.8em / 13px | — |
+| Code | `<code>` | JetBrains Mono, 0.8em / 600 | none |
+| Code block | `.cm-code`; its file name `.cm-code__file` | JetBrains Mono, 13 / 400; file name 12 / 600 | none |
 
 The rule thickness follows the heading level; the CSS applies it. Headings never skip a level (h1 → h2 → h3 → h4). Nunito never below 9px (chips), 10px (labels, tags, deltas, role tags and table sort arrows) or 13px (running text). The breadcrumb is a label with three weights: links 700, the current page 900, separators 300. `<strong>` marks a phrase, never a whole paragraph. `.cm-aside` (300 italic) de-emphasises a phrase.
 

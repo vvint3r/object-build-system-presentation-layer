@@ -215,6 +215,10 @@ for (const p of previews) {
         text: document.body.innerText.trim().length, shapes: shown.filter(e => e.matches('svg, img, rect')).length,
         charts: document.querySelectorAll('.cm-chart').length, drawn: document.querySelectorAll('.cm-chart svg').length,
         diagrams: document.querySelectorAll('.cm-diagram').length,
+        // content wider than its box: a box that scrolls or clips sideways, or the page itself
+        clipped: [document.documentElement, ...document.body.querySelectorAll('*')].filter(e => (e === document.documentElement
+          || /auto|scroll|hidden|clip/.test(getComputedStyle(e).overflowX)) && e.scrollWidth > e.clientWidth + 1)
+          .map(e => e === document.documentElement ? 'the page' : `${e.tagName.toLowerCase()}${e.className && typeof e.className === 'string' ? '.' + e.className.trim().split(/\s+/).join('.') : ''} (${e.scrollWidth}px in ${e.clientWidth}px)`),
         sketched: [...document.querySelectorAll('.cm-diagram')].filter(d => d.querySelector('.cm-diagram__lines') && d.querySelector('.cm-diagram__edge')).length,
         height: Math.ceil(document.body.getBoundingClientRect().height),
         nunito: [...document.fonts].some(f => fam(f) === 'Nunito' && f.status === 'loaded'),
@@ -228,6 +232,7 @@ for (const p of previews) {
       !r.text && !r.shapes && `${comp} ${theme}: blank`,
       r.drawn < r.charts && `${comp} ${theme}: ${r.drawn} of ${r.charts} charts drawn`,
       r.sketched < r.diagrams && `${comp} ${theme}: ${r.sketched} of ${r.diagrams} diagrams drawn`,
+      ...r.clipped.map(c => `${comp} ${theme}: wider than its box at 960px: ${c}`),
       r.height > marker && `${comp} ${theme}: ${r.height}px tall, marker says ${marker}`,
       !r.nunito && `${comp} ${theme}: no Nunito face loaded`,
       r.body !== 'Nunito' && `${comp} ${theme}: body font ${r.body}`,
@@ -240,6 +245,6 @@ for (const p of previews) {
   }
 }
 await browser.close();
-report(`rendered: ${previews.length} previews in ${themeIds.join(' and ')}, network shut: no error, request or blank, charts and diagrams drawn, fits its marker, Nunito loaded`, render.flat());
+report(`rendered: ${previews.length} previews in ${themeIds.join(' and ')}, network shut: no error, request or blank, charts and diagrams drawn, nothing wider than its box, fits its marker, Nunito loaded`, render.flat());
 
 process.exit(failed ? 1 : 0);

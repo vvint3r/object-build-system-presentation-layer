@@ -272,7 +272,7 @@ const styles = typeRows.flatMap(r => {
   if (!(key in TYPE_SELECTORS)) throw new Error(`type row "${r[0]}" has no selector in TYPE_SELECTORS`);
   const out = [typeStyle(key, r)];
   if (key === 'T3') out.push({ ...typeStyle('T3-sm', r), usage: undash(`${plain(r[1])}, the --sm variant inside a two-column grid.`) });
-  if (key === 'Code') out.push({ ...typeStyle('Code-block', r), usage: `A .cm-code block. Syntax spans set their own weight: ${[...kit.css.matchAll(/\.cm-code (\.\w+)\{[^}]*font-weight:(\d+)([^}]*)\}/g)].map(m => `${m[1]} ${m[2]}${/italic/.test(m[3]) ? ' italic' : ''}`).join(', ')}.` });
+  if (key === 'Code-block') out[0].usage += ` Syntax spans set their own weight: ${[...kit.css.matchAll(/\.cm-code (\.\w+)\{[^}]*font-weight:(\d+)([^}]*)\}/g)].map(m => `${m[1]} ${m[2]}${/italic/.test(m[3]) ? ' italic' : ''}`).join(', ')}.`;
   return out;
 });
 const fontStack = n => light.find(d => d.name === n).value;
@@ -348,29 +348,52 @@ const kitClasses = new Set([...kit.css.matchAll(/\.([a-zA-Z][\w-]*)/g)].map(m =>
 // One component per gallery example of section 5, tied to the spec section that defines it: the
 // section whose title holds the example's title or is held by it, else the one that names the
 // example most often.
-// A section that defines several blocks, each introduced by a line "The <block>:", gives each
-// component its own part after the section's opening.
+// A section that several examples share gives each its own component, named by the example, with
+// its own part of the section: from the paragraph that starts "The <example>", "A <example>" or
+// "An <example>" (else the first later paragraph whose first sentence names it) up to the next
+// example's part. Text before the first part is the section's opening and leads every part, unless
+// the example named by the section's own title has no paragraph of its own: that text is its part.
 const count = (text, phrase) => text.toLowerCase().split(phrase).length - 1;
-function partOf(body, title) {
-  const intros = [...body.matchAll(/^The ([^:\n]+):$/gm)];
-  const at = intros.findIndex(m => title.toLowerCase().includes(m[1].toLowerCase()) || m[1].toLowerCase().includes(title.toLowerCase()));
-  if (at < 0) return body;
-  return `${body.slice(0, intros[0].index).trim()}\n\n${body.slice(intros[at].index, at + 1 < intros.length ? intros[at + 1].index : body.length).trim()}`;
+const escapeRe = t => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+function parts(body, siblings) {
+  const fences = [...body.matchAll(/```[\s\S]*?```/g)].map(m => [m.index, m.index + m[0].length]);
+  const paras = [...body.matchAll(/(?:^|\n\n)(?=[A-Z])/g)].map(m => m.index + (m.index ? 2 : 0))
+    .filter(p => p > 0 && !fences.some(([a, b]) => p > a && p < b));
+  const start = t => {
+    const lead = paras.find(p => new RegExp(`^(?:The|An?) ${escapeRe(t)}\\b`, 'i').test(body.slice(p)));
+    return lead ?? paras.find(p => new RegExp(`\\b${escapeRe(t)}\\b`, 'i').test(body.slice(p).split(/(?<=\.)\s/)[0])) ?? -1;
+  };
+  const found = siblings.map(x => ({ ...x, at: start(x.title) }));
+  const claimants = found.filter(x => x.at < 0 && x.own);
+  const lost = found.filter(x => x.at < 0 && !x.own);
+  if (lost.length || claimants.length > 1) throw new Error(`spec section shared by ${siblings.map(x => x.title).join(', ')}: no part found for ${[...lost, ...claimants.slice(1)].map(x => x.title).join(', ')}`);
+  const starts = found.filter(x => x.at >= 0).map(x => x.at).sort((a, b) => a - b);
+  const opening = body.slice(0, starts[0]).trim();
+  return Object.fromEntries(found.map(x => {
+    if (x.at < 0) return [x.title, opening];
+    const own = body.slice(x.at, starts.find(n => n > x.at) ?? body.length).trim();
+    return [x.title, claimants.length ? own : `${opening}\n\n${own}`];
+  }));
 }
-const components = demos.filter(d => /^5\./.test(d.label)).map(d => {
+const mapped = demos.filter(d => /^5\./.test(d.label)).map(d => {
   const title = d.title.toLowerCase();
   const own = Object.entries(S8).filter(([, s]) => { const t = s.title.replace(/\s*\(.*\)$/, '').toLowerCase(); return title.includes(t) || t.includes(title); });
   const named = Object.entries(S8).map(([num, s]) => [num, s, count(s.body, title)]).filter(x => x[2] > 0).sort((a, b) => b[2] - a[2]);
   const [num, s] = own.length === 1 ? own[0] : named.length ? named[0] : [];
   if (!s) throw new Error(`gallery ${d.label} ${d.title}: no spec section defines it`);
-  const name = own.length === 1 ? s.title.replace(/\s*\(.*\)$/, '') : d.title;
-  return { name: pascal(name), num, specTitle: s.title, body: own.length === 1 ? s.body : partOf(s.body, d.title), demo: d };
+  return { d, num, s, own: own.length === 1 };
 });
-// The flow diagram's examples sit in the gallery's own part (7.x). Diagram takes the first of them and
-// its spec section whole, in spec order among the components.
-const diagramDemo = demos.find(d => d.label === '7.1');
+const components = mapped.map(({ d, num, s, own }) => {
+  const siblings = mapped.filter(m => m.num === num).map(m => ({ title: m.d.title, own: m.own }));
+  const whole = siblings.length === 1;
+  const name = whole && own ? s.title.replace(/\s*\(.*\)$/, '') : d.title;
+  return { name: pascal(name), num, specTitle: s.title, body: whole ? s.body : parts(s.body, siblings)[d.title], demo: d };
+});
+// The flow diagram's examples sit in the gallery's own part (7.x). Diagram takes the swimlane, which
+// fits a 960px card whole, and its spec section whole, in spec order among the components.
+const diagramDemo = demos.find(d => d.label === '7.2');
 const diagramSpec = Object.entries(S8).find(([, s]) => s.title === 'Diagram');
-if (!diagramDemo || !diagramSpec) throw new Error('the gallery has no 7.1 diagram example, or the spec no Diagram section');
+if (!diagramDemo || !diagramSpec) throw new Error('the gallery has no 7.2 diagram example, or the spec no Diagram section');
 const specOrder = n => n.split('.').map(Number).reduce((a, x) => a * 100 + x, 0);
 const diagramAt = components.findIndex(c => specOrder(c.num) > specOrder(diagramSpec[0]));
 components.splice(diagramAt < 0 ? components.length : diagramAt, 0, {
@@ -379,7 +402,8 @@ components.splice(diagramAt < 0 ? components.length : diagramAt, 0, {
 });
 const uncovered = Object.keys(S8).filter(n => !components.some(c => c.num === n));
 if (uncovered.length) throw new Error(`spec sections with no gallery example: ${uncovered.join(', ')}`);
-if (new Set(components.map(c => c.name)).size !== components.length) throw new Error('two components share a name');
+const shared = components.filter((c, i) => components.findIndex(o => o.name === c.name) !== i);
+if (shared.length) throw new Error(`components share a name: ${shared.map(c => `${c.name} (gallery ${c.demo.label}, spec ${c.num})`).join(', ')}`);
 const chartDemo = demos.find(d => d.label === '6.1');
 if (!chartDemo) throw new Error('the gallery has no 6.1 chart example');
 const figureAt = components.findIndex(c => c.num === '8.10');

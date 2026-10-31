@@ -185,7 +185,7 @@ export default [
 
   {
     // Breadcrumb, bar, title, dek, the labelled metadata fields in their formats, and the byline
-    // with Prepared by and Distribution. The type chip names the document's kind. A report carries
+    // with Prepared by and Distribution, or Distribution's omission comment. The type chip names the document's kind. A report carries
     // a Period field, or its omission comment in the metadata list; a guide and a reference carry
     // none (SPEC §7.1). A document's breadcrumb runs set, area, document; the set step links to
     // index.html and the area step to index.html#{area id} where the set has an index page, and each
@@ -286,8 +286,11 @@ export default [
           if (mods.join(' ') !== want.join(' ')) out.push({ where: H.path(state), value: `status "${H.text(state)}" with ${mods.join(' ') || 'no modifier'} (${want.join(' ') || 'plain cm-chip'})` });
         }
       }
-      const by = fields(m.querySelector('dl.cm-byline'));
-      for (const k of ['Prepared by', 'Distribution']) if (m.querySelector('dl.cm-byline') && !by.has(k)) out.push({ where: at, value: `byline has no ${k}` });
+      // Distribution may be left out with its omission comment when the readers are not known (§7.5).
+      const byline = m.querySelector('dl.cm-byline');
+      const by = fields(byline);
+      if (byline && !by.has('Prepared by')) out.push({ where: at, value: 'byline has no Prepared by' });
+      if (byline && !by.has('Distribution') && !H.omitted(byline, 'distribution')) out.push({ where: at, value: 'byline has no Distribution, and no omission comment (cm-omit distribution)' });
       return out;
     },
   },
@@ -324,6 +327,21 @@ export default [
         if (claims.length !== 1) out.push({ where: H.path(li), value: `${claims.length} claim lines (exactly 1)` });
         else if (!H.text(claims[0])) out.push({ where: H.path(claims[0]), value: 'empty claim line' });
         else if (!H.text(li).startsWith(H.text(claims[0]))) out.push({ where: H.path(claims[0]), value: 'the claim line does not open the item' });
+      }
+      return out;
+    },
+  },
+
+  {
+    // The claim line is the item's own first child, as in the canonical markup; no element wraps it.
+    // The 1.2 templates once wrapped each item in a <div>, so a wrapped item warns in 1.2 (SPEC §15).
+    name: 'claim-wrapper', level: 'warn', source: 'SPEC §8.3; §8.19; §15', once: true,
+    inPage: ({ check }) => {
+      const H = window.__cm, out = [];
+      for (const claim of H.source().querySelectorAll('ol.cm-findings > li .cm-findings__claim')) {
+        const li = claim.closest('li');
+        if (H.exempt(li, check) || claim.parentElement === li) continue;
+        out.push({ where: H.path(claim), value: `the claim line sits in a <${claim.parentElement.localName}>; the canonical <li> holds it with no wrapper` });
       }
       return out;
     },

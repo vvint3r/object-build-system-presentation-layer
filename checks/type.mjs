@@ -70,7 +70,8 @@ export default [
   {
     // Text in the label tier renders at exactly 10px (chips 9px), weight 800, capitals, +0.08em. The
     // breadcrumb keeps three weights: links 700, the current page 900, separators 300. Text with no
-    // lower-case letters (rail and step numbers, appendix letters) needs no transform.
+    // lower-case letters (rail and step numbers, appendix letters) needs no transform. A delta keeps
+    // the case it is written in, so its units read as written ("−50s", not "−50S").
     name: 'label-type', level: 'fail', source: 'SPEC §4; records 056, 058',
     inPage: ({ check }) => {
       const H = window.__cm, out = [];
@@ -84,9 +85,10 @@ export default [
         const bad = [];
         if (px !== size) bad.push(`font-size ${px}px`);
         if (cs.fontWeight !== w) bad.push(`font-weight ${cs.fontWeight}`);
-        if (/[a-z]/.test(text) && cs.textTransform !== 'uppercase') bad.push(`text-transform ${cs.textTransform}`);
+        const asWritten = !!el.closest('.cm-delta');
+        if (asWritten ? cs.textTransform !== 'none' : /[a-z]/.test(text) && cs.textTransform !== 'uppercase') bad.push(`text-transform ${cs.textTransform}`);
         if (Math.abs(ls - 0.08 * px) > 0.05) bad.push(`letter-spacing ${cs.letterSpacing}`);
-        if (bad.length) out.push({ where: H.where(el, pseudo), value: `${bad.join(', ')} (expected ${size}px, ${w}, uppercase, 0.08em)` });
+        if (bad.length) out.push({ where: H.where(el, pseudo), value: `${bad.join(', ')} (expected ${size}px, ${w}, ${asWritten ? 'as written' : 'uppercase'}, 0.08em)` });
       }
       return out;
     },

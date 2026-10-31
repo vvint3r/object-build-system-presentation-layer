@@ -175,6 +175,8 @@ pre code{all:unset}
 .cm-chip,.cm-tag,.cm-delta{--c:transparent;display:inline-flex;align-items:center;justify-content:center;gap:6px;height:20px;padding:0 8px;font-family:var(--cm-font);font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;line-height:1;white-space:nowrap;color:var(--cm-ink);border:1px solid var(--cm-ink);background:transparent;border-radius:var(--cm-r-pill);vertical-align:middle;font-variant-numeric:tabular-nums}
 .cm-chip{font-size:9px;line-height:10px}
 .cm-tag{height:18px;padding:0 6px;border-radius:var(--cm-r-chip)}
+/* A delta keeps the case it is written in, so units read as written: "−50s", "+2.1 pp". */
+.cm-delta{text-transform:none}
 .cm-tag--dashed,.cm-chip--dashed{border-style:dashed}
 .cm-chip--ok,.cm-delta--good{--c:var(--cm-ok)}
 .cm-chip--warn{--c:var(--cm-warn)}

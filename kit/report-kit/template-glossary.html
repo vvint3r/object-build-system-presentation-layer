@@ -1,0 +1,193 @@
+<!doctype html>
+<!--
+  Content Morphia · Report Kit 1.2 · GLOSSARY TEMPLATE
+  Copy this file for every new glossary: the terms several documents in a set share, each in the sense the set uses.
+  A glossary is a reference (SPEC.md §7.4) with Terms in the place of Properties (SPEC.md §7.8). Replace every {{ … }} placeholder.
+  Parts and their order are fixed. Terms holds five or more terms, A to Z within each group, each defined once and citing the source it follows.
+  A reference has no executive summary, KPI strip, summary card, recommendations card or Period.
+  A required part the glossary has no content for is left out with an omission comment in its place (SPEC.md §7.5), for example:
+  <!- - cm-omit examples: The terms have no case to work through. - ->
+  Paths below assume the page sits inside report-kit/. Elsewhere, point the two kit paths at report-kit/cm-report.css and report-kit/cm-report.js.
+  In a set, the file is named {Kind} - {Short Title}.html, the cm-id is that name in lowercase with hyphens, and the wordmark and breadcrumb link to the set's index.html (SPEC.md §8.31).
+  A document outside a set writes its set and area steps as <span>s and links the wordmark to #top. In a set, npm run index -- <folder> rewrites index.html and npm run links -- <folder> checks the links.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{ Name of the glossary }}</title>
+<meta name="cm-kit" content="1.2">
+<meta name="cm-kind" content="reference">
+<meta name="cm-id" content="{{ id }}">
+<meta name="cm-type" content="glossary">
+<script>(function(){var t;try{t=localStorage.getItem('cm-theme')}catch(e){}document.documentElement.dataset.theme=t||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')})()</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,300;1,400&family=JetBrains+Mono:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="cm-report.css">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js" defer></script>
+<script src="cm-report.js" defer></script>
+</head>
+<body>
+
+<header class="cm-topbar">
+  <div class="cm-topbar__in">
+    <a class="cm-wordmark" href="index.html">{{ publisher-name }}</a>
+    <span class="cm-chip">Glossary</span>
+    <div class="cm-topbar__actions">
+      <button class="cm-btn cm-btn--quiet cm-btn--sm" type="button" data-cm-theme-toggle>Dark mode</button>
+    </div>
+  </div>
+</header>
+
+<div class="cm-shell">
+  <!-- CONTENTS RAIL: one link per <section id>. Two-digit numbers; the appendix uses a letter. -->
+  <nav class="cm-rail" aria-label="Contents">
+    <div class="cm-toc">
+      <span class="cm-label">Contents</span>
+      <ol>
+        <li><a href="#definition"><span class="n">01</span>Definition</a></li>
+        <li><a href="#terms"><span class="n">02</span>Terms</a></li>
+        <li><a href="#relationships"><span class="n">03</span>Relationships</a></li>
+        <li><a href="#examples"><span class="n">04</span>Examples</a></li>
+        <li><a href="#sources"><span class="n">A</span>Notes &amp; sources</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main class="cm-main" id="top">
+
+    <!-- MASTHEAD (required). The title is the name of the glossary. No Period field in a reference. -->
+    <header class="cm-mast">
+      <nav class="cm-crumbs" aria-label="Breadcrumb">
+        <a href="index.html">{{ Document set }}</a><span class="sep" aria-hidden="true">/</span>
+        <a href="index.html#{{ area-id }}">{{ Area }}</a><span class="sep" aria-hidden="true">/</span>
+        <span aria-current="page">{{ Short title }}</span>
+      </nav>
+      <div class="cm-bar" aria-hidden="true"></div>
+      <h1 class="cm-mast__title">{{ Name of the glossary }}</h1>
+      <p class="cm-mast__dek">{{ One sentence: which terms the glossary defines and for which documents. }}</p>
+      <!-- METADATA: Status chips: Draft = cm-chip, In review = cm-chip--warn, Final = cm-chip--ok -->
+      <dl class="cm-mast__meta">
+        <div><dt>Status</dt><dd><span class="cm-chip">Reference</span><span class="cm-chip cm-chip--ok">{{ Final }}</span></dd></div>
+        <div><dt>Published</dt><dd>{{ YYYY-MM-DD }}</dd></div>
+        <div><dt>Reading time</dt><dd>{{ N }} min</dd></div>
+        <div><dt>Version</dt><dd>{{ 1.0 }}</dd></div>
+      </dl>
+      <!-- BYLINE: Distribution names the readers the document is for. When they are not known, the field gives way to an omission comment, cm-omit distribution (SPEC.md §7.5). -->
+      <dl class="cm-byline">
+        <div><dt>Prepared by</dt><dd>{{ Team or author }}</dd></div>
+        <div><dt>Distribution</dt><dd>{{ Audience }}</dd></div>
+      </dl>
+    </header>
+
+    <!-- 01 DEFINITION (required): one paragraph on what the glossary covers, what its terms follow and what falls outside it, with its key phrase in bold -->
+    <section class="cm-section" id="definition" aria-labelledby="definition-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 01</span>
+        <h2 class="cm-section__title" id="definition-t">Definition</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>{{ The glossary gives }} <strong>{{ key phrase }}</strong>{{ , in two or three sentences. }}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 TERMS (required, in the place of Properties): a lede, then definition blocks of five or more terms in all; with more than one block, each under an h3 naming what its terms describe -->
+    <section class="cm-section" id="terms" aria-labelledby="terms-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 02</span>
+        <h2 class="cm-section__title" id="terms-t">Terms</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>{{ How the terms are grouped, }} <strong>{{ key phrase }}</strong>{{ . }}</p>
+        </div>
+
+        <div class="cm-stack">
+          <h3 class="cm-h3">{{ First group }}</h3>
+          <aside class="cm-def">
+            <span class="cm-def__label">Definitions</span>
+            <dl>
+              <div><dt>{{ Term A }}</dt><dd>{{ What the term covers and how it counts, in 15 to 60 words. }}<a class="cm-cite" href="#src-1" id="cite-1">S1</a></dd></div>
+              <div><dt>{{ Term B }}</dt><dd>{{ What the term covers and how it counts, in 15 to 60 words. }}<a class="cm-cite" href="#src-1" id="cite-2">S1</a></dd></div>
+              <div><dt>{{ Term C }}</dt><dd>{{ What the term covers and how it counts, in 15 to 60 words. }}<a class="cm-cite" href="#src-1" id="cite-3">S1</a></dd></div>
+            </dl>
+          </aside>
+        </div>
+
+        <div class="cm-stack">
+          <h3 class="cm-h3">{{ Second group }}</h3>
+          <aside class="cm-def">
+            <span class="cm-def__label">Definitions</span>
+            <dl>
+              <div><dt>{{ Term D }}</dt><dd>{{ What the term covers and how it counts, in 15 to 60 words. }}<a class="cm-cite" href="#src-1" id="cite-4">S1</a></dd></div>
+              <div><dt>{{ Term E }}</dt><dd>{{ What the term covers and how it counts, in 15 to 60 words. }}<a class="cm-cite" href="#src-1" id="cite-5">S1</a></dd></div>
+            </dl>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 RELATIONSHIPS (required): the documents that use the terms. Tag: Report | Guide | Reference | Metric | Dataset | System -->
+    <section class="cm-section" id="relationships" aria-labelledby="relationships-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 03</span>
+        <h2 class="cm-section__title" id="relationships-t">Relationships</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>{{ Which documents use the terms, }} <strong>{{ key phrase }}</strong>{{ . }}</p>
+        </div>
+        <ul class="cm-related">
+          <li><span class="cm-tag">Report</span><a href="{{ file.html#id }}">{{ Related item }}</a><p>{{ One sentence on how it relates. }}</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 04 EXAMPLES (required): worked cases, one h3 each, each working several terms through one case -->
+    <section class="cm-section" id="examples" aria-labelledby="examples-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 04</span>
+        <h2 class="cm-section__title" id="examples-t">Examples</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>{{ What the examples show, }} <strong>{{ key phrase }}</strong>{{ . }}</p>
+          <h3>{{ Case }}</h3>
+          <p>{{ The inputs, the working and the result. }}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- APPENDIX A: NOTES & SOURCES (required) -->
+    <section class="cm-section cm-section--part" id="sources" aria-labelledby="sources-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Appendix A</span>
+        <h2 class="cm-section__title" id="sources-t">Notes &amp; sources</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-stack">
+          <h3 class="cm-h4">Sources</h3>
+          <!-- SOURCE REGISTER: key S1, S2… kept across versions; id src-N. Type: Dataset | Report | Interview | Document | System export.
+               Locator: a link, or the system and path in <code>; a publisher or locator not recorded gives way to cm-omit publisher or cm-omit locator.
+               Date word: published | refreshed | exported | recorded | accessed | as of | covers (covers takes two dates, first → last). Cite after punctuation: <a class="cm-cite" href="#src-1" id="cite-1">S1</a>;
+               a cited source ends with <a class="cm-back" href="#cite-1" aria-label="Back to text">↩</a> to its first citation. -->
+          <ol class="cm-sources">
+            <li id="src-1"><span class="cm-id">S1</span><span><b>{{ Source title }}</b><br><span class="cm-tag">Document</span> {{ Publisher }} · <code>{{ system.path }}</code> <a class="cm-back" href="#cite-1" aria-label="Back to text">↩</a></span><span class="cm-meta">{{ published }} <time datetime="{{ YYYY-MM-DD }}">{{ YYYY-MM-DD }}</time></span></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <footer class="cm-footer">
+      <span><b>{{ Name of the glossary }}</b></span>
+      <span>v{{ 1.0 }} · published {{ YYYY-MM-DD }}</span>
+      <span>{{ Team }}</span>
+      <span>Content Morphia Report Kit 1.2</span>
+    </footer>
+  </main>
+</div>
+</body>
+</html>

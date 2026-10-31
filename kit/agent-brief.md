@@ -46,16 +46,22 @@ template are never rebuilt from memory, from a description, or from another desi
 
 1. This brief.
 2. `SPEC.md`, in full.
-3. The sample of the document's kind (report, guide or reference), for what a finished document
-   looks like.
+3. The sample of the document's kind (report, guide or reference), or the worked example of its
+   page type, for what a finished document looks like.
 4. The gallery, for the markup of each component the document needs.
-5. The template for the kind, which becomes the document.
+5. The template for the kind, or for the page type, which becomes the document.
 
 ## Inputs from the owner
 
 The masthead and top bar name a publisher (the wordmark, lowercase and hyphenated), a series, an
 author or team, and an audience. When the request does not give them, the agent asks before building
-rather than inventing them. The top bar carries a print button only when the request asks for one.
+rather than inventing them. An audience the owner does not name gives way to an omission comment in
+the byline (section 7.5 of `SPEC.md`). The top bar carries a print button only when the request asks
+for one.
+
+The same holds for the material a document draws on. A source whose publisher or path is not
+recorded leaves it out with an omission comment, and a number given without its source carries a
+note saying that no source is recorded (section 8.21). Nothing is guessed.
 
 ## Packaging
 
@@ -118,11 +124,13 @@ A summary of section 1 of `SPEC.md`. The spec governs.
 Charts are ECharts option JSON inside the kit's figure markup. The agent never calls `echarts.init`
 and never writes chart JavaScript. It picks the chart by the reader's question, from the recipes in
 section 9. A `"cm"` key declares a bullet, slope, strip, box or interval chart, and the kit draws it.
-End labels that name every line take the legend's place. Diagrams are JSON too (section 8.20 of
-`SPEC.md`). A flow, state or entity relationship diagram, a journey map or a system and data flow
-places its nodes by column and row; a sequence diagram lists its participants and messages in
-order. A layer stack lists layers from the top down, each dependency running down. A hierarchy
-names each node's parent. The kit draws them; the agent writes no coordinates, SVG or styles.
+The kit sets the legend, so the JSON has none; end labels that name every line take its place.
+Chart values are numbers, never strings: the kit writes each value label with thousands separators,
+at the most decimal places any value in the chart carries. Diagrams are JSON too (section 8.20 of `SPEC.md`). A flow, state or entity relationship
+diagram, a journey map or a system and data flow places its nodes by column and row; a sequence
+diagram lists its participants and messages in order. A layer stack lists layers from the top down,
+each dependency running down. A hierarchy names each node's parent. The kit draws them; the agent
+writes no coordinates, SVG or styles.
 
 ## Writing rules
 
@@ -148,7 +156,9 @@ the section lede, under its own limit of 40 words and with no bold phrase.
   a role-named item ("Owner approval of the shortlist") with what it does and what it unblocks.
 - Numbers that will change never sit inside definitions of steps or rules. They go in one dated
   status block, `cm-status` (section 8.22 of `SPEC.md`).
-- No em dashes or en dashes in prose.
+- No em dashes or en dashes in prose. A table cell whose value does not apply reads `n/a`.
+- Durations as a number and a letter per unit, largest first: `2h 14m`, `1m 50s`, `45s`. A chip sets
+  its text in capitals, so a duration in one writes its unit as a word: `45 min`.
 - Plain, factual sentences with the number, the comparison and the period; plain words. Each section
   leads with its finding. No signposting, hype, rhetorical questions or history of how the document
   was made.
@@ -175,7 +185,7 @@ A `cm-id` tag follows it and names the document (see Document sets).
 
 | Kind | Use for | Type chip | Required parts, in order |
 | --- | --- | --- | --- |
-| Report | What the numbers show and what to do: a review, an analysis, a briefing | Analysis, Report or Brief | Executive summary; body parts; Recommendations (recommended); Methodology (when numbers are computed); Notes & sources |
+| Report | What the numbers show and what to do: a review, an analysis, a briefing | Analysis, Report or Brief | Executive summary; body parts; Recommendations (recommended); Methodology (with a KPI strip, a chart or a table); Notes & sources |
 | Guide | One task carried out step by step: a procedure, a runbook, a how-to | Guide | Purpose; Prerequisites; Steps; Exceptions and recovery; Related documents; Notes & sources |
 | Reference | One thing looked up: a metric, a dataset, a system, a term | Reference | Definition; Properties; Relationships; Examples; Notes & sources |
 
@@ -213,7 +223,7 @@ between the executive summary and Recommendations.
   Worse. Key findings, Results paragraphs and the results table's caption cite their sources, and at
   least one limitation is named.
 
-These blocks, and no others, are left out this way (section 7.5 of `SPEC.md`):
+These blocks and fields, and no others, are left out this way (section 7.5 of `SPEC.md`):
 
 | Block | Kind | Left out when | Name | Where the comment sits |
 | --- | --- | --- | --- | --- |
@@ -226,6 +236,9 @@ These blocks, and no others, are left out this way (section 7.5 of `SPEC.md`):
 | Related documents section | Guide | No other document bears on the task | `related` | In `<main>`, where the section would be |
 | Relationships section | Reference | The thing connects to nothing else that is documented | `relationships` | In `<main>`, where the section would be |
 | Examples section | Reference | The thing has no case to work through | `examples` | In `<main>`, where the section would be |
+| Byline Distribution field | Any | The readers the document is for are not known | `distribution` | In `dl.cm-byline` |
+| Source publisher | Any | The source's author or publisher is not recorded | `publisher` | In the source entry |
+| Source locator | Any | The source's path or address is not recorded | `locator` | In the source entry |
 
 Content maps onto existing components:
 
@@ -265,6 +278,49 @@ Content maps onto existing components:
 | Numbers that will change | Status block, `cm-status` | 8.22 |
 | Changes since an earlier version | Change log and revision history, `cm-changes` and `cm-versions` | 8.22 |
 | Three or more limits of the document | Limitation register, `cm-limits` | 8.22 |
+
+## Page types
+
+A page type is a recipe on one document kind for a reader's question that recurs (sections 7.6 to
+7.15 of `SPEC.md`). A typed page keeps every required part of its kind and adds parts of its own. A
+`cm-type` tag in the head, straight after `cm-id`, names the type; a page without it is a plain
+document of its kind.
+
+```html
+<meta name="cm-kind" content="reference">
+<meta name="cm-id" content="reference-support-glossary">
+<meta name="cm-type" content="glossary">
+```
+
+- A typed page starts from `template-<type>.html` beside the kind templates, such as
+  `template-glossary.html`: the kind's template with the type's parts in place.
+- File name, id and the masthead's type chip follow the kind. The top bar's series chip may name
+  the type.
+- The type is the one whose question is the reader's:
+
+| Type | `cm-type` | Kind | Reader's question | Choose it over |
+| --- | --- | --- | --- | --- |
+| Guide | none | Guide | How is this task carried out? | A module, when the task is done once rather than learnt |
+| Reference | none | Reference | What is this one thing, and what are its facts? | A topic, when the subject is one thing |
+| Topic | `topic` | Reference | What is this subject, and which documents cover each part? | The index page, which lists a folder and explains nothing |
+| Glossary | `glossary` | Reference | What does each term mean in this set? | A definition block, when five or more terms are shared by several documents |
+| Module | `module` | Guide | How is this skill learnt, and how is the learning checked? | A guide, when the reader must apply a rule unaided |
+| Framework | `framework` | Reference | What parts make up this way of covering a subject? | The framework component, when the whole page is about one framework |
+| Process | `process` | Reference | How does this process run, stage by stage? | A guide, when the page describes how work runs rather than instructs |
+| Metric | `metric` | Reference | What does this measure count, and how is it judged? | The metric detail component, when the whole page is about one measure |
+| Comparison | `comparison` | Reference | How do these options differ on the same criteria? | A reference, when two or more things sit side by side |
+| Roadmap | `roadmap` | Report | What has to happen, by whom and by when, to reach one goal? | A plain report, when the subject is planned work toward a dated goal |
+| Case study | `case-study` | Report | What changed after one intervention, and how far does the evidence support it? | A plain report, when one change is judged before and after |
+
+- Topic: a `subtopics` section after Definition, with two or more groups, each an h3, a paragraph
+  and a related list whose links leave the page. An optional `reading-order` follows it. A topic
+  states rules and targets, never a period's results.
+- Glossary: a `terms` section takes the place of Properties. It holds definition blocks of five or
+  more terms, grouped under h3s, A to Z within a group, each defined once and citing its source.
+- Module: an `objectives` list after Purpose, each objective linking to its lesson and its exercise;
+  Steps titled Lessons, each lesson with an id; an `exercises` section after the lessons, each
+  answer in a closed collapsible labelled Answer. A module has no form controls, scores or progress
+  tracking.
 
 ## Document sets
 

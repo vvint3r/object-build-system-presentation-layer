@@ -84,7 +84,7 @@ chat-style labels are read on all text. The heading rules are read on headings.
 - **Person.** Every first and second person form fails, not only the four words the agent brief
   names; "US" in capitals is the country.
 - **Dashes.** Read on prose only, as the rule states. Tables keep the em dash that marks a value that does not apply
-  (§8.11).
+  (§8.11). Record 090 replaces that dash with `n/a`.
 - **Average sentence length.** Taken over all the prose of a page.
 - **Prose between headings.** Counted from one heading to the next, table titles included, whatever
   sits between them.

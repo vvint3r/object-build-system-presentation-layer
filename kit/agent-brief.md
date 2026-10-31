@@ -124,9 +124,9 @@ A summary of section 1 of `SPEC.md`. The spec governs.
 Charts are ECharts option JSON inside the kit's figure markup. The agent never calls `echarts.init`
 and never writes chart JavaScript. It picks the chart by the reader's question, from the recipes in
 section 9. A `"cm"` key declares a bullet, slope, strip, box or interval chart, and the kit draws it.
-End labels that name every line take the legend's place. Chart values are numbers, never strings: the kit
-writes each value label with thousands separators, at the most decimal places any value in the chart
-carries. Diagrams are JSON too (section 8.20 of `SPEC.md`). A flow, state or entity relationship
+The kit sets the legend, so the JSON has none; end labels that name every line take its place.
+Chart values are numbers, never strings: the kit writes each value label with thousands separators,
+at the most decimal places any value in the chart carries. Diagrams are JSON too (section 8.20 of `SPEC.md`). A flow, state or entity relationship
 diagram, a journey map or a system and data flow places its nodes by column and row; a sequence
 diagram lists its participants and messages in order. A layer stack lists layers from the top down,
 each dependency running down. A hierarchy names each node's parent. The kit draws them; the agent

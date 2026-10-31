@@ -9,7 +9,7 @@ Kit files (all in `report-kit/`):
 | File | Role |
 | --- | --- |
 | `cm-report.css` | Tokens (light, dark, print) and every component class. The only stylesheet. |
-| `cm-report.js` | Theme toggle, ECharts theme + draw-in, charts built from kit declarations, sortable tables, contents scroll-spy, link targets clear of the top bar, citation back links, print prep. |
+| `cm-report.js` | Theme toggle, ECharts theme + draw-in, charts built from kit declarations, diagram drawing and text versions, sortable tables, contents scroll-spy, link targets clear of the top bar, citation back links, print prep. |
 | `template.html` | Report starter. Copy it for every report. |
 | `template-guide.html` | Guide starter. Copy it for every guide. |
 | `template-reference.html` | Reference starter. Copy it for every reference. |
@@ -110,7 +110,7 @@ The rule thickness follows the heading level; the CSS applies it. Headings never
 | S1 | `.cm-tile` | Nested inside a surface | Unlimited |
 | S2 | `.cm-card`, `.cm-figure`, `.cm-kpi`, `.cm-table-wrap`, `.cm-collapse`, `.cm-status` | Top-level surfaces | Unlimited; one `.cm-status` per document |
 | S3 | `.cm-summary`, `.cm-code` | Summary box, code | 1 summary per report; none in a guide or a reference |
-| L1e | `.cm-emph` | A bottleneck step, a must-read card | ≤ 1 per section |
+| L1e | `.cm-emph` | A bottleneck step, a must-read card, an emphasised diagram node | ≤ 1 per section |
 | L2 | `.cm-featured` | Recommendations card | Exactly 1 per report; none when Recommendations is left out (§7.5), and none in a guide or a reference |
 
 Never stack a shadow with a border except where the class does it. Never nest a card inside a card; use `.cm-tile` or `.cm-sub` (inset hairline sub-section) inside a card.
@@ -423,7 +423,7 @@ States: `is-done` (hollow ink marker), `is-current` (filled accent, ≤ 1), `is-
 </ol>
 ```
 
-3 to 6 steps; `--steps` equals the count; titles ≤ 3 words; ≤ 1 `cm-emph` step with a chip naming why. A process diagram shows how work flows; the steps a reader carries out go in a procedure (§8.23).
+3 to 6 steps; `--steps` equals the count; titles ≤ 3 words; ≤ 1 `cm-emph` step with a chip naming why. A process diagram shows how work flows; the steps a reader carries out go in a procedure (§8.23). A process with a branch, a loop or a hand-off between roles is a flow diagram (§8.20).
 
 ### 8.14 Lists
 
@@ -485,6 +485,103 @@ Token spans: `k` keyword, `s` string, `n` number, `f` callable, `c` comment. Key
 ```
 
 The only `cm-featured` in the report, inside the Recommendations section. 1–5 actions. Each action opens with one claim line, the action as an imperative sentence, then one sentence of reason and its chips. The card width follows the reading measure.
+
+### 8.20 Diagram
+
+A flow diagram shows a process with branches, loops or hand-offs between roles. Three to six steps in one line, with no branch, stay a process diagram (§8.13). The author writes the diagram as data, as a chart is written; the kit draws it.
+
+```html
+<figure class="cm-figure cm-bleed">
+  <span class="cm-figure__kind">Figure 5</span>
+  <h3 class="cm-figure__title">Ticket routing by channel</h3>
+  <p class="cm-figure__desc">The path a chat, email or web-form ticket takes from arrival to an agent.</p>
+  <div class="cm-diagram" data-diagram="flow" role="img" aria-label="">   <!-- empty: the kit writes the summary -->
+    <script type="application/json">
+    {
+      "nodes": [
+        {"id": "arrive", "type": "terminal", "label": "Ticket arrives", "col": 1, "row": 1},
+        {"id": "channel", "type": "decision", "label": "Which channel?", "col": 2, "row": 1},
+        {"id": "classify", "type": "step", "label": "Intent classifier", "detail": "Billing, technical or account queue", "col": 3, "row": 1},
+        {"id": "shared", "type": "step", "label": "Shared queue", "detail": "One queue for every topic", "col": 3, "row": 2},
+        {"id": "agent", "type": "terminal", "label": "Agent picks it up", "col": 4, "row": 1}
+      ],
+      "edges": [
+        {"from": "arrive", "to": "channel"},
+        {"from": "channel", "to": "classify", "label": "Chat"},
+        {"from": "channel", "to": "shared", "label": "Email, web form"},
+        {"from": "classify", "to": "agent"},
+        {"from": "shared", "to": "agent"}
+      ]
+    }
+    </script>
+  </div>
+  <figcaption class="cm-caption"><span class="cm-caption__line">Source: dataset · scope · date.</span></figcaption>
+</figure>
+```
+
+The JSON holds four fields and nothing else: no coordinates, sizes, classes or styles. Placement is the author's; geometry is the kit's.
+
+| Field | Holds | Values |
+| --- | --- | --- |
+| `nodes` | One entry for each node | `id` (unique), `type`, `label`, optional `detail`, `col` and `row` (whole numbers from 1, one node a cell), optional `emphasis` |
+| `edges` | One entry for each connection | `from` and `to` (node ids), optional `kind`, optional `label` |
+| `groups` | Optional lanes and boundaries | Lane: `"type": "lane"`, `label`, `row`, optional `rows`. Boundary: `"type": "boundary"`, `label`, `col`, `row`, optional `cols` and `rows` |
+| `direction` | Optional reading direction | `right` (default) or `down` |
+
+Shape marks the node type and line style the edge kind. A key above the drawing names each type and kind in use when the diagram has a data store, an external entity, a data edge or an optional edge.
+
+| Value | Drawn as | Use |
+| --- | --- | --- |
+| `terminal` | Pill | Where the flow starts and ends |
+| `step` | Rectangle; `detail` adds a second line | An action |
+| `decision` | Rotated square holding the question; no `detail` | A choice |
+| `store` | Ruled above and below | Where data rests |
+| `external` | Heavy border | A person or system outside the process |
+| `flow` | Solid line, the default | Control passes on |
+| `data` | Dotted line | Data or a message moves |
+| `optional` | Dashed line | An optional or planned path |
+
+- The flow reads left to right, or top to bottom with `"direction": "down"`. A diagram with lanes flows right.
+- Every branch out of a decision carries a label: "Yes" and "No", or the condition. No two branches of one decision share a label.
+- A lane is a row band named on the left, one role or system each. With lanes, every row sits in exactly one lane, so each hand-off crosses a lane line.
+- A boundary is a rounded frame around a block of cells, named on its top line.
+- One node at most is emphasised: a step, with a chip of one or two words naming why. It counts toward the section's one `cm-emph` (§6).
+
+Capacity. A flow past any ceiling splits into an overview and details: one diagram of the stages, then one for each stage that needs it.
+
+| Item | At most | Reason |
+| --- | --- | --- |
+| Nodes | 24 | The library's panel tier holds 8 to 24 nodes |
+| Columns | 5, or 4 with lanes | Six steps in a row do not fit the printed column at 80%; with lanes, five do not, since the lane names take a column's width |
+| Rows | 5 | Six rows of steps with a detail line do not fit a printed page at 80% |
+| Lanes | 5 | The library's journey map, its widest lane diagram, has 5 lanes |
+| Boundaries | 2 | The library's panel tier allows 2 groups |
+| Edge labels | 12 | The library labels edges only while a view has 12 or fewer |
+| Line crossings | 3 | The library's crossing budget for one view |
+| Emphasised nodes | 1 | §6 |
+
+Print is the final test. A diagram near several ceilings at once can still be too large to print at 80%; the check then fails it, and it splits or its text shortens.
+
+Diagram text is not prose (§13). It keeps its own limits:
+
+| Text | Limit |
+| --- | --- |
+| Node `label` | 24 characters, the length at which the library cut node names |
+| Node `detail` | 40 characters, two lines in print |
+| Edge `label` | 1 to 3 words, as a chart annotation (§9) |
+| `emphasis` | 1 or 2 words |
+| Lane or boundary `label` | 24 characters |
+
+The kit applies the rest:
+
+- Nodes in one column share a width and nodes in one row share a height. A decision's square grows to hold its question.
+- Edges run at right angles through the gaps between columns and rows, with rounded elbows and an arrowhead, in 2px ink. Edges that leave or enter one side share a line. Decision outlines and boundaries are 1.5px.
+- Edge labels sit beside their line in the label style, on the page colour, 8px clear of every line, node and other label.
+- The drawing recomputes on resize, on a theme change and before print.
+- A text version follows the caption: a `details.cm-data` disclosure, "View as text", with one numbered item for each node in reading order. Each item gives the node's name and detail, then where the flow goes next: each branch with its label and step number, and a loop as "Back to step N". Lanes and the emphasised node are named.
+- An empty `aria-label` takes a summary from the data: the number of steps, the first and last, and the count of lanes, decisions and loops. An author's `aria-label` stays; it states what the diagram shows in one sentence.
+- On a narrow screen the diagram keeps its geometry and scrolls sideways inside its own box. Labels never shrink.
+- Print narrows the gaps and the nodes, then scales the drawing to fit the printed column and a page, never below 80%. The text version prints open.
 
 ### 8.21 Sources and citations
 
@@ -783,7 +880,7 @@ Interval (a band on a line; on a `bar` or `scatter` series the same fields draw 
 
 ## 10. Motion
 
-Only charts move: each draws in once when 15% of it enters the viewport (900ms, ease-out, 120ms stagger between series). Theme switches redraw without animation. `prefers-reduced-motion`, print, background tabs and headless rendering draw static. Agents **MUST NOT** add other animation.
+Only charts move; diagrams draw static. Each chart draws in once when 15% of it enters the viewport (900ms, ease-out, 120ms stagger between series). Theme switches redraw without animation. `prefers-reduced-motion`, print, background tabs and headless rendering draw static. Agents **MUST NOT** add other animation.
 
 ## 11. Dark mode
 
@@ -793,12 +890,13 @@ Automatic from tokens; agents write nothing extra. The pre-paint script in `<hea
 
 - Browser print (the browser's own command, or the optional print button): always light; chrome hidden; 16 × 14mm margins; shadows become 1px borders; the L2 card keeps its offset; appendices open; charts redraw static at print width; figures, KPIs, callouts, definitions and table rows never split.
 - Mark side-by-side figure grids `cm-print-stack` so they print full width.
+- Diagrams redraw with narrower gaps and nodes, scaled to fit the printed column and a page, never below 80%; their text versions print open (§8.20).
 - Use `cm-section--break` to start a section on a new page (typically the first appendix in long reports).
 - **Headless pipelines** (Puppeteer, Playwright, wkhtmltopdf): set `<html data-cm-static>` or call `CM.drawAll()` after load, then `CM.beforePrint()` before generating the PDF. Wait for `document.fonts.ready`.
 
 ## 13. Writing rules
 
-Prose is the running text of `<main>`: paragraphs, list items, definitions, questions and answers, callout bodies, captions and process-step bodies. Code, tables, chart data and screen-reader-only text are not prose. Words are counted as in §7.1; inline code counts as one word, and a template placeholder (`{{ … }}`) as none.
+Prose is the running text of `<main>`: paragraphs, list items, definitions, questions and answers, callout bodies, captions and process-step bodies. Code, tables, chart and diagram data and screen-reader-only text are not prose. Words are counted as in §7.1; inline code counts as one word, and a template placeholder (`{{ … }}`) as none.
 
 ### 13.1 Limits
 
@@ -835,6 +933,8 @@ Components set limits of their own. Where a component limit and a limit above bo
 | Related list item | One sentence after the link | §8.24 |
 | Figure title | 10 words at most | §9 |
 | Chart annotation | 1 to 3 words | §9 |
+| Diagram node label | 24 characters at most | §8.20 |
+| Diagram edge label | 1 to 3 words | §8.20 |
 
 ### 13.2 Register
 
@@ -881,6 +981,7 @@ Headings are `h1` to `h6` and table titles.
 14. Writing within §13: prose inside the limits, in plain words and neutral third person, with no em or en dashes; each section leads with its finding; headings are plain noun phrases in sentence case.
 15. Changing numbers sit in one dated status block; change log and revision history run newest first with dated entries; each limitation status is a word from its set (§8.22).
 16. `cm-kind` names the kind, or is absent for a report. A guide or a reference has its required parts in order, each with its id, or their omission comments (§7.3 to §7.5). Every procedure step closes with its outcome; every related item has a tag, a link and a sentence.
+17. Every diagram: JSON within the flow fields and capacity, a label on every decision branch, `role="img"`, a caption with a source line, and nothing overlapping or clipped in light, dark and print (§8.20).
 
 ## 15. Changes from Content Morphia Foundations
 
@@ -915,4 +1016,4 @@ Added for charts: recipes by question; bullet, slope, strip, box and interval ch
 
 Added for reports: ECharts chart method and theme; categorical and sequential palettes; dark token set; print rules; report masthead and contents rail; KPI strip; key findings; native tables with sorting and in-cell bars; pull quote; timeline; process diagram; definition, questions and property-sheet blocks; footnotes; collapsible appendix; chart draw-in motion; packaging modes.
 
-Not yet covered: maps, network/hierarchy diagrams, interactive filters, a PDF cover page. Use a figure with `cm-slot` and flag the gap in an HTML comment until these exist.
+Not yet covered: maps, diagram modes other than flow (sequence, state, layer stack, hierarchy, entity relationship), network diagrams, interactive filters, a PDF cover page. Use a figure with `cm-slot` and flag the gap in an HTML comment until these exist.

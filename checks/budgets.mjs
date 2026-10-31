@@ -39,10 +39,17 @@ export default [
     },
   },
   {
-    name: 'emph', level: 'fail', source: 'SPEC §6', once: true,
+    // An emphasised node in a diagram's JSON is drawn as .cm-emph and counts toward its section.
+    name: 'emph', level: 'fail', source: 'SPEC §6; §8.20', once: true,
     inPage: ({ check }) => {
       const H = window.__cm;
       const els = [...H.source().querySelectorAll('.cm-emph')].filter(el => !H.exempt(el, check));
+      for (const el of H.source().querySelectorAll('.cm-diagram')) {
+        if (H.exempt(el, check)) continue;
+        let d = null;
+        try { d = JSON.parse(el.querySelector('script[type="application/json"]').textContent); } catch (e) { continue; }
+        (Array.isArray(d && d.nodes) ? d.nodes : []).forEach(n => { if (n && n.emphasis) els.push(el); });
+      }
       const section = el => el.closest('section') || el.ownerDocument.body;
       const groups = new Map();
       for (const el of els) groups.set(section(el), (groups.get(section(el)) || 0) + 1);

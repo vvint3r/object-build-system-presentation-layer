@@ -3,7 +3,7 @@
 
 export default [
   {
-    // Kind label "Figure N", title, description, the chart (or an image with alt text, or a
+    // Kind label "Figure N", title, description, the chart or diagram (or an image with alt text, or a
     // .cm-slot where material is missing), and a caption with a source line: a .cm-caption__line
     // that opens "Source:".
     name: 'figure-anatomy', level: 'fail', source: 'SPEC §8.10; §9; §14 item 5', once: true,
@@ -18,7 +18,7 @@ export default [
         if (!f.querySelector('.cm-figure__desc') || !H.text(f.querySelector('.cm-figure__desc'))) out.push({ where: H.path(f), value: 'no .cm-figure__desc' });
         const img = f.querySelector('img');
         if (img && !(img.getAttribute('alt') || '').trim()) out.push({ where: H.path(img), value: 'image with no alt text' });
-        if (!f.querySelector('.cm-chart, img, .cm-slot')) out.push({ where: H.path(f), value: 'no .cm-chart, image or .cm-slot' });
+        if (!f.querySelector('.cm-chart, .cm-diagram, img, .cm-slot')) out.push({ where: H.path(f), value: 'no .cm-chart, .cm-diagram, image or .cm-slot' });
         const cap = f.querySelector('figcaption.cm-caption');
         if (!cap) out.push({ where: H.path(f), value: 'no figcaption.cm-caption' });
         else if (![...cap.querySelectorAll('.cm-caption__line')].some(l => /^Source:\s/.test(H.text(l)))) out.push({ where: H.path(cap), value: 'caption has no source line (a .cm-caption__line opening "Source:")' });

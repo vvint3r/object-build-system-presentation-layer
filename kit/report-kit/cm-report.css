@@ -401,6 +401,51 @@ pre code{all:unset}
 .cm-step .cm-chip{align-self:flex-start;margin-top:6px}
 .cm-step.cm-emph{border:1.5px solid var(--cm-ink);box-shadow:var(--cm-l1e)}
 
+/* ---------- 18a. Diagrams ---------- */
+/* cm-report.js draws everything inside .cm-diagram from its JSON: nodes, lane and boundary labels and
+   edge labels as positioned elements, edges and lane dividers in one SVG layer. A diagram keeps its
+   geometry at every width and scrolls sideways in its own box. */
+.cm-diagram{position:relative;margin-top:32px;overflow-x:auto;overflow-y:hidden;min-width:0}
+.cm-diagram>script{display:none}
+.cm-diagram__key{display:flex;flex-wrap:wrap;gap:8px 24px;margin-bottom:20px;font-size:13px;font-weight:700;line-height:1.5}
+.cm-diagram__key-item{display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.cm-diagram__swatch{display:block;flex:none;width:22px;height:14px;background:var(--cm-surface);border:1px solid var(--cm-field);border-radius:var(--cm-r-chip)}
+.cm-diagram__swatch--terminal{border-radius:var(--cm-r-pill)}
+.cm-diagram__swatch--decision{width:11px;height:11px;margin:0 5.5px;border:1.5px solid var(--cm-ink);border-radius:2px;transform:rotate(45deg)}
+.cm-diagram__swatch--store{border-width:2px 0;border-color:var(--cm-ink);border-radius:2px}
+.cm-diagram__swatch--external{border:2px solid var(--cm-ink)}
+.cm-diagram__swatch--flow,.cm-diagram__swatch--data,.cm-diagram__swatch--optional{width:24px;height:0;background:none;border:0;border-top:2px solid var(--cm-ink);border-radius:0}
+.cm-diagram__swatch--data{border-top-style:dotted}
+.cm-diagram__swatch--optional{border-top-style:dashed}
+.cm-diagram__canvas{position:relative;transform-origin:0 0}
+.cm-diagram__lines{position:absolute;left:0;top:0;max-width:none;overflow:visible}
+.cm-diagram__line{fill:none;stroke:var(--cm-ink);stroke-width:2}
+.cm-diagram__edge--data .cm-diagram__line{stroke-dasharray:0 6;stroke-linecap:round}
+.cm-diagram__edge--optional .cm-diagram__line{stroke-dasharray:6 5}
+.cm-diagram__head{fill:var(--cm-ink)}
+.cm-diagram__divider{stroke:var(--cm-field);stroke-width:1}
+.cm-diagram__node{position:absolute;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-width:96px;max-width:168px;padding:12px 16px;text-align:center;background:var(--cm-surface);border:1px solid var(--cm-field);border-radius:var(--cm-r-tile)}
+.cm-diagram__name{font-size:15px;font-weight:700;line-height:1.35;text-wrap:balance}
+.cm-diagram__detail{font-size:13px;font-weight:400;line-height:1.45;text-wrap:balance}
+.cm-diagram__node .cm-chip{margin-top:8px}
+.cm-diagram__node--terminal{min-width:0;max-width:224px;padding:10px 22px;border-radius:var(--cm-r-pill)}
+.cm-diagram__node--store{border-width:2px 0;border-color:var(--cm-ink);border-radius:2px}
+.cm-diagram__node--external{border:2px solid var(--cm-ink);border-radius:var(--cm-r-chip)}
+.cm-diagram__node--decision{min-width:0;max-width:none;padding:0;background:none;border:0;border-radius:0}
+.cm-diagram__node--decision::before{content:"";position:absolute;inset:14.645%;background:var(--cm-surface);border:1.5px solid var(--cm-ink);border-radius:var(--cm-r-input);transform:rotate(45deg)}
+.cm-diagram__node--decision .cm-diagram__name{position:relative}
+.cm-diagram__node.cm-emph{border:1.5px solid var(--cm-ink);box-shadow:var(--cm-l1e)}
+.cm-diagram__edge-label,.cm-diagram__lane,.cm-diagram__boundary-label{position:absolute;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;line-height:1.4}
+.cm-diagram__edge-label{white-space:nowrap;background:var(--cm-bg);border-radius:2px}
+.cm-diagram__lane{max-width:112px}
+.cm-diagram__boundary{position:absolute;border:1.5px solid var(--cm-field);border-radius:var(--cm-r-card)}
+.cm-diagram__boundary-label{padding:0 6px;white-space:nowrap;background:var(--cm-bg);border-radius:2px}
+/* print: cm-report.js sets the modifier while it lays a diagram out for the printed column */
+.cm-diagram--print .cm-diagram__node{max-width:120px}
+.cm-diagram--print .cm-diagram__node--terminal{max-width:192px;padding:10px 16px}
+.cm-diagram--print .cm-diagram__node--decision{max-width:none;padding:0}
+.cm-data>.cm-olist{margin-top:16px}
+
 /* ---------- 19. Lists, notes, sources ---------- */
 /* Markers are positioned, never grid cells, so inline code, links and bold stay in the text flow. */
 .cm-list,.cm-olist{list-style:none;padding:0;display:flex;flex-direction:column;gap:14px}
@@ -566,5 +611,6 @@ pre code{all:unset}
   .cm-chart>div{width:100%!important;height:auto!important}
   .cm-sources a[href^="http"]::after{content:" · " attr(href);font-size:11px;font-weight:400}
   .cm-data>summary,.cm-collapse>summary::after{display:none}
+  .cm-diagram{overflow:visible}
   .cm-footer{margin-top:48px}
 }

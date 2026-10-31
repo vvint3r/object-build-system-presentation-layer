@@ -3,7 +3,8 @@
 //
 // Read once from the live page after fonts are ready (the loader waits for them). Three scopes:
 //   text      the words of <main> a reader reads. Out: code blocks, tables, chart internals and
-//             their data fallbacks, screen-reader-only and aria-hidden text, and template
+//             their data fallbacks, diagrams and their text versions (diagram labels have their own
+//             limits, checks/diagrams.mjs), screen-reader-only and aria-hidden text, and template
 //             placeholders ({{ … }}), which count as no words. Inline code inside a sentence counts
 //             as one word. Text in a closed <details> counts: it is part of the document.
 //   prose     paragraphs, list items, definitions, questions and their answers, callout bodies,
@@ -22,7 +23,7 @@ function prepare() {
   const H = window.__cm;
   const main = document.querySelector('main') || document.body;
   const OUT = 'script, style, template, noscript, svg, pre, .cm-code, table, .cm-table-wrap, .cm-data, '
-    + '.cm-chart, [data-spark], .cm-sr, [aria-hidden="true"], [hidden]';
+    + '.cm-chart, .cm-diagram, [data-spark], .cm-sr, [aria-hidden="true"], [hidden]';
   const NOT_PROSE = 'a.cm-fn, a.cm-cite, a.cm-back, .cm-chip, .cm-chips, .cm-tag, .cm-id, .cm-label, .cm-delta, .cm-meta, '
     + 'sup, .cm-table-title__kind, .cm-figure__kind';
   const BLOCK = 'address, article, aside, blockquote, br, dd, details, div, dl, dt, figcaption, figure, footer, '

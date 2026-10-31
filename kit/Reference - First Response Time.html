@@ -94,7 +94,7 @@
         <div class="cm-card cm-metric cm-bleed" id="metric-frt">
           <span class="cm-label cm-card__kicker">Metric</span>
           <h3 class="cm-card__title">First response time</h3>
-          <p>The time from a ticket's creation to the first public reply from an agent, counted through nights and weekends. A period reports the median across the tickets created in it. Automatic acknowledgements do not stop the clock.</p>
+          <p>The time from a ticket's creation to the first public reply from an agent, counted through nights and weekends. A period reports the median across the tickets created in it.</p>
           <div class="cm-props">
             <dl>
               <dt>Formula</dt><dd><code>median(first_human_reply_at − created_at)</code></dd>
@@ -132,14 +132,14 @@
           <div class="cm-status__head"><span class="cm-label">Status</span><span class="cm-meta">as of <time datetime="2026-09-30">2026-09-30</time></span></div>
           <dl>
             <div><dt>First response time</dt><dd>2h 14m, Q3 2026 median<a class="cm-cite" href="#src-4" id="cite-4">S4</a></dd></div>
-            <div><dt>Before chat routing</dt><dd>3h 05m median</dd></div>
+            <div><dt>Before chat routing</dt><dd>3h 05m median, to 8 July</dd></div>
             <div><dt>Teams within target</dt><dd>2 of 5</dd></div>
           </dl>
         </div>
         <figure class="cm-figure cm-bleed">
           <span class="cm-figure__kind">Figure 1</span>
           <h3 class="cm-figure__title">Median first response by team, Q3 2026</h3>
-          <p class="cm-figure__desc">Median minutes from creation to the first human reply, for tickets created from July to September, against the quarterly target.</p>
+          <p class="cm-figure__desc">Median minutes from creation to the first human reply, for the tickets each team handled from July to September, against the quarterly target.</p>
           <div class="cm-chart" style="--h:300px" data-chart role="img" aria-label="Bar chart. Technical escalations 4h 41m, APAC 3h 20m and billing specialists 2h 58m sit above the 2h 30m target; EMEA 2h 05m and Americas 1h 42m sit below it.">
             <script type="application/json">
             {
@@ -186,7 +186,7 @@
       </header>
       <div class="cm-section__body">
         <div class="cm-prose">
-          <p>Four clock rules set <strong>each ticket's time</strong>. The median keeps a few very long waits from moving the reported value, as they would move a mean.</p>
+          <p>Four rules set <strong>each ticket's time and the value a period reports</strong>.</p>
         </div>
         <aside class="cm-def">
           <span class="cm-def__label">Definitions</span>

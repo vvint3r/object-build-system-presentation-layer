@@ -76,7 +76,7 @@
       </header>
       <div class="cm-section__body">
         <div class="cm-prose">
-          <p>Ticket escalation is <strong>the path that carries a ticket to the role able to resolve it</strong>. That role is Tier 1, a specialist, or engineering when the fix needs a code change. The path ends when the role closes the ticket.</p>
+          <p>Ticket escalation is <strong>the path that carries a ticket to the role able to resolve it</strong>. That role is Tier 1, the first line of agents, or a specialist. Engineering joins when a fix needs a code change, then hands the ticket back.</p>
         </div>
       </div>
     </section>
@@ -99,7 +99,7 @@
           </dl>
           <dl>
             <dt>Starts</dt><dd>A ticket arrives in any channel</dd>
-            <dt>Ends</dt><dd>The ticket closes and its survey is sent</dd>
+            <dt>Ends</dt><dd>The role holding the ticket closes it</dd>
             <dt>Routing</dt><dd>Helpdesk routing rules<a class="cm-cite" href="#src-1" id="cite-1">S1</a></dd>
           </dl>
           <dl>
@@ -131,10 +131,10 @@
                 {"id": "triage", "type": "step", "label": "Intent triage", "detail": "Classifier or agent", "col": 1, "row": 1},
                 {"id": "tier1", "type": "step", "label": "Tier 1 resolution", "detail": "Macros, help centre", "col": 2, "row": 1},
                 {"id": "specialist-needed", "type": "decision", "label": "Needs specialist?", "col": 3, "row": 1},
-                {"id": "closed-tier1", "type": "terminal", "label": "Tier 1 closes", "col": 4, "row": 1},
+                {"id": "closed-tier1", "type": "terminal", "label": "Ticket closes", "col": 4, "row": 1},
                 {"id": "specialist", "type": "step", "label": "Specialist queue", "detail": "Billing or technical", "col": 2, "row": 2},
                 {"id": "code-needed", "type": "decision", "label": "Needs code change?", "col": 3, "row": 2},
-                {"id": "closed-specialist", "type": "terminal", "label": "Specialist closes", "col": 4, "row": 2},
+                {"id": "closed-specialist", "type": "terminal", "label": "Ticket closes", "col": 4, "row": 2},
                 {"id": "engineering", "type": "step", "label": "Engineering fix", "detail": "Data repair or release", "col": 3, "row": 3}
               ],
               "edges": [
@@ -170,12 +170,12 @@
       </header>
       <div class="cm-section__body">
         <div class="cm-prose">
-          <p>Most tickets <strong>close at Tier 1</strong>; the specialist queue holds the longest wait of any stage.</p>
+          <p>Most tickets <strong>close at Tier 1</strong>; the specialist queue holds the longest wait of any stage.<a class="cm-cite" href="#src-4" id="cite-6">S4</a></p>
         </div>
         <div class="cm-status cm-bleed">
           <div class="cm-status__head"><span class="cm-label">Status</span><span class="cm-meta">as of <time datetime="2026-09-30">2026-09-30</time></span></div>
           <dl>
-            <div><dt>Tier 1 closure</dt><dd>71% of tickets<a class="cm-cite" href="#src-4" id="cite-6">S4</a></dd></div>
+            <div><dt>Tier 1 closure</dt><dd>71% of tickets<a class="cm-cite" href="#src-4" id="cite-7">S4</a></dd></div>
             <div><dt>Tier 1 handling</dt><dd>14m median</dd></div>
             <div><dt>Specialist queue wait</dt><dd>9h 40m median</dd></div>
             <div><dt>Sent to engineering</dt><dd>3.2% of tickets</dd></div>
@@ -185,11 +185,11 @@
         <div class="cm-card cm-workflow cm-bleed">
           <span class="cm-label cm-card__kicker">Workflow</span>
           <h3 class="cm-card__title">Ticket escalation</h3>
-          <p>A ticket enters at intent triage and leaves when the role holding it closes it and the survey goes out.</p>
+          <p>A ticket enters at intent triage and leaves when the role holding it closes it.</p>
           <ol class="cm-stages">
             <li>
               <h4 class="cm-procedure__title">Intent triage</h4>
-              <p>The routing classifier tags each chat with an intent; an agent sets the intent on every other channel.</p>
+              <p>The routing classifier tags each chat with its intent, such as billing; an agent sets it on other channels.</p>
               <dl class="cm-facts">
                 <div><dt>Actor</dt><dd>Routing classifier or Tier 1 agent</dd></div>
                 <div><dt>Hands on when</dt><dd>The intent is set</dd></div>
@@ -197,7 +197,7 @@
             </li>
             <li>
               <h4 class="cm-procedure__title">Tier 1 resolution</h4>
-              <p>An agent answers from macros and the help centre, and refunds within the agent limit.</p>
+              <p>An agent answers from macros and the help centre, and refunds up to $250 an invoice.<a class="cm-cite" href="#src-5" id="cite-8">S5</a></p>
               <dl class="cm-facts">
                 <div><dt>Actor</dt><dd>Tier 1 agent</dd></div>
                 <div><dt>Hands on when</dt><dd>The fix needs a specialist decision</dd></div>
@@ -208,25 +208,25 @@
               <p>A billing or technical specialist decides the case and fixes what account access and configuration allow.</p>
               <dl class="cm-facts">
                 <div><dt>Actor</dt><dd>Billing or technical specialist</dd></div>
-                <div><dt>Takes in</dt><dd>Ticket with the account and the charge recorded</dd></div>
+                <div><dt>Takes in</dt><dd>Ticket with the account and the problem recorded</dd></div>
                 <div><dt>Hands on when</dt><dd>The fix needs a code change</dd></div>
               </dl>
             </li>
             <li>
               <h4 class="cm-procedure__title">Engineering fix</h4>
-              <p>Product engineering repairs the data or ships the change, then returns the ticket to the specialist.</p>
+              <p>A product engineer repairs the data or ships the change, then returns the ticket to the specialist.</p>
               <dl class="cm-facts">
-                <div><dt>Actor</dt><dd>Product engineering</dd></div>
+                <div><dt>Actor</dt><dd>Product engineer</dd></div>
                 <div><dt>Produces</dt><dd>Fix note on the ticket</dd></div>
-                <div><dt>Hands on when</dt><dd>The fix is deployed, back to Specialist queue</dd></div>
+                <div><dt>Hands on when</dt><dd>The fix is deployed; the ticket returns to Specialist queue</dd></div>
               </dl>
             </li>
           </ol>
           <div class="cm-sub">
             <span class="cm-label">Exceptions</span>
             <ul class="cm-list">
-              <li>A charge disputed with the bank goes straight to the disputes desk, with no refund at Tier 1.</li>
-              <li>A security or data-loss report skips Tier 1 and goes to the on-call engineer.</li>
+              <li>A charge disputed with the bank goes straight to the disputes specialists, with no refund at Tier 1.</li>
+              <li>A security or data-loss report skips Tier 1 and goes to the on-call product engineer.</li>
               <li>A customer reply after close reopens the ticket at Tier 1 resolution.</li>
             </ul>
           </div>
@@ -283,6 +283,7 @@
             <li id="src-2"><span class="cm-id">S2</span><span><b>Billing escalation policy v4</b><br><span class="cm-tag">Document</span> Billing Operations · <code>billing/escalation-policy-v4.pdf</code> <a class="cm-back" href="#cite-2" aria-label="Back to text">↩</a></span><span class="cm-meta">published <time datetime="2026-08-12">2026-08-12</time></span></li>
             <li id="src-3"><span class="cm-id">S3</span><span><b>SLA policy v3</b><br><span class="cm-tag">Document</span> Support Operations · <code>support/sla-policy-v3.pdf</code> <a class="cm-back" href="#cite-3" aria-label="Back to text">↩</a></span><span class="cm-meta">published <time datetime="2026-01-01">2026-01-01</time></span></li>
             <li id="src-4"><span class="cm-id">S4</span><span><b>Customer support operations review, Q3 2026</b><br><span class="cm-tag">Report</span> Support Operations Analytics · <a href="Sample%20Report%20-%20Q3%20Support%20Review.html">Sample Report - Q3 Support Review.html</a> <a class="cm-back" href="#cite-6" aria-label="Back to text">↩</a></span><span class="cm-meta">published <time datetime="2026-10-12">2026-10-12</time></span></li>
+            <li id="src-5"><span class="cm-id">S5</span><span><b>Refund authority matrix v4</b><br><span class="cm-tag">Document</span> Billing Operations · <code>billing/refund-authority-v4.pdf</code> <a class="cm-back" href="#cite-8" aria-label="Back to text">↩</a></span><span class="cm-meta">published <time datetime="2026-08-12">2026-08-12</time></span></li>
           </ol>
         </div>
       </div>

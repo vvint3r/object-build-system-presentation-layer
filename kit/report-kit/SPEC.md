@@ -224,6 +224,119 @@ A document can lack the content of a block its kind requires: a briefing without
 
 No other block is left out this way. A required block missing without its omission comment fails the checks.
 
+### 7.10 Framework
+
+A framework page answers one question: how does a framework divide its subject, and how does a reader apply it? It is a reference with `<meta name="cm-type" content="framework">` after `cm-id`, and it starts from `template-framework.html`. It keeps every part of §7.4 and adds four.
+
+Choose a framework page when the framework itself is the subject of the document. A framework that serves another document's argument stays a framework card (§8.26) inside that document. The page holds what one card cannot: why the framework exists, how to apply it and where it fails.
+
+Required parts, each a section with a fixed id, in this order between Properties and Relationships:
+
+| Part | Id | Content |
+| --- | --- | --- |
+| Rationale | `rationale` | A lede that states the problem the framework solves and cites its source, then prose on how the framework answers it. |
+| Parts | `parts` | A lede, then one framework card (§8.26) named as the page is, with both scope lists, `Use when` and `Not for`. The heading names the parts, such as Pillars or Layers. |
+| Application | `application` | A lede, then the steps that apply the framework: a numbered list (§8.14) of 3 to 7 steps, or a method (§8.28). |
+| Limits | `limits` | A lede, then 1 to 4 cases, one h3 each, named for the condition. Each says what goes wrong and what the reader does instead. |
+
+The scope and Limits answer different questions. The scope says which cases the framework fits; Limits says where it fails inside those cases.
+
+Optional parts: a table after the framework card that compares the parts across shared attributes (§8.26). A framework page may add sections of its own between Rationale and Limits.
+
+Components: property sheet (§8.7), framework (§8.26), numbered list (§8.14), method (§8.28), table (§8.11), related list (§8.24), sources and citations (§8.21).
+
+Evidence rules:
+
+- Properties names the document that sets the framework out, cited, and the rationale cites it again.
+- A part that names a measure uses the measure's name as its metric page or report gives it.
+- A limit that rests on a number cites the number's source.
+
+### 7.11 Process
+
+A process page answers one question: how does a process run from start to end, and which role does each stage? It is a reference with `<meta name="cm-type" content="process">` after `cm-id`, and it starts from `template-process.html`. It keeps every part of §7.4 and adds two.
+
+Choose a process page over a guide (§7.3) when the reader needs the whole path of the work across its roles. A guide holds the steps one reader carries out, and the process page links to it from Relationships. Choose a process page over a roadmap (§7.14) when the work repeats rather than running once to an end state.
+
+Properties names the process's owner and roles, the event that starts it and the state that ends it. It also cites the policies that set its rules.
+
+Required parts, each a section with a fixed id, in this order between Properties and Relationships:
+
+| Part | Id | Content |
+| --- | --- | --- |
+| Flow | `flow` | A lede, then a figure (§8.10) holding a flow diagram (§8.20) of the stages and decisions, with one lane for each role. |
+| Stages | `stages` | A lede, then one workflow (§8.25) named as the page is. Each stage title is the label of a node in the flow diagram. |
+
+The flow diagram is required because work that passes between roles is a flow diagram, not a process diagram (§8.13). A process page carries no procedure (§8.23); the steps one role carries out belong in a guide.
+
+Optional parts: a status block (§8.22) after the Stages lede, for stage measures that change, such as waits and shares of work. A process page may add sections of its own between Flow and Relationships, such as a second diagram from §8.20.
+
+Components: property sheet (§8.7), figure (§8.10), flow diagram (§8.20), status block (§8.22), workflow (§8.25), related list (§8.24), sources and citations (§8.21).
+
+Evidence rules:
+
+- The figure's caption cites the rules or policies the flow follows.
+- Stage measures sit in the status block with an as-of date and a source. The workflow and the diagram hold no values that change.
+- A due time or a limit inside a stage cites the policy that sets it.
+
+### 7.12 Metric
+
+A metric page answers one question: what does a measure count, where does it stand, and how is it worked out? It is a reference with `<meta name="cm-type" content="metric">` after `cm-id`, and it starts from `template-metric.html`. It keeps every part of §7.4, adds one and allows a second.
+
+Choose a metric page when one measure is the subject of the document. A measure that a report or another page defines in passing stays a metric detail (§8.30) inside that document. A dataset, a system or a policy is a plain reference (§7.4).
+
+Properties holds the metric detail (§8.30) in place of a plain property sheet, named as the page is. Its definition gives the counting rule, while the Definition part says what the measure means to a reader. The card holds no related metrics; the page lists them under Relationships.
+
+Required and optional parts, each a section with a fixed id, in this order between Properties and Relationships:
+
+| Part | Id | Content |
+| --- | --- | --- |
+| Status | `status` | Required. A lede on where the measure stands against its target, then the status block (§8.22) with the measure's value under its name. An optional figure (§9) breaks the value down or shows its trend. |
+| Measurement | `measurement` | Optional. A lede, then the rules that time or count each case, as a definition block (§8.5), and the query (§8.17) behind the reported value. |
+
+Components: metric detail (§8.30), status block (§8.22), charts (§9), definition (§8.5), code (§8.17), related list (§8.24), sources and citations (§8.21).
+
+Evidence rules:
+
+- The current value, its period and its as-of date sit in the status block, never in the metric detail or the Definition part.
+- A figure's caption cites the report or dataset its values come from. A target line on a chart uses the target in the metric detail.
+- Thresholds appear only when the metric's owner has set them, with their source. A page never invents bands.
+- Examples that apply the counting rule to invented tickets say they are illustrative. A real value in an example cites its source.
+
+### 7.13 Comparison
+
+A comparison page answers one question: which of several options to choose, judged on stated criteria, and what would change the choice? It is a reference with `<meta name="cm-type" content="comparison">` after `cm-id`, and it starts from `template-comparison.html`. It keeps every part of §7.4 and adds five.
+
+Choose a comparison page when a decision between 2 to 4 options is the subject of the document. One subject scored against criteria is an evaluation (§8.29). Actions that follow from a report's findings are the report's recommendations (§7.2). A state that followed another after a change is a case study (§7.15).
+
+Properties names the decision, its owner, its decide-by date and the evidence behind the measures, each cited.
+
+Required parts, each a section with a fixed id, in this order between Properties and Relationships:
+
+| Part | Id | Content |
+| --- | --- | --- |
+| Options | `options` | A lede, then one h3 for each option, named as its table column, with a sentence or two on what the option does. |
+| Criteria | `criteria` | A lede, then a definition block (§8.5) with one term for each criterion, named as its table row. Each says what the criterion measures and why it bears on the decision. |
+| Comparison | `comparison` | A lede with the finding across the options, then one table (§8.11). It has a column for each option, a row for each criterion and a measure in every cell. |
+| Recommendation | `recommendation` | A first paragraph that names the recommended option in bold, then the reasons, including what the option costs. |
+| Change conditions | `conditions` | A lede, then a list (`ul.cm-list`) of 1 to 4 conditions. Each names a change in the facts and the option it would favour. |
+
+The comparison table follows these rules:
+
+- The recommended column carries `is-rec` on its cells and ★ in its header (§8.11). The caption's note line says what ★ marks.
+- Every option has a measure for every criterion. A blank, a dash or n/a fails. An estimate says so in its cell, as `140 est.`, and the note line says where estimates come from.
+- Formatted cells carry `data-value`. With 5 or more criteria the table is `data-sortable`, and each option column carries `data-nosort`, since its cells mix units.
+- Weighted scores follow §8.29: one scale, a weight for each criterion and totals in `<tfoot>`.
+
+Optional parts: sections of the document's own between Options and Change conditions, such as one on cost.
+
+Components: property sheet (§8.7), definition (§8.5), table (§8.11), list (§8.14), related list (§8.24), sources and citations (§8.21).
+
+Evidence rules:
+
+- The table's caption cites the source of every measured value and of every estimate.
+- An option with no trial is measured by a cited model, and its cells say est.
+- The recommendation states where the recommended option is weaker, as well as where it leads.
+
 ## 8. Components
 
 Markup below is canonical. Copy structure and classes exactly; change only text, data and the allowed custom properties.

@@ -163,6 +163,9 @@ report(`components/bundle.js: ${comps.length} components in its header`, [
   ...comps.map(c => (existsSync(path.join(DIR, 'components', c, 'preview.html')) && existsSync(path.join(DIR, 'components', c, 'README.md')) ? null : `${c}: no preview.html or README.md`)),
   ...folders.filter(f => f !== 'Cover' && !comps.includes(f)).map(f => `components/${f}: not in the header`),
   readdirSync(path.join(DIR, 'components', 'Cover')).join(',') !== 'preview.html' && 'components/Cover holds more than preview.html',
+  // One global: the namespace is the one cm-report.js assigns, never a second name for it.
+  !js.includes(`window.${index.namespace} = {`) && `window.${index.namespace} is not the global the kit script assigns`,
+  /window\.\w+ = window\.\w+/.test(js) && 'bundle.js gives the kit script a second global',
 ]);
 
 const MARKER = /^<!-- @dsCard((?: (?:group|subtitle)="[^"]*"| (?:height|width)=\d+| floor(?:=static)?| page)*) -->$/;
@@ -189,6 +192,86 @@ report(`README files: ${mdFiles.length}, no title on README.md, no en or em dash
     const n = (prose.match(/[–—]/g) || []).length;
     return n ? `${p}: ${n} dashes` : null;
   }),
+]);
+
+// ---------- what the documentation names ----------
+
+const readme = read('README.md');
+const prose = text => text.replace(/```[\s\S]*?```/g, '').replace(/`[^`\n]*`/g, '');
+const pages = files.filter(p => /\.html$/.test(p) && !/^components\//.test(p));
+
+// A § number names a section of README.md, or the section a component README holds.
+const sectionsHere = new Set([
+  ...[...readme.matchAll(/^#{2,4} (\d+(?:\.\d+)*)\.? /gm)].map(m => m[1]),
+  ...[...readme.matchAll(/^\| \[(\w+)\]\(components\/\1\/README\.md\) \| §(\d+(?:\.\d+)*) /gm)].map(m => m[2]),
+]);
+// The component index runs in spec order, and the header in the same order.
+const indexRows = [...readme.matchAll(/^\| \[(\w+)\]\(components\/\1\/README\.md\) \| §(\d+(?:\.\d+)*) /gm)].map(m => ({ name: m[1], num: m[2].split('.').map(Number) }));
+const before = (a, b) => { for (let i = 0; i < Math.max(a.length, b.length); i++) if ((a[i] ?? -1) !== (b[i] ?? -1)) return (a[i] ?? -1) < (b[i] ?? -1); return true; };
+report(`component index: ${indexRows.length} rows in spec order, as in the header of components/bundle.js`, [
+  ...indexRows.slice(1).map((r, i) => (before(indexRows[i].num, r.num) ? null : `${r.name} (§${r.num.join('.')}) follows ${indexRows[i].name} (§${indexRows[i].num.join('.')})`)),
+  indexRows.map(r => r.name).join() !== comps.join() && 'the header lists the components in another order',
+]);
+report(`section numbers: ${sectionsHere.size} sections; every § number in the READMEs and documents names one, and no gallery number is left`, [...mdFiles, ...pages].flatMap(p => {
+  const text = read(p);
+  return [
+    ...[...new Set([...text.matchAll(/§(\d+(?:\.\d+)*)/g)].map(m => m[1]))].filter(n => !sectionsHere.has(n)).map(n => `${p}: §${n} names no section here`),
+    ...(/\.md$/.test(p) ? [...prose(text).matchAll(/\((?:Part \d\d|\d\.\d+(?:, \d\.\d+)*)\)/g)].map(m => `${p}: gallery number ${m[0]}`) : []),
+  ];
+}));
+
+// A heading has something under it before the next heading of its level or above, and before the end.
+report('headings: no README ends on a heading or holds one with nothing under it', mdFiles.flatMap(p => {
+  const lines = read(p).replace(/```[\s\S]*?```/g, 'code').split('\n').filter(l => l.trim());
+  return lines.flatMap((l, i) => {
+    const h = l.match(/^(#{1,6}) /);
+    if (!h) return [];
+    const next = lines[i + 1];
+    const n = next && next.match(/^(#{1,6}) /);
+    return !next ? [`${p}: ends on the heading "${l}"`] : n && n[1].length <= h[1].length ? [`${p}: nothing under the heading "${l}"`] : [];
+  });
+}));
+
+// Links in the documents and READMEs reach a file of the bundle, and an id in it when they name one.
+const ids = new Map();
+const idsOf = p => { if (!ids.has(p)) ids.set(p, new Set([...read(p).matchAll(/\sid="([^"]+)"/g)].map(m => m[1]))); return ids.get(p); };
+const reach = (from, ref) => {
+  if (/^[a-z][\w+.-]*:/i.test(ref) || /\{\{/.test(ref)) return null;
+  const [file, frag] = ref.split('#');
+  const target = file ? path.posix.normalize(path.posix.join(path.posix.dirname(from), decodeURIComponent(file))) : from;
+  if (!all.includes(target)) return `${from}: ${ref} reaches no file of the bundle`;
+  // A template's notes wait for their markers, which the page checks report on the template itself.
+  if (frag && /\.html$/.test(target) && !(target === from && /^template/.test(from)) && !idsOf(target).has(decodeURIComponent(frag))) return `${from}: ${ref} names no id in ${target}`;
+  return null;
+};
+report(`links: every link in ${pages.length} documents and ${mdFiles.length} READMEs reaches a file of the bundle, and its id; documents sit beside report-kit/`, [
+  // A template is copied whole beside report-kit/, so it sits there and links the kit from there (§2).
+  ...pages.map(p => (p.includes('/') ? `${p}: a document or template outside the root; a copy beside report-kit/ would lose its kit links` : null)),
+  ...pages.flatMap(p => [...read(p).replace(/<!--[\s\S]*?-->/g, '').matchAll(/\s(?:href|src)="([^"]+)"/g)].map(m => reach(p, m[1]))),
+  ...mdFiles.flatMap(p => [...prose(read(p)).matchAll(/\]\(([^)\s]+)\)/g)].map(m => reach(p, m[1]))),
+]);
+
+// A file the READMEs name in code is in the bundle. The platform's own paths and the repository's
+// tools are named as such in README.md, and a bare file name may sit in any folder.
+const PLATFORM = /^(SKILL\.md|index\.html|artifact-type\/|design-system\.json)$/;
+const REPOSITORY = /^(tools|checks|offline|docs|import)\//;
+const inCode = mdFiles.flatMap(p => [...read(p).replace(/```[\s\S]*?```/g, '').matchAll(/`([^`\s<>{}]+(?:\.(?:html|css|js|mjs|json|md|txt|woff2)|\/))`/g)].map(m => [p, m[1]]));
+// The notes in a document or template name files the same way, in plain text.
+const inNotes = pages.flatMap(p => [...read(p).matchAll(/<!--([\s\S]*?)-->/g)].flatMap(c => [...c[1].matchAll(/(?<![\w./-])([\w./-]*\w\.(?:html|css|js|md)|[\w-]+\/)(?![\w/])/g)].map(m => [p, m[1]])));
+report(`files named: ${new Set([...inCode, ...inNotes].map(n => n[1])).size} paths in the READMEs and in the notes of documents, each in the bundle`, [...inCode, ...inNotes].map(([p, f]) => {
+  if (PLATFORM.test(f) || REPOSITORY.test(f)) return null;
+  const here = all.includes(f) || (f.endsWith('/') && all.some(a => a.startsWith(f))) || (!f.includes('/') && all.some(a => a.split('/').pop() === f));
+  return here ? null : `${p}: \`${f}\` is not in the bundle`;
+}));
+
+// Every file at the root, every folder and every component is named in README.md.
+const filesTable = (readme.match(/^## Files\n[\s\S]*?(?=\n## )/m) || [''])[0];
+const filesListed = [...filesTable.matchAll(/`([^`]+)`/g)].map(m => m[1]);
+const tops = [...new Set(all.map(p => (p.includes('/') ? `${p.split('/')[0]}/` : p)))].filter(p => p !== 'README.md');
+report(`documented: ${tops.length} root entries in the Files table of README.md, ${folders.length} component folders in it or in the component index`, [
+  ...tops.map(t => (filesListed.some(l => l === t || l.startsWith(t)) ? null : `${t}: no row in the Files table of README.md`)),
+  ...folders.map(f => (f === 'Cover' ? filesListed.includes('components/Cover/preview.html') : readme.includes(`](components/${f}/README.md)`)) ? null : `components/${f}: not named in README.md`),
+  ...['SKILL.md', 'index.html', 'artifact-type/', 'design-system.json'].map(f => (filesListed.includes(f) ? null : `${f}: the platform's path has no row in the Files table`)),
 ]);
 
 // ---------- rendering ----------

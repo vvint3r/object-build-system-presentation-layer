@@ -70,8 +70,9 @@ export default [
   },
 
   {
-    // Every relationship joins two entities that exist and are not the same entity. A line leaves
-    // each side of an entity at most once, so an entity takes part in 4 relationships at most.
+    // Every relationship joins two entities that exist and are not the same entity, and its from
+    // entity comes first in reading order, so its name reads left to right or top to bottom. A line
+    // leaves each side of an entity at most once, so an entity takes part in 4 relationships at most.
     name: 'er-edges', level: 'fail', source: 'SPEC §8.20, Entity relationship', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, out = [];
@@ -81,11 +82,13 @@ export default [
         try { d = JSON.parse(el.querySelector('script[type="application/json"]').textContent); } catch (e) { continue; }
         const where = H.path(el), bad = v => out.push({ where, value: v });
         const nodes = (Array.isArray(d.nodes) ? d.nodes : []).filter(Boolean), edges = (Array.isArray(d.edges) ? d.edges : []).filter(Boolean);
-        const ids = new Set(nodes.map(n => n.id));
+        const byId = new Map(nodes.map(n => [n.id, n]));
         edges.forEach((e, i) => {
-          if (!ids.has(e.from)) bad(`relationship ${i + 1}: from "${e.from}" is no entity`);
-          if (!ids.has(e.to)) bad(`relationship ${i + 1}: to "${e.to}" is no entity`);
-          if (e.from === e.to) bad(`relationship ${i + 1}: joins "${e.from}" to itself`);
+          if (!byId.has(e.from)) bad(`relationship ${i + 1}: from "${e.from}" is no entity`);
+          if (!byId.has(e.to)) bad(`relationship ${i + 1}: to "${e.to}" is no entity`);
+          if (e.from === e.to) { bad(`relationship ${i + 1}: joins "${e.from}" to itself`); return; }
+          const f = byId.get(e.from), t = byId.get(e.to);
+          if (f && t && (f.row > t.row || (f.row === t.row && f.col > t.col))) bad(`relationship ${i + 1}: from "${e.from}" comes after to "${e.to}" in reading order`);
         });
         for (const n of nodes) {
           const k = edges.filter(e => e.from === n.id || e.to === n.id).length;

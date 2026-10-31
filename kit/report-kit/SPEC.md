@@ -752,8 +752,10 @@ The JSON holds `nodes` and `edges` only, placed on the grid as in a flow diagram
 - Counts are written in words, not as crow's feet, so a reader needs no notation to read them.
 - A count stands beside the entity it counts, below a line across or to the right of a line down. Two counts on one straight line stand at least 24px apart.
 - The relationship's `label` names it with a verb, read from `from` to `to`. It stands where a flow's edge label does.
+- The `from` entity comes first in reading order: in an earlier row, or earlier in the same row. The name then reads left to right or top to bottom.
 - One relationship leaves each side of an entity, so an entity takes part in 4 at most. An entity never relates to itself.
-- A key above the drawing names the `PK` and `FK` tags in use.
+- A line runs on to meet the entity at each end, since it carries no arrowhead.
+- A key above the drawing names the `PK` and `FK` tags in use, and says that a count tells how many of the entity beside it.
 - An entity relationship diagram has no emphasised node.
 
 | Item | At most | Reason |

@@ -262,14 +262,18 @@ export default [
           return { id: n.id, b };
         });
         const lines = [];
-        g.edges.forEach(e => e.points.slice(1).forEach((p, i) => lines.push({ e, s: [e.points[i], p] })));
+        g.edges.forEach(e => e.points.slice(1).forEach((p, i) => lines.push({ e, s: [e.points[i], p], first: i === 0, last: i === e.points.length - 2 })));
         g.lines.filter(l => l.points).forEach(l => lines.push({ e: null, kind: l.kind, s: l.points }));
         for (let i = 0; i < nodes.length; i++) for (let j = i + 1; j < nodes.length; j++) {
           if (meet(nodes[i].b, nodes[j].b)) bad(`node "${nodes[i].id}" overlaps node "${nodes[j].id}"`);
         }
-        for (const { e, s } of lines) {
+        for (const { e, s, first, last } of lines) {
           if (!e) continue;
-          for (const n of nodes) if (hits(s, grow(n.b, CLEAR - 0.5))) bad(`edge ${e.from} to ${e.to} passes within 8px of node "${n.id}"`);
+          for (const n of nodes) {
+            // a line with no arrowhead meets the boxes it joins with its end runs
+            if ((first && n.id === e.from) || (last && n.id === e.to)) continue;
+            if (hits(s, grow(n.b, CLEAR - 0.5))) bad(`edge ${e.from} to ${e.to} passes within 8px of node "${n.id}"`);
+          }
         }
         const labels = [];
         g.edges.forEach(e => { if (e.labelEl) labels.push({ name: `edge label "${e.label}"`, b: box(e.labelEl) }); });

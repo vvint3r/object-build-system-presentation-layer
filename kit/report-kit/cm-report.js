@@ -1157,7 +1157,12 @@
       geo.nodes.push({ id: n.id, type: n.type, el: n.el });
     });
     routes.forEach(function (r) {
-      var p = r.p.map(function (pt) { return [X(pt[0]), Y(pt[1])]; });
+      var p = r.p.map(function (pt) { return [X(pt[0]), Y(pt[1])]; }), n = p.length;
+      // a line with no arrowhead runs on to meet the box at each end
+      if (d.mode.bare) [[0, 1], [n - 1, n - 2]].forEach(function (k) {
+        var u = dgDir(p[k[1]], p[k[0]]);
+        p[k[0]] = [p[k[0]][0] + u[0] * DG.stand, p[k[0]][1] + u[1] * DG.stand];
+      });
       var grp = svgEl('g', { 'class': 'cm-diagram__edge cm-diagram__edge--' + r.e.kind, 'data-from': r.e.from.id, 'data-to': r.e.to.id });
       grp.appendChild(svgEl('path', { 'class': 'cm-diagram__line', d: dgPathD(p, d.mode.bare) }));
       if (!d.mode.bare) grp.appendChild(svgEl('polygon', { 'class': 'cm-diagram__head', points: dgHead(p) }));
@@ -1570,10 +1575,10 @@
     return { nodes: nodes, edges: edges, lanes: [], bounds: [], dir: 'right', C: C, R: R };
   }
 
-  // The key names the key tags in use; the counts at the ends of a line are words and need none.
+  // The key names the key tags in use, and says which entity a count counts.
   function erKey(m) {
     var keys = Object.keys(ER_KEYS).filter(function (k) { return m.nodes.some(function (n) { return n.attrs.some(function (a) { return a.key === k; }); }); });
-    if (!keys.length) return null;
+    if (!keys.length && !m.edges.length) return null;
     var key = mk('div', 'cm-diagram__key');
     keys.forEach(function (k) {
       var item = mk('span', 'cm-diagram__key-item');
@@ -1581,6 +1586,12 @@
       item.appendChild(document.createTextNode(ER_KEYS[k][1]));
       key.appendChild(item);
     });
+    if (m.edges.length) {
+      var item = mk('span', 'cm-diagram__key-item');
+      item.appendChild(mk('span', 'cm-label', '1 or more'));
+      item.appendChild(document.createTextNode('How many of the entity beside it'));
+      key.appendChild(item);
+    }
     return key;
   }
   function erNode(n, e) {

@@ -459,6 +459,14 @@
       });
     });
     var scaleBelow = list(o.visualMap).some(function (v) { return v && v.show !== false && v.orient === 'horizontal' && v.top == null; });
+    // a horizontal scale bar shortens to fit the chart's width with its end labels beside it (the
+    // bar's own padding is 5px a side, and each label sits its text gap from the bar)
+    if (inst) list(o.visualMap).forEach(function (v) {
+      if (!v || v.show === false || v.orient !== 'horizontal') return;
+      var ends = list(v.text).reduce(function (a, s) { return a + measure(s) + (v.textGap == null ? 10 : v.textGap); }, 0);
+      var room = Math.floor(inst.getWidth() - (typeof v.left === 'number' ? v.left : 0) - ends - 2 * 5 - 4);
+      if (room < (v.itemHeight == null ? 120 : v.itemHeight)) v.itemHeight = Math.max(40, room);
+    });
     if (axisChart && !Array.isArray(o.grid)) {
       o.grid = o.grid || {};
       if (o.grid.top == null) o.grid.top = Math.max(20 + (hasLegend ? 36 : 0) + (yNamed ? 26 : 0), markAbove ? 28 : 0) + cm.top;
@@ -469,6 +477,19 @@
       if (s.type === 'bar' && s.stack) s.itemStyle = merge({ borderRadius: 3, borderColor: t.surface, borderWidth: 1.5 }, s.itemStyle || {});
       else if (s.type === 'bar' && yCat) s.itemStyle = merge({ borderRadius: [0, 4, 4, 0] }, s.itemStyle || {});
       if (s.type === 'line' && s.areaStyle && s.areaStyle.opacity == null) s.areaStyle.opacity = 0.18;
+      // a value label at a horizontal bar's right end: the grid keeps room at the right for the
+      // widest one, so a bar that reaches the axis maximum keeps its label inside the chart
+      if (s.type === 'bar' && yCat && !s.stack && !s.labelLayout && axisChart && !Array.isArray(o.grid)) {
+        var names = list((list(o.yAxis).filter(function (a) { return a && a.type === 'category'; })[0] || {}).data);
+        var room = 0;
+        list(s.data).forEach(function (d, j) {
+          var l = merge(s.label || {}, (d && d.label) || {}), f = l.formatter, v = val(d);
+          if (!l.show || l.position !== 'right' || typeof v !== 'number') return;
+          var text = typeof f === 'string' ? f.replace(/\{a\}/g, s.name || '').replace(/\{b\}/g, String(val(names[j]) == null ? '' : val(names[j]))).replace(/\{c\}/g, num(v, dp)) : num(v, dp);
+          room = Math.max(room, measure(text) + 8 + (l.distance == null ? 5 : l.distance) + 4);
+        });
+        if (room) o.grid.right = Math.max(o.grid.right == null ? 24 : o.grid.right, room);
+      }
       if (s.type === 'pie') {
         if (s.label && s.label.show) s.label = merge({ overflow: 'none', alignTo: 'none', edgeDistance: 8 }, s.label);
         s.labelLine = merge({ length: 10, length2: 12, lineStyle: { color: t.ink, width: 1 } }, s.labelLine || {});

@@ -11,6 +11,8 @@
 //   no cm-id        the cm-id tag removed: head-order fails, naming the missing tag (SPEC §2; §7)
 //   wrapped claim   one key finding's claim and evidence wrapped in a <div>: claim-wrapper fails
 //                   (SPEC §8.3)
+//   clipped label   Figure 1 without the room its end labels need at the right: chart-text-fit
+//                   fails, naming a label the chart cuts off (SPEC §5; §9)
 
 import { spawnSync } from 'node:child_process';
 import { cpSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
@@ -41,6 +43,12 @@ const CASES = [
     html: edit(sample, /(<ol class="cm-findings">\s*<li>)([\s\S]*?)(<\/li>)/, '$1<div>$2</div>$3'),
     fails: ['claim-wrapper'],
     finding: 'the claim line sits in a <div>',
+  },
+  {
+    file: 'clipped-label.html',
+    html: edit(sample, /"grid": \{"right": 84\}/, '"grid": {"right": 4}'),
+    fails: ['chart-text-fit'],
+    finding: 'past the right',
   },
 ];
 

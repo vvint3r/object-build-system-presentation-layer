@@ -1715,7 +1715,7 @@ The kit has no search, faceted browse or version selector, since each needs a se
 
 **Method:** ECharts 5.5.1, SVG renderer, option JSON inside `<script type="application/json">` within `.cm-chart[data-chart]`. Agents **MUST NOT** call `echarts.init` or write chart JavaScript. The JSON **MUST** be valid JSON (double quotes, no comments, no functions, no trailing commas). Chart types that ECharts cannot draw from JSON alone are declared with a `"cm"` key (**Kit declarations** below).
 
-**Applied automatically — do not set these:** fonts, text colors, axis lines, gridlines, tick removal, legend look and placement, axis-title placement, plot top/bottom padding (worked out from the legend, axis titles, reference-line labels and a heatmap's scale bar), tooltip look, series palette, bar width (≤ 16px) and rounding, stacked-segment gaps, line width 2.5, hidden symbols, area opacity 0.18, markLine/markArea styling, label styling, spacing of end labels that would touch, heatmap ramp, animation timing, renderer, and everything a kit declaration draws.
+**Applied automatically — do not set these:** fonts, text colors, axis lines, gridlines, tick removal, legend look and placement, axis-title placement, plot top/bottom padding (worked out from the legend, axis titles, reference-line labels and a heatmap's scale bar), the room at the right for a horizontal bar's value labels, tooltip look, series palette, bar width (≤ 16px) and rounding, stacked-segment gaps, line width 2.5, hidden symbols, area opacity 0.18, markLine/markArea styling, label styling, spacing of end labels that would touch, heatmap ramp, animation timing, renderer, and everything a kit declaration draws.
 
 **Anatomy (MUST, in this order):**
 
@@ -1752,7 +1752,7 @@ The kit has no search, faceted browse or version selector, since each needs a se
 | --- | --- | --- | --- | --- |
 | `bar` | A few to a dozen categories on one measure | One value per category. Horizontal (`yAxis.type: "category"`) when labels are long or ranked, largest at top (data listed smallest first) | Value labels on every bar up to 12; a target as a `markLine` | A value axis that does not start at zero |
 | Bullet: `bar` + `cm` | Each measure against its target, with optional bands that grade it | A value and a target per measure, all in one unit | Target mark, values and band names, all drawn by the kit | Measures in different units on one axis |
-| `heatmap` | A magnitude across two categories at once, such as weekday by hour | One value per cell; `visualMap` with min/max and `text` end labels; `"yAxis": {"inverse": true}`; words for the scale that hold in both themes, such as how far a cell stands out from the page, never "darker" | The scale bar's end labels | More rows than fit at about 40px each |
+| `heatmap` | A magnitude across two categories at once, such as weekday by hour | One value per cell; `visualMap` with min/max and `text` end labels; `"yAxis": {"inverse": true}`; words for the scale that hold in both themes, such as how far a cell stands out from the page, never "darker" | The scale bar's end labels; the kit shortens a horizontal bar that leaves them no room | More rows than fit at about 40px each |
 
 *Change: how a measure moves over time.*
 
@@ -1797,7 +1797,7 @@ An interval band and a box mark a range, not a level, so the zero rule does not 
 - Target or threshold: `"markLine": {"data": [{"yAxis": 95, "label": {"formatter": "Target 95%", "position": "insideStartTop"}}]}` (use `xAxis` for vertical lines and horizontal bars, `position: "end"`).
 - Event: vertical markLine on the category (`{"xAxis": "Wk 7"}`) with a 1–3 word label.
 - Period band: `"markArea": {"data": [[{"xAxis": "Wk 6"}, {"xAxis": "Wk 8"}]]}`.
-- Direct labels: `"endLabel": {"show": true, "formatter": "{a}"}` names a line at its end (add `"grid": {"right": 64}`, more for long names); when every line carries one, the legend is left out. `"label": {"show": true, "position": "right", "formatter": "{c}%"}` on bars. The kit sets every value label, on a series or on a single point, in ink on the surface colour, and draws a series above its reference lines, so a line never runs through a number. End labels that would touch move apart.
+- Direct labels: `"endLabel": {"show": true, "formatter": "{a}"}` names a line at its end (add `"grid": {"right": 64}`, more for long names); when every line carries one, the legend is left out. `"label": {"show": true, "position": "right", "formatter": "{c}%"}` on bars; on a horizontal bar chart the kit keeps room at the right for the widest label. The kit sets every value label, on a series or on a single point, in ink on the surface colour, and draws a series above its reference lines, so a line never runs through a number. End labels that would touch move apart.
 - Value labels: the kit writes `{c}` with thousands separators and at the chart's precision, the most decimal places any value in its series carries. So `94.0` beside `96.1` reads `94.0`, and `13240` reads `13,240`. The ends of a slope and a bullet's values follow the same rule. Values stay numbers in the JSON, never strings.
 
 **Kit declarations.** Option JSON carries no functions, so four chart types are declared with a `"cm"` key and built by the kit's script at every draw, from the current tokens: theme, print and dark mode work as for any chart. The rest of the JSON stays ordinary ECharts, with its axes, series names, axis titles and annotations, and every rule above applies to it. `chart` names the type.
@@ -2074,6 +2074,8 @@ Changed in 2.0:
 - End labels that name every line take the place of a legend, and a chart's JSON sets no `legend` key (§9).
 - A slope chart's target is a `markLine` labelled with its value (§9).
 - A heatmap's scale is described in words true in both themes, never "darker" (§9).
+- No text a chart draws runs past the chart's edge, at any width (§5, §9).
+- A horizontal bar chart keeps room at the right for its value labels, and a horizontal scale bar shortens to fit its end labels (§9).
 - Value labels carry thousands separators and the chart's precision (§9).
 - A delta keeps the case it is written in (§4). A table cell that does not apply reads `n/a` (§8.11).
 - No text is under 11px on screen or on paper: labels, chips, tags and deltas are 11px at +0.06em, and diagrams set their text larger as print scales them (§4, §8.20).

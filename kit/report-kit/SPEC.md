@@ -1976,7 +1976,7 @@ Headings are `h1` to `h6` and table titles.
 
 ## 14. Pre-publish checklist
 
-1. Started from the template for the document's kind; no class, color, font or inline style outside §1 rule 2.
+1. Started from the template for the document's kind, or for its page type (§7.6); no class, color, font or inline style outside §1 rule 2.
 2. Top bar with the wordmark, one series chip and the theme toggle; a print button only when the document is asked to carry one. Masthead complete with labelled metadata and the type chip for the kind; title ≤ 10 words. A report's period left out of the masthead or the title carries its omission comment (§7.5); a guide or a reference has no period.
 3. Report summary: lede, 2 to 4 KPIs with stated comparisons (or the KPI strip's omission comment, §7.5), 3 to 5 findings.
 4. Every summary number reappears in the body with its source.

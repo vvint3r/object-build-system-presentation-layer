@@ -14,7 +14,7 @@
 | Every page carries `<meta name="cm-kit" content="2.0">`, and its footer names Content Morphia Report Kit 2.0 | §2, §7.1 | `head-order`, `footer`, failure |
 | Every document carries one `cm-id` tag, after `cm-kind`, or after `cm-kit` on a report without a kind tag | §2, §7, §8.31 | `head-order`, failure |
 | A key finding's or a recommended action's claim line is the `<li>`'s own first child; no element wraps the item | §8.3, §8.19 | `claim-wrapper`, failure |
-| A page of a type starts from its type's template | §1 rule 1, §7.6 | Checklist, §14 item 1 |
+| A page of a type starts from its type's template | §1 rule 1, §7.6, §14 item 1 | Checklist, §14 item 1 |
 
 The `doc-id` warning leaves the checks: `head-order` holds the rule and names the missing tag. The
 checks gain tests of their own, `checks/test.mjs` (`npm test`).
@@ -102,7 +102,7 @@ sample passes every check: 247 ok, 0 FAIL, 0 warn.
 
 | File | Change |
 | --- | --- |
-| `kit/report-kit/SPEC.md` | Version 2.0; §1 rule 1 names a type's template; §2, §7 and §8.31 require `cm-id`; §8.3 and §8.19 state the claim line's place; §15 splits into Changed in 1.2 and Changed in 2.0 and holds the measured migration note |
+| `kit/report-kit/SPEC.md` | Version 2.0; §1 rule 1 and §14 item 1 name a type's template; §2, §7 and §8.31 require `cm-id`; §8.3 and §8.19 state the claim line's place; §15 splits into Changed in 1.2 and Changed in 2.0 and holds the measured migration note |
 | `checks/markup.mjs` | `head-order` expects 2.0 and requires `cm-id`; `doc-id` removed |
 | `checks/structure.mjs` | `claim-wrapper` fails; `footer` names 2.0 |
 | `checks/exempt.mjs` | `doc-id` leaves the gallery's exemptions |

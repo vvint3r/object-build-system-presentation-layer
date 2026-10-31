@@ -458,6 +458,8 @@ pre code{all:unset}
 .cm-facts dd{font-size:15px;line-height:1.6}
 /* workflow stages: the procedure's numbered list (section 19); the facts close each stage */
 .cm-stages>li>.cm-facts{margin-top:8px}
+/* a list that closes a labelled part ends on its text, so the part's 24px gap follows it */
+.cm-sub>.cm-bands>li:last-child,.cm-sub>.cm-related>li:last-child{padding-bottom:0}
 /* parts: named parts as tiles. Peers sit two or three across; an ordered list stacks top first; a matrix is two by two, each cell naming its position */
 .cm-parts{--n:2;list-style:none;padding:0;display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:24px}
 ul.cm-parts:has(>li:nth-child(3):last-child),ul.cm-parts:has(>li:nth-child(5)){--n:3}

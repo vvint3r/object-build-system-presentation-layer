@@ -1,0 +1,246 @@
+<!doctype html>
+<!--
+  Content Morphia · Report Kit 1.2 · METRIC TEMPLATE
+  Copy this file for every new metric page: one measure, its definition, latest value and computation.
+  It is a reference (SPEC.md §7.4) with the metric recipe (§7.12): the reference parts, with the metric parts between Properties and Relationships.
+  Replace every {{ … }} placeholder. Parts and their order are fixed; a metric page may add sections of its own between them.
+  A reference has no executive summary, KPI strip, summary card, recommendations card or Period.
+  A required part the subject has no content for is left out with an omission comment in its place (SPEC.md §7.5), for example:
+  <!- - cm-omit examples: The system has no case to work through. - ->
+  Paths below assume the reference sits inside report-kit/. Elsewhere, point the two kit paths at report-kit/cm-report.css and report-kit/cm-report.js.
+  In a set, the file is named {Kind} - {Short Title}.html, the cm-id is that name in lowercase with hyphens, and the wordmark and breadcrumb link to the set's index.html (SPEC.md §8.31).
+  A document outside a set writes its set and area steps as <span>s and links the wordmark to #top. In a set, npm run index -- <folder> rewrites index.html and npm run links -- <folder> checks the links.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{ Name of the thing }}</title>
+<meta name="cm-kit" content="1.2">
+<meta name="cm-kind" content="reference">
+<meta name="cm-id" content="{{ id }}">
+<meta name="cm-type" content="metric">
+<script>(function(){var t;try{t=localStorage.getItem('cm-theme')}catch(e){}document.documentElement.dataset.theme=t||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')})()</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,300;1,400&family=JetBrains+Mono:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="cm-report.css">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js" defer></script>
+<script src="cm-report.js" defer></script>
+</head>
+<body>
+
+<header class="cm-topbar">
+  <div class="cm-topbar__in">
+    <a class="cm-wordmark" href="index.html">{{ publisher-name }}</a>
+    <span class="cm-chip">{{ Reference series }}</span>
+    <div class="cm-topbar__actions">
+      <button class="cm-btn cm-btn--quiet cm-btn--sm" type="button" data-cm-theme-toggle>Dark mode</button>
+    </div>
+  </div>
+</header>
+
+<div class="cm-shell">
+  <!-- CONTENTS RAIL: one link per <section id>. Two-digit numbers; the appendix uses a letter. -->
+  <nav class="cm-rail" aria-label="Contents">
+    <div class="cm-toc">
+      <span class="cm-label">Contents</span>
+      <ol>
+        <li><a href="#definition"><span class="n">01</span>Definition</a></li>
+        <li><a href="#properties"><span class="n">02</span>Properties</a></li>
+        <li><a href="#status"><span class="n">03</span>Status</a></li>
+        <li><a href="#measurement"><span class="n">04</span>Measurement</a></li>
+        <li><a href="#relationships"><span class="n">05</span>Relationships</a></li>
+        <li><a href="#examples"><span class="n">06</span>Examples</a></li>
+        <li><a href="#sources"><span class="n">A</span>Notes &amp; sources</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main class="cm-main" id="top">
+
+    <!-- MASTHEAD (required). The title is the name of the thing. No Period field in a reference. -->
+    <header class="cm-mast">
+      <nav class="cm-crumbs" aria-label="Breadcrumb">
+        <a href="index.html">{{ Document set }}</a><span class="sep" aria-hidden="true">/</span>
+        <a href="index.html#{{ area-id }}">{{ Area }}</a><span class="sep" aria-hidden="true">/</span>
+        <span aria-current="page">{{ Short title }}</span>
+      </nav>
+      <div class="cm-bar" aria-hidden="true"></div>
+      <h1 class="cm-mast__title">{{ Name of the thing }}</h1>
+      <p class="cm-mast__dek">{{ One sentence: what the thing is and who uses it. }}</p>
+      <!-- METADATA: Status chips: Draft = cm-chip, In review = cm-chip--warn, Final = cm-chip--ok -->
+      <dl class="cm-mast__meta">
+        <div><dt>Status</dt><dd><span class="cm-chip">Reference</span><span class="cm-chip cm-chip--ok">{{ Final }}</span></dd></div>
+        <div><dt>Published</dt><dd>{{ YYYY-MM-DD }}</dd></div>
+        <div><dt>Reading time</dt><dd>{{ N }} min</dd></div>
+        <div><dt>Version</dt><dd>{{ 1.0 }}</dd></div>
+      </dl>
+      <dl class="cm-byline">
+        <div><dt>Prepared by</dt><dd>{{ Team or author }}</dd></div>
+        <div><dt>Distribution</dt><dd>{{ Audience }}</dd></div>
+      </dl>
+    </header>
+
+    <!-- 01 DEFINITION (required): one paragraph that says what the thing is, with its key phrase in bold -->
+    <section class="cm-section" id="definition" aria-labelledby="definition-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 01</span>
+        <h2 class="cm-section__title" id="definition-t">Definition</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>{{ The thing is }} <strong>{{ key phrase }}</strong>{{ , in two or three sentences. }}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 PROPERTIES (required): the metric detail -->
+    <section class="cm-section" id="properties" aria-labelledby="properties-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 02</span>
+        <h2 class="cm-section__title" id="properties-t">Properties</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>{{ What the properties cover, }} <strong>{{ key phrase }}</strong>{{ . }}</p>
+        </div>
+        <!-- The metric detail (SPEC.md §8.30), titled as the page is; its property sheet is the page's.
+             Its definition is the counting rule; the Definition part above says what the metric means.
+             No Related metrics inside it: Relationships lists them. -->
+        <div class="cm-card cm-metric cm-bleed" id="metric-{{ id }}">
+          <span class="cm-label cm-card__kicker">Metric</span>
+          <h3 class="cm-card__title">{{ Name of the metric }}</h3>
+          <p>{{ What the metric counts and how, in 15 to 60 words. }}</p>
+          <div class="cm-props">
+            <dl>
+              <dt>Formula</dt><dd><code>{{ formula }}</code></dd>
+              <dt>Unit</dt><dd>{{ Unit }}</dd>
+              <dt>Direction</dt><dd>{{ Higher is better }}</dd>
+              <dt>Target</dt><dd>{{ Target }}<a class="cm-cite" href="#src-2" id="cite-1">S2</a></dd>   <!-- optional -->
+            </dl>
+            <dl>
+              <dt>Source</dt><dd>{{ System }} <code>{{ schema.table }}</code><a class="cm-cite" href="#src-1" id="cite-2">S1</a></dd>
+              <dt>Owner</dt><dd>{{ Team }}<a class="cm-fn" href="#fn-1" id="fnref-1">1</a></dd>
+            </dl>
+          </div>
+          <div class="cm-sub">                                       <!-- optional; 2 to 4 bands, best first -->
+            <span class="cm-label">Thresholds</span>
+            <ul class="cm-bands">
+              <li><span><b>{{ Range }}</b><br>{{ The response, in one sentence. }}</span><span class="cm-chips"><span class="cm-chip cm-chip--ok">On track</span></span></li>
+              <li><span><b>{{ Range }}</b><br>{{ The response, in one sentence. }}</span><span class="cm-chips"><span class="cm-chip cm-chip--crit">Breach</span></span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 STATUS (required): the latest value -->
+    <section class="cm-section" id="status" aria-labelledby="status-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 03</span>
+        <h2 class="cm-section__title" id="status-t">Status</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>{{ Where the metric stands, }} <strong>{{ key phrase }}</strong>{{ . }}</p>
+        </div>
+        <!-- The status block (SPEC.md §8.22): the latest value under the metric's name, with the date it was true. -->
+        <div class="cm-status cm-bleed">
+          <div class="cm-status__head"><span class="cm-label">Status</span><span class="cm-meta">as of <time datetime="{{ YYYY-MM-DD }}">{{ YYYY-MM-DD }}</time></span></div>
+          <dl>
+            <div><dt>{{ Name of the metric }}</dt><dd>{{ Value and period }}<a class="cm-cite" href="#src-1" id="cite-3">S1</a></dd></div>
+          </dl>
+        </div>
+        <!-- Optional: a figure (SPEC.md §9) of the metric over time or by breakdown, with the target as a markLine. -->
+      </div>
+    </section>
+
+    <!-- 04 MEASUREMENT (optional): how it is computed -->
+    <section class="cm-section" id="measurement" aria-labelledby="measurement-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 04</span>
+        <h2 class="cm-section__title" id="measurement-t">Measurement</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>{{ How each value is computed, }} <strong>{{ key phrase }}</strong>{{ . }}</p>
+        </div>
+        <!-- Optional section: the counting rules in full, as definitions (SPEC.md §8.5), and the query (§8.17).
+             Leave the section out when the card's definition and formula say it all. -->
+        <aside class="cm-def">
+          <span class="cm-def__label">Definitions</span>
+          <dl>
+            <div><dt>{{ Rule }}</dt><dd>{{ What the rule counts and how, in 15 to 60 words. }}</dd></div>
+          </dl>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 05 RELATIONSHIPS (required). Tag: Report | Guide | Reference | Metric | Dataset | System -->
+    <section class="cm-section" id="relationships" aria-labelledby="relationships-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 05</span>
+        <h2 class="cm-section__title" id="relationships-t">Relationships</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>{{ What the thing feeds, depends on or is reported with, }} <strong>{{ key phrase }}</strong>{{ . }}</p>
+        </div>
+        <ul class="cm-related">
+          <li><span class="cm-tag">Metric</span><a href="{{ file.html#id }}">{{ Related item }}</a><p>{{ One sentence on how it relates. }}</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 06 EXAMPLES (required): worked cases, one h3 each -->
+    <section class="cm-section" id="examples" aria-labelledby="examples-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 06</span>
+        <h2 class="cm-section__title" id="examples-t">Examples</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>{{ What the examples show, }} <strong>{{ key phrase }}</strong>{{ . }}</p>
+          <h3>{{ Case }}</h3>
+          <p>{{ The inputs, the working and the result. }}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- APPENDIX A: NOTES & SOURCES (required) -->
+    <section class="cm-section cm-section--part" id="sources" aria-labelledby="sources-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Appendix A</span>
+        <h2 class="cm-section__title" id="sources-t">Notes &amp; sources</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-stack">
+          <h3 class="cm-h4">Notes</h3>
+          <ol class="cm-notes">
+            <li id="fn-1">{{ Footnote text. }} <a class="cm-back" href="#fnref-1" aria-label="Back to text">↩</a></li>
+          </ol>
+        </div>
+        <div class="cm-stack">
+          <h3 class="cm-h4">Sources</h3>
+          <!-- SOURCE REGISTER: key S1, S2… kept across versions; id src-N. Type: Dataset | Report | Interview | Document | System export.
+               Locator: a link, or the system and path in <code>. Cite after punctuation: <a class="cm-cite" href="#src-1" id="cite-1">S1</a>;
+               a cited source ends with <a class="cm-back" href="#cite-1" aria-label="Back to text">↩</a> to its first citation. -->
+          <ol class="cm-sources">
+            <li id="src-1"><span class="cm-id">S1</span><span><b>{{ Source title }}</b><br><span class="cm-tag">Dataset</span> {{ Publisher }} · <code>{{ system.path }}</code> <a class="cm-back" href="#cite-2" aria-label="Back to text">↩</a></span><span class="cm-meta">{{ refreshed }} <time datetime="{{ YYYY-MM-DD }}">{{ YYYY-MM-DD }}</time></span></li>
+            <li id="src-2"><span class="cm-id">S2</span><span><b>{{ Source title }}</b><br><span class="cm-tag">Document</span> {{ Publisher }} · <code>{{ system.path }}</code> <a class="cm-back" href="#cite-1" aria-label="Back to text">↩</a></span><span class="cm-meta">{{ published }} <time datetime="{{ YYYY-MM-DD }}">{{ YYYY-MM-DD }}</time></span></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <footer class="cm-footer">
+      <span><b>{{ Name of the thing }}</b></span>
+      <span>v{{ 1.0 }} · published {{ YYYY-MM-DD }}</span>
+      <span>{{ Team }}</span>
+      <span>Content Morphia Report Kit 1.2</span>
+    </footer>
+  </main>
+</div>
+</body>
+</html>

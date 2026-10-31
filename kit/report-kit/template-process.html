@@ -1,0 +1,280 @@
+<!doctype html>
+<!--
+  Content Morphia · Report Kit 1.2 · PROCESS TEMPLATE
+  Copy this file for every new process page: how one process runs between roles, stage by stage.
+  It is a reference (SPEC.md §7.4) with the process recipe (§7.11): the reference parts, with the process parts between Properties and Relationships.
+  Replace every {{ … }} placeholder. Parts and their order are fixed; a process page may add sections of its own between them.
+  The steps one role carries out belong in a guide (template-guide.html), linked from Relationships.
+  A reference has no executive summary, KPI strip, summary card, recommendations card or Period.
+  A required part the subject has no content for is left out with an omission comment in its place (SPEC.md §7.5), for example:
+  <!- - cm-omit examples: The system has no case to work through. - ->
+  Paths below assume the reference sits inside report-kit/. Elsewhere, point the two kit paths at report-kit/cm-report.css and report-kit/cm-report.js.
+  In a set, the file is named {Kind} - {Short Title}.html, the cm-id is that name in lowercase with hyphens, and the wordmark and breadcrumb link to the set's index.html (SPEC.md §8.31).
+  A document outside a set writes its set and area steps as <span>s and links the wordmark to #top. In a set, npm run index -- <folder> rewrites index.html and npm run links -- <folder> checks the links.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{ Name of the thing }}</title>
+<meta name="cm-kit" content="1.2">
+<meta name="cm-kind" content="reference">
+<meta name="cm-id" content="{{ id }}">
+<meta name="cm-type" content="process">
+<script>(function(){var t;try{t=localStorage.getItem('cm-theme')}catch(e){}document.documentElement.dataset.theme=t||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')})()</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,300;1,400&family=JetBrains+Mono:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="cm-report.css">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js" defer></script>
+<script src="cm-report.js" defer></script>
+</head>
+<body>
+
+<header class="cm-topbar">
+  <div class="cm-topbar__in">
+    <a class="cm-wordmark" href="index.html">{{ publisher-name }}</a>
+    <span class="cm-chip">{{ Reference series }}</span>
+    <div class="cm-topbar__actions">
+      <button class="cm-btn cm-btn--quiet cm-btn--sm" type="button" data-cm-theme-toggle>Dark mode</button>
+    </div>
+  </div>
+</header>
+
+<div class="cm-shell">
+  <!-- CONTENTS RAIL: one link per <section id>. Two-digit numbers; the appendix uses a letter. -->
+  <nav class="cm-rail" aria-label="Contents">
+    <div class="cm-toc">
+      <span class="cm-label">Contents</span>
+      <ol>
+        <li><a href="#definition"><span class="n">01</span>Definition</a></li>
+        <li><a href="#properties"><span class="n">02</span>Properties</a></li>
+        <li><a href="#flow"><span class="n">03</span>Flow</a></li>
+        <li><a href="#stages"><span class="n">04</span>Stages</a></li>
+        <li><a href="#relationships"><span class="n">05</span>Relationships</a></li>
+        <li><a href="#examples"><span class="n">06</span>Examples</a></li>
+        <li><a href="#sources"><span class="n">A</span>Notes &amp; sources</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main class="cm-main" id="top">
+
+    <!-- MASTHEAD (required). The title is the name of the thing. No Period field in a reference. -->
+    <header class="cm-mast">
+      <nav class="cm-crumbs" aria-label="Breadcrumb">
+        <a href="index.html">{{ Document set }}</a><span class="sep" aria-hidden="true">/</span>
+        <a href="index.html#{{ area-id }}">{{ Area }}</a><span class="sep" aria-hidden="true">/</span>
+        <span aria-current="page">{{ Short title }}</span>
+      </nav>
+      <div class="cm-bar" aria-hidden="true"></div>
+      <h1 class="cm-mast__title">{{ Name of the thing }}</h1>
+      <p class="cm-mast__dek">{{ One sentence: what the thing is and who uses it. }}</p>
+      <!-- METADATA: Status chips: Draft = cm-chip, In review = cm-chip--warn, Final = cm-chip--ok -->
+      <dl class="cm-mast__meta">
+        <div><dt>Status</dt><dd><span class="cm-chip">Reference</span><span class="cm-chip cm-chip--ok">{{ Final }}</span></dd></div>
+        <div><dt>Published</dt><dd>{{ YYYY-MM-DD }}</dd></div>
+        <div><dt>Reading time</dt><dd>{{ N }} min</dd></div>
+        <div><dt>Version</dt><dd>{{ 1.0 }}</dd></div>
+      </dl>
+      <dl class="cm-byline">
+        <div><dt>Prepared by</dt><dd>{{ Team or author }}</dd></div>
+        <div><dt>Distribution</dt><dd>{{ Audience }}</dd></div>
+      </dl>
+    </header>
+
+    <!-- 01 DEFINITION (required): one paragraph that says what the thing is, with its key phrase in bold -->
+    <section class="cm-section" id="definition" aria-labelledby="definition-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 01</span>
+        <h2 class="cm-section__title" id="definition-t">Definition</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>{{ The thing is }} <strong>{{ key phrase }}</strong>{{ , in two or three sentences. }}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 PROPERTIES (required): a property sheet of 2 to 4 groups -->
+    <section class="cm-section" id="properties" aria-labelledby="properties-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 02</span>
+        <h2 class="cm-section__title" id="properties-t">Properties</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>{{ What the properties cover, }} <strong>{{ key phrase }}</strong>{{ . }}</p>
+        </div>
+        <div class="cm-props">
+          <dl>
+            <dt>Process</dt><dd>{{ Name }}</dd>
+            <dt>Owner</dt><dd>{{ Team }}</dd>
+            <dt>Roles</dt><dd>{{ The roles that take part }}<a class="cm-fn" href="#fn-1" id="fnref-1">1</a></dd>
+          </dl>
+          <dl>
+            <dt>Starts</dt><dd>{{ The event that starts it }}</dd>
+            <dt>Ends</dt><dd>{{ The state that ends it }}</dd>
+            <dt>Rules</dt><dd>{{ The policy that sets its rules }}<a class="cm-cite" href="#src-1" id="cite-1">S1</a></dd>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 FLOW (required): the flow diagram -->
+    <section class="cm-section" id="flow" aria-labelledby="flow-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 03</span>
+        <h2 class="cm-section__title" id="flow-t">Flow</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>{{ How work moves between the roles, }} <strong>{{ key phrase }}</strong>{{ . }}</p>
+        </div>
+        <!-- A flow diagram (SPEC.md §8.20), one lane for each role. Every stage of the workflow is a node, under the same name. -->
+        <figure class="cm-figure cm-bleed">
+          <span class="cm-figure__kind">Figure 1</span>
+          <h3 class="cm-figure__title">{{ What the diagram shows }}</h3>
+          <p class="cm-figure__desc">{{ The stages from start to end, in the lane of the role that does each one. }}</p>
+          <div class="cm-diagram" data-diagram="flow" role="img" aria-label="">
+            <script type="application/json">
+            {
+              "nodes": [
+                {"id": "first", "type": "step", "label": "{{ Stage }}", "col": 1, "row": 1},
+                {"id": "choice", "type": "decision", "label": "{{ Question? }}", "col": 2, "row": 1},
+                {"id": "done", "type": "terminal", "label": "{{ End }}", "col": 3, "row": 1},
+                {"id": "second", "type": "step", "label": "{{ Stage }}", "col": 2, "row": 2}
+              ],
+              "edges": [
+                {"from": "first", "to": "choice"},
+                {"from": "choice", "to": "done", "label": "No"},
+                {"from": "choice", "to": "second", "label": "Yes"},
+                {"from": "second", "to": "done"}
+              ],
+              "groups": [
+                {"type": "lane", "label": "{{ Role }}", "row": 1},
+                {"type": "lane", "label": "{{ Role }}", "row": 2}
+              ]
+            }
+            </script>
+          </div>
+          <figcaption class="cm-caption"><span class="cm-caption__line">Source: {{ policy or system that sets the flow }}.</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 04 STAGES (required): the workflow -->
+    <section class="cm-section" id="stages" aria-labelledby="stages-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 04</span>
+        <h2 class="cm-section__title" id="stages-t">Stages</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>{{ Where the work stands or waits, }} <strong>{{ key phrase }}</strong>{{ . }}</p>
+        </div>
+        <!-- Optional: a status block (SPEC.md §8.22) here holds the stage measures that change, such as waits and rates. -->
+        <!-- The workflow (SPEC.md §8.25), titled as the page is; its stage names are the diagram's. No procedure on a process page. -->
+        <div class="cm-card cm-workflow cm-bleed">
+          <span class="cm-label cm-card__kicker">Workflow</span>
+          <h3 class="cm-card__title">{{ Name of the process }}</h3>
+          <p>{{ What starts the work and what ends it, in one sentence. }}</p>
+          <ol class="cm-stages">                                       <!-- 3 to 6 stages -->
+            <li>
+              <h4 class="cm-procedure__title">{{ Stage }}</h4>
+              <p>{{ What happens at this stage, in one sentence. }}</p>
+              <dl class="cm-facts">
+                <div><dt>Actor</dt><dd>{{ Role }}</dd></div>
+                <div><dt>Hands on when</dt><dd>{{ Condition }}</dd></div>
+              </dl>
+            </li>
+            <li>
+              <h4 class="cm-procedure__title">{{ Stage }}</h4>
+              <p>{{ What happens at this stage, in one sentence. }}</p>
+              <dl class="cm-facts">
+                <div><dt>Actor</dt><dd>{{ Role }}</dd></div>
+                <div><dt>Hands on when</dt><dd>{{ Condition }}</dd></div>
+              </dl>
+            </li>
+            <li>
+              <h4 class="cm-procedure__title">{{ Stage }}</h4>
+              <p>{{ What happens at this stage, in one sentence. }}</p>
+              <dl class="cm-facts">
+                <div><dt>Actor</dt><dd>{{ Role }}</dd></div>
+              </dl>
+            </li>
+          </ol>
+          <div class="cm-sub">                                       <!-- optional -->
+            <span class="cm-label">Exceptions</span>
+            <ul class="cm-list"><li>{{ A condition, and where the work goes instead. }}</li></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 RELATIONSHIPS (required). Tag: Report | Guide | Reference | Metric | Dataset | System -->
+    <section class="cm-section" id="relationships" aria-labelledby="relationships-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 05</span>
+        <h2 class="cm-section__title" id="relationships-t">Relationships</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>{{ What the thing feeds, depends on or is reported with, }} <strong>{{ key phrase }}</strong>{{ . }}</p>
+        </div>
+        <ul class="cm-related">
+          <li><span class="cm-tag">Metric</span><a href="{{ file.html#id }}">{{ Related item }}</a><p>{{ One sentence on how it relates. }}</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 06 EXAMPLES (required): worked cases, one h3 each -->
+    <section class="cm-section" id="examples" aria-labelledby="examples-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 06</span>
+        <h2 class="cm-section__title" id="examples-t">Examples</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>{{ What the examples show, }} <strong>{{ key phrase }}</strong>{{ . }}</p>
+          <h3>{{ Case }}</h3>
+          <p>{{ The inputs, the working and the result. }}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- APPENDIX A: NOTES & SOURCES (required) -->
+    <section class="cm-section cm-section--part" id="sources" aria-labelledby="sources-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Appendix A</span>
+        <h2 class="cm-section__title" id="sources-t">Notes &amp; sources</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-stack">
+          <h3 class="cm-h4">Notes</h3>
+          <ol class="cm-notes">
+            <li id="fn-1">{{ Footnote text. }} <a class="cm-back" href="#fnref-1" aria-label="Back to text">↩</a></li>
+          </ol>
+        </div>
+        <div class="cm-stack">
+          <h3 class="cm-h4">Sources</h3>
+          <!-- SOURCE REGISTER: key S1, S2… kept across versions; id src-N. Type: Dataset | Report | Interview | Document | System export.
+               Locator: a link, or the system and path in <code>. Cite after punctuation: <a class="cm-cite" href="#src-1" id="cite-1">S1</a>;
+               a cited source ends with <a class="cm-back" href="#cite-1" aria-label="Back to text">↩</a> to its first citation. -->
+          <ol class="cm-sources">
+            <li id="src-1"><span class="cm-id">S1</span><span><b>{{ Source title }}</b><br><span class="cm-tag">Dataset</span> {{ Publisher }} · <code>{{ system.path }}</code> <a class="cm-back" href="#cite-1" aria-label="Back to text">↩</a></span><span class="cm-meta">{{ refreshed }} <time datetime="{{ YYYY-MM-DD }}">{{ YYYY-MM-DD }}</time></span></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <footer class="cm-footer">
+      <span><b>{{ Name of the thing }}</b></span>
+      <span>v{{ 1.0 }} · published {{ YYYY-MM-DD }}</span>
+      <span>{{ Team }}</span>
+      <span>Content Morphia Report Kit 1.2</span>
+    </footer>
+  </main>
+</div>
+</body>
+</html>

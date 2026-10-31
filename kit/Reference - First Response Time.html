@@ -7,6 +7,7 @@
 <meta name="cm-kit" content="1.2">
 <meta name="cm-kind" content="reference">
 <meta name="cm-id" content="reference-first-response-time">
+<meta name="cm-type" content="metric">
 <script>(function(){var t;try{t=localStorage.getItem('cm-theme')}catch(e){}document.documentElement.dataset.theme=t||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')})()</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,10 +34,11 @@
       <span class="cm-label">Contents</span>
       <ol>
         <li><a href="#definition"><span class="n">01</span>Definition</a></li>
-        <li><a href="#measurement"><span class="n">02</span>Measurement</a></li>
-        <li><a href="#properties"><span class="n">03</span>Properties</a></li>
-        <li><a href="#relationships"><span class="n">04</span>Relationships</a></li>
-        <li><a href="#examples"><span class="n">05</span>Examples</a></li>
+        <li><a href="#properties"><span class="n">02</span>Properties</a></li>
+        <li><a href="#status"><span class="n">03</span>Status</a></li>
+        <li><a href="#measurement"><span class="n">04</span>Measurement</a></li>
+        <li><a href="#relationships"><span class="n">05</span>Relationships</a></li>
+        <li><a href="#examples"><span class="n">06</span>Examples</a></li>
         <li><a href="#sources"><span class="n">A</span>Notes &amp; sources</a></li>
       </ol>
     </div>
@@ -74,20 +76,117 @@
       </header>
       <div class="cm-section__body">
         <div class="cm-prose">
-          <p>First response time is <strong>the elapsed time from a ticket's creation to the first reply a person sends</strong>. Automatic acknowledgements do not count. The clock runs through nights and weekends, so it measures the wait a customer sees.</p>
+          <p>First response time is <strong>how long a customer waits for a person to answer a new ticket</strong>. Support Operations reports it each quarter and judges routing and staffing changes against it.</p>
         </div>
       </div>
     </section>
 
-    <!-- 02 MEASUREMENT -->
-    <section class="cm-section" id="measurement" aria-labelledby="measurement-t">
+    <!-- 02 PROPERTIES: the metric detail; its property sheet is the page's -->
+    <section class="cm-section" id="properties" aria-labelledby="properties-t">
       <header class="cm-section__head">
         <span class="cm-section__num">Part 02</span>
+        <h2 class="cm-section__title" id="properties-t">Properties</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>The metric has <strong>one owner, one source system and a quarterly target</strong>.</p>
+        </div>
+        <div class="cm-card cm-metric cm-bleed" id="metric-frt">
+          <span class="cm-label cm-card__kicker">Metric</span>
+          <h3 class="cm-card__title">First response time</h3>
+          <p>The time from a ticket's creation to the first public reply from an agent, counted through nights and weekends. A period reports the median across the tickets created in it. Automatic acknowledgements do not stop the clock.</p>
+          <div class="cm-props">
+            <dl>
+              <dt>Formula</dt><dd><code>median(first_human_reply_at − created_at)</code></dd>
+              <dt>Unit</dt><dd>Hours and minutes</dd>
+              <dt>Direction</dt><dd>Lower is better</dd>
+              <dt>Aliases</dt><dd>FRT</dd>
+            </dl>
+            <dl>
+              <dt>Source</dt><dd>Helpdesk warehouse, <code>support.tickets_fact</code><a class="cm-cite" href="#src-1" id="cite-1">S1</a></dd>
+              <dt>Lineage</dt><dd>Helpdesk API → <b>tickets_fact</b><sup>Source</sup> → frt_daily<sup>Derived</sup></dd>
+              <dt>Cadence</dt><dd>Daily, after the 06:00 UTC warehouse refresh<a class="cm-cite" href="#src-2" id="cite-2">S2</a></dd>
+              <dt>Owner</dt><dd>Support Operations Analytics</dd>
+            </dl>
+            <dl>
+              <dt>Target</dt><dd>Median of 2h 30m or less each quarter<a class="cm-cite" href="#src-3" id="cite-3">S3</a></dd>
+              <dt>Breakdowns</dt><dd>Channel, team and region</dd>
+              <dt>Reported in</dt><dd><a href="Sample%20Report%20-%20Q3%20Support%20Review.html#service">Customer support operations review</a>, each quarter</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 STATUS: the latest value under the metric's name, with its date -->
+    <section class="cm-section" id="status" aria-labelledby="status-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 03</span>
+        <h2 class="cm-section__title" id="status-t">Status</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>The support-wide median <strong>met its target in Q3 2026</strong>, while three of the five teams stayed above it.</p>
+        </div>
+        <div class="cm-status cm-bleed">
+          <div class="cm-status__head"><span class="cm-label">Status</span><span class="cm-meta">as of <time datetime="2026-09-30">2026-09-30</time></span></div>
+          <dl>
+            <div><dt>First response time</dt><dd>2h 14m, Q3 2026 median<a class="cm-cite" href="#src-4" id="cite-4">S4</a></dd></div>
+            <div><dt>Before chat routing</dt><dd>3h 05m median</dd></div>
+            <div><dt>Teams within target</dt><dd>2 of 5</dd></div>
+          </dl>
+        </div>
+        <figure class="cm-figure cm-bleed">
+          <span class="cm-figure__kind">Figure 1</span>
+          <h3 class="cm-figure__title">Median first response by team, Q3 2026</h3>
+          <p class="cm-figure__desc">Median minutes from creation to the first human reply, for tickets created from July to September, against the quarterly target.</p>
+          <div class="cm-chart" style="--h:300px" data-chart role="img" aria-label="Bar chart. Technical escalations 4h 41m, APAC 3h 20m and billing specialists 2h 58m sit above the 2h 30m target; EMEA 2h 05m and Americas 1h 42m sit below it.">
+            <script type="application/json">
+            {
+              "xAxis": {"type": "value", "min": 0, "max": 300, "interval": 60, "name": "Median first response, minutes"},
+              "yAxis": {"type": "category", "data": ["Tier 1 · Americas", "Tier 1 · EMEA", "Billing specialists", "Tier 1 · APAC", "Technical escalations"]},
+              "series": [{"name": "Median first response", "type": "bar",
+                "data": [
+                  {"value": 102, "label": {"formatter": "1h 42m"}},
+                  {"value": 125, "label": {"formatter": "2h 05m"}},
+                  {"value": 178, "label": {"formatter": "2h 58m"}},
+                  {"value": 200, "label": {"formatter": "3h 20m"}},
+                  {"value": 281, "label": {"formatter": "4h 41m"}}
+                ],
+                "label": {"show": true, "position": "right"},
+                "markLine": {"data": [{"xAxis": 150, "label": {"formatter": "Target 2h 30m", "position": "end"}}]}}]
+            }
+            </script>
+          </div>
+          <figcaption class="cm-caption">
+            <span class="cm-caption__line">Source: Customer support operations review, Q3 2026, Table 1.<a class="cm-cite" href="#src-4" id="cite-5">S4</a></span>
+          </figcaption>
+          <details class="cm-data">
+            <summary>View data</summary>
+            <table class="cm-table">
+              <thead><tr><th>Team</th><th class="num">Median first response</th><th class="num">Minutes</th></tr></thead>
+              <tbody>
+                <tr><td>Technical escalations</td><td class="num">4h 41m</td><td class="num">281</td></tr>
+                <tr><td>Tier 1 · APAC</td><td class="num">3h 20m</td><td class="num">200</td></tr>
+                <tr><td>Billing specialists</td><td class="num">2h 58m</td><td class="num">178</td></tr>
+                <tr><td>Tier 1 · EMEA</td><td class="num">2h 05m</td><td class="num">125</td></tr>
+                <tr><td>Tier 1 · Americas</td><td class="num">1h 42m</td><td class="num">102</td></tr>
+              </tbody>
+            </table>
+          </details>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 04 MEASUREMENT: how each ticket's time is counted -->
+    <section class="cm-section" id="measurement" aria-labelledby="measurement-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 04</span>
         <h2 class="cm-section__title" id="measurement-t">Measurement</h2>
       </header>
       <div class="cm-section__body">
         <div class="cm-prose">
-          <p>Each ticket gets its own time, and a period is reported as <strong>the median across its tickets</strong>. A few very long waits move the median far less than they move the mean.</p>
+          <p>Four clock rules set <strong>each ticket's time</strong>. The median keeps a few very long waits from moving the reported value, as they would move a mean.</p>
         </div>
         <aside class="cm-def">
           <span class="cm-def__label">Definitions</span>
@@ -115,42 +214,10 @@
       </div>
     </section>
 
-    <!-- 03 PROPERTIES -->
-    <section class="cm-section" id="properties" aria-labelledby="properties-t">
-      <header class="cm-section__head">
-        <span class="cm-section__num">Part 03</span>
-        <h2 class="cm-section__title" id="properties-t">Properties</h2>
-      </header>
-      <div class="cm-section__body">
-        <div class="cm-prose">
-          <p>The metric has <strong>one owner and one source system</strong>, and its target applies to each quarter.</p>
-        </div>
-        <div class="cm-props">
-          <dl>
-            <dt>Metric</dt><dd>First response time</dd>
-            <dt>Abbreviation</dt><dd>FRT</dd>
-            <dt>Unit</dt><dd>Hours and minutes</dd>
-            <dt>Statistic</dt><dd>Median</dd>
-          </dl>
-          <dl>
-            <dt>Owner</dt><dd>Support Operations Analytics</dd>
-            <dt>Source system</dt><dd>Helpdesk warehouse, <code>support.tickets_fact</code><a class="cm-cite" href="#src-1" id="cite-1">S1</a></dd>
-            <dt>Lineage</dt><dd>Helpdesk API → <b>tickets_fact</b><sup>Source</sup> → frt_daily<sup>Derived</sup></dd>
-            <dt>Update frequency</dt><dd>Daily, after the 06:00 UTC warehouse refresh<a class="cm-cite" href="#src-2" id="cite-2">S2</a></dd>
-          </dl>
-          <dl>
-            <dt>Target</dt><dd>Median of 2h 30m or less each quarter<a class="cm-cite" href="#src-3" id="cite-3">S3</a></dd>
-            <dt>Breakdowns</dt><dd>Channel, team and region</dd>
-            <dt>Reported in</dt><dd><a href="Sample%20Report%20-%20Q3%20Support%20Review.html#service">Customer support operations review</a>, each quarter</dd>
-          </dl>
-        </div>
-      </div>
-    </section>
-
-    <!-- 04 RELATIONSHIPS -->
+    <!-- 05 RELATIONSHIPS -->
     <section class="cm-section" id="relationships" aria-labelledby="relationships-t">
       <header class="cm-section__head">
-        <span class="cm-section__num">Part 04</span>
+        <span class="cm-section__num">Part 05</span>
         <h2 class="cm-section__title" id="relationships-t">Relationships</h2>
       </header>
       <div class="cm-section__body">
@@ -160,16 +227,16 @@
         <ul class="cm-related">
           <li><span class="cm-tag">Metric</span><a href="Sample%20Report%20-%20Q3%20Support%20Review.html#service">Resolved within SLA</a><p>Measures the whole ticket against its due time, so a fast first reply alone does not meet it.</p></li>
           <li><span class="cm-tag">Metric</span><a href="Sample%20Report%20-%20Q3%20Support%20Review.html#initiatives">Specialist queue wait</a><p>Starts when a ticket is escalated, often after the first reply has stopped this clock.</p></li>
-          <li><span class="cm-tag">Metric</span><a href="Sample%20Report%20-%20Q3%20Support%20Review.html#sentiment">Customer satisfaction</a><p>Rates the whole ticket, from a survey sent 24 hours after it closes.<a class="cm-cite" href="#src-4" id="cite-4">S4</a></p></li>
+          <li><span class="cm-tag">Metric</span><a href="Sample%20Report%20-%20Q3%20Support%20Review.html#sentiment">Customer satisfaction</a><p>Rates the whole ticket, from a survey sent 24 hours after it closes.<a class="cm-cite" href="#src-4" id="cite-6">S4</a></p></li>
           <li><span class="cm-tag">Guide</span><a href="Guide%20-%20Billing%20Escalation.html#steps">Billing ticket escalation to specialists</a><p>Step 6 sends the reply that stops the clock on an escalated billing ticket.</p></li>
         </ul>
       </div>
     </section>
 
-    <!-- 05 EXAMPLES -->
+    <!-- 06 EXAMPLES -->
     <section class="cm-section" id="examples" aria-labelledby="examples-t">
       <header class="cm-section__head">
-        <span class="cm-section__num">Part 05</span>
+        <span class="cm-section__num">Part 06</span>
         <h2 class="cm-section__title" id="examples-t">Examples</h2>
       </header>
       <div class="cm-section__body">
@@ -179,7 +246,7 @@
           <p>A customer opens a chat at 10:02 and gets an automatic acknowledgement at once. An agent sends the first reply at 10:09. First response time is 7m, since the acknowledgement does not stop the clock.</p>
           <h3>Email over a weekend</h3>
           <p>An email arrives at 14:00 on a Saturday, and an agent replies at 09:30 on Monday. First response time is 43h 30m, because the clock runs through the weekend.</p>
-          <p>The same rule shapes APAC's Q3 result. Its median was 3h 20m with unstaffed weekends counted, and 2h 31m on weekdays only.<a class="cm-cite" href="#src-4" id="cite-5">S4</a></p>
+          <p>The same rule shapes APAC's Q3 result. Its median was 3h 20m with unstaffed weekends counted, and 2h 31m on weekdays only.<a class="cm-cite" href="#src-4" id="cite-7">S4</a></p>
           <h3>Escalated billing ticket</h3>
           <p>A billing email arrives at 11:20 on a Tuesday, and a Tier 1 agent replies at 12:05 while escalating it. First response time is 45m. The wait for a billing specialist after that reply counts as specialist queue wait.</p>
           <h3>Median of five tickets</h3>

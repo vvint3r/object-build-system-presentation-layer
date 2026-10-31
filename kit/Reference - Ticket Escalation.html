@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ticket escalation</title>
+<meta name="cm-kit" content="1.2">
+<meta name="cm-kind" content="reference">
+<meta name="cm-id" content="reference-ticket-escalation">
+<meta name="cm-type" content="process">
+<script>(function(){var t;try{t=localStorage.getItem('cm-theme')}catch(e){}document.documentElement.dataset.theme=t||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')})()</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,300;1,400&family=JetBrains+Mono:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="report-kit/cm-report.css">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js" defer></script>
+<script src="report-kit/cm-report.js" defer></script>
+</head>
+<body>
+
+<header class="cm-topbar">
+  <div class="cm-topbar__in">
+    <a class="cm-wordmark" href="index.html">support-operations</a>
+    <span class="cm-chip">Support processes</span>
+    <div class="cm-topbar__actions">
+      <button class="cm-btn cm-btn--quiet cm-btn--sm" type="button" data-cm-theme-toggle>Dark mode</button>
+    </div>
+  </div>
+</header>
+
+<div class="cm-shell">
+  <nav class="cm-rail" aria-label="Contents">
+    <div class="cm-toc">
+      <span class="cm-label">Contents</span>
+      <ol>
+        <li><a href="#definition"><span class="n">01</span>Definition</a></li>
+        <li><a href="#properties"><span class="n">02</span>Properties</a></li>
+        <li><a href="#flow"><span class="n">03</span>Flow</a></li>
+        <li><a href="#stages"><span class="n">04</span>Stages</a></li>
+        <li><a href="#relationships"><span class="n">05</span>Relationships</a></li>
+        <li><a href="#examples"><span class="n">06</span>Examples</a></li>
+        <li><a href="#sources"><span class="n">A</span>Notes &amp; sources</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main class="cm-main" id="top">
+
+    <!-- MASTHEAD -->
+    <header class="cm-mast">
+      <nav class="cm-crumbs" aria-label="Breadcrumb">
+        <a href="index.html">Support operations</a><span class="sep" aria-hidden="true">/</span>
+        <a href="index.html#ticket-handling">Ticket handling</a><span class="sep" aria-hidden="true">/</span>
+        <span aria-current="page">Ticket escalation</span>
+      </nav>
+      <div class="cm-bar" aria-hidden="true"></div>
+      <h1 class="cm-mast__title">Ticket escalation</h1>
+      <p class="cm-mast__dek">How a ticket that Tier 1 cannot resolve moves through the specialist queue and engineering to closure.</p>
+      <dl class="cm-mast__meta">
+        <div><dt>Status</dt><dd><span class="cm-chip">Reference</span><span class="cm-chip cm-chip--ok">Final</span><span class="cm-chip cm-chip--note">Sample data</span></dd></div>
+        <div><dt>Published</dt><dd>2026-10-21</dd></div>
+        <div><dt>Reading time</dt><dd>4 min</dd></div>
+        <div><dt>Version</dt><dd>1.0</dd></div>
+      </dl>
+      <dl class="cm-byline">
+        <div><dt>Prepared by</dt><dd>Support Operations</dd></div>
+        <div><dt>Distribution</dt><dd>Internal · all staff</dd></div>
+      </dl>
+    </header>
+
+    <!-- 01 DEFINITION -->
+    <section class="cm-section" id="definition" aria-labelledby="definition-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 01</span>
+        <h2 class="cm-section__title" id="definition-t">Definition</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>Ticket escalation is <strong>the path that carries a ticket to the role able to resolve it</strong>. That role is Tier 1, a specialist, or engineering when the fix needs a code change. The path ends when the role closes the ticket.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 PROPERTIES -->
+    <section class="cm-section" id="properties" aria-labelledby="properties-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 02</span>
+        <h2 class="cm-section__title" id="properties-t">Properties</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>The process has <strong>one owner and three roles</strong>, and two policies set its rules and due times.</p>
+        </div>
+        <div class="cm-props">
+          <dl>
+            <dt>Process</dt><dd>Ticket escalation</dd>
+            <dt>Owner</dt><dd>Support Operations</dd>
+            <dt>Roles</dt><dd>Tier 1 agent, billing or technical specialist, product engineer</dd>
+          </dl>
+          <dl>
+            <dt>Starts</dt><dd>A ticket arrives in any channel</dd>
+            <dt>Ends</dt><dd>The ticket closes and its survey is sent</dd>
+            <dt>Routing</dt><dd>Helpdesk routing rules<a class="cm-cite" href="#src-1" id="cite-1">S1</a></dd>
+          </dl>
+          <dl>
+            <dt>Hand-off rules</dt><dd>Billing escalation policy v4<a class="cm-cite" href="#src-2" id="cite-2">S2</a></dd>
+            <dt>Due times</dt><dd>SLA policy v3, set for each channel<a class="cm-cite" href="#src-3" id="cite-3">S3</a></dd>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 FLOW: the flow diagram, one lane for each role -->
+    <section class="cm-section" id="flow" aria-labelledby="flow-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 03</span>
+        <h2 class="cm-section__title" id="flow-t">Flow</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>Work passes between <strong>three roles</strong>. Two decisions either close the ticket or send it on, and engineering returns a fixed ticket to the specialist.</p>
+        </div>
+        <figure class="cm-figure cm-bleed">
+          <span class="cm-figure__kind">Figure 1</span>
+          <h3 class="cm-figure__title">Ticket escalation by role</h3>
+          <p class="cm-figure__desc">The stages a ticket passes through from intent triage to closure, in the lane of the role that does each one.</p>
+          <div class="cm-diagram" data-diagram="flow" role="img" aria-label="">
+            <script type="application/json">
+            {
+              "nodes": [
+                {"id": "triage", "type": "step", "label": "Intent triage", "detail": "Classifier or agent", "col": 1, "row": 1},
+                {"id": "tier1", "type": "step", "label": "Tier 1 resolution", "detail": "Macros, help centre", "col": 2, "row": 1},
+                {"id": "specialist-needed", "type": "decision", "label": "Needs specialist?", "col": 3, "row": 1},
+                {"id": "closed-tier1", "type": "terminal", "label": "Tier 1 closes", "col": 4, "row": 1},
+                {"id": "specialist", "type": "step", "label": "Specialist queue", "detail": "Billing or technical", "col": 2, "row": 2},
+                {"id": "code-needed", "type": "decision", "label": "Needs code change?", "col": 3, "row": 2},
+                {"id": "closed-specialist", "type": "terminal", "label": "Specialist closes", "col": 4, "row": 2},
+                {"id": "engineering", "type": "step", "label": "Engineering fix", "detail": "Data repair or release", "col": 3, "row": 3}
+              ],
+              "edges": [
+                {"from": "triage", "to": "tier1"},
+                {"from": "tier1", "to": "specialist-needed"},
+                {"from": "specialist-needed", "to": "closed-tier1", "label": "No"},
+                {"from": "specialist-needed", "to": "specialist", "label": "Yes"},
+                {"from": "specialist", "to": "code-needed"},
+                {"from": "code-needed", "to": "closed-specialist", "label": "No"},
+                {"from": "code-needed", "to": "engineering", "label": "Yes"},
+                {"from": "engineering", "to": "specialist", "label": "Fix deployed"}
+              ],
+              "groups": [
+                {"type": "lane", "label": "Tier 1", "row": 1},
+                {"type": "lane", "label": "Specialist", "row": 2},
+                {"type": "lane", "label": "Engineer", "row": 3}
+              ]
+            }
+            </script>
+          </div>
+          <figcaption class="cm-caption">
+            <span class="cm-caption__line">Source: helpdesk routing rules and billing escalation policy v4.<a class="cm-cite" href="#src-1" id="cite-4">S1</a><a class="cm-cite" href="#src-2" id="cite-5">S2</a></span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 04 STAGES: the workflow, with the same stage names as the diagram -->
+    <section class="cm-section" id="stages" aria-labelledby="stages-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 04</span>
+        <h2 class="cm-section__title" id="stages-t">Stages</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>Most tickets <strong>close at Tier 1</strong>; the specialist queue holds the longest wait of any stage.</p>
+        </div>
+        <div class="cm-status cm-bleed">
+          <div class="cm-status__head"><span class="cm-label">Status</span><span class="cm-meta">as of <time datetime="2026-09-30">2026-09-30</time></span></div>
+          <dl>
+            <div><dt>Tier 1 closure</dt><dd>71% of tickets<a class="cm-cite" href="#src-4" id="cite-6">S4</a></dd></div>
+            <div><dt>Tier 1 handling</dt><dd>14m median</dd></div>
+            <div><dt>Specialist queue wait</dt><dd>9h 40m median</dd></div>
+            <div><dt>Sent to engineering</dt><dd>3.2% of tickets</dd></div>
+            <div><dt>Engineering fix</dt><dd>2.4 days median</dd></div>
+          </dl>
+        </div>
+        <div class="cm-card cm-workflow cm-bleed">
+          <span class="cm-label cm-card__kicker">Workflow</span>
+          <h3 class="cm-card__title">Ticket escalation</h3>
+          <p>A ticket enters at intent triage and leaves when the role holding it closes it and the survey goes out.</p>
+          <ol class="cm-stages">
+            <li>
+              <h4 class="cm-procedure__title">Intent triage</h4>
+              <p>The routing classifier tags each chat with an intent; an agent sets the intent on every other channel.</p>
+              <dl class="cm-facts">
+                <div><dt>Actor</dt><dd>Routing classifier or Tier 1 agent</dd></div>
+                <div><dt>Hands on when</dt><dd>The intent is set</dd></div>
+              </dl>
+            </li>
+            <li>
+              <h4 class="cm-procedure__title">Tier 1 resolution</h4>
+              <p>An agent answers from macros and the help centre, and refunds within the agent limit.</p>
+              <dl class="cm-facts">
+                <div><dt>Actor</dt><dd>Tier 1 agent</dd></div>
+                <div><dt>Hands on when</dt><dd>The fix needs a specialist decision</dd></div>
+              </dl>
+            </li>
+            <li>
+              <h4 class="cm-procedure__title">Specialist queue</h4>
+              <p>A billing or technical specialist decides the case and fixes what account access and configuration allow.</p>
+              <dl class="cm-facts">
+                <div><dt>Actor</dt><dd>Billing or technical specialist</dd></div>
+                <div><dt>Takes in</dt><dd>Ticket with the account and the charge recorded</dd></div>
+                <div><dt>Hands on when</dt><dd>The fix needs a code change</dd></div>
+              </dl>
+            </li>
+            <li>
+              <h4 class="cm-procedure__title">Engineering fix</h4>
+              <p>Product engineering repairs the data or ships the change, then returns the ticket to the specialist.</p>
+              <dl class="cm-facts">
+                <div><dt>Actor</dt><dd>Product engineering</dd></div>
+                <div><dt>Produces</dt><dd>Fix note on the ticket</dd></div>
+                <div><dt>Hands on when</dt><dd>The fix is deployed, back to Specialist queue</dd></div>
+              </dl>
+            </li>
+          </ol>
+          <div class="cm-sub">
+            <span class="cm-label">Exceptions</span>
+            <ul class="cm-list">
+              <li>A charge disputed with the bank goes straight to the disputes desk, with no refund at Tier 1.</li>
+              <li>A security or data-loss report skips Tier 1 and goes to the on-call engineer.</li>
+              <li>A customer reply after close reopens the ticket at Tier 1 resolution.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 RELATIONSHIPS -->
+    <section class="cm-section" id="relationships" aria-labelledby="relationships-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 05</span>
+        <h2 class="cm-section__title" id="relationships-t">Relationships</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>A guide holds <strong>the Tier 1 agent's own steps</strong> for one hand-off, and two documents measure the process.</p>
+        </div>
+        <ul class="cm-related">
+          <li><span class="cm-tag">Guide</span><a href="Guide%20-%20Billing%20Escalation.html#steps">Billing ticket escalation to specialists</a><p>The steps a Tier 1 agent carries out to hand a billing ticket to the specialist queue.</p></li>
+          <li><span class="cm-tag">Metric</span><a href="Reference%20-%20First%20Response%20Time.html">First response time</a><p>The Tier 1 reply at hand-off stops this clock, so later stages do not count toward it.</p></li>
+          <li><span class="cm-tag">Report</span><a href="Sample%20Report%20-%20Q3%20Support%20Review.html#initiatives">Customer support operations review, Q3 2026</a><p>The escalation path for the quarter, with the specialist queue marked as its bottleneck.</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 06 EXAMPLES -->
+    <section class="cm-section" id="examples" aria-labelledby="examples-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Part 06</span>
+        <h2 class="cm-section__title" id="examples-t">Examples</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-prose">
+          <p>Each example follows <strong>one illustrative ticket</strong> through the stages.</p>
+          <h3>Billing email escalated on a Tuesday</h3>
+          <p>A billing email arrives at 11:20 on a Tuesday, and an agent sets its intent to Billing. The Tier 1 agent records the charge, escalates the ticket and replies to the customer at 12:05. A billing specialist corrects the invoice the next morning and closes the ticket.</p>
+          <h3>Chat that needs a code change</h3>
+          <p>A chat arrives tagged Technical by the classifier, and Tier 1 cannot fix the fault. A technical specialist finds a data error that only a code change can repair. Engineering ships the fix two days later, and the specialist confirms it with the customer and closes the ticket.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- A NOTES & SOURCES -->
+    <section class="cm-section cm-section--part" id="sources" aria-labelledby="sources-t">
+      <header class="cm-section__head">
+        <span class="cm-section__num">Appendix A</span>
+        <h2 class="cm-section__title" id="sources-t">Notes &amp; sources</h2>
+      </header>
+      <div class="cm-section__body">
+        <div class="cm-stack">
+          <h3 class="cm-h4">Sources</h3>
+          <ol class="cm-sources">
+            <li id="src-1"><span class="cm-id">S1</span><span><b>Helpdesk routing rules</b><br><span class="cm-tag">System export</span> Support Operations · <code>helpdesk/config/routing-rules.json</code> <a class="cm-back" href="#cite-1" aria-label="Back to text">↩</a></span><span class="cm-meta">exported <time datetime="2026-10-01">2026-10-01</time></span></li>
+            <li id="src-2"><span class="cm-id">S2</span><span><b>Billing escalation policy v4</b><br><span class="cm-tag">Document</span> Billing Operations · <code>billing/escalation-policy-v4.pdf</code> <a class="cm-back" href="#cite-2" aria-label="Back to text">↩</a></span><span class="cm-meta">published <time datetime="2026-08-12">2026-08-12</time></span></li>
+            <li id="src-3"><span class="cm-id">S3</span><span><b>SLA policy v3</b><br><span class="cm-tag">Document</span> Support Operations · <code>support/sla-policy-v3.pdf</code> <a class="cm-back" href="#cite-3" aria-label="Back to text">↩</a></span><span class="cm-meta">published <time datetime="2026-01-01">2026-01-01</time></span></li>
+            <li id="src-4"><span class="cm-id">S4</span><span><b>Customer support operations review, Q3 2026</b><br><span class="cm-tag">Report</span> Support Operations Analytics · <a href="Sample%20Report%20-%20Q3%20Support%20Review.html">Sample Report - Q3 Support Review.html</a> <a class="cm-back" href="#cite-6" aria-label="Back to text">↩</a></span><span class="cm-meta">published <time datetime="2026-10-12">2026-10-12</time></span></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <footer class="cm-footer">
+      <span><b>Ticket escalation</b></span>
+      <span>v1.0 · published 2026-10-21</span>
+      <span>Support Operations</span>
+      <span>Content Morphia Report Kit 1.2</span>
+    </footer>
+  </main>
+</div>
+</body>
+</html>

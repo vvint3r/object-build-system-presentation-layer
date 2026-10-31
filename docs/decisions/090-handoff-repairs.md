@@ -58,7 +58,7 @@ changes, and gives the migration from 1.2 to 2.0.
 | Section numbers | Every § number names a section of the README or a component README; no gallery number remains |
 | Headings | No README ends on a heading or holds one with nothing under it |
 | Links | Every link in a document or README reaches a bundle file and its id; documents and templates sit beside `report-kit/` |
-| Files named | Every file a README or a document's notes names is in the bundle, apart from the platform's paths and the repository's tools |
+| Files named | Every file a README or a document's notes names is in the bundle, apart from the platform's paths, the repository's tools and placeholders |
 | Documented | Every root entry, component folder and platform path has its row in the README |
 
 ## Bundle

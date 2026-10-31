@@ -257,7 +257,8 @@ const PLATFORM = /^(SKILL\.md|index\.html|artifact-type\/|design-system\.json)$/
 const REPOSITORY = /^(tools|checks|offline|docs|import)\//;
 const inCode = mdFiles.flatMap(p => [...read(p).replace(/```[\s\S]*?```/g, '').matchAll(/`([^`\s<>{}]+(?:\.(?:html|css|js|mjs|json|md|txt|woff2)|\/))`/g)].map(m => [p, m[1]]));
 // The notes in a document or template name files the same way, in plain text.
-const inNotes = pages.flatMap(p => [...read(p).matchAll(/<!--([\s\S]*?)-->/g)].flatMap(c => [...c[1].matchAll(/(?<![\w./-])([\w./-]*\w\.(?:html|css|js|md)|[\w-]+\/)(?![\w/])/g)].map(m => [p, m[1]])));
+// A {{ placeholder }} names no file.
+const inNotes = pages.flatMap(p => [...read(p).matchAll(/<!--([\s\S]*?)-->/g)].flatMap(c => [...c[1].replace(/\{\{[\s\S]*?\}\}/g, '').matchAll(/(?<![\w./-])([\w./-]*\w\.(?:html|css|js|md)|[\w-]+\/)(?![\w/])/g)].map(m => [p, m[1]])));
 report(`files named: ${new Set([...inCode, ...inNotes].map(n => n[1])).size} paths in the READMEs and in the notes of documents, each in the bundle`, [...inCode, ...inNotes].map(([p, f]) => {
   if (PLATFORM.test(f) || REPOSITORY.test(f)) return null;
   const here = all.includes(f) || (f.endsWith('/') && all.some(a => a.startsWith(f))) || (!f.includes('/') && all.some(a => a.split('/').pop() === f));

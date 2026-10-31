@@ -1271,10 +1271,42 @@
         </div>
 
         <div class="g-comp">
-          <header><span class="cm-label">7.3</span><h3 class="cm-h3">State</h3><p>The states one ticket passes through, and the event behind each change. A dot marks the start, a ringed dot the end, and a loop an event that leaves the state as it was.</p></header>
+          <header><span class="cm-label">7.3</span><h3 class="cm-h3">Sequence</h3><p>Messages between people or systems in the order they are sent, with time running down. Order places everything, so the JSON has no columns or rows.</p></header>
           <div data-demo>
 <figure class="cm-figure cm-bleed">
   <span class="cm-figure__kind">Figure 10</span>
+  <h3 class="cm-figure__title">Refund above the agent limit</h3>
+  <p class="cm-figure__desc">Messages between the customer, the Tier 1 agent and the billing specialist, from the request to the refund.</p>
+  <div class="cm-diagram" data-diagram="sequence" role="img" aria-label="">
+    <script type="application/json">
+    {
+      "nodes": [
+        {"id": "customer", "label": "Customer"},
+        {"id": "agent", "label": "Tier 1 agent"},
+        {"id": "billing", "label": "Billing specialist"}
+      ],
+      "edges": [
+        {"from": "customer", "to": "agent", "label": "Asks for refund"},
+        {"from": "agent", "to": "agent", "label": "Checks agent limit"},
+        {"from": "agent", "to": "billing", "label": "Requests approval", "activate": true},
+        {"from": "agent", "to": "customer", "kind": "reply", "label": "Gives due time"},
+        {"from": "customer", "to": "agent", "kind": "optional", "label": "Writes again"},
+        {"from": "billing", "to": "billing", "label": "Checks the invoice"},
+        {"from": "billing", "to": "customer", "kind": "reply", "label": "Issues refund"}
+      ]
+    }
+    </script>
+  </div>
+  <figcaption class="cm-caption"><span class="cm-caption__line">Source: billing escalation policy, version 4.</span></figcaption>
+</figure>
+          </div>
+        </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">7.4</span><h3 class="cm-h3">State</h3><p>The states one ticket passes through, and the event behind each change. A dot marks the start, a ringed dot the end, and a loop an event that leaves the state as it was.</p></header>
+          <div data-demo>
+<figure class="cm-figure cm-bleed">
+  <span class="cm-figure__kind">Figure 11</span>
   <h3 class="cm-figure__title">Ticket status</h3>
   <p class="cm-figure__desc">The statuses a support ticket takes from arrival to closing, with the event that moves it each time.</p>
   <div class="cm-diagram" data-diagram="state" role="img" aria-label="">

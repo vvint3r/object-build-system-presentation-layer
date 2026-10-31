@@ -1026,6 +1026,192 @@
 
   DG_MODES.state = { model: stModel, key: stKey, node: stNode, text: stText, layout: dgLayout, loops: stLoops, grow: stGrow };
 
+  /* ---------- diagrams: sequence ---------- */
+  // A sequence diagram (SPEC section 8.20, Sequence) has a geometry of its own: participants across
+  // the top in the order written, a lifeline down from each, and messages as horizontal arrows in
+  // the order written, so time runs down. Each label stands above its arrow in the gap beside the
+  // sender, so it never sits on a lifeline; the gaps widen to hold their labels. A message marked
+  // "activate" opens an activation bar on its receiver, closed by the receiver's next reply.
+  // bar: half the width of an activation bar; selfW and selfH: a message to oneself turns right and
+  // comes back; top: from the participants to the first label; after: from the last arrow to the
+  // end of the lifelines.
+  var SQ = { bar: 6, selfW: 40, selfH: 24, top: 16, after: 24 };
+  var SQ_GAP = { screen: { col: 64, msg: 16, pad: 8 }, print: { col: 40, msg: 8, pad: 8 } };
+  var SQ_KINDS = ['message', 'reply', 'optional'];
+  var SQ_NAMES = { message: 'Message', reply: 'Reply', optional: 'Optional message', activation: 'Active' };
+
+  function sqModel(spec) {
+    var byId = {}, nodes = [], edges = [];
+    list(spec.nodes).forEach(function (n) {
+      if (!n || n.id == null || byId[n.id]) return;
+      var m = { id: String(n.id), type: 'participant', label: n.label == null ? '' : String(n.label), detail: n.detail ? String(n.detail) : '', emphasis: '', col: nodes.length };
+      byId[m.id] = m; nodes.push(m);
+    });
+    list(spec.edges).forEach(function (e) {
+      if (!e || !byId[e.from] || !byId[e.to]) return;
+      edges.push({ from: byId[e.from], to: byId[e.to], kind: SQ_KINDS.indexOf(e.kind) > -1 ? e.kind : 'message',
+        label: e.label ? String(e.label) : '', activate: e.activate === true && e.from !== e.to, i: edges.length });
+    });
+    // activation bars: from the message that opens one to the receiver's next reply, or the end
+    var open = {}, bars = [];
+    edges.forEach(function (e, i) {
+      var b = open[e.from.id];
+      if (b && e.kind === 'reply' && e.from !== e.to) { b.last = i; delete open[e.from.id]; }
+      if (e.activate && !open[e.to.id]) { open[e.to.id] = { node: e.to, first: i, last: -1 }; bars.push(open[e.to.id]); }
+    });
+    bars.forEach(function (b) { if (b.last < 0) b.last = edges.length - 1; });
+    return { nodes: nodes, edges: edges, bars: bars };
+  }
+
+  function sqKey(m) {
+    var kinds = SQ_KINDS.filter(function (k) { return m.edges.some(function (e) { return e.kind === k; }); });
+    if (m.bars.length) kinds.push('activation');
+    if (!kinds.some(function (k) { return k !== 'message'; })) return null;
+    var key = mk('div', 'cm-diagram__key');
+    kinds.forEach(function (k) {
+      var item = mk('span', 'cm-diagram__key-item');
+      item.appendChild(mk('i', 'cm-diagram__swatch cm-diagram__swatch--' + k));
+      item.appendChild(document.createTextNode(SQ_NAMES[k]));
+      key.appendChild(item);
+    });
+    return key;
+  }
+
+  function sqBuild(d) {
+    var el = d.el, m = d.model;
+    el.textContent = '';
+    var key = sqKey(m);
+    if (key) el.appendChild(key);
+    var cv = d.canvas = mk('div', 'cm-diagram__canvas');
+    var svg = d.svg = document.createElementNS(SVGNS, 'svg');
+    svg.setAttribute('class', 'cm-diagram__lines');
+    svg.setAttribute('aria-hidden', 'true');
+    svg.setAttribute('focusable', 'false');
+    cv.appendChild(svg);
+    m.nodes.forEach(function (n) {
+      var e = n.el = mk('div', 'cm-diagram__node cm-diagram__node--participant');
+      e.setAttribute('data-node', n.id);
+      dgNode(n, e);
+      cv.appendChild(e);
+    });
+    m.edges.forEach(function (e) { if (e.label) { e.el = mk('span', 'cm-diagram__edge-label', e.label); cv.appendChild(e.el); } });
+    el.appendChild(cv);
+  }
+
+  function sqLayout(d) {
+    var el = d.el, m = d.model, P = printing ? SQ_GAP.print : SQ_GAP.screen, cv = d.canvas, svg = d.svg;
+    if (!printing && !el.clientWidth) { d.pending = true; return; }
+    d.pending = false;
+    el.classList.toggle('cm-diagram--print', printing);
+    cv.style.transform = ''; cv.style.marginRight = ''; cv.style.marginBottom = ''; cv.style.width = '4000px'; cv.style.height = '1px';
+    var N = m.nodes.length, hh = 0;
+    m.nodes.forEach(function (n) {
+      n.el.style.left = '0px'; n.el.style.top = '0px'; n.el.style.width = ''; n.el.style.height = '';
+      n.w = even(n.el.offsetWidth); hh = Math.max(hh, even(n.el.offsetHeight));
+    });
+    m.nodes.forEach(function (n) { n.h = hh; });
+    var lh = 0;
+    m.edges.forEach(function (e) { if (e.el) { e.lw = Math.ceil(e.el.offsetWidth); e.lh = Math.ceil(e.el.offsetHeight); lh = Math.max(lh, e.lh); } });
+    var active = function (n, i) { return m.bars.some(function (b) { return b.node === n && i >= b.first && i <= b.last; }); };
+    // the gap right of each participant: its neighbour's half width, and every label set in it
+    var gap = [], self = 0;
+    for (var k = 0; k < N; k++) gap[k] = k < N - 1 ? m.nodes[k].w / 2 + m.nodes[k + 1].w / 2 + P.col : 0;
+    m.edges.forEach(function (e) {
+      var w = e.el ? e.lw : 0, s = e.from.col;
+      if (e.from === e.to) {
+        var need = SQ.bar + Math.max(SQ.selfW, DG.clear + w) + DG.clear + SQ.bar + 4;
+        if (s < N - 1) gap[s] = Math.max(gap[s], need); else self = Math.max(self, need);
+      } else {
+        var g = e.to.col > s ? s : s - 1;
+        gap[g] = Math.max(gap[g], w + 2 * DG.clear + 2 * SQ.bar + 8);
+      }
+    });
+    var x = [], cx = P.pad + m.nodes[0].w / 2;
+    for (k = 0; k < N; k++) { x[k] = cx; cx += gap[k]; }
+    var W = Math.max(x[N - 1] + m.nodes[N - 1].w / 2, x[N - 1] + self) + P.pad;
+    // time runs down: one row a message, a label's height and its air above each arrow
+    var top = P.pad, hb = top + hh, y = hb + SQ.top - P.msg, ys = [];
+    m.edges.forEach(function (e, i) {
+      y += P.msg + (e.el ? e.lh : lh) + DG.clear;
+      ys[i] = y;
+      y += DG.clear + (e.from === e.to ? SQ.selfH : 0);
+    });
+    var bottom = (m.edges.length ? y - DG.clear : hb + SQ.top) + SQ.after, H = bottom + P.pad;
+    var fit = dgFit(d, W, H, true), X = function (v) { return Math.round(v + fit.ox); }, Y = Math.round;
+    var geo = { scale: fit.scale, ox: fit.ox, W: fit.W, H: fit.H, nodes: [], edges: [], lines: [], lanes: [] };
+    m.nodes.forEach(function (n, k) {
+      var s = n.el.style;
+      n.x = x[k] - n.w / 2; n.y = top;
+      s.left = X(n.x) + 'px'; s.top = Y(n.y) + 'px'; s.width = n.w + 'px'; s.height = n.h + 'px';
+      svg.appendChild(svgEl('line', { 'class': 'cm-diagram__lifeline', x1: X(x[k]), y1: Y(hb), x2: X(x[k]), y2: Y(bottom) }));
+      geo.nodes.push({ id: n.id, type: n.type, el: n.el });
+      geo.lines.push({ kind: 'lifeline', points: [[X(x[k]), Y(hb)], [X(x[k]), Y(bottom)]] });
+    });
+    m.bars.forEach(function (b) {
+      var bx = X(x[b.node.col]) - SQ.bar, bt = Y(ys[b.first] - DG.clear), bb = Y(ys[b.last] + (m.edges[b.last].from === m.edges[b.last].to ? SQ.selfH : 0) + DG.clear);
+      svg.appendChild(svgEl('rect', { 'class': 'cm-diagram__activation', x: bx, y: bt, width: 2 * SQ.bar, height: bb - bt, rx: 2 }));
+      geo.lines.push({ kind: 'activation bar', points: [[bx, bt], [bx, bb]] }, { kind: 'activation bar', points: [[bx + 2 * SQ.bar, bt], [bx + 2 * SQ.bar, bb]] });
+    });
+    m.edges.forEach(function (e, i) {
+      var a = e.from.col, b = e.to.col, yy = ys[i], p, lab;
+      var off = function (n, dir) { return active(n, i) ? dir * SQ.bar : 0; };
+      if (a === b) {
+        var x0 = x[a] + off(e.from, 1);
+        p = [[x0, yy], [x0 + SQ.selfW, yy], [x0 + SQ.selfW, yy + SQ.selfH], [x0 + DG.stand, yy + SQ.selfH]];
+        lab = { l: x0 + DG.clear, t: yy - DG.clear - (e.lh || 0) };
+      } else {
+        var dir = b > a ? 1 : -1, x1 = x[a] + off(e.from, dir), x2 = x[b] - off(e.to, dir) - dir * DG.stand;
+        p = [[x1, yy], [x2, yy]];
+        // centred in the gap beside the sender, between its lifeline and the next one
+        var g0 = x[a] + dir * SQ.bar, g1 = x[a + dir] - dir * SQ.bar;
+        lab = { l: (g0 + g1) / 2 - (e.lw || 0) / 2, t: yy - DG.clear - (e.lh || 0) };
+      }
+      p = p.map(function (pt) { return [X(pt[0]), Y(pt[1])]; });
+      var grp = svgEl('g', { 'class': 'cm-diagram__edge cm-diagram__edge--' + e.kind, 'data-from': e.from.id, 'data-to': e.to.id });
+      grp.appendChild(svgEl('path', { 'class': 'cm-diagram__line', d: dgPathD(p) }));
+      grp.appendChild(svgEl('polygon', { 'class': 'cm-diagram__head', points: dgHead(p) }));
+      svg.appendChild(grp);
+      if (e.el) { e.el.style.left = X(lab.l) + 'px'; e.el.style.top = Y(lab.t) + 'px'; }
+      geo.edges.push({ from: e.from.id, to: e.to.id, kind: e.kind, label: e.label, labelEl: e.el || null, points: p });
+    });
+    geo.routed = geo.edges.length;
+    geo.total = m.edges.length;
+    el._cmDiagram = geo;
+  }
+
+  // The text version: one numbered item for each message in time order, with its sender and
+  // receiver, and the span of each activation.
+  function sqText(d) {
+    var m = d.model, stop = function (s) { s = s.trim(); return /[.?!]$/.test(s) ? s : s + '.'; };
+    var ol = mk('ol', 'cm-olist cm-small');
+    m.edges.forEach(function (e, i) {
+      var who = e.from === e.to ? e.from.label + ', to itself' : e.kind === 'reply' ? e.from.label + ' replies to ' + e.to.label : e.from.label + ' to ' + e.to.label;
+      if (e.kind === 'optional') who += ', optional';
+      var parts = [stop(who + (e.label ? ': ' + e.label : ''))];
+      m.bars.forEach(function (b) {
+        if (b.first !== i) return;
+        parts.push(stop(b.node.label + ' is active until ' + (b.last > i ? 'message ' + (b.last + 1) : 'the end')));
+      });
+      ol.appendChild(mk('li', null, parts.join(' ')));
+    });
+    if (!(d.el.getAttribute('aria-label') || '').trim()) {
+      var names = m.nodes.map(function (n) { return n.label; }), replies = m.edges.filter(function (e) { return e.kind === 'reply'; }).length;
+      var s = 'Sequence diagram of ' + m.edges.length + (m.edges.length === 1 ? ' message' : ' messages') + ' between '
+        + (names.length > 1 ? names.slice(0, -1).join(', ') + ' and ' + names[names.length - 1] : names[0] || 'no one')
+        + (replies ? ', ' + replies + (replies === 1 ? ' of them a reply' : ' of them replies') : '');
+      d.el.setAttribute('aria-label', s + '. The text version under the figure lists every message in order.');
+    }
+    var det = mk('details', 'cm-data');
+    det.setAttribute('data-cm-diagram-text', '');
+    det.appendChild(mk('summary', null, 'View as text'));
+    det.appendChild(ol);
+    var fig = d.el.closest('figure'), cap = fig && fig.querySelector('.cm-caption');
+    if (cap) cap.after(det); else d.el.after(det);
+    d.text = det;
+  }
+
+  DG_MODES.sequence = { model: sqModel, build: sqBuild, text: sqText, layout: sqLayout };
+
   function dgAll() { diagrams.forEach(function (d) { if (d.model) d.mode.layout(d); }); }
   function initDiagrams() {
     document.querySelectorAll('.cm-diagram[data-diagram]').forEach(function (el) {

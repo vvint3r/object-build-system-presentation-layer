@@ -593,6 +593,57 @@ The kit applies the rest:
 - On a narrow screen the diagram keeps its geometry and scrolls sideways inside its own box. Labels never shrink.
 - Print narrows the gaps and the nodes, then scales the drawing to fit the printed column and a page, never below 80%. The text version prints open.
 
+#### Sequence
+
+A sequence diagram shows the messages that pass between people or systems, in the order they are sent. A hand-off with branches or loops is a flow diagram with lanes.
+
+```html
+<div class="cm-diagram" data-diagram="sequence" role="img" aria-label="">
+  <script type="application/json">
+  {
+    "nodes": [
+      {"id": "customer", "label": "Customer"},
+      {"id": "agent", "label": "Tier 1 agent"},
+      {"id": "billing", "label": "Billing specialist"}
+    ],
+    "edges": [
+      {"from": "customer", "to": "agent", "label": "Reports double charge"},
+      {"from": "agent", "to": "billing", "label": "Escalates", "activate": true},
+      {"from": "agent", "to": "customer", "kind": "reply", "label": "Gives due time"},
+      {"from": "billing", "to": "billing", "label": "Checks the ledger"},
+      {"from": "billing", "to": "customer", "kind": "reply", "label": "Refunds charge"}
+    ]
+  }
+  </script>
+</div>
+```
+
+The JSON holds `nodes` and `edges` only. Participants stand left to right in the order written and messages run down in the order written, so the author writes no columns or rows. A node holds `id`, `label` and an optional `detail`; an edge holds `from`, `to` and `label`, with optional `kind` and `activate`.
+
+| Value | Drawn as | Use |
+| --- | --- | --- |
+| A node | Rectangle with a lifeline down from it | A person or system that sends or receives |
+| `message` | Solid line, the default | A request, a report or a hand-off |
+| `reply` | Dotted line | An answer to an earlier message |
+| `optional` | Dashed line | A message sent only in some cases |
+| `"activate": true` | Narrow bar on the receiver's lifeline | The receiver works on the message until its next reply |
+
+- Every message carries a label of 1 to 3 words. It stands above its arrow in the gap beside the sender, so no label sits on a lifeline.
+- An arrow starts on the sender's lifeline and stops 8px short of the receiver's. A message to oneself turns right and comes back to the same lifeline.
+- An activation bar runs from the message that opens it to the receiver's next reply, or to the last message. A participant has one bar open at a time.
+- Lifelines are 1.5px in the field colour, so they read as structure rather than as messages.
+- A key above the drawing names the lines and the bar whenever the diagram has a reply, an optional message or an activation bar.
+- A sequence diagram has no emphasised node.
+
+| Item | At most | Reason |
+| --- | --- | --- |
+| Participants | 4 | Five participants with three-word messages do not fit the printed column at 80% |
+| Messages | 12 | The library labels edges only while a view has 12 or fewer, and every message carries a label |
+
+A participant `label` stops at 24 characters and a `detail` at 40, as a flow node's; a message label stops at 3 words, as an edge label.
+
+The text version lists every message once, numbered in time order. Each item gives the sender and the receiver, "replies to" for a reply, "to itself" and "optional" where they apply, then the label. A message that opens a bar names the message that closes it. An empty `aria-label` takes a summary: the number of messages, the participants, and the number of replies.
+
 #### State
 
 A state diagram shows the states one thing passes through, such as a ticket, and the events that move it from one to the next. Steps that people carry out are a flow diagram.

@@ -16,6 +16,10 @@ Kit files (all in `report-kit/`):
 | `template-topic.html` | Topic starter: a reference with the topic's parts (§7.7). |
 | `template-glossary.html` | Glossary starter: a reference with Terms in the place of Properties (§7.8). |
 | `template-module.html` | Module starter: a guide with the module's parts (§7.9). |
+| `template-framework.html` | Framework starter: a reference with the framework page's parts (§7.10). |
+| `template-process.html` | Process starter: a reference with the process page's parts (§7.11). |
+| `template-metric.html` | Metric starter: a reference with the metric page's parts (§7.12). |
+| `template-comparison.html` | Comparison starter: a reference with the comparison page's parts (§7.13). |
 | `template-roadmap.html` | Roadmap starter: a report with the roadmap’s parts (§7.14). |
 | `template-case-study.html` | Case study starter: a report with the case study’s parts (§7.15). |
 | `SPEC.md` | This file. |
@@ -281,10 +285,10 @@ The type to use is the one whose question is the reader's. The neighbour column 
 | Topic | `topic` | Reference | What is this subject, and which documents cover each part? | Index page (§8.31): the index is a generated listing of a folder that explains nothing; a topic is written, explains each part and gives a reason for each link. | §7.7 |
 | Glossary | `glossary` | Reference | What does each term mean in this set of documents? | Reference: a reference describes one thing in full; a glossary defines five or more terms, a few sentences each. Fewer terms go in a definition block (§8.5) of the document that uses them. | §7.8 |
 | Module | `module` | Guide | How is this skill learnt, and how is the learning checked? | Guide: a guide is instructions a reader carries out; a module teaches a rule through lessons and checks it with exercises. | §7.9 |
-| Framework | `framework` | Reference | What parts make up this way of covering a subject? | Framework component (§8.26): the component is one block on any page; a framework page is a whole reference about one framework. | §7.10 |
-| Process | `process` | Reference | How does this process run, stage by stage? | Guide: a process page describes how the work runs, with a workflow (§8.25) and a flow diagram; a guide is instructions a reader carries out. | §7.11 |
-| Metric | `metric` | Reference | What does this measure count, and how is it judged? | Metric detail (§8.30): the component is one block on any page; a metric page is a whole reference about one measure. | §7.12 |
-| Comparison | `comparison` | Reference | How do these options differ on the same criteria? | Reference: a reference describes one thing; a comparison sets two or more side by side. | §7.13 |
+| Framework | `framework` | Reference | How does this framework divide its subject, and how is it applied? | Framework component (§8.26): the component is one block on any page; a framework page is a whole reference about one framework. | §7.10 |
+| Process | `process` | Reference | How does this process run, and which role does each stage? | Guide: a process page describes how the work runs, with a workflow (§8.25) and a flow diagram; a guide is instructions a reader carries out. | §7.11 |
+| Metric | `metric` | Reference | What does this measure count, where does it stand, and how is it worked out? | Metric detail (§8.30): the component is one block on any page; a metric page is a whole reference about one measure. | §7.12 |
+| Comparison | `comparison` | Reference | Which option fits, on stated criteria, and what would change the choice? | Reference: a reference describes one thing; a comparison sets two to four options side by side for a decision. | §7.13 |
 | Roadmap | `roadmap` | Report | What has to happen, by whom and by when, to reach one goal? | Report: a plain report shows what past numbers say; a roadmap plans dated work toward a goal. | §7.14 |
 | Case study | `case-study` | Report | What changed after one intervention, and how far does the evidence support it? | Report: a plain report reviews a period; a case study judges one change by its measures before and after. | §7.15 |
 
@@ -374,6 +378,119 @@ A module teaches one skill through lessons and checks it with exercises, for a r
   </div>
 </div>
 ```
+
+### 7.10 Framework
+
+A framework page answers one question: how does a framework divide its subject, and how does a reader apply it? It is a reference with `<meta name="cm-type" content="framework">` after `cm-id`, and it starts from `template-framework.html`. It keeps every part of §7.4 and adds four. Worked example: `Reference - Support Quality Pillars.html`.
+
+Choose a framework page when the framework itself is the subject of the document. A framework that serves another document's argument stays a framework card (§8.26) inside that document. The page holds what one card cannot: why the framework exists, how to apply it and where it fails.
+
+Required parts, each a section with a fixed id, in this order between Properties and Relationships:
+
+| Part | Id | Content |
+| --- | --- | --- |
+| Rationale | `rationale` | A lede that states the problem the framework solves and cites its source, then prose on how the framework answers it. |
+| Parts | `parts` | A lede, then one framework card (§8.26) named as the page is, with both scope lists, `Use when` and `Not for`. The heading names the parts, such as Pillars or Layers. |
+| Application | `application` | A lede, then the steps that apply the framework: a numbered list (§8.14) of 3 to 7 steps, or a method (§8.28). |
+| Limits | `limits` | A lede, then 1 to 4 cases, one h3 each, named for the condition. Each says what goes wrong and what the reader does instead. |
+
+The scope and Limits answer different questions. The scope says which cases the framework fits; Limits says where it fails inside those cases.
+
+Optional parts: a table after the framework card that compares the parts across shared attributes (§8.26). A framework page may add sections of its own between Rationale and Limits.
+
+Components: property sheet (§8.7), framework (§8.26), numbered list (§8.14), method (§8.28), table (§8.11), related list (§8.24), sources and citations (§8.21).
+
+Evidence rules:
+
+- Properties names the document that sets the framework out, cited, and the rationale cites it again.
+- A part that names a measure uses the measure's name as its metric page or report gives it.
+- A limit that rests on a number cites the number's source.
+
+### 7.11 Process
+
+A process page answers one question: how does a process run from start to end, and which role does each stage? It is a reference with `<meta name="cm-type" content="process">` after `cm-id`, and it starts from `template-process.html`. It keeps every part of §7.4 and adds two. Worked example: `Reference - Ticket Escalation.html`.
+
+Choose a process page over a guide (§7.3) when the reader needs the whole path of the work across its roles. A guide holds the steps one reader carries out, and the process page links to it from Relationships. Choose a process page over a roadmap (§7.14) when the work repeats rather than running once to an end state.
+
+Properties names the process's owner and roles, the event that starts it and the state that ends it. It also cites the policies that set its rules.
+
+Required parts, each a section with a fixed id, in this order between Properties and Relationships:
+
+| Part | Id | Content |
+| --- | --- | --- |
+| Flow | `flow` | A lede, then a figure (§8.10) holding a flow diagram (§8.20) of the stages and decisions, with one lane for each role. |
+| Stages | `stages` | A lede, then one workflow (§8.25) named as the page is. Each stage title is the label of a node in the flow diagram. |
+
+The flow diagram is required because work that passes between roles is a flow diagram, not a process diagram (§8.13). A process page carries no procedure (§8.23); the steps one role carries out belong in a guide.
+
+Optional parts: a status block (§8.22) after the Stages lede, for stage measures that change, such as waits and shares of work. A process page may add sections of its own between Flow and Relationships, such as a second diagram from §8.20.
+
+Components: property sheet (§8.7), figure (§8.10), flow diagram (§8.20), status block (§8.22), workflow (§8.25), related list (§8.24), sources and citations (§8.21).
+
+Evidence rules:
+
+- The figure's caption cites the rules or policies the flow follows.
+- Stage measures sit in the status block with an as-of date and a source. The workflow and the diagram hold no values that change.
+- A due time or a limit inside a stage cites the policy that sets it.
+
+### 7.12 Metric
+
+A metric page answers one question: what does a measure count, where does it stand, and how is it worked out? It is a reference with `<meta name="cm-type" content="metric">` after `cm-id`, and it starts from `template-metric.html`. It keeps every part of §7.4, adds one and allows a second. Worked example: `Reference - First Response Time.html`.
+
+Choose a metric page when one measure is the subject of the document. A measure that a report or another page defines in passing stays a metric detail (§8.30) inside that document. A dataset, a system or a policy is a plain reference (§7.4).
+
+Properties holds the metric detail (§8.30) in place of a plain property sheet, named as the page is. Its definition gives the counting rule, while the Definition part says what the measure means to a reader. The card holds no related metrics; the page lists them under Relationships.
+
+Required and optional parts, each a section with a fixed id, in this order between Properties and Relationships:
+
+| Part | Id | Content |
+| --- | --- | --- |
+| Status | `status` | Required. A lede on where the measure stands against its target, then the status block (§8.22) with the measure's value under its name. An optional figure (§9) breaks the value down or shows its trend. |
+| Measurement | `measurement` | Optional. A lede, then the rules that time or count each case, as a definition block (§8.5), and the query (§8.17) behind the reported value. |
+
+Components: metric detail (§8.30), status block (§8.22), charts (§9), definition (§8.5), code (§8.17), related list (§8.24), sources and citations (§8.21).
+
+Evidence rules:
+
+- The current value, its period and its as-of date sit in the status block, never in the metric detail or the Definition part.
+- A figure's caption cites the report or dataset its values come from. A target line on a chart uses the target in the metric detail.
+- Thresholds appear only when the metric's owner has set them, with their source. A page never invents bands.
+- Examples that apply the counting rule to invented tickets say they are illustrative. A real value in an example cites its source.
+
+### 7.13 Comparison
+
+A comparison page answers one question: which of several options to choose, judged on stated criteria, and what would change the choice? It is a reference with `<meta name="cm-type" content="comparison">` after `cm-id`, and it starts from `template-comparison.html`. It keeps every part of §7.4 and adds five. Worked example: `Reference - APAC Weekend Coverage.html`.
+
+Choose a comparison page when a decision between 2 to 4 options is the subject of the document. One subject scored against criteria is an evaluation (§8.29). Actions that follow from a report's findings are the report's recommendations (§7.2). A state that followed another after a change is a case study (§7.15).
+
+Properties names the decision, its owner, its decide-by date and the evidence behind the measures, each cited.
+
+Required parts, each a section with a fixed id, in this order between Properties and Relationships:
+
+| Part | Id | Content |
+| --- | --- | --- |
+| Options | `options` | A lede, then one h3 for each option, named as its table column, with a sentence or two on what the option does. |
+| Criteria | `criteria` | A lede, then a definition block (§8.5) with one term for each criterion, named as its table row. Each says what the criterion measures and why it bears on the decision. |
+| Comparison | `comparison` | A lede with the finding across the options, then one table (§8.11). It has a column for each option, a row for each criterion and a measure in every cell. |
+| Recommendation | `recommendation` | A first paragraph that names the recommended option in bold, then the reasons, including what the option costs. |
+| Change conditions | `conditions` | A lede, then a list (`ul.cm-list`) of 1 to 4 conditions. Each names a change in the facts and the option it would favour. |
+
+The comparison table follows these rules:
+
+- The recommended column carries `is-rec` on its cells and ★ in its header (§8.11). The caption's note line says what ★ marks.
+- Every option has a measure for every criterion, so no cell is blank or reads `n/a` (§8.11). An estimate says so in its cell, as `140 est.`, and the note line names its source.
+- Formatted cells carry `data-value`. With 5 or more criteria the table is `data-sortable`, and each option column carries `data-nosort`, since its cells mix units.
+- Weighted scores follow §8.29: one scale, a weight for each criterion and totals in `<tfoot>`.
+
+Optional parts: sections of the document's own between Options and Change conditions, such as one on cost.
+
+Components: property sheet (§8.7), definition (§8.5), table (§8.11), list (§8.14), related list (§8.24), sources and citations (§8.21).
+
+Evidence rules:
+
+- The table's caption cites the source of every measured value and of every estimate.
+- An option with no trial is measured by a cited model, and its cells say est.
+- The recommendation states where the recommended option is weaker, as well as where it leads.
 
 ### 7.14 Roadmap
 
@@ -1824,6 +1941,8 @@ Components set limits of their own. Where a component limit and a limit above bo
 | Topic subtopic | An h3, a paragraph, then a related list | §7.7 |
 | Glossary terms | 5 or more, each a definition of 15 to 60 words | §7.8, §8.5 |
 | Module objective | One sentence; 2 to 5 per module | §7.9 |
+| Framework application; framework limits | 3 to 7 steps; 1 to 4 cases, one h3 each | §7.10 |
+| Comparison options; change conditions | 2 to 4 options; 1 to 4 conditions | §7.13 |
 | Roadmap goal | One paragraph that opens its section | §7.14 |
 | Milestone exit criteria | One sentence, opening “Done when” | §7.14 |
 
@@ -1878,6 +1997,7 @@ Headings are `h1` to `h6` and table titles.
 19. `cm-id` names the document. The breadcrumb runs from set to area to document. In a set, every link names a file and a section id, the index page is rewritten, and `npm run links` passes on the folder (§8.31).
 20. A roadmap or a case study has its recipe’s required parts in order, each with its id, and passes its type check (§7.14, §7.15).
 21. A topic, a glossary or a module has its recipe's required parts in order, each with its id, and passes its type check (§7.7 to §7.9). A module's answers are closed, and it carries no form controls.
+22. A framework, process, metric or comparison page has its recipe's required parts in order, each with its id, and passes its type check (§7.10 to §7.13).
 
 ## 15. Changes from Content Morphia Foundations
 
@@ -1920,6 +2040,8 @@ Added for reference pages: workflow, framework, model, method, requirement, eval
 Added for charts: recipes by question; bullet, slope, strip, box and interval charts declared with a `cm` key; end labels that name every line in place of the legend (§9).
 
 Added for page types: the `cm-type` tag, the recipe format and the selection table (§7.6); topic (§7.7), glossary (§7.8) and module (§7.9).
+
+Added as page types on the reference kind: framework (§7.10), process (§7.11), metric (§7.12) and comparison (§7.13).
 
 Added for document sets: document ids and addresses, the breadcrumb from set to area to document, the generated index page and the link check (§8.31).
 

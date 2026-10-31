@@ -834,7 +834,7 @@ The kit applies the rest:
 - An empty `aria-label` takes a summary from the data: the number of steps, the first and last, and the count of lanes, decisions and loops. A journey map and a system and data flow take their own summary (below). An author's `aria-label` stays; it states what the diagram shows in one sentence.
 - When the screen layout is wider than its box, the diagram takes the narrower gaps and nodes of the print layout. If it is still wider, it scales to the box's width, never below 80%, with its text set larger as in print. Past that floor it scrolls sideways inside its own box. Text never draws under its own size.
 - Print narrows the gaps and the nodes, then scales the drawing to fit the 638px printed column and 720px of a page, never below 80%. Text in a scaled drawing is set larger by the inverse of the scale, up to 125%, so it prints at its own size and never under 11px. The text version prints open.
-- A diagram within its capacity never scrolls at a desktop window, 1000px and wider. The layout check fails one that scrolls at 1440px.
+- A diagram that fits the printed column never scrolls at a desktop window, 1000px and wider. The layout check fails one that scrolls at 1440px.
 - A node widens to hold its emphasis chip, which never wraps.
 
 #### Sequence

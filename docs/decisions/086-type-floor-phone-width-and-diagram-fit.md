@@ -18,7 +18,7 @@
 | At 390px the page never scrolls sideways; only a table, a code block or a diagram scrolls, inside its own box | §5 | `page-width`, failure, every mode and the phone pass |
 | No text runs out of its box or is cut off by a box that clips | §5 | `text-clip`, failure, every mode and the phone pass |
 | Below 640px a chip, tag or delta wraps its words inside the outline | §8.18 | `page-width` and `text-clip`, phone pass |
-| A tag is a 20px box, as tall as a chip | §4 | `type-floor` |
+| A tag is a 20px box, as tall as a chip | §4 | None; the stylesheet sets it |
 | Tables print with 12px gutters and heads that wrap | §8.11, §12 | `page-width`, print |
 | A screen diagram wider than its box takes the narrow layout, then scales to the box down to 80%; past that it scrolls in its box | §8.20 | `diagram-layout`, failure, at 1440px and in the phone pass |
 | Diagram text in a scaled drawing is set larger by the inverse of the scale, up to 125% | §8.20, §12 | `type-floor`; `label-type` within 2% as drawn |
@@ -55,8 +55,9 @@ desktop windows the brief names:
 | 1151px | 743px, the narrowest, just above the 1150px rail break |
 | 1000px | 872px |
 
-A diagram within its capacity draws at most 797px wide in the narrow layout, so it fits every desktop
-box at 93% or more. The five-column legal flow of item 38 fits at all four windows. It fails print,
+A diagram that passes the print check draws at most 797px wide in the narrow layout, so it fits every
+desktop box at 93% or more. The capacity ceilings alone do not ensure this: four columns with three
+labelled gaps pass them, yet need less than 80% in print. The five-column legal flow of item 38 fits at all four windows. It fails print,
 needing 699px at 80%, so it is split as the capacity rule says.
 
 ## Capacity
@@ -90,7 +91,7 @@ three-word edge labels unless the row says otherwise. "Over" means the fixture n
 | Layer stack, 4 layers of 4 with detail lines | 80%, 720px tall | Over, 736px tall |
 | Hierarchy, 5 levels | 81% | 82% |
 
-No ceiling in records 077, 084 and 085 changes. Three reasons in the spec move: four sequence
+No ceiling in records 077, 084 and 085 changes. This record supersedes their printed column of 632px, the 8px label size record 077 gives for the 80% floor, and the capacity reasons this section measures again. Three reasons in the spec move: four sequence
 participants now need messages of about 15 characters, a labelled gap counts as a column, and four
 layers with detail lines no longer fit a page. Five rows with detail lines did not fit a page at 10px
 either; the spec's reason now says so.

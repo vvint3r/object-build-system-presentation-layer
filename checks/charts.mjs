@@ -31,14 +31,18 @@ export default [
   },
 
   {
-    // Every chart and spark was drawn in this mode.
+    // Every chart and spark was drawn in this mode, and its box holds the drawing: a chart whose
+    // drawing is taller than its box is cut off or covers what follows it.
     name: 'chart-drawn', level: 'fail', source: 'SPEC §14 item 13',
     inPage: ({ check }) => {
       const H = window.__cm, out = [];
       for (const el of document.querySelectorAll('.cm-chart, [data-spark]')) {
         if (!H.shown(el) || H.exempt(el, check)) continue;
         const inst = window.echarts && window.echarts.getInstanceByDom(el);
-        if (!inst || !el.querySelector('svg, canvas')) out.push({ where: H.path(el), value: 'not drawn' });
+        const drawn = el.querySelector('svg, canvas');
+        if (!inst || !drawn) { out.push({ where: H.path(el), value: 'not drawn' }); continue; }
+        const box = el.getBoundingClientRect().height, art = drawn.getBoundingClientRect().height;
+        if (art - box > 1) out.push({ where: H.path(el), value: `drawing ${Math.round(art)}px tall in a box ${Math.round(box)}px tall` });
       }
       return out;
     },
@@ -97,15 +101,19 @@ export default [
   },
 
   {
-    // A legend for two or more series: "legend": false only suppresses it on a single series.
+    // A legend for two or more series: "legend": false only suppresses it on a single series. A
+    // line chart whose every line carries an end label naming it ("{a}" or the series name), and a
+    // slope, have none: their labels name the lines.
     name: 'chart-legend', level: 'fail', source: 'SPEC §9; §14 item 5', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, out = [];
+      const named = s => s.type === 'line' && s.endLabel && s.endLabel.show && (s.endLabel.formatter === '{a}' || s.endLabel.formatter === s.name);
       for (const c of H.charts()) {
         if (!c.json || H.exempt(c.src, check)) continue;
         const series = H.list(c.json.series).filter(s => s && s.type !== 'pie');
         const off = c.json.legend === false || H.list(c.json.legend).some(l => l && l.show === false);
-        if (series.length > 1 && off) out.push({ where: c.where, value: `${series.length} series with the legend turned off` });
+        const direct = (c.json.cm && c.json.cm.chart === 'slope') || series.every(named);
+        if (series.length > 1 && off && !direct) out.push({ where: c.where, value: `${series.length} series with the legend turned off` });
       }
       return out;
     },
@@ -122,7 +130,8 @@ export default [
       for (const c of H.charts()) {
         if (!c.json || H.exempt(c.src, check)) continue;
         const series = H.list(c.json.series);
-        const scatter = series.some(s => s && s.type === 'scatter');
+        // a strip is drawn by a scatter series on a category axis: only its value axis is named
+        const scatter = series.some(s => s && s.type === 'scatter' && !(s.cm && s.cm.chart === 'strip'));
         for (const [dim, def] of [['xAxis', 'category'], ['yAxis', 'value']]) {
           H.list(c.json[dim]).forEach((a, i) => {
             if (!a || a.show === false) return;
@@ -238,15 +247,18 @@ export default [
 
   {
     // At most four coloured series (series set to $context do not count); a pie has at most four
-    // slices.
+    // slices. A slope draws every line the JSON leaves uncoloured in ink, or in $context once any
+    // line is picked out, so only the lines given a colour count.
     name: 'series-count', level: 'fail', source: 'SPEC §9; §14 item 7', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, out = [];
       for (const c of H.charts()) {
         if (!c.json || H.exempt(c.src, check)) continue;
         const series = H.list(c.json.series).filter(Boolean);
-        const grey = s => [s.color, s.itemStyle && s.itemStyle.color, s.lineStyle && s.lineStyle.color].includes('$context');
-        const coloured = series.filter(s => s.type !== 'pie' && !grey(s)).length;
+        const colours = s => [s.color, s.itemStyle && s.itemStyle.color, s.lineStyle && s.lineStyle.color];
+        const grey = s => colours(s).includes('$context');
+        const slope = c.json.cm && c.json.cm.chart === 'slope';
+        const coloured = series.filter(s => s.type !== 'pie' && !grey(s) && (!slope || colours(s).some(Boolean))).length;
         if (coloured > 4) out.push({ where: c.where, value: `${coloured} coloured series (at most 4)` });
         for (const s of series) if (s.type === 'pie' && H.list(s.data).length > 4) out.push({ where: c.where, value: `pie with ${H.list(s.data).length} slices (at most 4)` });
       }

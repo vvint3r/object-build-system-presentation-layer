@@ -34,8 +34,9 @@ export default [
 
   {
     // A sources list with entries, each tagged with its type from the closed set. The fields of
-    // each entry, its locator among them, are checked by source-entries (checks/provenance.mjs).
-    name: 'sources', level: 'fail', source: 'SPEC §8.21; §14 item 11', once: true,
+    // each entry, its locator among them, are checked by source-entries (checks/provenance.mjs). An
+    // index page cites nothing: its entries are the documents themselves (SPEC §8.31).
+    name: 'sources', level: 'fail', source: 'SPEC §8.21; §14 item 11', once: true, kinds: ['report', 'guide', 'reference'],
     inPage: ({ check }) => {
       const H = window.__cm, out = [];
       const lists = [...H.source().querySelectorAll('.cm-sources')].filter(l => !H.exempt(l, check));
@@ -149,8 +150,10 @@ export default [
 
   {
     // Top bar: the publisher wordmark (lowercase, hyphenated), one series chip, the theme toggle,
-    // at most one print button (optional, SPEC §7.1), and nothing else.
-    name: 'topbar', level: 'fail', source: 'SPEC §7.1', once: true,
+    // at most one print button (optional, SPEC §7.1), and nothing else. The wordmark links to the
+    // top of the page, or, in a document whose breadcrumb links to its set's index page, to that
+    // page; on the index page itself, to the top (SPEC §8.31).
+    name: 'topbar', level: 'fail', source: 'SPEC §7.1; §8.31', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, d = H.source(), out = [];
       const bars = d.querySelectorAll('.cm-topbar');
@@ -159,7 +162,13 @@ export default [
       if (H.exempt(bar, check)) return [];
       const mark = bar.querySelectorAll('.cm-wordmark');
       if (mark.length !== 1) out.push({ where: H.path(bar), value: `${mark.length} wordmarks (exactly 1)` });
-      else if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(H.text(mark[0]))) out.push({ where: H.path(mark[0]), value: `wordmark "${H.text(mark[0])}" (lowercase, hyphenated)` });
+      else {
+        if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(H.text(mark[0]))) out.push({ where: H.path(mark[0]), value: `wordmark "${H.text(mark[0])}" (lowercase, hyphenated)` });
+        const inSet = !!d.querySelector('.cm-mast .cm-crumbs > a[href="index.html"]');
+        const want = inSet && H.kind() !== 'index' ? 'index.html' : '#top';
+        const href = mark[0].getAttribute('href') || '';
+        if (href !== want) out.push({ where: H.path(mark[0]), value: `href="${href}" (${want}${inSet ? ', since the breadcrumb links to index.html' : ''})` });
+      }
       const chips = bar.querySelectorAll('.cm-chip').length;
       if (chips !== 1) out.push({ where: H.path(bar), value: `${chips} series chips (exactly 1)` });
       const toggles = bar.querySelectorAll('[data-cm-theme-toggle]').length;
@@ -178,16 +187,47 @@ export default [
     // Breadcrumb, bar, title, dek, the labelled metadata fields in their formats, and the byline
     // with Prepared by and Distribution. The type chip names the document's kind. A report carries
     // a Period field, or its omission comment in the metadata list; a guide and a reference carry
-    // none (SPEC §7.1).
-    name: 'masthead', level: 'fail', source: 'SPEC §7.1; §14 item 2', once: true,
+    // none (SPEC §7.1). A document's breadcrumb runs set, area, document; the set step links to
+    // index.html and the area step to index.html#{area id} where the set has an index page, and each
+    // is plain text where it has none. An index page's breadcrumb is its set alone, and its fields
+    // are Status, Documents and Updated, with no byline (SPEC §8.31).
+    name: 'masthead', level: 'fail', source: 'SPEC §7.1; §8.31; §14 item 2', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, d = H.source(), out = [], kind = H.kind();
       const m = d.querySelector('.cm-mast');
       if (!m) return [{ where: 'body', value: 'no masthead (.cm-mast)' }];
       if (H.exempt(m, check)) return [];
       const at = H.path(m);
-      for (const [sel, what] of [['.cm-crumbs', 'breadcrumb'], ['.cm-bar', 'bar'], ['h1.cm-mast__title', 'title'], ['.cm-mast__dek', 'dek'], ['dl.cm-mast__meta', 'metadata list'], ['dl.cm-byline', 'byline']]) {
+      const index = kind === 'index';
+      for (const [sel, what] of [['.cm-crumbs', 'breadcrumb'], ['.cm-bar', 'bar'], ['h1.cm-mast__title', 'title'], ['.cm-mast__dek', 'dek'], ['dl.cm-mast__meta', 'metadata list'], ...(index ? [] : [['dl.cm-byline', 'byline']])]) {
         if (!m.querySelector(sel)) out.push({ where: at, value: `no ${what} (${sel})` });
+      }
+      if (index && m.querySelector('dl.cm-byline')) out.push({ where: H.path(m.querySelector('dl.cm-byline')), value: 'a byline on an index page (none)' });
+
+      // The trail: steps and the separators between them.
+      const crumbs = m.querySelector('.cm-crumbs');
+      if (crumbs) {
+        const where = H.path(crumbs);
+        const kids = [...crumbs.children];
+        const steps = kids.filter(el => !el.classList.contains('sep'));
+        if (!kids.every((el, i) => el.classList.contains('sep') === (i % 2 === 1)) || (kids.length && kids.length % 2 === 0)) out.push({ where, value: 'steps and separators (span.sep) do not alternate, one separator between two steps' });
+        for (const el of kids) if (el.classList.contains('sep') && el.getAttribute('aria-hidden') !== 'true') out.push({ where: H.path(el), value: 'separator without aria-hidden="true"' });
+        const want = index ? 1 : 3;
+        if (steps.length !== want) out.push({ where, value: `${steps.length} steps (${index ? 'the set alone' : 'three: set, area and document'})` });
+        const last = steps[steps.length - 1];
+        if (last && !(last.localName === 'span' && last.getAttribute('aria-current') === 'page')) out.push({ where: H.path(last), value: 'the last step is not the page itself (span aria-current="page")' });
+        const placeholder = t => /\{\{/.test(t);
+        const slug = t => t.normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+        steps.slice(0, -1).forEach((el, i) => {
+          if (el.getAttribute('aria-current')) out.push({ where: H.path(el), value: 'aria-current on a step before the last' });
+          if (el.localName === 'span') return;
+          if (el.localName !== 'a') { out.push({ where: H.path(el), value: `<${el.localName}> as a step (a link, or a span where there is no page)` }); return; }
+          const href = el.getAttribute('href') || '';
+          if (placeholder(href) || placeholder(H.text(el))) return;
+          const target = i === 0 ? 'index.html' : `index.html#${slug(H.text(el))}`;
+          if (href !== target) out.push({ where: H.path(el), value: `href="${href}" (${target})` });
+          if (i === 1 && steps[0].localName !== 'a') out.push({ where: H.path(el), value: 'the area step links to the index page, and the set step does not' });
+        });
       }
       const fields = dl => {
         const f = new Map();
@@ -210,6 +250,17 @@ export default [
         Version: [/^\d+\.\d+$/, 'X.Y'],
       };
       if (!meta.has('Status')) out.push({ where: at, value: 'no Status field' });
+      if (index) {
+        const INDEX = { Documents: [/^\d+$/, 'N'], Updated: [/^\d{4}-\d{2}-\d{2}$/, 'YYYY-MM-DD'] };
+        for (const [k, [re, form]] of Object.entries(INDEX)) {
+          if (!meta.has(k)) out.push({ where: at, value: `no ${k} field` });
+          else if (!re.test(H.text(meta.get(k)))) out.push({ where: H.path(meta.get(k)), value: `${k} "${H.text(meta.get(k))}" (${form})` });
+        }
+        for (const k of meta.keys()) if (!['Status', ...Object.keys(INDEX)].includes(k)) out.push({ where: H.path(meta.get(k)), value: `a ${k} field on an index page (Status, Documents and Updated)` });
+        const chips = meta.has('Status') ? [...meta.get('Status').querySelectorAll('.cm-chip')].map(c => H.text(c)) : [];
+        if (meta.has('Status') && chips.join() !== 'Index') out.push({ where: H.path(meta.get('Status')), value: `status chips "${chips.join(', ')}" (the type chip Index alone)` });
+        return out;
+      }
       for (const [k, [re, form]] of Object.entries(FORMAT)) {
         if (k === 'Period' && kind !== 'report') {
           if (meta.has(k)) out.push({ where: H.path(meta.get(k)), value: `a Period field in a ${kind} (reports only)` });
@@ -279,16 +330,19 @@ export default [
   },
 
   {
-    // Notes and sources close the document, notes first, and the footer follows. Every kind closes
-    // this way (SPEC §7.1).
-    name: 'report-anatomy', level: 'fail', source: 'SPEC §7.1', once: true,
+    // Notes and sources close the document, notes first, and the footer follows. Every document kind
+    // closes this way (SPEC §7.1); an index page has no sources, and its footer follows its last
+    // section (SPEC §8.31).
+    name: 'report-anatomy', level: 'fail', source: 'SPEC §7.1; §8.31', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, d = H.source(), out = [];
+      const index = H.kind() === 'index';
       const sections = [...d.querySelectorAll('main section.cm-section')].filter(s => !H.exempt(s, check) && !s.parentElement.closest('section'));
       const last = sections[sections.length - 1];
       const first = sel => [...d.querySelectorAll(sel)].find(el => !H.exempt(el, check));
       const notes = first('.cm-notes'), sources = first('.cm-sources');
-      if (!sources) out.push({ where: 'body', value: 'no notes and sources appendix (.cm-sources)' });
+      if (index) { if (sources) out.push({ where: H.path(sources), value: 'a sources list on an index page (none)' }); }
+      else if (!sources) out.push({ where: 'body', value: 'no notes and sources appendix (.cm-sources)' });
       else {
         if (last && !last.contains(sources)) out.push({ where: H.path(sources), value: 'the sources list is not in the last section' });
         if (notes && (notes.compareDocumentPosition(sources) & Node.DOCUMENT_POSITION_FOLLOWING) === 0) out.push({ where: H.path(notes), value: 'notes come after sources' });

@@ -7,6 +7,8 @@
   A report without measured numbers leaves out a required block it has no content for and marks its place with an omission comment (SPEC.md §7.5).
   Paths below assume the report sits inside report-kit/. Elsewhere, point the two kit paths at report-kit/cm-report.css and report-kit/cm-report.js.
   For a single self-contained file, paste cm-report.css into <style> and cm-report.js into <script> (see SPEC.md §2).
+  In a set, the file is named {Kind} - {Short Title}.html, the cm-id is that name in lowercase with hyphens, and the wordmark and breadcrumb link to the set's index.html (SPEC.md §8.31).
+  A document outside a set writes its set and area steps as <span>s and links the wordmark to #top. In a set, npm run index -- <folder> rewrites index.html and npm run links -- <folder> checks the links.
 -->
 <html lang="en">
 <head>
@@ -15,6 +17,7 @@
 <title>{{ Report title }} · {{ Period }}</title>
 <meta name="cm-kit" content="1.2">
 <meta name="cm-kind" content="report">
+<meta name="cm-id" content="{{ id }}">
 <script>(function(){var t;try{t=localStorage.getItem('cm-theme')}catch(e){}document.documentElement.dataset.theme=t||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')})()</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,7 +30,7 @@
 
 <header class="cm-topbar">
   <div class="cm-topbar__in">
-    <a class="cm-wordmark" href="#top">{{ publisher-name }}</a>
+    <a class="cm-wordmark" href="index.html">{{ publisher-name }}</a>
     <span class="cm-chip">{{ Report series }}</span>
     <div class="cm-topbar__actions">
       <button class="cm-btn cm-btn--quiet cm-btn--sm" type="button" data-cm-theme-toggle>Dark mode</button>
@@ -56,8 +59,9 @@
     <!-- MASTHEAD (required) -->
     <header class="cm-mast">
       <nav class="cm-crumbs" aria-label="Breadcrumb">
-        <a href="#top">Reports</a><span class="sep" aria-hidden="true">/</span>
-        <span aria-current="page">{{ Period }}</span>
+        <a href="index.html">{{ Document set }}</a><span class="sep" aria-hidden="true">/</span>
+        <a href="index.html#{{ area-id }}">{{ Area }}</a><span class="sep" aria-hidden="true">/</span>
+        <span aria-current="page">{{ Short title }}</span>
       </nav>
       <div class="cm-bar" aria-hidden="true"></div>
       <h1 class="cm-mast__title">{{ Report title, 4–10 words }}</h1>

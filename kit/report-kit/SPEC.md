@@ -9,13 +9,13 @@ Kit files (all in `report-kit/`):
 | File | Role |
 | --- | --- |
 | `cm-report.css` | Tokens (light, dark, print) and every component class. The only stylesheet. |
-| `cm-report.js` | Theme toggle, ECharts theme + draw-in, diagram drawing and text versions, sortable tables, contents scroll-spy, link targets clear of the top bar, citation back links, print prep. |
+| `cm-report.js` | Theme toggle, ECharts theme + draw-in, charts built from kit declarations, diagram drawing and text versions, sortable tables, contents scroll-spy, link targets clear of the top bar, citation back links, print prep. |
 | `template.html` | Report starter. Copy it for every report. |
 | `template-guide.html` | Guide starter. Copy it for every guide. |
 | `template-reference.html` | Reference starter. Copy it for every reference. |
 | `SPEC.md` | This file. |
 
-Human-readable version with live examples and copy-paste markup: `Report Kit - Spec & Gallery.html`. Reference output, one document per kind (§7): `Sample Report - Q3 Support Review.html`, `Guide - Billing Escalation.html` and `Reference - First Response Time.html`.
+Human-readable version with live examples and copy-paste markup: `Report Kit - Spec & Gallery.html`. Reference output, one document per kind (§7): `Sample Report - Q3 Support Review.html`, `Guide - Billing Escalation.html` and `Reference - First Response Time.html`. The three form a document set, and `index.html` lists them (§8.31).
 
 ---
 
@@ -36,7 +36,7 @@ Human-readable version with live examples and copy-paste markup: `Report Kit - S
 
 ## 2. Packaging
 
-Two modes. Both use the same markup.
+Three modes. All use the same markup.
 
 **Linked** (default for sites and shared folders):
 
@@ -48,7 +48,20 @@ Two modes. Both use the same markup.
 
 **Self-contained** (for email or attachments): replace the CSS link with `<style>` + the full contents of `cm-report.css`, and the kit script with `<script>` + the full contents of `cm-report.js`, placed as the last element in `<body>`. Keep the font and ECharts CDN links. Do not edit the pasted code.
 
-Required `<head>` (copy from the kind's template, in this order): charset, viewport, `<title>{Report title} · {Period}</title>` (`<title>{Title}</title>` for a guide, a reference, or a report that covers no period, §7), `<meta name="cm-kit" content="1.2">`, `<meta name="cm-kind" content="{kind}">` naming the kind (`report`, `guide` or `reference`; a page without it is a report, §7), the inline theme pre-paint script, font preconnects + Google Fonts link (Nunito 300 to 900 + italic 300/400, JetBrains Mono 400/600/700), kit CSS, ECharts 5.5.1, kit JS. `<html lang>` **MUST** be set.
+**Offline** (for reading with no network at all):
+
+```
+npm run pack -- "<page>.html"
+```
+
+The pack tool (`tools/pack.mjs`) writes the offline form of a page in either other mode to `offline/<page file name>` and leaves the source page unchanged. An offline file is never written or edited by hand. It differs from the self-contained mode in two places:
+
+- One `<style>` of `@font-face` rules replaces the font preconnects and the Google Fonts link. It holds each face that link names as WOFF2 data, Latin subset, from the pinned `@fontsource/nunito` and `@fontsource/jetbrains-mono` packages.
+- `<script>` + the full text of ECharts 5.5.1, from the installed `echarts` package, replaces the ECharts CDN link.
+
+The file makes no network request. Characters outside the Latin subset fall back to a system face.
+
+Required `<head>` (copy from the kind's template, in this order): charset, viewport, `<title>{Report title} · {Period}</title>` (`<title>{Title}</title>` for a guide, a reference, or a report that covers no period, §7), `<meta name="cm-kit" content="1.2">`, `<meta name="cm-kind" content="{kind}">` naming the kind (`report`, `guide` or `reference`; a page without it is a report, §7), `<meta name="cm-id" content="{id}">` naming the document (§8.31), the inline theme pre-paint script, font preconnects + Google Fonts link (Nunito 300 to 900 + italic 300/400, JetBrains Mono 400/600/700; offline: the font `<style>` in their place), kit CSS, ECharts 5.5.1, kit JS. `<html lang>` **MUST** be set.
 
 ## 3. Tokens
 
@@ -87,7 +100,8 @@ Semantic meaning is fixed: ok = healthy/validated, warn = attention/at risk, cri
 | Chip | `.cm-chip`, text centred in the 20px pill | 9 / 800 / caps, +0.08em, line height 10px | — |
 | Role tag | property-sheet `<sup>` | 10 / 700, sentence case | — |
 | Meta | `.cm-meta` | 13 / 400 | Dates, sizes, provenance |
-| Code | `<code>`, `.cm-code` | JetBrains Mono 600, 0.8em / 13px | — |
+| Code | `<code>` | JetBrains Mono, 0.8em / 600 | none |
+| Code block | `.cm-code`; its file name `.cm-code__file` | JetBrains Mono, 13 / 400; file name 12 / 600 | none |
 
 The rule thickness follows the heading level; the CSS applies it. Headings never skip a level (h1 → h2 → h3 → h4). Nunito never below 9px (chips), 10px (labels, tags, deltas, role tags and table sort arrows) or 13px (running text). The breadcrumb is a label with three weights: links 700, the current page 900, separators 300. `<strong>` marks a phrase, never a whole paragraph. `.cm-aside` (300 italic) de-emphasises a phrase.
 
@@ -119,11 +133,12 @@ Never stack a shadow with a border except where the class does it. Never nest a 
 
 The kit builds three kinds of document. A **report** sets out what the numbers show and what to do about them. A **guide** takes a reader through one task, step by step. A **reference** describes one thing, such as a metric, a dataset or a system, for a reader to look up.
 
-A `<meta name="cm-kind">` tag in `<head>`, straight after `cm-kit`, names the kind: `report`, `guide` or `reference`. A page without the tag is a report. Each kind starts from its own template (§1 rule 1).
+A `<meta name="cm-kind">` tag in `<head>`, straight after `cm-kit`, names the kind: `report`, `guide` or `reference`. A page without the tag is a report. Each kind starts from its own template (§1 rule 1). A `cm-id` tag follows, naming the document (§8.31). A page without one passes with a warning until kit 2.0, when the tag becomes required. The index page of a document set carries the kind `index`; a script writes it (§8.31).
 
 ```html
 <meta name="cm-kit" content="1.2">
 <meta name="cm-kind" content="guide">
+<meta name="cm-id" content="guide-billing-escalation">
 ```
 
 | Kind | Type chip | Required parts, in order | Never carries |
@@ -136,9 +151,9 @@ Every kind shares the top bar, contents rail, masthead, Notes & sources and foot
 
 ### 7.1 Shared blocks
 
-1. **Top bar** (required): `.cm-topbar` with the wordmark (publisher, lowercase-hyphenated), one series chip and the theme toggle. A print button after the toggle is optional, added only when the document is asked to carry one: `<button class="cm-btn cm-btn--secondary cm-btn--sm" type="button" data-cm-print>Print / PDF</button>`. Browser printing works without it (§12).
+1. **Top bar** (required): `.cm-topbar` with the wordmark (publisher, lowercase-hyphenated), one series chip and the theme toggle. A print button after the toggle is optional, added only when the document is asked to carry one: `<button class="cm-btn cm-btn--secondary cm-btn--sm" type="button" data-cm-print>Print / PDF</button>`. Browser printing works without it (§12). In a document set, the wordmark links to the set's index page (§8.31).
 2. **Contents rail** (recommended; required at ≥ 4 sections): one link per section id. Numbers `01…`, appendices `A`, `B`.
-3. **Masthead** (required): breadcrumb, `.cm-bar`, title, dek (one sentence), then `dl.cm-mast__meta` with one `<div><dt>Label</dt><dd>Value</dd></div>` per field, then `dl.cm-byline`. Labels name the value; never leave a value unlabelled.
+3. **Masthead** (required): breadcrumb from set to area to document (§8.31), `.cm-bar`, title, dek (one sentence), then `dl.cm-mast__meta` with one `<div><dt>Label</dt><dd>Value</dd></div>` per field, then `dl.cm-byline`. Labels name the value; never leave a value unlabelled.
    - Title: 4 to 10 words, 22 characters a line at most. A reference's title is the name of the thing it describes, 1 to 10 words.
    - Status: the type chip for the kind (table above); a status chip, Draft `cm-chip`, In review `cm-chip--warn` or Final `cm-chip--ok`; an optional `cm-chip--note` “Sample data” or “Preliminary”.
    - Period `YYYY-MM-DD → YYYY-MM-DD`: reports only. A guide or a reference has no Period field.
@@ -883,6 +898,8 @@ The steps a reader carries out, in order: a guide's Steps section (§7.3). The C
 
 Links to other documents, or to places in them, with how each relates. The tag names what the item is, from a closed set: `Report`, `Guide`, `Reference`, `Metric`, `Dataset`, `System`. The link text is the item's title. The sentence says what the reader finds there that bears on this document. Guides close with one in Related documents (§7.3); a reference's Relationships section holds one (§7.4). Below 640px the tag stacks above the link.
 
+Each link is an address (§8.31): the document's file name, and a section id after `#` for a place in it. On a set's index page each item closes with a meta line, `span.cm-meta`, holding the document's status and published date. Documents leave the meta line out, since a date copied from another document goes stale.
+
 ### 8.25 Workflow
 
 A workflow sets out how work moves between roles or stages, in order: the role that does each stage, what the stage takes in and produces, and the condition that hands the work on. A reader works through it, or looks up one stage.
@@ -1090,11 +1107,89 @@ A metric detail is the reference entry for one measure: what it counts, its form
 - The KPI strip (§8.2) gives the value for a period, its change and its target; the metric detail defines what that value means.
 - A property sheet (§8.7) holds facts about any one thing; the metric detail holds one, with the keys a metric needs. A definition (§8.5) explains a term in a sentence or two; a metric detail is for a measure the page reports or judges against thresholds. A known limit of the metric is a limitation callout after the block (§8.4).
 
+### 8.31 Document sets
+
+A document set is the documents in one folder, with an index page that lists them. An area is a subject within the set, such as billing; it groups documents of every kind. Addresses, the breadcrumb and the index page tie a set together, and a check over the folder keeps its links whole.
+
+#### Address
+
+Every document names itself in `<head>`, straight after `cm-kind`:
+
+```html
+<meta name="cm-kind" content="guide">
+<meta name="cm-id" content="guide-billing-escalation">
+```
+
+- The file name is the kind, a spaced hyphen, and a short title of two to five words in title case: `Guide - Billing Escalation.html`.
+- The id is the file name without `.html`, in lowercase, with a hyphen for each run of spaces and punctuation. The index page's id is `index`.
+- File name and id are set when the document is first published and never change. No two documents in a set share an id.
+- The documents of a set sit side by side in one folder, so a link between them carries no path. A link to another document is its file name, with each space written `%20` and each `&` written `%26`.
+- A link to a place in another document adds `#` and a section id: `Guide%20-%20Billing%20Escalation.html#steps`. Links between documents name sections only. Ids inside a section, such as those of figures, tables, notes and citations, can change between versions.
+- A section id never changes once the document is published: the part ids of a guide and a reference are fixed (§7.3, §7.4), and a report's are stable (§7.1).
+
+#### Breadcrumb
+
+The breadcrumb runs from the set to the area to the document. Each step links to its page where one exists.
+
+```html
+<nav class="cm-crumbs" aria-label="Breadcrumb">
+  <a href="index.html">Support operations</a><span class="sep" aria-hidden="true">/</span>
+  <a href="index.html#billing">Billing</a><span class="sep" aria-hidden="true">/</span>
+  <span aria-current="page">Billing escalation</span>
+</nav>
+```
+
+- The set step names the set and links to the index page, `index.html`. Every document in a set names the same set.
+- The area step names the area and links to its section on the index page: `index.html#` and the area id, the area name in lowercase with hyphens. Documents on one subject share an area.
+- The last step is the document's short title, a `span` with `aria-current="page"`. No step links to the page it sits on.
+- A document outside a set writes its set and area steps as `span` elements, since neither has a page to link to.
+- In a set, the top bar's wordmark links to `index.html` as well, so the index is one step away from any point in a document. Outside a set, and on the index page, it links to `#top`.
+
+#### Index page
+
+The index page, `index.html`, lists every document in the set by area, with one index entry each. A script writes it from the documents, and it is never edited by hand:
+
+```
+npm run index -- <folder>
+```
+
+```html
+<ul class="cm-related">
+  <li><span class="cm-tag">Guide</span><a href="Guide%20-%20Billing%20Escalation.html">Billing ticket escalation to specialists</a><p>How a Tier 1 agent hands a billing ticket to the billing specialists and follows it to resolution.</p><span class="cm-meta">Final · published <time datetime="2026-10-19">2026-10-19</time></span></li>
+</ul>
+```
+
+- The script reads each document's kind, id, title, dek, status, published date and breadcrumb. When one lacks any of these, or two documents share an id, it lists the problems and writes nothing.
+- The page carries the kind `index`. Its masthead holds the set as its one breadcrumb step and its title, a dek, and three fields: Status (the type chip `Index`), Documents and Updated. Updated is the newest published date among the documents.
+- The index page has no byline and no Notes & sources: its entries are the documents themselves. Its footer holds the set's name, the document count and Updated date, the publisher and the kit.
+- Each area is a section, A to Z, numbered `Part 01` onwards, with the area name as its title and the area id as its id. It holds one related list (§8.24) and nothing else. The contents rail lists the areas.
+- Each index entry is a related-list item: the kind as its tag, the title as its link, the dek as its sentence, and a meta line with the status and published date.
+- Within an area, reports come first, newest first; then guides, then references, each A to Z by title.
+- The index quotes each dek, so a set's deks keep the index page within §13.1: 150 words for an area, and 18 words a sentence on average. A dek of 18 words or fewer meets both. Past either limit, the script names the deks to shorten or the area to split.
+
+#### Link check
+
+```
+npm run links -- <folder>
+```
+
+Run on a set's folder after the index page is rewritten. It fails when:
+
+- a page lacks its id, or two pages share one;
+- a document's breadcrumb or wordmark does not link to the index page and the document's area;
+- a link points at a file that does not exist, or at an id its target lacks;
+- a link to another page names an id that is not a section's;
+- `index.html` differs from what the script writes from the documents as they stand.
+
+The link rules cover every page in the folder, the gallery among them; only kit pages carry an id and a breadcrumb. Links to other sites are not followed. The page checks (§14) run on each page as before, the index page among them.
+
+The kit has no search, faceted browse or version selector, since each needs a server. In a set, the index page and the breadcrumb lead to a document, and the change log and revision history say what changed in it (§8.22).
+
 ## 9. Charts
 
-**Method:** ECharts 5.5.1, SVG renderer, option JSON inside `<script type="application/json">` within `.cm-chart[data-chart]`. Agents **MUST NOT** call `echarts.init` or write chart JavaScript. The JSON **MUST** be valid JSON (double quotes, no comments, no functions, no trailing commas).
+**Method:** ECharts 5.5.1, SVG renderer, option JSON inside `<script type="application/json">` within `.cm-chart[data-chart]`. Agents **MUST NOT** call `echarts.init` or write chart JavaScript. The JSON **MUST** be valid JSON (double quotes, no comments, no functions, no trailing commas). Chart types that ECharts cannot draw from JSON alone are declared with a `"cm"` key (**Kit declarations** below).
 
-**Applied automatically — do not set these:** fonts, text colors, axis lines, gridlines, tick removal, legend look and placement, axis-title placement, plot top/bottom padding (worked out from the legend, axis titles, reference-line labels and a heatmap's scale bar), tooltip look, series palette, bar width (≤ 16px) and rounding, stacked-segment gaps, line width 2.5, hidden symbols, area opacity 0.18, markLine/markArea styling, label styling, heatmap ramp, animation timing, renderer.
+**Applied automatically — do not set these:** fonts, text colors, axis lines, gridlines, tick removal, legend look and placement, axis-title placement, plot top/bottom padding (worked out from the legend, axis titles, reference-line labels and a heatmap's scale bar), tooltip look, series palette, bar width (≤ 16px) and rounding, stacked-segment gaps, line width 2.5, hidden symbols, area opacity 0.18, markLine/markArea styling, label styling, spacing of end labels that would touch, heatmap ramp, animation timing, renderer, and everything a kit declaration draws.
 
 **Anatomy (MUST, in this order):**
 
@@ -1103,7 +1198,7 @@ A metric detail is the reference entry for one measure: what it counts, its form
 | Kind and number | `.cm-figure__kind` | “Figure N”, sequential across the report |
 | Title | `.cm-figure__title` | What is shown, ≤ 10 words |
 | Description | `.cm-figure__desc` | Measure, unit, scope and period |
-| Legend | automatic | Shown for 2+ series, top left, series order. `"legend": false` only to suppress it on a single series. End labels or value labels may be added; they never replace the legend |
+| Legend | automatic | Shown for 2+ series, top left, series order. `"legend": false` only to suppress it on a single series. A line chart whose every line carries an end label naming it (`"formatter": "{a}"` or the series name) has no legend, and neither has a slope chart: the labels name the lines where they are. Value labels, and end labels that do not name their line, sit alongside the legend |
 | Axis titles | `xAxis.name`, `yAxis.name` | Quantity and unit (“Tickets per week”). Required on the value axis unless every tick shows the unit (“90%”). Scatter names both axes. The kit places a y-axis title above the plot and an x-axis title under it, on a value or a category axis, and makes room for each |
 | Data labels | `label`, `endLabel` | Values the reader should quote; every bar when there are ≤ 12 |
 | Annotations | `markLine`, `markArea` | Target, event or period, labelled in 1–3 words |
@@ -1120,26 +1215,138 @@ A metric detail is the reference entry for one measure: what it counts, its form
 - Focus on one mark: in a bar, line or area series, the picked-out mark keeps the default colour and the rest of the series takes `$context`.
 - Scatter points and other point marks keep their series colour, and the picked-out point takes `$c1` and a label. Grey points would sit below 3:1, each needing a value label.
 - Semantic solids (`$ok`, `$warn`, `$crit`) only when the series *is* a status, with words in the legend.
+- Slope lines are ink. Lines picked out take `"color": "$c1"` (up to four, `$c1` to `$c4`), and the rest turn `$context`; the labels at both ends carry every value.
+- Bullet bands are grey steps, darkest first: `$field`, `$hairline`, `$track`. An interval band takes its line's colour at the area opacity, 0.18.
 
-**Chart choice:**
+**Recipes by question.** Pick the chart by the question the reader brings to it. Each recipe gives the chart, when it fits, the data it needs, the annotation it usually wants and the mistake to avoid. Types marked `cm` are kit declarations (below).
 
-| Question | Chart | Notes |
-| --- | --- | --- |
-| Change over time | `line` | Category x-axis with `"boundaryGap": false`; y may start above zero |
-| Level over time, one series | `line` + `"areaStyle": {}` | y starts at zero |
-| Compare categories | `bar` | Horizontal (`yAxis.type: "category"`) when labels are long or ranked; sort largest at top (data listed smallest first) |
-| Composition over time | stacked `bar` | ≤ 4 parts, `"stack": "name"`; do not set radius or width |
-| Relationship | `scatter` | Name both axes with units |
-| Two categories × magnitude | `heatmap` | `visualMap` with min/max and `text` end labels; `"yAxis": {"inverse": true}` |
-| Part of a whole | `pie` with `"radius": ["44%","66%"]` | ≤ 4 slices, labels with name and value, only when the total matters |
+*Comparison: how categories differ on one measure.*
+
+| Chart | Use when | Data | Annotation | Common mistake |
+| --- | --- | --- | --- | --- |
+| `bar` | A few to a dozen categories on one measure | One value per category. Horizontal (`yAxis.type: "category"`) when labels are long or ranked, largest at top (data listed smallest first) | Value labels on every bar up to 12; a target as a `markLine` | A value axis that does not start at zero |
+| Bullet: `bar` + `cm` | Each measure against its target, with optional bands that grade it | A value and a target per measure, all in one unit | Target mark, values and band names, all drawn by the kit | Measures in different units on one axis |
+| `heatmap` | A magnitude across two categories at once, such as weekday by hour | One value per cell; `visualMap` with min/max and `text` end labels; `"yAxis": {"inverse": true}` | The scale bar's end labels | More rows than fit at about 40px each |
+
+*Change: how a measure moves over time.*
+
+| Chart | Use when | Data | Annotation | Common mistake |
+| --- | --- | --- | --- | --- |
+| `line` | A measure over many periods | One value per period; category x-axis with `"boundaryGap": false`; y may start above zero | Events as vertical `markLine`; end labels naming each line | More than four coloured lines |
+| Area: `line` + `"areaStyle": {}` | One level over time, where the total matters | One series; y starts at zero | A threshold as `markLine` | Two series as areas, which hide each other |
+| Slope: `line` + `cm` | Two points in time per category, where the change matters more than the path | Two values per line; two categories on the x-axis | Labels at both ends, drawn by the kit; lines picked out in `$c1` | Three or more periods, which a line chart shows better |
+
+*Distribution: how values spread within each group.*
+
+| Chart | Use when | Data | Annotation | Common mistake |
+| --- | --- | --- | --- | --- |
+| Strip: `scatter` + `cm` | Each value matters, up to a few hundred per category | Every value, per category | Count and median, drawn by the kit | An average alone, which hides the spread and the outliers |
+| Box: `boxplot` + `cm` | Many values per category, or only their summaries | Every value per category, or five numbers and a count per category | Count, drawn by the kit | A box over a handful of values, where a strip shows each one |
+
+*Uncertainty: how sure an estimate is.*
+
+| Chart | Use when | Data | Annotation | Common mistake |
+| --- | --- | --- | --- | --- |
+| Interval band: `line` + `cm` | An estimate or forecast over time | A low and a high per point, and the interval's name | The interval's name in the legend, drawn by the kit | A band without a name, which a reader cannot weigh |
+| Error bars: `bar` or `scatter` + `cm` | Estimates per category, such as survey results | A low and a high per bar or point, and the interval's name | As for the band | Error bars on stacked bars, whose segments carry no estimate of their own |
+
+*Composition: how a whole divides into parts.*
+
+| Chart | Use when | Data | Annotation | Common mistake |
+| --- | --- | --- | --- | --- |
+| Stacked `bar` | Parts of a whole over time or across categories | Up to 4 parts, `"stack": "name"`; do not set radius or width | Value axis in percent when the shares matter | More than four parts |
+| Donut: `pie` with `"radius": ["44%","66%"]` | One whole in up to four parts, when the total matters | Up to 4 slices | Labels with name and value, which act as the legend | Two donuts side by side, where a stacked bar compares better |
+
+*Relationship: how two measures move together.*
+
+| Chart | Use when | Data | Annotation | Common mistake |
+| --- | --- | --- | --- | --- |
+| `scatter` | Two measures per item, such as teams or accounts | A pair of values per item; name both axes with units | The picked-out point in `$c1` with a label | Reading a correlation as a cause |
 
 **MUST NOT:** 3D, gradient fills, dual y-axes, radar, gauge, word clouds, more than one chart per figure, bars or areas that do not start at zero, a `barWidth` above 16.
+
+An interval band and a box mark a range, not a level, so the zero rule does not apply to them; a bullet's bar is a bar and starts at zero.
 
 **Annotations:**
 - Target or threshold: `"markLine": {"data": [{"yAxis": 95, "label": {"formatter": "Target 95%", "position": "insideStartTop"}}]}` (use `xAxis` for vertical lines and horizontal bars, `position: "end"`).
 - Event: vertical markLine on the category (`{"xAxis": "Wk 7"}`) with a 1–3 word label.
 - Period band: `"markArea": {"data": [[{"xAxis": "Wk 6"}, {"xAxis": "Wk 8"}]]}`.
-- Direct labels: `"endLabel": {"show": true, "formatter": "Q3"}` on lines (add `"grid": {"right": 64}`); `"label": {"show": true, "position": "right", "formatter": "{c}%"}` on bars. The kit sets every value label, on a series or on a single point, in ink on the surface colour, and draws a series above its reference lines, so a line never runs through a number.
+- Direct labels: `"endLabel": {"show": true, "formatter": "{a}"}` names a line at its end (add `"grid": {"right": 64}`, more for long names); when every line carries one, the legend is left out. `"label": {"show": true, "position": "right", "formatter": "{c}%"}` on bars. The kit sets every value label, on a series or on a single point, in ink on the surface colour, and draws a series above its reference lines, so a line never runs through a number. End labels that would touch move apart.
+
+**Kit declarations.** Option JSON carries no functions, so four chart types are declared with a `"cm"` key and built by the kit's script at every draw, from the current tokens: theme, print and dark mode work as for any chart. The rest of the JSON stays ordinary ECharts, with its axes, series names, axis titles and annotations, and every rule above applies to it. `chart` names the type.
+
+| Declaration | Where | Fields | What the kit draws |
+| --- | --- | --- | --- |
+| `{"chart": "slope"}` | Top level of a line chart | None | Each line's two points, with a label at both ends giving its name and value; no legend, no y-axis labels or gridlines |
+| `{"chart": "bullet", …}` | On a `bar` series, categories on the y-axis | `target`: one number, or one per bar. `bands` (optional): 1 to 3 `{"to": 90, "name": "Breach"}`, from the axis start; the last runs to the axis end and needs no `to` | A grey track per bar, stepped by band; the bar 8px thick on it; the target as a 2px ink mark across it; each value at the end of its row; band names above the top row; a legend naming the bar and the target |
+| `{"chart": "strip", "values": […]}` | On a `scatter` series on a category axis | `values`: every value, one list per category | Each value as a hollow dot, spread across its row; the median as an ink mark; the count under each category name |
+| `{"chart": "box", …}` | On a `boxplot` series | `values` as for a strip; or, from summaries, `[low, q1, median, q3, high]` per category in `data` and the counts in `n` | Quartiles by linear interpolation; whiskers to the furthest values within 1.5 times the interquartile range; values past them as hollow dots named "Outliers"; the count under each category name |
+| `{"chart": "interval", …}` | On a `line`, `bar` or `scatter` series | `name`: the interval's level or kind ("90% interval", "95% confidence interval", "Interquartile range"). `low`, `high`: one number per point | Around a line, a band in its colour; on bars and points, 1.5px ink error bars with 8px caps, and each value label past its error bar; the name in the legend |
+
+- A bullet is horizontal, and its measures share one unit and one value axis, which starts at zero. Measures in different units go in figures of their own.
+- A chart holds one distribution series, so each category has one count.
+- The value axis's formatter (`"{value}%"`) writes the values a declaration labels: a slope's ends, a bullet's values and its target. A bar's own `label.formatter` wins for a bullet.
+
+Slope:
+
+```json
+{
+  "cm": {"chart": "slope"},
+  "xAxis": {"type": "category", "data": ["Q2 2026", "Q3 2026"]},
+  "yAxis": {"type": "value", "axisLabel": {"formatter": "{value}%"}},
+  "series": [
+    {"name": "Chat", "type": "line", "data": [94.0, 96.1]},
+    {"name": "Email", "type": "line", "data": [86.1, 88.3], "color": "$c1"},
+    {"name": "Web form", "type": "line", "data": [87.5, 86.9]}
+  ]
+}
+```
+
+Bullet:
+
+```json
+{
+  "xAxis": {"type": "value", "min": 0, "max": 100, "axisLabel": {"formatter": "{value}%"}},
+  "yAxis": {"type": "category", "data": ["Billing specialists", "Tier 1 · APAC", "Tier 1 · Americas"]},
+  "series": [{"name": "Within SLA", "type": "bar", "data": [82.6, 87.4, 94.6],
+    "cm": {"chart": "bullet", "target": 95,
+           "bands": [{"to": 85, "name": "Breach"}, {"to": 92, "name": "At risk"}, {"name": "On track"}]}}]
+}
+```
+
+Strip (for a box, the same with `"type": "boxplot"` and `"chart": "box"`):
+
+```json
+{
+  "xAxis": {"type": "value", "name": "First response, hours"},
+  "yAxis": {"type": "category", "data": ["Chat", "Email"]},
+  "series": [{"name": "Tickets", "type": "scatter",
+    "cm": {"chart": "strip", "values": [[0.2, 0.4, 0.3, 0.6], [2.1, 3.5, 4.2, 2.8, 5.1]]}}]
+}
+```
+
+Box from summaries:
+
+```json
+{
+  "xAxis": {"type": "value", "name": "First response, hours"},
+  "yAxis": {"type": "category", "data": ["Chat", "Email"]},
+  "series": [{"name": "First response", "type": "boxplot",
+    "data": [[0.1, 0.3, 0.5, 0.8, 1.4], [1.2, 2.6, 3.4, 4.6, 7.9]],
+    "cm": {"chart": "box", "n": [4120, 6380]}}]
+}
+```
+
+Interval (a band on a line; on a `bar` or `scatter` series the same fields draw error bars):
+
+```json
+{
+  "xAxis": {"type": "category", "boundaryGap": false, "data": ["Oct", "Nov", "Dec"]},
+  "yAxis": {"type": "value", "name": "Tickets per week", "min": 3000},
+  "series": [{"name": "Forecast", "type": "line", "data": [3650, 3720, 3900],
+    "cm": {"chart": "interval", "name": "80% interval", "low": [3600, 3600, 3700], "high": [3700, 3850, 4120]}}]
+}
+```
 
 **Formatting:** axis label formatters as template strings only (`"{value}%"`). Category labels short (`Wk 1`, `Jul`, `Mon`). Thin crowded axes with `"axisLabel": {"interval": 2}`.
 
@@ -1247,7 +1454,7 @@ Headings are `h1` to `h6` and table titles.
 2. Top bar with the wordmark, one series chip and the theme toggle; a print button only when the document is asked to carry one. Masthead complete with labelled metadata and the type chip for the kind; title ≤ 10 words. A report's period left out of the masthead or the title carries its omission comment (§7.5); a guide or a reference has no period.
 3. Report summary: lede, 2 to 4 KPIs with stated comparisons (or the KPI strip's omission comment, §7.5), 3 to 5 findings.
 4. Every summary number reappears in the body with its source.
-5. Every figure: kind, title, description, legend for 2+ series, value-axis title with unit, `role="img"`, `aria-label`, caption with a source line. Figure numbers sequential.
+5. Every figure: kind, title, description, legend for 2+ series (or an end label naming every line), value-axis title with unit, `role="img"`, `aria-label`, caption with a source line. Figure numbers sequential.
 6. Every table: kind and title, `.num` on numeric columns, `data-value` on formatted cells, source caption; row flags explained.
 7. Budgets: in a report, 1 `cm-featured` (none with the Recommendations omission comment, §7.5) and 1 `cm-summary`; in a guide or a reference, neither. ≤ 1 verdict chip per table, ≤ 1 `cm-emph` per section, ≤ 4 colored chart series.
 8. Mono only inside code; no colored fills behind labels or chips.
@@ -1261,6 +1468,7 @@ Headings are `h1` to `h6` and table titles.
 16. `cm-kind` names the kind, or is absent for a report. A guide or a reference has its required parts in order, each with its id, or their omission comments (§7.3 to §7.5). Every procedure step closes with its outcome; every related item has a tag, a link and a sentence.
 17. Every diagram: JSON within its mode's fields and capacity, a label on every decision branch, `role="img"`, a caption with a source line, and nothing overlapping or clipped in light, dark and print (§8.20).
 18. Each structured component opens with its kind label and title and holds its required parts within its counts and limits (§8.25 to §8.30).
+19. `cm-id` names the document. The breadcrumb runs from set to area to document. In a set, every link names a file and a section id, the index page is rewritten, and `npm run links` passes on the folder (§8.31).
 
 ## 15. Changes from Content Morphia Foundations
 
@@ -1292,6 +1500,10 @@ Changed in 1.2:
 Added for guides and references: document kinds (§7), procedure (§8.23), related list (§8.24).
 
 Added for reference pages: workflow, framework, model, method, requirement, evaluation and metric detail (§8.25 to §8.30).
+
+Added for charts: recipes by question; bullet, slope, strip, box and interval charts declared with a `cm` key; end labels that name every line in place of the legend (§9).
+
+Added for document sets: document ids and addresses, the breadcrumb from set to area to document, the generated index page and the link check (§8.31).
 
 Added for reports: ECharts chart method and theme; categorical and sequential palettes; dark token set; print rules; report masthead and contents rail; KPI strip; key findings; native tables with sorting and in-cell bars; pull quote; timeline; process diagram; definition, questions and property-sheet blocks; footnotes; collapsible appendix; chart draw-in motion; packaging modes.
 

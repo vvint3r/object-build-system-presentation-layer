@@ -5,12 +5,13 @@
 export default [
   {
     // A report's or a guide's title runs 4 to 10 words; a reference's title is the name of the thing
-    // it describes, 1 to 10 words. A figure title runs at most 10.
+    // it describes, and an index page's the name of its set, 1 to 10 words. A figure title runs at
+    // most 10.
     name: 'title-length', level: 'warn', source: 'SPEC §7.1; §9; §14 item 2', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, out = [];
       const words = el => H.text(el).split(' ').filter(w => /[\p{L}\p{N}]/u.test(w)).length;
-      const min = H.kind() === 'reference' ? 1 : 4;
+      const min = ['reference', 'index'].includes(H.kind()) ? 1 : 4;
       for (const h of H.source().querySelectorAll('h1.cm-mast__title')) {
         const n = words(h);
         if (!H.exempt(h, check) && (n < min || n > 10)) out.push({ where: H.path(h), value: `${n} words (${min} to 10)` });
@@ -230,7 +231,7 @@ export default [
     name: 'chart-label', level: 'warn', source: 'SPEC §8.10; §9', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, out = [];
-      const TYPE = /\b(bar|column|line|area|scatter|pie|donut|doughnut|heatmap|histogram|dot|slope|dumbbell|waterfall|funnel|box|chart|plot)\b/i;
+      const TYPE = /\b(bar|column|line|area|scatter|pie|donut|doughnut|heatmap|histogram|dot|slope|dumbbell|waterfall|funnel|box|bullet|strip|chart|plot)\b/i;
       for (const el of H.source().querySelectorAll('.cm-chart[aria-label]')) {
         if (H.exempt(el, check)) continue;
         const label = el.getAttribute('aria-label').trim();

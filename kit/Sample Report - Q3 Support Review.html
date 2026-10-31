@@ -6,6 +6,7 @@
 <title>Customer support operations review · Q3 2026</title>
 <meta name="cm-kit" content="1.2">
 <meta name="cm-kind" content="report">
+<meta name="cm-id" content="sample-report-q3-support-review">
 <script>(function(){var t;try{t=localStorage.getItem('cm-theme')}catch(e){}document.documentElement.dataset.theme=t||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')})()</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,7 +19,7 @@
 
 <header class="cm-topbar">
   <div class="cm-topbar__in">
-    <a class="cm-wordmark" href="#top">support-operations</a>
+    <a class="cm-wordmark" href="index.html">support-operations</a>
     <span class="cm-chip">Quarterly review</span>
     <div class="cm-topbar__actions">
       <button class="cm-btn cm-btn--quiet cm-btn--sm" type="button" data-cm-theme-toggle>Dark mode</button>
@@ -49,13 +50,13 @@
     <!-- MASTHEAD -->
     <header class="cm-mast">
       <nav class="cm-crumbs" aria-label="Breadcrumb">
-        <a href="#top">Reports</a><span class="sep" aria-hidden="true">/</span>
-        <a href="#top">Support operations</a><span class="sep" aria-hidden="true">/</span>
-        <span aria-current="page">Q3 2026</span>
+        <a href="index.html">Support operations</a><span class="sep" aria-hidden="true">/</span>
+        <a href="index.html#service-performance">Service performance</a><span class="sep" aria-hidden="true">/</span>
+        <span aria-current="page">Q3 support review</span>
       </nav>
       <div class="cm-bar" aria-hidden="true"></div>
       <h1 class="cm-mast__title">Customer support operations review, Q3 2026</h1>
-      <p class="cm-mast__dek">Volume, speed, service levels and customer sentiment for July through September, with the initiatives that moved them and three actions for Q4.</p>
+      <p class="cm-mast__dek">Volume, speed, service levels and customer sentiment in Q3, with the initiatives behind them and three Q4 actions.</p>
       <dl class="cm-mast__meta">
         <div><dt>Status</dt><dd><span class="cm-chip">Analysis</span><span class="cm-chip cm-chip--ok">Final</span><span class="cm-chip cm-chip--note">Sample data</span></dd></div>
         <div><dt>Period</dt><dd>2026-07-01 → 2026-09-30</dd></div>
@@ -148,9 +149,9 @@
               "yAxis": {"type": "value", "name": "Tickets per week", "min": 3000, "max": 4500, "interval": 500},
               "series": [
                 {"name": "Q2 2026", "type": "line", "data": [3320,3390,3410,3350,3470,3440,3510,3400,3460,3520,3480,3530,3590],
-                 "lineStyle": {"color": "$context"}, "itemStyle": {"color": "$context"}, "endLabel": {"show": true, "formatter": "Q2"}},
+                 "lineStyle": {"color": "$context"}, "itemStyle": {"color": "$context"}, "endLabel": {"show": true, "formatter": "{a}"}},
                 {"name": "Q3 2026", "type": "line", "data": [3410,3520,3480,3655,3590,3720,4310,4120,3790,3700,3640,3610,3665],
-                 "endLabel": {"show": true, "formatter": "Q3"},
+                 "endLabel": {"show": true, "formatter": "{a}"},
                  "markLine": {"data": [{"xAxis": "Wk 7", "label": {"formatter": "Billing v4 launch", "position": "end"}}]}}
               ]
             }
@@ -217,16 +218,15 @@
             <span class="cm-figure__kind">Figure 3</span>
             <h3 class="cm-figure__title cm-figure__title--sm">SLA attainment by channel</h3>
             <p class="cm-figure__desc">Share of tickets resolved inside the SLA window.</p>
-            <div class="cm-chart" style="--h:300px" data-chart role="img" aria-label="Horizontal bar chart. Chat 96.1%, phone 94.8%, social 90.4%, email 88.3%, web form 86.9%. Only chat clears the 95% target.">
+            <div class="cm-chart" style="--h:300px" data-chart role="img" aria-label="Bullet chart. Chat 96.1%, phone 94.8%, social 90.4%, email 88.3% and web form 86.9%, against a 95% target. Only chat clears it.">
               <script type="application/json">
               {
-                "grid": {"right": 48},
                 "tooltip": {"axisPointer": {"type": "shadow"}},
                 "xAxis": {"type": "value", "min": 0, "max": 100, "interval": 25, "axisLabel": {"formatter": "{value}%"}},
                 "yAxis": {"type": "category", "data": ["Web form","Email","Social","Phone","Chat"]},
                 "series": [{"name": "Within SLA", "type": "bar", "data": [86.9,88.3,90.4,94.8,96.1],
-                  "label": {"show": true, "position": "right", "formatter": "{c}%"},
-                  "markLine": {"data": [{"xAxis": 95, "label": {"formatter": "Target 95%", "position": "end"}}]}}]
+                  "label": {"formatter": "{c}%"},
+                  "cm": {"chart": "bullet", "target": 95}}]
               }
               </script>
             </div>

@@ -9,8 +9,8 @@
 
 ## Rules
 
-Section 9 of `SPEC.md` holds the rules. Recipes by question take the place of the chart-choice table,
-and kit declarations add four chart types: bullet, slope, distribution (strip or box) and uncertainty
+Section 9 of `SPEC.md` holds the rules. Recipes by question take the place of the chart-choice table.
+Kit declarations add four chart types: bullet, slope, distribution (strip or box) and uncertainty
 (interval band or error bars). Section 14 item 5 accepts end labels in place of a legend. The new
 checks are failures, in `checks/recipes.mjs`; `checks/charts.mjs` reads the new forms.
 
@@ -29,26 +29,26 @@ checks are failures, in `checks/recipes.mjs`; `checks/charts.mjs` reads the new 
 
 ## Calls
 
-- **Native first.** The author writes ordinary ECharts axes, series names and axis titles, so every
-  existing chart check reads a declared chart as it reads any other. The `cm` key holds only what
+- **Native first.** The author writes ordinary ECharts axes, series names and axis titles. Every
+  existing chart check then reads a declared chart as it reads any other. The `cm` key holds only what
   JSON cannot express: the target, the bands, the raw values, the interval.
 - **Legend and direct labels.** End labels that name every line (`"{a}"` or the series name) replace
-  the legend, so the name appears once, where the line is. A slope never has a legend. End labels that
+  the legend. The name then appears once, where the line is. A slope never has a legend. End labels that
   give values, or name only some lines, sit alongside it.
 - **End-label spacing.** End labels that would touch move apart, centred on their lines, at every
   draw. The sample's Figure 1 had "Q2" and "Q3" overlapping in every mode without it.
 - **Bullet.** Horizontal only, with one unit and one value axis from zero. The target is a 2px ink
   mark, the meter's target treatment. Bands are 1 to 3 grey steps from existing tokens, darkest first
-  (`$field`, `$hairline`, `$track`), each segment with a 1.5px surface gap so neighbouring greys
-  separate. Band names sit above the top row. Values sit in a column at the row's end. On a narrow
+  (`$field`, `$hairline`, `$track`). A 1.5px surface gap between segments separates neighbouring
+  greys. Band names sit above the top row. Values sit in a column at the row's end. On a narrow
   chart the value axis takes only the ticks that fit beside that column.
 - **Slope.** Lines are ink; picked-out lines keep their colour and the rest take `$context`. The
   y-axis labels and gridlines are dropped, since the end labels carry every value. The axis spans the
   data. Labels on each side move apart when they would touch. On a narrow chart each period label
   ends at its own point and reaches outward, so the chart library hides neither.
 - **Distribution.** One distribution series per chart, so each category has one count. A strip shows
-  each value as a hollow dot with a fixed spread, so a page draws the same chart every time, and the
-  median as an ink mark. A box computes quartiles by linear interpolation and whiskers to 1.5 times
+  each value as a hollow dot and the median as an ink mark. The dots' spread is fixed, so a page draws
+  the same chart every time. A box computes quartiles by linear interpolation and whiskers to 1.5 times
   the interquartile range, the common convention. Boxes are outlines in the series colour, so the
   median line reads against the fill.
 - **Count.** "n = N" sits under each category name, where the reader looks for the group, not in a
@@ -60,8 +60,8 @@ checks are failures, in `checks/recipes.mjs`; `checks/charts.mjs` reads the new 
 - **Print.** Charts in print sat outside their box, which had no height, so printed PDFs showed none.
   The print rule draws the chart in the flow of its box, and `chart-drawn` checks that the drawing
   fits it.
-- **Overlap tolerance.** Two text boxes that share 2px or less in either direction do not overlap: a
-  box holds the font's empty ascent and descent as well as the glyphs.
+- **Overlap tolerance.** Two text boxes that share 2px or less in either direction do not overlap. A
+  text box holds the font's empty ascent and descent as well as the glyphs.
 - **Sample report.** Figure 3, SLA attainment by channel, becomes a bullet against the 95% target,
   with the same data, data table and source. Figure 1's end labels name their lines, so its legend
   drops.

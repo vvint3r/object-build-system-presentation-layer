@@ -1533,6 +1533,110 @@
 </figure>
           </div>
         </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">7.3</span><h3 class="cm-h3">Sequence</h3><p>Messages between people or systems in the order they are sent, with time running down. Order places everything, so the JSON has no columns or rows.</p></header>
+          <div data-demo>
+<figure class="cm-figure cm-bleed">
+  <span class="cm-figure__kind">Figure 10</span>
+  <h3 class="cm-figure__title">Refund above the agent limit</h3>
+  <p class="cm-figure__desc">Messages between the customer, the Tier 1 agent and the billing specialist, from the request to the refund.</p>
+  <div class="cm-diagram" data-diagram="sequence" role="img" aria-label="">
+    <script type="application/json">
+    {
+      "nodes": [
+        {"id": "customer", "label": "Customer"},
+        {"id": "agent", "label": "Tier 1 agent"},
+        {"id": "billing", "label": "Billing specialist"}
+      ],
+      "edges": [
+        {"from": "customer", "to": "agent", "label": "Asks for refund"},
+        {"from": "agent", "to": "agent", "label": "Checks agent limit"},
+        {"from": "agent", "to": "billing", "label": "Requests approval", "activate": true},
+        {"from": "agent", "to": "customer", "kind": "reply", "label": "Gives due time"},
+        {"from": "customer", "to": "agent", "kind": "optional", "label": "Writes again"},
+        {"from": "billing", "to": "billing", "label": "Checks the invoice"},
+        {"from": "billing", "to": "customer", "kind": "reply", "label": "Issues refund"}
+      ]
+    }
+    </script>
+  </div>
+  <figcaption class="cm-caption"><span class="cm-caption__line">Source: billing escalation policy, version 4.</span></figcaption>
+</figure>
+          </div>
+        </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">7.4</span><h3 class="cm-h3">State</h3><p>The states one ticket passes through, and the event behind each change. A dot marks the start, a ringed dot the end, and a loop an event that leaves the state as it was.</p></header>
+          <div data-demo>
+<figure class="cm-figure cm-bleed">
+  <span class="cm-figure__kind">Figure 11</span>
+  <h3 class="cm-figure__title">Ticket status</h3>
+  <p class="cm-figure__desc">The statuses a support ticket takes from arrival to closing, with the event that moves it each time.</p>
+  <div class="cm-diagram" data-diagram="state" role="img" aria-label="">
+    <script type="application/json">
+    {
+      "nodes": [
+        {"id": "start", "type": "initial", "col": 1, "row": 1},
+        {"id": "new", "type": "state", "label": "New", "detail": "Waiting in a queue", "col": 2, "row": 1},
+        {"id": "open", "type": "state", "label": "Open", "detail": "An agent is working on it", "col": 3, "row": 1},
+        {"id": "pending", "type": "state", "label": "Pending", "detail": "Waiting on the customer", "col": 3, "row": 2},
+        {"id": "solved", "type": "state", "label": "Solved", "detail": "Answer sent", "col": 4, "row": 1},
+        {"id": "end", "type": "final", "col": 4, "row": 2}
+      ],
+      "edges": [
+        {"from": "start", "to": "new"},
+        {"from": "new", "to": "open", "label": "Assigned"},
+        {"from": "open", "to": "pending", "label": "Asks customer"},
+        {"from": "pending", "to": "open", "label": "Customer replies"},
+        {"from": "pending", "to": "pending", "label": "Reminder sent"},
+        {"from": "open", "to": "solved", "label": "Agent solves"},
+        {"from": "solved", "to": "open", "label": "Reopened"},
+        {"from": "solved", "to": "end", "label": "After 4 days"}
+      ]
+    }
+    </script>
+  </div>
+  <figcaption class="cm-caption"><span class="cm-caption__line">Source: helpdesk status rules, as of <time datetime="2026-09-30">2026-09-30</time>.</span></figcaption>
+</figure>
+          </div>
+        </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">7.5</span><h3 class="cm-h3">Entity relationship</h3><p>The records a helpdesk keeps and how they relate. Tags mark the keys, and the words beside each end of a line give the count at that end.</p></header>
+          <div data-demo>
+<figure class="cm-figure cm-bleed">
+  <span class="cm-figure__kind">Figure 12</span>
+  <h3 class="cm-figure__title">Support data model</h3>
+  <p class="cm-figure__desc">The records behind one support conversation, and how many of each belong to the next.</p>
+  <div class="cm-diagram" data-diagram="entity-relationship" role="img" aria-label="">
+    <script type="application/json">
+    {
+      "nodes": [
+        {"id": "customer", "label": "Customer", "col": 1, "row": 1, "attributes": [
+          {"name": "customer_id", "key": "primary"}, {"name": "organisation"}, {"name": "plan"}]},
+        {"id": "ticket", "label": "Ticket", "col": 2, "row": 1, "attributes": [
+          {"name": "ticket_id", "key": "primary"}, {"name": "customer_id", "key": "foreign"}, {"name": "status"}, {"name": "opened_at"}]},
+        {"id": "agent", "label": "Agent", "col": 1, "row": 2, "attributes": [
+          {"name": "agent_id", "key": "primary"}, {"name": "team_id", "key": "foreign"}, {"name": "region"}]},
+        {"id": "message", "label": "Message", "col": 2, "row": 2, "attributes": [
+          {"name": "message_id", "key": "primary"}, {"name": "ticket_id", "key": "foreign"}, {"name": "agent_id", "key": "foreign"}, {"name": "sent_at"}]},
+        {"id": "team", "label": "Team", "col": 1, "row": 3, "attributes": [
+          {"name": "team_id", "key": "primary"}, {"name": "queue"}]}
+      ],
+      "edges": [
+        {"from": "customer", "to": "ticket", "fromEnd": "1", "toEnd": "0 or more", "label": "raises"},
+        {"from": "ticket", "to": "message", "fromEnd": "1", "toEnd": "1 or more", "label": "holds"},
+        {"from": "agent", "to": "message", "fromEnd": "0 or 1", "toEnd": "0 or more", "label": "writes"},
+        {"from": "agent", "to": "team", "fromEnd": "1 or more", "toEnd": "1", "label": "belongs to"}
+      ]
+    }
+    </script>
+  </div>
+  <figcaption class="cm-caption"><span class="cm-caption__line">Source: helpdesk data dictionary, as of <time datetime="2026-09-30">2026-09-30</time>.</span></figcaption>
+</figure>
+          </div>
+        </div>
       </div>
     </section>
 

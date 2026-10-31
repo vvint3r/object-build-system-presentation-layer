@@ -404,8 +404,9 @@ const uncovered = Object.keys(S8).filter(n => !components.some(c => c.num === n)
 if (uncovered.length) throw new Error(`spec sections with no gallery example: ${uncovered.join(', ')}`);
 const shared = components.filter((c, i) => components.findIndex(o => o.name === c.name) !== i);
 if (shared.length) throw new Error(`components share a name: ${shared.map(c => `${c.name} (gallery ${c.demo.label}, spec ${c.num})`).join(', ')}`);
-const chartDemo = demos.find(d => d.label === '6.1');
-if (!chartDemo) throw new Error('the gallery has no 6.1 chart example');
+// Chart takes the first example of the gallery's charts part (6.x) that draws a chart: the line.
+const chartDemo = demos.find(d => /^6\./.test(d.label) && /class="cm-chart"/.test(d.markup));
+if (!chartDemo) throw new Error('the gallery has no chart example in part 6');
 const figureAt = components.findIndex(c => c.num === '8.10');
 components.splice(figureAt + 1, 0, {
   name: 'Chart', num: '9', specTitle: S['9'].title, body: S['9'].body, demo: chartDemo,

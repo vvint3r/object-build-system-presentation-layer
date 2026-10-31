@@ -1164,6 +1164,7 @@
               <li>A flow diagram shows branches, loops or lanes. Three to six steps in a line are a process diagram.</li>
               <li>Shape marks the node type and line style the edge kind. A key names the rarer ones.</li>
               <li>Every branch out of a decision carries a label: yes and no, or the condition.</li>
+              <li>An edge label stands on its line, where the line leaves its node.</li>
               <li>At most 24 nodes, 5 columns (4 with lanes), 5 rows, 5 lanes and 12 edge labels. A larger flow splits into an overview and details.</li>
               <li>One node at most is emphasised, with a chip naming why.</li>
               <li>The kit writes a text version under the caption, and a summary when the <code>aria-label</code> is empty.</li>
@@ -1190,6 +1191,8 @@
                   <tr><td class="strong">Optional</td><td><code>"kind": "optional"</code></td><td class="wrap">Dashed line</td><td class="wrap">An optional or planned path</td></tr>
                   <tr><td class="strong">Lane</td><td><code>"type": "lane"</code> group</td><td class="wrap">Row band named on the left</td><td class="wrap">One role or system per lane</td></tr>
                   <tr><td class="strong">Boundary</td><td><code>"type": "boundary"</code> group</td><td class="wrap">Rounded frame named on its top line</td><td class="wrap">A system or team around a block of cells</td></tr>
+                  <tr><td class="strong">Phase</td><td><code>"type": "phase"</code> group</td><td class="wrap">Frame across the top of its columns</td><td class="wrap">A stage of a journey</td></tr>
+                  <tr><td class="strong">Experience</td><td><code>"experience"</code> scale, <code>"level"</code> on each node</td><td class="wrap">Accent line under the steps, a word under each run</td><td class="wrap">How each step of a journey feels</td></tr>
                 </tbody>
               </table>
             </div>
@@ -1269,6 +1272,125 @@
 </figure>
           </div>
         </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">7.3</span><h3 class="cm-h3">Journey map</h3><p>Phases as frames across the top, one step per column under them, and the experience line under the steps. Each step carries its <code>level</code> on the scale the <code>experience</code> list names, lowest first; the kit marks the low point.</p></header>
+          <div data-demo>
+<figure class="cm-figure cm-bleed">
+  <span class="cm-figure__kind">Figure 10</span>
+  <h3 class="cm-figure__title">Disputed charge journey</h3>
+  <p class="cm-figure__desc">A customer’s steps from noticing a charge taken twice to the refund, and how each step felt.</p>
+  <div class="cm-diagram" data-diagram="flow" role="img" aria-label="">
+    <script type="application/json">
+    {
+      "nodes": [
+        {"id": "notice", "type": "step", "label": "Sees two charges", "col": 1, "row": 1, "level": 2},
+        {"id": "search", "type": "step", "label": "Searches the FAQ", "detail": "No refund article", "col": 2, "row": 1, "level": 2},
+        {"id": "chat", "type": "step", "label": "Opens a chat", "detail": "Agent logs it", "col": 3, "row": 1, "level": 3},
+        {"id": "wait", "type": "step", "label": "Waits for billing", "detail": "Two days, no news", "col": 4, "row": 1, "level": 1},
+        {"id": "refund", "type": "step", "label": "Gets a refund", "col": 5, "row": 1, "level": 4}
+      ],
+      "groups": [
+        {"type": "phase", "label": "Notice", "col": 1},
+        {"type": "phase", "label": "Seek help", "col": 2, "cols": 2},
+        {"type": "phase", "label": "Wait", "col": 4},
+        {"type": "phase", "label": "Resolve", "col": 5}
+      ],
+      "experience": ["Frustrated", "Uneasy", "Neutral", "Content", "Pleased"]
+    }
+    </script>
+  </div>
+  <figcaption class="cm-caption"><span class="cm-caption__line">Source: billing dispute interviews, September 2026.</span></figcaption>
+</figure>
+          </div>
+        </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">7.4</span><h3 class="cm-h3">System and data flow</h3><p>Systems and the data that moves between them: boundaries frame the systems, stores carry a rule above and below, and external entities a heavy border. Dotted edges move data and solid edges pass control. Every edge that crosses a boundary is named.</p></header>
+          <div data-demo>
+<figure class="cm-figure cm-bleed">
+  <span class="cm-figure__kind">Figure 11</span>
+  <h3 class="cm-figure__title">Satisfaction survey data</h3>
+  <p class="cm-figure__desc">How survey answers move from the customer to the warehouse table the reports read.</p>
+  <div class="cm-diagram" data-diagram="flow" role="img" aria-label="">
+    <script type="application/json">
+    {
+      "nodes": [
+        {"id": "customer", "type": "external", "label": "Customer", "col": 1, "row": 1},
+        {"id": "survey", "type": "step", "label": "Survey tool", "detail": "Sends surveys", "col": 2, "row": 1},
+        {"id": "responses", "type": "store", "label": "Survey responses", "col": 2, "row": 2},
+        {"id": "scheduler", "type": "step", "label": "Scheduler", "col": 3, "row": 1},
+        {"id": "load", "type": "step", "label": "Nightly load", "col": 3, "row": 2},
+        {"id": "csat", "type": "store", "label": "csat_daily", "col": 4, "row": 2}
+      ],
+      "edges": [
+        {"from": "customer", "to": "survey", "kind": "data", "label": "Answers"},
+        {"from": "survey", "to": "responses", "kind": "data"},
+        {"from": "responses", "to": "load", "kind": "data", "label": "Export"},
+        {"from": "scheduler", "to": "load", "label": "Starts 02:00"},
+        {"from": "load", "to": "csat", "kind": "data"}
+      ],
+      "groups": [
+        {"type": "boundary", "label": "Survey platform", "col": 2, "row": 1, "rows": 2},
+        {"type": "boundary", "label": "Data warehouse", "col": 3, "row": 1, "cols": 2, "rows": 2}
+      ]
+    }
+    </script>
+  </div>
+  <figcaption class="cm-caption"><span class="cm-caption__line">Source: survey platform integration notes, version 2.</span></figcaption>
+</figure>
+          </div>
+        </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">7.5</span><h3 class="cm-h3">Layer stack</h3><p>Layers from the consumer at the top to the source at the base, each named on the left, with its components placed by column. A dependency runs down, from the component that depends to the one it depends on. At most 5 layers of 4 components.</p></header>
+          <div data-demo>
+<figure class="cm-figure cm-bleed">
+  <span class="cm-figure__kind">Figure 12</span>
+  <h3 class="cm-figure__title">Support analytics layers</h3>
+  <p class="cm-figure__desc">The reports support leads read, and the metrics, tables and systems each one depends on.</p>
+  <div class="cm-diagram" data-diagram="layer-stack" role="img" aria-label="">
+    <script type="application/json">
+    {
+      "layers": [
+        {"label": "Reports", "nodes": [
+          {"id": "review", "label": "Quarterly review", "col": 1},
+          {"id": "dashboard", "label": "Team dashboard", "col": 2},
+          {"id": "survey-report", "label": "Survey report", "col": 3}
+        ]},
+        {"label": "Metrics", "nodes": [
+          {"id": "sla", "label": "SLA attainment", "col": 1},
+          {"id": "frt", "label": "First response", "col": 2},
+          {"id": "csat", "label": "Satisfaction", "col": 3}
+        ]},
+        {"label": "Warehouse", "nodes": [
+          {"id": "tickets", "label": "tickets_fact", "col": 1},
+          {"id": "csat-daily", "label": "csat_daily", "col": 3}
+        ]},
+        {"label": "Sources", "nodes": [
+          {"id": "helpdesk", "label": "Helpdesk API", "col": 1},
+          {"id": "survey", "label": "Survey tool", "col": 3}
+        ]}
+      ],
+      "edges": [
+        {"from": "review", "to": "sla"},
+        {"from": "review", "to": "frt"},
+        {"from": "dashboard", "to": "frt"},
+        {"from": "survey-report", "to": "csat"},
+        {"from": "sla", "to": "tickets"},
+        {"from": "frt", "to": "tickets"},
+        {"from": "csat", "to": "csat-daily"},
+        {"from": "tickets", "to": "helpdesk"},
+        {"from": "csat-daily", "to": "survey"}
+      ]
+    }
+    </script>
+  </div>
+  <figcaption class="cm-caption"><span class="cm-caption__line">Source: support analytics architecture notes, version 4.</span></figcaption>
+</figure>
+          </div>
+        </div>
+
       </div>
     </section>
 

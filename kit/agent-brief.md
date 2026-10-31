@@ -111,9 +111,10 @@ A summary of section 1 of `SPEC.md`. The spec governs.
 12. No filler. Every number shown is sourced.
 
 Charts are ECharts option JSON inside the kit's figure markup. The agent never calls `echarts.init`
-and never writes chart JavaScript. Flow diagrams are JSON too: nodes placed by column and row, and
-edges between them (section 8.20 of `SPEC.md`). The kit draws them; the agent writes no coordinates,
-SVG or styles.
+and never writes chart JavaScript. Diagrams are JSON too (section 8.20 of `SPEC.md`). A flow
+diagram, journey map or system and data flow places nodes by column and row, with edges between
+them. A layer stack lists layers from the top down, each dependency running down. The kit draws
+them; the agent writes no coordinates, SVG or styles.
 
 ## Writing rules
 
@@ -212,6 +213,9 @@ Content maps onto existing components:
 | Dated events in order | Timeline, `cm-timeline` | 8.12 |
 | Stages in sequence, seen at a glance | Process diagram, `cm-process` | 8.13 |
 | A process with branches, loops or hand-offs between roles | Figure with a flow diagram, `cm-diagram` | 8.20 |
+| One person's steps across the phases of an experience, and how each feels | Figure with a journey map, `cm-diagram` | 8.20 |
+| Systems, where their data rests and what moves between them | Figure with a system and data flow, `cm-diagram` | 8.20 |
+| The layers of a system and what each part depends on | Figure with a layer stack, `cm-diagram` | 8.20 |
 | Steps a reader carries out, each with its outcome | Procedure, `cm-procedure` | 8.23 |
 | Other documents, or places in them, and how each relates | Related list, `cm-related` | 8.24 |
 | Work passed between roles, stage by stage, with who acts and what hands it on | Workflow, `cm-workflow` | 8.25 |
@@ -235,8 +239,8 @@ Content maps onto existing components:
 
 ## Kit gaps
 
-Maps, diagrams other than flow diagrams (sequence, state, layer stack, hierarchy, entity
-relationship, network), interactive filters and a PDF cover page. A document that
+Maps, sequence, state, hierarchy, entity relationship and network diagrams, interactive filters and a PDF
+cover page. A document that
 needs one uses a figure holding a `cm-slot` placeholder and names the gap in an HTML
 comment. The agent does not draw its own diagram, icon or layout to fill the gap.
 

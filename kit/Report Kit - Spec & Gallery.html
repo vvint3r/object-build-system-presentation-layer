@@ -137,6 +137,7 @@
                 <tr><td class="strong">Timeline, process</td><td class="wrap">Process as inline text</td><td class="wrap">Vertical timeline on one continuous rail; step diagram on S2 tiles with one L1e bottleneck</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
                 <tr><td class="strong">Appendix</td><td class="wrap">Collapsible section header</td><td class="wrap">Native details element; opens automatically for print</td><td><span class="cm-chip">Changed</span></td></tr>
                 <tr><td class="strong">Structured components</td><td class="wrap">Structured page: stage cards, swimlane, framework variants, method, metric, requirement and evaluation cards</td><td class="wrap">Workflow, framework, model, method, requirement, evaluation and metric detail as text-first cards, with parts as tiles, facts rows and a criteria register</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
+                <tr><td class="strong">Document sets</td><td class="wrap">Menu bar with a list of pages for each group</td><td class="wrap">Document ids and file-name addresses, a breadcrumb from set to area to document, a generated index page, and a link check over the folder</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
                 <tr><td class="strong">Sources and status</td><td class="wrap">—</td><td class="wrap">Source register with citations that link both ways, evidence dates, disagreement block, dated status block, change log, revision history, limitation register</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
                 <tr><td class="strong">Motion</td><td class="wrap">Hover lift only</td><td class="wrap">Charts draw in once on first view, 900ms ease-out; off under reduced motion and print</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
               </tbody>
@@ -246,7 +247,8 @@
         <div class="cm-code cm-bleed">
           <div class="cm-code__bar"><span class="cm-code__file">head</span><span class="cm-tag">HTML</span></div>
 <pre><code>&lt;meta name="cm-kit" content="1.2"&gt;
-&lt;meta name="cm-kind" content="guide"&gt;</code></pre>
+&lt;meta name="cm-kind" content="guide"&gt;
+&lt;meta name="cm-id" content="guide-billing-escalation"&gt;</code></pre>
         </div>
         <div>
           <div class="cm-table-title" id="tbl-kinds"><span class="cm-table-title__kind">Table 4.1</span>Required parts by kind</div>
@@ -262,6 +264,7 @@
           </div>
           <span class="cm-caption"><span class="cm-caption__line">Source: <code>SPEC.md</code>, sections 7.2 to 7.4.</span></span>
         </div>
+        <div class="cm-prose"><p>The documents in one folder form a set. Each names itself with a <code>cm-id</code> tag, and a script writes <strong>the set's index page</strong> from them (5.35, 5.36).</p></div>
         <div class="cm-prose"><p>Optional blocks are left out, not filled with placeholders. A required block a document cannot fill is left out only with an omission comment saying why (<code>SPEC.md</code>, section 7.5).</p></div>
         <div>
           <div class="cm-table-title" id="tbl-anat"><span class="cm-table-title__kind">Table 4.2</span>Report block order</div>
@@ -929,6 +932,27 @@
 </div>
           </div>
         </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">5.35</span><h3 class="cm-h3">Breadcrumb</h3><p>The trail from the document set to the area to the document. The set step links to the set's index page, the area step to its section there, and the last step is the page itself.</p><p>A document outside a set writes the set and area steps as plain text. In a set, the wordmark in the top bar links to the index page too.</p></header>
+          <div data-demo>
+<nav class="cm-crumbs" aria-label="Breadcrumb">
+  <a href="index.html">Support operations</a><span class="sep" aria-hidden="true">/</span>
+  <a href="index.html#billing">Billing</a><span class="sep" aria-hidden="true">/</span>
+  <span aria-current="page">Billing escalation</span>
+</nav>
+          </div>
+        </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">5.36</span><h3 class="cm-h3">Index entry</h3><p>A set's index page lists every document by area, one section per area, A to Z. Each entry is a related-list item that closes with a meta line: the status and the published date.</p><p>A script writes the page from the documents, with <code>npm run index</code>. Within an area, reports come first, newest first, then guides and references by title.</p></header>
+          <div data-demo>
+<ul class="cm-related">
+  <li><span class="cm-tag">Report</span><a href="Sample%20Report%20-%20Q3%20Support%20Review.html">Customer support operations review, Q3 2026</a><p>Volume, speed, service levels and customer sentiment in Q3, with the initiatives behind them and three Q4 actions.</p><span class="cm-meta">Final · published <time datetime="2026-10-12">2026-10-12</time></span></li>
+  <li><span class="cm-tag">Reference</span><a href="Reference%20-%20First%20Response%20Time.html">First response time</a><p>The wait from a ticket's creation to its first human reply, as Support Operations measures and targets it.</p><span class="cm-meta">Final · published <time datetime="2026-10-14">2026-10-14</time></span></li>
+</ul>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1582,6 +1606,7 @@
             <li>Footnotes and citations link both ways; every source has a key, type, locator and date, and the sources list every dataset used.</li>
             <li>Changing numbers sit in one dated status block; change entries are dated, newest first.</li>
             <li>Contents rail links match section ids. Checked in light, dark and print preview.</li>
+            <li>An id in the head, a breadcrumb from set to document, and a passing link check.</li>
             <li>Prose within the limits of <code>SPEC.md</code> section 13, in plain words and neutral third person, with no em or en dashes. Each section leads with its finding; headings are plain noun phrases in sentence case.</li>
           </ol>
         </div>

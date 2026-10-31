@@ -30,7 +30,7 @@ Decision record numbers refer to `docs/decisions/`.
 | Non-visual equivalents | Equivalents | Chart `aria-label` and data-table fallback; flow diagram summary and text version, written from the diagram's data | Partial | Equivalents for the other diagram modes and other non-chart visuals | 031, 032, 077 |
 | Structured components | Structured | Process diagram, timeline, KPI strip, recommended table column; workflow, framework, model, method, requirement, evaluation and metric detail | Covered | Nothing. Kept out by design: the roadmap board, a page type; comparison cards, which the comparison table covers; the swimlane view, which the flow diagram draws; the vertical stepper and the compact step summary; difficulty dots; the confidence chip (record 079); met or unmet marks on acceptance criteria; a metric's current value, progress to target and breakdown by source, which go in the KPI strip, the status block or a chart. The learning module stays with the Learning row | 000, 047, 082 |
 | Prose primitives | Prose | Highlights, key-term underline, pull quote, lists | Partial | The remaining prose primitives | 034 |
-| Wayfinding | Wayfinding | Contents rail; related list (`cm-related`) | Partial | Breadcrumbs across documents and a generated index. Search, faceted browse, ranked entry and a version selector with diff need a server and stay out of the kit (record 076) | 027, 076, 078 |
+| Wayfinding | Wayfinding | Contents rail; related list (`cm-related`); breadcrumb from set to area to document; generated index page by area | Covered | Nothing in the kit's scope. Search, faceted browse, ranked entry and the version selector with diff need a server and are left out (records 076, 083) | 027, 076, 078, 083 |
 | Provenance | Provenance | Footnotes, source register, citations that link both ways, evidence dates, disagreement block, caption source line | Covered | The aggregation header, agreement and spread, and the confidence qualifier, once an acceptance document uses them (record 079) | 027, 079 |
 | Charts | Charts | ECharts method and recipes by question; bar, line, area, stacked bar, donut, scatter and heatmap, plus bullet, slope, strip, box, interval band and error bars; light, dark and print | Covered | The library's empty-state conditions for charts | 028, 081 |
 | Interaction | Interaction | Sortable tables, collapsible appendix | Partial | Filtering, overview and detail, definitions in place, recently viewed | 028 |
@@ -41,7 +41,7 @@ Decision record numbers refer to `docs/decisions/`.
 | Diagram build logic | Visualization kit (`import/kx-visualizations-index/`) | Flow mode: grid placement, five node types, three edge kinds, right-angle routing with rounded elbows, labels 8px clear, lanes and boundaries | Partial | The node types, connectors and routing of the other diagram modes | 077; see `scraps/4c-brief.md` |
 | Page types | Templates, T1 to T11 | Three document kinds (report, guide, reference), each with its template, anatomy check and sample document | Partial | Topic, framework, process, guide, module, metric, comparison, roadmap, reference, glossary and case study as templates on the three kinds | 037, 040, 076, 078 |
 | Composition rules | Composition, Anatomy, Selection, Implementing, Exemplar | Report anatomy and the pre-publish checklist | Partial | Layout primitives, the component anatomy register and field contract, the selection matrix, implementer guidance, a reference build | 023–026, 028 |
-| Multi-page navigation | Every page (menu bar) | Top bar and contents rail for one document | Not in kit | Navigation across many documents, for the knowledge index | 046 |
+| Multi-page navigation | Every page (menu bar) | Document ids and file-name addresses; a breadcrumb and wordmark that link to the set's index page; `npm run index` writes the index; `npm run links` checks every link across a folder | Covered | Nothing in the kit's scope. The library's fixed menu with a list of pages for each group gives way to the index page and breadcrumb; search, faceted browse and the version selector with diff need a server and are left out (record 083) | 046, 083 |
 
 The kit's own spec lists its gaps as maps, diagram modes other than flow, network diagrams,
 interactive filters and a PDF cover page. All but maps and the cover page appear in the table above.
@@ -56,7 +56,8 @@ index where provenance and freshness carry weight. Items 2 to 5 are step 8 of `d
    Diagram build logic rows above are references for it. The flow mode is built (record 077).
 2. **Provenance.** Core to a knowledge index. Covered (record 079).
 3. **Change and status.** Covered (record 079); the node states remain.
-4. **Wayfinding and multi-page navigation.** Needed once there is more than one document.
+4. **Wayfinding and multi-page navigation.** Needed once there is more than one document. Covered
+   (record 083).
 5. **Structured components, then page types.** Each page type is a composition of the components
    above, so they come after.
 6. **Learning, inputs and icons**, and the rows not named above, as the content calls for them,

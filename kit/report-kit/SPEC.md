@@ -38,9 +38,13 @@ Human-readable version with live examples and copy-paste markup: `Report Kit - S
 
 Three modes. All use the same markup.
 
-**Linked** (default for sites and shared folders):
+**Linked** (default for sites and shared folders): the document sits beside the `report-kit/` folder, and its `<head>` ends with these lines, after the `cm-` meta tags:
 
 ```html
+<script>(function(){var t;try{t=localStorage.getItem('cm-theme')}catch(e){}document.documentElement.dataset.theme=t||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')})()</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,300;1,400&family=JetBrains+Mono:wght@400;600;700&display=swap">
 <link rel="stylesheet" href="report-kit/cm-report.css">
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js" defer></script>
 <script src="report-kit/cm-report.js" defer></script>
@@ -152,14 +156,15 @@ Every kind shares the top bar, contents rail, masthead, Notes & sources and foot
 
 ### 7.1 Shared blocks
 
-1. **Top bar** (required): `.cm-topbar` with the wordmark (publisher, lowercase-hyphenated), one series chip and the theme toggle. A print button after the toggle is optional, added only when the document is asked to carry one: `<button class="cm-btn cm-btn--secondary cm-btn--sm" type="button" data-cm-print>Print / PDF</button>`. Browser printing works without it (§12). In a document set, the wordmark links to the set's index page (§8.31).
+1. **Top bar** (required): `.cm-topbar` with the wordmark (publisher, lowercase-hyphenated), one series chip and the theme toggle. A print button after the toggle is optional, added only when the document is asked to carry one: `<button class="cm-btn cm-btn--secondary cm-btn--sm" type="button" data-cm-print>Print / PDF</button>`. Browser printing works without it (§12). In a document set, the wordmark links to the set's index page (§8.31); outside one, it links to `#top`.
+   - A document belongs to a set when it is published in a folder beside the set's index page, which the index script writes (§8.31). Any other document stands alone.
 2. **Contents rail** (recommended; required at ≥ 4 sections): one link per section id. Numbers `01…`, appendices `A`, `B`.
-3. **Masthead** (required): breadcrumb from set to area to document (§8.31), `.cm-bar`, title, dek (one sentence), then `dl.cm-mast__meta` with one `<div><dt>Label</dt><dd>Value</dd></div>` per field, then `dl.cm-byline`. Labels name the value; never leave a value unlabelled.
-   - Title: 4 to 10 words, 22 characters a line at most. A reference's title is the name of the thing it describes, 1 to 10 words.
+3. **Masthead** (required): breadcrumb from set to area to document (§8.31); a document that stands alone writes its set and area steps as `span` elements, with no links, `.cm-bar`, title, dek (one sentence), then `dl.cm-mast__meta` with one `<div><dt>Label</dt><dd>Value</dd></div>` per field, then `dl.cm-byline`. Labels name the value; never leave a value unlabelled.
+   - Title: 4 to 10 words. The masthead wraps it at 22 characters a line (`max-width: 22ch`), so no single word in it runs longer. A reference's title is the name of the thing it describes, 1 to 10 words.
    - Status: the type chip for the kind (table above); a status chip, Draft `cm-chip`, In review `cm-chip--warn` or Final `cm-chip--ok`; an optional `cm-chip--note` “Sample data” or “Preliminary”.
    - Period `YYYY-MM-DD → YYYY-MM-DD`: reports only. A guide or a reference has no Period field.
    - Published `YYYY-MM-DD`.
-   - Reading time `N min`: the words in `<main>` ÷ 220, rounded up. Scripts, chart data tables and screen-reader-only text do not count. A word is any run of characters between spaces that holds a letter or digit.
+   - Reading time `N min`: the words in `<main>` ÷ 220, rounded up. Every word a reader sees counts, headings, labels, chips, KPI values and table cells among them. Scripts, data disclosures (`details.cm-data`: a chart's data table, a diagram's text version), `aria-hidden` text and screen-reader-only text do not. A word is any run of characters between spaces that holds a letter or digit.
    - Version `X.Y`.
    - Byline: Prepared by, optional Reviewed by, Distribution. Distribution names the readers the document is for, such as `Internal · all staff`. When they are not known, the field is left out with its omission comment (§7.5).
 4. **The kind's parts** (required): §7.2 for a report, §7.3 for a guide, §7.4 for a reference.
@@ -1404,13 +1409,15 @@ Each limit **MUST** hold. The 25-word sentence is a target (**SHOULD**).
 | Section lede | 45 words at most, with its key phrase in bold |
 | Caption (`.cm-caption`) | 30 words at most |
 
+Prose between headings is counted from one heading to the next. Headings are `h1` to `h6`, figure titles among them, and table titles (§13.3).
+
 A section's lede is the paragraph that opens its body. In a section with a TL;DR, the TL;DR stands in for the lede. It keeps its own limit of 40 words (§8.1) and carries no bold phrase; its label marks it. A definition, a question and an answer are each measured as a paragraph.
 
 Components set limits of their own. Where a component limit and a limit above both apply, both hold.
 
 | Element | Limit | Section |
 | --- | --- | --- |
-| Title | 4 to 10 words (a reference: 1 to 10), 22 characters a line at most | §7.1 |
+| Title | 4 to 10 words (a reference: 1 to 10); the masthead wraps it at 22 characters a line | §7.1 |
 | Dek | One sentence | §7.1 |
 | Executive summary lede | 2 to 4 sentences | §7.2 |
 | Guide purpose, reference definition | One paragraph | §7.3, §7.4 |
@@ -1456,7 +1463,8 @@ Components set limits of their own. Where a component limit and a limit above bo
 - No bold label runs into the text that follows it, anywhere. A label that must stay takes its own line (a card or callout title line), a heading, a table row or a definition-list term.
 - A bold phrase never opens a paragraph, list item or callout body with more text on the same line; it would read as a label.
 - A caption's source and note lines are lines of their own, in the caption's regular weight (§8.10).
-- Dates ISO in metadata (`2026-10-12`), readable in prose (`12 August`). Durations as `2h 14m`. Percentage-point changes as `pp`.
+- Dates ISO in metadata (`2026-10-12`), readable in prose (`12 August`). Percentage-point changes as `pp`.
+- Durations as a number and a letter for each unit, largest first, with no unit skipped between: `2h 14m`, `1m 50s`, `45s`. A chip sets its text in capitals, so a duration in a chip writes its unit as a word: `45 min`.
 
 ### 13.3 Headings
 
@@ -1515,6 +1523,10 @@ Changed in 1.2:
 - A disclosure body spaces its own blocks (§8.16).
 - The print button is optional, added only when the document asks for one (§7).
 - A document without measured numbers leaves out a required block it has nothing for, with an omission comment (§7).
+- Distribution, a source's publisher and a source's locator take an omission comment when not recorded (§7.5).
+- A source's date word comes from a closed set, with `as of` and `covers` (§8.21).
+- A delta keeps the case it is written in (§4). A table cell that does not apply reads `n/a` (§8.11).
+- Value labels carry thousands separators and the chart's precision (§9).
 
 Added for guides and references: document kinds (§7), procedure (§8.23), related list (§8.24).
 
@@ -1527,3 +1539,14 @@ Added for document sets: document ids and addresses, the breadcrumb from set to 
 Added for reports: ECharts chart method and theme; categorical and sequential palettes; dark token set; print rules; report masthead and contents rail; KPI strip; key findings; native tables with sorting and in-cell bars; pull quote; timeline; process diagram; definition, questions and property-sheet blocks; footnotes; collapsible appendix; chart draw-in motion; packaging modes.
 
 Not yet covered: maps, diagram modes other than flow, sequence, state and entity relationship (layer stack, hierarchy), network diagrams, interactive filters, a PDF cover page. Use a figure with `cm-slot` and flag the gap in an HTML comment until these exist.
+
+### Migration from 1.2 to 2.0
+
+A document built on kit 1.2 makes these changes for 2.0. The first two belong to the version itself. The rest bring an early 1.2 document in line with rules the kit already holds.
+
+1. Add `<meta name="cm-id">` after `cm-kind`, naming the document (§8.31). In 1.2 a page without it passes with a warning; in 2.0 it fails `head-order`.
+2. Set `cm-kit` in `<head>` and the kit line in the footer to 2.0.
+3. Write a table cell that does not apply as `n/a`, not a dash (§8.11).
+4. Give each source date a word from the closed set, and each unrecorded publisher, locator or Distribution its omission comment (§7.5, §8.21).
+5. Write chart values as numbers, never strings, and drop any `"legend"` key (§9).
+6. Write each key finding and recommended action as the canonical `<li>`, its claim line first, with no wrapping `<div>` (§8.3, §8.19).

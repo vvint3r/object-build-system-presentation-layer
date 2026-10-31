@@ -124,7 +124,8 @@ A summary of section 1 of `SPEC.md`. The spec governs.
 Charts are ECharts option JSON inside the kit's figure markup. The agent never calls `echarts.init`
 and never writes chart JavaScript. It picks the chart by the reader's question, from the recipes in
 section 9. A `"cm"` key declares a bullet, slope, strip, box or interval chart, and the kit draws it.
-End labels that name every line take the legend's place. Diagrams are JSON too (section 8.20 of
+End labels that name every line take the legend's place. Chart values are numbers, never strings: the kit
+writes each value label with thousands separators, at the most decimal places any value in the chart carries. Diagrams are JSON too (section 8.20 of
 `SPEC.md`). A flow, state or entity relationship diagram places its nodes by column and row; a
 sequence diagram lists its participants and messages in order. The kit draws them; the agent writes
 no coordinates, SVG or styles.
@@ -153,7 +154,9 @@ the section lede, under its own limit of 40 words and with no bold phrase.
   a role-named item ("Owner approval of the shortlist") with what it does and what it unblocks.
 - Numbers that will change never sit inside definitions of steps or rules. They go in one dated
   status block, `cm-status` (section 8.22 of `SPEC.md`).
-- No em dashes or en dashes in prose.
+- No em dashes or en dashes in prose. A table cell whose value does not apply reads `n/a`.
+- Durations as a number and a letter per unit, largest first: `2h 14m`, `1m 50s`, `45s`. A chip sets
+  its text in capitals, so a duration in one writes its unit as a word: `45 min`.
 - Plain, factual sentences with the number, the comparison and the period; plain words. Each section
   leads with its finding. No signposting, hype, rhetorical questions or history of how the document
   was made.

@@ -596,7 +596,7 @@
         </div>
 
         <div class="g-comp">
-          <header><span class="cm-label">5.20</span><h3 class="cm-h3">Sources and citations</h3><p>One register lists every source a document rests on and closes the Notes &amp; sources appendix. Each entry has a key, a title, a publisher, a type tag, a locator and a date.</p><p>A citation reads the key and lands on the entry, whose back link returns to the citation followed. An entry no claim cites has no back link. No chip or score stands for confidence.</p></header>
+          <header><span class="cm-label">5.20</span><h3 class="cm-h3">Sources and citations</h3><p>One register lists every source a document rests on and closes the Notes &amp; sources appendix. Each entry has a key, a title, a publisher, a type tag, a locator and a date. A publisher or locator that is not recorded gives way to its omission comment, as in S5.</p><p>A citation reads the key and lands on the entry, whose back link returns to the citation followed. An entry no claim cites has no back link. No chip or score stands for confidence.</p></header>
           <div data-demo>
 <div class="cm-stack">
   <p class="cm-prose">Median first response fell to 2h 14m as of <time datetime="2026-09-30">30 September</time>.<a class="cm-cite" href="#src-1" id="cite-1">S1</a> Satisfaction averaged 87.4% over the quarter.<a class="cm-cite" href="#src-2" id="cite-2">S2</a></p>
@@ -605,6 +605,7 @@
     <li id="src-2"><span class="cm-id">S2</span><span><b>CSAT survey export, Q3 2026</b><br><span class="cm-tag">System export</span> Customer Experience · <code>csat/exports/2026-q3.csv</code> <a class="cm-back" href="#cite-2" aria-label="Back to text">↩</a></span><span class="cm-meta">exported <time datetime="2026-10-05">2026-10-05</time></span></li>
     <li id="src-3"><span class="cm-id">S3</span><span><b>Customer support operations review, Q2 2026</b><br><span class="cm-tag">Report</span> Support Operations Analytics · <code>reports/support/2026-q2-review.pdf</code> <a class="cm-back" href="#cite-4" aria-label="Back to text">↩</a></span><span class="cm-meta">published <time datetime="2026-07-13">2026-07-13</time></span></li>
     <li id="src-4"><span class="cm-id">S4</span><span><b>Industry support benchmark 2026</b><br><span class="cm-tag">Report</span> Example Research · <a href="https://example.com/report">example.com/report</a></span><span class="cm-meta">accessed <time datetime="2026-10-01">2026-10-01</time></span></li>
+    <li id="src-5"><span class="cm-id">S5</span><span><b>Card network chargeback guide</b><br><span class="cm-tag">Document</span> <!-- cm-omit publisher: The source notes do not name the publisher. --><!-- cm-omit locator: The source notes do not say where the guide is held. --></span><span class="cm-meta">accessed <time datetime="2026-10-01">2026-10-01</time></span></li>
   </ol>
 </div>
           </div>
@@ -1442,7 +1443,9 @@
             </ul>
             <h4 class="cm-h4">Size and print</h4>
             <ul class="cm-list" style="max-width:var(--cm-read)">
-              <li>At most 24 nodes, 5 columns (4 with lanes), 5 rows, 5 lanes and 12 edge labels; a labelled gap counts as a column. A larger flow splits into an overview and details.</li>
+              <li>At most 24 nodes, 5 rows, 5 lanes and 12 edge labels. A decision has at most 3 branches.</li>
+              <li>The width counts 5 at most: one for each column, the lane names and each gap holding an edge label. A gap whose label runs past 10 characters counts two.</li>
+              <li>A flow past a ceiling splits into an overview and details, or draws its main path and leaves the rarer branches to the text.</li>
               <li>A diagram too wide for its figure or the printed page takes the narrow layout and scales to fit, down to 80%. Its text is set larger, so none draws under 11px.</li>
             </ul>
           </div>
@@ -1490,7 +1493,7 @@
         {"id": "review", "type": "step", "label": "Editor review", "detail": "Checks facts and tone", "col": 2, "row": 1, "emphasis": "Slowest"},
         {"id": "approved", "type": "decision", "label": "Approved?", "col": 3, "row": 1},
         {"id": "publish", "type": "step", "label": "Publish", "detail": "Goes to the help centre", "col": 4, "row": 1},
-        {"id": "live", "type": "terminal", "label": "Live", "col": 5, "row": 1},
+        {"id": "live", "type": "terminal", "label": "Live", "col": 4, "row": 2},
         {"id": "revise", "type": "step", "label": "Author revises", "detail": "Answers the editor's notes", "col": 3, "row": 2}
       ],
       "edges": [
@@ -1520,12 +1523,12 @@
     <script type="application/json">
     {
       "nodes": [
-        {"id": "report", "type": "terminal", "label": "Reports a problem", "col": 1, "row": 1},
+        {"id": "report", "type": "terminal", "label": "Asks for help", "col": 1, "row": 1},
         {"id": "triage", "type": "step", "label": "Triage", "detail": "Reads and tags the ticket", "col": 1, "row": 2},
-        {"id": "billing", "type": "decision", "label": "Billing issue?", "col": 2, "row": 2},
+        {"id": "billing", "type": "decision", "label": "Bill wrong?", "col": 2, "row": 2},
         {"id": "fix", "type": "step", "label": "Fix the account", "detail": "Corrects the charge", "col": 2, "row": 3},
         {"id": "answer", "type": "step", "label": "Answer the customer", "col": 3, "row": 2},
-        {"id": "done", "type": "terminal", "label": "Gets an answer", "col": 3, "row": 1}
+        {"id": "done", "type": "terminal", "label": "Has an answer", "col": 3, "row": 1}
       ],
       "edges": [
         {"from": "report", "to": "triage"},

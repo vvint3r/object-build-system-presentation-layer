@@ -419,6 +419,11 @@ pre code{all:unset}
 .cm-diagram__swatch--flow,.cm-diagram__swatch--data,.cm-diagram__swatch--optional{width:24px;height:0;background:none;border:0;border-top:2px solid var(--cm-ink);border-radius:0}
 .cm-diagram__swatch--data{border-top-style:dotted}
 .cm-diagram__swatch--optional{border-top-style:dashed}
+.cm-diagram__swatch--experience{width:24px;height:0;background:none;border:0;border-top:2px solid var(--cm-accent);border-radius:0}
+/* a layer stack's key: the line with its arrowhead, since the direction carries the meaning */
+.cm-diagram__swatch--depends{width:24px;height:8px;background:none;border:0;border-radius:0;overflow:visible}
+/* a journey's scale may wrap on a narrow screen */
+.cm-diagram__key-item--scale{white-space:normal}
 .cm-diagram__canvas{position:relative;transform-origin:0 0}
 .cm-diagram__lines{position:absolute;left:0;top:0;max-width:none;overflow:visible}
 .cm-diagram__line{fill:none;stroke:var(--cm-ink);stroke-width:2}
@@ -426,6 +431,7 @@ pre code{all:unset}
 .cm-diagram__edge--optional .cm-diagram__line{stroke-dasharray:6 5}
 .cm-diagram__head{fill:var(--cm-ink)}
 .cm-diagram__divider{stroke:var(--cm-field);stroke-width:1}
+.cm-diagram__experience{fill:none;stroke:var(--cm-accent);stroke-width:2;stroke-linejoin:round}
 .cm-diagram__node{position:absolute;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-width:96px;max-width:168px;padding:12px 16px;text-align:center;background:var(--cm-surface);border:1px solid var(--cm-field);border-radius:var(--cm-r-tile)}
 .cm-diagram__name{font-size:15px;font-weight:700;line-height:1.35;text-wrap:balance}
 .cm-diagram__detail{font-size:13px;font-weight:400;line-height:1.45;text-wrap:balance}
@@ -437,11 +443,14 @@ pre code{all:unset}
 .cm-diagram__node--decision::before{content:"";position:absolute;inset:14.645%;background:var(--cm-surface);border:1.5px solid var(--cm-ink);border-radius:var(--cm-r-input);transform:rotate(45deg)}
 .cm-diagram__node--decision .cm-diagram__name{position:relative}
 .cm-diagram__node.cm-emph{border:1.5px solid var(--cm-ink);box-shadow:var(--cm-l1e)}
-.cm-diagram__edge-label,.cm-diagram__lane,.cm-diagram__boundary-label{position:absolute;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;line-height:1.4}
+.cm-diagram__edge-label,.cm-diagram__lane,.cm-diagram__boundary-label,.cm-diagram__phase,.cm-diagram__level{position:absolute;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;line-height:1.4}
 .cm-diagram__edge-label{white-space:nowrap;background:var(--cm-bg);border-radius:2px}
 .cm-diagram__lane{max-width:112px}
 .cm-diagram__boundary{position:absolute;border:1.5px solid var(--cm-field);border-radius:var(--cm-r-card)}
 .cm-diagram__boundary-label{padding:0 6px;white-space:nowrap;background:var(--cm-bg);border-radius:2px}
+.cm-diagram__phase{padding:8px 12px;text-align:center;text-wrap:balance;background:var(--cm-track);border-radius:var(--cm-r-input)}
+.cm-diagram__level{white-space:nowrap}
+.cm-diagram__layer{position:absolute;background:var(--cm-track);border-radius:var(--cm-r-card)}
 /* print: cm-report.js sets the modifier while it lays a diagram out for the printed column */
 .cm-diagram--print .cm-diagram__node{max-width:120px}
 .cm-diagram--print .cm-diagram__node--terminal{max-width:192px;padding:10px 16px}
@@ -467,7 +476,7 @@ pre code{all:unset}
 .cm-diagram__attr{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:3px 16px;font-size:13px;line-height:1.45}
 .cm-diagram__attr .cm-tag{flex:none}
 .cm-diagram--print .cm-diagram__node--entity{max-width:none}
-.cm-data>.cm-olist{margin-top:16px}
+.cm-data>.cm-olist,.cm-data>.cm-list{margin-top:16px}
 
 /* ---------- 18b. Structured components ---------- */
 /* Workflow, framework, model, method, requirement, evaluation and metric detail. Each is a card: kind label, T3 title, then its parts 24px apart in the small text size, as text inside a surface. A labelled part is a .cm-sub whose label sits on a line of its own. */
@@ -505,6 +514,7 @@ ol.cm-parts.cm-parts--matrix{--n:2}
 .cm-list,.cm-olist{list-style:none;padding:0;display:flex;flex-direction:column;gap:14px}
 .cm-list>li{position:relative;padding-left:24px}
 .cm-list>li::before{content:"";position:absolute;left:2px;top:.68em;top:calc(.5lh - 3.5px);width:7px;height:7px;border-radius:var(--cm-r-pill);background:var(--cm-field)}
+.cm-list .cm-list{margin-top:14px}
 .cm-olist{counter-reset:cmo}
 .cm-olist>li{position:relative;padding-left:40px;counter-increment:cmo}
 .cm-olist>li::before{content:counter(cmo,decimal-leading-zero);position:absolute;left:0;top:0;font-weight:800;font-variant-numeric:tabular-nums}

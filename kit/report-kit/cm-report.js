@@ -6,7 +6,7 @@
                            a "cm" key in the option declares a slope, bullet, strip, box or interval chart (SPEC section 9)
    [data-spark]            sparkline from data-values="1,2,3"
    .cm-diagram[data-diagram]  diagram JSON as <script type="application/json"> child, in a drawing mode (flow, sequence,
-                           state, entity-relationship); draws nodes, edges and labels, and writes the text version after the caption
+                           state, entity-relationship, layer-stack, hierarchy); draws nodes, edges and labels, and writes the text version after the caption
    table[data-sortable]    click-to-sort headers (th.num sorts numerically; td[data-value] overrides text)
    .cm-toc a[href^="#"]    scroll-spy sets aria-current on the visible section
    a.cm-cite[id]           following a citation points its source entry's back link (a.cm-back) at that citation
@@ -595,7 +595,7 @@
   var DG_TYPES = ['terminal', 'step', 'decision', 'store', 'external'], DG_KINDS = ['flow', 'data', 'optional'];
   var DG_DIR = { top: [0, -1], right: [1, 0], bottom: [0, 1], left: [-1, 0] }, DG_SIDES = ['right', 'bottom', 'left', 'top'];
   var DG_NAMES = { terminal: 'Start or end', step: 'Step', decision: 'Decision', store: 'Data store', external: 'External',
-    flow: 'Flow', data: 'Data', optional: 'Optional path' };
+    flow: 'Flow', data: 'Data', optional: 'Optional path', experience: 'Experience' };
   // The drawing modes, by the value of data-diagram. Each mode turns its JSON into a model and writes
   // its key and text version; a mode without its own build or layout is drawn on the flow grid.
   var DG_MODES = {};
@@ -605,12 +605,14 @@
   function even(v) { return Math.ceil(v / 2) * 2; }
 
   function dgModel(spec) {
-    var byId = {}, nodes = [], edges = [], lanes = [], bounds = [], C = 1, R = 1;
+    var byId = {}, nodes = [], edges = [], lanes = [], bounds = [], phases = [], C = 1, R = 1;
+    var scale = Array.isArray(spec.experience) ? spec.experience.map(String) : [];
     list(spec.nodes).forEach(function (n) {
       if (!n || n.id == null || byId[n.id]) return;
       var t = DG_TYPES.indexOf(n.type) > -1 ? n.type : 'step';
       var m = { id: String(n.id), type: t, label: n.label == null ? '' : String(n.label), detail: t !== 'decision' && n.detail ? String(n.detail) : '',
-        col: int(n.col, 1), row: int(n.row, 1), emphasis: t === 'step' && n.emphasis ? String(n.emphasis) : '' };
+        col: int(n.col, 1), row: int(n.row, 1), emphasis: t === 'step' && n.emphasis ? String(n.emphasis) : '',
+        level: int(n.level, 0) <= scale.length ? int(n.level, 0) : 0 };
       byId[m.id] = m; nodes.push(m); C = Math.max(C, m.col); R = Math.max(R, m.row);
     });
     list(spec.edges).forEach(function (e) {
@@ -627,22 +629,31 @@
         bounds.push({ label: String(g.label || ''), col: col, lastCol: lastCol, row: row, last: last });
         C = Math.max(C, lastCol); R = Math.max(R, last);
       }
+      if (g.type === 'phase') {
+        var pc = int(g.col, 1), pl = pc + int(g.cols, 1) - 1;
+        phases.push({ label: String(g.label || ''), col: pc, lastCol: pl }); C = Math.max(C, pl);
+      }
     });
     lanes.sort(function (a, b) { return a.row - b.row; });
-    return { nodes: nodes, edges: edges, lanes: lanes, bounds: bounds, dir: spec.direction === 'down' ? 'down' : 'right', C: C, R: R };
+    phases.sort(function (a, b) { return a.col - b.col; });
+    return { nodes: nodes, edges: edges, lanes: lanes, bounds: bounds, phases: phases, scale: scale,
+      journey: scale.length > 1 && nodes.some(function (n) { return n.level; }), dir: spec.direction === 'down' ? 'down' : 'right', C: C, R: R };
   }
 
   // The key names the shapes and lines a reader cannot decode on sight: it appears when a diagram
-  // uses a data store, an external entity, or a data or optional edge.
+  // uses a data store, an external entity, a data or optional edge, or an experience line.
   function dgKey(m) {
     var types = DG_TYPES.filter(function (t) { return m.nodes.some(function (n) { return n.type === t; }); });
     var kinds = DG_KINDS.filter(function (k) { return m.edges.some(function (e) { return e.kind === k; }); });
+    if (m.journey) kinds.push('experience');
     if (!types.some(function (t) { return t === 'store' || t === 'external'; }) && !kinds.some(function (k) { return k !== 'flow'; })) return null;
     var key = mk('div', 'cm-diagram__key');
+    // in a system and data flow the solid line passes control, so the key names it so
+    var sys = types.some(function (t) { return t === 'store' || t === 'external'; }) || m.bounds.length || kinds.indexOf('data') > -1;
     types.concat(kinds).forEach(function (t) {
-      var item = mk('span', 'cm-diagram__key-item');
+      var item = mk('span', 'cm-diagram__key-item' + (t === 'experience' ? ' cm-diagram__key-item--scale' : ''));
       item.appendChild(mk('i', 'cm-diagram__swatch cm-diagram__swatch--' + t));
-      item.appendChild(document.createTextNode(DG_NAMES[t]));
+      item.appendChild(document.createTextNode(t === 'flow' && sys ? 'Control' : DG_NAMES[t] + (t === 'experience' ? ', low to high: ' + m.scale.join(', ') : '')));
       key.appendChild(item);
     });
     return key;
@@ -665,6 +676,7 @@
       cv.appendChild(b.el); cv.appendChild(b.lab);
     });
     m.lanes.forEach(function (l) { l.el = mk('span', 'cm-diagram__lane', l.label); cv.appendChild(l.el); });
+    (m.phases || []).forEach(function (p) { p.el = mk('div', 'cm-diagram__phase', p.label); cv.appendChild(p.el); });
     m.nodes.forEach(function (n) {
       var e = n.el = mk('div', 'cm-diagram__node cm-diagram__node--' + n.type + (n.emphasis ? ' cm-emph' : ''));
       e.setAttribute('data-node', n.id);
@@ -672,6 +684,7 @@
       cv.appendChild(e);
     });
     m.edges.forEach(function (e) { if (e.label) { e.el = mk('span', 'cm-diagram__edge-label', e.label); cv.appendChild(e.el); } });
+    if (m.journey) dgJourneyBuild(d, cv);
     el.appendChild(cv);
   }
 
@@ -720,6 +733,7 @@
       s.width = l.w + 'px'; l.h = Math.ceil(l.el.offsetHeight);
     });
     m.bounds.forEach(function (b) { b.lw = Math.ceil(b.lab.offsetWidth); b.lh = Math.ceil(b.lab.offsetHeight); });
+    if (m.phases) dgJourneyMeasure(d, colW);
   }
 
   // The grid: column and row tracks sized to their nodes, gaps between them (gap 0 is outside the
@@ -741,26 +755,28 @@
       if (j === 0 || j === R) return need.oy[j] || first ? Math.max(DG.outer, n) : n;
       return Math.max(laneGap[j] ? P.lane : P.row, n);
     };
-    var rail = m.lanes.length ? Math.max.apply(null, m.lanes.map(function (l) { return l.w; })) + 24 : 0;
-    var x = P.pad + rail, colL = [], y = P.pad, rowT = [], gw = [], gh = [];
+    var rail = m.lanes.length ? Math.max.apply(null, m.lanes.map(function (l) { return l.w; })) + (m.layered ? 40 : 24) : 0;
+    var inset = m.layered ? DG_LY.inset : 0;
+    var x = P.pad + rail, colL = [], y = P.pad + inset + (d.spaceTop || 0), rowT = [], gw = [], gh = [];
     for (i = 0; i <= C; i++) { gx[i] = x; gw[i] = gapX(i); x += gw[i]; if (i < C) { colL[i + 1] = x; x += colW[i + 1]; } }
     for (i = 0; i <= R; i++) { gy[i] = y; gh[i] = gapY(i); y += gh[i]; if (i < R) { rowT[i + 1] = y; y += rowH[i + 1]; } }
-    var W = x + P.pad, H = y + P.pad;
+    var foot = y, W = x + inset + P.pad, H = y + inset + (d.spaceBottom || 0) + P.pad;
     // the lines in a gap: its middle, or, where a lane divider holds the middle, a line either side
     var chV = gx.map(function (g, i) { return [Math.round(g + gw[i] / 2)]; });
-    var chH = gy.map(function (g, j) { var c = Math.round(g + gh[j] / 2); return laneGap[j] ? [c - 14, c + 14] : [c]; });
+    var chH = gy.map(function (g, j) { var c = Math.round(g + gh[j] / 2); return laneGap[j] && !m.layered ? [c - 14, c + 14] : [c]; });
     m.nodes.forEach(function (n) {
       n.x = Math.round(colL[n.col] + (colW[n.col] - n.w) / 2);
       n.y = Math.round(rowT[n.row] + (rowH[n.row] - n.h) / 2);
     });
     return { C: C, R: R, colL: colL, colW: colW, rowT: rowT, rowH: rowH, gx: gx, gy: gy, gw: gw, gh: gh, chV: chV, chH: chH,
-      laneGap: laneGap, rail: rail, W: W, H: H, pad: P.pad };
+      laneGap: laneGap, rail: rail, W: W, H: H, pad: P.pad, foot: foot };
   }
 
   // Geometry helpers. A path is a list of [x, y] points; a segment is a pair of them.
   function dgDir(a, b) { return [Math.sign(b[0] - a[0]), Math.sign(b[1] - a[1])]; }
   function dgLen(a, b) { return Math.abs(b[0] - a[0]) + Math.abs(b[1] - a[1]); }
   function dgRect(n, inf) { return { l: n.x - inf, t: n.y - inf, r: n.x + n.w + inf, b: n.y + n.h + inf }; }
+  function dgGrow(b, inf) { return { l: b.l - inf, t: b.t - inf, r: b.r + inf, b: b.b + inf }; }
   function dgHits(a, b, r) {
     var x1 = Math.min(a[0], b[0]), x2 = Math.max(a[0], b[0]), y1 = Math.min(a[1], b[1]), y2 = Math.max(a[1], b[1]);
     return x1 < r.r && x2 > r.l && y1 < r.b && y2 > r.t;
@@ -840,13 +856,16 @@
     var vias = [null, 'L', 'a', 'b'];
     g.chH.forEach(function (ls, j) { ls.forEach(function (y, k) { vias.push(['h', j, k]); }); });
     g.chV.forEach(function (ls, i) { ls.forEach(function (x, k) { vias.push(['v', i, k]); }); });
-    DG_SIDES.forEach(function (a) { DG_SIDES.forEach(function (b) { vias.forEach(function (v) { plans.push({ a: a, b: b, via: v }); }); }); });
+    // a dependency in a layer stack leaves the bottom of its component and enters the top of the next
+    var outs = m.layered ? ['bottom'] : DG_SIDES, ins = m.layered ? ['top'] : DG_SIDES;
+    outs.forEach(function (a) { ins.forEach(function (b) { vias.forEach(function (v) { plans.push({ a: a, b: b, via: v }); }); }); });
     var main = m.dir === 'down' ? 'bottom' : 'right', back = m.dir === 'down' ? 'top' : 'left';
     var best = null;
     plans.forEach(function (plan) {
       var p = dgRealize(e, plan, g);
       if (!p) return;
       var cost = dgCost(d, g, e, plan, p, done);
+      if (e.el && dgLen(p[0], p[1]) < dgLabelAt(d, { e: e, p: p }).need) cost += 40;
       cost += plan.a === main ? 0 : plan.a === back ? 16 : 6;
       cost += plan.b === back ? 0 : plan.b === main ? 16 : 6;
       if (!best || cost < best.cost) best = { cost: cost, plan: plan, p: p };
@@ -858,18 +877,20 @@
     segs.forEach(function (s) {
       m.nodes.forEach(function (n) { if (dgHits(s[0], s[1], dgRect(n, DG.clear - 0.5))) cost += 10000; });
       if (g.rail && Math.min(s[0][0], s[1][0]) < g.rail + g.pad) cost += 10000;
+      // a boundary's name on its top line is passed by where another way exists
+      m.bounds.forEach(function (b) { if (b.lr && dgHits(s[0], s[1], dgGrow(b.lr, DG.clear - 0.5))) cost += 2000; });
       cost += dgLen(s[0], s[1]) * 0.1;
     });
     cost += (p.length - 2) * 24;
     done.forEach(function (o) {
       var share = o.e.from === e.from && o.plan.a === plan.a ? 'out' : o.e.to === e.to && o.plan.b === plan.b ? 'in' : '';
-      // a side carries edges out or edges in, never both; a decision's corner carries one branch, and
-      // an entity's side one relationship
+      // a side carries edges out or edges in, never both; a decision's corner carries one branch, an
+      // entity's side one relationship, and a flow edge with a label a side of its own
       [[e.from, plan.a, 'out'], [e.to, plan.b, 'in']].forEach(function (u) {
         [[o.e.from, o.plan.a, 'out'], [o.e.to, o.plan.b, 'in']].forEach(function (w) {
           if (u[0] !== w[0] || u[1] !== w[1]) return;
           if (u[2] !== w[2] || u[0].type === 'entity') cost += 1000;
-          else if (u[2] === 'out') cost += u[0].type === 'decision' ? 1000 : 12;
+          else if (u[2] === 'out') cost += u[0].type === 'decision' || (d.mode.labels === dgLabelsInline && (e.label || o.e.label)) ? 1000 : 12;
           else cost += 4;
         });
       });
@@ -950,9 +971,71 @@
     return tracks;
   }
 
+  // An edge label stands on its line near the start of its edge, on the axis of the line's first run:
+  // the line leaves its node and runs DG_LEAD, breaks 8px before the label and goes on 8px past it.
+  // A label on a run across and a label on a run down keep the same place, so the branches of a
+  // decision read alike, and the line on both sides marks it as the line's, not the node's. When
+  // the run crosses a boundary side within that reach, the lead crosses it by 8px and the label
+  // stands outside. A labelled edge leaves its node by a side of its own (dgCost), so the run it
+  // opens is its own.
+  var DG_LEAD = 16;
+  function dgLabelAt(d, r) {
+    var a = r.p[0], b = r.p[1], hz = a[1] === b[1], k = hz ? 0 : 1, u = dgDir(a, b), ext = hz ? r.e.lw : r.e.lh, off = DG_LEAD + DG.clear;
+    (d.frames || []).forEach(function (f) {
+      if ((f[0][k] === f[1][k]) === false) return;   // a side across the run, not along it
+      var c = f[0][k], lo = Math.min(f[0][1 - k], f[1][1 - k]), hi = Math.max(f[0][1 - k], f[1][1 - k]);
+      var dist = (c - a[k]) * u[k];
+      if (a[1 - k] > lo && a[1 - k] < hi && dist > 0 && dist < ext + 2 * DG.clear + off) off = Math.max(off, dist + 8 + DG.clear);
+    });
+    return { off: off, ext: ext, need: off + ext + DG.clear + (r.p.length === 2 ? DG.head + 16 : DG.r + 8) };
+  }
+  // Places every label and returns the gaps that need more room for a label to fit.
+  function dgLabelsInline(d, g, routes) {
+    var m = d.model, placed = [], lines = [], short = [];
+    routes.forEach(function (r) { dgSegs(r.p).forEach(function (s, i) { lines.push({ r: r, i: i, s: s }); }); });
+    (d.dividers || []).forEach(function (s) { lines.push({ s: s }); });
+    (d.frames || []).forEach(function (s) { lines.push({ s: s, frame: true }); });
+    var boxes = m.nodes.map(function (n) { return dgRect(n, 0); });
+    m.bounds.forEach(function (b) { if (b.lr) boxes.push(b.lr); });
+    if (g.rail) boxes.push({ l: 0, t: 0, r: g.rail + g.pad - 4, b: g.H });
+    var free = function (b, own, u) {
+      var c = DG.clear - 0.5, x = { l: b.l - c, t: b.t - c, r: b.r + c, b: b.b + c };
+      // a boundary side the line goes on to cross stands 16px further off, so the line shows before it
+      var y = { l: x.l + Math.min(0, u[0]) * 16, t: x.t + Math.min(0, u[1]) * 16, r: x.r + Math.max(0, u[0]) * 16, b: x.b + Math.max(0, u[1]) * 16 };
+      if (b.l < 2 || b.t < 2 || b.r > g.W - 2 || b.b > g.H - 2) return false;
+      if (boxes.some(function (o) { return o.l < x.r && o.r > x.l && o.t < x.b && o.b > x.t; })) return false;
+      if (placed.some(function (o) { return o.l < x.r && o.r > x.l && o.t < x.b && o.b > x.t; })) return false;
+      return !lines.some(function (l) { return !(l.r === own && l.i === 0) && dgHits(l.s[0], l.s[1], l.frame ? y : x); });
+    };
+    routes.forEach(function (r) {
+      var e = r.e;
+      r.inline = 0;
+      if (!e.el) return;
+      var w = e.lw, h = e.lh, a = r.p[0], b = r.p[1], u = dgDir(a, b), hz = a[1] === b[1];
+      var at = dgLabelAt(d, r), L = dgLen(a, b), s0 = [a[0] + u[0] * at.off, a[1] + u[1] * at.off];
+      var box = hz ? { l: u[0] > 0 ? s0[0] : s0[0] - w, t: Math.round(s0[1] - h / 2) } : { l: Math.round(s0[0] - w / 2), t: u[1] > 0 ? s0[1] : s0[1] - h };
+      box.r = box.l + w; box.b = box.t + h;
+      r.label = box; r.inline = Math.max(0, Math.min(at.off + at.ext + DG.clear, L - 2)); r.lead = Math.min(at.off - DG.clear, L - 2);
+      if (L >= at.need && free(box, r, u)) { placed.push(box); return; }
+      // no room: lengthen the first run by widening the gap it crosses (twice the shortfall when the
+      // run ends on a line in the middle of that gap), or widen it by two tracks when a line or a
+      // side stands too close
+      var gapAt = function (starts, sizes, lo, hi) {
+        var best = -1, lap = 0;
+        starts.forEach(function (st, k) { var o = Math.min(hi, st + sizes[k]) - Math.max(lo, st); if (o > lap) { lap = o; best = k; } });
+        return best;
+      };
+      var lo = Math.min(a[hz ? 0 : 1], b[hz ? 0 : 1]), hi = Math.max(a[hz ? 0 : 1], b[hz ? 0 : 1]);
+      var idx = gapAt(hz ? g.gx : g.gy, hz ? g.gw : g.gh, lo, hi), sizes = hz ? g.gw : g.gh;
+      if (idx > -1) short.push({ axis: hz ? 'x' : 'y', i: idx, size: sizes[idx] + (L >= at.need ? 2 * DG.track : (r.p.length === 2 ? 1 : 2) * (at.need - L)) + 4 });
+    });
+    return short;
+  }
+
   // Edge labels stand beside the line they name, 8px clear of every line, node and label: above a
   // run across, to the left of a run down, nearest the source first. Returns the labels that found
-  // no place, with the gap that would make room.
+  // no place, with the gap that would make room. The default for a mode on the flow grid, and the
+  // placement of a state's events; a flow's labels stand in line (dgLabelsInline).
   function dgLabels(d, g, routes) {
     var m = d.model, placed = [], lines = [], short = [];
     routes.forEach(function (r) { dgSegs(r.p).forEach(function (s) { lines.push(s); }); });
@@ -1034,20 +1117,24 @@
     return short;
   }
 
+  // A path through right-angle turns, each rounded to radius rad or less.
+  function dgRound(p, rad) {
+    var dd = 'M' + p[0][0] + ' ' + p[0][1], n = p.length;
+    for (var i = 1; i < n - 1; i++) {
+      var a = p[i - 1], b = p[i], c = p[i + 1], v = dgDir(a, b), w = dgDir(b, c);
+      var r = Math.min(rad, dgLen(a, b) / 2, dgLen(b, c) / 2);
+      var sweep = v[0] * w[1] - v[1] * w[0] > 0 ? 1 : 0;
+      dd += 'L' + (b[0] - v[0] * r) + ' ' + (b[1] - v[1] * r) + 'A' + r + ' ' + r + ' 0 0 ' + sweep + ' ' + (b[0] + w[0] * r) + ' ' + (b[1] + w[1] * r);
+    }
+    return dd + 'L' + p[n - 1][0] + ' ' + p[n - 1][1];
+  }
   // The path of an edge with rounded elbows, ending where its arrowhead begins (or at its end, with
   // no arrowhead).
   function dgPathD(p, bare) {
     var q = p.map(function (x) { return x.slice(); }), n = q.length, k = bare ? 0 : DG.head;
     var u = dgDir(q[n - 2], q[n - 1]);
     q[n - 1] = [q[n - 1][0] - u[0] * k, q[n - 1][1] - u[1] * k];
-    var dd = 'M' + q[0][0] + ' ' + q[0][1];
-    for (var i = 1; i < n - 1; i++) {
-      var a = q[i - 1], b = q[i], c = q[i + 1], v = dgDir(a, b), w = dgDir(b, c);
-      var r = Math.min(DG.r, dgLen(a, b) / 2, dgLen(b, c) / 2);
-      var sweep = v[0] * w[1] - v[1] * w[0] > 0 ? 1 : 0;
-      dd += 'L' + (b[0] - v[0] * r) + ' ' + (b[1] - v[1] * r) + 'A' + r + ' ' + r + ' 0 0 ' + sweep + ' ' + (b[0] + w[0] * r) + ' ' + (b[1] + w[1] * r);
-    }
-    return dd + 'L' + q[n - 1][0] + ' ' + q[n - 1][1];
+    return dgRound(q, DG.r);
   }
   function dgHead(p) {
     var n = p.length, t = p[n - 1], u = dgDir(p[n - 2], t), bx = t[0] - u[0] * DG.head, by = t[1] - u[1] * DG.head, hw = 3.5;
@@ -1075,7 +1162,7 @@
     });
     for (var pass = 0; pass < 4; pass++) {
       g = dgGrid(d, P, need, pass === 0);
-      d.dividers = m.lanes.slice(1).map(function (l) { var y = g.gy[l.row - 1] + g.gh[l.row - 1] / 2; return [[g.pad, y], [g.W - g.pad, y]]; });
+      d.dividers = m.layered ? [] : m.lanes.slice(1).map(function (l) { var y = g.gy[l.row - 1] + g.gh[l.row - 1] / 2; return [[g.pad, y], [g.W - g.pad, y]]; });
       dgBounds(d, g);
       if (pass === 0) {
         order.forEach(function (e) { var b = dgRoute(d, g, e, routes); if (b) routes.push({ e: e, plan: b.plan, p: b.p }); });
@@ -1094,6 +1181,7 @@
       }
       var tracks = dgNudge(routes);
       drawn = d.mode.loops ? routes.concat(d.mode.loops(d, g, routes)) : routes;
+      dgBoundLabels(d, routes);
       var short = (d.mode.labels || dgLabels)(d, g, drawn);
       // what each gap needs next pass
       var next = { x: {}, y: {}, ox: {}, oy: {} };
@@ -1110,7 +1198,7 @@
         var hz = key[0] === 'h', c = +key.slice(1), gs = hz ? g.gy : g.gx, ws = hz ? g.gh : g.gw, idx = -1;
         gs.forEach(function (st, k) { if (c >= st - 1 && c <= st + ws[k] + 1) idx = k; });
         if (idx < 0) return;
-        var want = (tracks[key] - 1) * DG.track + 2 * DG.reach + ((hz ? g.laneGap[idx] : false) ? 28 : 0);
+        var want = (tracks[key] - 1) * DG.track + 2 * DG.reach + ((hz ? g.laneGap[idx] : false) ? (m.layered ? 2 * DG_LY.inset : 28) : 0);
         var o = hz ? next.y : next.x;
         o[idx] = Math.max(o[idx] || 0, want);
       });
@@ -1136,12 +1224,25 @@
     dgDraw(d, g, drawn);
   }
 
+  // A boundary's name sits at the left of its top line, or at the right when an edge crosses the
+  // top line where the name would be.
+  function dgBoundLabels(d, routes) {
+    d.model.bounds.forEach(function (b) {
+      var hit = function (lr) { return routes.some(function (r) { return dgSegs(r.p).some(function (s) { return dgHits(s[0], s[1], dgGrow(lr, DG.clear - 0.5)); }); }); };
+      if (!hit(b.lr)) return;
+      var w = b.lr.r - b.lr.l, right = { l: b.r.r - 12 - w, t: b.lr.t, r: b.r.r - 12, b: b.lr.b };
+      if (!hit(right)) b.lr = right;
+    });
+  }
+  // A boundary frames its block of cells; its four sides are lines an edge label keeps clear of.
   function dgBounds(d, g) {
+    d.frames = [];
     d.model.bounds.forEach(function (b) {
       var l = g.colL[b.col] - 20, r = g.colL[b.lastCol] + g.colW[b.lastCol] + 20;
       var t = g.rowT[b.row] - 28, bt = g.rowT[b.last] + g.rowH[b.last] + 20;
       b.r = { l: l, t: t, r: r, b: bt };
       b.lr = { l: l + 12, t: t - b.lh / 2, r: l + 12 + b.lw, b: t + b.lh / 2 };
+      d.frames.push([[l, t], [r, t]], [[r, t], [r, bt]], [[l, bt], [r, bt]], [[l, t], [l, bt]]);
     });
   }
 
@@ -1164,8 +1265,9 @@
 
   function dgDraw(d, g, routes) {
     var el = d.el, m = d.model, cv = d.canvas, svg = d.svg;
-    // centred in its box on screen and in print; lanes run the full width from the left
-    var fit = dgFit(d, g.W, g.H, !m.lanes.length), scale = fit.scale, ox = fit.ox, W = fit.W, H = fit.H;
+    // centred in its box on screen and in print; lanes run the full width from the left, and a layer
+    // stack, its frames as wide as its grid, is centred
+    var fit = dgFit(d, g.W, g.H, !m.lanes.length || m.layered), scale = fit.scale, ox = fit.ox, W = fit.W, H = fit.H;
     var X = function (x) { return Math.round(x + ox); }, Y = function (y) { return Math.round(y); };
     var geo = { scale: scale, ox: ox, W: W, H: H, nodes: [], edges: [], lines: [], lanes: [] };
     m.lanes.forEach(function (l, k) {
@@ -1173,7 +1275,7 @@
       l.el.style.left = X(g.pad - ox) + 'px';
       l.el.style.top = Y((top + bot) / 2 - l.h / 2) + 'px';
       geo.lanes.push({ el: l.el, label: l.label });
-      if (k > 0) {
+      if (k > 0 && !m.layered) {
         var s = d.dividers[k - 1];
         svg.appendChild(svgEl('line', { 'class': 'cm-diagram__divider', x1: 0, y1: Y(s[0][1]) + 0.5, x2: W, y2: Y(s[0][1]) + 0.5 }));
         geo.lines.push({ kind: 'divider', points: [[0, s[0][1]], [W, s[0][1]]] });
@@ -1191,31 +1293,59 @@
       geo.nodes.push({ id: n.id, type: n.type, el: n.el });
     });
     routes.forEach(function (r) {
-      var p = r.p.map(function (pt) { return [X(pt[0]), Y(pt[1])]; }), n = p.length;
+      var p = r.p.map(function (pt) { return [X(pt[0]), Y(pt[1])]; }), n = p.length, lead = null;
+      // a flow edge's line breaks for the label in line with it: the lead from the node, the label
+      // with 8px of air on each side, then the rest of the line
+      if (r.inline) {
+        var u0 = dgDir(p[0], p[1]), p0 = p[0];
+        if (r.lead > 0) lead = [p0, [p0[0] + u0[0] * r.lead, p0[1] + u0[1] * r.lead]];
+        p[0] = [p0[0] + u0[0] * r.inline, p0[1] + u0[1] * r.inline];
+      }
       // a line with no arrowhead runs on to meet the box at each end
       if (d.mode.bare) [[0, 1], [n - 1, n - 2]].forEach(function (k) {
         var u = dgDir(p[k[1]], p[k[0]]);
         p[k[0]] = [p[k[0]][0] + u[0] * DG.stand, p[k[0]][1] + u[1] * DG.stand];
       });
       var grp = svgEl('g', { 'class': 'cm-diagram__edge cm-diagram__edge--' + r.e.kind, 'data-from': r.e.from.id, 'data-to': r.e.to.id });
+      if (lead) grp.appendChild(svgEl('path', { 'class': 'cm-diagram__line', d: 'M' + lead[0][0] + ' ' + lead[0][1] + 'L' + lead[1][0] + ' ' + lead[1][1] }));
       grp.appendChild(svgEl('path', { 'class': 'cm-diagram__line', d: dgPathD(p, d.mode.bare) }));
       if (!d.mode.bare) grp.appendChild(svgEl('polygon', { 'class': 'cm-diagram__head', points: dgHead(p) }));
       svg.appendChild(grp);
       if (r.e.el) { r.e.el.style.left = X(r.label.l) + 'px'; r.e.el.style.top = Y(r.label.t) + 'px'; }
-      geo.edges.push({ from: r.e.from.id, to: r.e.to.id, kind: r.e.kind, label: r.e.label, labelEl: r.e.el || null, points: p });
+      geo.edges.push({ from: r.e.from.id, to: r.e.to.id, kind: r.e.kind, label: r.e.label, labelEl: r.e.el || null, points: p, lead: lead });
+      if (lead) geo.lines.push({ kind: 'line', points: lead });
       // labels a mode sets beside an edge besides its name, such as the count at each end
       (r.labels || []).forEach(function (l) {
         l.el.style.left = X(l.box.l) + 'px'; l.el.style.top = Y(l.box.t) + 'px';
         (geo.labels = geo.labels || []).push({ el: l.el, name: l.name });
       });
     });
+    if (m.journey || (m.phases && m.phases.length)) dgJourneyDraw(d, g, geo, X, Y);
+    if (m.layered) dgLayersDraw(d, g, geo, X, Y);
     geo.routed = routes.length;
     geo.total = m.edges.length;
     el._cmDiagram = geo;
   }
 
+  // Counts and lists in words, for the text versions and summaries.
+  function dgCount(n, one, many) { return n + ' ' + (n === 1 ? one : many); }
+  function dgAnd(a) { return a.length > 1 ? a.slice(0, -1).join(', ') + ' and ' + a[a.length - 1] : a[0] || ''; }
+  // The "View as text" disclosure after the figure's caption, holding the list a mode writes.
+  function dgTextBox(d, list) {
+    var det = mk('details', 'cm-data');
+    det.setAttribute('data-cm-diagram-text', '');
+    det.appendChild(mk('summary', null, 'View as text'));
+    det.appendChild(list);
+    var fig = d.el.closest('figure'), cap = fig && fig.querySelector('.cm-caption');
+    if (cap) cap.after(det); else d.el.after(det);
+    d.text = det;
+  }
+
   // The text version, from the same data: every node once, numbered in reading order (a walk from
-  // each start that follows edges in the order written), with where each edge leads.
+  // each start that follows edges in the order written; a journey map reads by column), with where
+  // each edge leads. The family is read from the data: a diagram with an experience line is a
+  // journey map; one with a data store, an external entity, a boundary or a data edge is a system
+  // and data flow; any other is a process flow.
   function dgText(d) {
     var m = d.model, post = [], seen = {}, open = {};
     var outs = function (n) { return m.edges.filter(function (e) { return e.from === n; }); };
@@ -1231,14 +1361,24 @@
     post = [];
     m.nodes.slice().reverse().forEach(visit);
     order = order.concat(post.reverse());
+    if (m.journey) order = m.nodes.slice().sort(function (a, b) { return a.col - b.col || a.row - b.row; });
     order.forEach(function (n, i) { n.num = i + 1; });
     var stop = function (s) { s = s.trim(); return /[.?!]$/.test(s) ? s : s + '.'; };
     var lane = function (n) { var l = m.lanes.find(function (l) { return n.row >= l.row && n.row <= l.last; }); return l ? l.label : ''; };
+    var phase = function (n) { var p = m.phases.find(function (p) { return n.col >= p.col && n.col <= p.lastCol; }); return p ? p.label : ''; };
+    var within = function (n) {
+      return m.bounds.filter(function (b) { return n.col >= b.col && n.col <= b.lastCol && n.row >= b.row && n.row <= b.last; }).map(function (b) { return b.label; });
+    };
+    var levels = m.nodes.filter(function (n) { return n.level; }).map(function (n) { return n.level; });
+    var low = Math.min.apply(null, levels), high = Math.max.apply(null, levels);
     var ol = mk('ol', 'cm-olist cm-small');
     order.forEach(function (n) {
       var parts = [stop(n.label + (n.type === 'store' ? ' (data store)' : n.type === 'external' ? ' (external)' : ''))];
       if (n.detail) parts.push(stop(n.detail));
+      if (phase(n)) parts.push(stop('Phase: ' + phase(n)));
       if (lane(n)) parts.push(stop('Lane: ' + lane(n)));
+      if (within(n).length) parts.push(stop('Within: ' + dgAnd(within(n))));
+      if (n.level) parts.push(stop('Experience: ' + m.scale[n.level - 1] + (n.level === low && low < high ? ', the low point' : '')));
       if (n.emphasis) parts.push(stop('Marked: ' + n.emphasis));
       var o = outs(n);
       o.forEach(function (e) {
@@ -1247,7 +1387,7 @@
           : e.kind === 'data' ? 'Data' : e.kind === 'optional' ? 'Optional' : back ? '' : 'Next';
         parts.push(stop(lead ? lead + ': ' + where : where.charAt(0).toUpperCase() + where.slice(1)));
       });
-      if (!o.length) parts.push('End of the flow.');
+      if (!o.length && m.edges.length) parts.push('End of the flow.');
       ol.appendChild(mk('li', null, parts.join(' ')));
     });
     // the summary for assistive technology, unless the author wrote one
@@ -1255,24 +1395,95 @@
       var ends = order.filter(function (n) { return !outs(n).length; }).map(function (n) { return n.label; });
       var dec = m.nodes.filter(function (n) { return n.type === 'decision'; }).length;
       var loops = m.edges.filter(function (e) { return e.loop; }).length;
-      var s = 'Flow diagram of ' + m.nodes.length + ' steps' + (order.length ? ' from ' + order[0].label : '') + (ends.length ? ' to ' + ends.join(' or ') : '');
-      var extra = [];
+      var stores = m.nodes.filter(function (n) { return n.type === 'store'; }).length, ext = m.nodes.filter(function (n) { return n.type === 'external'; }).length;
+      var data = m.edges.filter(function (e) { return e.kind === 'data'; }).length;
+      var s, extra = [], what = 'step';
+      if (m.journey) {
+        var at = function (v) { return dgAnd(order.filter(function (n) { return n.level === v; }).map(function (n) { return n.label; })) + ' (' + m.scale[v - 1] + ')'; };
+        s = 'Journey map of ' + dgCount(m.nodes.length, 'step', 'steps') + (m.phases.length ? ' in ' + dgCount(m.phases.length, 'phase', 'phases') : '')
+          + ' from ' + order[0].label + ' to ' + order[order.length - 1].label
+          + (low < high ? '. The experience is lowest at ' + at(low) + ' and highest at ' + at(high) : '');
+      } else if (stores || ext || data || m.bounds.length) {
+        var parts = [dgCount(m.nodes.length - stores - ext, 'step', 'steps')];
+        if (stores) parts.push(dgCount(stores, 'data store', 'data stores'));
+        if (ext) parts.push(dgCount(ext, 'external entity', 'external entities'));
+        s = 'System and data flow of ' + dgAnd(parts) + (m.bounds.length ? ', in ' + dgCount(m.bounds.length, 'boundary', 'boundaries') : '');
+        if (data) extra.push(dgCount(data, 'data flow', 'data flows'));
+        if (m.edges.length > data) extra.push(dgCount(m.edges.length - data, 'control flow', 'control flows'));
+        what = 'node';
+      } else {
+        s = 'Flow diagram of ' + m.nodes.length + ' steps' + (order.length ? ' from ' + order[0].label : '') + (ends.length ? ' to ' + ends.join(' or ') : '');
+      }
       if (m.lanes.length) extra.push(m.lanes.length + ' lanes');
       if (dec) extra.push(dec + (dec > 1 ? ' decisions' : ' decision'));
       if (loops) extra.push(loops + (loops > 1 ? ' loops back' : ' loop back'));
-      if (extra.length) s += ', with ' + (extra.length > 1 ? extra.slice(0, -1).join(', ') + ' and ' + extra[extra.length - 1] : extra[0]);
-      d.el.setAttribute('aria-label', s + '. The text version under the figure lists every step.');
+      if (extra.length) s += ', with ' + dgAnd(extra);
+      d.el.setAttribute('aria-label', s + '. The text version under the figure lists every ' + what + '.');
     }
-    var det = mk('details', 'cm-data');
-    det.setAttribute('data-cm-diagram-text', '');
-    det.appendChild(mk('summary', null, 'View as text'));
-    det.appendChild(ol);
-    var fig = d.el.closest('figure'), cap = fig && fig.querySelector('.cm-caption');
-    if (cap) cap.after(det); else d.el.after(det);
-    d.text = det;
+    dgTextBox(d, ol);
   }
 
-  DG_MODES.flow = { model: dgModel, key: dgKey, text: dgText, layout: dgLayout };
+  /* ---------- diagrams: journey map (flow mode) ---------- */
+  // Phases are frames across the top, one over the columns each spans. The experience line runs
+  // under the steps: across each step's column at that step's level on the scale, turning at right
+  // angles in the gaps between columns. Each level is named under its run, between that level and
+  // the next one down, so no word stands level with another run. The text version and the summary
+  // name the low point; the drawing shows it by height alone.
+  var DG_JY = { pitch: 24, lead: 32, below: 20 };
+  function dgJourneyBuild(d, cv) {
+    var m = d.model;
+    m.nodes.forEach(function (n) {
+      if (!n.level) return;
+      n.wordEl = mk('span', 'cm-diagram__level', m.scale[n.level - 1]);
+      cv.appendChild(n.wordEl);
+    });
+  }
+  // Sizes the phase frames at the width of the columns they span (gaps at their least), and the
+  // room the phases and the experience line take above and below the grid.
+  function dgJourneyMeasure(d, colW) {
+    var m = d.model, P = printing ? DG_GAP.print : DG_GAP.screen, top = 0, word = 0;
+    m.phases.forEach(function (p) {
+      var w = 0;
+      for (var c = p.col; c <= p.lastCol; c++) w += (colW[c] || 96) + (c > p.col ? P.col : 0);
+      p.el.style.left = '0px'; p.el.style.top = '0px'; p.el.style.width = w + 'px';
+      top = Math.max(top, Math.ceil(p.el.offsetHeight));
+    });
+    d.spaceTop = m.phases.length ? top + DG_JY.below : 0;
+    m.nodes.forEach(function (n) {
+      if (n.wordEl) { n.ww = Math.ceil(n.wordEl.offsetWidth); n.wh = Math.ceil(n.wordEl.offsetHeight); word = Math.max(word, n.wh); }
+    });
+    d.spaceBottom = m.journey ? DG_JY.lead + (m.scale.length - 1) * DG_JY.pitch + DG.clear + word : 0;
+  }
+  function dgJourneyDraw(d, g, geo, X, Y) {
+    var m = d.model, svg = d.svg, n0 = m.scale.length;
+    geo.phases = m.phases.map(function (p) {
+      var l = g.colL[p.col], r = g.colL[p.lastCol] + g.colW[p.lastCol], s = p.el.style;
+      s.left = X(l) + 'px'; s.top = Y(g.pad) + 'px'; s.width = (r - l) + 'px';
+      return { el: p.el, label: p.label };
+    });
+    if (!m.journey) return;
+    var steps = m.nodes.filter(function (n) { return n.level; }).sort(function (a, b) { return a.col - b.col; });
+    var yAt = function (n) { return g.foot + DG_JY.lead + (n0 - n.level) * DG_JY.pitch; };
+    var pts = [];
+    steps.forEach(function (n, i) {
+      var l = g.colL[n.col], r = l + g.colW[n.col], y = yAt(n), next = steps[i + 1];
+      if (!i) pts.push([l, y]);
+      else pts.push([pts[pts.length - 1][0], y]);
+      if (next) { var mid = Math.round((r + g.colL[next.col]) / 2); pts.push([mid, y]); }
+      else pts.push([r, y]);
+    });
+    var q = dgClean(pts) || pts;
+    var p = q.map(function (pt) { return [X(pt[0]), Y(pt[1])]; });
+    svg.appendChild(svgEl('path', { 'class': 'cm-diagram__experience', d: dgRound(p, 8) }));
+    geo.experience = { points: p, labels: [] };
+    steps.forEach(function (n) {
+      var c = g.colL[n.col] + g.colW[n.col] / 2, y = yAt(n) + DG.clear;
+      n.wordEl.style.left = X(c - n.ww / 2) + 'px'; n.wordEl.style.top = Y(y) + 'px';
+      geo.experience.labels.push({ el: n.wordEl, label: n.wordEl.textContent });
+    });
+  }
+
+  DG_MODES.flow = { model: dgModel, key: dgKey, text: dgText, layout: dgLayout, labels: dgLabelsInline };
 
   /* ---------- diagrams: state ---------- */
   // A state diagram (SPEC section 8.20, State) is drawn on the flow grid: states are rounded rectangles,
@@ -1649,8 +1860,8 @@
     });
   }
 
-  // The relationship's name stands where a flow's edge label does, above a run across or to the left
-  // of a run down, middle first. Each end's count stands on the other side of the line, beside the
+  // The relationship's name stands beside its line, above a run across or to the left of a run
+  // down, middle first. Each end's count stands on the other side of the line, beside the
   // entity it counts, and two counts on one run stand at least ER_SEP apart, so each reads with its
   // own end. A label with no room asks for a wider gap, as a flow's edge label does.
   function erLabels(d, g, routes) {
@@ -1783,6 +1994,201 @@
 
   DG_MODES['entity-relationship'] = { model: erModel, build: erBuild, key: erKey, node: erNode, text: erText, layout: dgLayout,
     labels: erLabels, gaps: ER_GAP, bare: true };
+
+  /* ---------- diagrams: layer stack ---------- */
+  // A layer stack is drawn by the flow engine: each layer is a row framed across the full width and
+  // named on the left, its components placed by column, the consumer layer at the top and the
+  // source layer at the base. A dependency runs down, from the component that depends to the one it
+  // depends on. An upward or sideways dependency breaks the stack: the kit leaves it undrawn, and the
+  // checks fail the page.
+  var DG_LY = { inset: 16 };
+  function dgLayersModel(spec) {
+    var nodes = [], groups = [], edges = [], row = {};
+    list(spec.layers).forEach(function (l, i) {
+      if (!l) return;
+      groups.push({ type: 'lane', label: l.label, row: i + 1 });
+      list(l.nodes).forEach(function (n) {
+        if (!n || n.id == null || row[n.id]) return;
+        row[n.id] = i + 1;
+        nodes.push({ id: n.id, type: 'step', label: n.label, detail: n.detail, col: n.col, row: i + 1 });
+      });
+    });
+    list(spec.edges).forEach(function (e) {
+      if (!e) return;
+      if (row[e.from] && row[e.to] > row[e.from]) edges.push({ from: e.from, to: e.to });
+      else console.warn('[cm] a layer stack draws a dependency only from a layer to a lower one', e);
+    });
+    var m = dgModel({ nodes: nodes, edges: edges, groups: groups, direction: 'down' });
+    m.layered = true;
+    return m;
+  }
+  function dgLayersBuild(d) {
+    dgBuild(d);
+    d.model.lanes.forEach(function (l) { l.frame = mk('div', 'cm-diagram__layer'); d.canvas.insertBefore(l.frame, d.canvas.firstChild); });
+  }
+  function dgLayersDraw(d, g, geo, X, Y) {
+    geo.layers = d.model.lanes.map(function (l) {
+      var top = g.rowT[l.row] - DG_LY.inset, bot = g.rowT[l.last] + g.rowH[l.last] + DG_LY.inset, s = l.frame.style;
+      s.left = X(g.pad) + 'px'; s.top = Y(top) + 'px'; s.width = (g.W - 2 * g.pad) + 'px'; s.height = (bot - top) + 'px';
+      l.el.style.left = X(g.pad + DG_LY.inset) + 'px';
+      return { el: l.frame, label: l.label };
+    });
+  }
+  function dgLayersText(d) {
+    var m = d.model, order = m.nodes.slice().sort(function (a, b) { return a.row - b.row || a.col - b.col; });
+    var stop = function (s) { s = s.trim(); return /[.?!]$/.test(s) ? s : s + '.'; };
+    order.forEach(function (n, i) { n.num = i + 1; });
+    var ol = mk('ol', 'cm-olist cm-small');
+    order.forEach(function (n) {
+      var parts = [stop(n.label)], uses = m.edges.filter(function (e) { return e.from === n; });
+      if (n.detail) parts.push(stop(n.detail));
+      parts.push(stop('Layer: ' + m.lanes[n.row - 1].label));
+      if (uses.length) parts.push(stop('Depends on: ' + dgAnd(uses.map(function (e) { return 'component ' + e.to.num + ', ' + e.to.label; }))));
+      ol.appendChild(mk('li', null, parts.join(' ')));
+    });
+    if (!(d.el.getAttribute('aria-label') || '').trim()) {
+      var L = m.lanes;
+      d.el.setAttribute('aria-label', 'Layer stack of ' + dgCount(L.length, 'layer', 'layers') + ', from ' + L[0].label + ' at the top to ' + L[L.length - 1].label
+        + ' at the base, with ' + dgCount(m.nodes.length, 'component', 'components') + ' and ' + dgCount(m.edges.length, 'dependency', 'dependencies')
+        + '. The text version under the figure lists every component.');
+    }
+    dgTextBox(d, ol);
+  }
+  // The key names the one line a layer stack draws, since its arrows run against the flow of data.
+  function dgLayersKey() {
+    var key = mk('div', 'cm-diagram__key'), item = mk('span', 'cm-diagram__key-item');
+    // the line with its arrowhead, drawn as the edges are, since the direction carries the meaning
+    var sw = svgEl('svg', { 'class': 'cm-diagram__swatch cm-diagram__swatch--depends', width: 24, height: 8, viewBox: '0 0 24 8', 'aria-hidden': 'true' });
+    sw.appendChild(svgEl('path', { 'class': 'cm-diagram__line', d: 'M0 4L16 4' }));
+    sw.appendChild(svgEl('polygon', { 'class': 'cm-diagram__head', points: '24,4 16,0.5 16,7.5' }));
+    item.appendChild(sw);
+    item.appendChild(document.createTextNode('Depends on'));
+    key.appendChild(item);
+    return key;
+  }
+  DG_MODES['layer-stack'] = { model: dgLayersModel, build: dgLayersBuild, key: dgLayersKey, text: dgLayersText, layout: dgLayout };
+
+  /* ---------- diagrams: hierarchy ---------- */
+  // A hierarchy is a tree read left to right: the root in the first column, each level of children
+  // in the next, and one line from a parent to each child. The author names each node's parent and
+  // writes children in reading order; the ECharts tree layout places them, and the kit draws every
+  // box and line. A level's boxes share its widest width and every box the tallest height. Lines
+  // carry no arrowhead: a line in a hierarchy means "part of", not a step in a flow.
+  var DG_HY = { gap: 16 };
+  function dgTreeModel(spec) {
+    var byId = {}, all = [], root = null, nodes = [], seen = {};
+    list(spec.nodes).forEach(function (n) {
+      if (!n || n.id == null || byId[n.id]) return;
+      var m = { id: String(n.id), type: 'step', label: n.label == null ? '' : String(n.label), detail: n.detail ? String(n.detail) : '',
+        up: n.parent == null ? null : String(n.parent), kids: [] };
+      byId[m.id] = m; all.push(m);
+    });
+    all.forEach(function (n) {
+      if (n.up == null) { if (!root) root = n; }
+      else if (byId[n.up] && n.up !== n.id) byId[n.up].kids.push(n);
+    });
+    var walk = function (n, depth) {
+      seen[n.id] = true; n.depth = depth; nodes.push(n);
+      n.kids = n.kids.filter(function (k) { return !seen[k.id]; });
+      n.kids.forEach(function (k) { k.parent = n; walk(k, depth + 1); });
+    };
+    if (root) walk(root, 0);
+    all.forEach(function (n) { if (!seen[n.id]) console.warn('[cm] a hierarchy draws one tree from one root; this node is not in it', n.id); });
+    var m = { nodes: nodes, root: root, lanes: [], bounds: [], phases: [], scale: [],
+      edges: nodes.filter(function (n) { return n.parent; }).map(function (n) { return { from: n.parent, to: n, kind: 'flow', label: '' }; }),
+      levels: 1 + Math.max.apply(null, [0].concat(nodes.map(function (n) { return n.depth; }))) };
+    m.placed = dgTreeSlots(m);
+    return m;
+  }
+  // The ECharts tree layout, run once off screen: each node's place across the levels (slot), and
+  // the least distance between two nodes of one level (unit), which the drawing sets to a box's
+  // height and the gap.
+  function dgTreeSlots(m) {
+    if (!m.root) return false;
+    if (!window.echarts) { console.warn('[cm] ECharts not loaded; hierarchy shown as text only'); return false; }
+    var data = function (n) { return { name: 'n' + m.nodes.indexOf(n), children: n.kids.map(data) }; };
+    var inst = echarts.init(mk('div'), null, { renderer: 'svg', width: 1000, height: 1000 });
+    try {
+      inst.setOption({ animation: false, series: [{ type: 'tree', data: [data(m.root)], layout: 'orthogonal', orient: 'LR',
+        left: 0, right: 0, top: 0, bottom: 0, symbolSize: 1, expandAndCollapse: false, initialTreeDepth: -1, label: { show: false } }] });
+      inst.getModel().getSeriesByIndex(0).getData().tree.root.eachNode(function (t) {
+        var n = /^n\d+$/.test(t.name) && m.nodes[+t.name.slice(1)], at = t.getLayout();
+        if (n && at) n.slot = at.y;
+      });
+    } finally { inst.dispose(); }
+    if (m.nodes.some(function (n) { return n.slot == null; })) return false;
+    m.unit = 0;
+    for (var lv = 0; lv < m.levels; lv++) {
+      var ys = m.nodes.filter(function (n) { return n.depth === lv; }).map(function (n) { return n.slot; }).sort(function (a, b) { return a - b; });
+      for (var i = 1; i < ys.length; i++) if (ys[i] - ys[i - 1] > 0.5 && (!m.unit || ys[i] - ys[i - 1] < m.unit)) m.unit = ys[i] - ys[i - 1];
+    }
+    m.unit = m.unit || 1;
+    return true;
+  }
+  function dgTreeLayout(d) {
+    var el = d.el, m = d.model, P = printing ? DG_GAP.print : DG_GAP.screen, cv = d.canvas, svg = d.svg;
+    if (!printing && !el.clientWidth) { d.pending = true; return; }
+    d.pending = false;
+    if (!m.placed) return;
+    el.classList.toggle('cm-diagram--print', printing);
+    cv.style.transform = ''; cv.style.marginRight = ''; cv.style.marginBottom = ''; cv.style.width = '4000px'; cv.style.height = '1px';
+    var colW = [], colL = [], h = 0, x = P.pad, bot = 0;
+    m.nodes.forEach(function (n) {
+      var s = n.el.style;
+      s.left = '0px'; s.top = '0px'; s.width = ''; s.height = '';
+      colW[n.depth] = Math.max(colW[n.depth] || 0, even(n.el.offsetWidth));
+      h = Math.max(h, even(n.el.offsetHeight));
+    });
+    for (var i = 0; i < m.levels; i++) { colL[i] = x; x += colW[i] + P.col; }
+    var S = (h + DG_HY.gap) / m.unit, y0 = Math.min.apply(null, m.nodes.map(function (n) { return n.slot; }));
+    m.nodes.forEach(function (n) {
+      n.x = colL[n.depth]; n.w = colW[n.depth]; n.h = h;
+      n.y = P.pad + Math.round((n.slot - y0) * S);
+      bot = Math.max(bot, n.y + h);
+    });
+    var fit = dgFit(d, x - P.col + P.pad, bot + P.pad, true);
+    var X = function (v) { return Math.round(v + fit.ox); }, Y = function (v) { return Math.round(v); };
+    var geo = { scale: fit.scale, ox: fit.ox, W: fit.W, H: fit.H, nodes: [], edges: [], lines: [], lanes: [] };
+    m.nodes.forEach(function (n) {
+      var s = n.el.style;
+      s.left = X(n.x) + 'px'; s.top = Y(n.y) + 'px'; s.width = n.w + 'px'; s.height = n.h + 'px';
+      geo.nodes.push({ id: n.id, type: n.type, el: n.el });
+    });
+    // parent to child: out of the parent's right side, along the middle of the gap, into the child's left
+    m.edges.forEach(function (e) {
+      var a = e.from, c = e.to, ay = a.y + h / 2, cy = c.y + h / 2, mid = a.x + a.w + P.col / 2;
+      var q = dgClean([[a.x + a.w + DG.stand, ay], [mid, ay], [mid, cy], [c.x - DG.stand, cy]]);
+      var p = q.map(function (pt) { return [X(pt[0]), Y(pt[1])]; });
+      // the parent's line meets the spine square, so the branches never close into a point
+      var dd = p.length < 4 ? dgRound(p, DG.r) : 'M' + p[0][0] + ' ' + p[0][1] + 'L' + p[1][0] + ' ' + p[1][1] + dgRound(p.slice(1), DG.r).replace(/^M[-\d.]+ [-\d.]+/, '');
+      var grp = svgEl('g', { 'class': 'cm-diagram__edge cm-diagram__edge--flow', 'data-from': a.id, 'data-to': c.id });
+      grp.appendChild(svgEl('path', { 'class': 'cm-diagram__line', d: dd }));
+      svg.appendChild(grp);
+      geo.edges.push({ from: a.id, to: c.id, kind: 'flow', label: '', labelEl: null, points: p });
+    });
+    geo.routed = geo.total = m.edges.length;
+    el._cmDiagram = geo;
+  }
+  // The text version is the tree as an indented list, every node once under its parent.
+  function dgTreeText(d) {
+    var m = d.model, stop = function (s) { s = s.trim(); return /[.?!]$/.test(s) ? s : s + '.'; };
+    var item = function (n) {
+      var li = mk('li', null, stop(n.label) + (n.detail ? ' ' + stop(n.detail) : ''));
+      if (n.kids.length) { var ul = mk('ul', 'cm-list'); n.kids.forEach(function (k) { ul.appendChild(item(k)); }); li.appendChild(ul); }
+      return li;
+    };
+    var ul = mk('ul', 'cm-list cm-small');
+    if (m.root) ul.appendChild(item(m.root));
+    if (!(d.el.getAttribute('aria-label') || '').trim() && m.root) {
+      var leaves = m.nodes.filter(function (n) { return !n.kids.length; }).length;
+      d.el.setAttribute('aria-label', 'Hierarchy of ' + dgCount(m.nodes.length, 'item', 'items') + ' in ' + dgCount(m.levels, 'level', 'levels')
+        + ', with ' + dgCount(leaves, 'item', 'items') + ' at the ends of its branches. ' + m.root.label
+        + (m.root.kids.length ? ' divides into ' + dgAnd(m.root.kids.map(function (k) { return k.label; })) : ' has no parts')
+        + '. The text version under the figure lists every item.');
+    }
+    dgTextBox(d, ul);
+  }
+  DG_MODES.hierarchy = { model: dgTreeModel, key: function () { return null; }, text: dgTreeText, layout: dgTreeLayout };
 
   function dgAll() { diagrams.forEach(function (d) { if (d.model) d.mode.layout(d); }); }
   function initDiagrams() {

@@ -562,16 +562,17 @@ A flow diagram shows a process with branches, loops or hand-offs between roles. 
 </figure>
 ```
 
-The JSON holds four fields and nothing else: no coordinates, sizes, classes or styles. Placement is the author's; geometry is the kit's.
+The JSON holds these fields and nothing else: no coordinates, sizes, classes or styles. Placement is the author's; geometry is the kit's.
 
 | Field | Holds | Values |
 | --- | --- | --- |
-| `nodes` | One entry for each node | `id` (unique), `type`, `label`, optional `detail`, `col` and `row` (whole numbers from 1, one node a cell), optional `emphasis` |
+| `nodes` | One entry for each node | `id` (unique), `type`, `label`, optional `detail`, `col` and `row` (whole numbers from 1, one node a cell), optional `emphasis`, `level` on a journey map |
 | `edges` | One entry for each connection | `from` and `to` (node ids), optional `kind`, optional `label` |
-| `groups` | Optional lanes and boundaries | Lane: `"type": "lane"`, `label`, `row`, optional `rows`. Boundary: `"type": "boundary"`, `label`, `col`, `row`, optional `cols` and `rows` |
+| `groups` | Optional lanes, boundaries and phases | Lane: `"type": "lane"`, `label`, `row`, optional `rows`. Boundary: `"type": "boundary"`, `label`, `col`, `row`, optional `cols` and `rows`. Phase: `"type": "phase"`, `label`, `col`, optional `cols` |
 | `direction` | Optional reading direction | `right` (default) or `down` |
+| `experience` | Optional scale of a journey map | 3 to 5 words, lowest first |
 
-Shape marks the node type and line style the edge kind. A key above the drawing names each type and kind in use when the diagram has a data store, an external entity, a data edge or an optional edge.
+Shape marks the node type and line style the edge kind. A key above the drawing names each type and kind in use when the diagram has a data store, an external entity, a data edge, an optional edge or an experience line.
 
 | Value | Drawn as | Use |
 | --- | --- | --- |
@@ -587,7 +588,7 @@ Shape marks the node type and line style the edge kind. A key above the drawing 
 - The flow reads left to right, or top to bottom with `"direction": "down"`. A diagram with lanes flows right.
 - Every branch out of a decision carries a label: "Yes" and "No", or the condition. No two branches of one decision share a label.
 - A lane is a row band named on the left, one role or system each. With lanes, every row sits in exactly one lane, so each hand-off crosses a lane line.
-- A boundary is a rounded frame around a block of cells, named on its top line.
+- A boundary is a rounded frame around a block of cells, named at the left of its top line, or at the right when an edge crosses where the name would stand.
 - One node at most is emphasised: a step, with a chip of one or two words naming why. It counts toward the section's one `cm-emph` (§6).
 
 Capacity. A flow past any ceiling splits into an overview and details: one diagram of the stages, then one for each stage that needs it.
@@ -613,16 +614,19 @@ Diagram text is not prose (§13). It keeps its own limits:
 | Node `detail` | 40 characters, two lines in print |
 | Edge `label` | 1 to 3 words, as a chart annotation (§9) |
 | `emphasis` | 1 or 2 words |
-| Lane or boundary `label` | 24 characters |
+| Lane, boundary or phase `label` | 24 characters |
 
 The kit applies the rest:
 
 - Nodes in one column share a width and nodes in one row share a height. A decision's square grows to hold its question.
 - Edges run at right angles through the gaps between columns and rows, with rounded elbows and an arrowhead, in 2px ink. Edges that leave or enter one side share a line. Decision outlines and boundaries are 1.5px.
-- Edge labels sit beside their line in the label style, on the page colour, 8px clear of every line, node and other label.
+- An edge label stands on its line, near where the line leaves its node. The line runs 16px from the node, breaks 8px before the label and goes on 8px past it, with the label centred on it. The placement is the same whether the line leaves sideways or up and down.
+- A labelled edge leaves its node by a side no other edge uses, so no other line runs where its label stands.
+- When the line leaves a boundary within that reach, it runs 8px past the boundary side before it breaks, so the label stands outside. A label stands at least 24px before a side its line goes on to cross, so the line shows before it crosses.
+- Edge labels take the label style on the page colour, 8px clear of every other line, node and label.
 - The drawing recomputes on resize, on a theme change and before print.
-- A text version follows the caption: a `details.cm-data` disclosure, "View as text", with one numbered item for each node in reading order. Each item gives the node's name and detail, then where the flow goes next: each branch with its label and step number, and a loop as "Back to step N". Lanes and the emphasised node are named.
-- An empty `aria-label` takes a summary from the data: the number of steps, the first and last, and the count of lanes, decisions and loops. An author's `aria-label` stays; it states what the diagram shows in one sentence.
+- A text version follows the caption: a `details.cm-data` disclosure, "View as text", with one numbered item for each node in reading order. Each item gives the node's name and detail, then where the flow goes next: each branch with its label and step number, and a loop as "Back to step N". The node's phase, lane and boundaries, its experience level and the emphasised node are named.
+- An empty `aria-label` takes a summary from the data: the number of steps, the first and last, and the count of lanes, decisions and loops. A journey map and a system and data flow take their own summary (below). An author's `aria-label` stays; it states what the diagram shows in one sentence.
 - On a narrow screen the diagram keeps its geometry and scrolls sideways inside its own box. Labels never shrink.
 - Print narrows the gaps and the nodes, then scales the drawing to fit the printed column and a page, never below 80%. The text version prints open.
 
@@ -716,6 +720,7 @@ The JSON holds `nodes`, `edges` and an optional `direction`, placed on the grid 
 - Every transition is a solid line with an arrowhead, named by its event. Only the transition out of the start goes unnamed.
 - The start has one transition out and none in; an end has none out. No two transitions out of one state share an event.
 - A self-transition, with `from` and `to` the same state, is a loop on one side of the state. The kit takes the first side in reading order that no other transition uses, and sets the event beyond the loop.
+- An event stands beside its line in the label style, 8px clear of every line, node and other label. It does not stand in line with its edge, as a flow's edge label does.
 - A key above the drawing names the start, the state, the end and the transition whenever the diagram has a start or an end.
 - One state at most is emphasised, with a chip of one or two words naming why. It counts toward the section's one `cm-emph` (§6).
 
@@ -769,7 +774,7 @@ The JSON holds `nodes` and `edges` only, placed on the grid as in a flow diagram
 - Every entity names its primary key. An attribute list keeps the keys and the attributes the text discusses, not every column.
 - Counts are written in words, not as crow's feet, so a reader needs no notation to read them.
 - A count stands beside the entity it counts, below a line across or to the right of a line down. Two counts on one straight line stand at least 24px apart.
-- The relationship's `label` names it with a verb, read from `from` to `to`. It stands where a flow's edge label does.
+- The relationship's `label` names it with a verb, read from `from` to `to`. It stands beside its line, above a run across or to the left of a run down.
 - The `from` entity comes first in reading order: in an earlier row, or earlier in the same row. The name then reads left to right or top to bottom.
 - One relationship leaves each side of an entity, so an entity takes part in 4 at most. An entity never relates to itself.
 - A line runs on to meet the entity at each end, since it carries no arrowhead.
@@ -787,6 +792,167 @@ The JSON holds `nodes` and `edges` only, placed on the grid as in a flow diagram
 An entity `label` and an attribute `name` stop at 24 characters; a relationship `label` stops at 3 words, as an edge label.
 
 The text version lists every entity in reading order, with its primary keys, foreign keys and other attributes. Every relationship follows as one item: its name, then the count at each end, such as "Ticket per Customer: 0 or more". An empty `aria-label` takes a summary: the number of entities, their names, and the number of relationships.
+
+#### Journey map
+
+A journey map shows what one person does across the phases of an experience, and how each step feels. It is a flow diagram with an `experience` scale and a `level` on every node.
+
+```html
+<div class="cm-diagram" data-diagram="flow" role="img" aria-label="">
+  <script type="application/json">
+  {
+    "nodes": [
+      {"id": "notice", "type": "step", "label": "Sees two charges", "col": 1, "row": 1, "level": 2},
+      {"id": "search", "type": "step", "label": "Searches the FAQ", "detail": "No refund article", "col": 2, "row": 1, "level": 2},
+      {"id": "chat", "type": "step", "label": "Opens a chat", "col": 3, "row": 1, "level": 3},
+      {"id": "wait", "type": "step", "label": "Waits for billing", "col": 4, "row": 1, "level": 1},
+      {"id": "refund", "type": "step", "label": "Gets a refund", "col": 5, "row": 1, "level": 4}
+    ],
+    "groups": [
+      {"type": "phase", "label": "Notice", "col": 1},
+      {"type": "phase", "label": "Seek help", "col": 2, "cols": 2},
+      {"type": "phase", "label": "Wait", "col": 4},
+      {"type": "phase", "label": "Resolve", "col": 5}
+    ],
+    "experience": ["Frustrated", "Uneasy", "Neutral", "Content", "Pleased"]
+  }
+  </script>
+</div>
+```
+
+- `experience` names the scale: 3 to 5 words of 12 characters at most, lowest first.
+- Every node carries a `level`, its place on the scale, from 1 for the first word. Without a scale, no node has a level.
+- One step stands in each column, so the line reads one step at a time.
+- Phases are frames across the top, in the track colour, each over the columns it spans. Together they cover every column once.
+- The experience line runs 32px under the steps in the accent colour, 2px: across each step's column at its level, turning in the gap between columns. Levels stand 24px apart.
+- Each run carries its word below it in the label style, between its level and the next one down, so no word stands level with another run. The drawing shows the low point by height alone; the text version and the summary name it.
+- The key names the line and its whole scale, low to high, so a level no step reaches still has its place.
+- Edges are optional. The column order already reads as time.
+
+The flow's capacity holds. Five steps of 24-character labels with phases print at 81%; a sixth column of the shortest labels needs less than 80%.
+
+The text version lists the steps by column. Each item adds the step's phase and "Experience" with its word, and marks the low point. An empty `aria-label` takes a summary: the number of steps and phases, the first and last step, and where the experience is lowest and highest.
+
+#### System and data flow
+
+A system and data flow shows systems, where their data rests and what moves between them. It is a flow diagram that uses data stores, external entities, boundaries and data edges.
+
+```html
+<div class="cm-diagram" data-diagram="flow" role="img" aria-label="">
+  <script type="application/json">
+  {
+    "nodes": [
+      {"id": "customer", "type": "external", "label": "Customer", "col": 1, "row": 1},
+      {"id": "survey", "type": "step", "label": "Survey tool", "detail": "Sends surveys", "col": 1, "row": 2},
+      {"id": "responses", "type": "store", "label": "Responses", "col": 1, "row": 3},
+      {"id": "load", "type": "step", "label": "Nightly load", "col": 2, "row": 3},
+      {"id": "csat", "type": "store", "label": "csat_daily", "col": 3, "row": 3}
+    ],
+    "edges": [
+      {"from": "customer", "to": "survey", "kind": "data", "label": "Answers"},
+      {"from": "survey", "to": "responses", "kind": "data"},
+      {"from": "responses", "to": "load", "kind": "data", "label": "Export"},
+      {"from": "load", "to": "csat", "kind": "data"}
+    ],
+    "groups": [
+      {"type": "boundary", "label": "Survey platform", "col": 1, "row": 2, "rows": 2},
+      {"type": "boundary", "label": "Data warehouse", "col": 2, "row": 3, "cols": 2}
+    ]
+  }
+  </script>
+</div>
+```
+
+- A boundary frames one system around the cells of its steps and stores. Two boundaries never share a cell.
+- An external entity stands outside every boundary: a person or system the flow does not own.
+- A data store connects only to steps, by data edges. Data reaches a store and leaves it through a step.
+- Data edges are dotted and control edges solid. An edge that crosses a boundary carries a label naming what crosses: the data, or the event that passes control.
+- A data store is ruled above and below with one 2px line each, not a double line.
+- The key names the solid line "Control".
+
+The flow's capacity holds, with its 2 boundaries. Each label in line widens its gap, so labelled crossings reach the printed column sooner: four columns with two of them can print below 80%, and the print check then fails the diagram.
+
+Each item of the text version names the boundaries its node stands within, and marks data edges "(data)". An empty `aria-label` takes a summary: the number of steps, data stores, external entities and boundaries, and the number of data flows and control flows.
+
+#### Layer stack
+
+A layer stack shows the layers of a system, from the one people use at the top to its sources at the base, and what each part depends on. It has a mode of its own, `data-diagram="layer-stack"`.
+
+```html
+<div class="cm-diagram" data-diagram="layer-stack" role="img" aria-label="">
+  <script type="application/json">
+  {
+    "layers": [
+      {"label": "Reports", "nodes": [{"id": "review", "label": "Quarterly review", "col": 1}]},
+      {"label": "Metrics", "nodes": [{"id": "frt", "label": "First response", "col": 1}, {"id": "sla", "label": "SLA attainment", "col": 2}]},
+      {"label": "Warehouse", "nodes": [{"id": "tickets", "label": "tickets_fact", "col": 1}]}
+    ],
+    "edges": [
+      {"from": "review", "to": "frt"},
+      {"from": "review", "to": "sla"},
+      {"from": "frt", "to": "tickets"},
+      {"from": "sla", "to": "tickets"}
+    ]
+  }
+  </script>
+</div>
+```
+
+- The JSON holds `layers` and `edges` only. Layers run from the top down; each holds a `label` and its `nodes`.
+- A component holds `id`, `label`, an optional `detail` and `col`. Ids are unique across the stack, and a column holds one component in each layer.
+- An edge is a dependency, from the component that depends to the one it depends on. It carries no label.
+- A dependency runs down to a lower layer: it leaves the bottom of one component and enters the top of the other.
+- A dependency upward or within one layer breaks the stack. The kit leaves it undrawn and warns in the console, and the checks fail the page. The stack is redrawn so the dependency runs down, or the relation moves to a flow diagram.
+- Each layer is a frame in the track colour across the drawing's full width, 16px around its components, named on the left in the label style.
+- A key above the drawing names the line "Depends on", since the arrows run against the way data moves.
+
+| Item | At most | Reason |
+| --- | --- | --- |
+| Layers | 5 | The flow's lane ceiling, since layers are lanes of the flow grid. With a detail line on every component, five layers need 70% in print |
+| Components in a layer | 4 | Four components of 24-character labels print at 81%; five need 67% |
+
+A component `label` stops at 24 characters and a `detail` at 40, as a flow node's; a layer `label` stops at 24, as a lane's. A larger stack splits into an overview of the layers and one stack for each layer that needs detail.
+
+The text version numbers every component from the top layer down, with its layer and the components it depends on, by number. An empty `aria-label` takes a summary: the number of layers, the top and the base, and the number of components and dependencies.
+
+#### Hierarchy
+
+A hierarchy shows how a whole divides into parts, read left to right: an organisation, a set of categories or a breakdown of work. It has a mode of its own, `data-diagram="hierarchy"`.
+
+```html
+<div class="cm-diagram" data-diagram="hierarchy" role="img" aria-label="">
+  <script type="application/json">
+  {
+    "nodes": [
+      {"id": "all", "label": "All tickets"},
+      {"id": "billing", "label": "Billing", "parent": "all"},
+      {"id": "refunds", "label": "Refunds", "parent": "billing"},
+      {"id": "invoices", "label": "Invoices", "parent": "billing"},
+      {"id": "account", "label": "Account", "parent": "all"},
+      {"id": "sign-in", "label": "Sign-in", "parent": "account"}
+    ]
+  }
+  </script>
+</div>
+```
+
+- The JSON holds `nodes` only. A node holds `id`, `label`, an optional `detail` and `parent`.
+- One node, the root, has no parent. Every other node names a parent that exists, and no node is its own ancestor.
+- The author writes no columns or rows. Children stand top to bottom in the order written, and the ECharts tree layout places them; the kit draws every box and line.
+- Each level is a column, left to right, its boxes as wide as its widest node. Every box takes the height of the tallest.
+- Siblings stand 16px apart. Groups of siblings stand further apart, as the tree layout spaces them.
+- A line runs from a parent's right side along the middle of the gap to each child's left side, 8px clear of both. It meets the spine square and turns into each branch with a rounded elbow, so the branches never close into a point.
+- A hierarchy line carries no arrowhead: it means "part of", not a step in a flow.
+- The drawing needs ECharts. Without it, the text version stands alone and the drawing is skipped, as a chart is.
+
+| Item | At most | Reason |
+| --- | --- | --- |
+| Levels | 4 | Four levels of 24-character labels print at full size; five need 81% |
+| Leaves, nodes with no children | 12 | Twelve leaves in three groups print at 83%; in four groups they need less than 80% |
+
+Print is the final test here too: twelve leaves in many small groups fail the page check, and the tree splits. A larger tree splits into an overview of the upper levels and one hierarchy for each branch that needs it. A `label` stops at 24 characters and a `detail` at 40, as a flow node's.
+
+The text version is an indented list: every node once, under its parent. An empty `aria-label` takes a summary: the number of items, levels and leaves, and the parts the root divides into.
 
 ### 8.21 Sources and citations
 
@@ -1538,7 +1704,7 @@ Added for document sets: document ids and addresses, the breadcrumb from set to 
 
 Added for reports: ECharts chart method and theme; categorical and sequential palettes; dark token set; print rules; report masthead and contents rail; KPI strip; key findings; native tables with sorting and in-cell bars; pull quote; timeline; process diagram; definition, questions and property-sheet blocks; footnotes; collapsible appendix; chart draw-in motion; packaging modes.
 
-Not yet covered: maps, diagram modes other than flow, sequence, state and entity relationship (layer stack, hierarchy), network diagrams, interactive filters, a PDF cover page. Use a figure with `cm-slot` and flag the gap in an HTML comment until these exist.
+Not yet covered: maps, network diagrams, interactive filters, a PDF cover page. Use a figure with `cm-slot` and flag the gap in an HTML comment until these exist.
 
 ### Migration from 1.2 to 2.0
 

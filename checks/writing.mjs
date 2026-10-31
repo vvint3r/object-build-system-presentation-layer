@@ -25,7 +25,7 @@ function prepare() {
   const OUT = 'script, style, template, noscript, svg, pre, .cm-code, table, .cm-table-wrap, .cm-data, '
     + '.cm-chart, .cm-diagram, [data-spark], .cm-sr, [aria-hidden="true"], [hidden]';
   const NOT_PROSE = 'a.cm-fn, a.cm-cite, a.cm-back, .cm-chip, .cm-chips, .cm-tag, .cm-id, .cm-label, .cm-delta, .cm-meta, '
-    + 'sup, .cm-table-title__kind, .cm-figure__kind';
+    + 'sup, .cm-table-title__kind, .cm-figure__kind, .cm-criteria__score';
   const BLOCK = 'address, article, aside, blockquote, br, dd, details, div, dl, dt, figcaption, figure, footer, '
     + 'header, li, ol, p, section, summary, ul, .cm-findings__claim, .cm-caption__line';
   const PLACEHOLDER = /\{\{[\s\S]*?\}\}/g;

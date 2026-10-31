@@ -10,13 +10,14 @@
 //   tokens.json · tokens.css      the kit's colour, shadow, radius and layout tokens, spacing and type
 //   README.md                     usage rules for an agent that builds on the system, from SPEC.md
 //   components/bundle.css         cm-report.css without the declarations tokens.css now carries
-//   components/bundle.js          cm-report.js, assigning window.ContentMorphia
+//   components/bundle.js          cm-report.js under the format's header line; it assigns window.CM
 //   components/lib/echarts.min.js ECharts 5.5.1
 //   components/<Comp>/            README.md and preview.html for each component of SPEC section 8,
 //                                 Chart and Diagram; components/Cover/preview.html, the system's cover
 //   fonts/ · licenses/            the WOFF2 faces and the licences of what the bundle carries
-//   report-kit/                   the kit's templates, cm-report.css and cm-report.js as they are
-//   <example>.html                the kit's example documents, one per kind, as they are
+//   report-kit/                   cm-report.css and cm-report.js as they are
+//   template*.html · <example>.html  the kit's templates and example documents, beside report-kit/,
+//                                 each in the form a document takes outside a set (SPEC 7.1)
 //   design-system.json            the index, written last
 
 import { chromium } from 'playwright';
@@ -35,7 +36,7 @@ const OUT = path.join(ROOT, 'bundle', 'project');
 const FRAMES = path.join(ROOT, 'bundle', 'frames');
 const GALLERY = path.join(ROOT, 'kit', 'Report Kit - Spec & Gallery.html');
 const TITLE = 'Content Morphia';
-const NS = 'ContentMorphia';
+const NS = 'CM';                               // the global cm-report.js assigns, so a document and a preview share one name
 const LIB = { name: 'echarts', version: ECHARTS_VERSION, global: 'echarts', file: 'components/lib/echarts.min.js' };
 
 const read = f => readFileSync(f, 'utf8');
@@ -220,7 +221,7 @@ const SAMPLE = path.join(ROOT, 'kit', 'Sample Report - Q3 Support Review.html');
 const TYPE_SELECTORS = {
   T1: '.cm-mast__title', Kicker: '.cm-section__num', T2: '.cm-section__title', T3: '.cm-h3:not(.cm-h3--sm)',
   'T3-sm': '.cm-figure__title--sm, .cm-h3--sm', T4: '.cm-h4', T5: '.cm-t5', Body: '.cm-prose p',
-  Small: '.cm-small', Label: '.cm-label', Chip: '.cm-chip', 'Role-tag': '.cm-props sup', Meta: '.cm-meta', Code: 'code:not(pre code)',
+  Small: '.cm-small', Label: '.cm-label', Delta: '.cm-delta', Chip: '.cm-chip', 'Role-tag': '.cm-props sup', Meta: '.cm-meta', Code: 'code:not(pre code)',
   'Code-block': '.cm-code pre',
 };
 const typeRows = rows(S['4'].body);
@@ -359,9 +360,19 @@ function parts(body, siblings) {
   const fences = [...body.matchAll(/```[\s\S]*?```/g)].map(m => [m.index, m.index + m[0].length]);
   const paras = [...body.matchAll(/(?:^|\n\n)(?=[A-Z])/g)].map(m => m.index + (m.index ? 2 : 0))
     .filter(p => p > 0 && !fences.some(([a, b]) => p > a && p < b));
+  // A part starts at the headings right above its first paragraph, so no part ends on a heading.
+  const above = p => {
+    for (;;) {
+      const before = body.slice(0, p).replace(/\n+$/, '');
+      const h = before.match(/(?:^|\n)(#{1,6} [^\n]*)$/);
+      if (!h) return p;
+      p = before.length - h[1].length;
+    }
+  };
   const start = t => {
     const lead = paras.find(p => new RegExp(`^(?:The|An?) ${escapeRe(t)}\\b`, 'i').test(body.slice(p)));
-    return lead ?? paras.find(p => new RegExp(`\\b${escapeRe(t)}\\b`, 'i').test(body.slice(p).split(/(?<=\.)\s/)[0])) ?? -1;
+    const at = lead ?? paras.find(p => new RegExp(`\\b${escapeRe(t)}\\b`, 'i').test(body.slice(p).split(/(?<=\.)\s/)[0])) ?? -1;
+    return at < 0 ? at : above(at);
   };
   const found = siblings.map(x => ({ ...x, at: start(x.title) }));
   const claimants = found.filter(x => x.at < 0 && x.own);
@@ -394,9 +405,7 @@ const components = mapped.map(({ d, num, s, own }) => {
 const diagramDemo = demos.find(d => d.label === '7.2');
 const diagramSpec = Object.entries(S8).find(([, s]) => s.title === 'Diagram');
 if (!diagramDemo || !diagramSpec) throw new Error('the gallery has no 7.2 diagram example, or the spec no Diagram section');
-const specOrder = n => n.split('.').map(Number).reduce((a, x) => a * 100 + x, 0);
-const diagramAt = components.findIndex(c => specOrder(c.num) > specOrder(diagramSpec[0]));
-components.splice(diagramAt < 0 ? components.length : diagramAt, 0, {
+components.push({
   name: 'Diagram', num: diagramSpec[0], specTitle: diagramSpec[1].title, body: diagramSpec[1].body, demo: diagramDemo,
   lead: `A flow diagram, written as JSON inside the figure markup of Figure (§8.10); the kit draws it. The preview is the gallery's ${diagramDemo.title.toLowerCase()}: ${md(diagramDemo.desc)}`,
 });
@@ -407,14 +416,34 @@ if (shared.length) throw new Error(`components share a name: ${shared.map(c => `
 // Chart takes the first example of the gallery's charts part (6.x) that draws a chart: the line.
 const chartDemo = demos.find(d => /^6\./.test(d.label) && /class="cm-chart"/.test(d.markup));
 if (!chartDemo) throw new Error('the gallery has no chart example in part 6');
-const figureAt = components.findIndex(c => c.num === '8.10');
-components.splice(figureAt + 1, 0, {
+components.push({
   name: 'Chart', num: '9', specTitle: S['9'].title, body: S['9'].body, demo: chartDemo,
   lead: `A chart figure: an ECharts option, as JSON, inside the figure markup of Figure (§8.10). The preview is the gallery's ${chartDemo.title.toLowerCase()} chart: ${md(chartDemo.desc)}`,
 });
+// Components in spec order, so a section number finds its README by position; examples that share a
+// section keep the gallery's order.
+const bySection = (a, b) => {
+  const [x, y] = [a.num, b.num].map(n => n.split('.').map(Number));
+  for (let i = 0; i < Math.max(x.length, y.length); i++) if ((x[i] ?? -1) !== (y[i] ?? -1)) return (x[i] ?? -1) - (y[i] ?? -1);
+  return 0;
+};
+components.sort(bySection);
+
+// The gallery numbers its examples (5.20) and parts (Part 07); the bundle carries only the spec's
+// sections, so a lead's reference to an example names the section that defines it.
+const PART_SECTION = { '05': '8', '06': '9', '07': diagramSpec[0] };
+const sectionOfLabel = label => (/^5\./.test(label) ? mapped.find(m => m.d.label === label)?.num
+  : /^6\./.test(label) ? '9' : /^7\./.test(label) ? diagramSpec[0] : undefined);
+const sectionRefs = text => text.replace(/\((?:Part (\d\d)|(\d\.\d+(?:, \d\.\d+)*))\)/g, (ref, part, labels) => {
+  const nums = part ? [PART_SECTION[part]] : labels.split(', ').map(sectionOfLabel);
+  if (nums.some(n => !n)) throw new Error(`gallery reference ${ref} names no spec section`);
+  return `(${[...new Set(nums)].map(n => `§${n}`).join(', ')})`;
+});
+for (const c of components) c.lead = sectionRefs(c.lead || md(c.demo.desc));
 
 const header = `/* @ds-bundle: ${JSON.stringify({ format: 4, namespace: NS, components: components.map(c => ({ name: c.name })) })} */`;
-const bundleJs = `${header}\n${kit.js.replace(/\s*$/, '\n')}window.${NS} = window.CM;\n`;
+const bundleJs = `${header}\n${kit.js.replace(/\s*$/, '\n')}`;
+if (!kit.js.includes(`window.${NS} = {`)) throw new Error(`cm-report.js does not assign window.${NS}`);
 if (unsafeInline(bundleJs, 'script')) throw new Error('bundle.js holds </script or <!--');
 put('components/bundle.js', bundleJs);
 const chartsFile = require.resolve('echarts/dist/echarts.min.js');
@@ -443,10 +472,7 @@ ${markup}
 `;
 };
 
-for (const c of components) {
-  const lead = c.lead || md(c.demo.desc);
-  put(`components/${c.name}/README.md`, `# ${c.name}\n\n${undash(lead)}\n\n## Markup and rules\n\n${undash(c.body)}\n`);
-}
+for (const c of components) put(`components/${c.name}/README.md`, `# ${c.name}\n\n${undash(c.lead)}\n\n## Markup and rules\n\n${undash(c.body)}\n`);
 
 // ---------- fonts, licences and the kit's own files ----------
 
@@ -457,21 +483,41 @@ for (const pkg of ['@fontsource/nunito', '@fontsource/jetbrains-mono']) {
 const chartsDir = path.dirname(require.resolve('echarts/package.json'));
 put('licenses/echarts-LICENSE.txt', read(path.join(chartsDir, 'LICENSE')));
 put('licenses/echarts-NOTICE.txt', read(path.join(chartsDir, 'NOTICE')));
-// The templates, one per document kind and one per page type (§7.6), and the example documents.
-// Each sits at the path it has beside the kit, so its links to report-kit/ resolve inside the bundle
-// too. A page type is named with the kind it builds on. The kit folder's index
-// page stays out: the format reserves index.html, and a set's index page is written by the index
-// script, never composed (§8.31).
+// The templates, one per document kind and one per page type (§7.6), and the example documents,
+// all at the bundle's root beside report-kit/, so a template copied whole links the kit as a document
+// does (§2). A page type is named with the kind it builds on. The kit folder's index page stays out:
+// the format reserves index.html, and a set's index page is written by the index script, never
+// composed (§8.31). The index script and the set it serves stay in the repository, so every document
+// here takes the form of one outside a set (§7.1): its set and area steps are spans, and its
+// wordmark links to #top.
 const kindOf = html => (html.match(/<meta name="cm-kind" content="([^"]+)">/) || [, 'report'])[1];
 const typeOf = html => (html.match(/<meta name="cm-type" content="([^"]+)">/) || [])[1] || null;
 const typeName = t => t.replace(/-/g, ' ');
 const KIT_DIR = path.join(ROOT, 'kit', 'report-kit');
+const standalone = html => html
+  .replace(/(<a class="cm-wordmark") href="index\.html"/g, '$1 href="#top"')
+  .replace(/(<nav class="cm-crumbs"[^>]*>)([\s\S]*?)(<\/nav>)/g, (_, open, steps, close) => open + steps.replace(/<a href="index\.html[^"]*">([\s\S]*?)<\/a>/g, '<span>$1</span>') + close);
+// A template's notes name README.md, which carries the spec here, and the kit paths beside it.
+const bundledTemplate = (html, file) => {
+  const out = standalone(html)
+    .replace(/(href|src)="cm-report\.(css|js)"/g, '$1="report-kit/cm-report.$2"')
+    .replace(/Paths below assume the (\w+) sits inside report-kit\/\.[^\n]*/g, 'Paths below assume the $1 sits beside the report-kit/ folder, as the example documents do.')
+    .replace(/In a set, npm run index[^\n]*?checks the links\./g, 'A set and its index page are built in the kit\'s repository, so a document made from this copy stands alone.')
+    .replace(/(?:report-kit\/)?SPEC\.md/g, 'README.md');
+  const left = [/(href|src)="cm-report\./, /SPEC/, /sits inside report-kit/, /npm run/, /href="index\.html/].filter(re => re.test(out));
+  if (left.length) throw new Error(`${file}: the bundled copy still holds ${left.join(', ')}`);
+  return out;
+};
 const templates = readdirSync(KIT_DIR).filter(f => /^template.*\.html$/.test(f)).sort()
   .map(f => { const html = read(path.join(KIT_DIR, f)); return { file: f, kind: kindOf(html), type: typeOf(html) }; });
 const examples = readdirSync(path.join(ROOT, 'kit')).filter(f => f.endsWith('.html') && f !== path.basename(GALLERY) && f !== 'index.html').sort()
   .map(f => { const html = read(path.join(ROOT, 'kit', f)); return { file: f, kind: kindOf(html), type: typeOf(html), title: (html.match(/<title>([^<]*)<\/title>/) || [])[1] }; });
-for (const t of templates) put(`report-kit/${t.file}`, read(path.join(KIT_DIR, t.file)));
-for (const e of examples) put(e.file, read(path.join(ROOT, 'kit', e.file)));
+for (const t of templates) put(t.file, bundledTemplate(read(path.join(KIT_DIR, t.file)), t.file));
+for (const e of examples) {
+  const html = standalone(read(path.join(ROOT, 'kit', e.file)));
+  if (/href="index\.html/.test(html)) throw new Error(`${e.file}: the bundled copy still links to index.html`);
+  put(e.file, html);
+}
 put('report-kit/cm-report.css', kit.css);
 put('report-kit/cm-report.js', kit.js);
 
@@ -480,22 +526,29 @@ put('report-kit/cm-report.js', kit.js);
 const NAMES = JSON.parse((kit.js.match(/var NAMES = (\[[^\]]*\])/) || [])[1].replace(/'/g, '"'));
 const section = n => `## ${n}. ${S[n].title}\n\n${S[n].body}`;
 const componentIndex = `## 8. Components\n\n${S['8'].body.split(/\n### /)[0].trim()}\n\n| Component | Section | Summary |\n| --- | --- | --- |\n`
-  + components.map(c => `| [${c.name}](components/${c.name}/README.md) | §${c.num} ${c.specTitle} | ${(c.lead || md(c.demo.desc)).split(/(?<=\.)\s/)[0].replace(/\|/g, '\\|')} |`).join('\n');
-const readme = `Content Morphia publishes reports, documents and analyses as single HTML files: one stylesheet, one script and a template, with light, dark and print built in. The kit is Report Kit ${KIT_VERSION}, and every document follows its specification, sections 1 to 14 here.
+  + components.map(c => `| [${c.name}](components/${c.name}/README.md) | §${c.num} ${c.specTitle} | ${c.lead.split(/(?<=\.)\s/)[0].replace(/\|/g, '\\|')} |`).join('\n');
+const readme = `Content Morphia publishes reports, documents and analyses as single HTML files: one stylesheet, one script and a template, with light, dark and print built in. The kit is Report Kit ${KIT_VERSION}. This file is its specification, and every document follows it.
+
+A § number names a section of the specification. Sections 1 to 7 and 9 to 14 are in this file. Section 8 lists the components, and each of its subsections, such as §8.21, is in the README of the component it defines.
+
+A document built from this bundle stands alone. Document sets, their index pages (§8.31) and the commands written \`npm run\` belong to the kit's repository. So the templates and examples here write their set and area steps as plain text and link the wordmark to \`#top\` (§7.1).
 
 ## Files
 
 | File | Use |
 | --- | --- |
-${templates.map(t => `| \`report-kit/${t.file}\` | The start of every ${t.type ? `${typeName(t.type)}, a ${t.kind}` : t.kind}. Copy it whole. |`).join('\n')}
+${templates.map(t => `| \`${t.file}\` | The start of every ${t.type ? `${typeName(t.type)}, a ${t.kind}` : `${t.kind}${templates.some(o => o.kind === t.kind && o.type) ? ' of no page type' : ''}`}. Copy it whole, beside \`report-kit/\`. |`).join('\n')}
 ${examples.map(e => `| \`${e.file}\` | An example ${e.type ? `${typeName(e.type)}, a ${e.kind}` : e.kind}: ${e.title}. |`).join('\n')}
 | \`report-kit/cm-report.css\` | The only stylesheet: every token and class. Linked, or pasted into a \`<style>\` element (§2). |
 | \`report-kit/cm-report.js\` | Theme toggle, chart drawing, sortable tables, contents scroll-spy and print preparation. Linked, or pasted as the last element in \`<body>\` (§2). |
 | \`components/<Component>/README.md\` | Canonical markup and rules for one component; \`preview.html\` beside it shows it live. |
+| \`components/Cover/preview.html\` | The cover the system shows above this file. It is not a component, so it has no README and no row in §8. |
 | \`tokens.json\`, \`tokens.css\`, \`components/bundle.css\` | The tokens as data, and the stylesheet split the way this system's previews load it. A document uses \`report-kit/cm-report.css\`, never these. |
-| \`components/bundle.js\` | \`report-kit/cm-report.js\`, exposing its functions as \`window.${NS}\` for the previews. |
+| \`components/bundle.js\` | \`report-kit/cm-report.js\` under the line the platform reads first. It assigns \`window.${NS}\`, the one global a document and a preview use (§12). |
 | \`components/lib/echarts.min.js\` | ECharts ${ECHARTS_VERSION}, the chart library every document loads (§2, §9). |
 | \`fonts/\`, \`licenses/\` | Nunito and JetBrains Mono as WOFF2, Latin subset, under the SIL Open Font License; the licences of the fonts and of ECharts. |
+| \`design-system.json\` | The platform's index of the system. The platform fills its section lists from these files; this file is the map of the documentation. |
+| \`SKILL.md\`, \`index.html\`, \`artifact-type/\` | Added by the platform that hosts the system. They describe how a design system is made and shown, not how a document is built. Here \`index.html\` is the platform's page, never a set's index page. |
 
 ## Tokens and classes
 

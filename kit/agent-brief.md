@@ -55,7 +55,13 @@ template are never rebuilt from memory, from a description, or from another desi
 
 The masthead and top bar name a publisher (the wordmark, lowercase and hyphenated), a series, an
 author or team, and an audience. When the request does not give them, the agent asks before building
-rather than inventing them. The top bar carries a print button only when the request asks for one.
+rather than inventing them. An audience the owner does not name gives way to an omission comment in
+the byline (section 7.5 of `SPEC.md`). The top bar carries a print button only when the request asks
+for one.
+
+The same holds for the material a document draws on. A source whose publisher or path is not
+recorded leaves it out with an omission comment, and a number given without its source carries a
+note saying that no source is recorded (section 8.21). Nothing is guessed.
 
 ## Packaging
 
@@ -118,11 +124,13 @@ A summary of section 1 of `SPEC.md`. The spec governs.
 Charts are ECharts option JSON inside the kit's figure markup. The agent never calls `echarts.init`
 and never writes chart JavaScript. It picks the chart by the reader's question, from the recipes in
 section 9. A `"cm"` key declares a bullet, slope, strip, box or interval chart, and the kit draws it.
-End labels that name every line take the legend's place. Diagrams are JSON too (section 8.20 of
-`SPEC.md`). A flow, state or entity relationship diagram, a journey map or a system and data flow
-places its nodes by column and row; a sequence diagram lists its participants and messages in
-order. A layer stack lists layers from the top down, each dependency running down. A hierarchy
-names each node's parent. The kit draws them; the agent writes no coordinates, SVG or styles.
+The kit sets the legend, so the JSON has none; end labels that name every line take its place.
+Chart values are numbers, never strings: the kit writes each value label with thousands separators,
+at the most decimal places any value in the chart carries. Diagrams are JSON too (section 8.20 of `SPEC.md`). A flow, state or entity relationship
+diagram, a journey map or a system and data flow places its nodes by column and row; a sequence
+diagram lists its participants and messages in order. A layer stack lists layers from the top down,
+each dependency running down. A hierarchy names each node's parent. The kit draws them; the agent
+writes no coordinates, SVG or styles.
 
 ## Writing rules
 
@@ -148,7 +156,9 @@ the section lede, under its own limit of 40 words and with no bold phrase.
   a role-named item ("Owner approval of the shortlist") with what it does and what it unblocks.
 - Numbers that will change never sit inside definitions of steps or rules. They go in one dated
   status block, `cm-status` (section 8.22 of `SPEC.md`).
-- No em dashes or en dashes in prose.
+- No em dashes or en dashes in prose. A table cell whose value does not apply reads `n/a`.
+- Durations as a number and a letter per unit, largest first: `2h 14m`, `1m 50s`, `45s`. A chip sets
+  its text in capitals, so a duration in one writes its unit as a word: `45 min`.
 - Plain, factual sentences with the number, the comparison and the period; plain words. Each section
   leads with its finding. No signposting, hype, rhetorical questions or history of how the document
   was made.
@@ -175,7 +185,7 @@ A `cm-id` tag follows it and names the document (see Document sets).
 
 | Kind | Use for | Type chip | Required parts, in order |
 | --- | --- | --- | --- |
-| Report | What the numbers show and what to do: a review, an analysis, a briefing | Analysis, Report or Brief | Executive summary; body parts; Recommendations (recommended); Methodology (when numbers are computed); Notes & sources |
+| Report | What the numbers show and what to do: a review, an analysis, a briefing | Analysis, Report or Brief | Executive summary; body parts; Recommendations (recommended); Methodology (with a KPI strip, a chart or a table); Notes & sources |
 | Guide | One task carried out step by step: a procedure, a runbook, a how-to | Guide | Purpose; Prerequisites; Steps; Exceptions and recovery; Related documents; Notes & sources |
 | Reference | One thing looked up: a metric, a dataset, a system, a term | Reference | Definition; Properties; Relationships; Examples; Notes & sources |
 
@@ -213,7 +223,7 @@ between the executive summary and Recommendations.
   Worse. Key findings, Results paragraphs and the results table's caption cite their sources, and at
   least one limitation is named.
 
-These blocks, and no others, are left out this way (section 7.5 of `SPEC.md`):
+These blocks and fields, and no others, are left out this way (section 7.5 of `SPEC.md`):
 
 | Block | Kind | Left out when | Name | Where the comment sits |
 | --- | --- | --- | --- | --- |
@@ -226,6 +236,9 @@ These blocks, and no others, are left out this way (section 7.5 of `SPEC.md`):
 | Related documents section | Guide | No other document bears on the task | `related` | In `<main>`, where the section would be |
 | Relationships section | Reference | The thing connects to nothing else that is documented | `relationships` | In `<main>`, where the section would be |
 | Examples section | Reference | The thing has no case to work through | `examples` | In `<main>`, where the section would be |
+| Byline Distribution field | Any | The readers the document is for are not known | `distribution` | In `dl.cm-byline` |
+| Source publisher | Any | The source's author or publisher is not recorded | `publisher` | In the source entry |
+| Source locator | Any | The source's path or address is not recorded | `locator` | In the source entry |
 
 Content maps onto existing components:
 

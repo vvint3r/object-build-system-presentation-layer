@@ -127,7 +127,7 @@
                 <tr><td class="strong">Chips</td><td class="wrap">Tinted fills</td><td class="wrap">Outlined. Status color is a 2px offset to the right and bottom; one solid ink verdict per table</td><td><span class="cm-chip">Changed</span></td></tr>
                 <tr><td class="strong">Callouts</td><td class="wrap">Icon, tinted label chip, text in one row</td><td class="wrap">Icon and label on one row, body below on the label’s edge. Label underlined in the semantic color; no fill</td><td><span class="cm-chip">Changed</span></td></tr>
                 <tr><td class="strong">Document kinds</td><td class="wrap">One page type</td><td class="wrap">Report, guide and reference, each with its own required parts, named by a <code>cm-kind</code> tag; procedure and related list for guides and references</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
-                <tr><td class="strong">Reference blocks</td><td class="wrap">—</td><td class="wrap">Definition, questions and property sheet</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
+                <tr><td class="strong">Reference blocks</td><td class="wrap">None</td><td class="wrap">Definition, questions and property sheet</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
                 <tr><td class="strong">Charts</td><td class="wrap">Referenced, not specified</td><td class="wrap">ECharts as the single method; theme generated from tokens; palette c1–c4 + context grey; sequential ramp; automatic legend for 2+ series; axis titles with units; annotations</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
                 <tr><td class="strong">Dark mode</td><td class="wrap">Deferred</td><td class="wrap">Full dark token set. Surfaces separate by lightness plus a 1px light ring because soft shadows vanish on dark</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
                 <tr><td class="strong">Print / PDF</td><td class="wrap">Separate page, not supplied</td><td class="wrap">Forced light, chrome hidden, shadows become 1px borders, L2 kept, charts redrawn static at print width, appendices opened</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
@@ -138,7 +138,7 @@
                 <tr><td class="strong">Appendix</td><td class="wrap">Collapsible section header</td><td class="wrap">Native details element; opens automatically for print</td><td><span class="cm-chip">Changed</span></td></tr>
                 <tr><td class="strong">Structured components</td><td class="wrap">Structured page: stage cards, swimlane, framework variants, method, metric, requirement and evaluation cards</td><td class="wrap">Workflow, framework, model, method, requirement, evaluation and metric detail as text-first cards, with parts as tiles, facts rows and a criteria register</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
                 <tr><td class="strong">Document sets</td><td class="wrap">Menu bar with a list of pages for each group</td><td class="wrap">Document ids and file-name addresses, a breadcrumb from set to area to document, a generated index page, and a link check over the folder</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
-                <tr><td class="strong">Sources and status</td><td class="wrap">—</td><td class="wrap">Source register with citations that link both ways, evidence dates, disagreement block, dated status block, change log, revision history, limitation register</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
+                <tr><td class="strong">Sources and status</td><td class="wrap">None</td><td class="wrap">Source register with citations that link both ways, evidence dates, disagreement block, dated status block, change log, revision history, limitation register</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
                 <tr><td class="strong">Motion</td><td class="wrap">Hover lift only</td><td class="wrap">Charts draw in once on first view, 900ms ease-out; off under reduced motion and print</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
               </tbody>
             </table>
@@ -220,6 +220,7 @@
               <div class="cm-small">Body in a container · 15 / 400 / 1.8</div>
               <div class="cm-label">Label · 10 / 800 / caps / +0.08em</div>
               <div><span class="cm-chip">Chip · 9 / 800 / caps / +0.08em</span></div>
+              <div><span class="cm-delta">Delta · 10 / 800 / as written · −50s</span></div>
               <div class="cm-meta">Meta · 13 / 400 · refreshed 2026-10-05</div>
               <div><code>Code · JetBrains Mono 600</code></div>
             </div>
@@ -321,7 +322,7 @@
     <span class="cm-kpi__label">Escalation rate</span>
     <span class="cm-kpi__value">6.8<small>%</small></span>
     <span class="cm-kpi__delta"><span class="cm-delta cm-delta--bad">▲ +0.9 pp worse</span></span>
-    <div class="cm-kpi__foot"><span>Target ≤ 6%</span><b>Helpdesk</b></div>
+    <div class="cm-kpi__foot"><span>Target ≤ 6%</span><b>+0.8 pp</b></div>
   </div>
   <div class="cm-kpi">
     <span class="cm-kpi__label">Within SLA</span>
@@ -566,7 +567,7 @@
         </div>
 
         <div class="g-comp">
-          <header><span class="cm-label">5.18</span><h3 class="cm-h3">Recommendations card</h3><p>Holds the actions the report asks the reader to take. It is the only block in the Recommendations section, which follows the body sections and precedes the appendices. Each action is an instruction on a line of its own, then one sentence of reason, then owner, due date and expected impact.</p><p>It never opens a report; the executive summary does. It carries the reserved L2 treatment, black border plus teal offset, exactly once per report. It fits its content, between 520px and the reading measure, so short actions give a narrow card.</p></header>
+          <header><span class="cm-label">5.18</span><h3 class="cm-h3">Recommendations card</h3><p>Holds the actions the report asks the reader to take. It opens the Recommendations section, which follows the body sections and precedes the appendices; at most one callout follows it. Each action is an instruction on a line of its own, then one sentence of reason, then owner, date and, when estimated, expected impact.</p><p>It never opens a report; the executive summary does. It carries the reserved L2 treatment, black border plus teal offset, exactly once per report. It fits its content, between 520px and the reading measure, so short actions give a narrow card.</p></header>
           <div data-demo>
 <div class="cm-card cm-featured cm-bleed" data-comment-anchor="cec5db1244-div">
   <div class="cm-card__kicker"><span class="cm-chip cm-chip--accent">Recommended</span></div>
@@ -1072,7 +1073,7 @@
                   <tr><td class="strong">Kind and number</td><td><code>.cm-figure__kind</code></td><td class="wrap">“Figure 3”, numbered in order across the report</td><td>Always</td></tr>
                   <tr><td class="strong">Title</td><td><code>.cm-figure__title</code></td><td class="wrap">What is shown, in 10 words or fewer</td><td>Always</td></tr>
                   <tr><td class="strong">Description</td><td><code>.cm-figure__desc</code></td><td class="wrap">Measure, unit, scope and period in one sentence</td><td>Always</td></tr>
-                  <tr><td class="strong">Legend</td><td>Top left, automatic</td><td class="wrap">Series names in plot order; <code>"legend": false</code> only for a single series. None when end labels name every line, or on a slope</td><td>2+ series</td></tr>
+                  <tr><td class="strong">Legend</td><td>Top left, automatic</td><td class="wrap">Series names in plot order; none for one series, none when end labels name every line, none on a slope. Never set in the JSON</td><td>2+ series</td></tr>
                   <tr><td class="strong">Axis titles</td><td><code>xAxis.name</code>, <code>yAxis.name</code></td><td class="wrap">Quantity and unit; y title sits above the axis, x title under the labels</td><td>Unit not in ticks</td></tr>
                   <tr><td class="strong">Tick labels, gridlines</td><td>Automatic</td><td class="wrap">Short labels; hairline gridlines on the value axis only; 1.5px ink baseline</td><td>Always</td></tr>
                   <tr><td class="strong">Data labels</td><td><code>label</code>, <code>endLabel</code></td><td class="wrap">Values the reader should quote; every bar when there are 12 or fewer</td><td>Key values</td></tr>

@@ -80,6 +80,7 @@
         <div><dt>Reading time</dt><dd>{{ N }} min</dd></div>
         <div><dt>Version</dt><dd>{{ 1.0 }}</dd></div>
       </dl>
+      <!-- BYLINE: Distribution names the readers the document is for. When they are not known, the field gives way to an omission comment, cm-omit distribution (SPEC.md §7.5). -->
       <dl class="cm-byline">
         <div><dt>Prepared by</dt><dd>{{ Team or author }}</dd></div>
         <div><dt>Distribution</dt><dd>{{ Audience }}</dd></div>
@@ -97,19 +98,20 @@
           <p>{{ 2 to 4 sentences: what changed, what got better, what did not move or got worse. }}<a class="cm-cite" href="#src-1" id="cite-1">S1</a></p>
         </div>
 
-        <!-- KPI STRIP: 2 to 4 KPIs; add cm-kpis--3 / cm-kpis--2 for fewer than four. A case study shows measures after the intervention: the change against before as the delta, the before value in the foot. -->
+        <!-- KPI STRIP: 2 to 4 KPIs; add cm-kpis--3 / cm-kpis--2 for fewer than four. A case study shows measures after the intervention: the change against before as the delta, the before value in the foot.
+             Foot: Before and its value and, in <b>, the change in percent (SPEC.md §8.2). The strip carries no sources: the body cites its numbers. -->
         <div class="cm-kpis cm-kpis--2 cm-bleed">
           <div class="cm-kpi">
             <span class="cm-kpi__label">{{ Measure }}</span>
             <span class="cm-kpi__value">{{ 0.0 }}</span>
             <span class="cm-kpi__delta"><span class="cm-delta">{{ Change vs before }}</span></span>
-            <div class="cm-kpi__foot"><span>{{ Before }}</span><b>{{ BeforeVAL }}</b></div>
+            <div class="cm-kpi__foot"><span>Before {{ 212 }}</span><b>{{ −55% }}</b></div>
           </div>
           <div class="cm-kpi">
             <span class="cm-kpi__label">{{ Measure }}</span>
             <span class="cm-kpi__value">{{ 0.0 }}</span>
             <span class="cm-kpi__delta"><span class="cm-delta">{{ Change vs before }}</span></span>
-            <div class="cm-kpi__foot"><span>{{ Before }}</span><b>{{ BeforeVAL }}</b></div>
+            <div class="cm-kpi__foot"><span>Before {{ 212 }}</span><b>{{ −55% }}</b></div>
           </div>
         </div>
 
@@ -118,9 +120,9 @@
           <span class="cm-chip cm-chip--accent">Summary</span>
           <h3 class="cm-card__title">Key findings</h3>
           <ol class="cm-findings">
-            <li><div><span class="cm-findings__claim">{{ Claim, one sentence. }}</span> {{ Evidence with the number. }}<a class="cm-cite" href="#src-1" id="cite-2">S1</a></div></li>
-            <li><div><span class="cm-findings__claim">{{ Claim, one sentence. }}</span> {{ Evidence with the number. }}<a class="cm-cite" href="#src-1" id="cite-3">S1</a></div></li>
-            <li><div><span class="cm-findings__claim">{{ Claim, one sentence. }}</span> {{ Evidence with the number. }}<a class="cm-cite" href="#src-1" id="cite-4">S1</a></div></li>
+            <li><span class="cm-findings__claim">{{ Claim, one sentence. }}</span> {{ Evidence with the number. }}<a class="cm-cite" href="#src-1" id="cite-2">S1</a></li>
+            <li><span class="cm-findings__claim">{{ Claim, one sentence. }}</span> {{ Evidence with the number. }}<a class="cm-cite" href="#src-1" id="cite-3">S1</a></li>
+            <li><span class="cm-findings__claim">{{ Claim, one sentence. }}</span> {{ Evidence with the number. }}<a class="cm-cite" href="#src-1" id="cite-4">S1</a></li>
           </ol>
         </div>
       </div>
@@ -254,7 +256,7 @@
           <div class="cm-card__kicker"><span class="cm-chip cm-chip--accent">Recommended</span></div>
           <h3 class="cm-card__title">{{ Actions that follow from the result }}</h3>
           <ol class="cm-findings">
-            <li><div><span class="cm-findings__claim">{{ Action, one sentence. }}</span> {{ Why, with the number. }}<div class="cm-chips"><span class="cm-chip">Owner · {{ Team or role }}</span><span class="cm-chip">Due {{ YYYY-MM-DD }}</span><span class="cm-chip cm-chip--accent">{{ Expected impact }}</span></div></div></li>
+            <li><span class="cm-findings__claim">{{ Action, one sentence. }}</span> {{ Why, with the number. }}<div class="cm-chips"><span class="cm-chip">Owner · {{ Team or role }}</span><span class="cm-chip">Due {{ YYYY-MM-DD }}</span><span class="cm-chip cm-chip--accent">{{ Expected impact }}</span></div></li>
           </ol>
         </div>
       </div>
@@ -304,7 +306,8 @@
         <div class="cm-stack">
           <h3 class="cm-h4">Sources</h3>
           <!-- SOURCE REGISTER: key S1, S2… kept across versions; id src-N. Type: Dataset | Report | Interview | Document | System export.
-               Locator: a link, or the system and path in <code>. Cite after punctuation: <a class="cm-cite" href="#src-1" id="cite-1">S1</a>;
+               Locator: a link, or the system and path in <code>; a publisher or locator not recorded gives way to cm-omit publisher or cm-omit locator.
+               Date word: published | refreshed | exported | recorded | accessed | as of | covers (covers takes two dates, first → last). Cite after punctuation: <a class="cm-cite" href="#src-1" id="cite-1">S1</a>;
                a cited source ends with <a class="cm-back" href="#cite-1" aria-label="Back to text">↩</a> to its first citation. -->
           <ol class="cm-sources">
             <li id="src-1"><span class="cm-id">S1</span><span><b>{{ Source title }}</b><br><span class="cm-tag">Dataset</span> {{ Publisher }} · <code>{{ system.path }}</code> <a class="cm-back" href="#cite-1" aria-label="Back to text">↩</a></span><span class="cm-meta">{{ refreshed }} <time datetime="{{ YYYY-MM-DD }}">{{ YYYY-MM-DD }}</time></span></li>

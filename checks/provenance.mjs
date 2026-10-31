@@ -6,12 +6,15 @@
 export default [
   {
     // Each source entry: id src-N, key SN in .cm-id, a title in <b>, a type tag, a locator (a link
-    // that leaves the page, or code) and a date in <time datetime>. Keys run in order with no repeat.
+    // that leaves the page, or code, or the locator's omission comment) and a date in <time datetime>
+    // after a word from the closed set; "covers" takes two dates, the period the source covers.
+    // Keys run in order with no repeat.
     name: 'source-entries', level: 'fail', source: 'SPEC §8.21; §14 item 11', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, out = [], seen = new Map();
       const PH = /\{\{[\s\S]*?\}\}/;
       const iso = v => PH.test(v) || (/^\d{4}(-\d{2}(-\d{2})?)?$/.test(v) && !Number.isNaN(Date.parse(v)));
+      const WORDS = ['published', 'refreshed', 'exported', 'recorded', 'accessed', 'as of', 'covers'];
       for (const list of H.source().querySelectorAll('ol.cm-sources')) {
         if (H.exempt(list, check)) continue;
         let last = 0;
@@ -28,10 +31,19 @@ export default [
           const title = li.querySelector('b, strong');
           if (!title || !H.text(title)) out.push({ where: at, value: 'no title (<b>)' });
           const leaves = [...li.querySelectorAll('a[href]')].some(a => !a.matches('.cm-back') && !(a.getAttribute('href') || '').startsWith('#'));
-          if (!leaves && !li.querySelector('code')) out.push({ where: at, value: 'no locator (a link to the source, or its system and path in <code>)' });
+          if (!leaves && !li.querySelector('code') && !H.omitted(li, 'locator')) out.push({ where: at, value: 'no locator (a link to the source, or its system and path in <code>), and no omission comment (cm-omit locator)' });
           const time = li.querySelector('time');
           if (!time) out.push({ where: at, value: 'no date (<time datetime>)' });
           else if (!iso(time.getAttribute('datetime') || '')) out.push({ where: H.path(time), value: `datetime "${time.getAttribute('datetime') || ''}" (an ISO date)` });
+          if (time) {
+            const meta = time.parentElement;
+            const before = [...meta.childNodes].slice(0, [...meta.childNodes].indexOf(time)).map(n => n.textContent).join('').replace(/\s+/g, ' ').trim();
+            const times = meta.querySelectorAll('time').length;
+            if (!PH.test(before)) {
+              if (!WORDS.includes(before)) out.push({ where: H.path(meta), value: `date word "${before}" (${WORDS.join(', ')})` });
+              else if ((before === 'covers') !== (times === 2)) out.push({ where: H.path(meta), value: before === 'covers' ? `covers with ${times} date (two: the period's first and last day)` : `${times} dates after "${before}" (one; two only after covers)` });
+            }
+          }
         }
       }
       return out;

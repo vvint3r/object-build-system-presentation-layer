@@ -101,19 +101,15 @@ export default [
   },
 
   {
-    // A legend for two or more series: "legend": false only suppresses it on a single series. A
-    // line chart whose every line carries an end label naming it ("{a}" or the series name), and a
-    // slope, have none: their labels name the lines.
+    // The kit sets the legend: one for two or more series, none for one. A line chart whose every
+    // line carries an end label naming it ("{a}" or the series name), and a slope, have none: their
+    // labels name the lines. The JSON sets no legend, so a legend key of any value fails.
     name: 'chart-legend', level: 'fail', source: 'SPEC §9; §14 item 5', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, out = [];
-      const named = s => s.type === 'line' && s.endLabel && s.endLabel.show && (s.endLabel.formatter === '{a}' || s.endLabel.formatter === s.name);
       for (const c of H.charts()) {
         if (!c.json || H.exempt(c.src, check)) continue;
-        const series = H.list(c.json.series).filter(s => s && s.type !== 'pie');
-        const off = c.json.legend === false || H.list(c.json.legend).some(l => l && l.show === false);
-        const direct = (c.json.cm && c.json.cm.chart === 'slope') || series.every(named);
-        if (series.length > 1 && off && !direct) out.push({ where: c.where, value: `${series.length} series with the legend turned off` });
+        if ('legend' in c.json) out.push({ where: c.where, value: `"legend": ${JSON.stringify(c.json.legend)} in the JSON (none: the kit sets the legend)` });
       }
       return out;
     },

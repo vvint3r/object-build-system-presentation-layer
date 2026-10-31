@@ -63,7 +63,7 @@ export default [
         for (const td of t.querySelectorAll('tbody td.num, tbody th.num')) {
           const text = H.text(td);
           if (/^-\d/.test(text)) out.push({ where: H.path(td), value: `"${text}" (negatives use − U+2212)` });
-          if (!text || text === '\u2014' || PLAIN.test(text) || !/\d/.test(text)) continue;
+          if (!text || text === 'n/a' || PLAIN.test(text) || !/\d/.test(text)) continue;
           const v = td.getAttribute('data-value');
           if (v == null) out.push({ where: H.path(td), value: `"${text}" with no data-value` });
           else if (v.trim() === '' || !Number.isFinite(Number(v))) out.push({ where: H.path(td), value: `"${text}" with data-value="${v}"` });
@@ -85,12 +85,28 @@ export default [
         if (!head || [...head.cells].some(c => c.colSpan > 1)) continue;
         const rows = [...t.tBodies].flatMap(b => [...b.rows]).filter(r => ![...r.cells].some(c => c.colSpan > 1));
         [...head.cells].forEach((th, i) => {
-          const cells = rows.map(r => r.cells[i]).filter(c => c && H.text(c) && H.text(c) !== '\u2014');
+          const cells = rows.map(r => r.cells[i]).filter(c => c && H.text(c) && H.text(c) !== 'n/a');
           if (!cells.length || !cells.every(c => NUMERIC.test(H.text(c)))) return;
           if (!th.classList.contains('num')) out.push({ where: H.path(th), value: `numeric column "${H.text(th)}" header without .num` });
           const bare = cells.filter(c => !c.classList.contains('num'));
           if (bare.length) out.push({ where: H.path(bare[0]), value: `${bare.length} numeric cell(s) in "${H.text(th)}" without .num` });
         });
+      }
+      return out;
+    },
+  },
+
+  {
+    // A cell whose value does not apply reads "n/a"; a dash never stands for a value, since the
+    // writing rules keep em and en dashes out of the text (SPEC §8.11, §13.2).
+    name: 'table-na', level: 'fail', source: 'SPEC §8.11; §13.2', once: true,
+    inPage: ({ check }) => {
+      const H = window.__cm, out = [];
+      for (const t of H.source().querySelectorAll('table.cm-table')) {
+        if (t.closest('.cm-data') || H.exempt(t, check)) continue;
+        for (const cell of t.querySelectorAll('td, th')) {
+          if (/^[\u2010-\u2015-]$/.test(H.text(cell))) out.push({ where: H.path(cell), value: `"${H.text(cell)}" (a value that does not apply reads n/a)` });
+        }
       }
       return out;
     },

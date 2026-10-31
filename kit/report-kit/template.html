@@ -74,6 +74,7 @@
         <div><dt>Reading time</dt><dd>{{ N }} min</dd></div>
         <div><dt>Version</dt><dd>{{ 1.0 }}</dd></div>
       </dl>
+      <!-- BYLINE: Distribution names the readers the document is for. When they are not known, the field gives way to an omission comment, cm-omit distribution (SPEC.md §7.5). -->
       <dl class="cm-byline">
         <div><dt>Prepared by</dt><dd>{{ Team or author }}</dd></div>
         <div><dt>Distribution</dt><dd>{{ Audience }}</dd></div>
@@ -91,14 +92,15 @@
           <p>{{ 2–4 sentences: the headline result, the main driver, the main gap. }}</p>
         </div>
 
-        <!-- KPI STRIP: 2–4 KPIs; add cm-kpis--3 / cm-kpis--2 for fewer than four. Delta: cm-delta (neutral) | cm-delta--good | cm-delta--bad. Always state the comparison. -->
+        <!-- KPI STRIP: 2–4 KPIs; add cm-kpis--3 / cm-kpis--2 for fewer than four. Delta: cm-delta (neutral) | cm-delta--good | cm-delta--bad. Always state the comparison.
+             Foot: a target and, in <b>, the gap or Met; or the prior value alone. The strip carries no sources: the body cites its numbers. -->
         <div class="cm-kpis cm-bleed">
           <div class="cm-kpi">
             <span class="cm-kpi__label">{{ Metric name }}</span>
             <span class="cm-kpi__value">{{ 91.2 }}<small>%</small></span>
             <span class="cm-kpi__delta"><span class="cm-delta cm-delta--good">▲ {{ +1.6 pp vs prior }}</span></span>
             <div class="cm-kpi__spark" data-spark data-values="{{ 1,2,3,4 }}" aria-hidden="true"></div>
-            <div class="cm-kpi__foot"><span>Target {{ 95% }}</span><b>{{ Source }}</b></div>
+            <div class="cm-kpi__foot"><span>Target {{ 95% }}</span><b>{{ −3.8 pp | Met }}</b></div>
           </div>
         </div>
 
@@ -107,7 +109,7 @@
           <span class="cm-chip cm-chip--accent">Summary</span>
           <h3 class="cm-card__title">Key findings</h3>
           <ol class="cm-findings">
-            <li><div><span class="cm-findings__claim">{{ Claim, one sentence. }}</span> {{ Evidence with the number. }}</div></li>
+            <li><span class="cm-findings__claim">{{ Claim, one sentence. }}</span> {{ Evidence with the number. }}</li>
           </ol>
         </div>
       </div>
@@ -206,7 +208,8 @@
         <div class="cm-stack">
           <h3 class="cm-h4">Sources</h3>
           <!-- SOURCE REGISTER: key S1, S2… kept across versions; id src-N. Type: Dataset | Report | Interview | Document | System export.
-               Locator: a link, or the system and path in <code>. Cite after punctuation: <a class="cm-cite" href="#src-1" id="cite-1">S1</a>;
+               Locator: a link, or the system and path in <code>; a publisher or locator not recorded gives way to cm-omit publisher or cm-omit locator.
+               Date word: published | refreshed | exported | recorded | accessed | as of | covers (covers takes two dates, first → last). Cite after punctuation: <a class="cm-cite" href="#src-1" id="cite-1">S1</a>;
                a cited source ends with <a class="cm-back" href="#cite-1" aria-label="Back to text">↩</a> to its first citation. -->
           <ol class="cm-sources">
             <li id="src-1"><span class="cm-id">S1</span><span><b>{{ Source title }}</b><br><span class="cm-tag">Dataset</span> {{ Publisher }} · <code>{{ system.path }}</code></span><span class="cm-meta">{{ refreshed }} <time datetime="{{ YYYY-MM-DD }}">{{ YYYY-MM-DD }}</time></span></li>

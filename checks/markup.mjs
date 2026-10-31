@@ -14,11 +14,11 @@ export default [
     // The required head, in order. Other elements may sit between the required ones. The kind tag,
     // when present, follows the kit tag and names one of the three document kinds, or the index
     // page. The id tag follows them: one per page, lowercase words joined by hyphens, or a template
-    // placeholder. A report's title carries its period, or the omission comment in the head; the
+    // placeholder. The optional type tag follows the id tag (SPEC §7.6). A report's title carries its period, or the omission comment in the head; the
     // title of any other kind is the title alone (SPEC §2; §7; §8.31). In the offline mode the kit's
     // font faces take the place of the font links, ECharts sits inline, and the kit CSS and JS are
     // pasted as in the self-contained mode.
-    name: 'head-order', level: 'fail', source: 'SPEC §2; §7; §8.31', once: true,
+    name: 'head-order', level: 'fail', source: 'SPEC §2; §7; §7.6; §8.31', once: true,
     inPage: () => {
       const H = window.__cm, d = H.source(), kit = H.cfg.kit, off = kit.offline;
       const same = (a, b) => a.replace(/\r\n/g, '\n').trim() === b.replace(/\r\n/g, '\n').trim();

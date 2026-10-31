@@ -91,3 +91,4 @@ Rounds 40e and 40f exist only in `CONTINUATION.md` and are taken from there.
 | [078-document-kinds.md](078-document-kinds.md) | Document kinds | 2026-10-30 | orchestrating session, record 075 |
 | [079-provenance-and-status.md](079-provenance-and-status.md) | Provenance and status | 2026-10-30 | orchestrating session, record 075 |
 | [081-chart-recipes.md](081-chart-recipes.md) | Chart recipes | 2026-10-30 | orchestrating session, record 075 |
+| [082-structured-components.md](082-structured-components.md) | Structured components | 2026-10-30 | orchestrating session, record 075 |

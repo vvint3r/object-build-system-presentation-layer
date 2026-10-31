@@ -39,12 +39,13 @@ import writing from './writing.mjs';
 import kinds from './kinds.mjs';
 import provenance from './provenance.mjs';
 import recipes from './recipes.mjs';
+import structured from './structured.mjs';
 
 // Each module exports checks: { name, level: 'fail' | 'warn', source, once?, kinds?, inPage | run }.
 // inPage runs in the page with window.__cm (checks/page.mjs); run gets the Playwright page and
 // what the loader collected. Both return findings: [{ where, value }]. A check with `kinds` runs
 // only on documents of those kinds (report, guide, reference) and is skipped on the others.
-const CHECKS = [markup, colour, type, radius, budgets, decoration, meaning, charts, diagrams, figures, tables, structure, kinds, judgment, navigation, writing, provenance, recipes].flat();
+const CHECKS = [markup, colour, type, radius, budgets, decoration, meaning, charts, diagrams, figures, tables, structure, kinds, judgment, navigation, writing, provenance, structured, recipes].flat();
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const KIT = path.join(ROOT, 'kit', 'report-kit');

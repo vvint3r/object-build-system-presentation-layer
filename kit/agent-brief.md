@@ -216,6 +216,13 @@ Content maps onto existing components:
 | A process with branches, loops or hand-offs between roles | Figure with a flow diagram, `cm-diagram` | 8.20 |
 | Steps a reader carries out, each with its outcome | Procedure, `cm-procedure` | 8.23 |
 | Other documents, or places in them, and how each relates | Related list, `cm-related` | 8.24 |
+| Work passed between roles, stage by stage, with who acts and what hands it on | Workflow, `cm-workflow` | 8.25 |
+| The parts that together cover a subject, and what each covers | Framework, `cm-framework` | 8.26 |
+| A claim about how parts relate, with when it holds and when it breaks | Model, `cm-model` | 8.27 |
+| A repeatable technique that ends in a decision | Method, `cm-method` | 8.28 |
+| A rule, why it exists and how a reviewer checks it | Requirement, `cm-req` | 8.29 |
+| One subject scored against weighted criteria, ending in a verdict | Evaluation, `cm-eval` | 8.29 |
+| What one measure counts: formula, unit, direction, thresholds, owner | Metric detail, `cm-metric` | 8.30 |
 | Options compared on the same attributes | Table, with the recommended column marked | 8.11 |
 | A point that must not be missed, a caveat, a worked example | Callout, from its closed set | 8.4 |
 | Items | Lists, `cm-list` and `cm-olist` | 8.14 |

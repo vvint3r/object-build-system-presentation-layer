@@ -890,8 +890,8 @@ A layer stack shows the layers of a system, from the one people use at the top t
 
 | Item | At most | Reason |
 | --- | --- | --- |
-| Layers | 5 | Six layers of 24-character labels print at 80%, with nothing to spare |
-| Components in a layer | 4 | Four components of 24-character labels print at 83%; a fifth of the shortest labels needs 81% |
+| Layers | 5 | The flow's lane ceiling, since layers are lanes of the flow grid. With a detail line on every component, five layers need 70% in print |
+| Components in a layer | 4 | Four components of 24-character labels print at 81%; five need 67% |
 
 A component `label` stops at 24 characters and a `detail` at 40, as a flow node's; a layer `label` stops at 24, as a lane's. A larger stack splits into an overview of the layers and one stack for each layer that needs detail.
 

@@ -101,7 +101,7 @@ All within record 076 (strokes 1.5px and 2px, labels 8px clear) and record 077, 
 | --- | --- | --- |
 | 2px `--cm-accent` | Experience line | A chart mark in the accent, never text; the words under it carry the meaning |
 | 24px | Level spacing on the experience line | A level word, 8px under its run, ends above the next level down |
-| 32px | Gap from the grid's foot to the experience line's top level | Twice the level spacing, so the line reads apart from the steps |
+| 32px | Gap from the grid's foot to the experience line's top level | One level step and 8px more, so the line reads apart from the steps |
 | 20px | Gap from the phase frames to the grid | The flow mode's 20px reach from a node to the first line in a gap |
 | `--cm-track` fill, 8px by 12px padding, input radius | Phase frames | The track fill the kit keeps for grouping surfaces; a frame, not a card |
 | `--cm-track` fill, card radius, 16px inset | Layer frames | Same reading as phases: a band that groups, not a surface |
@@ -115,8 +115,8 @@ Capacity, measured in print:
 | Family | Ceiling | Measured |
 | --- | --- | --- |
 | Journey map | 5 columns | Five 24-character steps with phases print at 81%; six columns of the shortest labels need less than 80% |
-| Layer stack | 5 layers | Five layers of 24-character labels print at 83%; six print at 80%, with nothing to spare |
-| Layer stack | 4 components a layer | Four 24-character components print at 83%; five of the shortest labels print at 81% |
+| Layer stack | 5 layers | The flow's lane ceiling, since layers are lanes of the flow grid. Four components of 24-character labels a layer print at 81% in five or six layers, and seven layers need 79%. With a 40-character detail line on every component, four layers print at 81% and five need 70% |
+| Layer stack | 4 components a layer | Four 24-character components print at 81%; five need 67% |
 | Hierarchy | 4 levels | Four levels of 24-character labels print at 100%; five need 81% |
 | Hierarchy | 12 leaves | Twelve leaves in three groups print at 83%; in four groups of three they need less than 80% |
 

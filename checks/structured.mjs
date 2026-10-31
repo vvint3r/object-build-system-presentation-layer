@@ -1,4 +1,4 @@
-// Structured components: SPEC.md section 8 (their shared anatomy) and sections 8.23 to 8.28. Read
+// Structured components: SPEC.md section 8 (their shared anatomy) and sections 8.25 to 8.30. Read
 // once, on the page as written. Each component is a card with its kind class; the checks find it by
 // that class and test its required parts, counts and word limits. Prose limits that apply to every
 // paragraph (section 13.1) stay with the writing checks.
@@ -85,9 +85,10 @@ const inStructured = (name, source, fn) => ({
 });
 
 export default [
-  inStructured('structured-anatomy', '§8; §6; §14 item 16', ({ check }) => {
+  inStructured('structured-anatomy', '§8; §6; §14 item 17', ({ check }) => {
     // Every structured component is a card that opens with its kind label, then its title; it
-    // carries no emphasis. Stages, criteria and bands live only in their own component.
+    // carries no emphasis. Stages, criteria and bands live only in their own component; a step title
+    // only in a procedure step or a workflow stage.
     const S = window.__cms, H = S.H, out = [];
     for (const [cls, kind] of Object.entries(S.KINDS)) {
       for (const card of S.cards(cls)) {
@@ -104,7 +105,7 @@ export default [
         for (const e of emph) out.push({ where: H.path(e), value: `${[...e.classList].find(c => /cm-(emph|featured|chip--verdict)/.test(c))} inside a structured component` });
       }
     }
-    for (const [sel, home] of [['.cm-stages', '.cm-workflow'], ['.cm-criteria', '.cm-eval'], ['.cm-bands', '.cm-metric'], ['.cm-parts--matrix', '.cm-model']]) {
+    for (const [sel, home] of [['.cm-stages', '.cm-workflow'], ['.cm-criteria', '.cm-eval'], ['.cm-bands', '.cm-metric'], ['.cm-parts--matrix', '.cm-model'], ['.cm-procedure__title', '.cm-procedure > li, .cm-stages > li']]) {
       for (const el of S.d.querySelectorAll(sel)) {
         if (!H.exempt(el, check) && !el.closest(home)) out.push({ where: H.path(el), value: `${sel} outside ${home}` });
       }
@@ -180,7 +181,7 @@ export default [
     return out;
   }),
 
-  inStructured('workflow', '§8.23', ({ check }) => {
+  inStructured('workflow', '§8.25', ({ check }) => {
     const S = window.__cms, H = S.H, out = [];
     const KEYS = ['Actor', 'Takes in', 'Produces', 'Hands on when'];
     for (const card of S.cards('cm-workflow')) {
@@ -193,12 +194,18 @@ export default [
       if (!ol) { out.push({ where: at, value: 'no stages (ol.cm-stages)' }); continue; }
       const stages = S.kids(ol);
       if (stages.length < 3 || stages.length > 6) out.push({ where: H.path(ol), value: `${stages.length} stages (3 to 6)` });
+      const ct = card.querySelector(':scope > .cm-card__title');
+      const level = ct && /^h[2-6]$/.test(ct.localName) ? Number(ct.localName[1]) + 1 : 0;
       stages.forEach((li, i) => {
         const sat = H.path(li);
-        const [title, body] = S.kids(li).filter(c => c.localName === 'p');
-        if (!title || !title.matches('.cm-t5')) out.push({ where: sat, value: 'no stage title (p.cm-t5 first)' });
-        else if (!S.placeholder(title) && S.words(S.read(title)) > 4) out.push({ where: H.path(title), value: `stage title "${H.text(title)}": ${S.words(S.read(title))} words (4 at most)` });
-        const g = S.oneSentence(body && !body.matches('.cm-t5') ? body : null, 20, 'stage body');
+        const title = S.kids(li)[0];
+        const body = S.kids(li).find(c => c.localName === 'p');
+        if (!title || !title.matches('.cm-procedure__title') || !/^h[3-6]$/.test(title.localName)) out.push({ where: sat, value: 'the stage does not open with its title (a heading, .cm-procedure__title)' });
+        else {
+          if (level && title.localName !== `h${level}`) out.push({ where: H.path(title), value: `stage title is <${title.localName}> (h${level}, one level below the card title)` });
+          if (!S.placeholder(title) && S.words(S.read(title)) > 4) out.push({ where: H.path(title), value: `stage title "${H.text(title)}": ${S.words(S.read(title))} words (4 at most)` });
+        }
+        const g = S.oneSentence(body, 20, 'stage body');
         if (g) out.push({ where: body ? H.path(body) : sat, value: g });
         const dl = li.querySelector(':scope > dl.cm-facts');
         if (!dl) { out.push({ where: sat, value: 'no facts (dl.cm-facts with Actor)' }); return; }
@@ -216,7 +223,7 @@ export default [
     return out;
   }),
 
-  inStructured('framework', '§8.24', ({ check }) => {
+  inStructured('framework', '§8.26', ({ check }) => {
     const S = window.__cms, H = S.H, out = [];
     for (const card of S.cards('cm-framework')) {
       if (H.exempt(card, check)) continue;
@@ -234,7 +241,7 @@ export default [
     return out;
   }),
 
-  inStructured('model', '§8.25', ({ check }) => {
+  inStructured('model', '§8.27', ({ check }) => {
     const S = window.__cms, H = S.H, out = [];
     for (const card of S.cards('cm-model')) {
       if (H.exempt(card, check)) continue;
@@ -254,7 +261,7 @@ export default [
     return out;
   }),
 
-  inStructured('method', '§8.26', ({ check }) => {
+  inStructured('method', '§8.28', ({ check }) => {
     const S = window.__cms, H = S.H, out = [];
     for (const card of S.cards('cm-method')) {
       if (H.exempt(card, check)) continue;
@@ -279,7 +286,7 @@ export default [
     return out;
   }),
 
-  inStructured('requirement', '§8.27', ({ check }) => {
+  inStructured('requirement', '§8.29', ({ check }) => {
     const S = window.__cms, H = S.H, out = [];
     const LEVEL = { Required: '', Recommended: 'cm-chip--dashed', Optional: 'cm-chip--dashed' };
     const STATUS = { Draft: '', 'In review': 'cm-chip--warn', Final: 'cm-chip--ok' };
@@ -318,7 +325,7 @@ export default [
     return out;
   }),
 
-  inStructured('evaluation', '§8.27', ({ check }) => {
+  inStructured('evaluation', '§8.29', ({ check }) => {
     // Criteria on one scale with whole-number weights; the weighted score is their weighted mean to
     // one decimal; one status chip carries the verdict; a caption gives the source.
     const S = window.__cms, H = S.H, out = [];
@@ -379,7 +386,7 @@ export default [
     return out;
   }),
 
-  inStructured('metric-detail', '§8.28; §13.2', ({ check }) => {
+  inStructured('metric-detail', '§8.30; §8.24; §13.2', ({ check }) => {
     // Definition, the property sheet's required keys, thresholds from the closed set, and no
     // current value inside the definition.
     const S = window.__cms, H = S.H, out = [];
@@ -423,8 +430,12 @@ export default [
       }
       const rel = S.sub(card, 'Related metrics');
       if (rel) {
-        const n = rel.querySelectorAll(':scope > ul.cm-list > li').length;
-        if (n < 1 || n > 4) out.push({ where: H.path(rel), value: `${n} related metrics (ul.cm-list, 1 to 4)` });
+        const items = [...rel.querySelectorAll(':scope > ul.cm-related > li')];
+        if (items.length < 1 || items.length > 4) out.push({ where: H.path(rel), value: `${items.length} related metrics (ul.cm-related, 1 to 4)` });
+        for (const li of items) {
+          const tag = li.querySelector(':scope > .cm-tag');
+          if (tag && !S.placeholder(tag) && H.text(tag) !== 'Metric') out.push({ where: H.path(tag), value: `tag "${H.text(tag)}" (Metric)` });
+        }
       }
       for (const el of card.querySelectorAll('.cm-kpi, .cm-kpis, .cm-meter, [data-spark], .cm-status, .cm-chart, .cm-delta')) {
         out.push({ where: H.path(el), value: 'a current value inside a metric detail (it goes in the KPI strip or the status block)' });

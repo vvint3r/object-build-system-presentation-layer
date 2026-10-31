@@ -695,7 +695,7 @@
         </div>
 
         <div class="g-comp">
-          <header><span class="cm-label">5.28</span><h3 class="cm-h3">Workflow</h3><p>Stages of work in order, each with the role that does it and the condition that hands the work on. It reads in order, prints whole and reflows on a phone.</p><p>The process diagram (5.12) gives the same stages at a glance. A flow diagram draws the branches and lanes; the workflow is the reference a reader works from.</p></header>
+          <header><span class="cm-label">5.28</span><h3 class="cm-h3">Workflow</h3><p>How work moves between roles: stages in order, each with the role that does it and the condition that hands the work on. The stages share the numbered list of the procedure (5.26), which holds the steps one reader carries out.</p><p>The process diagram (5.12) gives the same stages at a glance. A flow diagram draws the branches and lanes; the workflow is the reference a reader works from.</p></header>
           <div data-demo>
 <div class="cm-card cm-workflow cm-bleed">
   <span class="cm-label cm-card__kicker">Workflow</span>
@@ -703,7 +703,7 @@
   <p>A ticket enters at triage and leaves when its owner closes it; each stage names who acts and what hands the ticket on.</p>
   <ol class="cm-stages">
     <li>
-      <p class="cm-t5">Intent triage</p>
+      <h4 class="cm-procedure__title">Intent triage</h4>
       <p>The routing classifier tags each chat as billing, technical or account before pickup.</p>
       <dl class="cm-facts">
         <div><dt>Actor</dt><dd>Routing classifier</dd></div>
@@ -711,7 +711,7 @@
       </dl>
     </li>
     <li>
-      <p class="cm-t5">Tier 1 resolve</p>
+      <h4 class="cm-procedure__title">Tier 1 resolution</h4>
       <p>An agent answers from macros and the help centre.</p>
       <dl class="cm-facts">
         <div><dt>Actor</dt><dd>Tier 1 agent</dd></div>
@@ -719,7 +719,7 @@
       </dl>
     </li>
     <li>
-      <p class="cm-t5">Specialist queue</p>
+      <h4 class="cm-procedure__title">Specialist queue</h4>
       <p>A billing or technical specialist reproduces the issue and fixes what configuration allows.</p>
       <dl class="cm-facts">
         <div><dt>Actor</dt><dd>Billing or technical specialist</dd></div>
@@ -728,7 +728,7 @@
       </dl>
     </li>
     <li>
-      <p class="cm-t5">Engineering fix</p>
+      <h4 class="cm-procedure__title">Engineering fix</h4>
       <p>Engineering repairs the data or ships the change, then returns the ticket to its owner.</p>
       <dl class="cm-facts">
         <div><dt>Actor</dt><dd>Product engineering</dd></div>
@@ -737,7 +737,7 @@
       </dl>
     </li>
     <li>
-      <p class="cm-t5">Close and survey</p>
+      <h4 class="cm-procedure__title">Closure and survey</h4>
       <p>The ticket owner confirms the fix with the customer and closes the ticket.</p>
       <dl class="cm-facts">
         <div><dt>Actor</dt><dd>Ticket owner</dd></div>
@@ -887,7 +887,7 @@
         </div>
 
         <div class="g-comp">
-          <header><span class="cm-label">5.34</span><h3 class="cm-h3">Metric detail</h3><p>The reference entry for one measure: its definition, a property sheet with formula, unit, direction, source and owner, its thresholds and its related metrics.</p><p>It carries no current value, since a definition holds no number that will change. The value goes in the KPI strip (5.2) or the status block (5.22), under the same name.</p></header>
+          <header><span class="cm-label">5.34</span><h3 class="cm-h3">Metric detail</h3><p>The reference entry for one measure: its definition, a property sheet with formula, unit, direction, source and owner, and its thresholds. Its related metrics form a related list (5.27).</p><p>It carries no current value, since a definition holds no number that will change. The value goes in the KPI strip (5.2) or the status block (5.22), under the same name.</p></header>
           <div data-demo>
 <div class="cm-card cm-metric cm-bleed" id="metric-sla">
   <span class="cm-label cm-card__kicker">Metric</span>
@@ -916,9 +916,9 @@
   </div>
   <div class="cm-sub">
     <span class="cm-label">Related metrics</span>
-    <ul class="cm-list">
-      <li>Median first response, which times the first reply rather than the resolution.</li>
-      <li>Open backlog, which counts the tickets still waiting at the end of each week.</li>
+    <ul class="cm-related">
+      <li><span class="cm-tag">Metric</span><a href="Reference%20-%20First%20Response%20Time.html">First response time</a><p>Times the first human reply, where this metric times the resolution.</p></li>
+      <li><span class="cm-tag">Metric</span><a href="Sample%20Report%20-%20Q3%20Support%20Review.html#initiatives">Specialist queue wait</a><p>Times the wait for a specialist, which counts toward the resolution time.</p></li>
     </ul>
   </div>
 </div>

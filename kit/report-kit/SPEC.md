@@ -626,7 +626,7 @@ Links to other documents, or to places in them, with how each relates. The tag n
 
 ### 8.25 Workflow
 
-A workflow sets out stages of work in order: the role that does each stage, what the stage takes in and produces, and the condition that hands the work on. A reader works through it, or looks up one stage.
+A workflow sets out how work moves between roles or stages, in order: the role that does each stage, what the stage takes in and produces, and the condition that hands the work on. A reader works through it, or looks up one stage.
 
 ```html
 <div class="cm-card cm-workflow cm-bleed">
@@ -635,7 +635,7 @@ A workflow sets out stages of work in order: the role that does each stage, what
   <p>What starts the work and what ends it, in one sentence.</p>
   <ol class="cm-stages">
     <li>
-      <p class="cm-t5">Intent triage</p>
+      <h4 class="cm-procedure__title">Intent triage</h4>
       <p>What happens at this stage, in one sentence.</p>
       <dl class="cm-facts">
         <div><dt>Actor</dt><dd>Routing classifier</dd></div>
@@ -650,9 +650,10 @@ A workflow sets out stages of work in order: the role that does each stage, what
 </div>
 ```
 
-- Required: the kind label, the title, a lede of one sentence saying what starts the work and what ends it, and `ol.cm-stages` with 3 to 6 stages. The kit numbers the stages 01, 02.
-- Each stage holds its title (`p.cm-t5`, 4 words at most), one sentence on what happens (20 words at most) and its facts. `Actor` names the role that does the stage. `Hands on when` gives the condition that passes the work on, on every stage but the last; a branch names the stage it leads to. `Takes in` and `Produces` are optional. These four keys are the whole set.
+- Required: the kind label, the title, a lede of one sentence saying what starts the work and what ends it, and `ol.cm-stages` with 3 to 6 stages. The stages take the procedure's numbered list and title (§8.23): the CSS numbers them 01, 02 in the left gutter, and each opens with `.cm-procedure__title`.
+- Each stage holds its title, one sentence on what happens (20 words at most) and its facts. The title is a heading one level below the card title, a noun phrase of 4 words at most (§13.3). `Actor` names the role that does the stage. `Hands on when` gives the condition that passes the work on, on every stage but the last; a branch names the stage it leads to. `Takes in` and `Produces` are optional. These four keys are the whole set.
 - Optional: an `Exceptions` part with 1 to 3 items, each a condition and where the work goes instead.
+- A procedure (§8.23) is the steps one reader carries out in a guide; a workflow is how work moves between roles or stages. A stage closes with who acts and what hands the work on, where a step closes with its outcome.
 - The process diagram (§8.13) sets three to six steps across the page, a line each, with no actors or conditions. It is the overview at a glance; a workflow is the reference a reader works from. A document can carry both, the diagram first, with the same stage names in the same order.
 - The flow diagram (§8.20) is the picture of a flow, with lanes, branches and loops drawn as nodes and edges. A workflow is text: it reads in order, prints whole and reflows on a phone with no sideways scroll. Draw the flow when the branches or the hand-offs between lanes are the point; write the workflow when the reader acts on each stage. Shown together, both use the same stage names.
 - A method (§8.28) is one role's technique, ending in a decision; a workflow passes work between roles. A timeline (§8.12) holds dated events; a workflow has no dates.
@@ -732,7 +733,7 @@ A method is a repeatable technique: what it achieves, when to use it, its steps 
 - Steps: 3 to 7, each one instruction in one sentence of 20 words at most, in `ol.cm-olist`.
 - Decision: one paragraph of 1 or 2 sentences that states the criterion as a condition, never a question, and what follows each outcome.
 - Optional: `Not for` in the scope; facts such as who runs it, what it needs and how often.
-- A workflow (§8.25) passes work between roles; a method is one role's technique. A list of steps with no decision at the end is an ordered list (§8.14). An action taken once, with an owner and a date, is a recommendation (§8.19).
+- A workflow (§8.25) passes work between roles; a method is one role's technique. A guide's steps, each with its outcome, are a procedure (§8.23). A list of steps with no decision at the end is an ordered list (§8.14). An action taken once, with an owner and a date, is a recommendation (§8.19).
 
 ### 8.29 Requirement and evaluation
 
@@ -815,14 +816,17 @@ A metric detail is the reference entry for one measure: what it counts, its form
       <li><span><b>95% or more</b><br>The response, in one sentence.</span><span class="cm-chips"><span class="cm-chip cm-chip--ok">On track</span></span></li>
     </ul>
   </div>
-  <div class="cm-sub"><span class="cm-label">Related metrics</span><ul class="cm-list"><li>A metric, and how it relates.</li></ul></div>   <!-- optional -->
+  <div class="cm-sub">                                       <!-- optional -->
+    <span class="cm-label">Related metrics</span>
+    <ul class="cm-related"><li><span class="cm-tag">Metric</span><a href="Reference%20-%20First%20Response%20Time.html">First response time</a><p>How it relates, in one sentence.</p></li></ul>
+  </div>
 </div>
 ```
 
 - Required: the kind label; the title, the metric's name as KPI labels and tables give it; the definition, 15 to 60 words on what the metric counts and how; and a property sheet (§8.7) with `Formula` (in `<code>`), `Unit`, `Direction`, `Source` (cited, §8.21) and `Owner`.
 - Direction reads `Higher is better`, `Lower is better` or `Nearer the target is better`. Optional keys include `Target`, `Grain`, `Cadence`, `Aliases` and `Excludes`.
 - Optional `Thresholds`: `ul.cm-bands` with 2 to 4 bands, best first. Each band gives its range in `<b>`, the response in one sentence, and one status chip: `On track` (`cm-chip--ok`), `At risk` (`cm-chip--warn`) or `Breach` (`cm-chip--crit`).
-- Optional `Related metrics`: 1 to 4 items, each naming a metric and how it relates, linked to its detail when the document holds one.
+- Optional `Related metrics`: a related list (§8.24) of 1 to 4 items, each tagged `Metric`, linking to where the metric is defined or reported, with one sentence on how it relates.
 - It carries no current value. A value changes, and a definition holds no number that will change (§13.2). The current value goes in the KPI strip (§8.2) of a report, or the status block (§8.22) of a reference document, under the same name.
 - The KPI strip (§8.2) gives the value for a period, its change and its target; the metric detail defines what that value means.
 - A property sheet (§8.7) holds facts about any one thing; the metric detail holds one, with the keys a metric needs. A definition (§8.5) explains a term in a sentence or two; a metric detail is for a measure the page reports or judges against thresholds. A known limit of the metric is a limitation callout after the block (§8.4).
@@ -1023,6 +1027,8 @@ Changed in 1.2:
 - A document without measured numbers leaves out a required block it has nothing for, with an omission comment (§7).
 
 Added for guides and references: document kinds (§7), procedure (§8.23), related list (§8.24).
+
+Added for reference pages: workflow, framework, model, method, requirement, evaluation and metric detail (§8.25 to §8.30).
 
 Added for reports: ECharts chart method and theme; categorical and sequential palettes; dark token set; print rules; report masthead and contents rail; KPI strip; key findings; native tables with sorting and in-cell bars; pull quote; timeline; process diagram; definition, questions and property-sheet blocks; footnotes; collapsible appendix; chart draw-in motion; packaging modes.
 

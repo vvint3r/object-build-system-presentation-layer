@@ -412,13 +412,7 @@ pre code{all:unset}
 .cm-facts dt{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;line-height:1.4}
 .cm-facts dd{font-size:15px;line-height:1.6}
 /* workflow stages: numbered like key findings, one hairline between stages */
-.cm-stages{list-style:none;padding:0;counter-reset:cms}
-.cm-stages>li{position:relative;padding:24px 0 24px 44px;border-top:1px solid var(--cm-hairline);counter-increment:cms}
-.cm-stages>li:first-child{border-top:0;padding-top:0}
-.cm-stages>li:last-child{padding-bottom:0}
-.cm-stages>li::before{content:counter(cms,decimal-leading-zero);position:absolute;left:0;font-size:16px;font-weight:800;line-height:1.5;font-variant-numeric:tabular-nums}
-.cm-stages>li>*+*{margin-top:6px}
-.cm-stages>li>.cm-facts{margin-top:16px}
+.cm-stages>li>.cm-facts{margin-top:8px}
 /* parts: named parts as tiles. Peers sit two or three across; an ordered list stacks top first; a matrix is two by two, each cell naming its position */
 .cm-parts{--n:2;list-style:none;padding:0;display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:24px}
 ul.cm-parts:has(>li:nth-child(3):last-child),ul.cm-parts:has(>li:nth-child(5)){--n:3}
@@ -466,13 +460,13 @@ ol.cm-parts.cm-parts--matrix{--n:2}
 .cm-versions .cm-meta{display:inline-block;margin-top:2px}
 .cm-limits>li,.cm-bands>li{grid-template-columns:minmax(0,1fr) auto}
 .cm-criteria>li{grid-template-columns:64px minmax(0,1fr) auto}
-/* Procedure: a guide's numbered steps. The number sits in the left gutter at the title's size; each step closes with its outcome under an "Outcome" label. */
-.cm-procedure{list-style:none;padding:0;counter-reset:cmp;max-width:calc(var(--cm-read) + 56px)}
-.cm-procedure>li{position:relative;display:flex;flex-direction:column;gap:12px;padding:32px 0 32px 56px;border-top:1px solid var(--cm-hairline);counter-increment:cmp}
-.cm-procedure>li:first-child{border-top:0;padding-top:0}
-.cm-procedure>li:last-child{padding-bottom:0}
-.cm-procedure>li::before{content:counter(cmp,decimal-leading-zero);position:absolute;left:0;top:32px;font-size:18px;font-weight:800;line-height:1.4;font-variant-numeric:tabular-nums}
-.cm-procedure>li:first-child::before{top:0}
+/* Procedure: a guide's numbered steps. The number sits in the left gutter at the title's size; each step closes with its outcome under an "Outcome" label. A workflow's stages (.cm-stages) share the list and its titles. */
+.cm-procedure,.cm-stages{list-style:none;padding:0;counter-reset:cmp;max-width:calc(var(--cm-read) + 56px)}
+.cm-procedure>li,.cm-stages>li{position:relative;display:flex;flex-direction:column;gap:12px;padding:32px 0 32px 56px;border-top:1px solid var(--cm-hairline);counter-increment:cmp}
+.cm-procedure>li:first-child,.cm-stages>li:first-child{border-top:0;padding-top:0}
+.cm-procedure>li:last-child,.cm-stages>li:last-child{padding-bottom:0}
+.cm-procedure>li::before,.cm-stages>li::before{content:counter(cmp,decimal-leading-zero);position:absolute;left:0;top:32px;font-size:18px;font-weight:800;line-height:1.4;font-variant-numeric:tabular-nums}
+.cm-procedure>li:first-child::before,.cm-stages>li:first-child::before{top:0}
 .cm-procedure__title{font-size:18px;font-weight:800;line-height:1.4;letter-spacing:0}
 .cm-procedure__outcome{display:flex;flex-direction:column;gap:8px;margin-top:8px}
 /* Related list: links to other documents or to places in them. The tag names what the item is; the link and one sentence sit beside it. */
@@ -565,8 +559,7 @@ ol.cm-parts.cm-parts--matrix{--n:2}
   .cm-criteria>li>.cm-meta{grid-column:2}
   .cm-sources>li,.cm-changes>li,.cm-versions>li,.cm-limits>li,.cm-criteria>li,.cm-bands>li{row-gap:12px}
   .cm-parts,.cm-scope{grid-template-columns:minmax(0,1fr)}
-  .cm-stages>li{padding-left:36px}
-  .cm-procedure>li{padding-left:44px}
+  .cm-procedure>li,.cm-stages>li{padding-left:44px}
   .cm-related>li{grid-template-columns:minmax(0,1fr);row-gap:8px}
   .cm-related>li>.cm-tag{grid-row:auto;margin-top:0}
   .cm-related>li>a,.cm-related>li>p{grid-column:1}
@@ -598,8 +591,8 @@ ol.cm-parts.cm-parts--matrix{--n:2}
   .cm-collapse{padding:0 24px}
   .cm-grid--2.cm-print-stack,.cm-grid--wide.cm-print-stack{grid-template-columns:minmax(0,1fr)}
   .cm-figure,.cm-kpi,.cm-callout,.cm-def,.cm-qa,.cm-props>dl,.cm-step,.cm-quote,.cm-summary,.cm-code,.cm-timeline>li,.cm-table tr,.cm-status,.cm-disagree,.cm-sources>li,.cm-changes>li,.cm-versions>li,.cm-limits>li,.cm-procedure>li,.cm-related>li,.cm-stages>li,.cm-parts>li,.cm-scope,.cm-facts,.cm-criteria>li,.cm-bands>li,.cm-eval__result{break-inside:avoid}
-  .cm-procedure>li{padding-top:20px;padding-bottom:20px}
-  .cm-procedure>li::before{top:20px}
+  .cm-procedure>li,.cm-stages>li{padding-top:20px;padding-bottom:20px}
+  .cm-procedure>li::before,.cm-stages>li::before{top:20px}
   .cm-figure__title,.cm-section__head,.cm-h3,.cm-h4,.cm-table-title{break-after:avoid}
   .cm-chart svg{width:100%!important;height:auto!important}
   .cm-chart{height:auto!important;min-height:0}

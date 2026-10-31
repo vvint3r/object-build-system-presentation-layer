@@ -451,7 +451,7 @@ pre code{all:unset}
 .cm-workflow,.cm-framework,.cm-model,.cm-method,.cm-req,.cm-eval,.cm-metric{font-size:15px;line-height:1.8}
 :is(.cm-workflow,.cm-framework,.cm-model,.cm-method,.cm-req,.cm-eval,.cm-metric)>*+*:not(.cm-card__title,.cm-sub){margin-top:24px}
 .cm-sub>.cm-label:first-child{display:block;margin-bottom:16px}
-/* facts: two to five short facts about one item, key over value, as the status block sets them */
+/* facts: one to five short facts about one item, key over value, as the status block sets them */
 .cm-facts{display:flex;flex-wrap:wrap;gap:24px 56px}
 .cm-facts>div{display:flex;flex-direction:column;gap:8px;min-width:0}
 .cm-facts dt{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;line-height:1.4}

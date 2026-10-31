@@ -449,7 +449,7 @@ pre code{all:unset}
 .cm-diagram--print .cm-diagram__node{max-width:120px}
 .cm-diagram--print .cm-diagram__node--terminal{max-width:192px;padding:10px 16px}
 .cm-diagram--print .cm-diagram__node--decision{max-width:none;padding:0}
-.cm-data>.cm-olist{margin-top:16px}
+.cm-data>.cm-olist,.cm-data>.cm-list{margin-top:16px}
 
 /* ---------- 18b. Structured components ---------- */
 /* Workflow, framework, model, method, requirement, evaluation and metric detail. Each is a card: kind label, T3 title, then its parts 24px apart in the small text size, as text inside a surface. A labelled part is a .cm-sub whose label sits on a line of its own. */
@@ -487,6 +487,7 @@ ol.cm-parts.cm-parts--matrix{--n:2}
 .cm-list,.cm-olist{list-style:none;padding:0;display:flex;flex-direction:column;gap:14px}
 .cm-list>li{position:relative;padding-left:24px}
 .cm-list>li::before{content:"";position:absolute;left:2px;top:.68em;top:calc(.5lh - 3.5px);width:7px;height:7px;border-radius:var(--cm-r-pill);background:var(--cm-field)}
+.cm-list .cm-list{margin-top:14px}
 .cm-olist{counter-reset:cmo}
 .cm-olist>li{position:relative;padding-left:40px;counter-increment:cmo}
 .cm-olist>li::before{content:counter(cmo,decimal-leading-zero);position:absolute;left:0;top:0;font-weight:800;font-variant-numeric:tabular-nums}

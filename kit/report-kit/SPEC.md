@@ -717,6 +717,44 @@ A component `label` stops at 24 characters and a `detail` at 40, as a flow node'
 
 The text version numbers every component from the top layer down, with its layer and the components it depends on. An empty `aria-label` takes a summary: the number of layers, the top and the base, and the number of components and dependencies.
 
+#### Hierarchy
+
+A hierarchy shows how a whole divides into parts, read left to right: an organisation, a set of categories or a breakdown of work. It has a mode of its own, `data-diagram="hierarchy"`.
+
+```html
+<div class="cm-diagram" data-diagram="hierarchy" role="img" aria-label="">
+  <script type="application/json">
+  {
+    "nodes": [
+      {"id": "all", "label": "All tickets"},
+      {"id": "billing", "label": "Billing", "parent": "all"},
+      {"id": "refunds", "label": "Refunds", "parent": "billing"},
+      {"id": "invoices", "label": "Invoices", "parent": "billing"},
+      {"id": "account", "label": "Account", "parent": "all"},
+      {"id": "sign-in", "label": "Sign-in", "parent": "account"}
+    ]
+  }
+  </script>
+</div>
+```
+
+- The JSON holds `nodes` only. A node holds `id`, `label`, an optional `detail` and `parent`.
+- One node, the root, has no parent. Every other node names a parent that exists, and no node is its own ancestor.
+- The author writes no columns or rows. Children stand top to bottom in the order written, and the ECharts tree layout places them; the kit draws every box and line.
+- Each level is a column, left to right, its boxes as wide as its widest node. Every box takes the height of the tallest.
+- Siblings stand 16px apart. Groups of siblings stand further apart, as the tree layout spaces them.
+- A line runs from a parent's right side along the middle of the gap to each child's left side, 8px clear of both, with rounded elbows. It carries no arrowhead: it means "part of", not a step in a flow.
+- The drawing needs ECharts. Without it, the text version stands alone and the drawing is skipped, as a chart is.
+
+| Item | At most | Reason |
+| --- | --- | --- |
+| Levels | 4 | Four levels of 24-character labels print at full size; five need 81% |
+| Leaves, nodes with no children | 12 | Twelve leaves in three groups print at 83%; in four groups they need less than 80% |
+
+Print is the final test here too: twelve leaves in many small groups fail the page check, and the tree splits. A larger tree splits into an overview of the upper levels and one hierarchy for each branch that needs it. A `label` stops at 24 characters and a `detail` at 40, as a flow node's.
+
+The text version is an indented list: every node once, under its parent. An empty `aria-label` takes a summary: the number of items, levels and leaves, and the parts the root divides into.
+
 ### 8.21 Sources and citations
 
 The source register lists every source a document rests on, and closes the Notes & sources appendix after the notes. A citation ties a claim to its sources; an evidence date says how current a claim is.
@@ -1257,4 +1295,4 @@ Added for reference pages: workflow, framework, model, method, requirement, eval
 
 Added for reports: ECharts chart method and theme; categorical and sequential palettes; dark token set; print rules; report masthead and contents rail; KPI strip; key findings; native tables with sorting and in-cell bars; pull quote; timeline; process diagram; definition, questions and property-sheet blocks; footnotes; collapsible appendix; chart draw-in motion; packaging modes.
 
-Not yet covered: maps, the sequence, state, hierarchy and entity relationship diagram modes, network diagrams, interactive filters, a PDF cover page. Use a figure with `cm-slot` and flag the gap in an HTML comment until these exist.
+Not yet covered: maps, the sequence, state and entity relationship diagram modes, network diagrams, interactive filters, a PDF cover page. Use a figure with `cm-slot` and flag the gap in an HTML comment until these exist.

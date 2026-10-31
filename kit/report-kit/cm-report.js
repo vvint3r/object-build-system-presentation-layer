@@ -1081,6 +1081,125 @@
   }
   DG_MODES['layer-stack'] = { model: dgLayersModel, build: dgLayersBuild, key: dgKey, text: dgLayersText, layout: dgLayout };
 
+  /* ---------- diagrams: hierarchy ---------- */
+  // A hierarchy is a tree read left to right: the root in the first column, each level of children
+  // in the next, and one line from a parent to each child. The author names each node's parent and
+  // writes children in reading order; the ECharts tree layout places them, and the kit draws every
+  // box and line. A level's boxes share its widest width and every box the tallest height. Lines
+  // carry no arrowhead: a line in a hierarchy means "part of", not a step in a flow.
+  var DG_HY = { gap: 16 };
+  function dgTreeModel(spec) {
+    var byId = {}, all = [], root = null, nodes = [], seen = {};
+    list(spec.nodes).forEach(function (n) {
+      if (!n || n.id == null || byId[n.id]) return;
+      var m = { id: String(n.id), type: 'step', label: n.label == null ? '' : String(n.label), detail: n.detail ? String(n.detail) : '',
+        up: n.parent == null ? null : String(n.parent), kids: [] };
+      byId[m.id] = m; all.push(m);
+    });
+    all.forEach(function (n) {
+      if (n.up == null) { if (!root) root = n; }
+      else if (byId[n.up] && n.up !== n.id) byId[n.up].kids.push(n);
+    });
+    var walk = function (n, depth) {
+      seen[n.id] = true; n.depth = depth; nodes.push(n);
+      n.kids = n.kids.filter(function (k) { return !seen[k.id]; });
+      n.kids.forEach(function (k) { k.parent = n; walk(k, depth + 1); });
+    };
+    if (root) walk(root, 0);
+    all.forEach(function (n) { if (!seen[n.id]) console.warn('[cm] a hierarchy draws one tree from one root; this node is not in it', n.id); });
+    var m = { nodes: nodes, root: root, lanes: [], bounds: [], phases: [], scale: [],
+      edges: nodes.filter(function (n) { return n.parent; }).map(function (n) { return { from: n.parent, to: n, kind: 'flow', label: '' }; }),
+      levels: 1 + Math.max.apply(null, [0].concat(nodes.map(function (n) { return n.depth; }))) };
+    m.placed = dgTreeSlots(m);
+    return m;
+  }
+  // The ECharts tree layout, run once off screen: each node's place across the levels (slot), and
+  // the least distance between two nodes of one level (unit), which the drawing sets to a box's
+  // height and the gap.
+  function dgTreeSlots(m) {
+    if (!m.root) return false;
+    if (!window.echarts) { console.warn('[cm] ECharts not loaded; hierarchy shown as text only'); return false; }
+    var data = function (n) { return { name: 'n' + m.nodes.indexOf(n), children: n.kids.map(data) }; };
+    var inst = echarts.init(mk('div'), null, { renderer: 'svg', width: 1000, height: 1000 });
+    try {
+      inst.setOption({ animation: false, series: [{ type: 'tree', data: [data(m.root)], layout: 'orthogonal', orient: 'LR',
+        left: 0, right: 0, top: 0, bottom: 0, symbolSize: 1, expandAndCollapse: false, initialTreeDepth: -1, label: { show: false } }] });
+      inst.getModel().getSeriesByIndex(0).getData().tree.root.eachNode(function (t) {
+        var n = /^n\d+$/.test(t.name) && m.nodes[+t.name.slice(1)], at = t.getLayout();
+        if (n && at) n.slot = at.y;
+      });
+    } finally { inst.dispose(); }
+    if (m.nodes.some(function (n) { return n.slot == null; })) return false;
+    m.unit = 0;
+    for (var lv = 0; lv < m.levels; lv++) {
+      var ys = m.nodes.filter(function (n) { return n.depth === lv; }).map(function (n) { return n.slot; }).sort(function (a, b) { return a - b; });
+      for (var i = 1; i < ys.length; i++) if (ys[i] - ys[i - 1] > 0.5 && (!m.unit || ys[i] - ys[i - 1] < m.unit)) m.unit = ys[i] - ys[i - 1];
+    }
+    m.unit = m.unit || 1;
+    return true;
+  }
+  function dgTreeLayout(d) {
+    var el = d.el, m = d.model, P = printing ? DG_GAP.print : DG_GAP.screen, cv = d.canvas, svg = d.svg;
+    if (!printing && !el.clientWidth) { d.pending = true; return; }
+    d.pending = false;
+    if (!m.placed) return;
+    el.classList.toggle('cm-diagram--print', printing);
+    cv.style.transform = ''; cv.style.marginRight = ''; cv.style.marginBottom = ''; cv.style.width = '4000px'; cv.style.height = '1px';
+    var colW = [], colL = [], h = 0, x = P.pad, bot = 0;
+    m.nodes.forEach(function (n) {
+      var s = n.el.style;
+      s.left = '0px'; s.top = '0px'; s.width = ''; s.height = '';
+      colW[n.depth] = Math.max(colW[n.depth] || 0, even(n.el.offsetWidth));
+      h = Math.max(h, even(n.el.offsetHeight));
+    });
+    for (var i = 0; i < m.levels; i++) { colL[i] = x; x += colW[i] + P.col; }
+    var S = (h + DG_HY.gap) / m.unit, y0 = Math.min.apply(null, m.nodes.map(function (n) { return n.slot; }));
+    m.nodes.forEach(function (n) {
+      n.x = colL[n.depth]; n.w = colW[n.depth]; n.h = h;
+      n.y = P.pad + Math.round((n.slot - y0) * S);
+      bot = Math.max(bot, n.y + h);
+    });
+    var fit = dgFit(d, x - P.col + P.pad, bot + P.pad, true);
+    var X = function (v) { return Math.round(v + fit.ox); }, Y = function (v) { return Math.round(v); };
+    var geo = { scale: fit.scale, ox: fit.ox, W: fit.W, H: fit.H, nodes: [], edges: [], lines: [], lanes: [] };
+    m.nodes.forEach(function (n) {
+      var s = n.el.style;
+      s.left = X(n.x) + 'px'; s.top = Y(n.y) + 'px'; s.width = n.w + 'px'; s.height = n.h + 'px';
+      geo.nodes.push({ id: n.id, type: n.type, el: n.el });
+    });
+    // parent to child: out of the parent's right side, along the middle of the gap, into the child's left
+    m.edges.forEach(function (e) {
+      var a = e.from, c = e.to, ay = a.y + h / 2, cy = c.y + h / 2, mid = a.x + a.w + P.col / 2;
+      var q = dgClean([[a.x + a.w + DG.stand, ay], [mid, ay], [mid, cy], [c.x - DG.stand, cy]]);
+      var p = q.map(function (pt) { return [X(pt[0]), Y(pt[1])]; });
+      var grp = svgEl('g', { 'class': 'cm-diagram__edge cm-diagram__edge--flow', 'data-from': a.id, 'data-to': c.id });
+      grp.appendChild(svgEl('path', { 'class': 'cm-diagram__line', d: dgRound(p, DG.r) }));
+      svg.appendChild(grp);
+      geo.edges.push({ from: a.id, to: c.id, kind: 'flow', label: '', labelEl: null, points: p });
+    });
+    geo.routed = geo.total = m.edges.length;
+    el._cmDiagram = geo;
+  }
+  // The text version is the tree as an indented list, every node once under its parent.
+  function dgTreeText(d) {
+    var m = d.model, stop = function (s) { s = s.trim(); return /[.?!]$/.test(s) ? s : s + '.'; };
+    var item = function (n) {
+      var li = mk('li', null, stop(n.label) + (n.detail ? ' ' + stop(n.detail) : ''));
+      if (n.kids.length) { var ul = mk('ul', 'cm-list'); n.kids.forEach(function (k) { ul.appendChild(item(k)); }); li.appendChild(ul); }
+      return li;
+    };
+    var ul = mk('ul', 'cm-list cm-small');
+    if (m.root) ul.appendChild(item(m.root));
+    if (!(d.el.getAttribute('aria-label') || '').trim() && m.root) {
+      var leaves = m.nodes.filter(function (n) { return !n.kids.length; }).length;
+      d.el.setAttribute('aria-label', 'Hierarchy of ' + dgCount(m.nodes.length, 'item', 'items') + ' in ' + dgCount(m.levels, 'level', 'levels')
+        + ', with ' + dgCount(leaves, 'item', 'items') + ' at the ends of its branches. ' + m.root.label
+        + (m.root.kids.length ? ' divides into ' + dgAnd(m.root.kids.map(function (k) { return k.label; })) : ' has no parts')
+        + '. The text version under the figure lists every item.');
+    }
+    dgTextBox(d, ul);
+  }
+  DG_MODES.hierarchy = { model: dgTreeModel, key: function () { return null; }, text: dgTreeText, layout: dgTreeLayout };
 
   function dgAll() { diagrams.forEach(function (d) { if (d.model) d.mode.layout(d); }); }
   function initDiagrams() {

@@ -25,7 +25,7 @@ export default [
       const PHASE = ['type', 'label', 'col', 'cols'];
       const TYPES = ['terminal', 'step', 'decision', 'store', 'external'];
       const KINDS = ['flow', 'data', 'optional'];
-      const MODES = ['flow', 'sequence', 'state', 'entity-relationship', 'layer-stack'];
+      const MODES = ['flow', 'sequence', 'state', 'entity-relationship', 'layer-stack', 'hierarchy'];
       const pos = v => Number.isInteger(v) && v >= 1;
       const str = v => typeof v === 'string' && v.trim() !== '';
       for (const el of H.source().querySelectorAll('.cm-diagram')) {

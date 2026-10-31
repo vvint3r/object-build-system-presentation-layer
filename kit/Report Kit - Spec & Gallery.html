@@ -1443,7 +1443,8 @@
             </ul>
             <h4 class="cm-h4">Size and print</h4>
             <ul class="cm-list" style="max-width:var(--cm-read)">
-              <li>At most 24 nodes, 5 rows, 5 lanes and 12 edge labels. The width counts 5 at most. Each column counts one, as do the lane names and each gap that holds an edge label. A gap whose label runs past 10 characters counts two. A decision has at most 3 branches.</li>
+              <li>At most 24 nodes, 5 rows, 5 lanes and 12 edge labels. A decision has at most 3 branches.</li>
+              <li>The width counts 5 at most: one for each column, the lane names and each gap holding an edge label. A gap whose label runs past 10 characters counts two.</li>
               <li>A flow past a ceiling splits into an overview and details, or draws its main path and leaves the rarer branches to the text.</li>
               <li>A diagram too wide for its figure or the printed page takes the narrow layout and scales to fit, down to 80%. Its text is set larger, so none draws under 11px.</li>
             </ul>

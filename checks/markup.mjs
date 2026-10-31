@@ -47,7 +47,7 @@ export default [
           : ['<title>{title} · {period}</title>, or the period left out with cm-omit title-period', el => el.matches('title') && / · \S/.test(el.textContent)],
         ['<meta name="cm-kit" content="1.2">', el => el.matches('meta[name="cm-kit"]') && attr(el, 'content') === '1.2'],
         ...(metas.length ? [['<meta name="cm-kind">, after cm-kit', el => el.matches('meta[name="cm-kind"]')]] : []),
-        ['<meta name="cm-id">, after cm-kind', el => el.matches('meta[name="cm-id"]')],
+        ...(ids.length ? [['<meta name="cm-id">, after cm-kind', el => el.matches('meta[name="cm-id"]')]] : []),
         ['theme pre-paint script', el => el.matches('script:not([src])') && same(el.textContent, kit.prepaint)],
         ['preconnect to fonts.googleapis.com', el => el.matches('link[rel="preconnect"]') && attr(el, 'href') === 'https://fonts.googleapis.com'],
         ['preconnect to fonts.gstatic.com, crossorigin', el => el.matches('link[rel="preconnect"][crossorigin]') && attr(el, 'href') === 'https://fonts.gstatic.com'],
@@ -70,6 +70,16 @@ export default [
       if (linked < 0 && !pasted) out.push({ where: 'head', value: 'missing: kit JS (cm-report.js in the head, or pasted as the last element of the body)' });
       else if (linked >= 0 && linked < last) out.push({ where: H.path(kids[linked]), value: `out of order: kit JS comes before ${lastName}` });
       return out;
+    },
+  },
+
+  {
+    // A document made with kit 1.2 before document ids existed has no cm-id tag. It passes with a
+    // warning until kit 2.0, when head-order requires the tag (SPEC §7; §8.31).
+    name: 'doc-id', level: 'warn', source: 'SPEC §7; §8.31', once: true,
+    inPage: () => {
+      const d = window.__cm.source();
+      return d.querySelector('meta[name="cm-id"]') ? [] : [{ where: 'head', value: 'no cm-id tag (required from kit 2.0)' }];
     },
   },
 

@@ -119,7 +119,7 @@ Never stack a shadow with a border except where the class does it. Never nest a 
 
 The kit builds three kinds of document. A **report** sets out what the numbers show and what to do about them. A **guide** takes a reader through one task, step by step. A **reference** describes one thing, such as a metric, a dataset or a system, for a reader to look up.
 
-A `<meta name="cm-kind">` tag in `<head>`, straight after `cm-kit`, names the kind: `report`, `guide` or `reference`. A page without the tag is a report. Each kind starts from its own template (§1 rule 1). A `cm-id` tag follows, naming the document (§8.31). The index page of a document set carries the kind `index`; a script writes it (§8.31).
+A `<meta name="cm-kind">` tag in `<head>`, straight after `cm-kit`, names the kind: `report`, `guide` or `reference`. A page without the tag is a report. Each kind starts from its own template (§1 rule 1). A `cm-id` tag follows, naming the document (§8.31). A page without one passes with a warning until kit 2.0, when the tag becomes required. The index page of a document set carries the kind `index`; a script writes it (§8.31).
 
 ```html
 <meta name="cm-kit" content="1.2">

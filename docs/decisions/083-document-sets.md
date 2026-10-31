@@ -15,7 +15,7 @@ check. Sections 2, 7, 7.1, 8.24, 14 (item 19) and 15 point at it.
 
 | Rule | Spec | Check |
 | --- | --- | --- |
-| Every page carries one `<meta name="cm-id">` after `cm-kind`: lowercase words joined by hyphens | §2, §8.31 | `head-order`, failure |
+| Every page carries one `<meta name="cm-id">` after `cm-kind`: lowercase words joined by hyphens | §2, §7, §8.31 | `head-order`, failure when present and misplaced; `doc-id`, warning when missing |
 | The file name is the kind, a spaced hyphen and a short title; the id is the file name in lowercase with hyphens; neither changes once published | §8.31 | Not checked: a published name is kept as it stands |
 | No two pages in a set share an id; the index page's id is `index` | §8.31 | `doc-ids` (links), failure |
 | A link to another document is its file name, `%20` for a space; a place in it is a section id | §8.31, §8.24 | `links` (links), failure |
@@ -81,5 +81,6 @@ built: the meta line dates each entry, and reports run newest first within an ar
 
 ## Version
 
-The kit stays at 1.2. A document built on 1.2 without a `cm-id` tag now fails `head-order` until it
-adds one. The version for this change is the orchestrating session's call.
+The kit stays at 1.2 until the 2.0 release. A page without a `cm-id` tag passes with a warning
+(`doc-id`), so a document built on 1.2 before ids existed still passes its checks. At kit 2.0 the
+tag becomes required and the warning becomes a `head-order` failure.

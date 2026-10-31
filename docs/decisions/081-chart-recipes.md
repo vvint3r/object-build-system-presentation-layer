@@ -44,7 +44,8 @@ checks are failures, in `checks/recipes.mjs`; `checks/charts.mjs` reads the new 
   chart the value axis takes only the ticks that fit beside that column.
 - **Slope.** Lines are ink; picked-out lines keep their colour and the rest take `$context`. The
   y-axis labels and gridlines are dropped, since the end labels carry every value. The axis spans the
-  data. Labels on each side move apart when they would touch.
+  data. Labels on each side move apart when they would touch. On a narrow chart each period label
+  ends at its own point and reaches outward, so the chart library hides neither.
 - **Distribution.** One distribution series per chart, so each category has one count. A strip shows
   each value as a hollow dot with a fixed spread, so a page draws the same chart every time, and the
   median as an ink mark. A box computes quartiles by linear interpolation and whiskers to 1.5 times

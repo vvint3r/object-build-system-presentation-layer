@@ -345,6 +345,11 @@
     o.grid = o.grid || {};
     o.grid.left = Math.max(o.grid.left || 0, lw + 2 * GAP + 4);
     o.grid.right = Math.max(o.grid.right || 0, rw + 2 * GAP + 4);
+    // on a narrow chart the two period labels would meet between the points: each then ends at its
+    // own point, reaching outward, so both stay
+    var ends = list(xa.data).map(function (d) { return measure(val(d)); });
+    if (ends.length === 2 && inst.getWidth() - o.grid.left - o.grid.right < (ends[0] + ends[1]) / 2 + 2 * GAP)
+      xa.axisLabel = merge(xa.axisLabel, { interval: 0, alignMinLabel: 'right', alignMaxLabel: 'left' });
     out.legendOff = true;
   }
 

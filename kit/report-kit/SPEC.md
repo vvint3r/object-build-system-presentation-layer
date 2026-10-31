@@ -478,7 +478,7 @@ Required parts, each a section with a fixed id, in this order between Properties
 The comparison table follows these rules:
 
 - The recommended column carries `is-rec` on its cells and ★ in its header (§8.11). The caption's note line says what ★ marks.
-- Every option has a measure for every criterion. A blank, a dash or n/a fails. An estimate says so in its cell, as `140 est.`, and the note line says where estimates come from.
+- Every option has a measure for every criterion, so no cell is blank or reads `n/a` (§8.11). An estimate says so in its cell, as `140 est.`, and the note line names its source.
 - Formatted cells carry `data-value`. With 5 or more criteria the table is `data-sortable`, and each option column carries `data-nosort`, since its cells mix units.
 - Weighted scores follow §8.29: one scale, a weight for each criterion and totals in `<tfoot>`.
 

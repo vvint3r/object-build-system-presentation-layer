@@ -70,6 +70,7 @@ Each check fails a broken copy of its worked example: 19 broken copies, every on
 | Application accepts a numbered list or a method | A short framework applies in a few steps; a method (§8.28) suits one with its own decision |
 | A comparison holds 2 to 4 options | More than four options is a survey, not a decision; the page compares a shortlist |
 | Criteria are stated as definition terms named as the table rows | A reader meets each criterion before its measures, and the check ties every row to a stated criterion |
+| No comparison cell reads `n/a`, although §8.11 allows it elsewhere | A criterion that does not apply to every option cannot compare them; it belongs in the option's description |
 | The caption's note line explains ★ and est. | A cold reader could not tell what either marked, and meaning never rests on a symbol alone |
 | With 5 or more criteria the table is sortable by criterion only | §8.11 asks for sorting at 5 rows; option columns mix units, so they carry `data-nosort` |
 | The comparison example shares every overlapping fact with the APAC case study and the gallery's evaluation, and the two documents link to each other | Both describe the same pilot; the Wednesday measure that got worse joins the criteria |

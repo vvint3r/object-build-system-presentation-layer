@@ -457,12 +457,14 @@ const chartsDir = path.dirname(require.resolve('echarts/package.json'));
 put('licenses/echarts-LICENSE.txt', read(path.join(chartsDir, 'LICENSE')));
 put('licenses/echarts-NOTICE.txt', read(path.join(chartsDir, 'NOTICE')));
 // The templates, one per document kind, and the example documents. Each sits at the path it has
-// beside the kit, so its links to report-kit/ resolve inside the bundle too.
+// beside the kit, so its links to report-kit/ resolve inside the bundle too. The kit folder's index
+// page stays out: the format reserves index.html, and a set's index page is written by the index
+// script, never composed (§8.31).
 const kindOf = html => (html.match(/<meta name="cm-kind" content="([^"]+)">/) || [, 'report'])[1];
 const KIT_DIR = path.join(ROOT, 'kit', 'report-kit');
 const templates = readdirSync(KIT_DIR).filter(f => /^template.*\.html$/.test(f)).sort()
   .map(f => ({ file: f, kind: kindOf(read(path.join(KIT_DIR, f))) }));
-const examples = readdirSync(path.join(ROOT, 'kit')).filter(f => f.endsWith('.html') && f !== path.basename(GALLERY)).sort()
+const examples = readdirSync(path.join(ROOT, 'kit')).filter(f => f.endsWith('.html') && f !== path.basename(GALLERY) && f !== 'index.html').sort()
   .map(f => ({ file: f, kind: kindOf(read(path.join(ROOT, 'kit', f))), title: (read(path.join(ROOT, 'kit', f)).match(/<title>([^<]*)<\/title>/) || [])[1] }));
 for (const t of templates) put(`report-kit/${t.file}`, read(path.join(KIT_DIR, t.file)));
 for (const e of examples) put(e.file, read(path.join(ROOT, 'kit', e.file)));

@@ -15,7 +15,7 @@ Kit files (all in `report-kit/`):
 | `template-reference.html` | Reference starter. Copy it for every reference. |
 | `SPEC.md` | This file. |
 
-Human-readable version with live examples and copy-paste markup: `Report Kit - Spec & Gallery.html`. Reference output, one document per kind (§7): `Sample Report - Q3 Support Review.html`, `Guide - Billing Escalation.html` and `Reference - First Response Time.html`.
+Human-readable version with live examples and copy-paste markup: `Report Kit - Spec & Gallery.html`. Reference output, one document per kind (§7): `Sample Report - Q3 Support Review.html`, `Guide - Billing Escalation.html` and `Reference - First Response Time.html`. The three form a document set, and `index.html` lists them (§8.31).
 
 ---
 
@@ -61,7 +61,7 @@ The pack tool (`tools/pack.mjs`) writes the offline form of a page in either oth
 
 The file makes no network request. Characters outside the Latin subset fall back to a system face.
 
-Required `<head>` (copy from the kind's template, in this order): charset, viewport, `<title>{Report title} · {Period}</title>` (`<title>{Title}</title>` for a guide, a reference, or a report that covers no period, §7), `<meta name="cm-kit" content="1.2">`, `<meta name="cm-kind" content="{kind}">` naming the kind (`report`, `guide` or `reference`; a page without it is a report, §7), the inline theme pre-paint script, font preconnects + Google Fonts link (Nunito 300 to 900 + italic 300/400, JetBrains Mono 400/600/700; offline: the font `<style>` in their place), kit CSS, ECharts 5.5.1, kit JS. `<html lang>` **MUST** be set.
+Required `<head>` (copy from the kind's template, in this order): charset, viewport, `<title>{Report title} · {Period}</title>` (`<title>{Title}</title>` for a guide, a reference, or a report that covers no period, §7), `<meta name="cm-kit" content="1.2">`, `<meta name="cm-kind" content="{kind}">` naming the kind (`report`, `guide` or `reference`; a page without it is a report, §7), `<meta name="cm-id" content="{id}">` naming the document (§8.31), the inline theme pre-paint script, font preconnects + Google Fonts link (Nunito 300 to 900 + italic 300/400, JetBrains Mono 400/600/700; offline: the font `<style>` in their place), kit CSS, ECharts 5.5.1, kit JS. `<html lang>` **MUST** be set.
 
 ## 3. Tokens
 
@@ -133,11 +133,12 @@ Never stack a shadow with a border except where the class does it. Never nest a 
 
 The kit builds three kinds of document. A **report** sets out what the numbers show and what to do about them. A **guide** takes a reader through one task, step by step. A **reference** describes one thing, such as a metric, a dataset or a system, for a reader to look up.
 
-A `<meta name="cm-kind">` tag in `<head>`, straight after `cm-kit`, names the kind: `report`, `guide` or `reference`. A page without the tag is a report. Each kind starts from its own template (§1 rule 1).
+A `<meta name="cm-kind">` tag in `<head>`, straight after `cm-kit`, names the kind: `report`, `guide` or `reference`. A page without the tag is a report. Each kind starts from its own template (§1 rule 1). A `cm-id` tag follows, naming the document (§8.31). A page without one passes with a warning until kit 2.0, when the tag becomes required. The index page of a document set carries the kind `index`; a script writes it (§8.31).
 
 ```html
 <meta name="cm-kit" content="1.2">
 <meta name="cm-kind" content="guide">
+<meta name="cm-id" content="guide-billing-escalation">
 ```
 
 | Kind | Type chip | Required parts, in order | Never carries |
@@ -150,9 +151,9 @@ Every kind shares the top bar, contents rail, masthead, Notes & sources and foot
 
 ### 7.1 Shared blocks
 
-1. **Top bar** (required): `.cm-topbar` with the wordmark (publisher, lowercase-hyphenated), one series chip and the theme toggle. A print button after the toggle is optional, added only when the document is asked to carry one: `<button class="cm-btn cm-btn--secondary cm-btn--sm" type="button" data-cm-print>Print / PDF</button>`. Browser printing works without it (§12).
+1. **Top bar** (required): `.cm-topbar` with the wordmark (publisher, lowercase-hyphenated), one series chip and the theme toggle. A print button after the toggle is optional, added only when the document is asked to carry one: `<button class="cm-btn cm-btn--secondary cm-btn--sm" type="button" data-cm-print>Print / PDF</button>`. Browser printing works without it (§12). In a document set, the wordmark links to the set's index page (§8.31).
 2. **Contents rail** (recommended; required at ≥ 4 sections): one link per section id. Numbers `01…`, appendices `A`, `B`.
-3. **Masthead** (required): breadcrumb, `.cm-bar`, title, dek (one sentence), then `dl.cm-mast__meta` with one `<div><dt>Label</dt><dd>Value</dd></div>` per field, then `dl.cm-byline`. Labels name the value; never leave a value unlabelled.
+3. **Masthead** (required): breadcrumb from set to area to document (§8.31), `.cm-bar`, title, dek (one sentence), then `dl.cm-mast__meta` with one `<div><dt>Label</dt><dd>Value</dd></div>` per field, then `dl.cm-byline`. Labels name the value; never leave a value unlabelled.
    - Title: 4 to 10 words, 22 characters a line at most. A reference's title is the name of the thing it describes, 1 to 10 words.
    - Status: the type chip for the kind (table above); a status chip, Draft `cm-chip`, In review `cm-chip--warn` or Final `cm-chip--ok`; an optional `cm-chip--note` “Sample data” or “Preliminary”.
    - Period `YYYY-MM-DD → YYYY-MM-DD`: reports only. A guide or a reference has no Period field.
@@ -735,6 +736,8 @@ The steps a reader carries out, in order: a guide's Steps section (§7.3). The C
 
 Links to other documents, or to places in them, with how each relates. The tag names what the item is, from a closed set: `Report`, `Guide`, `Reference`, `Metric`, `Dataset`, `System`. The link text is the item's title. The sentence says what the reader finds there that bears on this document. Guides close with one in Related documents (§7.3); a reference's Relationships section holds one (§7.4). Below 640px the tag stacks above the link.
 
+Each link is an address (§8.31): the document's file name, and a section id after `#` for a place in it. On a set's index page each item closes with a meta line, `span.cm-meta`, holding the document's status and published date. Documents leave the meta line out, since a date copied from another document goes stale.
+
 ### 8.25 Workflow
 
 A workflow sets out how work moves between roles or stages, in order: the role that does each stage, what the stage takes in and produces, and the condition that hands the work on. A reader works through it, or looks up one stage.
@@ -942,6 +945,84 @@ A metric detail is the reference entry for one measure: what it counts, its form
 - The KPI strip (§8.2) gives the value for a period, its change and its target; the metric detail defines what that value means.
 - A property sheet (§8.7) holds facts about any one thing; the metric detail holds one, with the keys a metric needs. A definition (§8.5) explains a term in a sentence or two; a metric detail is for a measure the page reports or judges against thresholds. A known limit of the metric is a limitation callout after the block (§8.4).
 
+### 8.31 Document sets
+
+A document set is the documents in one folder, with an index page that lists them. An area is a subject within the set, such as billing; it groups documents of every kind. Addresses, the breadcrumb and the index page tie a set together, and a check over the folder keeps its links whole.
+
+#### Address
+
+Every document names itself in `<head>`, straight after `cm-kind`:
+
+```html
+<meta name="cm-kind" content="guide">
+<meta name="cm-id" content="guide-billing-escalation">
+```
+
+- The file name is the kind, a spaced hyphen, and a short title of two to five words in title case: `Guide - Billing Escalation.html`.
+- The id is the file name without `.html`, in lowercase, with a hyphen for each run of spaces and punctuation. The index page's id is `index`.
+- File name and id are set when the document is first published and never change. No two documents in a set share an id.
+- The documents of a set sit side by side in one folder, so a link between them carries no path. A link to another document is its file name, with each space written `%20` and each `&` written `%26`.
+- A link to a place in another document adds `#` and a section id: `Guide%20-%20Billing%20Escalation.html#steps`. Links between documents name sections only. Ids inside a section, such as those of figures, tables, notes and citations, can change between versions.
+- A section id never changes once the document is published: the part ids of a guide and a reference are fixed (§7.3, §7.4), and a report's are stable (§7.1).
+
+#### Breadcrumb
+
+The breadcrumb runs from the set to the area to the document. Each step links to its page where one exists.
+
+```html
+<nav class="cm-crumbs" aria-label="Breadcrumb">
+  <a href="index.html">Support operations</a><span class="sep" aria-hidden="true">/</span>
+  <a href="index.html#billing">Billing</a><span class="sep" aria-hidden="true">/</span>
+  <span aria-current="page">Billing escalation</span>
+</nav>
+```
+
+- The set step names the set and links to the index page, `index.html`. Every document in a set names the same set.
+- The area step names the area and links to its section on the index page: `index.html#` and the area id, the area name in lowercase with hyphens. Documents on one subject share an area.
+- The last step is the document's short title, a `span` with `aria-current="page"`. No step links to the page it sits on.
+- A document outside a set writes its set and area steps as `span` elements, since neither has a page to link to.
+- In a set, the top bar's wordmark links to `index.html` as well, so the index is one step away from any point in a document. Outside a set, and on the index page, it links to `#top`.
+
+#### Index page
+
+The index page, `index.html`, lists every document in the set by area, with one index entry each. A script writes it from the documents, and it is never edited by hand:
+
+```
+npm run index -- <folder>
+```
+
+```html
+<ul class="cm-related">
+  <li><span class="cm-tag">Guide</span><a href="Guide%20-%20Billing%20Escalation.html">Billing ticket escalation to specialists</a><p>How a Tier 1 agent hands a billing ticket to the billing specialists and follows it to resolution.</p><span class="cm-meta">Final · published <time datetime="2026-10-19">2026-10-19</time></span></li>
+</ul>
+```
+
+- The script reads each document's kind, id, title, dek, status, published date and breadcrumb. When one lacks any of these, or two documents share an id, it lists the problems and writes nothing.
+- The page carries the kind `index`. Its masthead holds the set as its one breadcrumb step and its title, a dek, and three fields: Status (the type chip `Index`), Documents and Updated. Updated is the newest published date among the documents.
+- The index page has no byline and no Notes & sources: its entries are the documents themselves. Its footer holds the set's name, the document count and Updated date, the publisher and the kit.
+- Each area is a section, A to Z, numbered `Part 01` onwards, with the area name as its title and the area id as its id. It holds one related list (§8.24) and nothing else. The contents rail lists the areas.
+- Each index entry is a related-list item: the kind as its tag, the title as its link, the dek as its sentence, and a meta line with the status and published date.
+- Within an area, reports come first, newest first; then guides, then references, each A to Z by title.
+- The index quotes each dek, so a set's deks keep the index page within §13.1: 150 words for an area, and 18 words a sentence on average. A dek of 18 words or fewer meets both. Past either limit, the script names the deks to shorten or the area to split.
+
+#### Link check
+
+```
+npm run links -- <folder>
+```
+
+Run on a set's folder after the index page is rewritten. It fails when:
+
+- a page lacks its id, or two pages share one;
+- a document's breadcrumb or wordmark does not link to the index page and the document's area;
+- a link points at a file that does not exist, or at an id its target lacks;
+- a link to another page names an id that is not a section's;
+- `index.html` differs from what the script writes from the documents as they stand.
+
+The link rules cover every page in the folder, the gallery among them; only kit pages carry an id and a breadcrumb. Links to other sites are not followed. The page checks (§14) run on each page as before, the index page among them.
+
+The kit has no search, faceted browse or version selector, since each needs a server. In a set, the index page and the breadcrumb lead to a document, and the change log and revision history say what changed in it (§8.22).
+
 ## 9. Charts
 
 **Method:** ECharts 5.5.1, SVG renderer, option JSON inside `<script type="application/json">` within `.cm-chart[data-chart]`. Agents **MUST NOT** call `echarts.init` or write chart JavaScript. The JSON **MUST** be valid JSON (double quotes, no comments, no functions, no trailing commas).
@@ -1113,6 +1194,7 @@ Headings are `h1` to `h6` and table titles.
 16. `cm-kind` names the kind, or is absent for a report. A guide or a reference has its required parts in order, each with its id, or their omission comments (§7.3 to §7.5). Every procedure step closes with its outcome; every related item has a tag, a link and a sentence.
 17. Every diagram: JSON within the flow fields and capacity, a label on every decision branch, `role="img"`, a caption with a source line, and nothing overlapping or clipped in light, dark and print (§8.20).
 18. Each structured component opens with its kind label and title and holds its required parts within its counts and limits (§8.25 to §8.30).
+19. `cm-id` names the document. The breadcrumb runs from set to area to document. In a set, every link names a file and a section id, the index page is rewritten, and `npm run links` passes on the folder (§8.31).
 
 ## 15. Changes from Content Morphia Foundations
 
@@ -1144,6 +1226,8 @@ Changed in 1.2:
 Added for guides and references: document kinds (§7), procedure (§8.23), related list (§8.24).
 
 Added for reference pages: workflow, framework, model, method, requirement, evaluation and metric detail (§8.25 to §8.30).
+
+Added for document sets: document ids and addresses, the breadcrumb from set to area to document, the generated index page and the link check (§8.31).
 
 Added for reports: ECharts chart method and theme; categorical and sequential palettes; dark token set; print rules; report masthead and contents rail; KPI strip; key findings; native tables with sorting and in-cell bars; pull quote; timeline; process diagram; definition, questions and property-sheet blocks; footnotes; collapsible appendix; chart draw-in motion; packaging modes.
 

@@ -523,6 +523,8 @@ ol.cm-parts.cm-parts--matrix{--n:2}
 .cm-related>li>.cm-tag{grid-row:1 / span 2;justify-self:start;margin-top:3px}
 .cm-related>li>a{grid-column:2;justify-self:start;font-weight:700}
 .cm-related>li>p{grid-column:2}
+/* On a set's index page each item closes with a meta line: the document's status and published date. */
+.cm-related>li>.cm-meta{grid-column:2}
 
 /* ---------- 20. Collapsible (appendix) ---------- */
 .cm-collapse{background:var(--cm-surface);border-radius:var(--cm-r-card);box-shadow:var(--cm-s2);padding:0 32px}
@@ -609,7 +611,7 @@ ol.cm-parts.cm-parts--matrix{--n:2}
   .cm-procedure>li,.cm-stages>li{padding-left:44px}
   .cm-related>li{grid-template-columns:minmax(0,1fr);row-gap:8px}
   .cm-related>li>.cm-tag{grid-row:auto;margin-top:0}
-  .cm-related>li>a,.cm-related>li>p{grid-column:1}
+  .cm-related>li>a,.cm-related>li>p,.cm-related>li>.cm-meta{grid-column:1}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 

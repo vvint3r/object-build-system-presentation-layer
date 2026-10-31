@@ -6,6 +6,8 @@
   "scripts": {
     "preview": "node tools/preview.mjs",
     "check": "node checks/run.mjs",
+    "index": "node tools/index.mjs",
+    "links": "node checks/links.mjs",
     "pack": "node tools/pack.mjs",
     "bundle": "node tools/bundle.mjs",
     "bundle:check": "node tools/bundle-check.mjs"

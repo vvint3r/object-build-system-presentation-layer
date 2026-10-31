@@ -1,7 +1,8 @@
 // Document kinds: the required parts of a guide and of a reference (SPEC.md sections 7.3 to 7.5), and
 // the two components those kinds add, the procedure (section 8.23) and the related list (section
-// 8.24). Read on the page as written. Each in-page function is self-contained, so helpers are
-// repeated inside it. A report's anatomy is checked in checks/structure.mjs.
+// 8.24); and the parts of a set's index page (section 8.31). Read on the page as written. Each
+// in-page function is self-contained, so helpers are repeated inside it. A report's anatomy is
+// checked in checks/structure.mjs.
 
 export default [
   {
@@ -63,6 +64,54 @@ export default [
   },
 
   {
+    // An index page lists a set's documents by area: one section per area, holding one related list
+    // and nothing else, areas A to Z. Every entry is a document: its kind as the tag, a link to a
+    // file, its dek as the sentence, and a meta line with its status and its published date. The
+    // masthead's Documents and Updated fields agree with the entries. Whether the entries match the
+    // documents in the folder is checked across the folder (checks/links.mjs).
+    name: 'index-anatomy', level: 'fail', source: 'SPEC §8.31', once: true, kinds: ['index'],
+    inPage: ({ check }) => {
+      const H = window.__cm, d = H.source(), out = [];
+      const main = d.querySelector('main') || d.body;
+      const sections = [...main.querySelectorAll('section.cm-section')].filter(s => !H.exempt(s, check) && !s.parentElement.closest('section'));
+      if (!sections.length) out.push({ where: 'main', value: 'no area sections' });
+      const TAGS = ['Report', 'Guide', 'Reference'];
+      const STATES = ['Draft', 'In review', 'Final'];
+      const dates = [];
+      let entries = 0, prev = '';
+      for (const s of sections) {
+        const body = s.querySelector(':scope > .cm-section__body');
+        const kids = body ? [...body.children] : [];
+        if (kids.length !== 1 || !kids[0].matches('ul.cm-related')) { out.push({ where: H.path(s), value: 'the area section does not hold one related list (ul.cm-related) and nothing else' }); continue; }
+        const name = H.text(s.querySelector('h2') || s);
+        if (prev && prev.localeCompare(name, 'en', { sensitivity: 'base' }) > 0) out.push({ where: H.path(s), value: `"${name}" comes after "${prev}" (areas A to Z)` });
+        prev = name;
+        for (const li of kids[0].children) {
+          entries++;
+          const tag = li.querySelector(':scope > .cm-tag');
+          const a = li.querySelector(':scope > a');
+          const meta = li.querySelector(':scope > .cm-meta');
+          if (tag && !TAGS.includes(H.text(tag))) out.push({ where: H.path(tag), value: `tag "${H.text(tag)}" (an entry is a document: ${TAGS.join(', ')})` });
+          if (a && /^#/.test(a.getAttribute('href') || '')) out.push({ where: H.path(a), value: 'the entry links within the index page, not to a document' });
+          if (!meta || li.lastElementChild !== meta) { out.push({ where: H.path(li), value: 'the entry does not close with its meta line (.cm-meta)' }); continue; }
+          const time = meta.querySelector('time[datetime]');
+          const state = STATES.find(w => H.text(meta).startsWith(w + ' '));
+          if (!state) out.push({ where: H.path(meta), value: `meta line "${H.text(meta)}" does not open with the status (${STATES.join(', ')})` });
+          if (!time) out.push({ where: H.path(meta), value: 'no published date (<time datetime>)' });
+          else dates.push(time.getAttribute('datetime'));
+        }
+      }
+      for (const k of d.querySelectorAll('.cm-kpis')) if (!H.exempt(k, check)) out.push({ where: H.path(k), value: 'a KPI strip on an index page (none)' });
+      const field = k => { const dt = [...d.querySelectorAll('.cm-mast__meta dt')].find(x => H.text(x) === k); return dt && dt.nextElementSibling ? H.text(dt.nextElementSibling) : null; };
+      const count = field('Documents'), updated = field('Updated');
+      if (count !== null && count !== String(entries)) out.push({ where: 'dl.cm-mast__meta', value: `Documents "${count}" where the page lists ${entries}` });
+      const newest = dates.sort().pop();
+      if (updated !== null && newest && updated !== newest) out.push({ where: 'dl.cm-mast__meta', value: `Updated "${updated}" where the newest entry is ${newest}` });
+      return out;
+    },
+  },
+
+  {
     // A procedure is an ordered list of steps. Each step opens with its title, a heading, carries
     // what to do, and closes with its outcome: the label "Outcome" on a line of its own, then the
     // outcome sentence. A procedure never sits inside another.
@@ -99,7 +148,7 @@ export default [
   {
     // Every item of a related list carries a tag from the closed set that names what the item is, a
     // link to it, and one sentence on how it relates. A link to a place in the page points at an
-    // element that exists.
+    // element that exists. Links to other files are resolved across the folder (checks/links.mjs).
     name: 'related', level: 'fail', source: 'SPEC §8.24', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, d = H.source(), out = [];

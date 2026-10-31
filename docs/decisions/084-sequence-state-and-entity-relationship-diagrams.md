@@ -72,7 +72,7 @@ kit made it in light, dark and print.
 - **Entity size.** An entity takes the width of its longest attribute and the height of its list.
   Entities in one column share a width; heights stay their own.
 - **Capacity.** Ceilings come from print, measured with the longest text each limit allows. A state
-  diagram of 5 columns draws 972px wide and prints at 778px at 80%, over the 632px column. A sequence
+  diagram of 5 columns draws 948px wide and prints at 758px at 80%, over the 632px column. A sequence
   of 5 participants with three-word messages draws 924px wide, 739px at 80%. An entity relationship
   diagram of 3 columns draws 920px wide, 736px at 80%; 4 rows of six-attribute entities draw 1048px
   tall, 838px at 80%, over the 720px page height; 2 columns and 3 rows of six 24-character

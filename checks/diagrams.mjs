@@ -184,28 +184,77 @@ export default [
   },
 
   {
-    // The flow mode's capacity: 24 nodes, 5 columns (4 with lanes, whose names take a column's
-    // width), 5 rows, 5 lanes, 2 boundaries and 12 edge labels in one diagram, and one emphasised
-    // node. A diagram past a ceiling splits into an overview and details.
-    name: 'diagram-capacity', level: 'fail', source: 'SPEC §8.20', once: true,
+    // The flow mode's capacity, counted from the JSON (SPEC §8.20): 24 nodes, 5 rows, 5 lanes,
+    // 2 boundaries, 12 edge labels and one emphasised node. The width counts 5 at most: 1 for each
+    // column, 1 for the lane names, and 1 for each gap between columns that holds an edge label, 2
+    // when its longest label runs past 10 characters. A decision has at most 3 branches, 2 in the
+    // first or last row (column, in a flow that reads down). At most 2 columns hold a terminal
+    // label past 13 characters or a decision label past 12, and none when the width counts 5.
+    // Template placeholders ({{ }}) are not measured.
+    name: 'diagram-capacity', level: 'fail', source: 'SPEC §8.20; §14 item 17', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, out = [];
+      const ph = t => typeof t === 'string' && /\{\{/.test(t);
       for (const el of H.source().querySelectorAll('.cm-diagram[data-diagram="flow"]')) {
         if (H.exempt(el, check)) continue;
         let d;
         try { d = JSON.parse(el.querySelector('script[type="application/json"]').textContent); } catch (e) { continue; }
         const where = H.path(el), nodes = (Array.isArray(d.nodes) ? d.nodes : []).filter(Boolean);
         const edges = (Array.isArray(d.edges) ? d.edges : []).filter(Boolean), groups = (Array.isArray(d.groups) ? d.groups : []).filter(Boolean);
+        const down = d.direction === 'down';
         const cols = Math.max(0, ...nodes.map(n => n.col || 0), ...groups.filter(g => g.type === 'boundary').map(g => (g.col || 1) + (g.cols || 1) - 1));
         const rows = Math.max(0, ...nodes.map(n => n.row || 0), ...groups.map(g => (g.row || 1) + (g.rows || 1) - 1));
         const lanes = groups.filter(g => g.type === 'lane').length;
+        const byId = new Map(nodes.map(n => [String(n.id), n]));
+        const labelled = e => typeof e.label === 'string' && e.label.trim();
+        const col = n => n.col || 1, row = n => n.row || 1;
+
+        // Gaps between columns that hold an edge label, each with its longest label. In a flow that
+        // reads right, a label stands in the gap beside its node when its edge joins two nodes of one
+        // row, or runs forward to another row while no edge from the same node runs forward along
+        // its row. In a flow that reads down, every labelled edge between two columns counts.
+        const gaps = new Map();
+        for (const e of edges) {
+          if (!labelled(e) || ph(e.label)) continue;
+          const a = byId.get(String(e.from)), b = byId.get(String(e.to));
+          if (!a || !b || col(a) === col(b)) continue;
+          const sameRow = row(a) === row(b), forward = col(b) > col(a);
+          let counts;
+          if (down || sameRow) counts = true;
+          else counts = forward && !edges.some(f => f !== e && String(f.from) === String(e.from) && byId.get(String(f.to))
+            && row(byId.get(String(f.to))) === row(a) && col(byId.get(String(f.to))) > col(a));
+          if (!counts) continue;
+          const gap = forward ? col(a) : col(a) - 1;
+          gaps.set(gap, Math.max(gaps.get(gap) || 0, e.label.trim().length));
+        }
+        const gapCount = [...gaps.values()].reduce((t, len) => t + (len > 10 ? 2 : 1), 0);
+        const width = cols + (lanes ? 1 : 0) + gapCount;
+        const parts = [`${cols} column${cols === 1 ? '' : 's'}`, ...(lanes ? ['1 for the lane names'] : []),
+          ...[...gaps.entries()].sort((x, y) => x[0] - y[0]).map(([g, len]) => `${len > 10 ? 2 : 1} for the labelled gap after column ${g}`)];
+
         const counts = [
-          ['nodes', nodes.length, 24], [lanes ? 'columns with lanes' : 'columns', cols, lanes ? 4 : 5], ['rows', rows, 5],
+          ['nodes', nodes.length, 24], ['rows', rows, 5],
           ['lanes', lanes, 5], ['boundaries', groups.filter(g => g.type === 'boundary').length, 2],
-          ['edge labels', edges.filter(e => typeof e.label === 'string' && e.label.trim()).length, 12],
+          ['edge labels', edges.filter(labelled).length, 12],
           ['emphasised nodes', nodes.filter(n => n.emphasis).length, 1],
         ];
         for (const [what, n, max] of counts) if (n > max) out.push({ where, value: `${n} ${what} (at most ${max})` });
+        if (width > 5) out.push({ where, value: `width counts ${width}: ${parts.join(', ')} (at most 5)` });
+
+        // A decision sends each branch out of a side of its own.
+        const edgeRows = down ? cols : rows;
+        for (const n of nodes.filter(x => x.type === 'decision')) {
+          const branches = edges.filter(e => String(e.from) === String(n.id)).length;
+          const outer = down ? (col(n) === 1 || col(n) === edgeRows) : (row(n) === 1 || row(n) === edgeRows);
+          const max = outer ? 2 : 3;
+          if (branches > max) out.push({ where, value: `decision "${n.id}" has ${branches} branches (at most ${max}${outer ? `, in the ${down ? 'first or last column' : 'first or last row'}` : ''}; past that, two decisions in a row)` });
+        }
+
+        // Long terminal and decision labels widen their columns.
+        const wide = new Set(nodes.filter(n => !ph(n.label) && typeof n.label === 'string'
+          && ((n.type === 'terminal' && n.label.trim().length > 13) || (n.type === 'decision' && n.label.trim().length > 12))).map(col));
+        const max = width >= 5 ? 0 : 2;
+        if (wide.size > max) out.push({ where, value: `${wide.size} column${wide.size === 1 ? '' : 's'} (${[...wide].sort((x, y) => x - y).join(', ')}) widened by a terminal label past 13 characters or a decision label past 12 (at most ${max}${width >= 5 ? ', since the width counts 5' : ''})` });
       }
       return out;
     },

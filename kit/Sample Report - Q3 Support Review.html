@@ -277,11 +277,11 @@
             <script type="application/json">
             {
               "nodes": [
-                {"id": "arrive", "type": "terminal", "label": "Ticket arrives", "col": 1, "row": 1},
-                {"id": "channel", "type": "decision", "label": "Which channel?", "col": 2, "row": 1},
+                {"id": "arrive", "type": "terminal", "label": "New ticket", "col": 1, "row": 1},
+                {"id": "channel", "type": "decision", "label": "Channel?", "col": 2, "row": 1},
                 {"id": "classify", "type": "step", "label": "Intent classifier", "detail": "Billing, technical or account queue", "col": 3, "row": 1},
                 {"id": "shared", "type": "step", "label": "Shared queue", "detail": "One queue for every topic", "col": 3, "row": 2},
-                {"id": "agent", "type": "terminal", "label": "Agent picks it up", "col": 4, "row": 1}
+                {"id": "agent", "type": "terminal", "label": "With an agent", "col": 4, "row": 1}
               ],
               "edges": [
                 {"from": "arrive", "to": "channel"},

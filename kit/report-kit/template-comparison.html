@@ -32,6 +32,7 @@
 
 <header class="cm-topbar">
   <div class="cm-topbar__in">
+    <!-- Wordmark: the publisher, or the team or role in Prepared by when the source names none. Series chip: the series, or the page type or kind when none is named (SPEC.md §7.1). -->
     <a class="cm-wordmark" href="index.html">{{ publisher-name }}</a>
     <span class="cm-chip">{{ Reference series }}</span>
     <div class="cm-topbar__actions">
@@ -65,6 +66,7 @@
     <!-- MASTHEAD (required). The title is the name of the thing. No Period field in a reference. -->
     <header class="cm-mast">
       <nav class="cm-crumbs" aria-label="Breadcrumb">
+        <!-- Standing alone, the set and area steps are <span>s. When the source names no set, the set step and its separator give way to cm-omit set (SPEC.md §8.31). -->
         <a href="index.html">{{ Document set }}</a><span class="sep" aria-hidden="true">/</span>
         <a href="index.html#{{ area-id }}">{{ Area }}</a><span class="sep" aria-hidden="true">/</span>
         <span aria-current="page">{{ Short title }}</span>
@@ -72,14 +74,14 @@
       <div class="cm-bar" aria-hidden="true"></div>
       <h1 class="cm-mast__title">{{ Name of the thing }}</h1>
       <p class="cm-mast__dek">{{ One sentence: what the thing is and who uses it. }}</p>
-      <!-- METADATA: Status chips: Draft = cm-chip, In review = cm-chip--warn, Final = cm-chip--ok -->
+      <!-- METADATA: Status chips: Draft = cm-chip, In review = cm-chip--warn, Final = cm-chip--ok. The status chip reads Draft until the owner approves the document, and Draft when the source states no status. Published is the version\'s effective date when the source gives one. These fields are the whole list (SPEC.md §7.1). -->
       <dl class="cm-mast__meta">
         <div><dt>Status</dt><dd><span class="cm-chip">Reference</span><span class="cm-chip cm-chip--ok">{{ Final }}</span></dd></div>
         <div><dt>Published</dt><dd>{{ YYYY-MM-DD }}</dd></div>
         <div><dt>Reading time</dt><dd>{{ N }} min</dd></div>
         <div><dt>Version</dt><dd>{{ 1.0 }}</dd></div>
       </dl>
-      <!-- BYLINE: Distribution names the readers the document is for. When they are not known, the field gives way to an omission comment, cm-omit distribution (SPEC.md §7.5). -->
+      <!-- BYLINE: Prepared by, then Reviewed by when the source names a reviewer, then Distribution. Prepared by names the owner when the source names no preparer. Distribution names the readers the document is for; when they are not known, the field gives way to an omission comment, cm-omit distribution (SPEC.md §7.1, §7.5). -->
       <dl class="cm-byline">
         <div><dt>Prepared by</dt><dd>{{ Team or author }}</dd></div>
         <div><dt>Distribution</dt><dd>{{ Audience }}</dd></div>
@@ -224,7 +226,7 @@
       </div>
     </section>
 
-    <!-- 08 RELATIONSHIPS (required). Tag: Report | Guide | Reference | Metric | Dataset | System -->
+    <!-- 08 RELATIONSHIPS (required). Tag: Report | Guide | Reference | Metric | Dataset | System. Documents of the kit only: a policy, dataset or system with no page in the kit is named in the text and cited (SPEC.md §8.24). -->
     <section class="cm-section" id="relationships" aria-labelledby="relationships-t">
       <header class="cm-section__head">
         <span class="cm-section__num">Part 08</span>
@@ -240,7 +242,7 @@
       </div>
     </section>
 
-    <!-- 09 EXAMPLES (required): worked cases, one h3 each -->
+    <!-- 09 EXAMPLES (required): worked cases, one h3 each. Cases made up to show the rules say so in the lede, with the word illustrative. -->
     <section class="cm-section" id="examples" aria-labelledby="examples-t">
       <header class="cm-section__head">
         <span class="cm-section__num">Part 09</span>
@@ -262,6 +264,7 @@
         <h2 class="cm-section__title" id="sources-t">Notes &amp; sources</h2>
       </header>
       <div class="cm-section__body">
+        <!-- NOTES: left out, heading and all, when the document has no notes (SPEC.md §7.1). -->
         <div class="cm-stack">
           <h3 class="cm-h4">Notes</h3>
           <ol class="cm-notes">

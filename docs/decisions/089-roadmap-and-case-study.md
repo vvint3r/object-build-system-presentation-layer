@@ -67,7 +67,8 @@ page of another type, so it is inert on every other page whether or not the runn
 | The goal must carry a year | "Reach the goal" without a date is not a plan; a year is the least a check can confirm without parsing every date form |
 | Both type checks are failures, not warnings | Each rule is structural and measurable; a page that breaks one does not have the type's parts |
 | The templates carry a Recommendations card and no footnote, spark line or flagged row | A copied template then starts with only the masthead and top-bar placeholder failures, as the guide and reference templates do |
-| The worked examples follow on from the sample report: routing email (its first recommendation) and staffing APAC weekends (its weekend gap) | The set reads as one organisation; overlapping numbers (55%, 88.3%, 86.9%, 96.1%, 27%, 3h 20m against 2h 31m, 9h 40m) are the sample's, and the Monday queue's fall from 212 to 96 is the gallery's |
+| The worked examples follow on from the sample report: routing email (its first recommendation) and staffing APAC weekends (its weekend gap) | The set reads as one organisation; overlapping facts are the sample's (55%, 88.3%, 86.9%, 96.1%, 27%, 9h 40m, the 95% target, Billing v4 raising billing contacts 31%, the 2 November specialist date, the pilot starting 16 September), and the Monday queue's fall from 212 to 96 is the gallery's |
+| The pilot begins on 16 September and its first staffed weekend is 19 September | The sample dates the pilot from 16 September; the case study keeps that date and names the first weekend, so the two documents agree |
 | Figures the sample does not hold are new to the examples, each with its own fictional source, under the Sample data chip | The page-types contract allows new facts that contradict none of the existing documents |
 | The subsections sit after §7.5 as §7.14 and §7.15 | The page-types contract fixes the numbers; §7.6 to §7.13 come from the other sessions |
 

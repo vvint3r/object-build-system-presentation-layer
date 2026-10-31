@@ -218,9 +218,9 @@
               <div class="cm-t5">Item title</div>
               <div class="cm-body">Body on the page · 16 / 400 / 1.9</div>
               <div class="cm-small">Body in a container · 15 / 400 / 1.8</div>
-              <div class="cm-label">Label · 10 / 800 / caps / +0.08em</div>
-              <div><span class="cm-chip">Chip · 9 / 800 / caps / +0.08em</span></div>
-              <div><span class="cm-delta">Delta · 10 / 800 / as written · −50s</span></div>
+              <div class="cm-label">Label · 11 / 800 / caps / +0.06em</div>
+              <div><span class="cm-chip">Chip · 11 / 800 / caps / +0.06em</span></div>
+              <div><span class="cm-delta">Delta · 11 / 800 / as written · −50s</span></div>
               <div class="cm-meta">Meta · 13 / 400 · refreshed 2026-10-05</div>
               <div><code>Code · JetBrains Mono 600</code></div>
             </div>
@@ -1138,7 +1138,7 @@
           </div>
         </div>
 
-        <div class="cm-grid cm-grid--2 cm-bleed" style="align-items:start">
+        <div class="cm-grid cm-grid--2 cm-bleed cm-print-stack" style="align-items:start">
           <div class="g-comp">
             <header><span class="cm-label">6.4</span><h3 class="cm-h3">Stacked columns: composition</h3><p>Up to four parts. The kit separates segments with a thin surface gap and rounds every segment.</p></header>
             <div data-demo>
@@ -1187,7 +1187,7 @@
           </div>
         </div>
 
-        <div class="cm-grid cm-grid--2 cm-bleed" style="align-items:start">
+        <div class="cm-grid cm-grid--2 cm-bleed cm-print-stack" style="align-items:start">
           <div class="g-comp">
             <header><span class="cm-label">6.6</span><h3 class="cm-h3">Scatter: relationship</h3><p>Name both axes with units. Highlight one point by giving it <code>$c1</code> and a label; the rest stay <code>$c2</code>.</p></header>
             <div data-demo>
@@ -1286,7 +1286,7 @@
           </div>
         </div>
 
-        <div class="cm-grid cm-grid--2 cm-bleed" style="align-items:start">
+        <div class="cm-grid cm-grid--2 cm-bleed cm-print-stack" style="align-items:start">
           <div class="g-comp">
             <header><span class="cm-label">6.10</span><h3 class="cm-h3">Slope: two points in time</h3><p>A <code>line</code> chart with two categories and <code>"cm": {"chart": "slope"}</code> at the top level. Labels at both ends name each line and give its value, so there is no legend. Lines are ink; a line given <code>"color": "$c1"</code> stands out and the rest turn grey.</p></header>
             <div data-demo>
@@ -1338,7 +1338,7 @@
           </div>
         </div>
 
-        <div class="cm-grid cm-grid--2 cm-bleed" style="align-items:start">
+        <div class="cm-grid cm-grid--2 cm-bleed cm-print-stack" style="align-items:start">
           <div class="g-comp">
             <header><span class="cm-label">6.12</span><h3 class="cm-h3">Strip: every value</h3><p>A <code>scatter</code> series with <code>"cm": {"chart": "strip"}</code> and every value per category. The kit spreads the dots across each row, marks the median and writes the count under each name.</p></header>
             <div data-demo>
@@ -1429,11 +1429,16 @@
               <li>A flow diagram shows branches, loops or lanes. Three to six steps in a line are a process diagram.</li>
               <li>Shape marks the node type and line style the edge kind. A key names the rarer ones.</li>
               <li>Every branch out of a decision carries a label: yes and no, or the condition.</li>
+              <li>A branch that ends early ends at a terminal of its own, named for the outcome.</li>
+              <li><code>col</code> counts across and <code>row</code> down, whichever way the flow reads.</li>
               <li>An edge label stands on its line, near where the line leaves its node, with line on both sides.</li>
-              <li>At most 24 nodes, 5 columns (4 with lanes), 5 rows, 5 lanes and 12 edge labels. A larger flow splits into an overview and details.</li>
               <li>One node at most is emphasised, with a chip naming why.</li>
               <li>The kit writes a text version under the caption, and a summary when the <code>aria-label</code> is empty.</li>
-              <li>A diagram wider than its figure scrolls sideways in its own box. Print scales it to fit the column and a page.</li>
+            </ul>
+            <h4 class="cm-h4">Size and print</h4>
+            <ul class="cm-list" style="max-width:var(--cm-read)">
+              <li>At most 24 nodes, 5 columns (4 with lanes), 5 rows, 5 lanes and 12 edge labels; a labelled gap counts as a column. A larger flow splits into an overview and details.</li>
+              <li>A diagram too wide for its figure or the printed page takes the narrow layout and scales to fit, down to 80%. Its text is set larger, so none draws under 11px.</li>
             </ul>
           </div>
         </div>
@@ -1477,7 +1482,7 @@
     {
       "nodes": [
         {"id": "draft", "type": "terminal", "label": "Draft ready", "col": 1, "row": 1},
-        {"id": "review", "type": "step", "label": "Editor review", "detail": "Checks facts and tone", "col": 2, "row": 1, "emphasis": "Bottleneck"},
+        {"id": "review", "type": "step", "label": "Editor review", "detail": "Checks facts and tone", "col": 2, "row": 1, "emphasis": "Slowest"},
         {"id": "approved", "type": "decision", "label": "Approved?", "col": 3, "row": 1},
         {"id": "publish", "type": "step", "label": "Publish", "detail": "Goes to the help centre", "col": 4, "row": 1},
         {"id": "live", "type": "terminal", "label": "Live", "col": 5, "row": 1},
@@ -1685,7 +1690,7 @@
     <script type="application/json">
     {
       "nodes": [
-        {"id": "customer", "type": "external", "label": "Customer", "col": 1, "row": 1},
+        {"id": "customer", "type": "external", "label": "Customer", "col": 2, "row": 1},
         {"id": "survey", "type": "step", "label": "Survey tool", "detail": "Sends surveys", "col": 1, "row": 2},
         {"id": "responses", "type": "store", "label": "Survey responses", "col": 1, "row": 3},
         {"id": "scheduler", "type": "step", "label": "Scheduler", "col": 2, "row": 2},
@@ -1829,7 +1834,8 @@
               <li>Side-by-side figures marked <code>cm-print-stack</code> stack full width.</li>
               <li>Figures, KPIs and callouts never split across pages.</li>
               <li><code>cm-section--break</code> forces a page break.</li>
-              <li>Diagrams scale to fit the column, never below 80%.</li>
+              <li>Diagrams scale to fit the column, never below 80%, with their text set larger to print at its own size.</li>
+              <li>Tables hold to the column with 12px gutters; no text prints under 11px.</li>
             </ul>
           </div>
         </div>

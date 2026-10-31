@@ -7,6 +7,7 @@
 //   light  the light theme
 //   dark   the dark theme (data-theme="dark")
 //   print  print media emulated, then CM.beforePrint(), as a headless PDF pipeline does
+//   phone  the light theme in a 390px viewport, the width of a phone held upright
 //
 // An offline page (SPEC section 2) loads with the network shut: every request that is not to a
 // file is aborted and listed in `blocked`, so the page shows what it draws with nothing but itself.
@@ -22,14 +23,21 @@ const ECHARTS_URL = 'https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min
 const ECHARTS_LOCAL = require.resolve('echarts/dist/echarts.min.js');
 
 export const MODES = ['light', 'dark', 'print'];
+// The phone pass: the checks marked `phone` run once more in this viewport (checks/run.mjs).
+export const PHONE = { width: 390, height: 844 };
+// The printed column of an A4 page inside the kit's 14mm side margins, and the page body height
+// inside its 16mm top and bottom margins, in CSS pixels. Checks that measure the printed layout
+// set the viewport to this size.
+export const PRINT_PAGE = { width: 688, height: 1001 };
+const VIEWPORT = { width: 1440, height: 900 };
 
 // Answer the page's ECharts CDN request with the local copy of the same version.
 export const serveCharts = page => page.route(ECHARTS_URL, r => r.fulfill({ path: ECHARTS_LOCAL, contentType: 'application/javascript' }));
 
 export async function load(browser, file, mode, { offline = false } = {}) {
-  if (!MODES.includes(mode)) throw new Error(`unknown mode: ${mode}`);
+  if (!MODES.includes(mode) && mode !== 'phone') throw new Error(`unknown mode: ${mode}`);
   const page = await browser.newPage({
-    viewport: { width: 1440, height: 900 },
+    viewport: mode === 'phone' ? PHONE : VIEWPORT,
     colorScheme: mode === 'dark' ? 'dark' : 'light',
   });
   const errors = [];

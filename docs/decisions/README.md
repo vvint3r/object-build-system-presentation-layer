@@ -96,6 +96,7 @@ Rounds 40e and 40f exist only in `CONTINUATION.md` and are taken from there.
 | [083-document-sets.md](083-document-sets.md) | Document sets | 2026-10-30 | orchestrating session, record 075 |
 | [084-sequence-state-and-entity-relationship-diagrams.md](084-sequence-state-and-entity-relationship-diagrams.md) | Sequence, state and entity relationship diagrams | 2026-10-30 | orchestrating session, record 075 |
 | [085-diagram-families.md](085-diagram-families.md) | Diagram families: journey map, system and data flow, layer stack, hierarchy | 2026-10-30 | orchestrating session, record 075 |
+| [086-type-floor-phone-width-and-diagram-fit.md](086-type-floor-phone-width-and-diagram-fit.md) | Type floor, phone width and diagram fit | 2026-10-30 | orchestrating session, record 075 |
 | [087-page-types.md](087-page-types.md) | Page types: topic, glossary and module | 2026-10-30 | orchestrating session, record 075 |
 | [088-framework-process-metric-comparison.md](088-framework-process-metric-comparison.md) | Framework, process, metric and comparison | 2026-10-30 | orchestrating session, record 075 |
 | [089-roadmap-and-case-study.md](089-roadmap-and-case-study.md) | Roadmap and case study | 2026-10-30 | orchestrating session, record 075 |

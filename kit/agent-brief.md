@@ -358,6 +358,10 @@ The documents in one folder form a set, listed by an index page, `index.html` (s
   documents. It quotes each document's dek, so a dek in a set runs 18 words or fewer.
 - `npm run links -- <folder>` fails on a missing or shared id, a link to a file or section that does
   not exist, or an index page that no longer matches the documents.
+- Documents in a set agree. A fact two documents share has one value in every place it appears, a
+  figure taken from another document names its population when it differs, and a before-and-after
+  comparison states a change seen after an event, not an effect of it. A document links only to
+  documents published on or before its own date.
 
 The kit has no search, faceted browse or version selector; each needs a server.
 

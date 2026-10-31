@@ -1680,6 +1680,19 @@ npm run index -- <folder>
 - Within an area, reports come first, newest first; then guides, then references, each A to Z by title.
 - The index quotes each dek, so a set's deks keep the index page within §13.1: 150 words for an area, and 18 words a sentence on average. A dek of 18 words or fewer meets both. Past either limit, the script names the deks to shorten or the area to split.
 
+#### Agreement
+
+A reader who opens any two documents in a set finds one value for each fact they share: a number, a name, a date, a rule.
+
+- A shared fact matches in every place it appears: prose, KPI, chart data, table, diagram and text equivalent. A changed number changes in all of them.
+- When two documents disagree, the less trusted side changes. Trust runs, highest first: the source the fact cites; the set's main report (the sample report in the kit folder); the document published first.
+- A fact with no source in the set is removed, or marked as unsourced (§8.21), never made up to fill a gap.
+- A figure taken from another document names its population when it differs from the one the citing document defines, such as tickets resolved against tickets created in a period.
+- A before-and-after comparison states a change seen after an event, not an effect of it: "fell 27% after routing went live", not "routing cut it by 27%".
+- A related item or index entry describes its target truly, in what it holds and how much.
+- A document links only to documents published on or before its own date. The later document links back where the two relate.
+- The gallery's demonstrations reuse the facts of the kit's documents. A demonstration that needs a fact they lack states one that contradicts none of them.
+
 #### Link check
 
 ```
@@ -1739,7 +1752,7 @@ The kit has no search, faceted browse or version selector, since each needs a se
 | --- | --- | --- | --- | --- |
 | `bar` | A few to a dozen categories on one measure | One value per category. Horizontal (`yAxis.type: "category"`) when labels are long or ranked, largest at top (data listed smallest first) | Value labels on every bar up to 12; a target as a `markLine` | A value axis that does not start at zero |
 | Bullet: `bar` + `cm` | Each measure against its target, with optional bands that grade it | A value and a target per measure, all in one unit | Target mark, values and band names, all drawn by the kit | Measures in different units on one axis |
-| `heatmap` | A magnitude across two categories at once, such as weekday by hour | One value per cell; `visualMap` with min/max and `text` end labels; `"yAxis": {"inverse": true}` | The scale bar's end labels | More rows than fit at about 40px each |
+| `heatmap` | A magnitude across two categories at once, such as weekday by hour | One value per cell; `visualMap` with min/max and `text` end labels; `"yAxis": {"inverse": true}`; words for the scale that hold in both themes, such as how far a cell stands out from the page, never "darker" | The scale bar's end labels | More rows than fit at about 40px each |
 
 *Change: how a measure moves over time.*
 
@@ -1994,7 +2007,7 @@ Headings are `h1` to `h6` and table titles.
 16. `cm-kind` names the kind, or is absent for a report; `cm-type`, when present, names a type of that kind (§7.6). A guide or a reference has its required parts in order, each with its id, or their omission comments (§7.3 to §7.5). Every procedure step closes with its outcome; every related item has a tag, a link and a sentence.
 17. Every diagram: JSON within its mode's fields and capacity, a label on every decision branch and every named edge, a terminal at the end of every branch, `role="img"`, a caption with a source line, and nothing overlapping or clipped in light, dark and print (§8.20).
 18. Each structured component opens with its kind label and title and holds its required parts within its counts and limits (§8.25 to §8.30).
-19. `cm-id` names the document. The breadcrumb runs from set to area to document. In a set, every link names a file and a section id, the index page is rewritten, and `npm run links` passes on the folder (§8.31).
+19. `cm-id` names the document. The breadcrumb runs from set to area to document. In a set, every link names a file and a section id, the index page is rewritten, and `npm run links` passes on the folder. Facts shared with other documents agree with them, and no link reaches a document published later (§8.31).
 20. A roadmap or a case study has its recipe’s required parts in order, each with its id, and passes its type check (§7.14, §7.15).
 21. A topic, a glossary or a module has its recipe's required parts in order, each with its id, and passes its type check (§7.7 to §7.9). A module's answers are closed, and it carries no form controls.
 22. A framework, process, metric or comparison page has its recipe's required parts in order, each with its id, and passes its type check (§7.10 to §7.13).

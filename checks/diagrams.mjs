@@ -238,8 +238,9 @@ export default [
 
   {
     // As drawn in this mode: no node overlaps another; no line passes within 8px of a node it does
-    // not join; every edge, lane and boundary label stands 8px clear of every node, edge, divider,
-    // lifeline and activation bar, and of every other label (a boundary label sits on its own line); nothing lies outside the canvas; and in print
+    // not join; every edge, lane and boundary label, and any other label a mode sets beside an edge,
+    // stands 8px clear of every node, edge, divider, lifeline and activation bar, and of every other
+    // label (a boundary label sits on its own line); nothing lies outside the canvas; and in print
     // the diagram fits the printed column (632px) and a page (720px tall) at 80% or more.
     name: 'diagram-layout', level: 'fail', source: 'SPEC §8.20; §12',
     inPage: ({ check, mode }) => {
@@ -272,6 +273,7 @@ export default [
         }
         const labels = [];
         g.edges.forEach(e => { if (e.labelEl) labels.push({ name: `edge label "${e.label}"`, b: box(e.labelEl) }); });
+        (g.labels || []).forEach(l => labels.push({ name: l.name, b: box(l.el) }));
         g.lanes.forEach(l => labels.push({ name: `lane label "${l.label}"`, b: box(l.el) }));
         g.lines.filter(l => l.kind === 'boundary').forEach(l => labels.push({ name: `boundary label "${l.label.textContent}"`, b: box(l.label), own: box(l.el) }));
         labels.forEach((L, i) => {

@@ -698,6 +698,61 @@ A state `label` stops at 24 characters, a `detail` at 40, an event at 3 words an
 
 The text version lists every state once, numbered in reading order from the start. Each item names the state and its detail, then each event with where it leads: the state and its number, "stays in" for a self-transition, and "the end". The first state is named as the starting state. An empty `aria-label` takes a summary: the number of states, the first and the last, and the counts of transitions and self-transitions.
 
+#### Entity relationship
+
+An entity relationship diagram shows the records a system keeps, the keys that identify them, and how many of one record relate to each of another. Values over time are a chart.
+
+```html
+<div class="cm-diagram" data-diagram="entity-relationship" role="img" aria-label="">
+  <script type="application/json">
+  {
+    "nodes": [
+      {"id": "customer", "label": "Customer", "col": 1, "row": 1, "attributes": [
+        {"name": "customer_id", "key": "primary"}, {"name": "plan"}]},
+      {"id": "ticket", "label": "Ticket", "col": 2, "row": 1, "attributes": [
+        {"name": "ticket_id", "key": "primary"}, {"name": "customer_id", "key": "foreign"}, {"name": "status"}]},
+      {"id": "message", "label": "Message", "col": 2, "row": 2, "attributes": [
+        {"name": "message_id", "key": "primary"}, {"name": "ticket_id", "key": "foreign"}]}
+    ],
+    "edges": [
+      {"from": "customer", "to": "ticket", "fromEnd": "1", "toEnd": "0 or more", "label": "raises"},
+      {"from": "ticket", "to": "message", "fromEnd": "1", "toEnd": "1 or more", "label": "holds"}
+    ]
+  }
+  </script>
+</div>
+```
+
+The JSON holds `nodes` and `edges` only, placed on the grid as in a flow diagram. An entity holds `id`, `label`, `col`, `row` and `attributes`. An attribute holds `name` and an optional `key`. A relationship holds `from`, `to`, `fromEnd` and `toEnd`, with an optional `label`.
+
+| Value | Drawn as | Use |
+| --- | --- | --- |
+| An entity | Rounded rectangle: its name, a rule, then one attribute a line | A kind of record the system keeps |
+| `"key": "primary"` | `PK` tag after the attribute | The attribute that identifies one record |
+| `"key": "foreign"` | `FK` tag after the attribute | The attribute that points to another entity's record |
+| A relationship | Solid line with no arrowhead | Records of two entities that belong together |
+| `fromEnd`, `toEnd` | A count in words beside each end: `1`, `0 or 1`, `1 or more`, `0 or more` | How many records of the entity at that end relate to one record at the other end |
+
+- Every entity names its primary key. An attribute list keeps the keys and the attributes the text discusses, not every column.
+- Counts are written in words, not as crow's feet, so a reader needs no notation to read them.
+- A count stands beside the entity it counts, below a line across or to the right of a line down. Two counts on one straight line stand at least 24px apart.
+- The relationship's `label` names it with a verb, read from `from` to `to`. It stands where a flow's edge label does.
+- One relationship leaves each side of an entity, so an entity takes part in 4 at most. An entity never relates to itself.
+- A key above the drawing names the `PK` and `FK` tags in use.
+- An entity relationship diagram has no emphasised node.
+
+| Item | At most | Reason |
+| --- | --- | --- |
+| Entities | 6 | Two columns of three rows |
+| Columns | 2 | Two counts beside each line widen every gap, so a third column does not fit the printed column at 80% |
+| Rows | 3 | Four rows of six-attribute entities do not fit a printed page at 80% |
+| Relationships | 7 | Every neighbouring pair on a grid of 2 columns and 3 rows |
+| Attributes in an entity | 6 | Six-attribute entities in 3 rows fill a printed page |
+
+An entity `label` and an attribute `name` stop at 24 characters; a relationship `label` stops at 3 words, as an edge label.
+
+The text version lists every entity in reading order, with its primary keys, foreign keys and other attributes. Every relationship follows as one item: its name, then the count at each end, such as "Ticket per Customer: 0 or more". An empty `aria-label` takes a summary: the number of entities, their names, and the number of relationships.
+
 ### 8.21 Sources and citations
 
 The source register lists every source a document rests on, and closes the Notes & sources appendix after the notes. A citation ties a claim to its sources; an evidence date says how current a claim is.

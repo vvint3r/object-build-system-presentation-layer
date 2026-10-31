@@ -458,6 +458,13 @@ pre code{all:unset}
 .cm-diagram__swatch--message,.cm-diagram__swatch--reply{width:24px;height:0;background:none;border:0;border-top:2px solid var(--cm-ink);border-radius:0}
 .cm-diagram__swatch--reply{border-top-style:dotted}
 .cm-diagram__swatch--activation{width:12px;height:16px;margin:0 5px;border:1.5px solid var(--cm-ink);border-radius:2px}
+/* entity relationship diagram: an entity is its name over a list of its key attributes */
+.cm-diagram__node--entity{align-items:stretch;justify-content:flex-start;gap:0;max-width:none;padding:0;text-align:left;white-space:nowrap}
+.cm-diagram__node--entity>.cm-diagram__name{padding:10px 16px;border-bottom:1px solid var(--cm-field)}
+.cm-diagram__attrs{display:flex;flex-direction:column;padding:6px 0}
+.cm-diagram__attr{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:3px 16px;font-size:13px;line-height:1.45}
+.cm-diagram__attr .cm-tag{flex:none}
+.cm-diagram--print .cm-diagram__node--entity{max-width:none}
 .cm-data>.cm-olist{margin-top:16px}
 
 /* ---------- 18b. Structured components ---------- */

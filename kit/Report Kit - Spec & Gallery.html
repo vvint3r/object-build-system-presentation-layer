@@ -1337,6 +1337,42 @@
 </figure>
           </div>
         </div>
+
+        <div class="g-comp">
+          <header><span class="cm-label">7.5</span><h3 class="cm-h3">Entity relationship</h3><p>The records a helpdesk keeps and how they relate. Tags mark the keys, and the words beside each end of a line give the count at that end.</p></header>
+          <div data-demo>
+<figure class="cm-figure cm-bleed">
+  <span class="cm-figure__kind">Figure 12</span>
+  <h3 class="cm-figure__title">Support data model</h3>
+  <p class="cm-figure__desc">The records behind one support conversation, and how many of each belong to the next.</p>
+  <div class="cm-diagram" data-diagram="entity-relationship" role="img" aria-label="">
+    <script type="application/json">
+    {
+      "nodes": [
+        {"id": "customer", "label": "Customer", "col": 1, "row": 1, "attributes": [
+          {"name": "customer_id", "key": "primary"}, {"name": "organisation"}, {"name": "plan"}]},
+        {"id": "ticket", "label": "Ticket", "col": 2, "row": 1, "attributes": [
+          {"name": "ticket_id", "key": "primary"}, {"name": "customer_id", "key": "foreign"}, {"name": "status"}, {"name": "opened_at"}]},
+        {"id": "agent", "label": "Agent", "col": 1, "row": 2, "attributes": [
+          {"name": "agent_id", "key": "primary"}, {"name": "team_id", "key": "foreign"}, {"name": "region"}]},
+        {"id": "message", "label": "Message", "col": 2, "row": 2, "attributes": [
+          {"name": "message_id", "key": "primary"}, {"name": "ticket_id", "key": "foreign"}, {"name": "agent_id", "key": "foreign"}, {"name": "sent_at"}]},
+        {"id": "team", "label": "Team", "col": 1, "row": 3, "attributes": [
+          {"name": "team_id", "key": "primary"}, {"name": "queue"}]}
+      ],
+      "edges": [
+        {"from": "customer", "to": "ticket", "fromEnd": "1", "toEnd": "0 or more", "label": "raises"},
+        {"from": "ticket", "to": "message", "fromEnd": "1", "toEnd": "1 or more", "label": "holds"},
+        {"from": "agent", "to": "message", "fromEnd": "0 or 1", "toEnd": "0 or more", "label": "writes"},
+        {"from": "team", "to": "agent", "fromEnd": "1", "toEnd": "1 or more", "label": "includes"}
+      ]
+    }
+    </script>
+  </div>
+  <figcaption class="cm-caption"><span class="cm-caption__line">Source: helpdesk data dictionary, as of 2026-09-30.</span></figcaption>
+</figure>
+          </div>
+        </div>
       </div>
     </section>
 

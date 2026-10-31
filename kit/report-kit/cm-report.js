@@ -331,7 +331,7 @@
   }
 
   // Sizes as drawn. Steps, stores, external entities and states in one column share its widest width
-  // and in one row its tallest height, so the grid reads as a grid. A decision is the smallest square
+  // and in one row its tallest height, so the grid reads as a grid; entities share the width only. A decision is the smallest square
   // whose diamond holds its question: text w wide and h tall fits when w + h fits the diagonal.
   function dgMeasure(d) {
     var m = d.model, colW = {}, rowH = {};
@@ -353,9 +353,11 @@
       } else {
         n.w = even(e.offsetWidth); n.h = even(e.offsetHeight);
       }
-      if (boxy(n)) { colW[n.col] = Math.max(colW[n.col] || 0, n.w); rowH[n.row] = Math.max(rowH[n.row] || 0, n.h); }
+      if (boxy(n) || n.type === 'entity') colW[n.col] = Math.max(colW[n.col] || 0, n.w);
+      if (boxy(n)) rowH[n.row] = Math.max(rowH[n.row] || 0, n.h);
     });
-    m.nodes.forEach(function (n) { if (boxy(n)) { n.w = colW[n.col]; n.h = rowH[n.row]; } });
+    // an entity keeps its own height, the length of its attribute list
+    m.nodes.forEach(function (n) { if (boxy(n) || n.type === 'entity') n.w = colW[n.col]; if (boxy(n)) n.h = rowH[n.row]; });
     m.edges.forEach(function (e) { if (e.el) { e.lw = Math.ceil(e.el.offsetWidth); e.lh = Math.ceil(e.el.offsetHeight); } });
     m.lanes.forEach(function (l) {
       var s = l.el.style, r = document.createRange();
@@ -508,11 +510,12 @@
     cost += (p.length - 2) * 24;
     done.forEach(function (o) {
       var share = o.e.from === e.from && o.plan.a === plan.a ? 'out' : o.e.to === e.to && o.plan.b === plan.b ? 'in' : '';
-      // a side carries edges out or edges in, never both; a decision's corner carries one branch
+      // a side carries edges out or edges in, never both; a decision's corner carries one branch, and
+      // an entity's side one relationship
       [[e.from, plan.a, 'out'], [e.to, plan.b, 'in']].forEach(function (u) {
         [[o.e.from, o.plan.a, 'out'], [o.e.to, o.plan.b, 'in']].forEach(function (w) {
           if (u[0] !== w[0] || u[1] !== w[1]) return;
-          if (u[2] !== w[2]) cost += 1000;
+          if (u[2] !== w[2] || u[0].type === 'entity') cost += 1000;
           else if (u[2] === 'out') cost += u[0].type === 'decision' ? 1000 : 12;
           else cost += 4;
         });
@@ -678,10 +681,12 @@
     return short;
   }
 
-  function dgPathD(p) {
-    var q = p.map(function (x) { return x.slice(); }), n = q.length;
+  // The path of an edge with rounded elbows, ending where its arrowhead begins (or at its end, with
+  // no arrowhead).
+  function dgPathD(p, bare) {
+    var q = p.map(function (x) { return x.slice(); }), n = q.length, k = bare ? 0 : DG.head;
     var u = dgDir(q[n - 2], q[n - 1]);
-    q[n - 1] = [q[n - 1][0] - u[0] * DG.head, q[n - 1][1] - u[1] * DG.head];
+    q[n - 1] = [q[n - 1][0] - u[0] * k, q[n - 1][1] - u[1] * k];
     var dd = 'M' + q[0][0] + ' ' + q[0][1];
     for (var i = 1; i < n - 1; i++) {
       var a = q[i - 1], b = q[i], c = q[i + 1], v = dgDir(a, b), w = dgDir(b, c);
@@ -698,7 +703,7 @@
   function svgEl(tag, attrs) { var e = document.createElementNS(SVGNS, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); return e; }
 
   function dgLayout(d) {
-    var el = d.el, m = d.model, P = printing ? DG_GAP.print : DG_GAP.screen, cv = d.canvas;
+    var el = d.el, m = d.model, P = (d.mode.gaps || DG_GAP)[printing ? 'print' : 'screen'], cv = d.canvas;
     if (!printing && !el.clientWidth) { d.pending = true; return; }
     d.pending = false;
     el.classList.toggle('cm-diagram--print', printing);
@@ -736,7 +741,7 @@
       }
       var tracks = dgNudge(routes);
       drawn = d.mode.loops ? routes.concat(d.mode.loops(d, g, routes)) : routes;
-      var short = dgLabels(d, g, drawn);
+      var short = (d.mode.labels || dgLabels)(d, g, drawn);
       // what each gap needs next pass
       var next = { x: {}, y: {}, ox: {}, oy: {} };
       routes.forEach(function (r) {
@@ -835,11 +840,16 @@
     routes.forEach(function (r) {
       var p = r.p.map(function (pt) { return [X(pt[0]), Y(pt[1])]; });
       var grp = svgEl('g', { 'class': 'cm-diagram__edge cm-diagram__edge--' + r.e.kind, 'data-from': r.e.from.id, 'data-to': r.e.to.id });
-      grp.appendChild(svgEl('path', { 'class': 'cm-diagram__line', d: dgPathD(p) }));
-      grp.appendChild(svgEl('polygon', { 'class': 'cm-diagram__head', points: dgHead(p) }));
+      grp.appendChild(svgEl('path', { 'class': 'cm-diagram__line', d: dgPathD(p, d.mode.bare) }));
+      if (!d.mode.bare) grp.appendChild(svgEl('polygon', { 'class': 'cm-diagram__head', points: dgHead(p) }));
       svg.appendChild(grp);
       if (r.e.el) { r.e.el.style.left = X(r.label.l) + 'px'; r.e.el.style.top = Y(r.label.t) + 'px'; }
       geo.edges.push({ from: r.e.from.id, to: r.e.to.id, kind: r.e.kind, label: r.e.label, labelEl: r.e.el || null, points: p });
+      // labels a mode sets beside an edge besides its name, such as the count at each end
+      (r.labels || []).forEach(function (l) {
+        l.el.style.left = X(l.box.l) + 'px'; l.el.style.top = Y(l.box.t) + 'px';
+        (geo.labels = geo.labels || []).push({ el: l.el, name: l.name });
+      });
     });
     geo.routed = routes.length;
     geo.total = m.edges.length;
@@ -1211,6 +1221,204 @@
   }
 
   DG_MODES.sequence = { model: sqModel, build: sqBuild, text: sqText, layout: sqLayout };
+
+  /* ---------- diagrams: entity relationship ---------- */
+  // An entity relationship diagram (SPEC section 8.20, Entity relationship) is drawn on the flow
+  // grid. An entity is a small table: its name, then its key attributes, each primary or foreign key
+  // tagged. A relationship is a plain line with no arrowhead, one to a side of an entity, with its
+  // count written at each end beside the entity it counts: 1, 0 or 1, 1 or more, 0 or more. The
+  // gaps are wider than a flow's, since every line carries a count at both ends.
+  var ER_ENDS = ['1', '0 or 1', '1 or more', '0 or more'];
+  var ER_GAP = { screen: { col: 96, row: 72, lane: 72, pad: 8 }, print: { col: 64, row: 56, lane: 64, pad: 8 } };
+  var ER_KEYS = { primary: ['PK', 'Primary key'], foreign: ['FK', 'Foreign key'] };
+  var ER_SEP = 24;
+
+  function erModel(spec) {
+    var byId = {}, nodes = [], edges = [], C = 1, R = 1;
+    list(spec.nodes).forEach(function (n) {
+      if (!n || n.id == null || byId[n.id]) return;
+      var m = { id: String(n.id), type: 'entity', label: n.label == null ? '' : String(n.label), detail: '', emphasis: '',
+        col: int(n.col, 1), row: int(n.row, 1), attrs: list(n.attributes).filter(function (a) { return a && a.name != null; }).map(function (a) {
+          return { name: String(a.name), key: ER_KEYS[a.key] ? a.key : '' };
+        }) };
+      byId[m.id] = m; nodes.push(m); C = Math.max(C, m.col); R = Math.max(R, m.row);
+    });
+    list(spec.edges).forEach(function (e) {
+      if (!e || !byId[e.from] || !byId[e.to] || e.from === e.to) return;
+      edges.push({ from: byId[e.from], to: byId[e.to], kind: 'relation', label: e.label ? String(e.label) : '',
+        fromEnd: ER_ENDS.indexOf(e.fromEnd) > -1 ? e.fromEnd : '1', toEnd: ER_ENDS.indexOf(e.toEnd) > -1 ? e.toEnd : '1' });
+    });
+    return { nodes: nodes, edges: edges, lanes: [], bounds: [], dir: 'right', C: C, R: R };
+  }
+
+  // The key names the key tags in use; the counts at the ends of a line are words and need none.
+  function erKey(m) {
+    var keys = Object.keys(ER_KEYS).filter(function (k) { return m.nodes.some(function (n) { return n.attrs.some(function (a) { return a.key === k; }); }); });
+    if (!keys.length) return null;
+    var key = mk('div', 'cm-diagram__key');
+    keys.forEach(function (k) {
+      var item = mk('span', 'cm-diagram__key-item');
+      item.appendChild(mk('span', 'cm-tag', ER_KEYS[k][0]));
+      item.appendChild(document.createTextNode(ER_KEYS[k][1]));
+      key.appendChild(item);
+    });
+    return key;
+  }
+  function erNode(n, e) {
+    n.nameEl = mk('span', 'cm-diagram__name', n.label);
+    e.appendChild(n.nameEl);
+    var rows = mk('span', 'cm-diagram__attrs');
+    n.attrs.forEach(function (a) {
+      var row = mk('span', 'cm-diagram__attr');
+      row.appendChild(mk('span', null, a.name));
+      if (a.key) row.appendChild(mk('span', 'cm-tag', ER_KEYS[a.key][0]));
+      rows.appendChild(row);
+    });
+    e.appendChild(rows);
+  }
+  function erBuild(d) {
+    dgBuild(d);
+    d.model.edges.forEach(function (e) {
+      e.fromEl = mk('span', 'cm-diagram__edge-label', e.fromEnd);
+      e.toEl = mk('span', 'cm-diagram__edge-label', e.toEnd);
+      d.canvas.appendChild(e.fromEl); d.canvas.appendChild(e.toEl);
+    });
+  }
+
+  // The relationship's name stands where a flow's edge label does, above a run across or to the left
+  // of a run down, middle first. Each end's count stands on the other side of the line, beside the
+  // entity it counts, and two counts on one run stand at least ER_SEP apart, so each reads with its
+  // own end. A label with no room asks for a wider gap, as a flow's edge label does.
+  function erLabels(d, g, routes) {
+    var m = d.model, placed = [], lines = [], short = [];
+    routes.forEach(function (r) { dgSegs(r.p).forEach(function (s) { lines.push(s); }); });
+    var boxes = m.nodes.map(function (n) { return dgRect(n, 0); });
+    var free = function (b) {
+      var c = DG.clear - 0.5, x = { l: b.l - c, t: b.t - c, r: b.r + c, b: b.b + c };
+      if (b.l < 2 || b.t < 2 || b.r > g.W - 2 || b.b > g.H - 2) return false;
+      var meet = function (o) { return o.l < x.r && o.r > x.l && o.t < x.b && o.b > x.t; };
+      if (boxes.some(meet) || placed.some(meet)) return false;
+      return !lines.some(function (s) { return dgHits(s[0], s[1], x); });
+    };
+    var gapAt = function (starts, sizes, a, b) {
+      var best = -1, lap = 0;
+      starts.forEach(function (st, k) { var o = Math.min(b, st + sizes[k]) - Math.max(a, st); if (o > lap) { lap = o; best = k; } });
+      return best;
+    };
+    var size = function (el) { return [Math.ceil(el.offsetWidth), Math.ceil(el.offsetHeight)]; };
+    routes.forEach(function (r) {
+      var e = r.e, segs = dgSegs(r.p), n = segs.length, sz = { start: size(e.fromEl), end: size(e.toEl) };
+      var longest = segs.reduce(function (x, s, k) { return dgLen(s[0], s[1]) > dgLen(segs[x][0], segs[x][1]) ? k : x; }, 0);
+      var first = null;
+      r.labels = [];
+      [[e.fromEl, 'start', e.from.label], [e.toEl, 'end', e.to.label], [e.el, 'mid']].forEach(function (q) {
+        var lab = q[0], at = q[1];
+        if (!lab) return;
+        var w = Math.ceil(lab.offsetWidth), h = Math.ceil(lab.offsetHeight), spot = null, tight = false, wish = [], preferred = at === 'mid' ? -1 : 1, side = 0;
+        var i0 = at === 'start' ? 0 : at === 'end' ? n - 1 : longest;
+        var tries = at === 'mid' ? [longest].concat(segs.map(function (s, i) { return i; }).filter(function (i) { return i !== longest; })) : [i0];
+        tries.some(function (i) {
+          var a = segs[i][0], b = segs[i][1], u = dgDir(a, b), hz = a[1] === b[1], ext = hz ? w : h, L = dgLen(a, b);
+          var lo = (i > 0 ? DG.r : 0) + 2, hi = L - (i < n - 1 ? DG.r : 0) - 2;
+          if (hi - lo < ext) return false;
+          var os = at === 'start' ? [lo] : at === 'end' ? [hi - ext] : [Math.round((L - ext) / 2), lo, hi - ext];
+          // the name above or to the left first, a count below or to the right first
+          var sides = [preferred, -preferred], cands = [];
+          sides.forEach(function (side) {
+            os.forEach(function (o) {
+              if (o < lo || o + ext > hi) return;
+              var along = hz ? a[0] + u[0] * o - (u[0] < 0 ? ext : 0) : a[1] + u[1] * o - (u[1] < 0 ? ext : 0);
+              if (hz) cands.push({ l: along, t: side < 0 ? a[1] - DG.clear - h : a[1] + DG.clear, side: side });
+              else cands.push({ l: side < 0 ? a[0] - DG.clear - w : a[0] + DG.clear, t: along, side: side });
+            });
+          });
+          return cands.some(function (c) {
+            var box = { l: c.l, t: c.t, r: c.l + w, b: c.t + h };
+            // the second count on the run the first stands on, on the same side: ER_SEP apart
+            if (at === 'end' && first && first.i === i && first.side === c.side) {
+              var apart = hz ? Math.max(box.l - first.box.r, first.box.l - box.r) : Math.max(box.t - first.box.b, first.box.t - box.b);
+              if (apart < ER_SEP) { tight = true; return false; }
+            }
+            // past the canvas edge on the preferred side: the outside gap grows to hold it
+            if (c.side === preferred) {
+              if (box.r > g.W - 2) wish.push({ axis: 'x', i: g.C, size: g.gw[g.C] + box.r - g.W + 4 });
+              if (box.l < 2) wish.push({ axis: 'x', i: 0, size: g.gw[0] + 4 - box.l });
+              if (box.b > g.H - 2) wish.push({ axis: 'y', i: g.R, size: g.gh[g.R] + box.b - g.H + 4 });
+              if (box.t < 2) wish.push({ axis: 'y', i: 0, size: g.gh[0] + 4 - box.t });
+            }
+            if (!free(box)) return false;
+            spot = box; side = c.side;
+            if (at === 'start') first = { i: i, side: c.side, box: box };
+            return true;
+          });
+        });
+        if (side !== preferred) wish.forEach(function (x) { short.push(x); });
+        // two counts pushed to opposite sides of one run read as one diagonal: the gap grows to put
+        // them on one side
+        if (tight && spot) {
+          var t = segs[i0], th = t[0][1] === t[1][1], k0 = th ? 0 : 1;
+          var gi = gapAt(th ? g.gx : g.gy, th ? g.gw : g.gh, Math.min(t[0][k0], t[1][k0]), Math.max(t[0][k0], t[1][k0]));
+          if (gi > -1) short.push({ axis: th ? 'x' : 'y', i: gi, size: sz.start[k0] + sz.end[k0] + ER_SEP + 4 + 2 * DG.stand });
+        }
+        if (!spot) {
+          // no room: the gap the run crosses grows to hold what stands beside it
+          var s = segs[i0], hz = s[0][1] === s[1][1], lo = Math.min(s[0][hz ? 0 : 1], s[1][hz ? 0 : 1]), hi = Math.max(s[0][hz ? 0 : 1], s[1][hz ? 0 : 1]);
+          var idx = gapAt(hz ? g.gx : g.gy, hz ? g.gw : g.gh, lo, hi), ext = hz ? w : h, k = hz ? 0 : 1;
+          var want = at === 'mid' ? (hz ? g.gw : g.gh)[idx] + Math.max(8, ext + 2 * DG.r + 8 - (hi - lo))
+            : n === 1 ? sz.start[k] + sz.end[k] + ER_SEP + 4 + 2 * DG.stand
+            : 2 * (ext + DG.r + 4 + DG.stand);
+          if (idx > -1) short.push({ axis: hz ? 'x' : 'y', i: idx, size: want });
+          var c = hz ? s[0][1] : s[0][0], across = gapAt(hz ? g.gy : g.gx, hz ? g.gh : g.gw, c - 0.5, c + 0.5);
+          if (across > -1) short.push({ axis: hz ? 'y' : 'x', i: across, size: 2 * ((hz ? h : w) + 2 * DG.clear) + 4 });
+          spot = { l: s[0][0], t: s[0][1], r: s[0][0] + w, b: s[0][1] + h };
+        }
+        placed.push(spot);
+        if (at === 'mid') r.label = spot;
+        else r.labels.push({ el: lab, box: spot, name: 'count "' + lab.textContent + '" beside ' + q[2] });
+      });
+    });
+    return short;
+  }
+
+  // The text version: every entity in reading order with its keys and other attributes, then every
+  // relationship with the count at each end.
+  function erText(d) {
+    var m = d.model, stop = function (s) { s = s.trim(); return /[.?!]$/.test(s) ? s : s + '.'; };
+    var order = m.nodes.slice().sort(function (a, b) { return a.row - b.row || a.col - b.col; });
+    var ol = mk('ol', 'cm-olist cm-small');
+    order.forEach(function (n) {
+      var parts = [stop(n.label)];
+      ['primary', 'foreign'].forEach(function (k) {
+        var as = n.attrs.filter(function (a) { return a.key === k; }).map(function (a) { return a.name; });
+        if (as.length) parts.push(stop(ER_KEYS[k][1] + (as.length > 1 ? 's' : '') + ': ' + as.join(', ')));
+      });
+      var rest = n.attrs.filter(function (a) { return !a.key; }).map(function (a) { return a.name; });
+      if (rest.length) parts.push(stop((n.attrs.length > rest.length ? 'Other attributes' : 'Attributes') + ': ' + rest.join(', ')));
+      ol.appendChild(mk('li', null, parts.join(' ')));
+    });
+    m.edges.forEach(function (e) {
+      var a = e.from.label, b = e.to.label;
+      ol.appendChild(mk('li', null, [stop(e.label ? a + ' ' + e.label + ' ' + b : 'Relationship between ' + a + ' and ' + b),
+        stop(b + ' per ' + a + ': ' + e.toEnd), stop(a + ' per ' + b + ': ' + e.fromEnd)].join(' ')));
+    });
+    if (!(d.el.getAttribute('aria-label') || '').trim()) {
+      var names = order.map(function (n) { return n.label; });
+      var s = 'Entity relationship diagram of ' + m.nodes.length + (m.nodes.length === 1 ? ' entity' : ' entities')
+        + (names.length > 1 ? ', ' + names.slice(0, -1).join(', ') + ' and ' + names[names.length - 1] : names.length ? ', ' + names[0] : '')
+        + ', with ' + m.edges.length + (m.edges.length === 1 ? ' relationship' : ' relationships');
+      d.el.setAttribute('aria-label', s + '. The text version under the figure lists every entity with its keys, then every relationship with its counts.');
+    }
+    var det = mk('details', 'cm-data');
+    det.setAttribute('data-cm-diagram-text', '');
+    det.appendChild(mk('summary', null, 'View as text'));
+    det.appendChild(ol);
+    var fig = d.el.closest('figure'), cap = fig && fig.querySelector('.cm-caption');
+    if (cap) cap.after(det); else d.el.after(det);
+    d.text = det;
+  }
+
+  DG_MODES['entity-relationship'] = { model: erModel, build: erBuild, key: erKey, node: erNode, text: erText, layout: dgLayout,
+    labels: erLabels, gaps: ER_GAP, bare: true };
 
   function dgAll() { diagrams.forEach(function (d) { if (d.model) d.mode.layout(d); }); }
   function initDiagrams() {

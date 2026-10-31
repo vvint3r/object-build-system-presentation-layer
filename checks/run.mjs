@@ -30,6 +30,7 @@ import decoration from './decoration.mjs';
 import meaning from './meaning.mjs';
 import charts from './charts.mjs';
 import diagrams from './diagrams.mjs';
+import entityRelationship from './entity-relationship.mjs';
 import sequence from './sequence.mjs';
 import state from './state.mjs';
 import figures from './figures.mjs';
@@ -46,7 +47,7 @@ import structured from './structured.mjs';
 // inPage runs in the page with window.__cm (checks/page.mjs); run gets the Playwright page and
 // what the loader collected. Both return findings: [{ where, value }]. A check with `kinds` runs
 // only on documents of those kinds (report, guide, reference) and is skipped on the others.
-const CHECKS = [markup, colour, type, radius, budgets, decoration, meaning, charts, diagrams, sequence, state, figures, tables, structure, kinds, judgment, navigation, writing, provenance, structured].flat();
+const CHECKS = [markup, colour, type, radius, budgets, decoration, meaning, charts, diagrams, sequence, state, entityRelationship, figures, tables, structure, kinds, judgment, navigation, writing, provenance, structured].flat();
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const KIT = path.join(ROOT, 'kit', 'report-kit');

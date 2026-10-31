@@ -40,7 +40,7 @@ Both output folders are generated and git-ignored.
 | `components/bundle.css` | `cm-report.css` without the declarations `tokens.css` carries |
 | `components/bundle.js` | `cm-report.js`, assigning `window.ContentMorphia` |
 | `components/lib/echarts.min.js` | ECharts 5.5.1 |
-| `components/<Component>/` | `README.md` and `preview.html` for each gallery example of a spec section 8 component, and Chart |
+| `components/<Component>/` | `README.md` and `preview.html` for each gallery example of a spec section 8 component, Chart and Diagram |
 | `components/Cover/preview.html` | The cover |
 | `fonts/`, `licenses/` | The faces, their licences and ECharts' |
 | `report-kit/` | The kit's stylesheet, script and three templates as they are |
@@ -59,8 +59,9 @@ Both output folders are generated and git-ignored.
 - **Agent brief.** An agent outside the repository never builds an offline file. The brief names the
   pack tool as the only way to make one.
 - **Components.** One component per example in the gallery's section 5, tied to the spec section
-  that defines it. Chart comes from the gallery's line chart, with spec section 9 as its rules. A spec
-  section that defines several blocks gives each its own component and its own part of the section.
+  that defines it. Chart comes from the gallery's line chart, with spec section 9 as its rules.
+  Diagram comes from the gallery's first flow diagram, with section 8.20 whole. A spec section that
+  defines several blocks gives each its own component and its own part of the section.
 - **Token names.** The kit's custom properties without `--`. Spacing takes the two scales of section 5
   as `block-N` and `inset-N`; the page, reading, rail and bleed widths form a `layout` family.
 - **Theme values.** A dark value only where the kit's dark block declares one; a `var()` colour is an
@@ -90,8 +91,10 @@ The kit stays at 1.2. The version for this change is the orchestrating session's
 
 | Item | Value |
 | --- | --- |
-| Offline sample report | 1,369 KB |
-| Offline gallery | 1,407 KB |
-| Parts of each offline file | Font faces 261 KB, ECharts 1,006 KB, kit CSS 43 KB, kit JS 20 KB |
-| Checks on both offline files, network shut | No failure, no warning |
-| Design bundle | 78 files, 1,497 KB: 26 components and the cover, 41 colours in two themes, 15 type styles, 11 faces |
+| Offline sample report | 1,414 KB |
+| Offline gallery | 1,464 KB |
+| Offline guide | 1,389 KB |
+| Offline reference | 1,387 KB |
+| Parts of each offline file | Font faces 261 KB, ECharts 1,006 KB, kit CSS 49 KB, kit JS 57 KB |
+| Checks on the four offline files, network shut | No failure, no warning; every chart and diagram drawn |
+| Design bundle | 89 files, 1,694 KB: 29 components and the cover, three templates, three example documents, 41 colours in two themes, 15 type styles, 11 faces |

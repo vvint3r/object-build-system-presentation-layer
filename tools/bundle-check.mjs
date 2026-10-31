@@ -214,6 +214,8 @@ for (const p of previews) {
         api: typeof window[ns] === 'object' && typeof window[ns].draw === 'function',
         text: document.body.innerText.trim().length, shapes: shown.filter(e => e.matches('svg, img, rect')).length,
         charts: document.querySelectorAll('.cm-chart').length, drawn: document.querySelectorAll('.cm-chart svg').length,
+        diagrams: document.querySelectorAll('.cm-diagram').length,
+        sketched: [...document.querySelectorAll('.cm-diagram')].filter(d => d.querySelector('.cm-diagram__lines') && d.querySelector('.cm-diagram__edge')).length,
         height: Math.ceil(document.body.getBoundingClientRect().height),
         nunito: [...document.fonts].some(f => fam(f) === 'Nunito' && f.status === 'loaded'),
         body: getComputedStyle(document.body).fontFamily.split(',')[0].replace(/["']/g, '').trim(),
@@ -225,6 +227,7 @@ for (const p of previews) {
       !r.api && `${comp} ${theme}: window.${index.namespace} is not the kit's API`,
       !r.text && !r.shapes && `${comp} ${theme}: blank`,
       r.drawn < r.charts && `${comp} ${theme}: ${r.drawn} of ${r.charts} charts drawn`,
+      r.sketched < r.diagrams && `${comp} ${theme}: ${r.sketched} of ${r.diagrams} diagrams drawn`,
       r.height > marker && `${comp} ${theme}: ${r.height}px tall, marker says ${marker}`,
       !r.nunito && `${comp} ${theme}: no Nunito face loaded`,
       r.body !== 'Nunito' && `${comp} ${theme}: body font ${r.body}`,
@@ -237,6 +240,6 @@ for (const p of previews) {
   }
 }
 await browser.close();
-report(`rendered: ${previews.length} previews in ${themeIds.join(' and ')}, network shut: no error, request or blank, charts drawn, fits its marker, Nunito loaded`, render.flat());
+report(`rendered: ${previews.length} previews in ${themeIds.join(' and ')}, network shut: no error, request or blank, charts and diagrams drawn, fits its marker, Nunito loaded`, render.flat());
 
 process.exit(failed ? 1 : 0);

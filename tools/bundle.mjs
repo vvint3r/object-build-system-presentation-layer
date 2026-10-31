@@ -13,7 +13,7 @@
 //   components/bundle.js          cm-report.js, assigning window.ContentMorphia
 //   components/lib/echarts.min.js ECharts 5.5.1
 //   components/<Comp>/            README.md and preview.html for each component of SPEC section 8,
-//                                 and Chart; components/Cover/preview.html, the system's cover
+//                                 Chart and Diagram; components/Cover/preview.html, the system's cover
 //   fonts/ · licenses/            the WOFF2 faces and the licences of what the bundle carries
 //   report-kit/                   the kit's templates, cm-report.css and cm-report.js as they are
 //   <example>.html                the kit's example documents, one per kind, as they are
@@ -365,6 +365,17 @@ const components = demos.filter(d => /^5\./.test(d.label)).map(d => {
   if (!s) throw new Error(`gallery ${d.label} ${d.title}: no spec section defines it`);
   const name = own.length === 1 ? s.title.replace(/\s*\(.*\)$/, '') : d.title;
   return { name: pascal(name), num, specTitle: s.title, body: own.length === 1 ? s.body : partOf(s.body, d.title), demo: d };
+});
+// The flow diagram's examples sit in the gallery's own part (7.x). Diagram takes the first of them and
+// its spec section whole, in spec order among the components.
+const diagramDemo = demos.find(d => d.label === '7.1');
+const diagramSpec = Object.entries(S8).find(([, s]) => s.title === 'Diagram');
+if (!diagramDemo || !diagramSpec) throw new Error('the gallery has no 7.1 diagram example, or the spec no Diagram section');
+const specOrder = n => n.split('.').map(Number).reduce((a, x) => a * 100 + x, 0);
+const diagramAt = components.findIndex(c => specOrder(c.num) > specOrder(diagramSpec[0]));
+components.splice(diagramAt < 0 ? components.length : diagramAt, 0, {
+  name: 'Diagram', num: diagramSpec[0], specTitle: diagramSpec[1].title, body: diagramSpec[1].body, demo: diagramDemo,
+  lead: `A flow diagram, written as JSON inside the figure markup of Figure (§8.10); the kit draws it. The preview is the gallery's ${diagramDemo.title.toLowerCase()}: ${md(diagramDemo.desc)}`,
 });
 const uncovered = Object.keys(S8).filter(n => !components.some(c => c.num === n));
 if (uncovered.length) throw new Error(`spec sections with no gallery example: ${uncovered.join(', ')}`);

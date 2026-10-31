@@ -8,7 +8,8 @@
 // pinned @fontsource packages and ECharts from the installed echarts package.
 //
 //   tokens.json · tokens.css      the kit's colour, shadow, radius and layout tokens, spacing and type
-//   README.md                     usage rules for an agent that builds on the system, from SPEC.md
+//   README.md                     usage rules for an agent that builds on the system, from SPEC.md,
+//                                 with the changes and the migration note of section 15
 //   components/bundle.css         cm-report.css without the declarations tokens.css now carries
 //   components/bundle.js          cm-report.js under the format's header line; it assigns window.CM
 //   components/lib/echarts.min.js ECharts 5.5.1
@@ -529,7 +530,7 @@ const componentIndex = `## 8. Components\n\n${S['8'].body.split(/\n### /)[0].tri
   + components.map(c => `| [${c.name}](components/${c.name}/README.md) | §${c.num} ${c.specTitle} | ${c.lead.split(/(?<=\.)\s/)[0].replace(/\|/g, '\\|')} |`).join('\n');
 const readme = `Content Morphia publishes reports, documents and analyses as single HTML files: one stylesheet, one script and a template, with light, dark and print built in. The kit is Report Kit ${KIT_VERSION}. This file is its specification, and every document follows it.
 
-A § number names a section of the specification. Sections 1 to 7 and 9 to 14 are in this file. Section 8 lists the components, and each of its subsections, such as §8.21, is in the README of the component it defines.
+A § number names a section of the specification. Sections 1 to 7 and 9 to 15 are in this file. Section 8 lists the components, and each of its subsections, such as §8.21, is in the README of the component it defines.
 
 A document built from this bundle stands alone. Document sets, their index pages (§8.31) and the commands written \`npm run\` belong to the kit's repository. So the templates and examples here write their set and area steps as plain text and link the wordmark to \`#top\` (§7.1).
 
@@ -558,7 +559,7 @@ ${examples.map(e => `| \`${e.file}\` | An example ${e.type ? `${typeName(e.type)
 - Type styles in \`tokens.json\` name the rows of the type table (§4); a document applies them through the classes in that table.
 
 ${[section('1'), section('2'), section('3'), section('4'), section('5'), section('6'), section('7'), componentIndex,
-    section('9'), section('10'), section('11'), section('12'), section('13'), section('14')].join('\n\n')}
+    section('9'), section('10'), section('11'), section('12'), section('13'), section('14'), section('15')].join('\n\n')}
 `;
 put('README.md', undash(readme));
 

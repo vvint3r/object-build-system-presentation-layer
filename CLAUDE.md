@@ -36,6 +36,7 @@ it is not edited there. See `docs/plan.md`.
 | `tools/preview.mjs` | Renders kit pages with the chart library served locally |
 | `tools/pack.mjs` | Writes a page's offline form to `offline/` (`npm run pack`); `tools/offline.mjs` holds its parts |
 | `tools/bundle.mjs` | Writes the design bundle to `bundle/project/` (`npm run bundle`); `tools/bundle-check.mjs` checks it |
+| `tools/migration.mjs` | Checks the kit pages of a released version with this tree's checks (`npm run migration`); section 15 of the spec lists the result |
 | `import/report-kit-1.1/` | The kit as imported from Claude Design on 13 Oct 2026 |
 | `import/nodetrak-presentation-layer/` | The original content-morphia library |
 | `import/kx-visualizations-index/` | The diagram and chart build-logic offshoot |

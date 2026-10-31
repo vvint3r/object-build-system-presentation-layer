@@ -2003,6 +2003,8 @@ Headings are `h1` to `h6` and table titles.
 
 Kept unchanged: the three rules, color law, five semantics, radii, soft and hard elevation families, callout set, highlight set, link and focus treatment.
 
+Added for reports: ECharts chart method and theme; categorical and sequential palettes; dark token set; print rules; report masthead and contents rail; KPI strip; key findings; native tables with sorting and in-cell bars; pull quote; timeline; process diagram; definition, questions and property-sheet blocks; footnotes; collapsible appendix; chart draw-in motion; packaging modes.
+
 Changed in 1.1: labels, tables, chips and charts moved from JetBrains Mono to Nunito (mono is code only); section headers use a “Part 01 /” kicker, optional TL;DR and a 4px closing rule, and H3/H4 carry fit-to-text rules; chips are outlined with color offsets; callouts stack the body under an underlined label; tables have column gutters, dotted totals rules and row flags; the timeline runs on one continuous rail; chart colors c3 and c4 are deeper; charts get automatic legends and axis titles; spacing scale enlarged with a 24px floor.
 
 Changed in 1.2:
@@ -2025,39 +2027,61 @@ Changed in 1.2:
 - A disclosure body spaces its own blocks (§8.16).
 - The print button is optional, added only when the document asks for one (§7).
 - A document without measured numbers leaves out a required block it has nothing for, with an omission comment (§7).
+
+Changed in 2.0:
+
+- A guide and a reference join the report as document kinds, each with its template, its parts and its type chip (§7.3, §7.4).
+- A page type is a recipe on one kind, named by a `cm-type` tag and started from its own template (§7.6).
+- The page types are topic, glossary, module, framework, process and metric (§7.7 to §7.12), comparison, roadmap and case study (§7.13 to §7.15).
+- A required block a document has nothing for is left out with its omission comment, from one table for every kind (§7.5).
 - Distribution, a source's publisher and a source's locator take an omission comment when not recorded (§7.5).
+- Every document carries a `cm-id` tag; a page without one fails the checks (§2, §7).
+- Documents in one folder form a set, with addresses, a breadcrumb, a generated index page and a link check (§8.31).
+- A document stands alone unless it sits beside its set's index page. Alone, its set and area steps are spans, and its wordmark links to `#top` (§7.1).
+- A report's type chip names its form: Report for a period, Analysis for one question, Brief for a short briefing (§7.2).
+- A report that covers a period names it in its title after a comma, and in `<title>` after ` · ` (§7.2).
+- Recommendations holds the featured card, then at most one callout (§7.2).
+- Methodology is required with a KPI strip, a chart or a table, and Terms comes first in it (§7.2).
+- Reading time counts every word a reader sees, chips, KPI values and table cells among them (§7.1).
+- A KPI foot names its reference with its value, then its standing against it (§8.2).
+- A wrapped key finding or recommended action fails: the claim line is the item's own first child (§8.3, §8.19).
+- An action carries an impact chip only for an estimate, and its date chip reads `Due` or `Decide by` (§8.19).
+- A source register lists every source with its key, type, locator and date, and citations link to it both ways (§8.21).
 - A source's date word comes from a closed set, with `as of` and `covers` (§8.21).
-- A delta keeps the case it is written in (§4). A table cell that does not apply reads `n/a` (§8.11).
+- A number without a source carries a note saying no source is recorded (§8.21).
+- A dated status block, a change log, a revision history and a limitation register record what changes (§8.22).
+- The procedure (§8.23), the related list (§8.24) and the structured components (§8.25 to §8.30) join the components.
+- Diagrams are drawn from JSON in six modes: flow, sequence, state, entity relationship, layer stack and hierarchy (§8.20).
+- The flow mode draws process and decision flows, swimlanes, journey maps, and system and data flows (§8.20).
+- Every diagram has a text version and capacity ceilings, and a screen diagram too wide for its box narrows, then scales (§8.20).
+- A flow's branch that ends early ends at a terminal of its own, and `col` and `row` keep their meaning in a flow that reads down (§8.20).
+- A chart is chosen by the reader's question; bullet, slope, strip, box and interval charts are declared with a `cm` key (§9).
+- End labels that name every line take the place of a legend, and a chart's JSON sets no `legend` key (§9).
+- A slope chart's target is a `markLine` labelled with its value (§9).
 - Value labels carry thousands separators and the chart's precision (§9).
+- A delta keeps the case it is written in (§4). A table cell that does not apply reads `n/a` (§8.11).
 - No text is under 11px on screen or on paper: labels, chips, tags and deltas are 11px at +0.06em, and diagrams set their text larger as print scales them (§4, §8.20).
 - At a 390px phone width the page never scrolls sideways; chips wrap inside their outline, and tables print without scrolling (§5, §8.11, §8.18).
-- A flow's branch that ends early ends at a terminal of its own, and `col` and `row` keep their meaning in a flow that reads down (§8.20).
-
-Added for guides and references: document kinds (§7), procedure (§8.23), related list (§8.24).
-
-Added for reference pages: workflow, framework, model, method, requirement, evaluation and metric detail (§8.25 to §8.30).
-
-Added for charts: recipes by question; bullet, slope, strip, box and interval charts declared with a `cm` key; end labels that name every line in place of the legend (§9).
-
-Added for page types: the `cm-type` tag, the recipe format and the selection table (§7.6); topic (§7.7), glossary (§7.8) and module (§7.9).
-
-Added as page types on the reference kind: framework (§7.10), process (§7.11), metric (§7.12) and comparison (§7.13).
-
-Added for document sets: document ids and addresses, the breadcrumb from set to area to document, the generated index page and the link check (§8.31).
-
-Added as page types on the report kind: roadmap (§7.14) and case study (§7.15).
-
-Added for reports: ECharts chart method and theme; categorical and sequential palettes; dark token set; print rules; report masthead and contents rail; KPI strip; key findings; native tables with sorting and in-cell bars; pull quote; timeline; process diagram; definition, questions and property-sheet blocks; footnotes; collapsible appendix; chart draw-in motion; packaging modes.
+- Prose between headings runs from one heading to the next, and figure and table titles count as headings (§13.1).
+- A duration takes a number and a letter for each unit, largest first (§13.2).
+- The offline mode packs a page with its fonts and ECharts inside, for reading with no network (§2).
 
 Not yet covered: maps, network diagrams, interactive filters, a PDF cover page. Use a figure with `cm-slot` and flag the gap in an HTML comment until these exist.
 
 ### Migration from 1.2 to 2.0
 
-A document built on kit 1.2 makes these changes for 2.0. The first two belong to the version itself. The rest bring an early 1.2 document in line with rules the kit already holds.
+A document built on kit 1.2 takes the 2.0 `report-kit/` files, then the repairs below. Each names the check that fails until it is made. The list is measured: the 1.2 sample report, template and gallery, checked with the 2.0 checks.
 
-1. Add `<meta name="cm-id">` after `cm-kind`, naming the document (§8.31). In 1.2 a page without it passes with a warning; in 2.0 it fails `head-order`.
-2. Set `cm-kit` in `<head>` and the kit line in the footer to 2.0.
-3. Write a table cell that does not apply as `n/a`, not a dash (§8.11).
-4. Give each source date a word from the closed set, and each unrecorded publisher, locator or Distribution its omission comment (§7.5, §8.21).
-5. Write chart values as numbers, never strings, and drop any `"legend"` key (§9).
-6. Write each key finding and recommended action as the canonical `<li>`, its claim line first, with no wrapping `<div>` (§8.3, §8.19) In 1.2 a wrapped item passes with a warning.
+1. `head-order`: set `cm-kit` to `2.0`. Add `<meta name="cm-id">` naming the document, after `cm-kind`, or after `cm-kit` on a report without a kind tag (§2, §8.31).
+2. `footer`: name `Content Morphia Report Kit 2.0` in the footer (§7.1).
+3. `masthead`: write the breadcrumb as three steps, set, area and document. Outside a set, the set and area steps are `span` elements, not links to `#top` (§7.1, §8.31).
+4. `claim-wrapper`: remove the `<div>` around each key finding and each recommended action, so the claim line is the `<li>`'s own first child (§8.3, §8.19).
+5. `source-entries` and `sources`: rewrite each source entry in the form of §8.21. It holds the key `SN` in `.cm-id` under the id `src-N`, the title in `<b>`, then the type tag, publisher and locator, then a date word and its `<time datetime>`.
+   - The type tag comes from the closed set: Dataset, Report, Interview, Document or System export. In the 1.2 layout a longer tag runs out of its box, which `text-clip` fails; the §8.21 form holds it.
+   - A publisher or locator the document does not record takes its omission comment (§7.5). A date has no omission comment: it is the date the source carries, looked up at the source.
+6. `table-na`: write a table cell that does not apply as `n/a`, never as a dash (§8.11).
+7. `type-floor`: mark a grid of side-by-side figures `cm-print-stack`, so each figure prints full width with its text at 11px or more (§4, §8.10).
+
+One change shows in no check on a 1.2 page. A report whose type chip reads Guide is a guide: it takes `<meta name="cm-kind" content="guide">`, the guide template and the guide's parts (§7.3).
+
+A diagram added on the way to 2.0 can meet every capacity ceiling and still fail print, when its labels run long or it sits near several ceilings at once. The print check fails it, and it splits or its text shortens (§8.20).

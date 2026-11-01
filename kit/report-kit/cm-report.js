@@ -575,8 +575,9 @@
     }
   }
   // Moves a bar's value label off a reference line it would cross (labelLayout callback). The gap
-  // between label and line is 6px; a label moves inside its bar's end when the bar holds it with
-  // 4px to spare, and past the line otherwise.
+  // between label and line is 6px. A label moves inside its bar's end whenever the bar holds it with
+  // 4px to spare, which keeps it clear of the line, since only a bar that stops short of the line
+  // sends its label across it; otherwise the label moves past the line.
   function clearLine(inst, si, yCat, refs, p) {
     var r = p.labelRect, b = p.rect, gap = 6;
     if (!r || !b) return;
@@ -587,12 +588,12 @@
         var at = px[0];
         if (r.x - gap >= at || r.x + r.width + gap <= at) continue;
         var inX = b.x + b.width - 4 - r.width;
-        return inX >= b.x + 4 && inX + r.width + gap <= at ? { dx: inX - r.x } : { dx: at + gap - r.x };
+        return inX >= b.x + 4 ? { dx: inX - r.x } : { dx: at + gap - r.x };
       }
       var atY = px[1];
       if (r.y - gap >= atY || r.y + r.height + gap <= atY) continue;
       var inY = b.y + 4;
-      return inY + r.height <= b.y + b.height - 4 && inY >= atY + gap ? { dy: inY - r.y } : { dy: atY - gap - r.height - r.y };
+      return inY + r.height <= b.y + b.height - 4 ? { dy: inY - r.y } : { dy: atY - gap - r.height - r.y };
     }
   }
   // A y-axis title and the label at the top end of a vertical reference line share the band above
@@ -2365,6 +2366,8 @@
   function initScroll() {
     markScroll();
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(markScroll);
+    // a box inside a closed disclosure has no width until the reader opens it
+    document.addEventListener('toggle', markScroll, true);
     var st;
     addEventListener('resize', function () { clearTimeout(st); st = setTimeout(markScroll, 120); });
   }

@@ -1092,7 +1092,7 @@ The JSON holds `nodes` and `edges` only. Participants stand left to right in the
 
 A participant `label` stops at 24 characters and a `detail` at 40, as a flow node's; a message label stops at 3 words, as an edge label.
 
-The text version lists every message once, numbered in time order. Each item gives the sender and the receiver, "replies to" for a reply, "to itself" and "optional" where they apply, then the label, then "Procedure step N" for a message with a `step`. A message that opens a bar names the message that closes it. An empty `aria-label` takes a summary: the number of messages, the participants, and the number of replies.
+The text version lists every message once, numbered in time order. Each item gives the sender and the receiver, "replies to" for a reply, "to itself" and "optional" where they apply, then the label. A message with a `step` adds "Procedure step N". A message that opens a bar names the message that closes it. An empty `aria-label` takes a summary: the number of messages, the participants, and the number of replies.
 
 #### State
 
@@ -1920,7 +1920,7 @@ An interval band and a box mark a range, not a level, so the zero rule does not 
 - Target or threshold: `"markLine": {"data": [{"yAxis": 95, "label": {"formatter": "Target 95%", "position": "insideStartTop"}}]}` (use `xAxis` for vertical lines and horizontal bars, `position: "end"`).
 - Event: vertical markLine on the category (`{"xAxis": "Wk 7"}`) with a 1–3 word label.
 - Period band: `"markArea": {"data": [[{"xAxis": "Wk 6"}, {"xAxis": "Wk 8"}]]}`.
-- Direct labels: `"endLabel": {"show": true, "formatter": "{a}"}` names a line at its end (add `"grid": {"right": 64}`, more for long names); when every line carries one, the legend is left out. `"label": {"show": true, "position": "right", "formatter": "{c}%"}` on bars; on a horizontal bar chart the kit keeps room at the right for the widest label. The kit sets every value label, on a series or on a single point, in ink on the surface colour, and draws a series above its reference lines. A bar's value label that would sit on a reference line moves inside the bar's end, or 6px past the line when the bar is too short to hold it, so no number sits on a line. A y-axis title that would meet the label at the top of a vertical reference line rises one label row, 22px, above it. End labels that would touch move apart.
+- Direct labels: `"endLabel": {"show": true, "formatter": "{a}"}` names a line at its end (add `"grid": {"right": 64}`, more for long names); when every line carries one, the legend is left out. `"label": {"show": true, "position": "right", "formatter": "{c}%"}` on bars; on a horizontal bar chart the kit keeps room at the right for the widest label. The kit sets every value label, on a series or on a single point, in ink on the surface colour, and draws a series above its reference lines. A bar's value label that would sit on a reference line moves inside the bar's end. On a bar too short to hold it, the label moves 6px past the line. A y-axis title that would meet the label at the top of a vertical reference line rises one label row, 22px, above it. End labels that would touch move apart.
 - Value labels: the kit writes `{c}` with thousands separators and at the chart's precision, the most decimal places any value in its series carries. So `94.0` beside `96.1` reads `94.0`, and `13240` reads `13,240`. The ends of a slope and a bullet's values follow the same rule. Values stay numbers in the JSON, never strings.
 
 **Kit declarations.** Option JSON carries no functions, so four chart types are declared with a `"cm"` key and built by the kit's script at every draw, from the current tokens: theme, print and dark mode work as for any chart. The rest of the JSON stays ordinary ECharts, with its axes, series names, axis titles and annotations, and every rule above applies to it. `chart` names the type.
@@ -2015,9 +2015,9 @@ Automatic from tokens; agents write nothing extra. The pre-paint script in `<hea
 - Browser print (the browser's own command, or the optional print button): always light; chrome hidden; 16 × 14mm margins; shadows become 1px borders; the L2 card keeps its offset; appendices and exercise answers open; charts redraw static at print width.
 - **Page numbers.** Every page carries "Page N of M" in its bottom margin, at the right, in the label style.
 - **Keeps.** Headings, part kickers and labels keep with what follows them, and no heading splits. A section's lede keeps with its first block and does not split. The footer stays whole and keeps with the page before it, so no page holds the footer alone.
-- **Short blocks stay whole:** KPIs, callouts, a definition's terms, questions, property sheets, steps, quotes, code blocks, status blocks, table rows and the items of every list component.
+- **Short blocks stay whole:** KPIs, callouts, a definition's terms, questions, property sheets, steps, quotes, code blocks, status blocks, table rows and list items.
 - **Cards.** A card of key findings or recommended actions, and a definition block, break only between their items. They stay whole while short: three findings, two actions or three terms at most.
-- **Figures.** A figure stays whole. One with a data table or a text version keeps its title, drawing and caption together, and the table or text version may follow on the next page.
+- **Figures.** A figure stays whole. One with a data table or a text version keeps its title, drawing and caption together. The table or text version may follow on the next page.
 - **Tall figures.** A figure whose drawing prints taller than 500px, half a page, does not hold a section lede back. The lede may end a page and the figure start the next, rather than the drawing split. The kit marks such a figure `data-cm-print-tall` while printing.
 - Section bodies, stacks and disclosure bodies print as blocks 32px apart, so a page breaks between blocks wherever the keeps allow.
 - Mark side-by-side figure grids `cm-print-stack` so they print one under another, full width.
@@ -2271,7 +2271,7 @@ Changed in 2.0:
 - Item 13 of the checklist needs a browser; without one, it waits for the checks (§14).
 - A table, a code block or a diagram that scrolls sideways shows the scroll cue under it (§5).
 - A bar's value label moves off a reference line, and a y-axis title rises above a vertical reference line's label it would meet (§9).
-- In a guide's Steps, the procedure comes first; a diagram of the steps follows it and numbers its messages or nodes by step (§7.3, §8.20).
+- In a guide, a diagram of the steps follows the procedure and numbers its messages or nodes by step (§7.3, §8.20).
 - Printed pages carry their numbers. Headings, kickers and ledes keep with what follows, and screen-only text does not print (§12).
 - A printed table repeats its header row on each page and prints its total row once (§8.11, §12).
 - A printed figure may break before its data table or text version, and a long card of findings or actions between its items (§12).
@@ -2293,7 +2293,7 @@ A document built on kit 1.2 takes the 2.0 `report-kit/` files, then the repairs 
 7. `type-floor`: mark a grid of side-by-side figures `cm-print-stack`, so each figure prints full width with its text at 11px or more (§4, §8.10).
 8. `chart-text-fit`: keep every text a chart draws inside the chart at 390px. The kit makes room for a horizontal bar's value labels and a scale bar's end labels. A pie's outside labels turn with `startAngle` until they sit above and below the ring; a label that still runs out shortens (§5, §9).
 9. `kpi-standing`: write the foot of a KPI with a target as the target, then the standing in words: `<span>Target 95%</span><b>Missed by 3.8 pp</b>`, or `<b>Met</b>`. A KPI whose delta or meter names a target names it in the foot too (§8.2).
-10. `print-screen-only`: wrap an instruction that works only on screen, such as "Select a column header to sort", in a `span.cm-noprint`, so it does not print (§8.11, §12).
+10. `print-screen-only`: wrap an instruction that works only on screen, such as "Select a column header to sort", in a `span.cm-noprint` (§8.11, §12).
 
 One change shows in no check on a 1.2 page. A report whose type chip reads Guide is a guide: it takes `<meta name="cm-kind" content="guide">`, the guide template and the guide's parts (§7.3).
 

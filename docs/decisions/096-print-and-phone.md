@@ -12,13 +12,13 @@
 
 | Rule | Spec | Check |
 | --- | --- | --- |
-| A table, a code block or a diagram that scrolls sideways shows the cue "Scroll sideways →" under its content, at its right edge, in the label style; a box that fits shows none, and no cue prints | §5, §8.11, §8.17, §8.20 | `scroll-cue`, failure, phone pass included |
+| A table, a code block or a diagram that scrolls sideways shows the cue "Scroll sideways →" under its content, in the label style. A box that fits shows none, and no cue prints | §5, §8.11, §8.17, §8.20 | `scroll-cue`, failure, phone pass included |
 | No chart text covers another, and no text sits on a reference line | §9 | `chart-label-clear`, failure, phone pass included |
-| A bar's value label that would sit on a reference line moves inside the bar's end, or 6px past the line when the bar is too short | §9 | `chart-label-clear` |
+| A bar's value label that would sit on a reference line moves inside the bar's end. On a bar too short to hold it, the label moves 6px past the line | §9 | `chart-label-clear` |
 | A y-axis title that would meet the label at the top of a vertical reference line rises one label row, 22px | §9 | `chart-label-clear` |
-| In a guide's Steps the procedure comes first; a diagram of the steps follows it, and a message or node that shows a step carries `step`, a step the procedure holds | §7.3, §8.20 | `guide-step-diagram`, failure; `sequence-json` and `diagram-json` read the field |
+| In a guide's Steps the procedure comes first. A diagram of the steps follows it, and each message or node that shows a step carries that step's number, `step` | §7.3, §8.20 | `guide-step-diagram`, failure; `sequence-json` and `diagram-json` read the field |
 | Printed pages carry "Page N of M" in the bottom margin | §12 | None; `npm run print` reports it |
-| Headings, kickers and labels keep with what follows; a section lede keeps with its first block and does not split; the footer keeps with the page before it | §12 | None; `npm run print` reports what ends a page |
+| Headings, kickers and labels keep with what follows. A section lede keeps with its first block and does not split. The footer keeps with the page before it | §12 | None; `npm run print` reports what ends a page |
 | A figure with a data table or a text version may break before it; its title, drawing and caption stay together | §8.10, §12 | None |
 | A figure whose drawing prints taller than 500px does not hold a section lede back | §12 | None |
 | A card of findings or actions and a definition block break between items, and stay whole at three findings, two actions or three terms | §12 | None |
@@ -37,7 +37,7 @@ checks: the kit draws the cue, moves the labels and raises the title itself.
 | Page numbers read "Page N of M", at the bottom right, in the label style, with its values written out in the `@page` rule | Chromium 141, the tools' build, draws `@page` margin boxes. Print is always light, so the page rule needs no theme token |
 | One cue for all three kinds of box, drawn by `::after` on the box from `data-cm-scroll`, which the script sets from the box's width | The page's markup, text versions and checks see no new element. A pseudo-element with empty alternative text keeps screen readers off it. Rule 11 rules out a fade or shadow |
 | The cue stays in view with `position: sticky` | A reader who scrolls the box still sees it |
-| A value label moves inside its bar first, past the line only when the bar cannot hold it with 4px to spare | Inside, the number stays on its own bar; past the line is the only room left on a short bar |
+| A value label moves inside its bar whenever the bar holds it with 4px to spare, and past the line otherwise | Inside, the number stays on its own bar and clear of the line; past the line is the only room left on a short bar |
 | The y-axis title rises only where the drawn texts overlap across, with 10px of air | Every other chart keeps its padding, so no chart that was clear changes |
 | `step` is a whole number, drawn zero-padded before the label as `03 · Records the charge`; the text version adds "Procedure step 3" | The procedure numbers its steps `01` to `09`, so the drawing and the list read alike. The flow text version already uses "step" for its own numbering |
 | The message that starts the task carries no number; the guide's messages carry steps 4 to 7 | Record 095 orders the steps; steps 1 to 3 send no message on a ticket that escalates, as the figure's note says |

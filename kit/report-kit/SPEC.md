@@ -2269,4 +2269,6 @@ A document built on kit 1.2 takes the 2.0 `report-kit/` files, then the repairs 
 
 One change shows in no check on a 1.2 page. A report whose type chip reads Guide is a guide: it takes `<meta name="cm-kind" content="guide">`, the guide template and the guide's parts (§7.3).
 
+Reading time counts each element's text apart (§7.1), which can give a 1.2 document a higher count. A stated time below the count draws a `reading-time` warning until it is restated.
+
 A diagram added on the way to 2.0 can meet every capacity ceiling and the width count and still fail print, when its labels run long or it sits near several ceilings at once. The print check fails it, and it splits or its text shortens (§8.20).

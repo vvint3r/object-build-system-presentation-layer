@@ -131,6 +131,7 @@ The rule thickness follows the heading level; the CSS applies it. Headings never
 - Grids: `.cm-grid` + `--2`, `--3`, `--4`, or `--wide` (1.5 : 1). Add `.cm-grid--cols` for 40px text-column gaps. Grids collapse at 800px and 640px automatically.
 - Responsive behaviour is built in: rail becomes a top strip below 1150px, process diagrams stack below 800px, everything single-column below 640px.
 - **Phone width (MUST):** at 390px the page never scrolls sideways and no text runs out of its box or is cut off. A table, a code block or a diagram may scroll sideways inside its own box; nothing else does.
+- **Scroll cue.** A box that scrolls shows a cue under its content, "Scroll sideways →", in the label style at its right edge. The cue stays in view while the box scrolls, and screen readers skip it. `cm-report.js` marks such a box `data-cm-scroll` from its width at load, on resize and when fonts arrive, so a box that fits shows none. No cue prints.
 - **Current section.** The rail marks the current section's link bold on the track fill. In the strip the link keeps its normal weight and takes a 2px ink underline on the track fill, so no link changes width and the strip keeps its height whichever section is current.
 
 ## 6. Elevation and emphasis budget
@@ -216,6 +217,8 @@ A guide takes one reader through one task, from the event that starts it to the 
 6. **Appendix A · Notes & sources** (required, §7.1).
 
 A guide may add sections of its own between these parts. Limits, due times and other rules inside a step carry their source. §8.21 says which one when the material does not tie a rule to a source. Figures that change over time stay out of the steps and go in the status block (§8.22), after the Steps lede.
+
+In Steps, the procedure comes first. A diagram of the steps follows it, and each message or node that shows a step carries that step's number (`step`, §8.20). The kit draws the number before the label, as the procedure writes it, so a reader maps the drawing onto the steps. A message or node that is no step of the procedure, such as the event that starts the task, carries none.
 
 Other roles may act between the reader's steps, such as a manager who approves a claim. The reader's step is then to hand the work on or to wait for it, and its outcome names the state the other role leaves. The work stays one guide while its subject names one reader's task (§7.6).
 
@@ -796,7 +799,9 @@ Verbatim only. ≤ 1 per section. Pair with a figure in `.cm-grid.cm-grid--wide.
 - Real `<table>` with `<thead>`; `<tfoot>` for a totals or calculated row (the kit adds space and a dotted rule above it).
 - The title sits above the table; the caption under it holds the source line, then any flags or note line, as for a figure (§8.10).
 - Columns are separated by 16px gutters automatically; never add borders.
-- A table wider than its box scrolls sideways inside it on screen. In print nothing scrolls: the gutters narrow to 12px and the heads wrap, so the table holds to the printed column.
+- A table wider than its box scrolls sideways inside it on screen, with the scroll cue under it (§5). In print nothing scrolls: the gutters narrow to 12px and the heads wrap, so the table holds to the printed column.
+- A printed table repeats its header row on each page and prints its `tfoot` row once, after the last body row. It never breaks after its first body row.
+- An instruction that works only on screen, such as "Select a column header to sort", sits in a `span.cm-noprint`, so it does not print (§12).
 - Numeric columns: `.num` on `th` and `td`; consistent decimals; thousands separators; `−` (U+2212) for negatives.
 - A cell whose value does not apply reads `n/a`, in `.soft`. A dash never stands for a value.
 - `.strong` for the row key and the column the reader should compare; `.soft` for n/a values; `.wrap` for prose cells.
@@ -873,6 +878,8 @@ Appendices only, and the answers to a module's exercises (§7.9). In an appendix
 </div>
 ```
 
+A code block wider than its box scrolls sideways inside it, with the scroll cue under its last line (§5).
+
 Token spans: `k` keyword, `s` string, `n` number, `f` callable, `c` comment. Keywords, strings and numbers take the syntax colours the CSS sets; it is the only coloured text in the kit. Escape `<` as `&lt;`. Inline identifiers, file names and token names use `<code>`.
 
 ### 8.18 Chips, tags, buttons
@@ -938,7 +945,7 @@ The JSON holds these fields and nothing else: no coordinates, sizes, classes or 
 
 | Field | Holds | Values |
 | --- | --- | --- |
-| `nodes` | One entry for each node | `id` (unique), `type`, `label`, optional `detail`, `col` and `row` (whole numbers from 1, one node a cell), optional `emphasis`, `level` on a journey map |
+| `nodes` | One entry for each node | `id` (unique), `type`, `label`, optional `detail`, `col` and `row` (whole numbers from 1, one node a cell), optional `emphasis`, `level` on a journey map, optional `step` in a guide (§7.3) |
 | `edges` | One entry for each connection | `from` and `to` (node ids), optional `kind`, optional `label` |
 | `groups` | Optional lanes, boundaries and phases | Lane: `"type": "lane"`, `label`, `row`, optional `rows`. Boundary: `"type": "boundary"`, `label`, `col`, `row`, optional `cols` and `rows`. Phase: `"type": "phase"`, `label`, `col`, optional `cols` |
 | `direction` | Optional reading direction | `right` (default) or `down` |
@@ -965,6 +972,7 @@ Shape marks the node type and line style the edge kind. A key above the drawing 
 - A lane is a row band named on the left, one role or system each. With lanes, every row sits in exactly one lane, so each hand-off crosses a lane line.
 - A boundary is a rounded frame around a block of cells, named at the left of its top line, or at the right when an edge crosses where the name would stand.
 - One node at most is emphasised: a step, with a chip of one or two words naming why. It counts toward the section's one `cm-emph` (§6).
+- In a guide's diagram, `step` holds the number of the procedure step a node shows (§7.3). The kit draws it before the name as the procedure numbers its steps, `03 · Escalate?`, and the text version adds "Procedure step 3".
 
 Capacity. Every ceiling below is counted from the JSON, so a document built away from the kit's repository can meet it without drawing the diagram.
 
@@ -1029,7 +1037,7 @@ The kit applies the rest:
 - The drawing recomputes on resize, on a theme change and before print.
 - A text version follows the caption: a `details.cm-data` disclosure, "View as text", with one numbered item for each node in reading order. Each item gives the node's name and detail, then where the flow goes next: each branch with its label and step number, and a loop as "Back to step N". The node's phase, lane and boundaries, its experience level and the emphasised node are named.
 - An empty `aria-label` takes a summary from the data: the number of steps, the first and last, and the count of lanes, decisions and loops. A journey map and a system and data flow take their own summary (below). An author's `aria-label` stays; it states what the diagram shows in one sentence.
-- When the screen layout is wider than its box, the diagram takes the narrower gaps and nodes of the print layout. If it is still wider, it scales to the box's width, never below 80%, with its text set larger as in print. Past that floor it scrolls sideways inside its own box. Text never draws under its own size.
+- When the screen layout is wider than its box, the diagram takes the narrower gaps and nodes of the print layout. If it is still wider, it scales to the box's width, never below 80%, with its text set larger as in print. Past that floor it scrolls sideways inside its own box, with the scroll cue under it (§5). Text never draws under its own size.
 - Print narrows the gaps and the nodes, then scales the drawing to fit the 638px printed column and 720px of a page, never below 80%. Text in a scaled drawing is set larger by the inverse of the scale, up to 125%, so it prints at its own size and never under 11px. The text version prints open.
 - A diagram that fits the printed column never scrolls at a desktop window, 1000px and wider. The layout check fails one that scrolls at 1440px.
 - A node widens to hold its emphasis chip, which never wraps.
@@ -1059,7 +1067,7 @@ A sequence diagram shows the messages that pass between people or systems, in th
 </div>
 ```
 
-The JSON holds `nodes` and `edges` only. Participants stand left to right in the order written and messages run down in the order written, so the author writes no columns or rows. A node holds `id`, `label` and an optional `detail`; an edge holds `from`, `to` and `label`, with optional `kind` and `activate`.
+The JSON holds `nodes` and `edges` only. Participants stand left to right in the order written and messages run down in the order written, so the author writes no columns or rows. A node holds `id`, `label` and an optional `detail`; an edge holds `from`, `to` and `label`, with optional `kind`, `activate` and `step`.
 
 | Value | Drawn as | Use |
 | --- | --- | --- |
@@ -1075,6 +1083,7 @@ The JSON holds `nodes` and `edges` only. Participants stand left to right in the
 - Lifelines are 1.5px in the field colour, so they read as structure rather than as messages.
 - A key above the drawing names the lines and the bar whenever the diagram has a reply, an optional message or an activation bar.
 - A sequence diagram has no emphasised node.
+- In a guide's diagram, `step` holds the number of the procedure step a message shows (§7.3). The kit draws it before the label as the procedure numbers its steps, `03 · Records the charge`. It counts as no word of the label.
 
 | Item | At most | Reason |
 | --- | --- | --- |
@@ -1083,7 +1092,7 @@ The JSON holds `nodes` and `edges` only. Participants stand left to right in the
 
 A participant `label` stops at 24 characters and a `detail` at 40, as a flow node's; a message label stops at 3 words, as an edge label.
 
-The text version lists every message once, numbered in time order. Each item gives the sender and the receiver, "replies to" for a reply, "to itself" and "optional" where they apply, then the label. A message that opens a bar names the message that closes it. An empty `aria-label` takes a summary: the number of messages, the participants, and the number of replies.
+The text version lists every message once, numbered in time order. Each item gives the sender and the receiver, "replies to" for a reply, "to itself" and "optional" where they apply, then the label, then "Procedure step N" for a message with a `step`. A message that opens a bar names the message that closes it. An empty `aria-label` takes a summary: the number of messages, the participants, and the number of replies.
 
 #### State
 
@@ -1829,7 +1838,7 @@ The kit has no search, faceted browse or version selector, since each needs a se
 
 **Method:** ECharts 5.5.1, SVG renderer, option JSON inside `<script type="application/json">` within `.cm-chart[data-chart]`. Agents **MUST NOT** call `echarts.init` or write chart JavaScript. The JSON **MUST** be valid JSON (double quotes, no comments, no functions, no trailing commas). Chart types that ECharts cannot draw from JSON alone are declared with a `"cm"` key (**Kit declarations** below).
 
-**Applied automatically — do not set these:** fonts, text colors, axis lines, gridlines, tick removal, legend look and placement, axis-title placement, plot top/bottom padding (worked out from the legend, axis titles, reference-line labels and a heatmap's scale bar), the room at the right for a horizontal bar's value labels, tooltip look, series palette, bar width (≤ 16px) and rounding, stacked-segment gaps, line width 2.5, hidden symbols, area opacity 0.18, markLine/markArea styling, label styling, spacing of end labels that would touch, heatmap ramp, animation timing, renderer, and everything a kit declaration draws.
+**Applied automatically — do not set these:** fonts, text colors, axis lines, gridlines, tick removal, legend look and placement, axis-title placement, plot top/bottom padding (worked out from the legend, axis titles, reference-line labels and a heatmap's scale bar, and widened by one label row where a y-axis title and a vertical reference line's top label would overlap), the room at the right for a horizontal bar's value labels, tooltip look, series palette, bar width (≤ 16px) and rounding, stacked-segment gaps, line width 2.5, hidden symbols, area opacity 0.18, markLine/markArea styling, label styling, spacing of end labels that would touch, heatmap ramp, animation timing, renderer, and everything a kit declaration draws.
 
 **Anatomy (MUST, in this order):**
 
@@ -1911,7 +1920,7 @@ An interval band and a box mark a range, not a level, so the zero rule does not 
 - Target or threshold: `"markLine": {"data": [{"yAxis": 95, "label": {"formatter": "Target 95%", "position": "insideStartTop"}}]}` (use `xAxis` for vertical lines and horizontal bars, `position: "end"`).
 - Event: vertical markLine on the category (`{"xAxis": "Wk 7"}`) with a 1–3 word label.
 - Period band: `"markArea": {"data": [[{"xAxis": "Wk 6"}, {"xAxis": "Wk 8"}]]}`.
-- Direct labels: `"endLabel": {"show": true, "formatter": "{a}"}` names a line at its end (add `"grid": {"right": 64}`, more for long names); when every line carries one, the legend is left out. `"label": {"show": true, "position": "right", "formatter": "{c}%"}` on bars; on a horizontal bar chart the kit keeps room at the right for the widest label. The kit sets every value label, on a series or on a single point, in ink on the surface colour, and draws a series above its reference lines, so a line never runs through a number. End labels that would touch move apart.
+- Direct labels: `"endLabel": {"show": true, "formatter": "{a}"}` names a line at its end (add `"grid": {"right": 64}`, more for long names); when every line carries one, the legend is left out. `"label": {"show": true, "position": "right", "formatter": "{c}%"}` on bars; on a horizontal bar chart the kit keeps room at the right for the widest label. The kit sets every value label, on a series or on a single point, in ink on the surface colour, and draws a series above its reference lines. A bar's value label that would sit on a reference line moves inside the bar's end, or 6px past the line when the bar is too short to hold it, so no number sits on a line. A y-axis title that would meet the label at the top of a vertical reference line rises one label row, 22px, above it. End labels that would touch move apart.
 - Value labels: the kit writes `{c}` with thousands separators and at the chart's precision, the most decimal places any value in its series carries. So `94.0` beside `96.1` reads `94.0`, and `13240` reads `13,240`. The ends of a slope and a bullet's values follow the same rule. Values stay numbers in the JSON, never strings.
 
 **Kit declarations.** Option JSON carries no functions, so four chart types are declared with a `"cm"` key and built by the kit's script at every draw, from the current tokens: theme, print and dark mode work as for any chart. The rest of the JSON stays ordinary ECharts, with its axes, series names, axis titles and annotations, and every rule above applies to it. `chart` names the type.
@@ -2003,13 +2012,22 @@ Automatic from tokens; agents write nothing extra. The pre-paint script in `<hea
 
 ## 12. Print and PDF
 
-- Browser print (the browser's own command, or the optional print button): always light; chrome hidden; 16 × 14mm margins; shadows become 1px borders; the L2 card keeps its offset; appendices and exercise answers open; charts redraw static at print width; figures, KPIs, callouts, definitions and table rows never split.
-- Mark side-by-side figure grids `cm-print-stack` so they print full width.
+- Browser print (the browser's own command, or the optional print button): always light; chrome hidden; 16 × 14mm margins; shadows become 1px borders; the L2 card keeps its offset; appendices and exercise answers open; charts redraw static at print width.
+- **Page numbers.** Every page carries "Page N of M" in its bottom margin, at the right, in the label style.
+- **Keeps.** Headings, part kickers and labels keep with what follows them, and no heading splits. A section's lede keeps with its first block and does not split. The footer stays whole and keeps with the page before it, so no page holds the footer alone.
+- **Short blocks stay whole:** KPIs, callouts, a definition's terms, questions, property sheets, steps, quotes, code blocks, status blocks, table rows and the items of every list component.
+- **Cards.** A card of key findings or recommended actions, and a definition block, break only between their items. They stay whole while short: three findings, two actions or three terms at most.
+- **Figures.** A figure stays whole. One with a data table or a text version keeps its title, drawing and caption together, and the table or text version may follow on the next page.
+- **Tall figures.** A figure whose drawing prints taller than 500px, half a page, does not hold a section lede back. The lede may end a page and the figure start the next, rather than the drawing split. The kit marks such a figure `data-cm-print-tall` while printing.
+- Section bodies, stacks and disclosure bodies print as blocks 32px apart, so a page breaks between blocks wherever the keeps allow.
+- Mark side-by-side figure grids `cm-print-stack` so they print one under another, full width.
 - Diagrams redraw with narrower gaps and nodes, scaled to fit the 638px printed column and a page, never below 80%, with their text set larger so it prints at its own size; their text versions print open (§8.20).
-- Tables print without scrolling: 12px gutters, heads that wrap (§8.11).
+- Tables print without scrolling: 12px gutters, heads that wrap, the header row on every page and the total row once, at the end (§8.11).
+- **Screen-only text.** An element marked `cm-noprint` does not print. An instruction that works only on screen, such as one to select a column header, sits in a `span.cm-noprint`. The scroll cue does not print (§5).
 - No text prints under 11px after scaling (§4).
 - Use `cm-section--break` to start a section on a new page (typically the first appendix in long reports).
 - **Headless pipelines** (Puppeteer, Playwright, wkhtmltopdf): set `<html data-cm-static>` or call `CM.drawAll()` after load, then `CM.beforePrint()` before generating the PDF. Wait for `document.fonts.ready`.
+- In the kit's repository, `npm run print` writes each page's A4 PDF to `.print/`. With PyMuPDF installed, it reports the page count, pages less than half used and labels left at a page foot.
 
 ## 13. Writing rules
 
@@ -2251,6 +2269,12 @@ Changed in 2.0:
 - A saved report a system produces is a `System export`, and a nested locator puts ` / ` between its levels (§8.21).
 - A half year reads `H1 2026`, and a span with no name gives its dates (§8.22, §13.2).
 - Item 13 of the checklist needs a browser; without one, it waits for the checks (§14).
+- A table, a code block or a diagram that scrolls sideways shows the scroll cue under it (§5).
+- A bar's value label moves off a reference line, and a y-axis title rises above a vertical reference line's label it would meet (§9).
+- In a guide's Steps, the procedure comes first; a diagram of the steps follows it and numbers its messages or nodes by step (§7.3, §8.20).
+- Printed pages carry their numbers. Headings, kickers and ledes keep with what follows, and screen-only text does not print (§12).
+- A printed table repeats its header row on each page and prints its total row once (§8.11, §12).
+- A printed figure may break before its data table or text version, and a long card of findings or actions between its items (§12).
 
 Not yet covered: maps, network diagrams, interactive filters, a PDF cover page. Use a figure with `cm-slot` and flag the gap in an HTML comment until these exist.
 
@@ -2269,6 +2293,7 @@ A document built on kit 1.2 takes the 2.0 `report-kit/` files, then the repairs 
 7. `type-floor`: mark a grid of side-by-side figures `cm-print-stack`, so each figure prints full width with its text at 11px or more (§4, §8.10).
 8. `chart-text-fit`: keep every text a chart draws inside the chart at 390px. The kit makes room for a horizontal bar's value labels and a scale bar's end labels. A pie's outside labels turn with `startAngle` until they sit above and below the ring; a label that still runs out shortens (§5, §9).
 9. `kpi-standing`: write the foot of a KPI with a target as the target, then the standing in words: `<span>Target 95%</span><b>Missed by 3.8 pp</b>`, or `<b>Met</b>`. A KPI whose delta or meter names a target names it in the foot too (§8.2).
+10. `print-screen-only`: wrap an instruction that works only on screen, such as "Select a column header to sort", in a `span.cm-noprint`, so it does not print (§8.11, §12).
 
 One change shows in no check on a 1.2 page. A report whose type chip reads Guide is a guide: it takes `<meta name="cm-kind" content="guide">`, the guide template and the guide's parts (§7.3).
 

@@ -47,6 +47,26 @@ export default [
   },
 
   {
+    // A table, code block or diagram wider than its box scrolls inside it and shows the cue under its
+    // content: the box carries data-cm-scroll and draws the cue. A box that fits carries no cue. In
+    // print nothing scrolls and no cue prints.
+    name: 'scroll-cue', level: 'fail', source: 'SPEC §5, §8.11, §8.17, §8.20, §12; record 096', phone: true,
+    run: ({ page, mode }) => atWidth(page, mode, ({ check, SCROLLERS, mode }) => {
+      const H = window.__cm, out = [];
+      for (const el of document.querySelectorAll(SCROLLERS)) {
+        if (!H.shown(el) || H.exempt(el, check)) continue;
+        const wide = el.scrollWidth > el.clientWidth + 1, cs = getComputedStyle(el, '::after');
+        const drawn = H.pseudoDrawn(el, '::after') && cs.display !== 'none';
+        const marked = el.hasAttribute('data-cm-scroll');
+        if (mode === 'print') { if (marked && drawn) out.push({ where: H.path(el), value: 'prints a scroll cue' }); continue; }
+        if (wide && !(marked && drawn)) out.push({ where: H.path(el), value: `scrolls sideways, ${el.scrollWidth}px in ${el.clientWidth}px, with no cue` });
+        if (!wide && marked) out.push({ where: H.path(el), value: 'fits its box but shows a scroll cue' });
+      }
+      return out;
+    }, { check: 'scroll-cue', SCROLLERS, mode }),
+  },
+
+  {
     // No text is cut off: every line of text lies inside each ancestor that hides what overflows it,
     // and inside the box of the element that holds it. Text in a box that scrolls is reached by
     // scrolling, so it counts as inside. Visually hidden text is exempt.

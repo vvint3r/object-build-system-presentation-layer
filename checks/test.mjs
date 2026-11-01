@@ -17,6 +17,8 @@
 //                   mark (SPEC §8.15)
 //   bare gap        a KPI that misses its target with only "−3.8 pp" in its foot: kpi-standing
 //                   fails, since the foot states the standing in words (SPEC §8.2)
+//   printed hint    Table 1's sort instruction outside .cm-noprint: print-screen-only fails, since
+//                   screen-only text does not print (SPEC §12)
 
 import { spawnSync } from 'node:child_process';
 import { cpSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
@@ -65,6 +67,12 @@ const CASES = [
     html: edit(sample, /<b>Missed by 3\.8 pp<\/b>/, '<b>−3.8 pp</b>'),
     fails: ['kpi-standing'],
     finding: 'opens with Met or Missed',
+  },
+  {
+    file: 'printed-hint.html',
+    html: edit(sample, /<span class="cm-noprint">( Select a column header to sort\.)<\/span>/, '$1'),
+    fails: ['print-screen-only'],
+    finding: 'Select a column header to sort',
   },
 ];
 

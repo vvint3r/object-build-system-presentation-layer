@@ -408,6 +408,11 @@ pre code{all:unset}
    geometry at every width and scrolls sideways in its own box. */
 .cm-diagram{position:relative;margin-top:32px;overflow-x:auto;overflow-y:hidden;min-width:0}
 .cm-diagram>script{display:none}
+/* A table, code block or diagram wider than its box carries data-cm-scroll (cm-report.js) and shows a
+   cue in the label style under its content, at the right edge of the box, held in view while the box
+   scrolls. Screen readers skip it. */
+[data-cm-scroll]::after{content:"Scroll sideways \2192" / "";position:sticky;left:0;display:block;margin-top:12px;font-family:var(--cm-font);font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;white-space:normal;text-align:right;color:var(--cm-ink)}
+.cm-code pre[data-cm-scroll]::after{margin-top:8px}
 .cm-diagram__key{display:flex;flex-wrap:wrap;gap:8px 24px;margin-bottom:20px;font-size:13px;font-weight:700;line-height:1.5}
 .cm-diagram__key-item{display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
 .cm-diagram__swatch{display:block;flex:none;width:22px;height:14px;background:var(--cm-surface);border:1px solid var(--cm-field);border-radius:var(--cm-r-chip)}
@@ -444,6 +449,7 @@ pre code{all:unset}
 .cm-diagram__node.cm-emph{border:1.5px solid var(--cm-ink);box-shadow:var(--cm-l1e)}
 .cm-diagram__edge-label,.cm-diagram__lane,.cm-diagram__boundary-label,.cm-diagram__phase,.cm-diagram__level{position:absolute;font-size:calc(11px * var(--cm-dg-k,1));font-weight:800;letter-spacing:.06em;text-transform:uppercase;line-height:1.4}
 .cm-diagram__edge-label{white-space:nowrap;background:var(--cm-bg);border-radius:2px}
+.cm-diagram__step{font-variant-numeric:tabular-nums}
 .cm-diagram__lane{max-width:112px}
 .cm-diagram__boundary{position:absolute;border:1.5px solid var(--cm-field);border-radius:var(--cm-r-card)}
 .cm-diagram__boundary-label{padding:0 6px;white-space:nowrap;background:var(--cm-bg);border-radius:2px}
@@ -651,7 +657,8 @@ ol.cm-parts.cm-parts--matrix{--n:2}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 
 /* ---------- 24. Print / PDF ---------- */
-@page{margin:16mm 14mm}
+/* every printed page carries its number and the page count, in the label style, at the foot */
+@page{margin:16mm 14mm;@bottom-right{content:"Page " counter(page) " of " counter(pages);font-family:'Nunito',system-ui,sans-serif;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#000}}
 @media print{
   html[data-theme]{color-scheme:light;--cm-ink:#000;--cm-paper:#fff;--cm-surface:#fff;--cm-track:#f1f1f1;--cm-hairline:#e2e2e2;--cm-field:#d9d9d9;--cm-accent:#1bbd94;--cm-accent-tint:rgba(27,189,148,.25);--cm-accent-wash:rgba(27,189,148,.08);--cm-ok-tint:rgba(0,230,118,.2);--cm-warn-tint:rgba(255,214,0,.3);--cm-crit-tint:rgba(255,82,82,.16);--cm-info-tint:rgba(64,196,255,.22);--cm-note-tint:rgba(179,136,255,.22);--cm-ok-wash:rgba(0,230,118,.13);--cm-warn-wash:rgba(255,214,0,.2);--cm-crit-wash:rgba(255,82,82,.1);--cm-info-wash:rgba(64,196,255,.13);--cm-note-wash:rgba(179,136,255,.14);--cm-code-kw:#6a3ea1;--cm-code-str:#0e7a5f;--cm-code-num:#a3441a;--cm-c3:#2d6fdc;--cm-c4:#8a4fd6;--cm-context:#d9d9d9}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
@@ -666,7 +673,10 @@ ol.cm-parts.cm-parts--matrix{--n:2}
   .cm-section{padding-top:48px}
   .cm-section__head{margin-bottom:32px;padding-bottom:20px}
   .cm-section--break{break-before:page}
-  .cm-section__body{gap:32px}
+  /* a section body, a stack and a disclosure body lay out as blocks in print, 32px apart, so a page
+     breaks between their blocks where the keeps allow */
+  .cm-section__body,.cm-stack,.cm-collapse__body{display:block}
+  .cm-section__body>*+*,.cm-stack>*+*,.cm-collapse__body>*+*{margin-top:32px}
   .cm-card,.cm-tile,.cm-figure,.cm-kpi,.cm-summary,.cm-table-wrap,.cm-collapse,.cm-code,.cm-step,.cm-status{box-shadow:none!important;border:1px solid var(--cm-field)}
   .cm-emph,.cm-featured,.cm-step.cm-emph{border:1.5px solid #000}
   .cm-featured{box-shadow:5px 5px 0 var(--cm-accent)!important}
@@ -676,16 +686,38 @@ ol.cm-parts.cm-parts--matrix{--n:2}
   .cm-table{border-spacing:12px 0}
   .cm-table th{white-space:normal}
   .cm-collapse{padding:0 24px}
-  .cm-grid--2.cm-print-stack,.cm-grid--wide.cm-print-stack{grid-template-columns:minmax(0,1fr)}
-  .cm-figure,.cm-kpi,.cm-callout,.cm-def,.cm-qa,.cm-props>dl,.cm-step,.cm-quote,.cm-summary,.cm-code,.cm-timeline>li,.cm-table tr,.cm-status,.cm-disagree,.cm-sources>li,.cm-changes>li,.cm-versions>li,.cm-limits>li,.cm-procedure>li,.cm-related>li,.cm-stages>li,.cm-parts>li,.cm-scope,.cm-facts,.cm-criteria>li,.cm-bands>li,.cm-eval__result{break-inside:avoid}
+  /* side-by-side figures print one under another, as blocks, so each can break at its data table */
+  .cm-grid.cm-print-stack{display:block}
+  .cm-grid.cm-print-stack>*+*{margin-top:32px}
+  /* short blocks stay whole; a block that holds a list of items breaks only between them */
+  .cm-kpi,.cm-callout,.cm-def dl>div,.cm-qa,.cm-props>dl,.cm-step,.cm-quote,.cm-findings>li,.cm-code,.cm-timeline>li,.cm-table tr,.cm-status,.cm-disagree,.cm-sources>li,.cm-changes>li,.cm-versions>li,.cm-limits>li,.cm-procedure>li,.cm-related>li,.cm-stages>li,.cm-parts>li,.cm-scope,.cm-facts,.cm-criteria>li,.cm-bands>li,.cm-eval__result,.cm-section__head,.cm-collapse>summary,.cm-footer{break-inside:avoid}
+  /* a card of findings or actions, and a definition block, break only between items, and stay whole while
+     short, under about half a page: three findings, two actions or three terms at most */
+  .cm-summary:not(:has(.cm-findings>li:nth-child(4))),.cm-featured:not(:has(.cm-findings>li:nth-child(3))),.cm-def:not(:has(dl>div:nth-child(4))){break-inside:avoid}
+  /* a figure stays whole; one with a data table or a text version keeps its title, drawing and caption
+     together, and the table or text version may follow on the next page */
+  .cm-figure:not(:has(.cm-data)),.cm-chart,.cm-diagram,.cm-figure>img,.cm-slot{break-inside:avoid}
+  .cm-figure__kind,.cm-figure__desc{break-after:avoid}
+  h1,h2,h3,h4,h5,h6,.cm-figure__kind,.cm-figure__desc,.cm-table-title{break-inside:avoid}
+  .cm-figure>.cm-caption{break-before:avoid;break-inside:avoid}
+  /* a table repeats its header row on each page and prints its total row once, after the last row,
+     and never splits after its first row */
+  .cm-table thead{display:table-header-group}
+  .cm-table tfoot{display:table-row-group;break-before:avoid}
+  .cm-table tbody>tr:first-child{break-after:avoid}
   .cm-procedure>li,.cm-stages>li{padding-top:20px;padding-bottom:20px}
   .cm-procedure>li::before,.cm-stages>li::before{top:20px}
-  .cm-figure__title,.cm-section__head,.cm-h3,.cm-h4,.cm-table-title{break-after:avoid}
+  /* headings, kickers and labels keep with what follows; a section lede keeps with its first block,
+     unless that block is a figure taller than half a page; the footer keeps with the end of the page before it */
+  h1,h2,h3,h4,h5,h6,.cm-figure__title,.cm-section__head,.cm-h3,.cm-h4,.cm-table-title,.cm-card__kicker,.cm-label,.cm-def__label,.cm-callout__label,.cm-collapse>summary{break-after:avoid}
+  .cm-section__body>.cm-prose:first-child:not(:last-child):has(>p:only-child):not(:has(+[data-cm-print-tall],+.cm-print-stack>[data-cm-print-tall]:first-child)),.cm-section__body>.cm-prose:first-child>p:first-child:not(:last-child){break-after:avoid}
+  .cm-section__body>.cm-prose:first-child>p:first-child{break-inside:avoid}
+  .cm-footer{break-before:avoid}
   .cm-chart svg{position:static!important;display:block;width:100%!important;height:auto!important}
   .cm-chart{height:auto!important;min-height:0}
   .cm-chart>div{width:100%!important;height:auto!important}
   .cm-sources a[href^="http"]::after{content:" · " attr(href);font-size:11px;font-weight:400}
-  .cm-data>summary,.cm-collapse>summary::after{display:none}
+  .cm-data>summary,.cm-collapse>summary::after,[data-cm-scroll]::after{display:none}
   .cm-diagram{overflow:visible}
   .cm-footer{margin-top:48px}
 }

@@ -79,7 +79,7 @@ export function install(cfg) {
 
   // The label tier: 11px, weight 800, capitals, +0.06em; chips are labels in an outline. SPEC.md
   // section 4 names most of it; records 056, 058 and 086 add the rest. The collapse toggle's "Open +" is
-  // a label drawn by ::after.
+  // a label drawn by ::after, as is the "Scroll sideways" cue of a box that scrolls (record 096).
   H.LABEL = '.cm-label, .cm-crumbs, .cm-mast__meta dt, .cm-byline dt, .cm-kpi__label, .cm-callout__label, '
     + '.cm-def__label, .cm-qa__label, .cm-props dt, .cm-status dt, .cm-facts dt, .cm-quote footer b, .cm-figure__kind, .cm-slot b, '
     + '.cm-data>summary, .cm-table-title__kind, .cm-table th, .cm-toc a .n, .cm-step__n, .cm-chip, .cm-tag, .cm-delta, '
@@ -88,7 +88,7 @@ export function install(cfg) {
   // is plain running text inside the label, not part of it. A table head's sort arrow is a glyph.
   H.isLabel = (el, pseudo) => (!!el.closest(H.LABEL) && !el.closest('.cm-props dt small')
       && !(pseudo && el.matches('.cm-table th button')))
-    || (pseudo === '::after' && el.matches('.cm-collapse>summary'));
+    || (pseudo === '::after' && el.matches('.cm-collapse>summary, [data-cm-scroll]'));
 
   // Any CSS colour to one canonical form (#rrggbb, or rgba(...) when not opaque).
   const ctx = document.createElement('canvas').getContext('2d');

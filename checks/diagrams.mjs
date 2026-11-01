@@ -18,7 +18,7 @@ export default [
     inPage: ({ check }) => {
       const H = window.__cm, out = [];
       const TOP = ['nodes', 'edges', 'groups', 'direction', 'experience'];
-      const NODE = ['id', 'type', 'label', 'detail', 'col', 'row', 'emphasis', 'level'];
+      const NODE = ['id', 'type', 'label', 'detail', 'col', 'row', 'emphasis', 'level', 'step'];
       const EDGE = ['from', 'to', 'kind', 'label'];
       const LANE = ['type', 'label', 'row', 'rows'];
       const BOUND = ['type', 'label', 'col', 'row', 'cols', 'rows'];
@@ -55,6 +55,7 @@ export default [
           if (n.detail != null && !str(n.detail)) bad(`${w}: detail is not text`);
           if (n.detail != null && n.type === 'decision') bad(`${w}: a decision carries its question only, no detail`);
           if (n.emphasis != null && (!str(n.emphasis) || n.type !== 'step')) bad(`${w}: emphasis is a short reason on a step`);
+          if (n.step != null && !pos(n.step)) bad(`${w}: step is a whole number from 1`);
           if (!pos(n.col) || !pos(n.row)) bad(`${w}: col and row are whole numbers from 1`);
           else {
             const c = `${n.col},${n.row}`;

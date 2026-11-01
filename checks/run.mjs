@@ -54,6 +54,7 @@ import typesReference from './types-reference.mjs';
 import offline from './offline.mjs';
 import typesCore from './types-core.mjs';
 import width from './width.mjs';
+import print from './print.mjs';
 import { fontCss, echarts, faces } from '../tools/offline.mjs';
 
 // Each module exports checks: { name, level: 'fail' | 'warn', source, once?, kinds?, types?, offline?, phone?, inPage | run }.
@@ -63,7 +64,7 @@ import { fontCss, echarts, faces } from '../tools/offline.mjs';
 // with `types` runs only on pages whose cm-type is one of those types (SPEC.md section 7.6) and is
 // skipped on every other page, a page with no type among them. A check marked offline runs only on
 // a page in the offline packaging mode. A check marked phone runs in the phone pass as well.
-const CHECKS = [markup, colour, type, radius, budgets, decoration, meaning, charts, diagrams, sequence, state, entityRelationship, flowFamilies, layerStack, hierarchy, figures, tables, structure, kinds, judgment, navigation, width, writing, provenance, structured, offline, recipes, typesCore, typesReference, typesReport].flat();
+const CHECKS = [markup, colour, type, radius, budgets, decoration, meaning, charts, diagrams, sequence, state, entityRelationship, flowFamilies, layerStack, hierarchy, figures, tables, structure, kinds, judgment, navigation, width, print, writing, provenance, structured, offline, recipes, typesCore, typesReference, typesReport].flat();
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const KIT = path.join(ROOT, 'kit', 'report-kit');

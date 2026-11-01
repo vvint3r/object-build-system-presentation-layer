@@ -2240,7 +2240,9 @@ Changed in 2.0:
 - Version is the document's own, `1.0` at first, and a cited source's date or version is never the document's (§7.1, §7.5).
 - Readers given only as a condition give Distribution the group the condition is drawn from (§7.1).
 - A guide's Prerequisites opens with a lede and lists what is in place before the task starts; the reader's later actions are steps (§7.3).
+- A guide's status block follows the Steps lede, and where another role acts between steps, the reader hands the work on or waits (§7.3).
 - A subject that names one reader's task is a guide, and one that names the work across its roles is a process page (§7.6, §7.11).
+- When the material supports one document, the subject picks the guide or the process page, and the other is not made (§7.6).
 - A note has one mark, and a later passage names the place that carries it (§8.15).
 - A fact the material does not tie to a source cites the one listed source of its kind, or takes the no-source note (§8.21).
 - A number without its unit or currency carries one note that names the numbers it covers (§8.21).

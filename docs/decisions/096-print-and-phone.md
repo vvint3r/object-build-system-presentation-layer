@@ -12,7 +12,7 @@
 
 | Rule | Spec | Check |
 | --- | --- | --- |
-| A table, a code block or a diagram that scrolls sideways shows the cue "Scroll sideways →" under its content, in the label style. A box that fits shows none, and no cue prints | §5, §8.11, §8.17, §8.20 | `scroll-cue`, failure, phone pass included |
+| A table, a code block or a diagram that scrolls sideways shows the cue "Scroll sideways →" above its content, in the label style. A box that fits shows none, and no cue prints | §5, §8.11, §8.17, §8.20 | `scroll-cue`, failure, phone pass included |
 | No chart text covers another, and no text sits on a reference line | §9 | `chart-label-clear`, failure, phone pass included |
 | A bar's value label that would sit on a reference line moves inside the bar's end. On a bar too short to hold it, the label moves 6px past the line | §9 | `chart-label-clear` |
 | A y-axis title that would meet the label at the top of a vertical reference line rises one label row, 22px | §9 | `chart-label-clear` |
@@ -23,6 +23,7 @@
 | A figure whose drawing prints taller than 500px does not hold a section lede back | §12 | None |
 | A card of findings or actions and a definition block break between items, and stay whole at three findings, two actions or three terms | §12 | None |
 | A printed table repeats its header row, prints its total row once at the end, and never breaks after its first row | §8.11, §12 | None |
+| Sort arrows and footnote back-links do not print; a sort button prints as its plain label, so a repeated header row names every column | §8.11, §12 | None |
 | Screen-only text sits in `.cm-noprint`; an instruction to use a control of the page does not print | §8.11, §12 | `print-screen-only`, failure |
 
 `checks/test.mjs` holds a copy of the sample report whose sort instruction sits outside
@@ -35,7 +36,7 @@ checks: the kit draws the cue, moves the labels and raises the title itself.
 | Decision | Reason |
 | --- | --- |
 | Page numbers read "Page N of M", at the bottom right, in the label style, with its values written out in the `@page` rule | Chromium 141, the tools' build, draws `@page` margin boxes. Print is always light, so the page rule needs no theme token |
-| One cue for all three kinds of box, drawn by `::after` on the box from `data-cm-scroll`, which the script sets from the box's width | The page's markup, text versions and checks see no new element. A pseudo-element with empty alternative text keeps screen readers off it. Rule 11 rules out a fade or shadow |
+| One cue for all three kinds of box, drawn by `::before` on the box, above the content so the reader meets it before the cut-off, from `data-cm-scroll`, which the script sets from the box's width | The page's markup, text versions and checks see no new element. A pseudo-element with empty alternative text keeps screen readers off it. Rule 11 rules out a fade or shadow |
 | The cue stays in view with `position: sticky` | A reader who scrolls the box still sees it |
 | A value label moves inside its bar whenever the bar holds it with 4px to spare, and past the line otherwise | Inside, the number stays on its own bar and clear of the line; past the line is the only room left on a short bar |
 | The y-axis title rises only where the drawn texts overlap across, with 10px of air | Every other chart keeps its padding, so no chart that was clear changes |

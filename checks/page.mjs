@@ -88,7 +88,8 @@ export function install(cfg) {
   // is plain running text inside the label, not part of it. A table head's sort arrow is a glyph.
   H.isLabel = (el, pseudo) => (!!el.closest(H.LABEL) && !el.closest('.cm-props dt small')
       && !(pseudo && el.matches('.cm-table th button')))
-    || (pseudo === '::after' && el.matches('.cm-collapse>summary, [data-cm-scroll]'));
+    || (pseudo === '::after' && el.matches('.cm-collapse>summary'))
+    || (pseudo === '::before' && el.matches('[data-cm-scroll]'));
 
   // Any CSS colour to one canonical form (#rrggbb, or rgba(...) when not opaque).
   const ctx = document.createElement('canvas').getContext('2d');

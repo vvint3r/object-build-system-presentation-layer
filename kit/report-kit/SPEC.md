@@ -131,7 +131,7 @@ The rule thickness follows the heading level; the CSS applies it. Headings never
 - Grids: `.cm-grid` + `--2`, `--3`, `--4`, or `--wide` (1.5 : 1). Add `.cm-grid--cols` for 40px text-column gaps. Grids collapse at 800px and 640px automatically.
 - Responsive behaviour is built in: rail becomes a top strip below 1150px, process diagrams stack below 800px, everything single-column below 640px.
 - **Phone width (MUST):** at 390px the page never scrolls sideways and no text runs out of its box or is cut off. A table, a code block or a diagram may scroll sideways inside its own box; nothing else does.
-- **Scroll cue.** A box that scrolls shows a cue under its content, "Scroll sideways →", in the label style at its right edge. The cue stays in view while the box scrolls, and screen readers skip it. `cm-report.js` marks such a box `data-cm-scroll` from its width at load, on resize and when fonts arrive, so a box that fits shows none. No cue prints.
+- **Scroll cue.** A box that scrolls shows a cue above its content, "Scroll sideways →", in the label style at its right edge. The cue stays in view while the box scrolls, and screen readers skip it. `cm-report.js` marks such a box `data-cm-scroll` from its width at load, on resize and when fonts arrive, so a box that fits shows none. No cue prints.
 - **Current section.** The rail marks the current section's link bold on the track fill. In the strip the link keeps its normal weight and takes a 2px ink underline on the track fill, so no link changes width and the strip keeps its height whichever section is current.
 
 ## 6. Elevation and emphasis budget

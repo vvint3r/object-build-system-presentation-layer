@@ -409,10 +409,10 @@ pre code{all:unset}
 .cm-diagram{position:relative;margin-top:32px;overflow-x:auto;overflow-y:hidden;min-width:0}
 .cm-diagram>script{display:none}
 /* A table, code block or diagram wider than its box carries data-cm-scroll (cm-report.js) and shows a
-   cue in the label style under its content, at the right edge of the box, held in view while the box
+   cue in the label style above its content, at the right edge of the box, held in view while the box
    scrolls. Screen readers skip it. */
-[data-cm-scroll]::after{content:"Scroll sideways \2192" / "";position:sticky;left:0;display:block;margin-top:12px;font-family:var(--cm-font);font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;white-space:normal;text-align:right;color:var(--cm-ink)}
-.cm-code pre[data-cm-scroll]::after{margin-top:8px}
+[data-cm-scroll]::before{content:"Scroll sideways \2192" / "";position:sticky;left:0;display:block;margin-bottom:12px;font-family:var(--cm-font);font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;white-space:normal;text-align:right;color:var(--cm-ink)}
+.cm-code pre[data-cm-scroll]::before{margin-bottom:8px}
 .cm-diagram__key{display:flex;flex-wrap:wrap;gap:8px 24px;margin-bottom:20px;font-size:13px;font-weight:700;line-height:1.5}
 .cm-diagram__key-item{display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
 .cm-diagram__swatch{display:block;flex:none;width:22px;height:14px;background:var(--cm-surface);border:1px solid var(--cm-field);border-radius:var(--cm-r-chip)}
@@ -665,6 +665,10 @@ ol.cm-parts.cm-parts--matrix{--n:2}
   body{font-size:14px;line-height:1.75;background:#fff}
   .cm-topbar,.cm-rail,.cm-noprint,[data-cm-theme-toggle],[data-cm-print]{display:none!important}
   .cm-print-only{display:block}
+  /* sort controls and footnote back-links are for the screen; a sort button prints as its plain label */
+  .cm-table th button{display:contents}
+  .cm-table th button::after,.cm-table th[aria-sort] button::after{content:none}
+  .cm-back{display:none}
   .cm-shell{display:block;max-width:none;padding:0}
   .cm-main{max-width:none;padding:0}
   .cm-bleed{margin-inline:0}

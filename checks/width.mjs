@@ -47,7 +47,7 @@ export default [
   },
 
   {
-    // A table, code block or diagram wider than its box scrolls inside it and shows the cue under its
+    // A table, code block or diagram wider than its box scrolls inside it and shows the cue above its
     // content: the box carries data-cm-scroll and draws the cue. A box that fits carries no cue. In
     // print nothing scrolls and no cue prints.
     name: 'scroll-cue', level: 'fail', source: 'SPEC §5, §8.11, §8.17, §8.20, §12; record 096', phone: true,
@@ -55,8 +55,8 @@ export default [
       const H = window.__cm, out = [];
       for (const el of document.querySelectorAll(SCROLLERS)) {
         if (!H.shown(el) || H.exempt(el, check)) continue;
-        const wide = el.scrollWidth > el.clientWidth + 1, cs = getComputedStyle(el, '::after');
-        const drawn = H.pseudoDrawn(el, '::after') && cs.display !== 'none';
+        const wide = el.scrollWidth > el.clientWidth + 1, cs = getComputedStyle(el, '::before');
+        const drawn = H.pseudoDrawn(el, '::before') && cs.display !== 'none';
         const marked = el.hasAttribute('data-cm-scroll');
         if (mode === 'print') { if (marked && drawn) out.push({ where: H.path(el), value: 'prints a scroll cue' }); continue; }
         if (wide && !(marked && drawn)) out.push({ where: H.path(el), value: `scrolls sideways, ${el.scrollWidth}px in ${el.clientWidth}px, with no cue` });

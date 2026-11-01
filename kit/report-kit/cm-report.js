@@ -2353,7 +2353,7 @@
 
   /* ---------- scroll cues ---------- */
   // A table, code block or diagram wider than its box scrolls sideways inside it. On screen such a box
-  // carries data-cm-scroll, and the stylesheet draws a "Scroll sideways" cue under its content. The
+  // carries data-cm-scroll, and the stylesheet draws a "Scroll sideways" cue above its content. The
   // mark follows the box's width: at load, when fonts arrive, when the window resizes, after a diagram
   // is placed. Print never marks a box.
   var SCROLLERS = '.cm-table-wrap, .cm-code pre, .cm-diagram';

@@ -109,33 +109,6 @@
           <p>An escalation runs in <strong>seven steps</strong>, from setting the intent to the closed ticket. The Tier 1 agent stays on the ticket as a follower after the hand-off.</p>
         </div>
 
-        <figure class="cm-figure cm-bleed">
-          <span class="cm-figure__kind">Figure 1</span>
-          <h3 class="cm-figure__title">Messages in a billing escalation</h3>
-          <p class="cm-figure__desc">Who tells whom what, from the customer's question to the specialist's answer.</p>
-          <div class="cm-diagram" data-diagram="sequence" role="img" aria-label="">
-            <script type="application/json">
-            {
-              "nodes": [
-                {"id": "customer", "label": "Customer"},
-                {"id": "agent", "label": "Tier 1 agent"},
-                {"id": "billing", "label": "Billing specialist"}
-              ],
-              "edges": [
-                {"from": "customer", "to": "agent", "label": "Asks about charge"},
-                {"from": "agent", "to": "agent", "label": "Records the charge"},
-                {"from": "agent", "to": "billing", "label": "Escalates with macro", "activate": true},
-                {"from": "agent", "to": "customer", "kind": "reply", "label": "Gives due time"},
-                {"from": "billing", "to": "customer", "kind": "reply", "label": "Resolves the ticket"}
-              ]
-            }
-            </script>
-          </div>
-          <figcaption class="cm-caption">
-            <span class="cm-caption__line">Source: billing escalation policy v4.<a class="cm-cite" href="#src-3" id="cite-10">S3</a></span>
-            <span class="cm-caption__line">Note: after the customer's question, the figure draws steps 4 to 7; steps 1 to 3 send no message on a ticket that escalates.</span>
-          </figcaption>
-        </figure>
         <ol class="cm-procedure">
           <li>
             <h3 class="cm-procedure__title">Set the billing intent</h3>
@@ -175,6 +148,34 @@
             <div class="cm-procedure__outcome"><span class="cm-label">Outcome</span><p>The specialist resolves and closes the ticket, and the satisfaction survey goes out 24 hours later.<a class="cm-cite" href="#src-4" id="cite-4">S4</a></p></div>
           </li>
         </ol>
+
+        <figure class="cm-figure cm-bleed">
+          <span class="cm-figure__kind">Figure 1</span>
+          <h3 class="cm-figure__title">Messages in a billing escalation</h3>
+          <p class="cm-figure__desc">Who tells whom what, from the customer's question to the specialist's answer.</p>
+          <div class="cm-diagram" data-diagram="sequence" role="img" aria-label="">
+            <script type="application/json">
+            {
+              "nodes": [
+                {"id": "customer", "label": "Customer"},
+                {"id": "agent", "label": "Tier 1 agent"},
+                {"id": "billing", "label": "Billing specialist"}
+              ],
+              "edges": [
+                {"from": "customer", "to": "agent", "label": "Asks about charge"},
+                {"from": "agent", "to": "agent", "label": "Records the charge", "step": 4},
+                {"from": "agent", "to": "billing", "label": "Escalates with macro", "activate": true, "step": 5},
+                {"from": "agent", "to": "customer", "kind": "reply", "label": "Gives due time", "step": 6},
+                {"from": "billing", "to": "customer", "kind": "reply", "label": "Resolves the ticket", "step": 7}
+              ]
+            }
+            </script>
+          </div>
+          <figcaption class="cm-caption">
+            <span class="cm-caption__line">Source: billing escalation policy v4.<a class="cm-cite" href="#src-3" id="cite-10">S3</a></span>
+            <span class="cm-caption__line">Note: after the customer's question, the figure draws steps 4 to 7; steps 1 to 3 send no message on a ticket that escalates.</span>
+          </figcaption>
+        </figure>
       </div>
     </section>
 
@@ -266,7 +267,7 @@
           <ol class="cm-sources">
             <li id="src-1"><span class="cm-id">S1</span><span><b>Refund authority matrix v4</b><br><span class="cm-tag">Document</span> Billing Operations · <code>billing/refund-authority-v4.pdf</code> <a class="cm-back" href="#cite-1" aria-label="Back to text">↩</a></span><span class="cm-meta">published <time datetime="2026-08-12">2026-08-12</time></span></li>
             <li id="src-2"><span class="cm-id">S2</span><span><b>Helpdesk macro library, Billing v4 set</b><br><span class="cm-tag">Document</span> Support Operations · <code>helpdesk/macros/billing-v4</code> <a class="cm-back" href="#cite-2" aria-label="Back to text">↩</a></span><span class="cm-meta">published <time datetime="2026-08-26">2026-08-26</time></span></li>
-            <li id="src-3"><span class="cm-id">S3</span><span><b>Billing escalation policy v4</b><br><span class="cm-tag">Document</span> Billing Operations · <code>billing/escalation-policy-v4.pdf</code> <a class="cm-back" href="#cite-10" aria-label="Back to text">↩</a></span><span class="cm-meta">published <time datetime="2026-08-12">2026-08-12</time></span></li>
+            <li id="src-3"><span class="cm-id">S3</span><span><b>Billing escalation policy v4</b><br><span class="cm-tag">Document</span> Billing Operations · <code>billing/escalation-policy-v4.pdf</code> <a class="cm-back" href="#cite-3" aria-label="Back to text">↩</a></span><span class="cm-meta">published <time datetime="2026-08-12">2026-08-12</time></span></li>
             <li id="src-4"><span class="cm-id">S4</span><span><b>Customer support operations review, Q3 2026</b><br><span class="cm-tag">Report</span> Support Operations Analytics · <a href="Sample%20Report%20-%20Q3%20Support%20Review.html">Sample Report - Q3 Support Review.html</a> <a class="cm-back" href="#cite-4" aria-label="Back to text">↩</a></span><span class="cm-meta">published <time datetime="2026-10-12">2026-10-12</time></span></li>
             <li id="src-5"><span class="cm-id">S5</span><span><b>SLA policy v3</b><br><span class="cm-tag">Document</span> Support Operations · <code>support/sla-policy-v3.pdf</code> <a class="cm-back" href="#cite-9" aria-label="Back to text">↩</a></span><span class="cm-meta">published <time datetime="2026-01-01">2026-01-01</time></span></li>
           </ol>

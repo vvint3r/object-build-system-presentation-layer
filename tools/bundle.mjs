@@ -534,7 +534,7 @@ A § number names a section of the specification. Sections 1 to 7 and 9 to 15 ar
 
 A document built from this bundle stands alone. Document sets, their index pages (§8.31) and the commands written \`npm run\` belong to the kit's repository. So the templates and examples here write their set and area steps as plain text and link the wordmark to \`#top\` (§7.1). A document joins a set in the repository by the steps of §8.31.
 
-The checks the rules name, such as the print check and the type checks, run when a document returns to the repository. A document made from this bundle meets them by reading and counting. Item 13 needs a browser, where one is at hand (§14).
+The checks the rules name, such as the print check and the type checks, run when a document returns to the repository. A document made from this bundle meets them by reading and counting. Item 13 needs a browser; without one, it waits for the checks (§14).
 
 A document starts by choosing its page type. The selection table in §7.6 picks one by the question the reader brings, and names the template to copy from the table below.
 

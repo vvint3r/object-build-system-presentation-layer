@@ -7,8 +7,11 @@
   A reference has no executive summary, KPI strip, summary card, recommendations card or Period.
   A required part the subject has no content for is left out with an omission comment in its place (SPEC.md §7.5), for example:
   <!- - cm-omit examples: The decision has no case to work through. - ->
+  Once the document is filled, delete this comment and the guidance in the comments below. A comment that only names a part may stay, and every omission comment stays (SPEC.md §2).
   Paths below assume the reference sits inside report-kit/. Elsewhere, point the two kit paths at report-kit/cm-report.css and report-kit/cm-report.js.
-  In a set, the file is named {Kind} - {Short Title}.html, the cm-id is that name in lowercase with hyphens, and the wordmark and breadcrumb link to the set's index.html (SPEC.md §8.31).
+  The file is named {Kind} - {Short Title}.html and the cm-id is that name in lowercase with hyphens, in a set or standing alone (SPEC.md §7.1).
+  In a set, the wordmark and breadcrumb link to the set's index.html.
+  A document that stood alone joins a set by the steps in SPEC.md §8.31.
   A document outside a set writes its set and area steps as <span>s and links the wordmark to #top. In a set, npm run index -- <folder> rewrites index.html and npm run links -- <folder> checks the links.
 -->
 <html lang="en">
@@ -74,14 +77,14 @@
       <div class="cm-bar" aria-hidden="true"></div>
       <h1 class="cm-mast__title">{{ Name of the thing }}</h1>
       <p class="cm-mast__dek">{{ One sentence: what the thing is and who uses it. }}</p>
-      <!-- METADATA: Status chips: Draft = cm-chip, In review = cm-chip--warn, Final = cm-chip--ok. The status chip reads Draft until the owner approves the document, and Draft when the source states no status. Published is the version\'s effective date when the source gives one. These fields are the whole list (SPEC.md §7.1). -->
+      <!-- METADATA: Status chips: Draft = cm-chip, In review = cm-chip--warn, Final = cm-chip--ok. The status chip reads Draft until the owner approves the document, and Draft when the source states no status. Published is the version\'s effective date when the source gives one, never a date of a source it cites. Version is the document\'s own, 1.0 for its first. These fields are the whole list (SPEC.md §7.1). -->
       <dl class="cm-mast__meta">
         <div><dt>Status</dt><dd><span class="cm-chip">Reference</span><span class="cm-chip cm-chip--ok">{{ Final }}</span></dd></div>
         <div><dt>Published</dt><dd>{{ YYYY-MM-DD }}</dd></div>
         <div><dt>Reading time</dt><dd>{{ N }} min</dd></div>
         <div><dt>Version</dt><dd>{{ 1.0 }}</dd></div>
       </dl>
-      <!-- BYLINE: Prepared by, then Reviewed by when the source names a reviewer, then Distribution. Prepared by names the owner when the source names no preparer. Distribution names the readers the document is for; when they are not known, the field gives way to an omission comment, cm-omit distribution (SPEC.md §7.1, §7.5). -->
+      <!-- BYLINE: Prepared by, then Reviewed by when the source names a reviewer, then Distribution. Prepared by names the owner when the source names no preparer. Distribution names the readers the document is for, or, for readers given as a condition, the group the condition is drawn from. When they are not known, the field gives way to an omission comment, cm-omit distribution (SPEC.md §7.1, §7.5). -->
       <dl class="cm-byline">
         <div><dt>Prepared by</dt><dd>{{ Team or author }}</dd></div>
         <div><dt>Distribution</dt><dd>{{ Audience }}</dd></div>
@@ -274,7 +277,8 @@
         <div class="cm-stack">
           <h3 class="cm-h4">Sources</h3>
           <!-- SOURCE REGISTER: key S1, S2… kept across versions; id src-N. Type: Dataset | Report | Interview | Document | System export.
-               Locator: a link, or the system and path in <code>; a publisher or locator not recorded gives way to cm-omit publisher or cm-omit locator.
+               Locator: a link, or the system and path in <code>, with / between the levels of a nested place.
+               A publisher or locator not recorded gives way to cm-omit publisher or cm-omit locator.
                Date word: published | refreshed | exported | recorded | accessed | as of | covers (covers takes two dates, first → last). Cite after punctuation: <a class="cm-cite" href="#src-1" id="cite-1">S1</a>;
                a cited source ends with <a class="cm-back" href="#cite-1" aria-label="Back to text">↩</a> to its first citation. -->
           <ol class="cm-sources">

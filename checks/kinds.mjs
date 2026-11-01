@@ -7,11 +7,12 @@
 export default [
   {
     // Each required part is a top-level section with the id the spec gives it, in the spec's order.
-    // The first part opens the document with one paragraph; Notes & sources closes it. A part the
-    // spec lets a document leave out may be replaced by its omission comment in <main>. A document
-    // may add sections between the required parts. No KPI strip: the summary and
-    // featured budgets (checks/budgets.mjs) hold the other blocks these kinds never carry. In a
-    // glossary, Terms takes the place of Properties (SPEC §7.8), the one substitution a page type makes.
+    // The first part opens the document with one paragraph, and a guide's Prerequisites opens with
+    // its lede; Notes & sources closes it. A part the spec lets a document leave out may be replaced
+    // by its omission comment in <main>. A document may add sections between the required parts. No
+    // KPI strip: the summary and featured budgets (checks/budgets.mjs) hold the other blocks these
+    // kinds never carry. In a glossary, Terms takes the place of Properties (SPEC §7.8), the one
+    // substitution a page type makes.
     name: 'kind-anatomy', level: 'fail', source: 'SPEC §7.3; §7.4; §7.5; §7.8', once: true, kinds: ['guide', 'reference'],
     inPage: ({ check }) => {
       const H = window.__cm, d = H.source(), out = [], kind = H.kind();
@@ -19,7 +20,7 @@ export default [
       const PARTS = {
         guide: [
           { id: 'purpose', name: 'Purpose', lede: true },
-          { id: 'prerequisites', name: 'Prerequisites', has: 'ul.cm-list, ol.cm-olist', what: 'a list (ul.cm-list)', omit: true },
+          { id: 'prerequisites', name: 'Prerequisites', lede: true, has: 'ul.cm-list, ol.cm-olist', what: 'a list (ul.cm-list)', omit: true },
           { id: 'steps', name: 'Steps', has: 'ol.cm-procedure', what: 'a procedure (ol.cm-procedure)' },
           { id: 'exceptions', name: 'Exceptions and recovery', omit: true },
           { id: 'related', name: 'Related documents', has: 'ul.cm-related', what: 'a related list (ul.cm-related)', omit: true },

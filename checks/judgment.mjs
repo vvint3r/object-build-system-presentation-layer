@@ -165,8 +165,10 @@ export default [
   },
 
   {
-    // Reading time is the word count of the report body divided by 220, rounded up. Text the
-    // reader does not see as prose (chart data, data fallbacks, hidden text) is not counted.
+    // Reading time is the word count of <main> divided by 220, rounded up. Text the reader does not
+    // see (scripts, chart and diagram JSON, data disclosures, hidden text) is not counted. Each
+    // element's text counts apart from the text beside it, as a reader sees it: a citation key, a
+    // footnote number, a chip, a field's label and its value are words of their own (SPEC §7.1).
     name: 'reading-time', level: 'warn', source: 'SPEC §7.1', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, d = H.source();
@@ -175,7 +177,10 @@ export default [
       if (!main || !dt || !dt.nextElementSibling || H.exempt(dt, check)) return [];
       const copy = main.cloneNode(true);
       copy.querySelectorAll('script, style, template, .cm-data, [aria-hidden="true"], .cm-sr').forEach(e => e.remove());
-      const words = H.text(copy).split(' ').filter(w => /[\p{L}\p{N}]/u.test(w)).length;
+      const parts = [];
+      const walk = d.createTreeWalker(copy, NodeFilter.SHOW_TEXT);
+      for (let n = walk.nextNode(); n; n = walk.nextNode()) parts.push(n.nodeValue);
+      const words = parts.join(' ').split(/\s+/).filter(w => /[\p{L}\p{N}]/u.test(w)).length;
       const want = Math.ceil(words / 220);
       const stated = H.text(dt.nextElementSibling);
       return stated === `${want} min` ? [] : [{ where: H.path(dt.nextElementSibling), value: `"${stated}" where ${words} words give ${want} min` }];

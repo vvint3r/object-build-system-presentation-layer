@@ -6,17 +6,19 @@
 export default [
   {
     // Each reference in the text points at a note and carries an id; each note carries an id and a
-    // back link to a reference that exists.
+    // back link to a reference that exists. A note has one mark: a later passage on the same point
+    // names the place that carries it (SPEC §8.15).
     name: 'footnotes', level: 'fail', source: 'SPEC §8.15; §14 item 11', once: true,
     inPage: ({ check }) => {
       const H = window.__cm, d = H.source(), out = [];
       const target = a => { const h = a.getAttribute('href') || ''; return h[0] === '#' ? d.getElementById(h.slice(1)) : null; };
-      const pointed = new Set();
+      const pointed = new Map();
       for (const a of d.querySelectorAll('a.cm-fn')) {
         if (H.exempt(a, check)) continue;
         const note = target(a);
         if (!note || !note.matches('.cm-notes > li')) out.push({ where: H.path(a), value: `href="${a.getAttribute('href') || ''}" does not point at a note` });
-        else pointed.add(note);
+        else if (pointed.has(note)) out.push({ where: H.path(a), value: `a second mark for note ${note.id} (one mark; a later passage names the place that carries it)` });
+        else pointed.set(note, a);
         if (!a.id) out.push({ where: H.path(a), value: `reference ${H.text(a)} has no id, so its note cannot link back` });
       }
       for (const li of d.querySelectorAll('.cm-notes > li')) {

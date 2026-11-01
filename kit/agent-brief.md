@@ -57,15 +57,21 @@ The masthead and top bar name a publisher (the wordmark, lowercase and hyphenate
 author or team, and an audience. When the request does not give them, the agent asks before building
 rather than inventing them. What the owner does not supply takes its stated form (section 7.5 of
 `SPEC.md`). The status chip reads Draft, and Published is the version's effective date or the day the
-document is finished. The wordmark takes the team or role in Prepared by, and the series chip names the
-page type. Prepared by names the owner when no preparer is given, and Reviewed by follows it only when a
-reviewer is named. An audience not named, or a document set not named, gives way to an omission comment
-in the byline or the breadcrumb. The top bar carries a print button only when the request asks for one.
+document is finished, never a date of a source it cites. Version is the document's own, `1.0` for its
+first. The wordmark takes the team or role in Prepared by, and the series chip names the page type.
+Prepared by names the owner when no preparer is given, and Reviewed by follows it only when a reviewer
+is named. Readers given only as a condition, such as any employee who has paid on the company's behalf,
+give Distribution the group the condition is drawn from. An audience not named, or a document set not
+named, gives way to an omission comment in the byline or the breadcrumb. A knowledge index and its
+areas are not sets. The top bar carries a print button only when the request asks for one.
 
 The same holds for the material a document draws on. A source whose publisher or path is not
 recorded leaves it out with an omission comment, and a number given without its source carries a
 note saying that no source is recorded (section 8.21). So does a number from a record no reader can
-find again, such as one person's tally. Nothing is guessed.
+find again, such as one person's tally. Material that lists its sources without tying a fact to one is
+read by kind: a rule cites the one listed policy or document, a count the one listed dataset, report or
+export, and with none or several the fact takes the no-source note. A number given without its unit or
+currency is written as given, with one note that names the numbers it covers. Nothing is guessed.
 
 ## Packaging
 
@@ -203,13 +209,16 @@ sets).
 | Guide | One task carried out step by step: a procedure, a runbook, a how-to | Guide | Purpose; Prerequisites; Steps; Exceptions and recovery; Related documents; Notes & sources |
 | Reference | One thing looked up: a metric, a dataset, a system, a term | Reference | Definition; Properties; Relationships; Examples; Notes & sources |
 
-- Every kind has the top bar, contents rail, masthead, Notes & sources and footer.
+- Every kind has the top bar, contents rail, masthead, Notes & sources and footer. A finished
+  document drops the template's notes for the author and keeps its omission comments.
 - Guides and references carry no executive summary, KPI strip, summary card, recommendations
   card or Period. Each required part is a section with a fixed id: `purpose`, `prerequisites`,
   `steps`, `exceptions`, `related`; `definition`, `properties`, `relationships`, `examples`. Sections
   of the document's own may sit between them.
 - A guide's steps go in a procedure (`cm-procedure`): 3 to 9 steps, each with an imperative title,
-  what to do, and its outcome.
+  what to do, and its outcome. Prerequisites opens with a lede and lists what is in place before the
+  task starts; what the reader does after that is a step. Where another role acts, the reader's step
+  is to hand the work on or wait, and its outcome names the state the other role leaves.
 - A guide's related documents and a reference's relationships go in a related list (`cm-related`): a tag, a link and one
   sentence per item.
 - A briefing without measured numbers is a report with the type chip Brief. Its executive summary
@@ -323,7 +332,7 @@ document of its kind.
 | Glossary | `glossary` | Reference | What does each term mean in this set? | A definition block, when five or more terms are shared by several documents |
 | Module | `module` | Guide | How is this skill learnt, and how is the learning checked? | A guide, when the reader must apply a rule unaided |
 | Framework | `framework` | Reference | How does this framework divide its subject, and how is it applied? | The framework component, when the whole page is about one framework |
-| Process | `process` | Reference | How does this process run, and which role does each stage? | A guide, when the page describes how work runs rather than instructs; a plain report, when a period's stage measures come with the process |
+| Process | `process` | Reference | How does this process run, and which role does each stage? | A guide, when the subject names the work and its roles rather than one reader's task; a plain report, when a period's stage measures come with the process |
 | Metric | `metric` | Reference | What does this measure count, where does it stand, and how is it worked out? | The metric detail component, when the whole page is about one measure |
 | Comparison | `comparison` | Reference | Which option fits, on stated criteria, and what would change the choice? | A reference, when two to four options sit side by side for a decision |
 | Roadmap | `roadmap` | Report | What has to happen, by whom and by when, to reach one goal? | A plain report, when the subject is planned work toward a dated goal |
@@ -361,8 +370,8 @@ The documents in one folder form a set, listed by an index page, `index.html` (s
 
 - The file name is the kind, a spaced hyphen and a short title: `Guide - Billing Escalation.html`.
   The `cm-id` is the file name without `.html`, in lowercase with hyphens:
-  `guide-billing-escalation`. Neither changes once published, and no two documents in a set share
-  an id.
+  `guide-billing-escalation`. Both hold in a set or standing alone. Neither changes once published,
+  and no two documents in a set share an id.
 - A link to another document is its file name, with spaces as `%20`:
   `Guide%20-%20Billing%20Escalation.html`. A link to a place in it adds a section id, such as
   `#steps`. Links between documents name sections only, never figures, tables or notes.
@@ -372,6 +381,9 @@ The documents in one folder form a set, listed by an index page, `index.html` (s
   the set and area steps as plain `span` elements and links the wordmark to `#top`.
 - The index page is never written by hand: `npm run index -- <folder>` writes it from the
   documents. It quotes each document's dek, so a dek in a set runs 18 words or fewer.
+- A document that stood alone joins a set in four steps, in order: the set step becomes a link to
+  `index.html`, the area step a link to its section there, and the wordmark a link to `index.html`
+  naming the set's publisher. Then `npm run index` and `npm run links` run on the folder.
 - `npm run links -- <folder>` fails on a missing or shared id, a link to a file or section that does
   not exist, or an index page that no longer matches the documents.
 - Documents in a set agree. A fact two documents share has one value in every place it appears, a

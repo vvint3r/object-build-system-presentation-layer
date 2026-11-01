@@ -175,6 +175,34 @@ export default [
   },
 
   {
+    // Every text the chart library drew lies inside the drawing it belongs to: value labels, end
+    // labels, reference-line labels, axis labels and a scale bar's end labels. The drawing is an
+    // SVG, and the kit's text checks pass over chart internals, so each text the SVG renders is
+    // measured against the SVG's own box, in every mode and at the phone width.
+    name: 'chart-text-fit', level: 'fail', source: 'SPEC §5; §9', phone: true,
+    inPage: ({ check }) => {
+      const H = window.__cm, out = [];
+      for (const el of document.querySelectorAll('.cm-chart')) {
+        if (!H.shown(el) || H.exempt(el, check)) continue;
+        const svg = el.querySelector('svg');
+        if (!svg) continue; // chart-drawn reports a chart that did not draw
+        const box = svg.getBoundingClientRect(), seen = new Set();
+        for (const t of svg.querySelectorAll('text')) {
+          const text = t.textContent.replace(/\s+/g, ' ').trim();
+          if (!text || getComputedStyle(t).visibility === 'hidden' || t.closest('[opacity="0"]')) continue;
+          const r = t.getBoundingClientRect();
+          if (!r.width || !r.height) continue;
+          const past = [['top', box.top - r.top], ['left', box.left - r.left], ['bottom', r.bottom - box.bottom], ['right', r.right - box.right]]
+            .filter(([, v]) => v > 1).map(([side, v]) => `${Math.ceil(v)}px past the ${side}`);
+          const value = `"${text.slice(0, 24)}" ${past.join(', ')} of a ${Math.round(box.width)}px by ${Math.round(box.height)}px chart`;
+          if (past.length && !seen.has(value)) { seen.add(value); out.push({ where: H.path(el), value }); }
+        }
+      }
+      return out;
+    },
+  },
+
+  {
     // Plot top and bottom padding are the kit's: the chart script works them out from the legend,
     // axis titles, reference-line labels and scale bar, so chart JSON never sets them on its grid.
     name: 'chart-padding', level: 'fail', source: 'SPEC §9', once: true,

@@ -6,6 +6,7 @@ kit's tokens and enforced by the checks. Record 076 sets its direction.
 | Date | State |
 | --- | --- |
 | 2026-10-30 | Direction set (record 076); round 2 starts with the flow mode |
+| 2026-10-31 | Done: the nine families and the chart additions are in the kit (records 077, 081, 084, 085 and 086), and every kit page passes the checks |
 
 ## Scope
 

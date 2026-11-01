@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>First response time</title>
-<meta name="cm-kit" content="1.2">
+<meta name="cm-kit" content="2.0">
 <meta name="cm-kind" content="reference">
 <meta name="cm-id" content="reference-first-response-time">
 <meta name="cm-type" content="metric">
@@ -143,7 +143,7 @@
           <div class="cm-chart" style="--h:300px" data-chart role="img" aria-label="Bar chart. Technical escalations 4h 41m, APAC 3h 20m and billing specialists 2h 58m sit above the 2h 30m target; EMEA 2h 05m and Americas 1h 42m sit below it.">
             <script type="application/json">
             {
-              "xAxis": {"type": "value", "min": 0, "max": 300, "interval": 60, "name": "Median first response, minutes"},
+              "xAxis": {"type": "value", "min": 0, "max": 300, "interval": 150, "name": "Median first response, minutes"},
               "yAxis": {"type": "category", "data": ["Tier 1 · Americas", "Tier 1 · EMEA", "Billing specialists", "Tier 1 · APAC", "Technical escalations"]},
               "series": [{"name": "Median first response", "type": "bar",
                 "data": [
@@ -193,8 +193,8 @@
           <span class="cm-def__label">Definitions</span>
           <dl>
             <div><dt>Clock start</dt><dd>The ticket's creation time, <code>created_at</code>, in UTC. A merged ticket keeps the creation time of the ticket that survives the merge.</dd></div>
-            <div><dt>Clock stop</dt><dd>The first public reply from an agent, <code>first_human_reply_at</code>. Replies sent with a macro count; automatic acknowledgements and internal notes do not.<a class="cm-fn" href="#fn-1" id="fnref-1">1</a></dd></div>
-            <div><dt>Excluded tickets</dt><dd>Tickets created by internal staff, tickets marked as spam, and merged duplicates. None of them has a customer waiting for a reply.</dd></div>
+            <div><dt>Clock stop</dt><dd>The first public reply from an agent, <code>first_human_reply_at</code>. Replies sent with a macro count; automatic acknowledgements and internal notes do not.</dd></div>
+            <div><dt>Excluded tickets</dt><dd>Tickets created by internal staff, tickets marked as spam and merged duplicates, since none has a customer waiting for a reply. A ticket with no reply from a person yet has no first response time, so it stays out until that reply is sent.<a class="cm-fn" href="#fn-1" id="fnref-1">1</a></dd></div>
             <div><dt>Reported value</dt><dd>The median across tickets created in the period, in hours and minutes. A quarter's value comes from the first warehouse refresh after the quarter closes.</dd></div>
           </dl>
         </aside>
@@ -255,7 +255,7 @@
         </div>
         <ul class="cm-related">
           <li><span class="cm-tag">Metric</span><a href="Sample%20Report%20-%20Q3%20Support%20Review.html#service">Resolved within SLA</a><p>Measures the whole ticket against its due time, so a fast first reply alone does not meet it.</p></li>
-          <li><span class="cm-tag">Metric</span><a href="Sample%20Report%20-%20Q3%20Support%20Review.html#initiatives">Specialist queue wait</a><p>Starts when a ticket is escalated, often after the first reply has stopped this clock.</p></li>
+          <li><span class="cm-tag">Metric</span><a href="Sample%20Report%20-%20Q3%20Support%20Review.html#initiatives">Specialist queue wait</a><p>Runs from the escalation until a specialist picks the ticket up, so it can start before the first reply stops this clock.</p></li>
           <li><span class="cm-tag">Metric</span><a href="Sample%20Report%20-%20Q3%20Support%20Review.html#sentiment">Customer satisfaction</a><p>Rates the whole ticket, from a survey sent 24 hours after it closes.<a class="cm-cite" href="#src-4" id="cite-8">S4</a></p></li>
         </ul>
       </div>
@@ -293,7 +293,7 @@
         <div class="cm-stack">
           <h3 class="cm-h4">Notes</h3>
           <ol class="cm-notes">
-            <li id="fn-1">A ticket with no reply from a person has no first response time yet, so the query leaves it out until that reply is sent. <a class="cm-back" href="#fnref-1" aria-label="Back to text">↩</a></li>
+            <li id="fn-1">The query's last condition, <code>first_human_reply_at is not null</code>, leaves out a ticket with no reply yet. A quarter's value is read at the first refresh after the quarter closes, so a ticket still waiting then stays out of it. <a class="cm-back" href="#fnref-1" aria-label="Back to text">↩</a></li>
           </ol>
         </div>
         <div class="cm-stack">
@@ -312,7 +312,7 @@
       <span><b>First response time</b></span>
       <span>v1.0 · published 2026-10-14</span>
       <span>Support Operations Analytics</span>
-      <span>Content Morphia Report Kit 1.2</span>
+      <span>Content Morphia Report Kit 2.0</span>
     </footer>
   </main>
 </div>

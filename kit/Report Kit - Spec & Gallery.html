@@ -33,7 +33,7 @@
 <header class="cm-topbar">
   <div class="cm-topbar__in">
     <a class="cm-wordmark" href="#top">content-morphia</a>
-    <span class="cm-chip">Report kit 1.2</span>
+    <span class="cm-chip">Report kit 2.0</span>
     <div class="cm-topbar__actions">
       <a class="cm-btn cm-btn--quiet cm-btn--sm" href="Sample%20Report%20-%20Q3%20Support%20Review.html">Sample report</a>
       <button class="cm-btn cm-btn--quiet cm-btn--sm" type="button" data-cm-theme-toggle>Dark mode</button>
@@ -68,8 +68,8 @@
       <p class="cm-mast__dek">How agents assemble reports, documents and analyses as HTML artifacts on Content Morphia: rules, tokens, every block with copy-paste markup, and the chart method.</p>
       <dl class="cm-mast__meta">
         <div><dt>Status</dt><dd><span class="cm-chip">Spec</span><span class="cm-chip cm-chip--warn" data-comment-anchor="3543f5ded7-span">In review</span></dd></div>
-        <div><dt>Version</dt><dd>1.2</dd></div>
-        <div data-comment-anchor="e4dd137118-span"><dt>Last updated</dt><dd>2026-10-30</dd></div>
+        <div><dt>Version</dt><dd>2.0</dd></div>
+        <div data-comment-anchor="e4dd137118-span"><dt>Last updated</dt><dd>2026-10-31</dd></div>
         <div><dt>Agent-readable spec</dt><dd><code>report-kit/SPEC.md</code></dd></div>
       </dl>
     </header>
@@ -82,7 +82,7 @@
         <div class="cm-grid cm-grid--4 cm-bleed">
           <div class="cm-tile"><code>cm-report.css</code><p class="cm-small" style="margin-top:16px">Tokens for light, dark and print, plus every component class.</p></div>
           <div class="cm-tile"><code>cm-report.js</code><p class="cm-small" style="margin-top:16px">Theme toggle, chart theme and draw-in, sortable tables, contents scroll-spy, link targets clear of the top bar, print prep.</p></div>
-          <div class="cm-tile"><code>template.html</code><p class="cm-small" style="margin-top:16px">The starter every report copies; guides and references copy <code>template-guide.html</code> and <code>template-reference.html</code>. Placeholders in <code>{{ }}</code>.</p></div>
+          <div class="cm-tile"><code>template.html</code><p class="cm-small" style="margin-top:16px">The starter every report copies; guides, references and each page type copy their own, such as <code>template-guide.html</code>. Placeholders in <code>{{ }}</code>.</p></div>
           <div class="cm-tile"><code>SPEC.md</code><p class="cm-small" style="margin-top:16px">The same rules written for agents, as hard rules, budgets and canonical markup.</p></div>
         </div>
         <div class="cm-grid cm-grid--3 cm-bleed">
@@ -127,6 +127,7 @@
                 <tr><td class="strong">Chips</td><td class="wrap">Tinted fills</td><td class="wrap">Outlined. Status color is a 2px offset to the right and bottom; one solid ink verdict per table</td><td><span class="cm-chip">Changed</span></td></tr>
                 <tr><td class="strong">Callouts</td><td class="wrap">Icon, tinted label chip, text in one row</td><td class="wrap">Icon and label on one row, body below on the label’s edge. Label underlined in the semantic color; no fill</td><td><span class="cm-chip">Changed</span></td></tr>
                 <tr><td class="strong">Document kinds</td><td class="wrap">One page type</td><td class="wrap">Report, guide and reference, each with its own required parts, named by a <code>cm-kind</code> tag; procedure and related list for guides and references</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
+                <tr><td class="strong">Page types</td><td class="wrap">None</td><td class="wrap">Topic, glossary, module, framework, process, metric, comparison, roadmap and case study: recipes on the three kinds, each with its template, named by a <code>cm-type</code> tag</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
                 <tr><td class="strong">Reference blocks</td><td class="wrap">None</td><td class="wrap">Definition, questions and property sheet</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
                 <tr><td class="strong">Charts</td><td class="wrap">Referenced, not specified</td><td class="wrap">ECharts as the single method; theme generated from tokens; palette c1–c4 + context grey; sequential ramp; automatic legend for 2+ series; axis titles with units; annotations</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
                 <tr><td class="strong">Dark mode</td><td class="wrap">Deferred</td><td class="wrap">Full dark token set. Surfaces separate by lightness plus a 1px light ring because soft shadows vanish on dark</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
@@ -135,6 +136,7 @@
                 <tr><td class="strong">KPI blocks</td><td class="wrap">Single metric card</td><td class="wrap">Strip of 2–4 with delta meaning (neutral, good, bad), sparkline, target foot</td><td><span class="cm-chip">Extended</span></td></tr>
                 <tr><td class="strong">Tables</td><td class="wrap">Grid of divs</td><td class="wrap">Native table. 16px column gutters, right-aligned numbers, dotted totals rule, row flags in the left gutter, in-cell bars, sorting</td><td><span class="cm-chip">Changed</span></td></tr>
                 <tr><td class="strong">Timeline, process</td><td class="wrap">Process as inline text</td><td class="wrap">Vertical timeline on one continuous rail; step diagram on S2 tiles with one L1e bottleneck</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
+                <tr><td class="strong">Diagrams</td><td class="wrap">Separate page, not supplied</td><td class="wrap">Drawn by the kit from JSON in six modes: flow, sequence, state, entity relationship, layer stack and hierarchy; each with a text version and capacity ceilings</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
                 <tr><td class="strong">Appendix</td><td class="wrap">Collapsible section header</td><td class="wrap">Native details element; opens automatically for print</td><td><span class="cm-chip">Changed</span></td></tr>
                 <tr><td class="strong">Structured components</td><td class="wrap">Structured page: stage cards, swimlane, framework variants, method, metric, requirement and evaluation cards</td><td class="wrap">Workflow, framework, model, method, requirement, evaluation and metric detail as text-first cards, with parts as tiles, facts rows and a criteria register</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
                 <tr><td class="strong">Document sets</td><td class="wrap">Menu bar with a list of pages for each group</td><td class="wrap">Document ids and file-name addresses, a breadcrumb from set to area to document, a generated index page, and a link check over the folder</td><td><span class="cm-chip cm-chip--accent">New</span></td></tr>
@@ -143,7 +145,7 @@
               </tbody>
             </table>
           </div>
-          <span class="cm-caption"><span class="cm-caption__line">Source: the Foundations library and <code>SPEC.md</code>, Report Kit 1.2.</span></span>
+          <span class="cm-caption"><span class="cm-caption__line">Source: the Foundations library and <code>SPEC.md</code>, Report Kit 2.0.</span></span>
         </div>
         <aside class="cm-callout cm-callout--limitation" data-comment-anchor="dbb76ce24d-aside">
           <span class="cm-callout__label">Limitation</span>
@@ -247,7 +249,7 @@
         <div class="cm-prose"><p>A <code>cm-kind</code> tag in the head, after <code>cm-kit</code>, names the kind: <code>report</code>, <code>guide</code> or <code>reference</code>. A page without one is a report.</p></div>
         <div class="cm-code cm-bleed">
           <div class="cm-code__bar"><span class="cm-code__file">head</span><span class="cm-tag">HTML</span></div>
-<pre><code>&lt;meta name="cm-kit" content="1.2"&gt;
+<pre><code>&lt;meta name="cm-kit" content="2.0"&gt;
 &lt;meta name="cm-kind" content="guide"&gt;
 &lt;meta name="cm-id" content="guide-billing-escalation"&gt;</code></pre>
         </div>
@@ -654,7 +656,7 @@
           <header><span class="cm-label">5.24</span><h3 class="cm-h3">Revision history</h3><p>One entry for each published version, newest first: version, summary, owner and date. A document carries one from its second version. The newest entry matches the masthead's version and published date.</p></header>
           <div data-demo>
 <ol class="cm-versions">
-  <li><span class="cm-id">v1.2</span><span>Billing within-SLA share corrected; anomaly alerting added to the strategy comparison.<br><span class="cm-meta">Support Operations Analytics</span></span><span class="cm-meta"><time datetime="2026-10-30">2026-10-30</time></span></li>
+  <li><span class="cm-id">v2.0</span><span>Billing within-SLA share corrected; anomaly alerting added to the strategy comparison.<br><span class="cm-meta">Support Operations Analytics</span></span><span class="cm-meta"><time datetime="2026-10-30">2026-10-30</time></span></li>
   <li><span class="cm-id">v1.1</span><span>Tier 1 · APAC status revised to At risk.<br><span class="cm-meta">Support Operations Analytics</span></span><span class="cm-meta"><time datetime="2026-10-12">2026-10-12</time></span></li>
   <li><span class="cm-id">v1.0</span><span>First published.<br><span class="cm-meta">Support Operations Analytics</span></span><span class="cm-meta"><time datetime="2026-10-06">2026-10-06</time></span></li>
 </ol>
@@ -1856,7 +1858,7 @@
         <div class="cm-card cm-bleed" data-comment-anchor="330c8a61b6-div">
           <h3 class="cm-card__title">Structure and evidence</h3>
           <ol class="cm-olist">
-            <li>Started from the template for its kind; no class, color or font outside the kit.</li>
+            <li>Started from its kind's or type's template; no class, color or font outside the kit.</li>
             <li>No inline style except <code>--h</code>, <code>--v</code>, <code>--t</code> and <code>--steps</code>.</li>
             <li>Masthead complete with title, dek, type and status chips, published date, reading time, version and byline. A report adds its period.</li>
             <li>A report's summary has a lede, 2 to 4 KPIs with comparisons and 3 to 5 findings. Other kinds hold their parts in order.</li>
@@ -1885,7 +1887,7 @@
 
     <footer class="cm-footer">
       <span><b>Content Morphia Report Kit</b></span>
-      <span>v1.2 · 2026-10-30</span>
+      <span>v2.0 · 2026-10-31</span>
       <span>Derived from Content Morphia Foundations</span>
     </footer>
   </main>

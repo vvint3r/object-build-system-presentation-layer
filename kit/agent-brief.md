@@ -2,7 +2,7 @@
 
 Instructions for an agent in any environment (Claude, Codex or another) that produces a document,
 report or reference page as an HTML artifact for the owner of content-morphia. **Content Morphia
-Report Kit 1.2** is the design system for every such artifact.
+Report Kit 2.0** is the design system for every such artifact.
 
 This brief lives at
 <https://github.com/vvint3r/object-build-system-presentation-layer/blob/main/kit/agent-brief.md>.
@@ -108,7 +108,8 @@ moves it to another version, and never disables TLS verification to reach a bloc
 A summary of section 1 of `SPEC.md`. The spec governs.
 
 1. Documents start from the template for their kind (`template.html`, `template-guide.html` or
-   `template-reference.html`) and compose only from classes in `cm-report.css`.
+   `template-reference.html`), or from their page type's template (`template-<type>.html`), and
+   compose only from classes in `cm-report.css`.
 2. No added stylesheets, `<style>` blocks (other than the pasted kit stylesheet), custom classes or
    inline styles, except the custom properties the spec allows (`--h`, `--v`, `--t`, `--steps`).
 3. No hex, rgb or named colours in markup. Chart JSON uses `$token` strings.
@@ -174,7 +175,8 @@ the section lede, under its own limit of 40 words and with no bold phrase.
   leads with its finding. No signposting, hype, rhetorical questions or history of how the document
   was made.
 - Bold marks the phrase that carries a sentence, one or two per paragraph, never a whole sentence.
-  The claim of a key finding or a recommended action is a line of its own, not bold running text.
+  The claim of a key finding or a recommended action is a line of its own, not bold running text,
+  and the item's own first child, with no element wrapping the item.
 - No bold label runs into the text that follows it, and no bold phrase opens a paragraph, list item
   or callout body. A label takes its own line, a heading, a table row or a definition-list term. A
   caption's source and note lines are lines of their own, not bold.
@@ -186,10 +188,11 @@ the section lede, under its own limit of 40 words and with no bold phrase.
 
 The kit builds three kinds of document, each with its own required parts (section 7 of `SPEC.md`).
 A `cm-kind` tag in the head, straight after `cm-kit`, names the kind; a page without it is a report.
-A `cm-id` tag follows it and names the document (see Document sets).
+A `cm-id` tag follows it and names the document; a page without one fails the checks (see Document
+sets).
 
 ```html
-<meta name="cm-kit" content="1.2">
+<meta name="cm-kit" content="2.0">
 <meta name="cm-kind" content="guide">
 <meta name="cm-id" content="guide-billing-escalation">
 ```

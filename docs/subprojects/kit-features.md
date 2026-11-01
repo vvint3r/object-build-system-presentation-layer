@@ -7,6 +7,7 @@ the library into the kit. Record 076 sets their scope.
 | --- | --- |
 | 2026-10-30 | Direction set (record 076); round 2 starts provenance, change and status, document kinds and offline packaging |
 | 2026-10-30 | Offline packaging in the kit (record 080): `npm run pack` writes the offline form, and the sample report, guide, reference and gallery in that form pass the checks with the network shut |
+| 2026-10-31 | Done: the Provenance, Change and status, Wayfinding, Multi-page navigation, Structured components and Page types rows of `docs/adoption.md` read Covered (records 078, 079, 082, 083 and 087 to 090) |
 
 ## Scope
 

@@ -10,8 +10,8 @@ source of truth                    generated, never          inside Claude
 the kit · rules · adoption         hand-edited               compose, review, export
 ```
 
-- **Report Kit 1.2 is the kit in force.** `kit/report-kit/` holds the stylesheet, script, template and
-  specification that every document is built from. Tokens are CSS custom properties; documents compose
+- **Report Kit 2.0 is the kit in force.** `kit/report-kit/` holds the stylesheet, script, templates
+  and specification that every document is built from. Tokens are CSS custom properties; documents compose
   from kit classes and never carry inline styles or raw colours.
 - **The original library is the reference.** Its 35 pages, diagram families and page types are adopted
   into the kit over time, one family per change. `docs/adoption.md` is the backlog.
@@ -36,6 +36,9 @@ the kit · rules · adoption         hand-edited               compose, review, 
   section 13 of the kit's spec and become checks, not prose in `CLAUDE.md`.
 
 ## Migration
+
+Status, 31 Oct 2026: steps 1 to 8 are done. The kit's files carry version 2.0, and the 2.0 release,
+which closes step 9, is the one open step.
 
 After the baseline, the work runs as **four sub-projects**. Record 076 sets the direction for steps 6,
 8 and 9 and runs them in five rounds of parallel sessions; kit 2.0 at the end of round 5 is the first
@@ -65,14 +68,20 @@ Kit 1.2 is released (30 Oct 2026). It holds the answers to the twelve items in r
 writing rules of record 074 and the answers in record 075. Every kit page passes the checks, and no
 item is open. Section 15 of the spec lists what changed in 1.2.
 
+### Kit 2.0
+
+Kit 2.0 holds steps 6 and 8 and the contract changes of record 092. Section 15 of the spec lists what
+changed in 2.0, and the migration from 1.2 that `npm run migration` measures. The release is tagged
+once an agent given only the design bundle builds a document that passes the checks (step 9).
+
 ### Sub-projects
 
 | Step | Sub-project | Work | Done when | State |
 | --- | --- | --- | --- | --- |
-| 6 | Visualization build | A diagram renderer with six drawing modes and nine families on them, and chart recipes with four new chart types (`docs/subprojects/visualization-build.md`) | The nine families of record 076 and the chart additions are in the kit, each with rules, checks and a gallery example | Rounds 2 and 3 |
+| 6 | Visualization build | A diagram renderer with six drawing modes and nine families on them, and chart recipes with four new chart types (`docs/subprojects/visualization-build.md`) | The nine families of record 076 and the chart additions are in the kit, each with rules, checks and a gallery example | Done (records 077, 081, 084, 085 and 086) |
 | 7 | Writing rules | Extend section 13 of the spec with the writing rules (word limits, register, per-heading constraints) and turn them into checks | Section 13 holds the rules, the checks enforce them, and every kit page passes | Done (records 074 and 075) |
-| 8 | Kit features | Document kinds and offline packaging; provenance; change and status; navigation across documents; structured components; then page types as templates on the document kinds (`docs/subprojects/kit-features.md`) | The Provenance, Change and status, Wayfinding, Multi-page navigation, Structured components and Page types rows of `docs/adoption.md` read Covered, and a report in the offline mode passes the checks | Rounds 2 to 4 |
-| 9 | Claude Design hand-off | Build the design bundle from the kit and publish it as a Design System artifact in Claude, the form Claude Design takes inside Claude | A document composed in Claude from the design system, by an agent given only the bundle, passes the kit's checks | A first round trip in round 2; the full hand-off in round 5 |
+| 8 | Kit features | Document kinds and offline packaging; provenance; change and status; navigation across documents; structured components; then page types as templates on the document kinds (`docs/subprojects/kit-features.md`) | The Provenance, Change and status, Wayfinding, Multi-page navigation, Structured components and Page types rows of `docs/adoption.md` read Covered, and a report in the offline mode passes the checks | Done (records 078 to 080, 082, 083 and 087 to 090) |
+| 9 | Claude Design hand-off | Build the design bundle from the kit and publish it as a Design System artifact in Claude, the form Claude Design takes inside Claude | A document composed in Claude from the design system, by an agent given only the bundle, passes the kit's checks | First round trip done (record 090); the full hand-off runs with the 2.0 release |
 
 The other rows of `docs/adoption.md`, learning, inputs and icons among them, are adopted when content
 calls for them, outside this plan.
@@ -85,7 +94,7 @@ add comes with the checks it needs.
 
 ```
 kit/
-  report-kit/      SPEC.md · cm-report.css · cm-report.js · template.html   (the baseline)
+  report-kit/      SPEC.md · cm-report.css · cm-report.js · template*.html  (the kit)
   Report Kit - Spec & Gallery.html                                         (live examples)
   Sample Report - Q3 Support Review.html                                   (reference output)
   agent-brief.md                                                           (for agents elsewhere)
@@ -99,6 +108,7 @@ docs/
   subprojects/     one brief per sub-project: scope, inputs, owner-level calls, state
 checks/
   run.mjs          run the automated checks (npm run check -- <page>)
+  test.mjs         the checks' own tests (npm test)
   exempt.mjs       regions a page exempts from named checks, each with its reason
   *.mjs            one module per rule group: markup, colour, type, radius, budgets, decoration,
                    meaning, charts, figures, tables, structure, judgment, writing, navigation,
@@ -110,6 +120,7 @@ tools/
   pack.mjs         write a page's offline form (npm run pack -- <page>)
   bundle.mjs       write the design bundle (npm run bundle); bundle-cover.mjs draws its cover
   bundle-check.mjs check the bundle and render its previews (npm run bundle:check)
+  migration.mjs    check a released version's kit pages with these checks (npm run migration)
   ds-frame.mjs     how the Design System page compiles tokens.css and frames a preview
 offline/           offline forms written by pack.mjs; generated, git-ignored
 bundle/            the design bundle written by bundle.mjs; generated, git-ignored

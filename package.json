@@ -6,11 +6,13 @@
   "scripts": {
     "preview": "node tools/preview.mjs",
     "check": "node checks/run.mjs",
+    "test": "node checks/test.mjs",
     "index": "node tools/index.mjs",
     "links": "node checks/links.mjs",
     "pack": "node tools/pack.mjs",
     "bundle": "node tools/bundle.mjs",
-    "bundle:check": "node tools/bundle-check.mjs"
+    "bundle:check": "node tools/bundle-check.mjs",
+    "migration": "node tools/migration.mjs"
   },
   "devDependencies": {
     "@fontsource/jetbrains-mono": "5.3.0",

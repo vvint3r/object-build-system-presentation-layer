@@ -254,7 +254,7 @@ report(`links: every link in ${pages.length} documents and ${mdFiles.length} REA
 // A file the READMEs name in code is in the bundle. The platform's own paths and the repository's
 // tools are named as such in README.md, and a bare file name may sit in any folder.
 const PLATFORM = /^(SKILL\.md|index\.html|artifact-type\/|design-system\.json)$/;
-const REPOSITORY = /^(tools|checks|offline|docs|import)\//;
+const REPOSITORY = /^(tools|checks|offline|docs|import|\.print)\//;
 const inCode = mdFiles.flatMap(p => [...read(p).replace(/```[\s\S]*?```/g, '').matchAll(/`([^`\s<>{}]+(?:\.(?:html|css|js|mjs|json|md|txt|woff2)|\/))`/g)].map(m => [p, m[1]]));
 // The notes in a document or template name files the same way, in plain text.
 // A {{ placeholder }} names no file.

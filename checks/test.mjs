@@ -15,6 +15,8 @@
 //                   fails, naming a label the chart cuts off (SPEC §5; §9)
 //   second mark     note 1 marked again in a later paragraph: footnotes fails, since a note has one
 //                   mark (SPEC §8.15)
+//   bare gap        a KPI that misses its target with only "−3.8 pp" in its foot: kpi-standing
+//                   fails, since the foot states the standing in words (SPEC §8.2)
 
 import { spawnSync } from 'node:child_process';
 import { cpSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
@@ -57,6 +59,12 @@ const CASES = [
     html: edit(sample, /(closed the quarter at 1,186 open tickets)/, '$1<a class="cm-fn" href="#fn-1" id="fnref-1-2">1</a>'),
     fails: ['footnotes'],
     finding: 'a second mark for note fn-1',
+  },
+  {
+    file: 'bare-gap.html',
+    html: edit(sample, /<b>Missed by 3\.8 pp<\/b>/, '<b>−3.8 pp</b>'),
+    fails: ['kpi-standing'],
+    finding: 'opens with Met or Missed',
   },
 ];
 

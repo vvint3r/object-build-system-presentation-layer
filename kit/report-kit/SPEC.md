@@ -639,9 +639,9 @@ Number with two digits: `Part 01`. Appendices: `class="cm-section cm-section--pa
   <div class="cm-kpi">
     <span class="cm-kpi__label">Resolved within SLA</span>
     <span class="cm-kpi__value">91.2<small>%</small></span>
-    <span class="cm-kpi__delta"><span class="cm-delta cm-delta--good">▲ +1.6 pp</span></span>
+    <span class="cm-kpi__delta"><span class="cm-delta cm-delta--good">▲ +1.6 pp vs Q2</span></span>
     <div class="cm-kpi__spark" data-spark data-values="89.8,90.1,90.6,91.4,93.4" aria-hidden="true"></div>
-    <div class="cm-kpi__foot"><span>Target 95%</span><b>−3.8 pp</b></div>
+    <div class="cm-kpi__foot"><span>Target 95%</span><b>Missed by 3.8 pp</b></div>
   </div>
 </div>
 ```
@@ -650,7 +650,9 @@ Number with two digits: `Part 01`. Appendices: `class="cm-section cm-section--pa
 - Delta: `▲`/`▼` + signed change + comparison. `cm-delta` neutral, `cm-delta--good` favourable, `cm-delta--bad` unfavourable, judged by the reader's interest.
 - Spark: optional, ≥ 6 points, same period as the KPI. `data-color="ink"` for neutral metrics.
 - Progress against a target can replace the spark: `<div class="cm-meter" style="--v:91.2%;--t:95%"><span></span><i></i></div>`.
-- Foot: the reference the value is read against, named with its value in a `<span>`: a target (`Target 95%`), an earlier value (`Q2 44,870`, `Before 212`) or a comparison (`Chat, Q3 96.1%`). A `<b>` after it gives where the value stands against that reference: the gap (`−3.8 pp`), `Met` or a change in percent (`−55%`). The `<b>` is left out when the delta already states it.
+- Foot: the reference the value is read against, named with its value in a `<span>`: a target (`Target 95%`), an earlier value (`Q2 44,870`, `Before 212`) or a comparison (`Chat, Q3 96.1%`). A `<b>` after it gives where the value stands against that reference.
+- A KPI with a target names it in the foot, and its `<b>` states the standing in words: `Met`, or `Missed by` and the gap (`Missed by 3.8 pp`). This holds on every card with a target, whatever its delta says, and a delta or a meter that names a target needs the foot that states it.
+- Against an earlier value or a comparison, the `<b>` gives the change in percent (`−55%`), and is left out when the delta already states it.
 - The strip carries no sources. Its numbers reappear in the body with their citations (§8.21, §14 item 4).
 
 ### 8.3 Summary and key findings
@@ -776,12 +778,12 @@ Verbatim only. ≤ 1 per section. Pair with a figure in `.cm-grid.cm-grid--wide.
       <tbody>
         <tr data-flag="ok">
           <td class="strong">Tier 1 · AMER</td>
-          <td class="num" data-value="17940">17,940</td>
+          <td class="num" data-value="18221">18,221</td>
           <td class="num" data-value="37.2"><div class="cm-cellbar"><span>37.2%</span><span class="cm-cellbar__track"><span style="--v:100%"></span></span></div></td>
           <td>On track</td>
         </tr>
       </tbody>
-      <tfoot><tr><td>All teams</td><td class="num">48,210</td><td class="num">100%</td><td></td></tr></tfoot>
+      <tfoot><tr><td>All teams</td><td class="num">48,964</td><td class="num">100%</td><td></td></tr></tfoot>
     </table>
   </div>
   <span class="cm-caption">
@@ -1406,7 +1408,7 @@ When two sources give different values for one quantity, a disagreement block st
 ```html
 <div class="cm-disagree">
   <span class="cm-label">Disagreement</span>
-  <p class="cm-t5">Tickets handled in Q2 2026</p>
+  <p class="cm-t5">Tickets created in Q2 2026</p>
   <dl>
     <div><dt>44,870</dt><dd>Helpdesk warehouse, re-run 2026-10-05<a class="cm-cite" href="#src-1" id="cite-4">S1</a></dd></div>
     <div><dt>45,310</dt><dd>Q2 review, published 2026-07-13<a class="cm-cite" href="#src-4" id="cite-5">S4</a></dd></div>
@@ -2197,7 +2199,7 @@ Changed in 2.0:
 - Recommendations holds the featured card, then at most one callout (§7.2).
 - Methodology is required with a KPI strip, a chart or a table, and Terms comes first in it (§7.2).
 - Reading time counts every word a reader sees, chips, KPI values and table cells among them, and leaves out a chart's or a diagram's JSON (§7.1).
-- A KPI foot names its reference with its value, then its standing against it (§8.2).
+- A KPI foot names its reference with its value, then its standing against it; against a target, the standing is `Met` or `Missed by` and the gap (§8.2).
 - A wrapped key finding or recommended action fails: the claim line is the item's own first child (§8.3, §8.19).
 - An action carries an impact chip only for an estimate, and its date chip reads `Due` or `Decide by` (§8.19).
 - A source register lists every source with its key, type, locator and date, and citations link to it both ways (§8.21).
@@ -2266,6 +2268,7 @@ A document built on kit 1.2 takes the 2.0 `report-kit/` files, then the repairs 
 6. `table-na`: write a table cell that does not apply as `n/a`, never as a dash (§8.11).
 7. `type-floor`: mark a grid of side-by-side figures `cm-print-stack`, so each figure prints full width with its text at 11px or more (§4, §8.10).
 8. `chart-text-fit`: keep every text a chart draws inside the chart at 390px. The kit makes room for a horizontal bar's value labels and a scale bar's end labels. A pie's outside labels turn with `startAngle` until they sit above and below the ring; a label that still runs out shortens (§5, §9).
+9. `kpi-standing`: write the foot of a KPI with a target as the target, then the standing in words: `<span>Target 95%</span><b>Missed by 3.8 pp</b>`, or `<b>Met</b>`. A KPI whose delta or meter names a target names it in the foot too (§8.2).
 
 One change shows in no check on a 1.2 page. A report whose type chip reads Guide is a guide: it takes `<meta name="cm-kind" content="guide">`, the guide template and the guide's parts (§7.3).
 

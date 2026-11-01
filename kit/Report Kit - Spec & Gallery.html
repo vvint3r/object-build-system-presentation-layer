@@ -304,7 +304,7 @@
 <header class="cm-section__head">
   <span class="cm-section__num">Part 03</span>
   <h2 class="cm-section__title" id="service-t">Speed &amp; service levels</h2>
-  <p class="cm-section__tldr"><span class="cm-label">TL;DR</span> Median first response fell 27% to 2h 14m. SLA attainment rose to 91.2%, still 3.8 points under target.</p>
+  <p class="cm-section__tldr"><span class="cm-label">TL;DR</span> Median first response was 27% below its level before chat routing, at 2h 14m. SLA attainment rose to 91.2%, still 3.8 points under target.</p>
 </header>
           </div>
         </div>
@@ -330,7 +330,7 @@
     <span class="cm-kpi__label">Within SLA</span>
     <span class="cm-kpi__value">91.2<small>%</small></span>
     <div class="cm-meter" style="--v:91.2%;--t:95%"><span></span><i></i></div>
-    <div class="cm-kpi__foot"><span>Target 95%</span><b>−3.8 pp</b></div>
+    <div class="cm-kpi__foot"><span>Target 95%</span><b>Missed by 3.8 pp</b></div>
   </div>
 </div>
           </div>
@@ -343,9 +343,9 @@
   <span class="cm-chip cm-chip--accent">Summary</span>
   <h3 class="cm-card__title">Key findings</h3>
   <ol class="cm-findings">
-    <li><span class="cm-findings__claim">Median first response fell 27% after chat intent routing went live.</span> It went from 3h 05m before 8 July to 2h 14m.</li>
+    <li><span class="cm-findings__claim">Median first response was 27% below its level before chat intent routing.</span> Q3’s all-channel median was 2h 14m, against 3h 05m before 8 July.</li>
     <li><span class="cm-findings__claim">The backlog fell 39% despite higher volume.</span> Open tickets dropped from 1,940 to 1,186.</li>
-    <li><span class="cm-findings__claim">SLA attainment is 3.8 points short of target.</span> Billing specialists resolved 82.6% of tickets within SLA, the lowest of any team.</li>
+    <li><span class="cm-findings__claim">SLA attainment is 3.8 points short of target.</span> Email and the web form stayed below 89%; among teams, billing specialists were lowest at 82.6%.</li>
   </ol>
 </div>
           </div>
@@ -362,7 +362,7 @@
   <aside class="cm-callout cm-callout--example"><span class="cm-callout__label">Example</span><div class="cm-callout__body">412 of 437 runs finished on time, an on-time rate of 94.3%.</div></aside>
   <aside class="cm-callout cm-callout--requirement"><span class="cm-callout__label">Requirement</span><div class="cm-callout__body">A rule the reader must follow. <span class="cm-id">REQ-04</span></div></aside>
   <aside class="cm-callout cm-callout--limitation"><span class="cm-callout__label">Limitation</span><div class="cm-callout__body">What the data cannot show.</div></aside>
-  <aside class="cm-callout cm-callout--correction"><span class="cm-callout__label">Correction</span><div class="cm-callout__body">Q2 tickets handled are 44,870, not the 45,310 first published, which counted merged duplicates.</div></aside>
+  <aside class="cm-callout cm-callout--correction"><span class="cm-callout__label">Correction</span><div class="cm-callout__body">Q2 tickets created are 44,870, not the 45,310 first published, which counted merged duplicates.</div></aside>
 </div>
           </div>
         </div>
@@ -386,7 +386,7 @@
 <div class="cm-qa">
   <span class="cm-qa__label">Questions</span>
   <dl>
-    <div><dt>Why did the backlog rise in week 7?</dt><dd>Billing v4 launched on 12 August and billing contacts rose 31%. The backlog peaked at 1,710 that week and fell every week after.</dd></div>
+    <div><dt>Why did the backlog rise in week 7?</dt><dd>Billing v4 launched on 12 August, and that week billing contacts ran at twice their pre-launch level. The backlog peaked at 1,710 that week and fell every week after.</dd></div>
     <div><dt>Does SLA attainment include weekends?</dt><dd>For chat and phone, yes; both run around the clock. Email, web-form and social SLAs count business hours only.</dd></div>
   </dl>
 </div>
@@ -443,18 +443,18 @@
     <table class="cm-table" data-sortable aria-labelledby="tbl-demo">
       <thead><tr><th>Team</th><th class="num">Tickets</th><th class="num">Share</th><th class="num">Within SLA</th><th data-nosort>Status</th></tr></thead>
       <tbody>
-        <tr data-flag="ok"><td class="strong">Tier 1 · Americas</td><td class="num" data-value="17940">17,940</td><td class="num" data-value="37.2"><div class="cm-cellbar"><span>37.2%</span><span class="cm-cellbar__track"><span style="--v:100%"></span></span></div></td><td class="num strong" data-value="94.6">94.6%</td><td>On track</td></tr>
-        <tr data-flag="ok"><td class="strong">Tier 1 · EMEA</td><td class="num" data-value="12610">12,610</td><td class="num" data-value="26.2"><div class="cm-cellbar"><span>26.2%</span><span class="cm-cellbar__track"><span style="--v:70%"></span></span></div></td><td class="num strong" data-value="93.0">93.0%</td><td>On track</td></tr>
-        <tr data-flag="warn"><td class="strong">Tier 1 · APAC</td><td class="num" data-value="8330">8,330</td><td class="num" data-value="17.3"><div class="cm-cellbar"><span>17.3%</span><span class="cm-cellbar__track"><span style="--v:46%"></span></span></div></td><td class="num strong" data-value="87.4">87.4%</td><td>At risk</td></tr>
-        <tr data-flag="crit"><td class="strong">Billing specialists</td><td class="num" data-value="5480">5,480</td><td class="num" data-value="11.4"><div class="cm-cellbar"><span>11.4%</span><span class="cm-cellbar__track"><span style="--v:31%"></span></span></div></td><td class="num strong" data-value="82.6">82.6%</td><td>Breach</td></tr>
-        <tr><td class="strong">Technical escalations</td><td class="num" data-value="3850">3,850</td><td class="num" data-value="8.0"><div class="cm-cellbar"><span>8.0%</span><span class="cm-cellbar__track"><span style="--v:21%"></span></span></div></td><td class="num strong" data-value="89.9">89.9%</td><td>Watch</td></tr>
+        <tr data-flag="ok"><td class="strong">Tier 1 · Americas</td><td class="num" data-value="18221">18,221</td><td class="num" data-value="37.2"><div class="cm-cellbar"><span>37.2%</span><span class="cm-cellbar__track"><span style="--v:100%"></span></span></div></td><td class="num strong" data-value="94.6">94.6%</td><td>On track</td></tr>
+        <tr data-flag="ok"><td class="strong">Tier 1 · EMEA</td><td class="num" data-value="12807">12,807</td><td class="num" data-value="26.2"><div class="cm-cellbar"><span>26.2%</span><span class="cm-cellbar__track"><span style="--v:70%"></span></span></div></td><td class="num strong" data-value="93.0">93.0%</td><td>On track</td></tr>
+        <tr data-flag="warn"><td class="strong">Tier 1 · APAC</td><td class="num" data-value="8460">8,460</td><td class="num" data-value="17.3"><div class="cm-cellbar"><span>17.3%</span><span class="cm-cellbar__track"><span style="--v:46%"></span></span></div></td><td class="num strong" data-value="87.4">87.4%</td><td>At risk</td></tr>
+        <tr data-flag="crit"><td class="strong">Billing specialists</td><td class="num" data-value="5566">5,566</td><td class="num" data-value="11.4"><div class="cm-cellbar"><span>11.4%</span><span class="cm-cellbar__track"><span style="--v:31%"></span></span></div></td><td class="num strong" data-value="82.6">82.6%</td><td>Breach</td></tr>
+        <tr data-flag="warn"><td class="strong">Technical escalations</td><td class="num" data-value="3910">3,910</td><td class="num" data-value="8.0"><div class="cm-cellbar"><span>8.0%</span><span class="cm-cellbar__track"><span style="--v:21%"></span></span></div></td><td class="num strong" data-value="89.9">89.9%</td><td>At risk</td></tr>
       </tbody>
-      <tfoot><tr><td>All teams</td><td class="num">48,210</td><td class="num">100%</td><td class="num">91.2%</td><td></td></tr></tfoot>
+      <tfoot><tr><td>All teams</td><td class="num">48,964</td><td class="num">100%</td><td class="num">91.2%</td><td></td></tr></tfoot>
     </table>
   </div>
   <span class="cm-caption">
     <span class="cm-caption__line">Source: helpdesk warehouse · Q3 2026.</span>
-    <span class="cm-caption__line">Flags: green on track, yellow at risk, red breach, grey watch.</span>
+    <span class="cm-caption__line">Flags: green on track, yellow at risk, red breach.</span>
   </span>
 </div>
           </div>
@@ -487,7 +487,7 @@
   <h3 class="cm-card__title">Q3 changes and Q4 plans</h3>
   <ol class="cm-timeline">
     <li class="is-done"><span class="cm-timeline__date">Jul 08<small>2026</small></span><span class="cm-timeline__mark"></span><div><div class="cm-timeline__title">Chat routing by intent goes live</div><p class="cm-timeline__body">A classifier assigns chats to queues before pickup.</p><div class="cm-chips"><span class="cm-chip cm-chip--ok">Shipped</span></div></div></li>
-    <li class="is-done"><span class="cm-timeline__date">Aug 12<small>2026</small></span><span class="cm-timeline__mark"></span><div><div class="cm-timeline__title">Billing v4 launch</div><p class="cm-timeline__body">Billing contacts rose 31% over the rest of the quarter.</p></div></li>
+    <li class="is-done"><span class="cm-timeline__date">Aug 12<small>2026</small></span><span class="cm-timeline__mark"></span><div><div class="cm-timeline__title">Billing v4 launch</div><p class="cm-timeline__body">Billing contacts ran 31% above their pre-launch level over the rest of the quarter.</p></div></li>
     <li class="is-current"><span class="cm-timeline__date">Sep 16<small>2026</small></span><span class="cm-timeline__mark"></span><div><div class="cm-timeline__title">APAC weekend pilot</div><p class="cm-timeline__body">Two agents per weekend shift; decision due 31 October.</p><div class="cm-chips"><span class="cm-chip cm-chip--warn">Pilot</span></div></div></li>
     <li class="is-planned"><span class="cm-timeline__date">Nov 02<small>2026</small></span><span class="cm-timeline__mark"></span><div><div class="cm-timeline__title">Billing hiring wave</div><p class="cm-timeline__body">Six specialists before renewals.</p></div></li>
   </ol>
@@ -618,7 +618,7 @@
           <div data-demo>
 <div class="cm-disagree">
   <span class="cm-label">Disagreement</span>
-  <p class="cm-t5">Tickets handled in Q2 2026</p>
+  <p class="cm-t5">Tickets created in Q2 2026</p>
   <dl>
     <div><dt>44,870</dt><dd>Helpdesk warehouse, re-run 2026-10-05<a class="cm-cite" href="#src-1" id="cite-3">S1</a></dd></div>
     <div><dt>45,310</dt><dd>Q2 review, published 2026-07-13<a class="cm-cite" href="#src-3" id="cite-4">S3</a></dd></div>
@@ -690,8 +690,8 @@
   </li>
   <li>
     <h4 class="cm-procedure__title">Reply to the customer</h4>
-    <p>Say that a billing specialist has the ticket, and give the SLA due time as the latest answer time.</p>
-    <div class="cm-procedure__outcome"><span class="cm-label">Outcome</span><p>The customer knows who has the ticket and when the next answer is due.</p></div>
+    <p>Say that a billing specialist has the ticket, and give the SLA due time, the deadline for resolving it.</p>
+    <div class="cm-procedure__outcome"><span class="cm-label">Outcome</span><p>The customer knows who has the ticket and when it is due to be resolved.</p></div>
   </li>
 </ol>
           </div>
@@ -1176,13 +1176,13 @@
   <span class="cm-figure__kind">Figure 5</span>
   <h3 class="cm-figure__title cm-figure__title--sm">Open backlog</h3>
   <p class="cm-figure__desc">Tickets open or pending at Sunday close, Q3 2026.</p>
-  <div class="cm-chart" style="--h:300px" data-chart role="img" aria-label="Area chart. Backlog falls from 1,872 in the first week to 1,186, under the 1,200 ceiling.">
+  <div class="cm-chart" style="--h:300px" data-chart role="img" aria-label="Area chart. Backlog falls from 1,872 in the first week to 1,186, under the 1,200 target.">
     <script type="application/json">
     {
       "xAxis": {"type": "category", "boundaryGap": false, "data": ["Jul","","","","Aug","","","","Sep","","","",""]},
       "yAxis": {"type": "value", "name": "Open tickets", "min": 0, "max": 2000, "interval": 500},
       "series": [{"name": "Backlog", "type": "line", "areaStyle": {}, "data": [1872,1790,1715,1650,1580,1530,1710,1640,1505,1410,1330,1250,1186],
-        "markLine": {"data": [{"yAxis": 1200, "label": {"formatter": "Ceiling", "position": "insideStartTop"}}]}}]
+        "markLine": {"data": [{"yAxis": 1200, "label": {"formatter": "Target", "position": "insideStartTop"}}]}}]
     }
     </script>
   </div>
@@ -1222,8 +1222,8 @@
 <figure class="cm-figure">
   <span class="cm-figure__kind">Figure 7</span>
   <h3 class="cm-figure__title cm-figure__title--sm">Tickets by specialist team</h3>
-  <p class="cm-figure__desc">Share of the 9,330 tickets the two specialist teams handled, Q3 2026.</p>
-  <div class="cm-chart" style="--h:300px" data-chart role="img" aria-label="Donut chart. Billing specialists handled 58.7% of the specialist teams' tickets and technical escalations 41.3%.">
+  <p class="cm-figure__desc">Share of the 9,476 tickets the two specialist teams resolved, Q3 2026.</p>
+  <div class="cm-chart" style="--h:300px" data-chart role="img" aria-label="Donut chart. Billing specialists resolved 58.7% of the specialist teams' tickets and technical escalations 41.3%.">
     <script type="application/json">
     {
       "series": [{"type": "pie", "radius": ["44%","66%"], "center": ["50%","50%"], "startAngle": 16,

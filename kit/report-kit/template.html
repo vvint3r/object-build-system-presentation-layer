@@ -98,14 +98,14 @@
         </div>
 
         <!-- KPI STRIP: 2–4 KPIs; add cm-kpis--3 / cm-kpis--2 for fewer than four. Delta: cm-delta (neutral) | cm-delta--good | cm-delta--bad. Always state the comparison.
-             Foot: a target and, in <b>, the gap or Met; or the prior value alone. The strip carries no sources: the body cites its numbers. -->
+             Foot: a target and, in <b>, Met or "Missed by" and the gap; or the prior value alone. The strip carries no sources: the body cites its numbers. -->
         <div class="cm-kpis cm-bleed">
           <div class="cm-kpi">
             <span class="cm-kpi__label">{{ Metric name }}</span>
             <span class="cm-kpi__value">{{ 91.2 }}<small>%</small></span>
             <span class="cm-kpi__delta"><span class="cm-delta cm-delta--good">▲ {{ +1.6 pp vs prior }}</span></span>
             <div class="cm-kpi__spark" data-spark data-values="{{ 1,2,3,4 }}" aria-hidden="true"></div>
-            <div class="cm-kpi__foot"><span>Target {{ 95% }}</span><b>{{ −3.8 pp | Met }}</b></div>
+            <div class="cm-kpi__foot"><span>Target {{ 95% }}</span><b>{{ Missed by 3.8 pp | Met }}</b></div>
           </div>
         </div>
 

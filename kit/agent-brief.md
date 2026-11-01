@@ -211,6 +211,8 @@ sets).
 
 - Every kind has the top bar, contents rail, masthead, Notes & sources and footer. A finished
   document drops the template's notes for the author and keeps its omission comments.
+- A report's KPI with a target names the target in its foot and states its standing there in
+  words: `Met`, or `Missed by` and the gap (`Missed by 3.8 pp`), never a signed gap alone.
 - Guides and references carry no executive summary, KPI strip, summary card, recommendations
   card or Period. Each required part is a section with a fixed id: `purpose`, `prerequisites`,
   `steps`, `exceptions`, `related`; `definition`, `properties`, `relationships`, `examples`. Sections

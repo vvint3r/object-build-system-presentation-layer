@@ -105,3 +105,4 @@ Rounds 40e and 40f exist only in `CONTINUATION.md` and are taken from there.
 | [092-kit-2-0-contract-and-migration.md](092-kit-2-0-contract-and-migration.md) | Kit 2.0 contract and migration from 1.2 | 2026-10-31 | orchestrating session, record 075 |
 | [093-stated-forms-and-diagram-width.md](093-stated-forms-and-diagram-width.md) | Stated forms, diagram width and checks away from the repository | 2026-10-31 | orchestrating session, record 075 |
 | [094-joining-a-set-and-reading-time.md](094-joining-a-set-and-reading-time.md) | Joining a set, reading time and stated forms | 2026-10-31 | orchestrating session, record 075 |
+| [095-acceptance-fixes-and-kpi-standing.md](095-acceptance-fixes-and-kpi-standing.md) | Acceptance fixes: agreement calls on the three acceptance documents, and KPI standing | 2026-10-31 | orchestrating session, record 075 |

@@ -104,12 +104,12 @@
             </dl>
             <dl>
               <dt>Source</dt><dd>Helpdesk warehouse, <code>support.tickets_fact</code><a class="cm-cite" href="#src-1" id="cite-1">S1</a></dd>
-              <dt>Lineage</dt><dd>Helpdesk API → <b>tickets_fact</b><sup>Source</sup> → frt_daily<sup>Derived</sup></dd>
+              <dt>Lineage</dt><dd>Helpdesk API → <b>tickets_fact</b><sup>Source</sup> → median query<sup>Derived</sup></dd>
               <dt>Cadence</dt><dd>Daily, after the 06:00 UTC warehouse refresh<a class="cm-cite" href="#src-2" id="cite-2">S2</a></dd>
               <dt>Owner</dt><dd>Support Operations Analytics</dd>
             </dl>
             <dl>
-              <dt>Target</dt><dd>Median of 2h 30m or less each quarter<a class="cm-cite" href="#src-3" id="cite-3">S3</a></dd>
+              <dt>Target</dt><dd>Support-wide median of 2h 30m or less each quarter<a class="cm-cite" href="#src-3" id="cite-3">S3</a></dd>
               <dt>Breakdowns</dt><dd>Channel, team and region</dd>
               <dt>Reported in</dt><dd><a href="Sample%20Report%20-%20Q3%20Support%20Review.html#service">Customer support operations review</a>, each quarter</dd>
             </dl>
@@ -126,21 +126,21 @@
       </header>
       <div class="cm-section__body">
         <div class="cm-prose">
-          <p>The support-wide median <strong>met its target in Q3 2026</strong>, while three of the five teams stayed above it.</p>
+          <p>The support-wide median <strong>met its target in Q3 2026</strong>, while three of the five team medians were slower than the target.</p>
         </div>
         <div class="cm-status cm-bleed">
           <div class="cm-status__head"><span class="cm-label">Status</span><span class="cm-meta">as of <time datetime="2026-09-30">2026-09-30</time></span></div>
           <dl>
-            <div><dt>First response time</dt><dd>2h 14m, Q3 2026 median in the quarterly review<a class="cm-cite" href="#src-4" id="cite-4">S4</a></dd></div>
+            <div><dt>First response time</dt><dd>2h 14m, Q3 2026 median in the quarterly review,<a class="cm-cite" href="#src-4" id="cite-4">S4</a> fixed at the first refresh after the quarter closed: 06:00 UTC on 1 October<a class="cm-cite" href="#src-2" id="cite-10">S2</a></dd></div>
             <div><dt>Before chat routing</dt><dd>3h 05m median, to 8 July</dd></div>
-            <div><dt>Teams within target</dt><dd>2 of 5</dd></div>
+            <div><dt>Team medians within 2h 30m</dt><dd>2 of 5</dd></div>
           </dl>
         </div>
         <figure class="cm-figure cm-bleed">
           <span class="cm-figure__kind">Figure 1</span>
           <h3 class="cm-figure__title">Median first response by team, Q3 2026</h3>
-          <p class="cm-figure__desc">Median minutes from creation to the first human reply, for the tickets each team resolved from July to September, against the quarterly target.</p>
-          <div class="cm-chart" style="--h:300px" data-chart role="img" aria-label="Bar chart. Technical escalations 4h 41m, APAC 3h 20m and billing specialists 2h 58m sit above the 2h 30m target; EMEA 2h 05m and Americas 1h 42m sit below it.">
+          <p class="cm-figure__desc">Median minutes from creation to the first human reply, whoever sent it, for the tickets each team resolved in Q3 2026.</p>
+          <div class="cm-chart" style="--h:300px" data-chart role="img" aria-label="Bar chart. Technical escalations 4h 41m, APAC 3h 20m and billing specialists 2h 58m are slower than the 2h 30m target; EMEA 2h 05m and Americas 1h 42m are faster.">
             <script type="application/json">
             {
               "xAxis": {"type": "value", "min": 0, "max": 300, "interval": 150, "name": "Median first response, minutes"},
@@ -251,7 +251,7 @@
       </header>
       <div class="cm-section__body">
         <div class="cm-prose">
-          <p>First response time connects to <strong>three metrics in the quarterly review</strong>.</p>
+          <p>First response time connects to <strong>three measures the quarterly review reports</strong>.</p>
         </div>
         <ul class="cm-related">
           <li><span class="cm-tag">Metric</span><a href="Sample%20Report%20-%20Q3%20Support%20Review.html#service">Resolved within SLA</a><p>Measures the whole ticket against its due time, so a fast first reply alone does not meet it.</p></li>
@@ -276,7 +276,7 @@
           <p>An email arrives at 14:00 on a Saturday, and an agent replies at 09:30 on Monday. First response time is 43h 30m, because the clock runs through the weekend.</p>
           <p>The same rule shapes APAC's Q3 result. Its median was 3h 20m with unstaffed weekends counted, and 2h 31m on weekdays only.<a class="cm-cite" href="#src-4" id="cite-9">S4</a></p>
           <h3>Escalated billing ticket</h3>
-          <p>A billing email arrives at 11:20 on a Tuesday, and a Tier 1 agent replies at 12:05 while escalating it. First response time is 45m. The wait for a billing specialist after that reply counts as specialist queue wait.</p>
+          <p>A billing email arrives at 11:20 on a Tuesday. At 12:05 a Tier 1 agent escalates it, then replies to the customer, so first response time is 45m. The wait for a billing specialist counts as specialist queue wait, which runs from the escalation.</p>
           <h3>Median of five tickets</h3>
           <p>Five tickets have first response times of 7m, 45m, 1h 50m, 3h 40m and 43h 30m. The median is 1h 50m, the middle value; the mean is 9h 58m, pulled up by the weekend ticket. A sixth ticket, created by a staff member, is left out.</p>
         </div>

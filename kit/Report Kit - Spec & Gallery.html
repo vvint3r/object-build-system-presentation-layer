@@ -500,7 +500,7 @@
           <div data-demo>
 <ol class="cm-process" style="--steps:4">
   <li class="cm-step"><span class="cm-step__n">01</span><span class="cm-step__title">Triage</span><span class="cm-step__body">Chat classified on arrival.</span></li>
-  <li class="cm-step"><span class="cm-step__n">02</span><span class="cm-step__title">Tier 1</span><span class="cm-step__body">71% close here.</span></li>
+  <li class="cm-step"><span class="cm-step__n">02</span><span class="cm-step__title">Tier 1</span><span class="cm-step__body">81% close here.</span></li>
   <li class="cm-step cm-emph"><span class="cm-step__n">03</span><span class="cm-step__title">Specialist queue</span><span class="cm-step__body">Median wait 9h 40m.</span><span class="cm-chip cm-chip--warn">Bottleneck</span></li>
   <li class="cm-step"><span class="cm-step__n">04</span><span class="cm-step__title">Close</span><span class="cm-step__body">Survey after 24h.</span></li>
 </ol>
@@ -577,7 +577,7 @@
   <div class="cm-card__kicker"><span class="cm-chip cm-chip--accent">Recommended</span></div>
   <h3 class="cm-card__title">Three actions for Q4</h3>
   <ol class="cm-findings">
-    <li><span class="cm-findings__claim">Hire six billing specialists before renewals.</span> Billing is the lowest-performing queue.<div class="cm-chips"><span class="cm-chip">Owner · Support Ops</span><span class="cm-chip">Due 2026-11-02</span><span class="cm-chip cm-chip--accent">+2.1 pp SLA, est.</span></div></li>
+    <li><span class="cm-findings__claim">Hire six billing specialists before renewals.</span> Billing is the lowest-performing queue.<div class="cm-chips"><span class="cm-chip">Owner · Support Ops</span><span class="cm-chip">Due 2026-11-02</span><span class="cm-chip cm-chip--accent">+1.4 pp SLA, est.</span></div></li>
     <li><span class="cm-findings__claim">Make APAC weekend coverage permanent.</span> The Monday queue spike went away during the pilot.<div class="cm-chips"><span class="cm-chip">Owner · APAC lead</span><span class="cm-chip">Decide by 2026-10-31</span></div></li>
   </ol>
 </div>
@@ -1528,7 +1528,7 @@
         {"id": "report", "type": "terminal", "label": "Asks for help", "col": 1, "row": 1},
         {"id": "triage", "type": "step", "label": "Triage", "detail": "Reads and tags the ticket", "col": 1, "row": 2},
         {"id": "billing", "type": "decision", "label": "Bill wrong?", "col": 2, "row": 2},
-        {"id": "fix", "type": "step", "label": "Fix the account", "detail": "Corrects the charge", "col": 2, "row": 3},
+        {"id": "fix", "type": "step", "label": "Fix and answer", "detail": "Corrects the charge, then replies", "col": 2, "row": 3},
         {"id": "answer", "type": "step", "label": "Answer the customer", "col": 3, "row": 2},
         {"id": "done", "type": "terminal", "label": "Has an answer", "col": 3, "row": 1}
       ],
@@ -1537,7 +1537,7 @@
         {"from": "triage", "to": "billing"},
         {"from": "billing", "to": "answer", "label": "No"},
         {"from": "billing", "to": "fix", "label": "Yes"},
-        {"from": "fix", "to": "answer"},
+        {"from": "fix", "to": "done"},
         {"from": "answer", "to": "done"}
       ],
       "groups": [

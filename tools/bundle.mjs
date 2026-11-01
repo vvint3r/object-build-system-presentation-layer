@@ -532,9 +532,9 @@ const readme = `Content Morphia publishes reports, documents and analyses as sin
 
 A § number names a section of the specification. Sections 1 to 7 and 9 to 15 are in this file. Section 8 lists the components, and each of its subsections, such as §8.21, is in the README of the component it defines.
 
-A document built from this bundle stands alone. Document sets, their index pages (§8.31) and the commands written \`npm run\` belong to the kit's repository. So the templates and examples here write their set and area steps as plain text and link the wordmark to \`#top\` (§7.1).
+A document built from this bundle stands alone. Document sets, their index pages (§8.31) and the commands written \`npm run\` belong to the kit's repository. So the templates and examples here write their set and area steps as plain text and link the wordmark to \`#top\` (§7.1). A document joins a set in the repository by the steps of §8.31.
 
-The checks the rules name, such as the print check and the type checks, run when a document returns to the repository. A document made from this bundle meets them by reading and counting, as §14 sets out.
+The checks the rules name, such as the print check and the type checks, run when a document returns to the repository. A document made from this bundle meets them by reading and counting. Item 13 needs a browser, where one is at hand (§14).
 
 A document starts by choosing its page type. The selection table in §7.6 picks one by the question the reader brings, and names the template to copy from the table below.
 
@@ -542,7 +542,7 @@ A document starts by choosing its page type. The selection table in §7.6 picks 
 
 | File | Use |
 | --- | --- |
-${templates.map(t => `| \`${t.file}\` | The start of every ${t.type ? `${typeName(t.type)}, a ${t.kind}` : `${t.kind}${templates.some(o => o.kind === t.kind && o.type) ? ' of no page type' : ''}`}. Copy it whole, beside \`report-kit/\`. |`).join('\n')}
+${templates.map(t => `| \`${t.file}\` | The start of every ${t.type ? `${typeName(t.type)}, a ${t.kind}` : `${t.kind}${templates.some(o => o.kind === t.kind && o.type) ? ' of no page type' : ''}`}. Copy it whole, beside \`report-kit/\`, then drop its notes for the author (§2). |`).join('\n')}
 ${examples.map(e => `| \`${e.file}\` | An example ${e.type ? `${typeName(e.type)}, a ${e.kind}` : e.kind}: ${e.title}. |`).join('\n')}
 | \`report-kit/cm-report.css\` | The only stylesheet: every token and class. Linked, or pasted into a \`<style>\` element (§2). |
 | \`report-kit/cm-report.js\` | Theme toggle, chart drawing, sortable tables, contents scroll-spy and print preparation. Linked, or pasted as the last element in \`<body>\` (§2). |

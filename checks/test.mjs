@@ -13,6 +13,8 @@
 //                   (SPEC §8.3)
 //   clipped label   Figure 1 without the room its end labels need at the right: chart-text-fit
 //                   fails, naming a label the chart cuts off (SPEC §5; §9)
+//   second mark     note 1 marked again in a later paragraph: footnotes fails, since a note has one
+//                   mark (SPEC §8.15)
 
 import { spawnSync } from 'node:child_process';
 import { cpSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
@@ -49,6 +51,12 @@ const CASES = [
     html: edit(sample, /"grid": \{"right": 84\}/, '"grid": {"right": 4}'),
     fails: ['chart-text-fit'],
     finding: 'past the right',
+  },
+  {
+    file: 'second-mark.html',
+    html: edit(sample, /(closed the quarter at 1,186 open tickets)/, '$1<a class="cm-fn" href="#fn-1" id="fnref-1-2">1</a>'),
+    fails: ['footnotes'],
+    finding: 'a second mark for note fn-1',
   },
 ];
 

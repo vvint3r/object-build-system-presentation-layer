@@ -58,7 +58,7 @@ const CASES = [
   },
   {
     file: 'second-mark.html',
-    html: edit(sample, /(closed the quarter at 1,186 open tickets)/, '$1<a class="cm-fn" href="#fn-1" id="fnref-1-2">1</a>'),
+    html: edit(sample, /(to 1,186 open tickets)/, '$1<a class="cm-fn" href="#fn-1" id="fnref-1-2">1</a>'),
     fails: ['footnotes'],
     finding: 'a second mark for note fn-1',
   },

@@ -25,16 +25,16 @@ All links point at one commit of the kit, so every document built from this brie
 
 | File | Role | Link |
 | --- | --- | --- |
-| `SPEC.md` | The rules in force. Read in full before writing. | [SPEC.md](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/ebbb323a430ac2105533f70e42ace6625b449735/kit/report-kit/SPEC.md) |
-| `template.html` | The starting file for every report | [template.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/ebbb323a430ac2105533f70e42ace6625b449735/kit/report-kit/template.html) |
-| `template-guide.html` | The starting file for every guide | [template-guide.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/ebbb323a430ac2105533f70e42ace6625b449735/kit/report-kit/template-guide.html) |
-| `template-reference.html` | The starting file for every reference | [template-reference.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/ebbb323a430ac2105533f70e42ace6625b449735/kit/report-kit/template-reference.html) |
-| `cm-report.css` | Tokens and every component class; the only stylesheet | [cm-report.css](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/ebbb323a430ac2105533f70e42ace6625b449735/kit/report-kit/cm-report.css) |
-| `cm-report.js` | Theme toggle, chart theme and drawing, diagram drawing and text versions, sortable tables, contents rail, print | [cm-report.js](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/ebbb323a430ac2105533f70e42ace6625b449735/kit/report-kit/cm-report.js) |
-| Sample report | A finished report built on the kit: the reference output for reports | [Sample Report - Q3 Support Review.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/ebbb323a430ac2105533f70e42ace6625b449735/kit/Sample%20Report%20-%20Q3%20Support%20Review.html) |
-| Sample guide | A finished guide: the reference output for guides | [Guide - Billing Escalation.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/ebbb323a430ac2105533f70e42ace6625b449735/kit/Guide%20-%20Billing%20Escalation.html) |
-| Sample reference | A finished reference: the reference output for references | [Reference - First Response Time.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/ebbb323a430ac2105533f70e42ace6625b449735/kit/Reference%20-%20First%20Response%20Time.html) |
-| Spec and gallery | Every component as a live example, with its markup | [Report Kit - Spec & Gallery.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/ebbb323a430ac2105533f70e42ace6625b449735/kit/Report%20Kit%20-%20Spec%20%26%20Gallery.html) |
+| `SPEC.md` | The rules in force. Read in full before writing. | [SPEC.md](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/3d1ab2490109335f33d68041a0b016d7d9e5d16e/kit/report-kit/SPEC.md) |
+| `template.html` | The starting file for every report | [template.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/3d1ab2490109335f33d68041a0b016d7d9e5d16e/kit/report-kit/template.html) |
+| `template-guide.html` | The starting file for every guide | [template-guide.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/3d1ab2490109335f33d68041a0b016d7d9e5d16e/kit/report-kit/template-guide.html) |
+| `template-reference.html` | The starting file for every reference | [template-reference.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/3d1ab2490109335f33d68041a0b016d7d9e5d16e/kit/report-kit/template-reference.html) |
+| `cm-report.css` | Tokens and every component class; the only stylesheet | [cm-report.css](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/3d1ab2490109335f33d68041a0b016d7d9e5d16e/kit/report-kit/cm-report.css) |
+| `cm-report.js` | Theme toggle, chart theme and drawing, diagram drawing and text versions, sortable tables, contents rail, print | [cm-report.js](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/3d1ab2490109335f33d68041a0b016d7d9e5d16e/kit/report-kit/cm-report.js) |
+| Sample report | A finished report built on the kit: the reference output for reports | [Sample Report - Q3 Support Review.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/3d1ab2490109335f33d68041a0b016d7d9e5d16e/kit/Sample%20Report%20-%20Q3%20Support%20Review.html) |
+| Sample guide | A finished guide: the reference output for guides | [Guide - Billing Escalation.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/3d1ab2490109335f33d68041a0b016d7d9e5d16e/kit/Guide%20-%20Billing%20Escalation.html) |
+| Sample reference | A finished reference: the reference output for references | [Reference - First Response Time.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/3d1ab2490109335f33d68041a0b016d7d9e5d16e/kit/Reference%20-%20First%20Response%20Time.html) |
+| Spec and gallery | Every component as a live example, with its markup | [Report Kit - Spec & Gallery.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/3d1ab2490109335f33d68041a0b016d7d9e5d16e/kit/Report%20Kit%20-%20Spec%20%26%20Gallery.html) |
 
 An agent with git can clone the whole kit instead:
 `git clone https://github.com/vvint3r/object-build-system-presentation-layer`.
@@ -92,9 +92,9 @@ The pasted kit code is never edited, shortened or reformatted.
 at jsDelivr, pinned to the same commit:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vvint3r/object-build-system-presentation-layer@ebbb323a430ac2105533f70e42ace6625b449735/kit/report-kit/cm-report.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vvint3r/object-build-system-presentation-layer@3d1ab2490109335f33d68041a0b016d7d9e5d16e/kit/report-kit/cm-report.css">
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js" defer></script>
-<script src="https://cdn.jsdelivr.net/gh/vvint3r/object-build-system-presentation-layer@ebbb323a430ac2105533f70e42ace6625b449735/kit/report-kit/cm-report.js" defer></script>
+<script src="https://cdn.jsdelivr.net/gh/vvint3r/object-build-system-presentation-layer@3d1ab2490109335f33d68041a0b016d7d9e5d16e/kit/report-kit/cm-report.js" defer></script>
 ```
 
 Links to `raw.githubusercontent.com` do not work in a page: that host serves the files as plain

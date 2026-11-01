@@ -106,3 +106,4 @@ Rounds 40e and 40f exist only in `CONTINUATION.md` and are taken from there.
 | [093-stated-forms-and-diagram-width.md](093-stated-forms-and-diagram-width.md) | Stated forms, diagram width and checks away from the repository | 2026-10-31 | orchestrating session, record 075 |
 | [094-joining-a-set-and-reading-time.md](094-joining-a-set-and-reading-time.md) | Joining a set, reading time and stated forms | 2026-10-31 | orchestrating session, record 075 |
 | [095-acceptance-fixes-and-kpi-standing.md](095-acceptance-fixes-and-kpi-standing.md) | Acceptance fixes: agreement calls on the three acceptance documents, and KPI standing | 2026-10-31 | orchestrating session, record 075 |
+| [097-set-consistency.md](097-set-consistency.md) | Set consistency: the example documents as their own source, and the calls that settle five conflicts | 2026-10-31 | orchestrating session, record 075 |

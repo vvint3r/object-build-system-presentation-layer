@@ -221,6 +221,11 @@ sets).
   what to do, and its outcome. Prerequisites opens with a lede and lists what is in place before the
   task starts; what the reader does after that is a step. Where another role acts, the reader's step
   is to hand the work on or wait, and its outcome names the state the other role leaves.
+- In a guide's Steps the procedure comes first. A diagram of the steps follows it, and each message
+  or node that shows a step carries `"step"`, that step's number; the kit draws it before the label.
+- An instruction that works only on screen, such as "Select a column header to sort", sits in a
+  `span.cm-noprint` so it does not print. The kit numbers printed pages and adds the cue under a box
+  that scrolls sideways; the agent adds neither.
 - A guide's related documents and a reference's relationships go in a related list (`cm-related`): a tag, a link and one
   sentence per item.
 - A briefing without measured numbers is a report with the type chip Brief. Its executive summary

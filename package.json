@@ -12,7 +12,8 @@
     "pack": "node tools/pack.mjs",
     "bundle": "node tools/bundle.mjs",
     "bundle:check": "node tools/bundle-check.mjs",
-    "migration": "node tools/migration.mjs"
+    "migration": "node tools/migration.mjs",
+    "print": "node tools/print.mjs"
   },
   "devDependencies": {
     "@fontsource/jetbrains-mono": "5.3.0",

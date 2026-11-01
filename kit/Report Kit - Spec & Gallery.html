@@ -435,7 +435,7 @@
         </div>
 
         <div class="g-comp">
-          <header><span class="cm-label">5.10</span><h3 class="cm-h3">Data table</h3><p>A native table, with kind and title above the surface and the source below. Columns are split by 16px gutters so no rule runs unbroken, and numbers are right-aligned with <code>.num</code>. A totals row in <code>&lt;tfoot&gt;</code> sits under a dotted rule with extra space above it.</p><p>Status color goes in the row flag (<code>data-flag</code> on the row), a bar in the left gutter; the status word stays in the row. Add <code>data-sortable</code> for click-to-sort.</p></header>
+          <header><span class="cm-label">5.10</span><h3 class="cm-h3">Data table</h3><p>A native table, with kind and title above the surface and the source below. Columns are split by 16px gutters so no rule runs unbroken, and numbers are right-aligned with <code>.num</code>. A totals row in <code>&lt;tfoot&gt;</code> sits under a dotted rule with extra space above it.</p><p>Status color goes in the row flag (<code>data-flag</code> on the row), a bar in the left gutter; the status word stays in the row. Add <code>data-sortable</code> for click-to-sort.</p><p>A table wider than its box scrolls sideways inside it, with a cue under it. In print the header row repeats on each page and the total row prints once, at the end.</p></header>
           <div data-demo>
 <div>
   <div class="cm-table-title" id="tbl-demo"><span class="cm-table-title__kind">Table 1</span>Team performance, Q3 2026</div>
@@ -546,7 +546,7 @@
         </div>
 
         <div class="g-comp">
-          <header><span class="cm-label">5.16</span><h3 class="cm-h3">Code block</h3><p>The only place JetBrains Mono appears, with inline <code>&lt;code&gt;</code>. Filename, language tag, five token roles: <code>.k</code> keyword, <code>.s</code> string, <code>.n</code> number, <code>.f</code> callable, <code>.c</code> comment. Hue is allowed here and nowhere else.</p></header>
+          <header><span class="cm-label">5.16</span><h3 class="cm-h3">Code block</h3><p>The only place JetBrains Mono appears, with inline <code>&lt;code&gt;</code>. Filename, language tag, five token roles: <code>.k</code> keyword, <code>.s</code> string, <code>.n</code> number, <code>.f</code> callable, <code>.c</code> comment. Hue is allowed here and nowhere else.</p><p>A block wider than its box scrolls sideways, with a cue under it.</p></header>
           <div data-demo>
 <div class="cm-code cm-bleed">
   <div class="cm-code__bar"><span class="cm-code__file">sla_by_team.sql</span><span class="cm-tag">SQL</span></div>
@@ -1093,7 +1093,7 @@
         </div>
 
         <div class="g-comp">
-          <header><span class="cm-label">6.2</span><h3 class="cm-h3">Line: focus against context</h3><p>The current period in <code>$c1</code>; prior period in <code>$context</code>. End labels with <code>"{a}"</code> name both lines where they end, so the kit leaves the legend out, and moves labels apart that would touch. An event marker is a vertical <code>markLine</code>.</p></header>
+          <header><span class="cm-label">6.2</span><h3 class="cm-h3">Line: focus against context</h3><p>The current period in <code>$c1</code>; prior period in <code>$context</code>. End labels with <code>"{a}"</code> name both lines where they end, so the kit leaves the legend out, and moves labels apart that would touch. An event marker is a vertical <code>markLine</code>.</p><p>Where the y-axis title would meet the event's label, as on a phone, the title rises one row above it.</p></header>
           <div data-demo>
 <figure class="cm-figure cm-bleed">
   <span class="cm-figure__kind">Figure 2</span>
@@ -1119,7 +1119,7 @@
         </div>
 
         <div class="g-comp">
-          <header><span class="cm-label">6.3</span><h3 class="cm-h3">Bar: ranking with a target</h3><p>Horizontal bars for ranked categories, sorted with the largest at the top. Value labels on, target as a dashed <code>markLine</code>. One series, so no legend.</p></header>
+          <header><span class="cm-label">6.3</span><h3 class="cm-h3">Bar: ranking with a target</h3><p>Horizontal bars for ranked categories, sorted with the largest at the top. Value labels on, target as a dashed <code>markLine</code>. One series, so no legend.</p><p>Where a value label would sit on the target line, as Phone's does on a phone, it moves inside its bar.</p></header>
           <div data-demo>
 <figure class="cm-figure cm-bleed" data-comment-anchor="8f7ddc5e88-figure">
   <span class="cm-figure__kind">Figure 3</span>
@@ -1554,7 +1554,7 @@
         </div>
 
         <div class="g-comp">
-          <header><span class="cm-label">7.3</span><h3 class="cm-h3">Sequence</h3><p>Messages between people or systems in the order they are sent, with time running down. Order places everything, so the JSON has no columns or rows.</p></header>
+          <header><span class="cm-label">7.3</span><h3 class="cm-h3">Sequence</h3><p>Messages between people or systems in the order they are sent, with time running down. Order places everything, so the JSON has no columns or rows.</p><p>In a guide the diagram follows the procedure, and <code>step</code> gives each message the number of the step it shows, as here. A message that is no step of the reader's carries none.</p></header>
           <div data-demo>
 <figure class="cm-figure cm-bleed">
   <span class="cm-figure__kind">Figure 17</span>
@@ -1570,9 +1570,9 @@
       ],
       "edges": [
         {"from": "customer", "to": "agent", "label": "Asks for refund"},
-        {"from": "agent", "to": "agent", "label": "Checks agent limit"},
-        {"from": "agent", "to": "billing", "label": "Requests approval", "activate": true},
-        {"from": "agent", "to": "customer", "kind": "reply", "label": "Gives due time"},
+        {"from": "agent", "to": "agent", "label": "Checks agent limit", "step": 1},
+        {"from": "agent", "to": "billing", "label": "Requests approval", "activate": true, "step": 2},
+        {"from": "agent", "to": "customer", "kind": "reply", "label": "Gives due time", "step": 3},
         {"from": "customer", "to": "agent", "kind": "optional", "label": "Writes again"},
         {"from": "billing", "to": "billing", "label": "Checks the invoice"},
         {"from": "billing", "to": "customer", "kind": "reply", "label": "Issues refund"}

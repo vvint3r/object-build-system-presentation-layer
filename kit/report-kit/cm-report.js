@@ -512,6 +512,14 @@
         else if (d && d.label && s.label && s.label.show) all[j] = merge(d, { label: write(d.label, true) });
       });
       if (s.endLabel && s.endLabel.show) s.endLabel = write(merge({ color: t.ink, fontFamily: t.font, fontSize: 12, fontWeight: 800, distance: 8 }, s.endLabel));
+      // a value label that would sit on a reference line across the bars moves inside its bar's end,
+      // or past the line when the bar is too short to hold it, so the line never runs behind a number
+      if (s.type === 'bar' && !s.stack && !s.labelLayout && inst && s.markLine) {
+        var vKey = yCat ? 'xAxis' : 'yAxis', si = i;
+        var refs = list(s.markLine.data).filter(function (d) { return d && !Array.isArray(d) && typeof d[vKey] === 'number'; })
+          .map(function (d) { return d[vKey]; });
+        if (refs.length) s.labelLayout = function (p) { return clearLine(inst, si, yCat, refs, p); };
+      }
       if (s.markLine && s.z == null) s.z = 6;
       if (s.markLine) s.markLine = merge({ symbol: 'none', silent: true, animation: false, lineStyle: { color: t.ink, width: 1.5, type: [4, 4] },
         label: { color: t.ink, fontFamily: t.font, fontSize: 12, fontWeight: 700, backgroundColor: t.surface, padding: [2, 6] } }, s.markLine);
@@ -558,12 +566,62 @@
     if (printing) { opts.width = spark ? el.clientWidth : PRINT_W; opts.height = el.clientHeight || 320; }
     var inst = echarts.init(el, 'cm', opts);
     inst.setOption(prepare(spec, t, animate, inst));
+    clearTop(el, inst);
     el._cmDrawn = true;
     if (printing) {
       try { inst.getZr().refreshImmediately(); } catch (e) {}
       var svg = el.querySelector('svg');
       if (svg) { svg.setAttribute('viewBox', '0 0 ' + opts.width + ' ' + opts.height); svg.setAttribute('preserveAspectRatio', 'xMinYMin meet'); }
     }
+  }
+  // Moves a bar's value label off a reference line it would cross (labelLayout callback). The gap
+  // between label and line is 6px. A label moves inside its bar's end whenever the bar holds it with
+  // 4px to spare, which keeps it clear of the line, since only a bar that stops short of the line
+  // sends its label across it; otherwise the label moves past the line.
+  function clearLine(inst, si, yCat, refs, p) {
+    var r = p.labelRect, b = p.rect, gap = 6;
+    if (!r || !b) return;
+    for (var k = 0; k < refs.length; k++) {
+      var px = inst.convertToPixel({ seriesIndex: si }, yCat ? [refs[k], 0] : [0, refs[k]]);
+      if (!px) continue;
+      if (yCat) {
+        var at = px[0];
+        if (r.x - gap >= at || r.x + r.width + gap <= at) continue;
+        var inX = b.x + b.width - 4 - r.width;
+        return inX >= b.x + 4 ? { dx: inX - r.x } : { dx: at + gap - r.x };
+      }
+      var atY = px[1];
+      if (r.y - gap >= atY || r.y + r.height + gap <= atY) continue;
+      var inY = b.y + 4;
+      return inY + r.height <= b.y + b.height - 4 ? { dy: inY - r.y } : { dy: atY - gap - r.height - r.y };
+    }
+  }
+  // A y-axis title and the label at the top end of a vertical reference line share the band above
+  // the plot. Where the two overlap across, the title rises one label row (22px) and the plot moves
+  // down by the same; where they do not, both stay in the band.
+  var RAISE = 22;
+  function clearTop(el, inst) {
+    var o = inst.getOption(), y = (o.yAxis || [])[0], g = (o.grid || [])[0];
+    if (!y || !y.name || y.nameLocation !== 'end' || y.inverse || !g || typeof g.top !== 'number') return;
+    var marks = [];
+    (o.series || []).forEach(function (s) {
+      var ml = s.markLine;
+      list(ml && ml.data).forEach(function (d) {
+        var l = merge((ml && ml.label) || {}, (d && d.label) || {});
+        if (d && !Array.isArray(d) && d.xAxis != null && l.show !== false && (l.position || 'end') === 'end')
+          marks.push(typeof l.formatter === 'string' ? l.formatter : String(d.xAxis));
+      });
+    });
+    if (!marks.length) return;
+    var base = inst._cmTop || (inst._cmTop = { top: g.top, gap: y.nameGap == null ? 14 : y.nameGap });
+    try { inst.getZr().refreshImmediately(); } catch (e) {}
+    var texts = Array.prototype.slice.call(el.querySelectorAll('svg text'));
+    var rect = function (s) { var t = texts.filter(function (n) { return n.textContent.trim() === s; })[0]; return t && t.getBoundingClientRect(); };
+    var name = rect(y.name), clash = false;
+    if (!name || !name.width) return;
+    marks.forEach(function (m) { var r = rect(m); if (r && r.width && r.left - 10 < name.right && r.right + 10 > name.left) clash = true; });
+    var top = base.top + (clash ? RAISE : 0);
+    if (top !== g.top) inst.setOption({ grid: [{ top: top }], yAxis: [{ nameGap: base.gap + (clash ? RAISE : 0) }] });
   }
   function redrawAll(animate) { charts.forEach(function (el) { if (el._cmDrawn || printing) draw(el, animate); }); dgAll(); }
   function drawAll() { charts.forEach(function (el) { if (!el._cmDrawn) draw(el, false); }); diagrams.forEach(function (d) { if (d.pending) dgPlace(d); }); }
@@ -588,7 +646,7 @@
       if (printing) return;
       if (el._cmPending) { draw(el, false); return; }
       var i = el._cmDrawn && echarts.getInstanceByDom(el);
-      if (i && (i.getWidth() !== el.clientWidth || i.getHeight() !== el.clientHeight)) i.resize();
+      if (i && (i.getWidth() !== el.clientWidth || i.getHeight() !== el.clientHeight)) { i.resize(); clearTop(el, i); }
     };
     if ('ResizeObserver' in window) {
       var ro = new ResizeObserver(function (es) { es.forEach(function (e) { fit(e.target); }); });
@@ -610,8 +668,9 @@
   // stand: gap between a node and the end of its edge; head: arrowhead length; r: elbow radius;
   // clear: air around a label; track: spacing of parallel edges in one gap; outer: an outside gap
   // that carries an edge; reach: distance from a node to the first line in a gap. printW: the printed
-  // column; printH: an A4 page body (1001px) less a figure's title, description and caption.
-  var DG = { stand: 8, head: 8, r: 12, clear: 8, track: 16, outer: 40, reach: 20, printW: 638, printH: 720, minScale: 0.8 };
+  // column; printH: an A4 page body (1001px) less a figure's title, description and caption; printTall: half
+  // that page body, the drawing height above which a figure no longer keeps a section lede on its page.
+  var DG = { stand: 8, head: 8, r: 12, clear: 8, track: 16, outer: 40, reach: 20, printW: 638, printH: 720, printTall: 500, minScale: 0.8 };
   var DG_GAP = { screen: { col: 64, row: 48, lane: 72, pad: 8 }, print: { col: 40, row: 32, lane: 64, pad: 8 } };
   var DG_TYPES = ['terminal', 'step', 'decision', 'store', 'external'], DG_KINDS = ['flow', 'data', 'optional'];
   var DG_DIR = { top: [0, -1], right: [1, 0], bottom: [0, 1], left: [-1, 0] }, DG_SIDES = ['right', 'bottom', 'left', 'top'];
@@ -624,6 +683,14 @@
   function mk(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
   function int(v, d) { var n = Math.round(+v); return n >= 1 ? n : d; }
   function even(v) { return Math.ceil(v / 2) * 2; }
+  // A guide's diagram names the procedure step a node or message shows: "step" holds the step's
+  // number, drawn before the label as the procedure writes it ("03 · Records the charge").
+  function stepOf(v) { return Number.isInteger(v) && v >= 1 ? v : 0; }
+  function dgLabel(e, step, label) {
+    if (step) e.appendChild(mk('span', 'cm-diagram__step', (step < 10 ? '0' : '') + step));
+    e.appendChild(document.createTextNode((step ? ' \u00b7 ' : '') + label));
+    return e;
+  }
 
   function dgModel(spec) {
     var byId = {}, nodes = [], edges = [], lanes = [], bounds = [], phases = [], C = 1, R = 1;
@@ -632,7 +699,7 @@
       if (!n || n.id == null || byId[n.id]) return;
       var t = DG_TYPES.indexOf(n.type) > -1 ? n.type : 'step';
       var m = { id: String(n.id), type: t, label: n.label == null ? '' : String(n.label), detail: t !== 'decision' && n.detail ? String(n.detail) : '',
-        col: int(n.col, 1), row: int(n.row, 1), emphasis: t === 'step' && n.emphasis ? String(n.emphasis) : '',
+        col: int(n.col, 1), row: int(n.row, 1), emphasis: t === 'step' && n.emphasis ? String(n.emphasis) : '', step: stepOf(n.step),
         level: int(n.level, 0) <= scale.length ? int(n.level, 0) : 0 };
       byId[m.id] = m; nodes.push(m); C = Math.max(C, m.col); R = Math.max(R, m.row);
     });
@@ -711,7 +778,7 @@
 
   // A node's text: its name, the detail line, and the chip that names why it is emphasised.
   function dgNode(n, e) {
-    n.nameEl = mk('span', 'cm-diagram__name', n.label);
+    n.nameEl = dgLabel(mk('span', 'cm-diagram__name'), n.step, n.label);
     e.appendChild(n.nameEl);
     if (n.detail) e.appendChild(mk('span', 'cm-diagram__detail', n.detail));
     if (n.emphasis) e.appendChild(mk('span', 'cm-chip', n.emphasis));
@@ -1404,6 +1471,7 @@
     order.forEach(function (n) {
       var parts = [stop(n.label + (n.type === 'store' ? ' (data store)' : n.type === 'external' ? ' (external)' : ''))];
       if (n.detail) parts.push(stop(n.detail));
+      if (n.step) parts.push('Procedure step ' + n.step + '.');
       if (phase(n)) parts.push(stop('Phase: ' + phase(n)));
       if (lane(n)) parts.push(stop('Lane: ' + lane(n)));
       if (within(n).length) parts.push(stop('Within: ' + dgAnd(within(n))));
@@ -1658,7 +1726,7 @@
     list(spec.edges).forEach(function (e) {
       if (!e || !byId[e.from] || !byId[e.to]) return;
       edges.push({ from: byId[e.from], to: byId[e.to], kind: SQ_KINDS.indexOf(e.kind) > -1 ? e.kind : 'message',
-        label: e.label ? String(e.label) : '', activate: e.activate === true && e.from !== e.to, i: edges.length });
+        label: e.label ? String(e.label) : '', activate: e.activate === true && e.from !== e.to, step: stepOf(e.step), i: edges.length });
     });
     // activation bars: from the message that opens one to the receiver's next reply, or the end
     var open = {}, bars = [];
@@ -1702,7 +1770,7 @@
       dgNode(n, e);
       cv.appendChild(e);
     });
-    m.edges.forEach(function (e) { if (e.label) { e.el = mk('span', 'cm-diagram__edge-label', e.label); cv.appendChild(e.el); } });
+    m.edges.forEach(function (e) { if (e.label) { e.el = dgLabel(mk('span', 'cm-diagram__edge-label'), e.step, e.label); cv.appendChild(e.el); } });
     el.appendChild(cv);
   }
 
@@ -1788,7 +1856,7 @@
   }
 
   // The text version: one numbered item for each message in time order, with its sender and
-  // receiver, and the span of each activation.
+  // receiver, the procedure step it shows, and the span of each activation.
   function sqText(d) {
     var m = d.model, stop = function (s) { s = s.trim(); return /[.?!]$/.test(s) ? s : s + '.'; };
     var ol = mk('ol', 'cm-olist cm-small');
@@ -1796,6 +1864,7 @@
       var who = e.from === e.to ? e.from.label + ', to itself' : e.kind === 'reply' ? e.from.label + ' replies to ' + e.to.label : e.from.label + ' to ' + e.to.label;
       if (e.kind === 'optional') who += ', optional';
       var parts = [stop(who + (e.label ? ': ' + e.label : ''))];
+      if (e.step) parts.push('Procedure step ' + e.step + '.');
       m.bars.forEach(function (b) {
         if (b.first !== i) return;
         parts.push(stop(b.node.label + ' is active until ' + (b.last > i ? 'message ' + (b.last + 1) : 'the end')));
@@ -2245,7 +2314,20 @@
     }
     if (d.fit.scale * k < 0.9999) { k = 1 / DG.minScale; cv.style.setProperty('--cm-dg-k', String(k)); d.mode.layout(d); }
   }
-  function dgAll() { diagrams.forEach(function (d) { if (d.model) dgPlace(d); }); }
+  function dgAll() { diagrams.forEach(function (d) { if (d.model) dgPlace(d); }); markTall(); markScroll(); }
+  // in print, a figure whose chart or diagram is taller than half a page carries data-cm-print-tall, and
+  // the lede before it may end a page rather than push the whole figure past a page break
+  // The height is the drawing's printed one: a chart's SVG drawn at PRINT_W and scaled to the printed
+  // column, a diagram's canvas at its print scale. Neither depends on the window it is measured in.
+  function markTall() {
+    document.querySelectorAll('.cm-figure').forEach(function (f) {
+      var svg = f.querySelector('.cm-chart svg'), cv = f.querySelector('.cm-diagram__canvas'), h = 0;
+      if (svg) h = (+svg.getAttribute('height') || 0) * DG.printW / PRINT_W;
+      else if (cv) h = cv.getBoundingClientRect().height;
+      if (printing && h > DG.printTall) f.setAttribute('data-cm-print-tall', '');
+      else f.removeAttribute('data-cm-print-tall');
+    });
+  }
   function initDiagrams() {
     document.querySelectorAll('.cm-diagram[data-diagram]').forEach(function (el) {
       var s = el.querySelector('script[type="application/json"]'), spec = null, mode = DG_MODES[el.getAttribute('data-diagram')];
@@ -2263,9 +2345,31 @@
       var ro = new ResizeObserver(function () {
         if (printing) return;
         diagrams.forEach(function (d) { var w = d.el.clientWidth; if (d.pending || w !== d.width) { d.width = w; dgPlace(d); } });
+        markScroll();
       });
       diagrams.forEach(function (d) { ro.observe(d.el); });
     }
+  }
+
+  /* ---------- scroll cues ---------- */
+  // A table, code block or diagram wider than its box scrolls sideways inside it. On screen such a box
+  // carries data-cm-scroll, and the stylesheet draws a "Scroll sideways" cue above its content. The
+  // mark follows the box's width: at load, when fonts arrive, when the window resizes, after a diagram
+  // is placed. Print never marks a box.
+  var SCROLLERS = '.cm-table-wrap, .cm-code pre, .cm-diagram';
+  function markScroll() {
+    document.querySelectorAll(SCROLLERS).forEach(function (el) {
+      var on = !printing && el.scrollWidth > el.clientWidth + 1;
+      if (on) el.setAttribute('data-cm-scroll', ''); else el.removeAttribute('data-cm-scroll');
+    });
+  }
+  function initScroll() {
+    markScroll();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(markScroll);
+    // a box inside a closed disclosure has no width until the reader opens it
+    document.addEventListener('toggle', markScroll, true);
+    var st;
+    addEventListener('resize', function () { clearTimeout(st); st = setTimeout(markScroll, 120); });
   }
 
   /* ---------- sortable tables ---------- */
@@ -2379,7 +2483,7 @@
       if (e.target.closest('[data-cm-print]')) window.print();
       followCite(e);
     });
-    initTopbar(); initSmooth(); initTables(); initToc(); initDiagrams(); initCharts();
+    initTopbar(); initSmooth(); initTables(); initToc(); initDiagrams(); initCharts(); initScroll();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
   window.CM = { draw: draw, drawAll: drawAll, redraw: redrawAll, setTheme: setTheme, tokens: tokens, tokenNames: NAMES.slice(), beforePrint: beforePrint, afterPrint: afterPrint };

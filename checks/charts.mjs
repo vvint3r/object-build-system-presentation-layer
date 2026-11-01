@@ -1,6 +1,8 @@
 // Charts: the JSON as written, and what the chart library drew from it. Each in-page function is
 // self-contained, so small helpers are repeated inside it.
 
+import { PRINT_PAGE } from '../tools/load.mjs';
+
 export default [
   {
     // Every chart's JSON parses; every KPI spark has numbers.
@@ -199,6 +201,45 @@ export default [
         }
       }
       return out;
+    },
+  },
+
+  {
+    // No chart text covers another, and no text sits on a reference line (a dashed line drawn across
+    // the plot): a value label that would cross one moves off it, and a y-axis title rises above the
+    // label of a vertical reference line it would meet. Measured as drawn, at every width; print at
+    // the printed column's width. Two texts overlap when they share more than 1px across and more
+    // than a quarter of a line's height down, so labels that only touch at a corner pass.
+    name: 'chart-label-clear', level: 'fail', source: 'SPEC §9; record 096', phone: true,
+    run: async ({ page, mode }) => {
+      const before = page.viewportSize();
+      if (mode === 'print') { await page.setViewportSize(PRINT_PAGE); await page.waitForTimeout(300); }
+      const found = await page.evaluate(check => {
+      const H = window.__cm, out = [];
+      const cross = (a, b) => Math.min(a.right, b.right) - Math.max(a.left, b.left) > 1
+        && Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top) > Math.min(a.height, b.height) / 4;
+      for (const el of document.querySelectorAll('.cm-chart')) {
+        if (!H.shown(el) || H.exempt(el, check)) continue;
+        const svg = el.querySelector('svg');
+        if (!svg) continue;
+        const texts = [...svg.querySelectorAll('text')].map(t => ({ s: t.textContent.replace(/\s+/g, ' ').trim(), r: t.getBoundingClientRect(), t }))
+          .filter(x => x.s && x.r.width && x.r.height && getComputedStyle(x.t).visibility !== 'hidden' && !x.t.closest('[opacity="0"]'));
+        for (let i = 0; i < texts.length; i++) for (let j = i + 1; j < texts.length; j++) {
+          if (cross(texts[i].r, texts[j].r)) out.push({ where: H.path(el), value: `"${texts[i].s.slice(0, 24)}" overlaps "${texts[j].s.slice(0, 24)}"` });
+        }
+        const lines = [...svg.querySelectorAll('path[stroke-dasharray]')].map(p => p.getBoundingClientRect())
+          .filter(r => (r.width < 3 && r.height > 8) || (r.height < 3 && r.width > 8));
+        for (const l of lines) for (const x of texts) {
+          const r = x.r, vertical = l.width < 3, mid = vertical ? (l.left + l.right) / 2 : (l.top + l.bottom) / 2;
+          const on = vertical ? mid > r.left + 1 && mid < r.right - 1 && l.top < r.bottom - 1 && l.bottom > r.top + 1
+            : mid > r.top + 1 && mid < r.bottom - 1 && l.left < r.right - 1 && l.right > r.left + 1;
+          if (on) out.push({ where: H.path(el), value: `"${x.s.slice(0, 24)}" sits on a reference line` });
+        }
+      }
+      return out;
+      }, 'chart-label-clear');
+      if (mode === 'print') { await page.setViewportSize(before); await page.waitForTimeout(300); }
+      return found;
     },
   },
 

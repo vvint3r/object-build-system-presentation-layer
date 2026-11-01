@@ -68,6 +68,36 @@ export default [
   },
 
   {
+    // In a guide's Steps, the procedure comes first. A diagram of the steps follows it, and each of
+    // its messages or nodes that shows a step carries that step's number ("step"), one the procedure
+    // holds. At least one carries a number, so the diagram maps onto the steps.
+    name: 'guide-step-diagram', level: 'fail', source: 'SPEC §7.3; §8.20; record 096', once: true, kinds: ['guide'],
+    inPage: ({ check }) => {
+      const H = window.__cm, d = H.source(), out = [];
+      const steps = d.querySelector('section#steps');
+      if (!steps) return out;
+      const procs = [...steps.querySelectorAll('ol.cm-procedure')];
+      const count = procs.reduce((n, p) => n + p.querySelectorAll(':scope > li').length, 0);
+      for (const el of steps.querySelectorAll('.cm-diagram[data-diagram]')) {
+        if (H.exempt(el, check)) continue;
+        const where = H.path(el.closest('figure') || el);
+        if (!procs.length || !procs.some(p => p.compareDocumentPosition(el) & Node.DOCUMENT_POSITION_FOLLOWING)) {
+          out.push({ where, value: 'the diagram comes before the procedure (the steps come first)' });
+        }
+        const s = el.querySelector('script[type="application/json"]');
+        let j = null;
+        try { j = s && JSON.parse(s.textContent); } catch (e) { continue; }
+        if (!j) continue;
+        const items = el.getAttribute('data-diagram') === 'sequence' ? j.edges : j.nodes;
+        const nums = (Array.isArray(items) ? items : []).map(x => x && x.step).filter(v => v != null);
+        if (!nums.length) out.push({ where, value: 'no message or node names the step it shows ("step")' });
+        nums.filter(v => !(Number.isInteger(v) && v >= 1 && v <= count)).forEach(v => out.push({ where, value: `step ${v} is not one of the procedure's ${count} steps` }));
+      }
+      return out;
+    },
+  },
+
+  {
     // An index page lists a set's documents by area: one section per area, holding one related list
     // and nothing else, areas A to Z. Every entry is a document: its kind as the tag, a link to a
     // file, its dek as the sentence, and a meta line with its status and its published date. The

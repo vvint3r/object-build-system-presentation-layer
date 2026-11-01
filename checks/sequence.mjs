@@ -13,7 +13,7 @@ export default [
       const H = window.__cm, out = [];
       const TOP = ['nodes', 'edges'];
       const NODE = ['id', 'label', 'detail'];
-      const EDGE = ['from', 'to', 'label', 'kind', 'activate'];
+      const EDGE = ['from', 'to', 'label', 'kind', 'activate', 'step'];
       const KINDS = ['message', 'reply', 'optional'];
       const str = v => typeof v === 'string' && v.trim() !== '';
       for (const el of H.source().querySelectorAll('.cm-diagram[data-diagram="sequence"]')) {
@@ -45,6 +45,7 @@ export default [
           extra(e, EDGE, w);
           if (e.kind != null && !KINDS.includes(e.kind)) bad(`${w}: kind "${e.kind}" (${KINDS.join(', ')})`);
           if (e.activate != null && typeof e.activate !== 'boolean') bad(`${w}: activate is true or false`);
+          if (e.step != null && !(Number.isInteger(e.step) && e.step >= 1)) bad(`${w}: step is a whole number from 1`);
         });
       }
       return out;

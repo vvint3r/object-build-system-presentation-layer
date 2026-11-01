@@ -332,6 +332,39 @@ export default [
   },
 
   {
+    // A KPI with a target names the target in its foot and states its standing there in words: the
+    // foot's <b> reads Met, or Missed by and the gap, as "Missed by 3.8 pp" (SPEC §8.2). A KPI has a
+    // target when its foot's reference opens with "Target", its meter marks one (--t) or its delta
+    // names one. A template placeholder ({{ … }}) in the foot is not judged.
+    name: 'kpi-standing', level: 'fail', source: 'SPEC §8.2', once: true,
+    inPage: ({ check }) => {
+      const H = window.__cm, out = [];
+      const PH = /\{\{[\s\S]*?\}\}/;
+      for (const k of H.source().querySelectorAll('.cm-kpi')) {
+        if (H.exempt(k, check)) continue;
+        const foot = k.querySelector(':scope > .cm-kpi__foot');
+        const ref = foot && foot.querySelector(':scope > span');
+        const refText = ref ? H.text(ref) : '';
+        const delta = k.querySelector(':scope > .cm-kpi__delta');
+        const meter = k.querySelector(':scope > .cm-meter');
+        const byRef = /^target\b/i.test(refText);
+        const byMeter = !!meter && /--t\s*:/.test(meter.getAttribute('style') || '');
+        const byDelta = !!delta && /\btarget\b/i.test(H.text(delta));
+        if (!byRef && !byMeter && !byDelta) continue;
+        if (foot && PH.test(foot.textContent)) continue;
+        if (!byRef) {
+          out.push({ where: H.path(foot || k), value: `a KPI with a target whose foot reference is "${refText}" (name the target: "Target 95%")` });
+          continue;
+        }
+        const b = foot.querySelector(':scope > b');
+        const standing = b ? H.text(b) : '';
+        if (!/^(Met\b|Missed by \S)/.test(standing)) out.push({ where: H.path(b || foot), value: `standing "${standing}" against "${refText}" (opens with Met or Missed: "Met", "Missed by 3.8 pp")` });
+      }
+      return out;
+    },
+  },
+
+  {
     // Every key finding and every recommended action opens with exactly one claim line: the claim
     // sentence on a line of its own (.cm-findings__claim), with the evidence or reason after it.
     name: 'claim-lines', level: 'fail', source: 'SPEC §8.3; §8.19', once: true,

@@ -778,12 +778,12 @@ Verbatim only. ≤ 1 per section. Pair with a figure in `.cm-grid.cm-grid--wide.
       <tbody>
         <tr data-flag="ok">
           <td class="strong">Tier 1 · AMER</td>
-          <td class="num" data-value="17940">17,940</td>
+          <td class="num" data-value="18221">18,221</td>
           <td class="num" data-value="37.2"><div class="cm-cellbar"><span>37.2%</span><span class="cm-cellbar__track"><span style="--v:100%"></span></span></div></td>
           <td>On track</td>
         </tr>
       </tbody>
-      <tfoot><tr><td>All teams</td><td class="num">48,210</td><td class="num">100%</td><td></td></tr></tfoot>
+      <tfoot><tr><td>All teams</td><td class="num">48,964</td><td class="num">100%</td><td></td></tr></tfoot>
     </table>
   </div>
   <span class="cm-caption">
@@ -1408,7 +1408,7 @@ When two sources give different values for one quantity, a disagreement block st
 ```html
 <div class="cm-disagree">
   <span class="cm-label">Disagreement</span>
-  <p class="cm-t5">Tickets handled in Q2 2026</p>
+  <p class="cm-t5">Tickets created in Q2 2026</p>
   <dl>
     <div><dt>44,870</dt><dd>Helpdesk warehouse, re-run 2026-10-05<a class="cm-cite" href="#src-1" id="cite-4">S1</a></dd></div>
     <div><dt>45,310</dt><dd>Q2 review, published 2026-07-13<a class="cm-cite" href="#src-4" id="cite-5">S4</a></dd></div>

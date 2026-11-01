@@ -57,7 +57,7 @@
       <dl class="cm-mast__meta">
         <div><dt>Status</dt><dd><span class="cm-chip">Guide</span><span class="cm-chip cm-chip--ok">Final</span><span class="cm-chip cm-chip--note">Sample data</span></dd></div>
         <div><dt>Published</dt><dd>2026-10-19</dd></div>
-        <div><dt>Reading time</dt><dd>5 min</dd></div>
+        <div><dt>Reading time</dt><dd>6 min</dd></div>
         <div><dt>Version</dt><dd>1.0</dd></div>
       </dl>
       <dl class="cm-byline">
@@ -106,13 +106,13 @@
       </header>
       <div class="cm-section__body">
         <div class="cm-prose">
-          <p>An escalation runs in <strong>seven steps</strong>, from the first check to the closed ticket. The Tier 1 agent stays on the ticket as a follower after the hand-off.</p>
+          <p>An escalation runs in <strong>seven steps</strong>, from setting the intent to the closed ticket. The Tier 1 agent stays on the ticket as a follower after the hand-off.</p>
         </div>
 
         <figure class="cm-figure cm-bleed">
           <span class="cm-figure__kind">Figure 1</span>
           <h3 class="cm-figure__title">Messages in a billing escalation</h3>
-          <p class="cm-figure__desc">Who tells whom what, from the customer's question to the specialist's answer, in the order of the steps.</p>
+          <p class="cm-figure__desc">Who tells whom what, from the customer's question to the specialist's answer.</p>
           <div class="cm-diagram" data-diagram="sequence" role="img" aria-label="">
             <script type="application/json">
             {
@@ -131,7 +131,10 @@
             }
             </script>
           </div>
-          <figcaption class="cm-caption"><span class="cm-caption__line">Source: billing escalation policy v4.<a class="cm-cite" href="#src-3" id="cite-10">S3</a></span></figcaption>
+          <figcaption class="cm-caption">
+            <span class="cm-caption__line">Source: billing escalation policy v4.<a class="cm-cite" href="#src-3" id="cite-10">S3</a></span>
+            <span class="cm-caption__line">Note: after the customer's question, the figure draws steps 4 to 7; steps 1 to 3 send no message on a ticket that escalates.</span>
+          </figcaption>
         </figure>
         <ol class="cm-procedure">
           <li>
@@ -140,19 +143,20 @@
             <div class="cm-procedure__outcome"><span class="cm-label">Outcome</span><p>The ticket sits in the billing view with its intent set.</p></div>
           </li>
           <li>
+            <h3 class="cm-procedure__title">Check the account for a dispute or renewal</h3>
+            <p>Read the banners on the account in the billing console. A Dispute open banner, or a Renewal due banner with renewal within 30 days, changes the escalation.<a class="cm-cite" href="#src-3" id="cite-3">S3</a> A customer who says the charge is disputed with the bank is a dispute too, with or without the banner.</p>
+            <p>A dispute skips step 3 and escalates at step 5 with the reason code Dispute. A renewal changes step 5 as <a href="#exceptions">Exceptions and recovery</a> sets out.</p>
+            <div class="cm-procedure__outcome"><span class="cm-label">Outcome</span><p>The agent knows whether a dispute or a renewal changes the steps that follow.</p></div>
+          </li>
+          <li>
             <h3 class="cm-procedure__title">Check whether Tier 1 can resolve it</h3>
-            <p>Tier 1 resolves invoice explanations, payment method changes, and refunds or credits within the agent limit. For any of these, resolve the ticket directly and skip the remaining steps.</p>
-            <div class="cm-procedure__outcome"><span class="cm-label">Outcome</span><p>Only a ticket that needs a specialist decision goes on to step 3.</p></div>
+            <p>Tier 1 resolves invoice explanations, payment method changes, and refunds or credits within the agent limit of $250.<a class="cm-cite" href="#src-1" id="cite-11">S1</a> For any of these, resolve the ticket directly and skip the remaining steps.</p>
+            <div class="cm-procedure__outcome"><span class="cm-label">Outcome</span><p>Only a ticket that needs a specialist decision goes on to step 4.</p></div>
           </li>
           <li>
             <h3 class="cm-procedure__title">Record the account and the charge</h3>
             <p>Fill in the account ID, invoice number, charge amount and charge date on the ticket. Attach the invoice from the billing console, so the specialist has no need to ask again.</p>
             <div class="cm-procedure__outcome"><span class="cm-label">Outcome</span><p>The ticket carries everything a specialist needs to act on the charge.</p></div>
-          </li>
-          <li>
-            <h3 class="cm-procedure__title">Check the account for a dispute or renewal</h3>
-            <p>Read the banners on the account in the billing console. A Dispute open banner, or a Renewal due banner with renewal within 30 days, changes the escalation.<a class="cm-cite" href="#src-3" id="cite-3">S3</a> For either banner, follow <a href="#exceptions">Exceptions and recovery</a> before step 5.</p>
-            <div class="cm-procedure__outcome"><span class="cm-label">Outcome</span><p>The agent knows whether the standard escalation or an exception applies.</p></div>
           </li>
           <li>
             <h3 class="cm-procedure__title">Escalate with the macro</h3>
@@ -161,13 +165,13 @@
           </li>
           <li>
             <h3 class="cm-procedure__title">Reply to the customer</h3>
-            <p>Tell the customer that a billing specialist has the ticket, and give the SLA due time as the latest answer time. Promise no amount and no outcome.</p>
+            <p>Tell the customer that a billing specialist has the ticket, and give the SLA due time, the deadline for resolving it. Promise no amount and no outcome.</p>
             <p>On a ticket with no earlier reply, this message is the first human reply. It stops the <a href="Reference%20-%20First%20Response%20Time.html">first response time</a> clock.</p>
-            <div class="cm-procedure__outcome"><span class="cm-label">Outcome</span><p>The customer knows who has the ticket and when the next answer is due.</p></div>
+            <div class="cm-procedure__outcome"><span class="cm-label">Outcome</span><p>The customer knows who has the ticket and when it is due to be resolved.</p></div>
           </li>
           <li>
             <h3 class="cm-procedure__title">Follow the ticket to resolution</h3>
-            <p>Stay on the ticket as a follower until the specialist resolves it.<a class="cm-fn" href="#fn-1" id="fnref-1">1</a> If the customer writes again first, reply within the SLA due time and add the message to the internal note.</p>
+            <p>Stay on the ticket as a follower until the specialist resolves it.<a class="cm-fn" href="#fn-1" id="fnref-1">1</a> If the customer writes again first, reply before the SLA due time and add the message to the internal note.</p>
             <div class="cm-procedure__outcome"><span class="cm-label">Outcome</span><p>The specialist resolves and closes the ticket, and the satisfaction survey goes out 24 hours later.<a class="cm-cite" href="#src-4" id="cite-4">S4</a></p></div>
           </li>
         </ol>
@@ -205,8 +209,8 @@
         <div class="cm-stack">
           <h3 class="cm-h3">Disputed charge</h3>
           <div class="cm-prose">
-            <p>A charge the customer has disputed with the bank is out of Tier 1's hands. Issue no refund or credit, since the bank decides the outcome.</p>
-            <p>Escalate with the reason code Dispute, and the disputes desk among the billing specialists takes the ticket. A claim that a charge was never authorised follows the same path.</p>
+            <p>A charge the customer has disputed with the bank is out of Tier 1's hands, with or without the Dispute open banner. Issue no refund or credit, since the bank decides the outcome.</p>
+            <p>Skip step 3, and escalate at step 5 with the reason code Dispute; the disputes desk among the billing specialists takes the ticket. A claim that a charge was never authorised follows the same path.</p>
           </div>
         </div>
 
@@ -221,8 +225,9 @@
         <div class="cm-stack">
           <h3 class="cm-h3">Returned or overdue escalation</h3>
           <div class="cm-prose">
-            <p>A specialist returns an escalation tagged Needs info when it lacks what step 3 records. Add the missing details within 1 business day, then apply the macro again.<a class="cm-cite" href="#src-3" id="cite-8">S3</a></p>
-            <p>An escalation is overdue once it passes its SLA due time.<a class="cm-fn" href="#fn-2" id="fnref-2">2</a> Due times are 4 hours for chat and phone, and 24 business hours for email, web form and social.<a class="cm-cite" href="#src-5" id="cite-9">S5</a> On an overdue ticket, add the billing duty lead as a follower.</p>
+            <p>A specialist returns an escalation tagged Needs info when it lacks what step 4 records. Add the missing details within 1 business day, then apply the macro again.<a class="cm-cite" href="#src-3" id="cite-8">S3</a></p>
+            <p>An escalation is overdue once it passes its SLA due time.<a class="cm-fn" href="#fn-2" id="fnref-2">2</a> On an overdue ticket, add the billing specialists lead as a follower.</p>
+            <p>Due times run from the ticket's creation: 4 hours for chat and phone, and 24 business hours for email, web form and social. Business hours are 08:00 to 18:00 on weekdays, in the time zone of the Tier 1 region that takes the ticket.<a class="cm-cite" href="#src-5" id="cite-9">S5</a></p>
           </div>
         </div>
       </div>

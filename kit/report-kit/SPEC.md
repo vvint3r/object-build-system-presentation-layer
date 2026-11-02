@@ -8,7 +8,7 @@ Kit files (all in `report-kit/`):
 
 | File | Role |
 | --- | --- |
-| `cm-report.css` | Tokens (light, dark, print) and every component class. The only stylesheet. |
+| `cm-report.css` | Tokens (light, dark, print) and standard component classes. Scoped diagram styling follows §1.1. |
 | `cm-report.js` | Theme toggle, ECharts theme + draw-in, charts built from kit declarations, diagram drawing and text versions, sortable tables, contents scroll-spy, link targets clear of the top bar, citation back links, print prep. |
 | `template.html` | Report starter. Copy it for every report. |
 | `template-guide.html` | Guide starter. Copy it for every guide. |
@@ -42,6 +42,40 @@ Human-readable version with live examples and copy-paste markup: `Report Kit - S
 10. **No corners outside the radius set:** 2 thin bar, 4 chip/tag, 6 code chip, 8 input/slot, 12 table/tile, 14 card, 999 pill. Every drawn shape is rounded; square corners belong only to lines (rules, dotted connectors, the timeline rail), masked icons and the full-width top bar. The CSS applies them; never override.
 11. **No decoration.** No emoji, no stock imagery, no icons beyond the glyphs the CSS supplies, no gradients except where one carries meaning (the dashed rail of a planned timeline item, a chart's colour-scale legend), no colored left borders on cards or callouts, no drop caps.
 12. **No filler.** Omit an optional block rather than pad it. Every number shown is sourced (§8.21).
+
+### 1.1 Diagram structure and styling
+
+The kit governs diagram styling without restricting diagram types or layouts. The gallery, process
+strip and supported renderer modes are examples and tools, not an exhaustive catalogue. Choose the
+representation for the relationships, boundaries, sequence, decisions or other subject being explained.
+A different type, topology or arrangement needs no separate exception.
+
+This section takes precedence over conflicting restrictions in this specification, including rules
+1, 2, 10 and 11, canonical-markup instructions, fixed step counts, renderer capacities and the gap list.
+Those limits still govern the built-in components and renderers when used. They do not apply to a
+separately authored diagram inside a figure. No required relationship or branch may be removed merely
+to fit an example or renderer limit.
+
+Keep the figure's title, explanation, source caption and accessible text equivalent. Authored SVG or
+semantic HTML, scoped CSS, coordinates, paths and responsive layouts are permitted inside the figure.
+Do not restyle unrelated document components or alter the pinned kit stylesheet or script. Use the
+kit's color tokens, Nunito, supported weights, spacing scale and emphasis rules. Text stays black or
+white at full opacity. Quantitative charts retain section 9's ECharts method.
+
+Semantic shapes may use the geometry their meaning requires; UI boxes keep the kit's radius set.
+One consistent, meaningful symbol family may identify objects or actions, with readable labels or
+accessible names and the ink color. Symbols are not decoration. Directions, conditions, boundaries and status meanings
+must be explicit. Proposed behavior must remain distinguishable from demonstrated behavior.
+
+Responsive arrangements must preserve every relationship and branch. Keep text readable without
+clipping, page-wide overflow or connectors crossing labels. A text equivalent describes the relations
+and outcomes, not only the nodes. Inspect the actual result at desktop and phone widths and in supported
+themes; disclose an owner-imposed inspection restriction rather than claiming unperformed acceptance.
+
+Legacy closed-class, schema, capacity or markup checks do not establish custom-diagram acceptance.
+Record any such finding with its exact diagram region and this superseding rule, then check the
+replacement requirement directly. Do not disable unrelated checks or report a failing check as passed.
+This changes the diagram authoring contract, not the built-in renderer's capabilities.
 
 ## 2. Packaging
 
@@ -606,7 +640,7 @@ Evidence rules:
 
 ## 8. Components
 
-Markup below is canonical. Copy structure and classes exactly; change only text, data and the allowed custom properties.
+Markup below is canonical for the supplied components. Copy their structure and classes exactly; change only text, data and the allowed custom properties. Separately authored diagram interiors follow §1.1.
 
 Sections 8.25 to 8.30 are the structured components: workflow, framework, model, method, requirement, evaluation and metric detail. They are the building blocks of reference pages such as a framework, process, guide, metric or comparison page. Each is text first: it reads in order, prints whole and reflows on a phone. They share one anatomy:
 
@@ -909,6 +943,8 @@ The only `cm-featured` in the report, inside the Recommendations section. 1–5 
 - Expected impact: `cm-chip--accent`, the estimated change with its unit, marked `est.` when it is an estimate. An action whose impact is not estimated carries no impact chip; no estimate is invented for it.
 
 ### 8.20 Diagram
+
+The modes and limits in this section describe the built-in renderer. Separately authored diagrams follow §1.1; the mode list is not exhaustive.
 
 A flow diagram shows a process with branches, loops or hand-offs between roles. Three to six steps in one line, with no branch, stay a process diagram (§8.13). The author writes the diagram as data, as a chart is written; the kit draws it.
 
@@ -2141,7 +2177,7 @@ The checks this list names, `npm run check` with its type checks and `npm run li
 14. Writing within §13: prose inside the limits, in plain words and neutral third person, with no em or en dashes; each section leads with its finding; headings are plain noun phrases in sentence case.
 15. Changing numbers sit in one dated status block; change log and revision history run newest first with dated entries; each limitation status is a word from its set (§8.22).
 16. `cm-kind` names the kind, or is absent for a report; `cm-type`, when present, names a type of that kind (§7.6). A guide or a reference has its required parts in order, each with its id, or their omission comments (§7.3 to §7.5). Every procedure step closes with its outcome; every related item has a tag, a link and a sentence.
-17. Every diagram: JSON within its mode's fields and capacity, a label on every decision branch and every named edge, a terminal at the end of every branch, `role="img"`, a caption with a source line, and nothing overlapping or clipped in light, dark and print (§8.20).
+17. Every diagram: accurate relations, labelled branch conditions, meaningful end states, an accessible summary and text equivalent, a source caption, and no overlap or clipping. Built-in diagrams also meet their mode's JSON schema and capacity; separately authored diagrams follow §1.1.
 18. Each structured component opens with its kind label and title and holds its required parts within its counts and limits (§8.25 to §8.30).
 19. `cm-id` names the document. The breadcrumb runs from set to area to document. In a set, every link names a file and a section id, the index page is rewritten, and `npm run links` passes on the folder. A document joining a set takes the steps of §8.31 in order. Facts shared with other documents agree with them, and no link reaches a document published later (§8.31).
 20. A roadmap or a case study has its recipe’s required parts in order, each with its id, and passes its type check (§7.14, §7.15).
@@ -2276,7 +2312,7 @@ Changed in 2.0:
 - A printed table repeats its header row on each page and prints its total row once (§8.11, §12).
 - A printed figure may break before its data table or text version, and a long card of findings or actions between its items (§12).
 
-Not yet covered: maps, network diagrams, interactive filters, a PDF cover page. Use a figure with `cm-slot` and flag the gap in an HTML comment until these exist.
+Not yet supplied as components: interactive filters and a PDF cover page. Missing diagram templates do not restrict diagram types or layouts; maps, network diagrams and other structures follow §1.1. A `cm-slot` marks missing source content, not a missing diagram template.
 
 ### Migration from 1.2 to 2.0
 

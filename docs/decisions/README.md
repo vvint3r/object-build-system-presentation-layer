@@ -108,3 +108,4 @@ Rounds 40e and 40f exist only in `CONTINUATION.md` and are taken from there.
 | [095-acceptance-fixes-and-kpi-standing.md](095-acceptance-fixes-and-kpi-standing.md) | Acceptance fixes: agreement calls on the three acceptance documents, and KPI standing | 2026-10-31 | orchestrating session, record 075 |
 | [096-print-and-phone.md](096-print-and-phone.md) | Print and phone: page breaks and numbers, the scroll cue, chart labels clear of reference lines, and a guide's diagram after its steps | 2026-10-31 | orchestrating session, record 075 |
 | [097-set-consistency.md](097-set-consistency.md) | Set consistency: the example documents as their own source, and the calls that settle five conflicts | 2026-10-31 | orchestrating session, record 075 |
+| [098-diagram-styling-and-structural-freedom.md](098-diagram-styling-and-structural-freedom.md) | Diagram styling and structural freedom | 2026-11-02 | owner, Regix roadmap session |

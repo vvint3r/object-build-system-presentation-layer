@@ -19,6 +19,11 @@ The kit's specification governs everything this brief does not settle. This brie
 outside the kit's repository needs: where the files are, how to package the output, how to check it,
 and how documents other than data reports use the kit.
 
+For diagrams, **Diagram structure and styling** in this brief takes precedence over conflicting
+restrictions in a pinned specification, template, gallery example or legacy check. This includes
+closed component lists, custom-layout prohibitions, glyph-only rules and fixed geometry. Other
+document and chart rules remain in force. The pinned kit version does not change with this policy.
+
 ## Kit files
 
 All links point at one commit of the kit, so every document built from this brief uses the same kit.
@@ -29,7 +34,7 @@ All links point at one commit of the kit, so every document built from this brie
 | `template.html` | The starting file for every report | [template.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/3d1ab2490109335f33d68041a0b016d7d9e5d16e/kit/report-kit/template.html) |
 | `template-guide.html` | The starting file for every guide | [template-guide.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/3d1ab2490109335f33d68041a0b016d7d9e5d16e/kit/report-kit/template-guide.html) |
 | `template-reference.html` | The starting file for every reference | [template-reference.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/3d1ab2490109335f33d68041a0b016d7d9e5d16e/kit/report-kit/template-reference.html) |
-| `cm-report.css` | Tokens and every component class; the only stylesheet | [cm-report.css](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/3d1ab2490109335f33d68041a0b016d7d9e5d16e/kit/report-kit/cm-report.css) |
+| `cm-report.css` | Base tokens and standard component styling | [cm-report.css](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/3d1ab2490109335f33d68041a0b016d7d9e5d16e/kit/report-kit/cm-report.css) |
 | `cm-report.js` | Theme toggle, chart theme and drawing, diagram drawing and text versions, sortable tables, contents rail, print | [cm-report.js](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/3d1ab2490109335f33d68041a0b016d7d9e5d16e/kit/report-kit/cm-report.js) |
 | Sample report | A finished report built on the kit: the reference output for reports | [Sample Report - Q3 Support Review.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/3d1ab2490109335f33d68041a0b016d7d9e5d16e/kit/Sample%20Report%20-%20Q3%20Support%20Review.html) |
 | Sample guide | A finished guide: the reference output for guides | [Guide - Billing Escalation.html](https://raw.githubusercontent.com/vvint3r/object-build-system-presentation-layer/3d1ab2490109335f33d68041a0b016d7d9e5d16e/kit/Guide%20-%20Billing%20Escalation.html) |
@@ -111,13 +116,14 @@ moves it to another version, and never disables TLS verification to reach a bloc
 
 ## Non-negotiable rules
 
-A summary of section 1 of `SPEC.md`. The spec governs.
+A summary of section 1 of `SPEC.md`, with the diagram scope defined in this brief.
 
 1. Documents start from the template for their kind (`template.html`, `template-guide.html` or
    `template-reference.html`), or from their page type's template (`template-<type>.html`), and
-   compose only from classes in `cm-report.css`.
+   compose from classes in `cm-report.css`, with scoped diagram authoring as defined below.
 2. No added stylesheets, `<style>` blocks (other than the pasted kit stylesheet), custom classes or
-   inline styles, except the custom properties the spec allows (`--h`, `--v`, `--t`, `--steps`).
+   inline styles, except the custom properties the spec allows (`--h`, `--v`, `--t`, `--steps`) and
+   the scoped diagram styles defined below.
 3. No hex, rgb or named colours in markup. Chart JSON uses `$token` strings.
 4. Text is black or white. No grey text and no lowered opacity; rank with weight.
 5. Nunito for all text, labels, tables, chips and charts. JetBrains Mono only for code.
@@ -127,9 +133,9 @@ A summary of section 1 of `SPEC.md`. The spec governs.
    per table or figure.
 8. Colour never fills a label.
 9. Meaning never rests on colour alone.
-10. Radii only from the kit's set; the CSS applies them.
-11. No decoration: no emoji, stock imagery, icons beyond the kit's glyphs, coloured left borders,
-    drop caps, or gradients except the two the spec names.
+10. UI radii come from the kit's set. Semantic diagram shapes follow the rule below.
+11. No decoration: no emoji, stock imagery, coloured left borders, drop caps or gradients beyond
+    the spec. Meaningful diagram symbols follow the rule below; other icons remain kit glyphs.
 12. No filler. Every number shown is sourced.
 
 Charts are ECharts option JSON inside the kit's figure markup. The agent never calls `echarts.init`
@@ -137,15 +143,52 @@ and never writes chart JavaScript. It picks the chart by the reader's question, 
 section 9. A `"cm"` key declares a bullet, slope, strip, box or interval chart, and the kit draws it.
 The kit sets the legend, so the JSON has none; end labels that name every line take its place.
 Chart values are numbers, never strings: the kit writes each value label with thousands separators,
-at the most decimal places any value in the chart carries. Diagrams are JSON too (section 8.20 of `SPEC.md`). A flow, state or entity relationship
-diagram, a journey map or a system and data flow places its nodes by column and row; a sequence
-diagram lists its participants and messages in order. A layer stack lists layers from the top down,
-each dependency running down. A hierarchy names each node's parent. The kit draws them; the agent
-writes no coordinates, SVG or styles. In a flow, `col` counts across and `row` down whichever way
-it reads, and a branch that ends early ends at a terminal of its own. Capacity is counted from the
-JSON before drawing. The width counts 1 for each column, 1 for the lane names and 1 for each gap
-between columns that holds an edge label. A gap whose label runs past 10 characters counts 2, and
-the width stays at 5 or under. A decision has at most 3 branches, and 2 in the first or last row.
+at the most decimal places any value in the chart carries. 
+
+Built-in diagrams use the JSON modes in section 8.20 of `SPEC.md` when those modes suit the
+subject. Their schemas and capacity limits describe that renderer, not all permitted diagrams.
+
+## Diagram structure and styling
+
+The kit governs a diagram's **visual styling**, not its type, layout or number of parts. Examples
+in the gallery and templates are reusable examples, not an exhaustive catalogue or a required
+arrangement. A different diagram type or layout does not require a separate exception.
+
+Choose the representation from the relationship the reader needs to understand. Hierarchies show
+containment; relationship maps show associations; boundary diagrams show responsibility and location;
+sequences show exchanges over time; decision flows show alternatives and stopping conditions. These
+are examples, not an allowed list. Do not force unrelated subjects into a process strip or hub-and-spoke
+layout. Do not omit a necessary branch or relation to meet a component's size limit.
+
+Keep the surrounding document in the kit. Place the diagram inside its figure component, with a
+descriptive subject title, a short explanation, a source caption and a text equivalent. The diagram
+may use the kit's renderer when it fits, or authored SVG or semantic HTML when another structure is
+clearer. Renderer-specific schemas, capacities, step counts and placement rules apply only when that
+renderer or component is used. They do not limit what a document may explain.
+
+Within the figure, scoped layout CSS, coordinates, paths and responsive arrangements are permitted.
+They must not restyle the page or kit components outside the diagram. Keep the pinned stylesheet and
+script unchanged. Use their color tokens, Nunito, supported weights, spacing scale and emphasis
+rules. Text remains ink-colored, black in light mode and white in dark mode, at full opacity. Do not
+invent a separate palette or use status color as decoration. Quantitative charts retain the kit's
+ECharts method; this section does not authorize a replacement chart system.
+
+Semantic shapes may use the geometry their meaning requires, including decisions, documents,
+boundaries and data stores. UI boxes retain the kit's radii. Use one consistent symbol family for
+objects or actions when symbols improve identification. Symbols inherit the ink color. Icons must have
+a purpose, readable labels or accessible names, and the same visual weight; they are not decorative
+additions to every box.
+
+Every connection has a defined meaning. Label direction, conditions and transfers where they are not
+obvious. Distinguish a logical association from a physical move, and a proposed capability from a
+verified one. Pair status colors with words or shapes. Name reading direction when it matters.
+
+Reflow or split dense diagrams without losing their relationships, branch conditions or end states.
+Keep labels readable at narrow widths, without page-wide overflow, clipped text or lines crossing
+labels. Provide a text equivalent that states the relationships and outcomes, not just node counts.
+Check the actual diagram in the document at desktop and phone widths and in supported themes.
+When an owner instruction prevents visual inspection, report that limitation separately; source
+checks do not establish visual acceptance.
 
 ## Writing rules
 
@@ -271,7 +314,7 @@ These blocks and fields, and no others, are left out this way (section 7.5 of `S
 | Source publisher | Any | The source's author or publisher is not recorded | `publisher` | In the source entry |
 | Source locator | Any | The source's path or address is not recorded | `locator` | In the source entry |
 
-Content maps onto existing components:
+The following component examples are non-exhaustive. Diagram choice follows the subject:
 
 | Content | Component | Spec section |
 | --- | --- | --- |
@@ -402,11 +445,22 @@ The kit has no search, faceted browse or version selector; each needs a server.
 
 ## Kit gaps
 
-Maps, network diagrams, interactive filters and a PDF cover page. A document that needs one uses
-a figure holding a `cm-slot` placeholder and names the gap in an HTML comment. The agent does not
-draw its own diagram, icon or layout to fill the gap.
+Interactive filters and a PDF cover page remain outside the supplied components. A missing
+component does not prohibit a diagram type or layout. Maps, network diagrams and other visual
+structures follow **Diagram structure and styling** above. Use `cm-slot` only when the content
+needed to produce a figure is unavailable, and name what is missing.
 
 ## Checks
+
+**Diagram checks.** Check meaning and presentation separately. Confirm source accuracy, relationship
+direction, branch coverage, status evidence, labels and the text equivalent. Then inspect readability,
+spacing, connector routing and responsive behavior. Successful rendering alone is not acceptance.
+
+Older automated checks can reject scoped diagram markup because they enforce a closed class set,
+renderer schema or capacity. Those restrictions are superseded only for the diagram region described
+above. Record the exact check, region and reason, and verify the replacement requirement directly.
+Do not disable unrelated checks, change a result to passing, or claim that legacy checks cover a custom
+diagram they do not inspect. A placeholder is for missing source content, not for a missing template.
 
 **Before handing over:** the pre-publish checklist in section 14 of `SPEC.md`, and the document
 opened in light, dark and print preview, and at a 390px phone width, with no console errors. An agent

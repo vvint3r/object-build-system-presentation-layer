@@ -59,9 +59,18 @@ not edited there. See `docs/plan.md`.
   memory.
 - Use subagents for audits and wide searches so the main session holds only the change.
 
+## Diagram scope
+
+The owner's 2 November 2026 instruction separates diagram styling from diagram structure. Section
+1.1 of `kit/report-kit/SPEC.md` governs that distinction. Built-in examples and renderer limits are
+not a closed set of diagram types or layouts. Scoped diagram authoring and meaningful semantic
+symbols are permitted under that section; the page styling and quantitative chart rules stay in force.
+The brief carries the same rule explicitly so its unchanged pinned kit remains usable. Preserve its
+existing asset pin when applying this policy; it is not a kit migration or a renderer change.
+
 ## Non-negotiables
 
-A summary of section 1 of `kit/report-kit/SPEC.md`. The spec governs; change this list, and the one
+A summary of section 1 of `kit/report-kit/SPEC.md`, including its diagram scope in §1.1. Change this list, and the one
 in `kit/agent-brief.md`, in the same commit as the spec.
 
 1. Documents start from `template.html` and compose only from classes in `cm-report.css`.

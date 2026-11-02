@@ -8,7 +8,7 @@ Kit files (all in `report-kit/`):
 
 | File | Role |
 | --- | --- |
-| `cm-report.css` | Tokens (light, dark, print) and every component class. The only stylesheet. |
+| `cm-report.css` | Tokens (light, dark, print) and standard component classes. Scoped diagram styling follows §1.1. |
 | `cm-report.js` | Theme toggle, ECharts theme + draw-in, sortable tables, contents scroll-spy, print prep. |
 | `template.html` | Starter. Copy it for every report. |
 | `SPEC.md` | This file. |
@@ -31,6 +31,40 @@ Human-readable version with live examples and copy-paste markup: `Report Kit - S
 10. **No corners outside the radius set:** 2 thin bar, 4 chip/tag, 6 code chip, 8 input/slot, 12 table/tile, 14 card, 999 pill. Every drawn shape is rounded; square corners belong only to lines (rules, dotted connectors, the timeline rail), masked icons and the full-width top bar. The CSS applies them; never override.
 11. **No decoration.** No emoji, no stock imagery, no icons beyond the glyphs the CSS supplies, no gradients except where one carries meaning (the dashed rail of a planned timeline item, a chart's colour-scale legend), no colored left borders on cards or callouts, no drop caps.
 12. **No filler.** Omit an optional block rather than pad it. Every number shown is sourced.
+
+### 1.1 Diagram structure and styling
+
+The kit governs diagram styling without restricting diagram types or layouts. The gallery, process
+strip and supported renderer modes are examples and tools, not an exhaustive catalogue. Choose the
+representation for the relationships, boundaries, sequence, decisions or other subject being explained.
+A different type, topology or arrangement needs no separate exception.
+
+This section takes precedence over conflicting restrictions in this specification, including rules
+1, 2, 10 and 11, canonical-markup instructions, fixed step counts, renderer capacities and the gap list.
+Those limits still govern the built-in components and renderers when used. They do not apply to a
+separately authored diagram inside a figure. No required relationship or branch may be removed merely
+to fit an example or renderer limit.
+
+Keep the figure's title, explanation, source caption and accessible text equivalent. Authored SVG or
+semantic HTML, scoped CSS, coordinates, paths and responsive layouts are permitted inside the figure.
+Do not restyle unrelated document components or alter the pinned kit stylesheet or script. Use the
+kit's color tokens, Nunito, supported weights, spacing scale and emphasis rules. Text stays black or
+white at full opacity. Quantitative charts retain section 9's ECharts method.
+
+Semantic shapes may use the geometry their meaning requires; UI boxes keep the kit's radius set.
+One consistent, meaningful symbol family may identify objects or actions, with readable labels or
+accessible names and the ink color. Symbols are not decoration. Directions, conditions, boundaries and status meanings
+must be explicit. Proposed behavior must remain distinguishable from demonstrated behavior.
+
+Responsive arrangements must preserve every relationship and branch. Keep text readable without
+clipping, page-wide overflow or connectors crossing labels. A text equivalent describes the relations
+and outcomes, not only the nodes. Inspect the actual result at desktop and phone widths and in supported
+themes; disclose an owner-imposed inspection restriction rather than claiming unperformed acceptance.
+
+Legacy closed-class, schema, capacity or markup checks do not establish custom-diagram acceptance.
+Record any such finding with its exact diagram region and this superseding rule, then check the
+replacement requirement directly. Do not disable unrelated checks or report a failing check as passed.
+This changes the diagram authoring contract, not the built-in renderer's capabilities.
 
 ## 2. Packaging
 
@@ -129,7 +163,7 @@ Section ids are short, lowercase and stable (`summary`, `demand`, `methodology`,
 
 ## 8. Components
 
-Markup below is canonical. Copy structure and classes exactly; change only text, data and the allowed custom properties.
+Markup below is canonical for the supplied components. Copy their structure and classes exactly; change only text, data and the allowed custom properties. Separately authored diagram interiors follow §1.1.
 
 ### 8.1 Section
 
@@ -499,4 +533,4 @@ Changed in 1.1: labels, tables, chips and charts moved from JetBrains Mono to Nu
 
 Added for reports: ECharts chart method and theme; categorical and sequential palettes; dark token set; print rules; report masthead and contents rail; KPI strip; key findings; native tables with sorting and in-cell bars; pull quote; timeline; process diagram; definition, questions and property-sheet blocks; footnotes; collapsible appendix; chart draw-in motion; packaging modes.
 
-Not yet covered: maps, network/hierarchy diagrams, interactive filters, a PDF cover page, revision history. Use a figure with `cm-slot` and flag the gap in an HTML comment until these exist.
+Not yet supplied as components: interactive filters, a PDF cover page and revision history. Missing diagram templates do not restrict diagram types or layouts; maps, network and hierarchy diagrams follow §1.1. A `cm-slot` marks missing source content, not a missing diagram template.

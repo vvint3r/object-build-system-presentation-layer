@@ -77,3 +77,4 @@ Rounds 40e and 40f exist only in `CONTINUATION.md` and are taken from there.
 | [064-judgment-warnings.md](064-judgment-warnings.md) | Judgment warnings | 2026-10-17 | owner, in session |
 | [065-decision-framework.md](065-decision-framework.md) | Decision framework | 2026-10-17 | owner, in session |
 | [066-diagrams-charts-and-visualizations.md](066-diagrams-charts-and-visualizations.md) | Diagrams, charts and visualizations | 2026-10-17 | owner, in session |
+| [098-diagram-styling-and-structural-freedom.md](098-diagram-styling-and-structural-freedom.md) | Diagram styling and structural freedom | 2026-11-02 | owner, Regix roadmap session |

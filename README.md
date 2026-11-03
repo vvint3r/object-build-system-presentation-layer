@@ -42,5 +42,5 @@ Run `npm install` once first. A command that takes a page takes its path in quot
 | `npm run links -- "<folder>"` | Every link, id and breadcrumb across a document set's folder |
 | `npm run migration` | The kit pages of Report Kit 1.2 checked with this kit's checks: the measure behind the migration note |
 | `npm run pack -- "<page>"` | The page's offline form in `offline/`: one file with the fonts and ECharts inside, for reading with no network |
-| `npm run bundle` | The design bundle in `bundle/project/`: the kit in the Design System artifact format, for Claude Design |
+| `npm run bundle` | The design bundle in `bundle/project/`: the kit in the Design System artifact format, for Claude Design. Published as "Content Morphia Report Kit for Agents"; the gallery is the copy for people |
 | `npm run bundle:check` | The bundle checked against that format, with every preview rendered in light and dark |

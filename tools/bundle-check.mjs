@@ -64,7 +64,7 @@ const lc = index.lastChange || {};
 report('design-system.json', [
   index.v !== 3 && 'v is not 3', index.layout !== 'files' && 'layout is not "files"',
   !(index.createdOnFiles && index.createdOnFiles.v === 1 && iso(index.createdOnFiles.at)) && 'createdOnFiles is not {v:1, at}',
-  index.title !== 'Content Morphia' && `title is ${JSON.stringify(index.title)}`,
+  index.title !== 'Content Morphia Report Kit for Agents' && `title is ${JSON.stringify(index.title)}`,
   !/^[A-Za-z_$][\w$]*$/.test(index.namespace || '') && 'namespace is not a JS identifier',
   ...['sections', 'assetGroups', 'blobs'].map(k => (index[k] && typeof index[k] === 'object' && !Array.isArray(index[k]) ? null : `${k} is not an object`)),
   !Array.isArray(index.groups) && 'groups is not a list', !(index.docs && Array.isArray(index.docs.sections)) && 'docs.sections is not a list',

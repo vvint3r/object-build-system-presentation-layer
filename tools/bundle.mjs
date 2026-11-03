@@ -36,7 +36,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = path.join(ROOT, 'bundle', 'project');
 const FRAMES = path.join(ROOT, 'bundle', 'frames');
 const GALLERY = path.join(ROOT, 'kit', 'Report Kit - Spec & Gallery.html');
-const TITLE = 'Content Morphia';
+const TITLE = 'Content Morphia Report Kit for Agents';
 const NS = 'CM';                               // the global cm-report.js assigns, so a document and a preview share one name
 const LIB = { name: 'echarts', version: ECHARTS_VERSION, global: 'echarts', file: 'components/lib/echarts.min.js' };
 

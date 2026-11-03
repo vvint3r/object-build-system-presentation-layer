@@ -38,7 +38,7 @@ export function cover({ tokens, readme }) {
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Content Morphia</title>
+<title>Content Morphia Report Kit for Agents</title>
 <style>
   html, body { margin:0; }
   body { overflow:hidden; }

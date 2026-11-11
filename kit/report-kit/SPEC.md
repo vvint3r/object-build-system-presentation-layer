@@ -2040,7 +2040,7 @@ Interval (a band on a line; on a `bar` or `scatter` series the same fields draw 
 
 ## 10. Motion
 
-Only charts move; diagrams draw static. Each chart draws in once when 15% of it enters the viewport (900ms, ease-out, 120ms stagger between series). Theme switches redraw without animation. `prefers-reduced-motion`, print, background tabs and headless rendering draw static. Agents **MUST NOT** add other animation.
+Each chart draws in once when 15% of it enters the viewport (900ms, ease-out, 120ms stagger between series). Theme switches redraw without animation. `prefers-reduced-motion`, print, background tabs and headless rendering draw static.
 
 ## 11. Dark mode
 

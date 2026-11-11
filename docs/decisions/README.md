@@ -111,3 +111,4 @@ Rounds 40e and 40f exist only in `CONTINUATION.md` and are taken from there.
 | [098-diagram-styling-and-structural-freedom.md](098-diagram-styling-and-structural-freedom.md) | Diagram styling and structural freedom | 2026-11-02 | owner, Regix roadmap session |
 | [099-agent-copy-name.md](099-agent-copy-name.md) | Agent copy name: the design bundle is titled for agents, the gallery for people | 2026-11-03 | owner, 2.1 planning session |
 | [100-motion-restriction-lifted.md](100-motion-restriction-lifted.md) | Motion restriction lifted: section 10 no longer limits motion to charts | 2026-11-11 | owner, explainer stack session |
+| [101-third-party-explainer-skills.md](101-third-party-explainer-skills.md) | Third-party explainer skills: five skill sets copied in at reviewed commits; the specification overrides their styling | 2026-11-11 | owner, explainer stack session |

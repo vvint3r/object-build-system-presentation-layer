@@ -110,3 +110,4 @@ Rounds 40e and 40f exist only in `CONTINUATION.md` and are taken from there.
 | [097-set-consistency.md](097-set-consistency.md) | Set consistency: the example documents as their own source, and the calls that settle five conflicts | 2026-10-31 | orchestrating session, record 075 |
 | [098-diagram-styling-and-structural-freedom.md](098-diagram-styling-and-structural-freedom.md) | Diagram styling and structural freedom | 2026-11-02 | owner, Regix roadmap session |
 | [099-agent-copy-name.md](099-agent-copy-name.md) | Agent copy name: the design bundle is titled for agents, the gallery for people | 2026-11-03 | owner, 2.1 planning session |
+| [100-motion-restriction-lifted.md](100-motion-restriction-lifted.md) | Motion restriction lifted: section 10 no longer limits motion to charts | 2026-11-11 | owner, explainer stack session |
